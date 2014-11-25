@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Text Include="readme.txt" />
+    <Text Include="Makefile" />
+    <Text Include="src\SysInterface\Makefile">
+      <Filter>SysInterface</Filter>
+    </Text>
+    <Text Include="Makefile.rules" />
+    <Text Include="src\Service\Console\Makefile">
+      <Filter>Service\Console</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="SysInterface">
+      <UniqueIdentifier>{46552e71-f1fd-44f9-abaa-1c8c6715a702}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Definitions">
+      <UniqueIdentifier>{f869d965-44c5-43f4-a782-0e503e7cd01c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Service">
+      <UniqueIdentifier>{e519d717-66b1-42cf-af92-4e2be79eab17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Service\Console">
+      <UniqueIdentifier>{45420253-abf0-4673-84ab-e94a463b473c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Definitions\stdafx.h">
+      <Filter>Definitions</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Service\Console\ConsoleService.h">
+      <Filter>Service\Console</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SysInterface\test.h">
+      <Filter>SysInterface</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\SysInterface\main.cpp">
+      <Filter>SysInterface</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Service\Console\ConsoleService.cpp">
+      <Filter>Service\Console</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,9 @@
+########################################################################
+# global rules for SOIA
+########################################################################
+
+CC = clang++
+INCLUDES = -I$(SRCDIR)Definitions -I$(SRCDIR)Service/Console
+
+%.obj: %.cpp
+	$(CC) $(INCLUDES) -c -o $(BINDIR)$@ $^
