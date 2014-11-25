@@ -4,17 +4,11 @@
 
 include Makefile.rules
 
-# local definitions
-BINDIR = Debug/
-SRCDIR = src/
+all: $(OBJS)
+	$(CC) -o $(BINDIR)SOIA.exe $^
 
-MAKES = src/Service/Console src/SysInterface
-
-all:
-	for i in $(MAKES); do make -C $$i; done
-	$(CC) -o $(BINDIR)SOIA.exe \
-		$(BINDIR)main.obj \
-		$(BINDIR)ConsoleService.obj
+$(BINDIR)%.obj: $(MAKES)%.cpp
+	$(CC) $(INCLUDES) -c -o $@ $^
 
 clean:
 	rm -rf $(BINDID)%.obj

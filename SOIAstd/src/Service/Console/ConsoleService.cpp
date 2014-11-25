@@ -20,5 +20,5 @@ ConsoleManager::ConsoleManager()
 
 void ConsoleManager::write()
 {
-	std::cout << "Service :)" << std::endl;
+	std::cout << "Service ;)" << std::endl << std::endl;
 }

@@ -3,13 +3,7 @@
   <ItemGroup>
     <Text Include="readme.txt" />
     <Text Include="Makefile" />
-    <Text Include="src\SysInterface\Makefile">
-      <Filter>SysInterface</Filter>
-    </Text>
     <Text Include="Makefile.rules" />
-    <Text Include="src\Service\Console\Makefile">
-      <Filter>Service\Console</Filter>
-    </Text>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SysInterface">

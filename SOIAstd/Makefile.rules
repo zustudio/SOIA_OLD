@@ -3,7 +3,15 @@
 ########################################################################
 
 CC = clang++
+CFLAGS = 
+BINDIR = Debug/
+SRCDIR = src/
+
+# \/ directories for '#include' statements in code (with '-I' prefix)
 INCLUDES = -I$(SRCDIR)Definitions -I$(SRCDIR)Service/Console
 
-%.obj: %.cpp
-	$(CC) $(INCLUDES) -c -o $(BINDIR)$@ $^
+# \/ directories of cpp files
+VPATH = $(SRCDIR)Service/Console/ $(SRCDIR)SysInterface/
+
+# \/ one .obj file for every compiled .cpp file
+OBJS = $(BINDIR)main.obj $(BINDIR)ConsoleService.obj

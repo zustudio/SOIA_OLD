@@ -59,8 +59,6 @@
       <SubType>Designer</SubType>
     </Text>
     <Text Include="readme.txt" />
-    <Text Include="src\Service\Console\Makefile" />
-    <Text Include="src\SysInterface\Makefile" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Definitions\stdafx.h" />
