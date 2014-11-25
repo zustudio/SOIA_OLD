@@ -1,2 +1,8 @@
+####################################################################
+# global SOIA project makefile
+####################################################################
+
 all:
-	make -C SOIAstd/
+	@echo global: make all
+	@echo –SOIAstd: make all
+	@make -s -C SOIAstd/
