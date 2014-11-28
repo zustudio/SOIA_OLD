@@ -36,18 +36,18 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <NMakeBuildCommandLine>make</NMakeBuildCommandLine>
-    <NMakeOutput>SOIAstd.exe</NMakeOutput>
+    <NMakeBuildCommandLine>make IDE=vs13</NMakeBuildCommandLine>
+    <NMakeOutput>SOIA.exe</NMakeOutput>
     <NMakeCleanCommandLine>make clean</NMakeCleanCommandLine>
-    <NMakeReBuildCommandLine>make</NMakeReBuildCommandLine>
+    <NMakeReBuildCommandLine>make rebuild IDE=vs13</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);src/Definitions/;src/Service/Console/</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <NMakeBuildCommandLine>make</NMakeBuildCommandLine>
-    <NMakeOutput>SOIAstd.exe</NMakeOutput>
+    <NMakeBuildCommandLine>make IDE=vs13</NMakeBuildCommandLine>
+    <NMakeOutput>SOIA.exe</NMakeOutput>
     <NMakeCleanCommandLine>make clean</NMakeCleanCommandLine>
-    <NMakeReBuildCommandLine>make</NMakeReBuildCommandLine>
+    <NMakeReBuildCommandLine>make rebuild IDE=vs13</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);src/Definitions/;src/Service/Console/</IncludePath>
   </PropertyGroup>
@@ -55,7 +55,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="Makefile" />
-    <Text Include="Makefile.rules">
+    <Text Include="make.config">
       <SubType>Designer</SubType>
     </Text>
     <Text Include="readme.txt" />
@@ -63,7 +63,6 @@
   <ItemGroup>
     <ClInclude Include="src\Definitions\stdafx.h" />
     <ClInclude Include="src\Service\Console\ConsoleService.h" />
-    <ClInclude Include="src\SysInterface\test.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Service\Console\ConsoleService.cpp" />

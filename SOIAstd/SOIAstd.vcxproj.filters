@@ -3,7 +3,7 @@
   <ItemGroup>
     <Text Include="readme.txt" />
     <Text Include="Makefile" />
-    <Text Include="Makefile.rules" />
+    <Text Include="make.config" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SysInterface">
@@ -25,9 +25,6 @@
     </ClInclude>
     <ClInclude Include="src\Service\Console\ConsoleService.h">
       <Filter>Service\Console</Filter>
-    </ClInclude>
-    <ClInclude Include="src\SysInterface\test.h">
-      <Filter>SysInterface</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,2 +1,5 @@
 /*/Debug/*
 /**/*.opensdf
+/**/*.pdb
+/**/*.obj
+/**/*.exe
