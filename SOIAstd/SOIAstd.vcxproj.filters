@@ -1,38 +1,75 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Text Include="readme.txt" />
     <Text Include="Makefile" />
-    <Text Include="make.config" />
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="SysInterface">
-      <UniqueIdentifier>{46552e71-f1fd-44f9-abaa-1c8c6715a702}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Definitions">
       <UniqueIdentifier>{f869d965-44c5-43f4-a782-0e503e7cd01c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Service">
+    <Filter Include="IA_Engine">
+      <UniqueIdentifier>{f88730ff-ff2e-4d2b-a054-e50a6aa6c175}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SO_Service">
       <UniqueIdentifier>{e519d717-66b1-42cf-af92-4e2be79eab17}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Service\Console">
+    <Filter Include="SO_Service\Console">
       <UniqueIdentifier>{45420253-abf0-4673-84ab-e94a463b473c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SO_SysInterface">
+      <UniqueIdentifier>{46552e71-f1fd-44f9-abaa-1c8c6715a702}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IA_Game">
+      <UniqueIdentifier>{900edc59-187e-4e27-9ccb-052119e6c857}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IA_Engine\Framework">
+      <UniqueIdentifier>{01ffa7df-1ad2-4397-a14f-7a2ca4f3ed27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IA_Engine\Applied">
+      <UniqueIdentifier>{0ed0f018-86f4-4058-92b5-9702ff5f0428}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IA_Game\Framework">
+      <UniqueIdentifier>{d1a4acaf-c200-45f5-9e24-741f2f45be0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IA_Game\Applied">
+      <UniqueIdentifier>{61dcbf89-6b4c-4853-9881-f1a6771f59e4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Definitions\stdafx.h">
       <Filter>Definitions</Filter>
     </ClInclude>
-    <ClInclude Include="src\Service\Console\ConsoleService.h">
-      <Filter>Service\Console</Filter>
+    <ClInclude Include="src\IA_Engine\Framework\Data.h">
+      <Filter>IA_Engine\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IA_Engine\Framework\Engine.h">
+      <Filter>IA_Engine\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IA_Game\Framework\Game.h">
+      <Filter>IA_Game\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_Service\Console\ConsoleService.h">
+      <Filter>SO_Service\Console</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\SysInterface\main.cpp">
-      <Filter>SysInterface</Filter>
+    <ClCompile Include="src\IA_Engine\Framework\Data.cpp">
+      <Filter>IA_Engine\Framework</Filter>
     </ClCompile>
-    <ClCompile Include="src\Service\Console\ConsoleService.cpp">
-      <Filter>Service\Console</Filter>
+    <ClCompile Include="src\IA_Engine\Framework\Engine.cpp">
+      <Filter>IA_Engine\Framework</Filter>
     </ClCompile>
+    <ClCompile Include="src\IA_Game\Framework\Game.cpp">
+      <Filter>IA_Game\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_SysInterface\main.cpp">
+      <Filter>SO_SysInterface</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_Service\Console\ConsoleService.cpp">
+      <Filter>SO_Service\Console</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="make.cfg" />
   </ItemGroup>
 </Project>

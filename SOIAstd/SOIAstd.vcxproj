@@ -41,7 +41,7 @@
     <NMakeCleanCommandLine>make clean</NMakeCleanCommandLine>
     <NMakeReBuildCommandLine>make rebuild IDE=vs13</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);src/Definitions/;src/Service/Console/</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);src/Definitions/;src/SO_Service/Console/;src/IA_Engine/Framework;src/IA_Game/Framework</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <NMakeBuildCommandLine>make IDE=vs13</NMakeBuildCommandLine>
@@ -49,24 +49,29 @@
     <NMakeCleanCommandLine>make clean</NMakeCleanCommandLine>
     <NMakeReBuildCommandLine>make rebuild IDE=vs13</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);src/Definitions/;src/Service/Console/</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);src/Definitions/;src/SO_Service/Console/;src/IA_Engine/Framework;src/IA_Game/Framework</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="Makefile" />
-    <Text Include="make.config">
-      <SubType>Designer</SubType>
-    </Text>
-    <Text Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Definitions\stdafx.h" />
-    <ClInclude Include="src\Service\Console\ConsoleService.h" />
+    <ClInclude Include="src\IA_Engine\Framework\Data.h" />
+    <ClInclude Include="src\IA_Engine\Framework\Engine.h" />
+    <ClInclude Include="src\IA_Game\Framework\Game.h" />
+    <ClInclude Include="src\SO_Service\Console\ConsoleService.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Service\Console\ConsoleService.cpp" />
-    <ClCompile Include="src\SysInterface\main.cpp" />
+    <ClCompile Include="src\IA_Engine\Framework\Data.cpp" />
+    <ClCompile Include="src\IA_Engine\Framework\Engine.cpp" />
+    <ClCompile Include="src\IA_Game\Framework\Game.cpp" />
+    <ClCompile Include="src\SO_Service\Console\ConsoleService.cpp" />
+    <ClCompile Include="src\SO_SysInterface\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="make.cfg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
