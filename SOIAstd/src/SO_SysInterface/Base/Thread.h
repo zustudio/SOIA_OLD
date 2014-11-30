@@ -17,13 +17,12 @@ namespace SO
 	public:
 		Thread::threadConf conf;
 
-
 		///////////////////////////////////////////
 		//--- init ---
 		Thread();
 		virtual ~Thread();
 		//--- main loop ---
-		void Start();
+		virtual void Start();
 		//--- tick ---
 		virtual void Tick();
 

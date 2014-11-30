@@ -2,12 +2,15 @@
 
 #pragma once
 
+/////////////////////////////////////////////////////////////
+// includes
+#include "Definitions.h"
+
 #include <iostream>
 
 #include <string>
 #include <vector>
 
-#include <math.h>
 #include <random>
 
 #include <thread>

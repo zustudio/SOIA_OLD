@@ -34,6 +34,12 @@
     <Filter Include="IA_Game\Applied">
       <UniqueIdentifier>{61dcbf89-6b4c-4853-9881-f1a6771f59e4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SO_SysInterface\Base">
+      <UniqueIdentifier>{0e24a3d0-3173-4aca-a100-90d8fe518bf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SO_SysInterface\Windows">
+      <UniqueIdentifier>{d326b577-16c0-4d80-adc7-a83cf20c2f6c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Definitions\stdafx.h">
@@ -51,6 +57,24 @@
     <ClInclude Include="src\SO_Service\Console\ConsoleService.h">
       <Filter>SO_Service\Console</Filter>
     </ClInclude>
+    <ClInclude Include="src\SO_SysInterface\Base\Thread.h">
+      <Filter>SO_SysInterface\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_SysInterface\Base\test.h">
+      <Filter>SO_SysInterface\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_SysInterface\Windows\Window_Win.h">
+      <Filter>SO_SysInterface\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_SysInterface\Base\Window_Base.h">
+      <Filter>SO_SysInterface\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Definitions\Definitions.h">
+      <Filter>Definitions</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_SysInterface\main.h">
+      <Filter>SO_SysInterface</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\IA_Engine\Framework\Data.cpp">
@@ -67,6 +91,18 @@
     </ClCompile>
     <ClCompile Include="src\SO_Service\Console\ConsoleService.cpp">
       <Filter>SO_Service\Console</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_SysInterface\Base\Thread.cpp">
+      <Filter>SO_SysInterface\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_SysInterface\Base\test.cpp">
+      <Filter>SO_SysInterface\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_SysInterface\Windows\Window_Win.cpp">
+      <Filter>SO_SysInterface\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_SysInterface\Base\Window_Base.cpp">
+      <Filter>SO_SysInterface\Base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

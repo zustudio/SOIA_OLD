@@ -15,7 +15,6 @@ namespace IA
 		Data* Knowledge;
 		//---- instances ----
 		IA::Game* CurrentGame;
-		//@TODO--> static Random* Generator = gcnew Random(60625);
 
 		///////////////////////////////////////////////////////////////////
 		// functions

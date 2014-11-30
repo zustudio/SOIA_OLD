@@ -1,13 +1,25 @@
 #pragma once
 
+namespace IA
+{
+	class Engine;
+}
+
 namespace SOIA
 {
-	class ConsoleManager
+	class ConsoleService
 	{
 	public:
-		void write();
 		///////////////////////////////////////////////////////////////
-		// init
-		ConsoleManager();
+		// variables
+		//--- external instances ---
+		IA::Engine* CurrentEngine;
+
+		///////////////////////////////////////////////////////////////
+		// functions
+		//--- runtime ---
+		void Start();
+		//--- init ---
+		ConsoleService(IA::Engine* newEngine);
 	};
 }

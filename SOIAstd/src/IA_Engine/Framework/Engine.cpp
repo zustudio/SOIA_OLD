@@ -50,7 +50,7 @@ int Engine::InfluencedRand(vector<float> &Chances)
 	float smallestChance = 0;
 	for (int i = 0; i < Chances.size(); i++)
 	{
-		smallestChance = std::min(smallestChance, Chances[i]);
+		smallestChance = smallestChance <= Chances[i]? smallestChance : Chances[i];
 	}
 	for (int i = 0; i < Chances.size(); i++)
 	{
