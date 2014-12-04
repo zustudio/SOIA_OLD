@@ -13,7 +13,7 @@ using namespace SO;
 // init
 Thread::Thread()
 {
-
+	conf = threadConf();
 }
 Thread::~Thread()
 {
@@ -28,7 +28,7 @@ void Thread::Start()
 		if (conf.Loops > 0 || conf.Loops == -1)
 		{
 			Tick();
-			conf.Loops--;
+			conf.Loops = conf.Loops > 0 ? conf.Loops - 1 : -1;
 		}
 	}
 }

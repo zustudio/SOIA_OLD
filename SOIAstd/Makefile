@@ -9,7 +9,7 @@ all: $(OBJS)
 ifeq ($(IDE),vs13)
 	cl $(CLFLAGS) -Fe$(EXEC) $^ user32.lib
 else
-	@$(CC) $(CFLAGS) -o $(EXEC) $^
+	@$(CC) $(CFLAGS) -o $(EXEC) $^ $(LIBS)
 	@echo -SOIAstd: link
 endif
 

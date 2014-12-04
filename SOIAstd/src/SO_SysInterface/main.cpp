@@ -1,7 +1,6 @@
 // c Maxim Urschumzew 2014
 
 #include "stdafx.h"
-#include "Window_Win.h"
 #include "ConsoleService.h"
 #include "Game.h"
 #include "Engine.h"
@@ -23,6 +22,7 @@ int main()
 
 	std::cout << "win test start";
 	Window* win = new Window();
+	//win->Start();
 	thread t2 = thread(&Window::Start, &*win);
 	std::cout << "win test end";
 
@@ -37,6 +37,8 @@ int main()
 
 	SOIA::ConsoleService* console = new SOIA::ConsoleService(currentEngine);
 	console->Start();
+
+	win->conf.Disable();
 
 	t1.join();
 	t2.join();
