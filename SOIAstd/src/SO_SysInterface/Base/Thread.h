@@ -15,7 +15,7 @@ namespace SO
 			void AddLoops(int n) { Loops += n;}
 		};
 	public:
-		Thread::threadConf conf;
+		Thread::threadConf MThread;
 
 		///////////////////////////////////////////
 		//--- init ---

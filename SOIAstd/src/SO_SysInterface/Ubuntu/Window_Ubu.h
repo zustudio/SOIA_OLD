@@ -7,7 +7,7 @@ namespace SO
 {
 	class Window_Ubu : public SO::Window_Base
 	{
-	public:
+	private:
 		///////////////////////////////////////////////////////////////////
 		// vars
 		//---- my instances ----
@@ -31,7 +31,10 @@ namespace SO
 		virtual void Start() override;
 		//---- loop ----
 		virtual void Tick() override;
-
-		void TEST();
+			virtual void SetVars() override;
+		//---- utility functions ----
+	public:
+		virtual void pxDrawText(pxPoint Loc, const string &text) override;
+		virtual void pxDrawLine(pxPoint a, pxPoint b) override;
 	};
 }

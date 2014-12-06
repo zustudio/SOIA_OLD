@@ -53,12 +53,12 @@ void ConsoleService::Start()
 				if (p_Arg + 1 < args.size())
 				{
 					int times = std::atoi(args[p_Arg + 1].c_str());
-					CurrentEngine->conf.AddLoops(times);
+					CurrentEngine->MThread.AddLoops(times);
 					p_Arg++;
 				}
 				else
 				{
-					CurrentEngine->conf.AddLoops(1);
+					CurrentEngine->MThread.AddLoops(1);
 				}
 			}
 			/*else if (arg == "debugvisual")
@@ -86,5 +86,5 @@ void ConsoleService::Start()
 			}
 		}
 	}
-	CurrentEngine->conf.Disable();
+	CurrentEngine->MThread.Disable();
 }

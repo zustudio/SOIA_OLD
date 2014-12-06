@@ -30,7 +30,7 @@ int main()
 	IA::Engine* currentEngine = new IA::Engine(currentGame);
 
 	thread t1 = thread(&IA::Engine::Start, &*currentEngine);
-	currentEngine->conf.AddLoops(5);
+	currentEngine->MThread.AddLoops(5);
 
 	string text = string();
 	std::getline(cin, text);
@@ -38,7 +38,7 @@ int main()
 	SOIA::ConsoleService* console = new SOIA::ConsoleService(currentEngine);
 	console->Start();
 
-	win->conf.Disable();
+	win->MThread.Disable();
 
 	t1.join();
 	t2.join();
