@@ -25,6 +25,7 @@ namespace SO
 
 		//////////////////////////////////////////////////////////////////
 		// functions
+	public:
 		//---- init ----
 	    Window_Ubu();
 	    ~Window_Ubu();
@@ -34,7 +35,8 @@ namespace SO
 			virtual void SetVars() override;
 		//---- utility functions ----
 	public:
-		virtual void pxDrawText(pxPoint Loc, const string &text) override;
+		virtual void pxDrawText(pxPoint Loc, const std::string &text) override;
 		virtual void pxDrawLine(pxPoint a, pxPoint b) override;
+		virtual void pxDrawRect(pxPoint a, pxPoint b) override;
 	};
 }

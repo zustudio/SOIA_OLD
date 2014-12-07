@@ -1,13 +1,13 @@
 #pragma once 
 
 #include <string>
+#include <deque>
 
 #include "Thread.h"
 #include "fPoint.h"
 #include "pxPoint.h"
 
 using namespace SO::Drawing;
-using namespace std;
 
 namespace SO
 {
@@ -15,8 +15,6 @@ namespace SO
 	{
 	public:
 		//////////////////////////////////////////
-		// variables
-		//---- instances ----
 		//---- properties ----
 		Drawing::pxPoint size;
 
@@ -34,10 +32,12 @@ namespace SO
 		//////////////////////////////////////////
 		// utility functions
 		//---- drawing ----
-		virtual void DrawText(fPoint Loc, const string &text);
+		virtual void DrawText(fPoint Loc, const std::string &text);
 		virtual void DrawLine(fPoint a, fPoint b);
+		virtual void DrawRect(fPoint a, fPoint b);
 
-		virtual void pxDrawText(pxPoint Loc, const string &text);
+		virtual void pxDrawText(pxPoint Loc, const std::string &text);
 		virtual void pxDrawLine(pxPoint a, pxPoint b);
+		virtual void pxDrawRect(pxPoint a, pxPoint b);
 	};
 }

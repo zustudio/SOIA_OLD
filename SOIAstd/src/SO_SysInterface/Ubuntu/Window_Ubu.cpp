@@ -13,6 +13,8 @@
 using namespace SO;
 using namespace SO::Drawing;
 
+using namespace std;
+
 ////////////////////////////////////////////////////////////////////
 // init
 Window_Ubu::Window_Ubu() : Window_Base()
@@ -66,7 +68,8 @@ void Window_Ubu::Tick()
 			int font_direction, font_ascent, font_descent;
 			XCharStruct text_structure;
 
-			DrawText(fPoint(0.5, 0.5), string("hallo nochmal"));
+			Draw();
+			DrawText(fPoint(0.5, 0.5), std::string("hallo nochmal"));
 			DrawLine(fPoint(), fPoint(1,1));
 			break;
 		default:
@@ -95,6 +98,10 @@ void Window_Ubu::pxDrawText(pxPoint Loc, const string &text)
 void Window_Ubu::pxDrawLine(pxPoint a, pxPoint b)
 {
 	XDrawLine(display, frame_window, graphical_context, a.X, a.Y, b.X, b.Y);
+}
+void Window_Ubu::pxDrawRect(pxPoint a, pxPoint b)
+{
+	XDrawRectangle(display, frame_window, graphical_context, a.X, a.Y, b.X, b.Y);
 }
 
 

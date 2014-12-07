@@ -24,6 +24,11 @@ fPoint::fPoint(const fPoint &equalPoint) : Vector2D<float>(equalPoint)
 {
 
 }
+fPoint::fPoint(const ZABS::Math::Vector2D<float> &equalPoint)
+{
+	X = equalPoint.X; Y = equalPoint.Y;
+	//fPoint(equalPoint.X, equalPoint.Y);
+}
 //// conversion
 pxPoint fPoint::ToPxPoint(pxPoint &absolutSpaceSize)
 {

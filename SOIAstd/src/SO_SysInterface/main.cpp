@@ -4,8 +4,11 @@
 #include "ConsoleService.h"
 #include "Game.h"
 #include "Engine.h"
+#include "Window.h"
+#include "CCanvas.h"
 
 using namespace std;
+using namespace SO;
 //
 //int threading(IA::Engine* engine)
 //{
@@ -21,9 +24,10 @@ int main()
 	std::cout << "Hallo und tschuess und wieder hallo ;)" << std::endl;
 
 	std::cout << "win test start";
-	Window* win = new Window();
+	SO::Window* win = new SO::Window();
+	win->AddControl<CCanvas>();
 	//win->Start();
-	thread t2 = thread(&Window::Start, &*win);
+	thread t2 = thread(&SO::Window::Start, &*win);
 	std::cout << "win test end";
 
 	IA::Game* currentGame = new IA::Game();

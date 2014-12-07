@@ -40,10 +40,7 @@ void Window_Base::SetVars()
 	 * 		1	size
 	 */
 }
-void Window_Base::Draw()
-{
-	//please implement in child classes?
-}
+void Window_Base::Draw() {}
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 // basic drawing interface
@@ -58,13 +55,14 @@ void Window_Base::DrawLine(fPoint a, fPoint b)
 	pxPoint pxB = b.ToPxPoint(size);
 	pxDrawLine(pxA, pxB);
 }
+void Window_Base::DrawRect(fPoint a, fPoint b)
+{
+	pxPoint pxA = a.ToPxPoint(size);
+	pxPoint pxB = b.ToPxPoint(size);
+	pxDrawRect(pxA, pxB);
+}
 // functions to be implemented
-void Window_Base::pxDrawText(pxPoint Loc,const string& text)
-{
-
-}
-void Window_Base::pxDrawLine(pxPoint a, pxPoint b)
-{
-
-}
+void Window_Base::pxDrawText(pxPoint Loc,const string& text){}
+void Window_Base::pxDrawLine(pxPoint a, pxPoint b) {}
+void Window_Base::pxDrawRect(pxPoint a, pxPoint b) {}
 

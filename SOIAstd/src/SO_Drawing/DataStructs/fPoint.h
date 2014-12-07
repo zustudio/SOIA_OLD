@@ -14,6 +14,7 @@ namespace SO
 			fPoint();
 			fPoint(float newX, float newY);
 			fPoint(const fPoint &equalPoint);
+			fPoint(const ZABS::Math::Vector2D<float> &equalPoint);
 			//conversion
 			pxPoint ToPxPoint(pxPoint &absolutSpaceSize);
 		};
