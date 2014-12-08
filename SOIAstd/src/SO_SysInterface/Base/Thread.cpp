@@ -13,7 +13,7 @@ using namespace SO;
 // init
 Thread::Thread()
 {
-	conf = threadConf();
+	MThread = threadConf();
 }
 Thread::~Thread()
 {
@@ -23,12 +23,12 @@ Thread::~Thread()
 ///////////////////////////////////////////////////////////////////////////
 void Thread::Start()
 {
-	while (conf.bEnabled)
+	while (MThread.bEnabled)
 	{
-		if (conf.Loops > 0 || conf.Loops == -1)
+		if (MThread.Loops > 0 || MThread.Loops == -1)
 		{
 			Tick();
-			conf.Loops = conf.Loops > 0 ? conf.Loops - 1 : -1;
+			MThread.Loops = MThread.Loops > 0 ? MThread.Loops - 1 : -1;
 		}
 	}
 }

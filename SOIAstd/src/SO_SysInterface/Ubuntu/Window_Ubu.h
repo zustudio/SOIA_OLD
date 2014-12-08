@@ -7,7 +7,7 @@ namespace SO
 {
 	class Window_Ubu : public SO::Window_Base
 	{
-	public:
+	private:
 		///////////////////////////////////////////////////////////////////
 		// vars
 		//---- my instances ----
@@ -25,13 +25,18 @@ namespace SO
 
 		//////////////////////////////////////////////////////////////////
 		// functions
+	public:
 		//---- init ----
 	    Window_Ubu();
 	    ~Window_Ubu();
 		virtual void Start() override;
 		//---- loop ----
 		virtual void Tick() override;
-
-		void TEST();
+			virtual void SetVars() override;
+		//---- utility functions ----
+	public:
+		virtual void pxDrawText(pxPoint Loc, const std::string &text) override;
+		virtual void pxDrawLine(pxPoint a, pxPoint b) override;
+		virtual void pxDrawRect(pxPoint a, pxPoint b) override;
 	};
 }

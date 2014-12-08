@@ -4,8 +4,11 @@
 #include "ConsoleService.h"
 #include "Game.h"
 #include "Engine.h"
+#include "Window.h"
+#include "CCanvas.h"
 
 using namespace std;
+using namespace SO;
 //
 //int threading(IA::Engine* engine)
 //{
@@ -21,16 +24,17 @@ int main()
 	std::cout << "Hallo und tschuess und wieder hallo ;)" << std::endl;
 
 	std::cout << "win test start";
-	Window* win = new Window();
+	SO::Window* win = new SO::Window();
+	win->AddControl<CCanvas>();
 	//win->Start();
-	thread t2 = thread(&Window::Start, &*win);
+	thread t2 = thread(&SO::Window::Start, &*win);
 	std::cout << "win test end";
 
 	IA::Game* currentGame = new IA::Game();
 	IA::Engine* currentEngine = new IA::Engine(currentGame);
 
 	thread t1 = thread(&IA::Engine::Start, &*currentEngine);
-	currentEngine->conf.AddLoops(5);
+	currentEngine->MThread.AddLoops(5);
 
 	string text = string();
 	std::getline(cin, text);
@@ -38,7 +42,7 @@ int main()
 	SOIA::ConsoleService* console = new SOIA::ConsoleService(currentEngine);
 	console->Start();
 
-	win->conf.Disable();
+	win->MThread.Disable();
 
 	t1.join();
 	t2.join();

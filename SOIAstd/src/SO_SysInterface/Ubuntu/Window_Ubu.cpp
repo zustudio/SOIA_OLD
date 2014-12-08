@@ -2,14 +2,22 @@
 #include <stdlib.h>
 #include <string.h>
 #include <X11/Xlib.h>
-#include "Window_Ubu.h"
+#include "Vector2D.h"
+#include "pxPoint.h"
+#include "fPoint.h"
 #include "Thread.h"
+#include "Window_Base.h"
+#include "Window_Ubu.h"
+
 
 using namespace SO;
+using namespace SO::Drawing;
+
+using namespace std;
 
 ////////////////////////////////////////////////////////////////////
 // init
-Window_Ubu::Window_Ubu()
+Window_Ubu::Window_Ubu() : Window_Base()
 {
 
 }
@@ -35,7 +43,7 @@ void Window_Ubu::Start ()
 
 	XMapWindow(display, frame_window);
 
-	conf.AddLoops(-1);
+	MThread.AddLoops(-1);
 	Thread::Start();
 }
 
@@ -47,6 +55,7 @@ void Window_Ubu::Tick()
 	int    hello_string_length = strlen(hello_string);
 
 	XNextEvent(display, (XEvent *)&event);
+	SetVars();
 	switch ( event.type )
 	{
 		case Expose:
@@ -58,16 +67,41 @@ void Window_Ubu::Tick()
 			XWindowAttributes window_attributes;
 			int font_direction, font_ascent, font_descent;
 			XCharStruct text_structure;
-			XTextExtents(fontinfo, hello_string, hello_string_length,
-					&font_direction, &font_ascent, &font_descent,
-					&text_structure);
-			XGetWindowAttributes(display, frame_window, &window_attributes);
-			text_x = (window_attributes.width - text_structure.width)/2;
-			text_y = (window_attributes.height - (text_structure.ascent+text_structure.descent))/2;
-			XDrawString(display, frame_window, graphical_context,	text_x, text_y, hello_string, hello_string_length);
-			break;
 
+			Draw();
+			DrawText(fPoint(0.5, 0.5), std::string("hallo nochmal"));
+			DrawLine(fPoint(), fPoint(1,1));
+			break;
 		default:
 			break;
 	}
 }
+void Window_Ubu::SetVars()
+{
+	XWindowAttributes window_attributes;
+	XGetWindowAttributes(display, frame_window, &window_attributes);
+	size = pxPoint(window_attributes.width, window_attributes.height);
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// drawing
+//---- main routine ----
+//void Window_Ubu::Draw()
+//{
+//
+//}
+//---- subroutines ----
+void Window_Ubu::pxDrawText(pxPoint Loc, const string &text)
+{
+	XDrawString(display, frame_window, graphical_context,	Loc.X, Loc.Y, text.c_str(), strlen(text.c_str()));
+}
+void Window_Ubu::pxDrawLine(pxPoint a, pxPoint b)
+{
+	XDrawLine(display, frame_window, graphical_context, a.X, a.Y, b.X, b.Y);
+}
+void Window_Ubu::pxDrawRect(pxPoint a, pxPoint b)
+{
+	XDrawRectangle(display, frame_window, graphical_context, a.X, a.Y, b.X, b.Y);
+}
+
+
