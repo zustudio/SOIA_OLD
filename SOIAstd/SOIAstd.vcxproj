@@ -41,7 +41,7 @@
     <NMakeCleanCommandLine>make clean</NMakeCleanCommandLine>
     <NMakeReBuildCommandLine>make rebuild IDE=vs13</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);src/Definitions/;src/SO_Service/Console/;src/SO_SysInterface/Base;src/SO_SysInterface/Windows;src/IA_Engine/Framework;src/IA_Game/Framework</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);src/Definitions/;src/SO_Service/Console/;src/SO_SysInterface/Base;src/SO_SysInterface/Windows;src/SO_Drawing/DataStructs;src/SO_Drawing/ControlElements;src/IA_Engine/Framework;src/IA_Game/Framework;src/ZABS_Math/DataStructs</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <NMakeBuildCommandLine>make IDE=vs13</NMakeBuildCommandLine>
@@ -49,7 +49,7 @@
     <NMakeCleanCommandLine>make clean</NMakeCleanCommandLine>
     <NMakeReBuildCommandLine>make rebuild IDE=vs13</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);src/Definitions/;src/SO_Service/Console/;src/SO_SysInterface/Base;src/SO_SysInterface/Windows;src/IA_Engine/Framework;src/IA_Game/Framework</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);src/Definitions/;src/SO_Service/Console/;src/SO_SysInterface/Base;src/SO_SysInterface/Windows;src/SO_Drawing/DataStructs;src/SO_Drawing/ControlElements;src/IA_Engine/Framework;src/IA_Game/Framework;src/ZABS_Math/DataStructs</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>
@@ -62,25 +62,35 @@
     <ClInclude Include="src\IA_Engine\Framework\Data.h" />
     <ClInclude Include="src\IA_Engine\Framework\Engine.h" />
     <ClInclude Include="src\IA_Game\Framework\Game.h" />
+    <ClInclude Include="src\SO_Drawing\ControlElements\CCanvas.h" />
+    <ClInclude Include="src\SO_Drawing\ControlElements\Control.h" />
+    <ClInclude Include="src\SO_Drawing\DataStructs\fPoint.h" />
+    <ClInclude Include="src\SO_Drawing\DataStructs\pxPoint.h" />
     <ClInclude Include="src\SO_Service\Console\ConsoleService.h" />
-    <ClInclude Include="src\SO_SysInterface\Base\test.h" />
     <ClInclude Include="src\SO_SysInterface\Base\Thread.h" />
+    <ClInclude Include="src\SO_SysInterface\Base\Window.h" />
     <ClInclude Include="src\SO_SysInterface\Base\Window_Base.h" />
     <ClInclude Include="src\SO_SysInterface\main.h" />
     <ClInclude Include="src\SO_SysInterface\Ubuntu\Window_Ubu.h" />
     <ClInclude Include="src\SO_SysInterface\Windows\Window_Win.h" />
+    <ClInclude Include="src\ZABS_Math\DataStructs\Vector2D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\IA_Engine\Framework\Data.cpp" />
     <ClCompile Include="src\IA_Engine\Framework\Engine.cpp" />
     <ClCompile Include="src\IA_Game\Framework\Game.cpp" />
+    <ClCompile Include="src\SO_Drawing\ControlElements\CCanvas.cpp" />
+    <ClCompile Include="src\SO_Drawing\ControlElements\Control.cpp" />
+    <ClCompile Include="src\SO_Drawing\DataStructs\fPoint.cpp" />
+    <ClCompile Include="src\SO_Drawing\DataStructs\pxPoint.cpp" />
     <ClCompile Include="src\SO_Service\Console\ConsoleService.cpp" />
-    <ClCompile Include="src\SO_SysInterface\Base\test.cpp" />
     <ClCompile Include="src\SO_SysInterface\Base\Thread.cpp" />
+    <ClCompile Include="src\SO_SysInterface\Base\Window.cpp" />
     <ClCompile Include="src\SO_SysInterface\Base\Window_Base.cpp" />
     <ClCompile Include="src\SO_SysInterface\main.cpp" />
     <ClCompile Include="src\SO_SysInterface\Ubuntu\Window_Ubu.cpp" />
     <ClCompile Include="src\SO_SysInterface\Windows\Window_Win.cpp" />
+    <ClCompile Include="src\ZABS_Math\DataStructs\Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="make.cfg" />

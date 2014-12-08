@@ -6,13 +6,15 @@
  */
 
 #pragma once
-#include "fPoint.h"
-#include "Window_Base.h"
 
 namespace SO
 {
+	class Window_Base;
+
 	namespace Drawing
 	{
+		class fPoint;
+
 		class Control
 		{
 		public:
@@ -21,13 +23,13 @@ namespace SO
 			//---- instances ----
 			Window_Base* myWindow;
 			//---- properties ----
-			fPoint Location;
-			fPoint Size;
+			fPoint* Location;
+			fPoint* Size;
 			/////////////////////////////////////////////////////
 			// functions
 			//---- init ----
 			Control();
-			Control(Window_Base* newWindow, fPoint newLoc, fPoint newSize);
+			Control(Window_Base* newWindow, const fPoint &newLoc, const fPoint &newSize);
 			virtual ~Control();
 			//---- drawing ----
 			virtual void Draw() {}

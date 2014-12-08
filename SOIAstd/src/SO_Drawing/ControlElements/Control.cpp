@@ -6,22 +6,24 @@
  */
 
 #include "Window_Base.h"
+#include "fPoint.h"
 #include "Control.h"
 
+using namespace SO;
 using namespace SO::Drawing;
 
 /////////////////////////////////////////////////////////////////////
 // init
 Control::Control()
 {
-	Location = fPoint(0,0);
-	Size = fPoint(0,0);
+	Location = new fPoint(0,0);
+	Size = new fPoint(0,0);
 	myWindow = nullptr;
 }
-Control::Control(Window_Base* newWindow, fPoint newLoc, fPoint newSize)
+Control::Control(Window_Base* newWindow, const fPoint &newLoc, const fPoint &newSize)
 {
-	Location = newLoc;
-	Size = newSize;
+	Location = new fPoint(newLoc);
+	Size = new fPoint(newSize);
 	myWindow = newWindow;
 }
 Control::~Control()

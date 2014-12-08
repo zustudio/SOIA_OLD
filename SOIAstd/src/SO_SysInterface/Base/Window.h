@@ -7,20 +7,27 @@
 
 #pragma once
 
-#include <deque>
-
 #include "Definitions.h"
-#include "Control.h"
 
 namespace SO
 {
+	//forward declarations
+	class Window_Base;
+	class Window_Win;
+	class Window_Ubu;
+	namespace Drawing
+	{
+		class Control;
+	}
+
+
 	class Window : public Window_OS
 	{
 	public:
 		//////////////////////////////////////////
 		// variables
 		//---- instances ----
-		std::deque<Control*> myControls;
+		std::deque<Drawing::Control*> myControls;
 
 		//////////////////////////////////////////
 		//functions
@@ -33,7 +40,7 @@ namespace SO
 		template <class CClass> void AddControl()
 		{
 			CClass* newControl = new CClass(static_cast<Window_Base*>(this), fPoint(0.1, 0.1), fPoint(0.8, 0.8));
-			myControls.push_back((Control*)newControl);
+			myControls.push_back((Drawing::Control*)newControl);
 		}
 	};
 }

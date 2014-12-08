@@ -9,6 +9,11 @@ namespace SO
 	{
 	public:
 		//////////////////////////////////////////////////
+		// vars
+		//---- instances ----
+		HWND hwnd;
+
+		//////////////////////////////////////////////////
 		// functions
 		//---- init ----
 		Window_Win();
@@ -16,5 +21,10 @@ namespace SO
 		virtual void Start() override;
 		//---- loop ----
 		virtual void Tick() override;
+			virtual void SetVars() override;
+		//---- drawing ----
+		virtual void pxDrawText(pxPoint Loc, const std::string &text) override;
+		virtual void pxDrawLine(pxPoint a, pxPoint b) override;
+		virtual void pxDrawRect(pxPoint a, pxPoint b) override;
 	};
 }

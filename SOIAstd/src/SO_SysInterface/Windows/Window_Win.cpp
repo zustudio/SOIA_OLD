@@ -2,9 +2,8 @@
 
 #include <iostream>
 #include <windows.h>
+#include <wingdi.h>
 #include "Window_Win.h"
-
-using namespace SO;
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 // callback definition
@@ -30,18 +29,18 @@ LRESULT CALLBACK WindowProcedure(HWND window, unsigned int msg, WPARAM wp, LPARA
 
 //////////////////////////////////////////////////////////////////////////////////////
 // init
-Window_Win::Window_Win()
+SO::Window_Win::Window_Win()
 {
 	
 }
-Window_Win::~Window_Win()
+SO::Window_Win::~Window_Win()
 {
 
 }
 
 //////////////////////////////////////////////////////////////////////////////////////
 // start
-void Window_Win::Start()
+void SO::Window_Win::Start()
 {
 	std::cout << "hello world!\n";
 	const char* const myclass = "myclass";
@@ -62,7 +61,7 @@ void Window_Win::Start()
 
 	if (RegisterClassEx(&wc))
 	{
-		HWND hwnd = CreateWindowEx(
+		hwnd = CreateWindowEx(
 			WS_EX_CLIENTEDGE,
 			myclass,
 			"The title of my window",
@@ -76,7 +75,7 @@ void Window_Win::Start()
 			ShowWindow(hwnd, SW_SHOWDEFAULT);
 			MSG msg;
 
-			conf.AddLoops(-1);
+			MThread.AddLoops(-1);
 			Thread::Start();
 		}
 	}
@@ -84,16 +83,55 @@ void Window_Win::Start()
 
 /////////////////////////////////////////////////////////////////////////////////////
 // loop
-void Window_Win::Tick()
+void SO::Window_Win::Tick()
 {
 	MSG msg;
 	if (GetMessage(&msg, 0, 0, 0))
 	{
 		DispatchMessage(&msg);
+
+		pxPoint Loc = pxPoint(100, 100);
+		std::string text = "hallo noch einmal";
+		SetVars();
+		pxDrawText(Loc, text);
+		Draw();
 	}
 	else
 	{
-		conf.Disable();
+		MThread.Disable();
 	}
+}
+
+void SO::Window_Win::SetVars()
+{
+	RECT rect;
+	::GetClientRect(hwnd, &rect);
+	size.X = rect.right;
+	size.Y = rect.bottom;
+}
+
+////////////////////////////////////////////////////////////////
+// drawing functions
+void SO::Window_Win::pxDrawText(pxPoint Loc, const std::string &text)
+{
+	HDC hdc;
+	hdc = ::GetDC(hwnd);
+	::TextOut(hdc, Loc.X, Loc.Y, const_cast<char *>(text.c_str()), strlen(text.c_str()));
+	::ReleaseDC(hwnd, hdc);
+}
+void SO::Window_Win::pxDrawLine(pxPoint a, pxPoint b)
+{
+	HDC hdc;
+	hdc = ::GetDC(hwnd);
+	::SetCursorPos(a.X, b.X);
+	::LineTo(hdc, b.X, b.Y);
+	::ReleaseDC(hwnd, hdc);
+}
+void SO::Window_Win::pxDrawRect(pxPoint a, pxPoint b)
+{
+	HDC hdc;
+	hdc = ::GetDC(hwnd);
+	::Rectangle(hdc, a.X, a.Y, b.X, b.Y);
+	::ReleaseDC(hwnd, hdc);
 }
 

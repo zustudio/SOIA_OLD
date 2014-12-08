@@ -7,7 +7,7 @@ include make.cfg
 
 all: $(OBJS)
 ifeq ($(IDE),vs13)
-	cl $(CLFLAGS) -Fe$(EXEC) $^ user32.lib
+	cl $(CLFLAGS) -Fe$(EXEC) $^ user32.lib gdi32.lib
 else
 	@$(CC) $(CFLAGS) -o $(EXEC) $^ $(LIBS)
 	@echo -SOIAstd: link

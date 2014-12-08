@@ -17,7 +17,7 @@ namespace SO
 		{
 		public:
 			CCanvas();
-			CCanvas(Window_Base* newWindow, fPoint newLoc, fPoint newSize);
+			CCanvas(Window_Base* newWindow, const fPoint &newLoc, const fPoint &newSize);
 			virtual void Draw() override;
 		};
 	}

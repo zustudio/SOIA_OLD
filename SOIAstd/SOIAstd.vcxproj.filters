@@ -43,6 +43,21 @@
     <Filter Include="SO_SysInterface\Ubuntu">
       <UniqueIdentifier>{25b87c7e-1c8c-4c30-b07b-b67f95dda534}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SO_Drawing">
+      <UniqueIdentifier>{cbe67a6a-158f-461e-8746-8849608ae239}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SO_Drawing\DataStructs">
+      <UniqueIdentifier>{3b91202b-4fce-4ad8-a310-70f3a4030c11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SO_Drawing\ControlElements">
+      <UniqueIdentifier>{de7a986c-d5ed-4e55-ad77-afd4439b3e85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZABS_Math">
+      <UniqueIdentifier>{327b3e7d-3975-4279-a537-1ecd2f150df7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZABS_Math\DataStructs">
+      <UniqueIdentifier>{a426412a-29ab-4302-beab-325429bcaf26}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Definitions\stdafx.h">
@@ -63,9 +78,6 @@
     <ClInclude Include="src\SO_SysInterface\Base\Thread.h">
       <Filter>SO_SysInterface\Base</Filter>
     </ClInclude>
-    <ClInclude Include="src\SO_SysInterface\Base\test.h">
-      <Filter>SO_SysInterface\Base</Filter>
-    </ClInclude>
     <ClInclude Include="src\SO_SysInterface\Windows\Window_Win.h">
       <Filter>SO_SysInterface\Windows</Filter>
     </ClInclude>
@@ -80,6 +92,24 @@
     </ClInclude>
     <ClInclude Include="src\SO_SysInterface\Ubuntu\Window_Ubu.h">
       <Filter>SO_SysInterface\Ubuntu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ZABS_Math\DataStructs\Vector2D.h">
+      <Filter>ZABS_Math\DataStructs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_Drawing\DataStructs\fPoint.h">
+      <Filter>SO_Drawing\DataStructs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_Drawing\DataStructs\pxPoint.h">
+      <Filter>SO_Drawing\DataStructs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_Drawing\ControlElements\CCanvas.h">
+      <Filter>SO_Drawing\ControlElements</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_Drawing\ControlElements\Control.h">
+      <Filter>SO_Drawing\ControlElements</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_SysInterface\Base\Window.h">
+      <Filter>SO_SysInterface\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -101,9 +131,6 @@
     <ClCompile Include="src\SO_SysInterface\Base\Thread.cpp">
       <Filter>SO_SysInterface\Base</Filter>
     </ClCompile>
-    <ClCompile Include="src\SO_SysInterface\Base\test.cpp">
-      <Filter>SO_SysInterface\Base</Filter>
-    </ClCompile>
     <ClCompile Include="src\SO_SysInterface\Windows\Window_Win.cpp">
       <Filter>SO_SysInterface\Windows</Filter>
     </ClCompile>
@@ -112,6 +139,24 @@
     </ClCompile>
     <ClCompile Include="src\SO_SysInterface\Ubuntu\Window_Ubu.cpp">
       <Filter>SO_SysInterface\Ubuntu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ZABS_Math\DataStructs\Vector2D.cpp">
+      <Filter>ZABS_Math\DataStructs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_Drawing\DataStructs\fPoint.cpp">
+      <Filter>SO_Drawing\DataStructs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_Drawing\DataStructs\pxPoint.cpp">
+      <Filter>SO_Drawing\DataStructs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_Drawing\ControlElements\CCanvas.cpp">
+      <Filter>SO_Drawing\ControlElements</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_Drawing\ControlElements\Control.cpp">
+      <Filter>SO_Drawing\ControlElements</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_SysInterface\Base\Window.cpp">
+      <Filter>SO_SysInterface\Base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
