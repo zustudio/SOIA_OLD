@@ -13,7 +13,8 @@ namespace SO
 		//---- init ----
 		Window_Win();
 		~Window_Win();
-		//---- loop ----
 		virtual void Start() override;
+		//---- loop ----
+		virtual void Tick() override;
 	};
 }

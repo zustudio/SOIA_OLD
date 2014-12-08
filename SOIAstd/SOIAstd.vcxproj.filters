@@ -40,6 +40,9 @@
     <Filter Include="SO_SysInterface\Windows">
       <UniqueIdentifier>{d326b577-16c0-4d80-adc7-a83cf20c2f6c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SO_SysInterface\Ubuntu">
+      <UniqueIdentifier>{25b87c7e-1c8c-4c30-b07b-b67f95dda534}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Definitions\stdafx.h">
@@ -75,6 +78,9 @@
     <ClInclude Include="src\SO_SysInterface\main.h">
       <Filter>SO_SysInterface</Filter>
     </ClInclude>
+    <ClInclude Include="src\SO_SysInterface\Ubuntu\Window_Ubu.h">
+      <Filter>SO_SysInterface\Ubuntu</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\IA_Engine\Framework\Data.cpp">
@@ -103,6 +109,9 @@
     </ClCompile>
     <ClCompile Include="src\SO_SysInterface\Base\Window_Base.cpp">
       <Filter>SO_SysInterface\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_SysInterface\Ubuntu\Window_Ubu.cpp">
+      <Filter>SO_SysInterface\Ubuntu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

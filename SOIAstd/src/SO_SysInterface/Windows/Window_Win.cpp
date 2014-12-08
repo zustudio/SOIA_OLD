@@ -75,11 +75,25 @@ void Window_Win::Start()
 		{
 			ShowWindow(hwnd, SW_SHOWDEFAULT);
 			MSG msg;
-			while (GetMessage(&msg, 0, 0, 0))
-			{
-				DispatchMessage(&msg);
-			}
+
+			conf.AddLoops(-1);
+			Thread::Start();
 		}
+	}
+}
+
+/////////////////////////////////////////////////////////////////////////////////////
+// loop
+void Window_Win::Tick()
+{
+	MSG msg;
+	if (GetMessage(&msg, 0, 0, 0))
+	{
+		DispatchMessage(&msg);
+	}
+	else
+	{
+		conf.Disable();
 	}
 }
 

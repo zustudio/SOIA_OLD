@@ -67,6 +67,7 @@
     <ClInclude Include="src\SO_SysInterface\Base\Thread.h" />
     <ClInclude Include="src\SO_SysInterface\Base\Window_Base.h" />
     <ClInclude Include="src\SO_SysInterface\main.h" />
+    <ClInclude Include="src\SO_SysInterface\Ubuntu\Window_Ubu.h" />
     <ClInclude Include="src\SO_SysInterface\Windows\Window_Win.h" />
   </ItemGroup>
   <ItemGroup>
@@ -78,6 +79,7 @@
     <ClCompile Include="src\SO_SysInterface\Base\Thread.cpp" />
     <ClCompile Include="src\SO_SysInterface\Base\Window_Base.cpp" />
     <ClCompile Include="src\SO_SysInterface\main.cpp" />
+    <ClCompile Include="src\SO_SysInterface\Ubuntu\Window_Ubu.cpp" />
     <ClCompile Include="src\SO_SysInterface\Windows\Window_Win.cpp" />
   </ItemGroup>
   <ItemGroup>
