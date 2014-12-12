@@ -11,12 +11,25 @@ using namespace SO::Drawing;
 
 namespace SO
 {
+	namespace Drawing
+	{
+		class fColor;
+	}
+
 	class Window_Base : public Thread
 	{
 	public:
 		//////////////////////////////////////////
 		//---- properties ----
-		Drawing::pxPoint size;
+		struct WindowProperties
+		{
+			Drawing::pxPoint size;
+			Drawing::fColor* backColor;
+			Drawing::fColor* frontColor;
+			bool bDirty;					//true if window needs to be redrawn
+
+		};
+		WindowProperties props;
 
 		//////////////////////////////////////////
 		// functions

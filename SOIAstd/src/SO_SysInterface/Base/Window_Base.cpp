@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "fColor.h"
 #include "Window_Base.h"
 
 using namespace SO;
@@ -8,7 +9,10 @@ using namespace std;
 // init
 Window_Base::Window_Base()
 {
-
+	props = WindowProperties();
+	props.backColor = new fColor(1, 0, 1);
+	props.frontColor = new fColor(0, 0, 0);
+	props.size = pxPoint(400, 400);
 }
 Window_Base::~Window_Base()
 {
@@ -46,19 +50,19 @@ void Window_Base::Draw() {}
 // basic drawing interface
 void Window_Base::DrawText(fPoint Loc, const string &text)
 {
-	pxPoint px =	Loc.ToPxPoint(size);
+	pxPoint px =	Loc.ToPxPoint(props.size);
 	pxDrawText(px, text);
 }
 void Window_Base::DrawLine(fPoint a, fPoint b)
 {
-	pxPoint pxA = a.ToPxPoint(size);
-	pxPoint pxB = b.ToPxPoint(size);
+	pxPoint pxA = a.ToPxPoint(props.size);
+	pxPoint pxB = b.ToPxPoint(props.size);
 	pxDrawLine(pxA, pxB);
 }
 void Window_Base::DrawRect(fPoint a, fPoint b)
 {
-	pxPoint pxA = a.ToPxPoint(size);
-	pxPoint pxB = b.ToPxPoint(size);
+	pxPoint pxA = a.ToPxPoint(props.size);
+	pxPoint pxB = b.ToPxPoint(props.size);
 	pxDrawRect(pxA, pxB);
 }
 // functions to be implemented

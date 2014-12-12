@@ -64,6 +64,7 @@
     <ClInclude Include="src\IA_Game\Framework\Game.h" />
     <ClInclude Include="src\SO_Drawing\ControlElements\CCanvas.h" />
     <ClInclude Include="src\SO_Drawing\ControlElements\Control.h" />
+    <ClInclude Include="src\SO_Drawing\DataStructs\fColor.h" />
     <ClInclude Include="src\SO_Drawing\DataStructs\fPoint.h" />
     <ClInclude Include="src\SO_Drawing\DataStructs\pxPoint.h" />
     <ClInclude Include="src\SO_Service\Console\ConsoleService.h" />
@@ -81,6 +82,7 @@
     <ClCompile Include="src\IA_Game\Framework\Game.cpp" />
     <ClCompile Include="src\SO_Drawing\ControlElements\CCanvas.cpp" />
     <ClCompile Include="src\SO_Drawing\ControlElements\Control.cpp" />
+    <ClCompile Include="src\SO_Drawing\DataStructs\fColor.cpp" />
     <ClCompile Include="src\SO_Drawing\DataStructs\fPoint.cpp" />
     <ClCompile Include="src\SO_Drawing\DataStructs\pxPoint.cpp" />
     <ClCompile Include="src\SO_Service\Console\ConsoleService.cpp" />

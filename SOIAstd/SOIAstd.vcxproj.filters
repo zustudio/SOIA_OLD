@@ -111,6 +111,9 @@
     <ClInclude Include="src\SO_SysInterface\Base\Window.h">
       <Filter>SO_SysInterface\Base</Filter>
     </ClInclude>
+    <ClInclude Include="src\SO_Drawing\DataStructs\fColor.h">
+      <Filter>SO_Drawing\DataStructs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\IA_Engine\Framework\Data.cpp">
@@ -157,6 +160,9 @@
     </ClCompile>
     <ClCompile Include="src\SO_SysInterface\Base\Window.cpp">
       <Filter>SO_SysInterface\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_Drawing\DataStructs\fColor.cpp">
+      <Filter>SO_Drawing\DataStructs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
