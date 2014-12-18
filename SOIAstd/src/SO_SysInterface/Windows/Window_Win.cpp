@@ -10,7 +10,7 @@
 // callback definition
 LRESULT CALLBACK SO::Window_Win::WindowProcedure(HWND window, unsigned int msg, WPARAM wp, LPARAM lp)
 {
-	Window_Win *c = (Window_Win*)GetWindowLong(window, GWLP_USERDATA);
+	Window_Win *c = (Window_Win*)GetWindowLongPtr(window, GWLP_USERDATA);
 
 	switch (msg)
 	{
@@ -76,7 +76,7 @@ void SO::Window_Win::Start()
 			CW_USEDEFAULT, CW_USEDEFAULT, props.size.X, props.size.Y,
 			NULL, NULL, GetModuleHandle(0), NULL);
 
-		SetWindowLong(hwnd, GWLP_USERDATA, (long long)this);		//set (this*) for getting in WindowProcedure
+		SetWindowLongPtr(hwnd, GWLP_USERDATA, (LONG_PTR)this);		//set (this*) for getting in WindowProcedure
 
 		if (hwnd)
 		{
@@ -128,24 +128,24 @@ void SO::Window_Win::SetVars()
 void SO::Window_Win::pxDrawText(pxPoint Loc, const std::string &text)
 {
 	HDC hdc;
-	hdc = ::GetDC(hwnd);
+	Win32_PrepDrawing(hdc);
 	::TextOut(hdc, Loc.X, Loc.Y, const_cast<char *>(text.c_str()), strlen(text.c_str()));
-	::ReleaseDC(hwnd, hdc);
+	Win32_EndDrawing(hdc);
 }
 void SO::Window_Win::pxDrawLine(pxPoint a, pxPoint b)
 {
 	HDC hdc;
-	hdc = ::GetDC(hwnd);
+	Win32_PrepDrawing(hdc);
 	::SetCursorPos(a.X, b.X);
 	::LineTo(hdc, b.X, b.Y);
-	::ReleaseDC(hwnd, hdc);
+	Win32_EndDrawing(hdc);
 }
 void SO::Window_Win::pxDrawRect(pxPoint a, pxPoint b)
 {
 	HDC hdc;
-	hdc = ::GetDC(hwnd);
+	Win32_PrepDrawing(hdc);
 	::Rectangle(hdc, a.X, a.Y, a.X + b.X, a.Y + b.Y);
-	::ReleaseDC(hwnd, hdc);
+	Win32_EndDrawing(hdc);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -156,10 +156,12 @@ COLORREF SO::Window_Win::getColor(fColor* color)
 }
 void SO::Window_Win::Clear()
 {
+	fColor *oldFront = props.frontColor;
+	props.frontColor = props.backColor;
+
 	HDC hdc;
-	COLORREF backgroundColor;
-	hdc = ::GetDC(hwnd);
-	::SetDCBrushColor(hdc, getColor(props.backColor));
+	Win32_PrepDrawing(hdc);
 	::Rectangle(hdc, 0, 0, props.size.X, props.size.Y);
-	::SetDCBrushColor(hdc, getColor(props.frontColor));
+	Win32_EndDrawing(hdc);
+	props.frontColor = oldFront;
 }

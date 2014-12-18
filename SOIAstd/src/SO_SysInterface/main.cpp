@@ -26,6 +26,8 @@ int main()
 	std::cout << "win test start";
 	SO::Window* win = new SO::Window();
 	win->AddControl<CCanvas>();
+	win->AddControl<CCanvas>();
+	win->AddControl<Control>();
 	//win->Start();
 	thread t2 = thread(&SO::Window::Start, &*win);
 	std::cout << "win test end";

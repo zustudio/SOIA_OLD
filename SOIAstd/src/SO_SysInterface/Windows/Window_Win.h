@@ -40,3 +40,18 @@ namespace SO
 		void Clear();
 	};
 }
+
+///////////////////////////////////////////////////
+// macros
+//---- color drawing ----
+/* prepares the hdc for drawing (the colors are taken from prop.*color) */
+#define Win32_PrepDrawing(hdc) { \
+	hdc = ::GetDC(hwnd); \
+	HGDIOBJ Win32StandardPen = nullptr; \
+	HGDIOBJ Win32StandardBrush = nullptr; \
+	SelectObject(hdc, GetStockObject(DC_PEN)); \
+	SelectObject(hdc, GetStockObject(DC_BRUSH)); \
+	SetDCBrushColor(hdc, getColor(props.backColor)); \
+	SetDCPenColor(hdc, getColor(props.frontColor)); \
+}
+#define Win32_EndDrawing(hdc) ::ReleaseDC(hwnd, hdc);

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "fColor.h"
+#include "cPoint.h"
 #include "Window_Base.h"
 
 using namespace SO;
@@ -10,9 +11,17 @@ using namespace std;
 Window_Base::Window_Base()
 {
 	props = WindowProperties();
-	props.backColor = new fColor(1, 0, 1);
+	props.backColor = new fColor(0, 1, 1);
 	props.frontColor = new fColor(0, 0, 0);
+	props.copyBackC = props.backColor;
+	props.copyFrontC = props.frontColor;
 	props.size = pxPoint(400, 400);
+
+	//TESTING
+	pxPoint px = pxPoint(20, 20);
+	fPoint f = fPoint(10, 10);
+	cPoint test = /*new*/ cPoint(f, px);
+	//delete test;
 }
 Window_Base::~Window_Base()
 {
@@ -48,25 +57,52 @@ void Window_Base::Draw() {}
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 // basic drawing interface
-void Window_Base::DrawText(fPoint Loc, const string &text)
+void Window_Base::DrawText(cPoint Loc, const string &text, fColor *frontColor, fColor *backColor)
 {
-	pxPoint px =	Loc.ToPxPoint(props.size);
+	SetColors(frontColor, backColor);
+	pxPoint px = Loc.ToPxPoint(props.size);
 	pxDrawText(px, text);
+	ResetColors();
 }
-void Window_Base::DrawLine(fPoint a, fPoint b)
+void Window_Base::DrawLine(cPoint a, cPoint b, fColor *frontColor, fColor *backColor)
 {
+	SetColors(frontColor, backColor);
 	pxPoint pxA = a.ToPxPoint(props.size);
 	pxPoint pxB = b.ToPxPoint(props.size);
 	pxDrawLine(pxA, pxB);
+	ResetColors();
 }
-void Window_Base::DrawRect(fPoint a, fPoint b)
+void Window_Base::DrawRect(cPoint a, cPoint b, fColor *frontColor, fColor *backColor)
 {
+	SetColors(frontColor, backColor);
 	pxPoint pxA = a.ToPxPoint(props.size);
 	pxPoint pxB = b.ToPxPoint(props.size);
 	pxDrawRect(pxA, pxB);
+	ResetColors();
 }
 // functions to be implemented
 void Window_Base::pxDrawText(pxPoint Loc,const string& text){}
 void Window_Base::pxDrawLine(pxPoint a, pxPoint b) {}
 void Window_Base::pxDrawRect(pxPoint a, pxPoint b) {}
+
+/////////////////////////////////////////////////////////////////////////////
+// private helper functions
+void Window_Base::SetColors(fColor *front, fColor *back)
+{
+	if (front)
+	{
+		props.copyFrontC = props.frontColor;
+		props.frontColor = front;
+	}
+	if (back)
+	{
+		props.copyBackC = props.backColor;
+		props.backColor = back;
+	}
+}
+void Window_Base::ResetColors()
+{
+	props.frontColor = props.copyFrontC;
+	props.backColor = props.copyBackC;
+}
 

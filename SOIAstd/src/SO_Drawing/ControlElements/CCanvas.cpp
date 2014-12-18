@@ -6,6 +6,7 @@
  */
 
 #include "fPoint.h"
+#include "fColor.h"
 #include "Vector2D.h"
 #include "Window_Base.h"
 #include "CCanvas.h"
@@ -19,6 +20,10 @@ CCanvas::CCanvas() : Control()
 {
 
 }
+CCanvas::CCanvas(Window_Base *newWindow) : Control(newWindow)
+{
+
+}
 CCanvas::CCanvas(Window_Base *newWindow, const fPoint &newLoc, const fPoint &newSize) : Control(newWindow, newLoc, newSize)
 {
 
@@ -28,7 +33,9 @@ CCanvas::CCanvas(Window_Base *newWindow, const fPoint &newLoc, const fPoint &new
 // draw myself
 void CCanvas::Draw()
 {
-	myWindow->DrawRect(*Location, *Size);
+	fColor* front = new fColor(1, 0, 0);
+	fColor* back = new fColor(0, 1, 0);
+	myWindow->DrawRect(*Location, *Size, front, back);
 }
 
 

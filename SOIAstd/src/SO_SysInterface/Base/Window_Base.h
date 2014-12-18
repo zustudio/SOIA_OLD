@@ -4,8 +4,9 @@
 #include <deque>
 
 #include "Thread.h"
-#include "fPoint.h"
+#include "cPoint.h"
 #include "pxPoint.h"
+#include "cPoint.h"
 
 using namespace SO::Drawing;
 
@@ -26,6 +27,8 @@ namespace SO
 			Drawing::pxPoint size;
 			Drawing::fColor* backColor;
 			Drawing::fColor* frontColor;
+			Drawing::fColor* copyBackC;
+			Drawing::fColor* copyFrontC;
 			bool bDirty;					//true if window needs to be redrawn
 
 		};
@@ -45,12 +48,19 @@ namespace SO
 		//////////////////////////////////////////
 		// utility functions
 		//---- drawing ----
-		virtual void DrawText(fPoint Loc, const std::string &text);
-		virtual void DrawLine(fPoint a, fPoint b);
-		virtual void DrawRect(fPoint a, fPoint b);
+		virtual void DrawText(cPoint Loc, const std::string &text, fColor *frontColor = nullptr, fColor *backColor = nullptr);
+		virtual void DrawLine(cPoint a, cPoint b, fColor *frontColor = nullptr, fColor *backColor = nullptr);
+		virtual void DrawRect(cPoint a, cPoint b, fColor *frontColor = nullptr, fColor *backColor = nullptr);
 
 		virtual void pxDrawText(pxPoint Loc, const std::string &text);
 		virtual void pxDrawLine(pxPoint a, pxPoint b);
 		virtual void pxDrawRect(pxPoint a, pxPoint b);
+
+		//////////////////////////////////////////
+		// private helpers
+	private:
+		//---- drawing ----
+		void SetColors(fColor *front, fColor *back);
+		void ResetColors();
 	};
 }

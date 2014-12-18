@@ -13,6 +13,7 @@ namespace SO
 
 	namespace Drawing
 	{
+		class cPoint;
 		class fPoint;
 
 		class Control
@@ -23,14 +24,18 @@ namespace SO
 			//---- instances ----
 			Window_Base* myWindow;
 			//---- properties ----
-			fPoint* Location;
-			fPoint* Size;
+			cPoint* Location;
+			cPoint* Size;
 			/////////////////////////////////////////////////////
 			// functions
 			//---- init ----
 			Control();
+			//Control(const Control &oldControl);
+			Control(Window_Base* newWindow);
 			Control(Window_Base* newWindow, const fPoint &newLoc, const fPoint &newSize);
 			virtual ~Control();
+			//---- visual ----
+			void SetTrans(const fPoint &newLoc, const fPoint &newSize);
 			//---- drawing ----
 			virtual void Draw() {}
 		};

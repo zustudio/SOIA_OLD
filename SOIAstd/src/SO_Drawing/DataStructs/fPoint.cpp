@@ -30,7 +30,7 @@ fPoint::fPoint(const ZABS::Math::Vector2D<float> &equalPoint)
 	//fPoint(equalPoint.X, equalPoint.Y);
 }
 //// conversion
-pxPoint fPoint::ToPxPoint(pxPoint &absolutSpaceSize)
+pxPoint fPoint::ToPxPoint(const pxPoint &absolutSpaceSize)
 {
 	int newX = int(X * absolutSpaceSize.X);
 	int newY = int(Y * absolutSpaceSize.Y);
