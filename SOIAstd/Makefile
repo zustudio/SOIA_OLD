@@ -18,7 +18,7 @@ ifeq ($(IDE),vs13)
 	@cl $(CLFLAGS) -c $^
 	@mv $(subst $(BINDIR),,$@) $(BINDIR)
 else
-	$(CC) $(INCLUDES) $(CFLAGS) -c -o $@ $^
+	@$(CC) $(INCLUDES) $(CFLAGS) -c -o $@ $^
 	@echo -SOIAstd: $@
 endif
 

@@ -8,6 +8,7 @@
 #pragma once
 
 #include "Definitions.h"
+#include "Control.h"
 
 namespace SO
 {
