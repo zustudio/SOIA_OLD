@@ -15,16 +15,16 @@
 using namespace SO;
 using namespace SO::Drawing;
 
-Window::Window()
+SO::Window::Window()
 {
 
 }
-Window::~Window()
+SO::Window::~Window()
 {
 
 }
 
-void Window::Draw()
+void SO::Window::Draw()
 {
 	for (int n_Control = 0; n_Control < myControls.size(); n_Control++)
 	{

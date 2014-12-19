@@ -5,6 +5,7 @@
 #include "Vector2D.h"
 #include "pxPoint.h"
 #include "fPoint.h"
+#include "fColor.h"
 #include "Thread.h"
 #include "Window_Base.h"
 #include "Window_Ubu.h"
@@ -43,53 +44,64 @@ void Window_Ubu::Start ()
 
 	XMapWindow(display, frame_window);
 
+	//disable not wanted closing of window by standard windowmanager:
+	XMapWindow(display, frame_window);
+	wm_delete_window = XInternAtom(display, "WM_DELETE_WINDOW", False);
+	XSetWMProtocols(display, frame_window, &wm_delete_window, 1);
+
+	//start and end of loop
 	MThread.AddLoops(-1);
 	Thread::Start();
+	XCloseDisplay(display);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 // ticking
 void Window_Ubu::Tick()
 {
-	char	hello_string[] = "Hello World";
-	int    hello_string_length = strlen(hello_string);
-
-	XNextEvent(display, (XEvent *)&event);
-	SetVars();
-	switch ( event.type )
+	DispatchMessage();
+	if (props.bDirty)
 	{
-		case Expose:
-			fontinfo = XLoadQueryFont(display, "10x20");
-			gr_values.font = fontinfo->fid;
-			gr_values.foreground = XBlackPixel(display, 0);
-			graphical_context = XCreateGC(display, frame_window, GCFont+GCForeground, &gr_values);
-
-			XWindowAttributes window_attributes;
-			int font_direction, font_ascent, font_descent;
-			XCharStruct text_structure;
-
-			Draw();
-			DrawText(fPoint(0.5, 0.5), std::string("hallo nochmal"));
-			DrawLine(fPoint(), fPoint(1,1));
-			break;
-		default:
-			break;
+		SetVars();
+		Draw();
+		props.bDirty = false;
 	}
+}
+void Window_Ubu::DispatchMessage()
+{
+	XEvent event;
+	XNextEvent(display, &event);
+		switch ( event.type )
+		{
+			case Expose:
+				props.bDirty = true;
+				break;
+			case ClientMessage:
+				if ((Atom)event.xclient.data.l[0] == wm_delete_window)
+				{
+					MThread.Disable();
+				}
+				break;
+			default:
+				break;
+		}
 }
 void Window_Ubu::SetVars()
 {
+	//needed:?
+	fontinfo = XLoadQueryFont(display, "10x20");
+				gr_values.font = fontinfo->fid;
+				gr_values.foreground = XBlackPixel(display, 0);
+				graphical_context = XCreateGC(display, frame_window, (unsigned long) 0, &gr_values);
+	XSetFillStyle(display, graphical_context, FillSolid);
+
 	XWindowAttributes window_attributes;
 	XGetWindowAttributes(display, frame_window, &window_attributes);
-	size = pxPoint(window_attributes.width, window_attributes.height);
+	props.size = pxPoint(window_attributes.width, window_attributes.height);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // drawing
-//---- main routine ----
-//void Window_Ubu::Draw()
-//{
-//
-//}
 //---- subroutines ----
 void Window_Ubu::pxDrawText(pxPoint Loc, const string &text)
 {
@@ -101,7 +113,31 @@ void Window_Ubu::pxDrawLine(pxPoint a, pxPoint b)
 }
 void Window_Ubu::pxDrawRect(pxPoint a, pxPoint b)
 {
+//	XColor frontColor;
+//	XColor backColor;
+//	Colormap cmap;
+	XLib_PrepDrawing(props.frontColor);
+	XFillRectangle(display, frame_window, graphical_context, a.X, a.Y, b.X, b.Y);
+	XLib_PrepDrawing(props.backColor);
 	XDrawRectangle(display, frame_window, graphical_context, a.X, a.Y, b.X, b.Y);
 }
+
+//---- private helper functions ----
+XColor Window_Ubu::getColor(fColor *color)
+{
+	XColor newColor;
+	newColor.red = 65535 * color->R;
+	newColor.green = 65535 * color->G;
+	newColor.blue = 65535 * color->B;
+	return newColor;
+}
+//void Window_Ubu::XLib_PrepDraw()
+//{
+//	XColor frontColor;
+//	XColor backColor;
+//
+//
+//
+//}
 
 
