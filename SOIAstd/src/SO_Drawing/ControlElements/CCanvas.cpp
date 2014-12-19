@@ -33,8 +33,8 @@ CCanvas::CCanvas(Window_Base *newWindow, const fPoint &newLoc, const fPoint &new
 // draw myself
 void CCanvas::Draw()
 {
-	fColor* front = new fColor(1, 0, 0);
-	fColor* back = new fColor(0, 1, 0);
+	fColor* front = new fColor(0.9, 0, 0.9);
+	fColor* back = new fColor(0.9, 0.9, 0.9);
 	myWindow->DrawRect(*Location, *Size, front, back);
 }
 

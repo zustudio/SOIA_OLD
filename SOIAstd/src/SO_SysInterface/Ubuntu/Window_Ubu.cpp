@@ -105,20 +105,19 @@ void Window_Ubu::SetVars()
 //---- subroutines ----
 void Window_Ubu::pxDrawText(pxPoint Loc, const string &text)
 {
+	XLib_PrepDrawing(props.frontColor);
 	XDrawString(display, frame_window, graphical_context,	Loc.X, Loc.Y, text.c_str(), strlen(text.c_str()));
 }
 void Window_Ubu::pxDrawLine(pxPoint a, pxPoint b)
 {
+	XLib_PrepDrawing(props.frontColor);
 	XDrawLine(display, frame_window, graphical_context, a.X, a.Y, b.X, b.Y);
 }
 void Window_Ubu::pxDrawRect(pxPoint a, pxPoint b)
 {
-//	XColor frontColor;
-//	XColor backColor;
-//	Colormap cmap;
-	XLib_PrepDrawing(props.frontColor);
-	XFillRectangle(display, frame_window, graphical_context, a.X, a.Y, b.X, b.Y);
 	XLib_PrepDrawing(props.backColor);
+	XFillRectangle(display, frame_window, graphical_context, a.X, a.Y, b.X, b.Y);
+	XLib_PrepDrawing(props.frontColor);
 	XDrawRectangle(display, frame_window, graphical_context, a.X, a.Y, b.X, b.Y);
 }
 
@@ -131,13 +130,5 @@ XColor Window_Ubu::getColor(fColor *color)
 	newColor.blue = 65535 * color->B;
 	return newColor;
 }
-//void Window_Ubu::XLib_PrepDraw()
-//{
-//	XColor frontColor;
-//	XColor backColor;
-//
-//
-//
-//}
 
 
