@@ -11,15 +11,6 @@
 
 using namespace std;
 using namespace SO;
-//
-//int threading(IA::Engine* engine)
-//{
-//	while (true)
-//	{
-//		engine->conf.AddLoops(1);
-//		for (int i = 0; i < 100000; i++) { for (int j = 0; j < 1000; j++) {} }
-//	}
-//}
 
 int main()
 {
@@ -40,8 +31,8 @@ int main()
 	IA::Engine* currentEngine = new IA::Engine(currentGame);
 
 
-	SO::UI::DebugVisual* CurDebugVis = new SO::UI::DebugVisual(currentEngine);
-	thread t3 = thread(&SO::UI::DebugVisual::Start, CurDebugVis);
+	/*SO::UI::DebugVisual* CurDebugVis = new SO::UI::DebugVisual(currentEngine);
+	thread t3 = thread(&SO::UI::DebugVisual::Start, CurDebugVis);*/
 
 	thread t1 = thread(&IA::Engine::Start, &*currentEngine);
 	currentEngine->MThread.AddLoops(5);
@@ -56,7 +47,7 @@ int main()
 
 	t1.join();
 	t2.join();
-	t3.join();
+	//t3.join();
 	cout << "engine exited";
 
 	return 0;

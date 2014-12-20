@@ -6,10 +6,12 @@
  */
 
 #include "stdafx.h"
+#include "DebugVisual.h"
 #include "Engine.h"
 #include "ConsoleService.h"
 
 using namespace SOIA;
+using namespace SO::UI;
 using namespace IA;
 using namespace std;
 
@@ -61,13 +63,11 @@ void ConsoleService::Start()
 					CurrentEngine->MThread.AddLoops(1);
 				}
 			}
-			/*else if (arg == "debugvisual")
+			else if (arg == "debugvisual")
 			{
-				DebugVisual^ visual = gcnew DebugVisual(CurrentEngine);
-				Thread^ visualThread = gcnew Thread(gcnew ThreadStart(visual, &DebugVisual::Start));
-				visualThread->Start();
-				CurrentVisuals->Add(visual);
-			}
+				DebugVisual *visual = new DebugVisual(CurrentEngine);
+				AddWindow<DebugVisual>(visual);
+			}/*
 			else if (arg == "dataexplorer")
 			{
 				DataExplorer^ data = gcnew DataExplorer(CurrentEngine);

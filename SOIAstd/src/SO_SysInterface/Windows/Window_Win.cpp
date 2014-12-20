@@ -70,6 +70,7 @@ void SO::Window_Win::Start()
 	wc.lpszClassName = myclass;
 	wc.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
 
+	UnregisterClass(wc.lpszClassName, wc.hInstance);
 	if (RegisterClassEx(&wc))
 	{
 		hwnd = CreateWindowEx(
@@ -121,8 +122,6 @@ void SO::Window_Win::SetVars()
 {
 	RECT rect;
 	::GetClientRect(hwnd, &rect);
-	if (props.size.X != rect.right)
-		std::cout << "#";
 	props.size.X = rect.right;
 	props.size.Y = rect.bottom;
 }

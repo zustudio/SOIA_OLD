@@ -17,7 +17,7 @@ DebugVisual::DebugVisual(IA::Engine* NewEngine) : Window(std::string("DebugVisua
 	//draw window
 	TextMain = AddControl<CTextBox>();
 	TextMain->Text = "nothing\nand less: ";
-	TextMain->Text += std::to_string(CurrentEngine->Knowledge->Content);
+	TextMain->Text += std::to_string(CurrentEngine->Knowledge->Content) + "\n";
 }
 
 void DebugVisual::Start()
