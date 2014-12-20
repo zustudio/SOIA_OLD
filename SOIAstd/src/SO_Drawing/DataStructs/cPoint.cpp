@@ -5,10 +5,6 @@
 
 using namespace SO::Drawing;
 
-cPoint::cPoint() : fPoint()
-{	
-	px = new pxPoint();
-}
 cPoint::cPoint(float fX, float fY, int pxX, int pxY)
 {
 	X = fX;
@@ -33,10 +29,10 @@ float cPoint::getFY()
 	return Y;
 }
 
-pxPoint cPoint::ToPxPoint(const pxPoint &absolutSpaceSize)
+pxPoint cPoint::ToPxPoint(pxPoint &absolutSpaceSize)
 {
 	pxPoint absolute = fPoint::ToPxPoint(absolutSpaceSize);
-	absolute.X += px->X;
-	absolute.Y += px->X;
+	absolute += (*px);
 	return absolute;
 }
+

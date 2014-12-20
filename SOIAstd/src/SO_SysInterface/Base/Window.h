@@ -32,7 +32,6 @@ namespace SO
 		//////////////////////////////////////////
 		//functions
 		//---- init ----
-		//Window();
 		Window(const std::string &NewTitle = std::string("unnamed window"), const pxPoint &size = pxPoint(400,400));
 		virtual ~Window();
 		//---- drawing ----
@@ -46,15 +45,13 @@ namespace SO
 
 			//apply sizes
 			int NumControls = myControls.size();
-			float curX = 0;
-			float curY = 0;
-			float dX = 0;
-			float dY = 1/(float)NumControls;
+			fPoint cur = fPoint(0,0);
+			fPoint d = fPoint(0,1/float(NumControls));
 
 			for (int iC = 0; iC < myControls.size(); iC++)
 			{
-				myControls[iC]->SetTrans(fPoint(curX, curY), fPoint(1, dY));
-				curY += dY;
+				myControls[iC]->SetTrans(cur, fPoint(1, d.Y));
+				cur += d;
 			}
 		}
 	};

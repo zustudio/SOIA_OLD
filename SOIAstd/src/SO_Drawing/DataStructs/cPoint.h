@@ -10,20 +10,20 @@ namespace SO
 		class pxPoint;
 		class fPoint;
 
-		class cPoint : fPoint
+		class cPoint : public fPoint
 		{
 		public:
 			pxPoint* px;
 
-			cPoint();
+			//cPoint();
 			cPoint(float fX, float fY, int pxX = 0, int pxY= 0);
-			cPoint(const fPoint &newF, const pxPoint &newPx);
+			cPoint(const fPoint &newF = fPoint(), const pxPoint &newPx = pxPoint());
 			~cPoint();
 
 			float getFX();
 			float getFY();
 
-			virtual pxPoint ToPxPoint(const pxPoint &absolutSpaceSize) override;
+			virtual pxPoint ToPxPoint(pxPoint &absolutSpaceSize) override;
 		};
 	}
 }

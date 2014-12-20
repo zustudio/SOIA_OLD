@@ -18,21 +18,12 @@ using namespace SO::Drawing;
 
 ///////////////////////////////////////////////////////////
 // init
-CCanvas::CCanvas() : Control()
-{
-	Objects = new std::deque<fCanvasObject*>();
-}
-CCanvas::CCanvas(Window_Base *newWindow) : Control(newWindow)
-{
-	Objects = new std::deque<fCanvasObject*>();
-
-	DrawRect(fPoint(0.4, 0.4), fPoint(0.2, 0.2), fColor(1, 0, 0));
-	DrawRect(fPoint(0, 0), fPoint(0.1, 0.1), fColor(0, 1, 0));
-	DrawLine(fPoint(0.5, 0.5), fPoint(0.9, 0.9), fColor(0, 0, 1));
-}
 CCanvas::CCanvas(Window_Base *newWindow, const fPoint &newLoc, const fPoint &newSize) : Control(newWindow, newLoc, newSize)
 {
 	Objects = new std::deque<fCanvasObject*>();
+	DrawRect(fPoint(0.4, 0.4), fPoint(0.2, 0.2), fColor(1, 0, 0));
+	DrawRect(fPoint(0, 0), fPoint(0.1, 0.1), fColor(0, 1, 0));
+	DrawLine(fPoint(0.5, 0.5), fPoint(0.9, 0.9), fColor(0, 0, 1));
 }
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -87,10 +78,12 @@ void CCanvas::Clear()
 cPoint CCanvas::getAbsCP(const fPoint &a, bool bDelta)
 {
 	cPoint back;
+	back = cPoint((*Size) * a);
 	if (!bDelta)
-		back = cPoint(Location->getFX() + Size->getFX() * a.X, Location->getFY() + Size->getFY() * a.Y);
-	else
-		back = cPoint(Size->getFX() * a.X, Size->getFY() * a.Y);
+	{
+		back += *Location;
+		*back.px += *Location->px;
+	}
 
 	return back;
 }

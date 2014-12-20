@@ -15,42 +15,20 @@ using namespace SO::Drawing;
 
 /////////////////////////////////////////////////////////////////////
 // init
-Control::Control()
+Control::Control(Window_Base* NewWindow, const fPoint &NewLoc, const fPoint &NewSize)
 {
-	Location = new cPoint(0,0);
-	Size = new cPoint(0,0);
-	myWindow = nullptr;
-}
-//Control::Control(const Control &oldControl)
-//{
-//	Location = oldControl.Location;
-//	Size = oldControl.Size;
-//	myWindow = oldControl.myWindow;
-//}
-Control::Control(Window_Base* newWindow)
-{
-	Location = new cPoint(fPoint(), pxPoint());
-	Size = new cPoint(fPoint(0.1, 0.1), pxPoint());
-	myWindow = newWindow;
-}
-Control::Control(Window_Base* newWindow, const fPoint &newLoc, const fPoint &newSize)
-{
-	fPoint fLoc = newLoc;
-	fPoint fSize = newSize;
-	Location = new cPoint(fLoc, pxPoint(1, 1));
-	Size = new cPoint(fSize, pxPoint(-2, -2));
-	myWindow = newWindow;
+	Location = new cPoint(NewLoc, pxPoint(1, 1));
+	Size = new cPoint(NewSize, pxPoint(-2, -2));
+	myWindow = NewWindow;
 }
 Control::~Control()
 {
 
 }
 /////////////////////////////////////////////////////////////////////
-// visual
-void Control::SetTrans(const fPoint &newLoc, const fPoint &newSize)
+// settings
+void Control::SetTrans(const fPoint &NewLoc, const fPoint &NewSize)
 {
-	fPoint fLoc = newLoc;
-	fPoint fSize = newSize;
-	Location = new cPoint(fLoc, pxPoint(1, 1));
-	Size = new cPoint(fSize, pxPoint(-2, -2));
+	Location = new cPoint(NewLoc, pxPoint(1, 1));
+	Size = new cPoint(NewSize, pxPoint(-2, -2));
 }

@@ -10,13 +10,12 @@ namespace SO
 		class fPoint : public ZABS::Math::Vector2D<float>
 		{
 		public:
-			//init
-			fPoint();
-			fPoint(float newX, float newY);
-			fPoint(const fPoint &equalPoint);
+			//---- init ----
+			fPoint(float newX = 0, float newY = 0);
 			fPoint(const ZABS::Math::Vector2D<float> &equalPoint);
-			//conversion
-			virtual pxPoint ToPxPoint(const pxPoint &absolutSpaceSize);
+			virtual ~fPoint();
+			//---- conversion ----
+			virtual pxPoint ToPxPoint(pxPoint &absolutSpaceSize);
 		};
 	}
 }

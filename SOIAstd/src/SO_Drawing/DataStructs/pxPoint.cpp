@@ -7,16 +7,14 @@
 
 using namespace SO::Drawing;
 
-//// overloaded constructor
+////////////////////////////////////////////////////////////////////////////
+// init
 pxPoint::pxPoint(int newX, int newY) : Vector2D<int>(newX, newY)
 {
 
 }
-pxPoint::pxPoint(const pxPoint &equalPoint) : Vector2D<int>(equalPoint)
+pxPoint::pxPoint(const Vector2D<int> &equalVector2D)
 {
-
-}
-pxPoint::pxPoint() : Vector2D<int>()
-{
-
+	X = equalVector2D.X;
+	Y = equalVector2D.Y;
 }

@@ -38,7 +38,6 @@ namespace SO
 		//////////////////////////////////////////
 		// functions
 		//---- init ----
-		//Window_Base();
 		Window_Base(const std::string &NewTitle, const pxPoint &size);
 		~Window_Base();
 		//---- main ----

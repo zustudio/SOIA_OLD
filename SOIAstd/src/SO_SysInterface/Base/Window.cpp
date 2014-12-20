@@ -15,10 +15,6 @@
 using namespace SO;
 using namespace SO::Drawing;
 
-//SO::Window::Window()
-//{
-//
-//}
 SO::Window::Window(const std::string &NewTitle, const pxPoint &size) : Window_OS(NewTitle, size)
 {
 
