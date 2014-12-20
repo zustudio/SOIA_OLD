@@ -15,7 +15,11 @@
 using namespace SO;
 using namespace SO::Drawing;
 
-SO::Window::Window()
+//SO::Window::Window()
+//{
+//
+//}
+SO::Window::Window(const std::string &NewTitle, const pxPoint &size) : Window_OS(NewTitle, size)
 {
 
 }
@@ -28,7 +32,9 @@ void SO::Window::Draw()
 {
 	for (int n_Control = 0; n_Control < myControls.size(); n_Control++)
 	{
-		myControls[n_Control]->Draw();
+		Control* curControl = myControls[n_Control];
+		if (curControl)
+			curControl->Draw();
 	}
 }
 

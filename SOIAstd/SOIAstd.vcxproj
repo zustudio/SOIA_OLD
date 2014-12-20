@@ -65,6 +65,7 @@
     <ClInclude Include="src\SO_Drawing\ControlElements\CCanvas.h" />
     <ClInclude Include="src\SO_Drawing\ControlElements\Control.h" />
     <ClInclude Include="src\SO_Drawing\DataStructs\cPoint.h" />
+    <ClInclude Include="src\SO_Drawing\DataStructs\fCanvasObject.h" />
     <ClInclude Include="src\SO_Drawing\DataStructs\fColor.h" />
     <ClInclude Include="src\SO_Drawing\DataStructs\fPoint.h" />
     <ClInclude Include="src\SO_Drawing\DataStructs\pxPoint.h" />
@@ -84,6 +85,7 @@
     <ClCompile Include="src\SO_Drawing\ControlElements\CCanvas.cpp" />
     <ClCompile Include="src\SO_Drawing\ControlElements\Control.cpp" />
     <ClCompile Include="src\SO_Drawing\DataStructs\cPoint.cpp" />
+    <ClCompile Include="src\SO_Drawing\DataStructs\fCanvasObject.cpp" />
     <ClCompile Include="src\SO_Drawing\DataStructs\fColor.cpp" />
     <ClCompile Include="src\SO_Drawing\DataStructs\fPoint.cpp" />
     <ClCompile Include="src\SO_Drawing\DataStructs\pxPoint.cpp" />

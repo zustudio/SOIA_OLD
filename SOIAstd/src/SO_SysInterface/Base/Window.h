@@ -32,7 +32,8 @@ namespace SO
 		//////////////////////////////////////////
 		//functions
 		//---- init ----
-		Window();
+		//Window();
+		Window(const std::string &NewTitle = std::string("unnamed window"), const pxPoint &size = pxPoint(400,400));
 		virtual ~Window();
 		//---- drawing ----
 		virtual void Draw() override;

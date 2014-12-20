@@ -8,24 +8,34 @@ using namespace std;
 
 ///////////////////////////////////////////////////
 // init
-Window_Base::Window_Base()
+//Window_Base::Window_Base()
+//{
+//	props = WindowProperties();
+//	props.title = new std::string("Title");
+//	props.backColor = new fColor(1, 1, 1);
+//	props.frontColor = new fColor(0, 0, 0);
+//	props.copyBackC = props.backColor;
+//	props.copyFrontC = props.frontColor;
+//	props.size = pxPoint(400, 400);
+//
+//}
+Window_Base::Window_Base(const std::string &NewTitle, const pxPoint &size)
 {
-	props = WindowProperties();
-	props.backColor = new fColor(0, 1, 1);
+	props.title = new std::string(NewTitle);
+	props.size = pxPoint(size);
+
+	props.backColor = new fColor(1, 1, 1);
 	props.frontColor = new fColor(0, 0, 0);
 	props.copyBackC = props.backColor;
 	props.copyFrontC = props.frontColor;
-	props.size = pxPoint(400, 400);
-
-	//TESTING
-	pxPoint px = pxPoint(20, 20);
-	fPoint f = fPoint(10, 10);
-	cPoint test = /*new*/ cPoint(f, px);
-	//delete test;
 }
 Window_Base::~Window_Base()
 {
-
+	delete props.title;
+	delete props.backColor;
+	delete props.frontColor;
+	delete props.copyBackC;
+	delete props.copyFrontC;
 }
 
 ///////////////////////////////////////////////////

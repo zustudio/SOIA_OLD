@@ -20,6 +20,9 @@ namespace SO
 			cPoint(const fPoint &newF, const pxPoint &newPx);
 			~cPoint();
 
+			float getFX();
+			float getFY();
+
 			virtual pxPoint ToPxPoint(const pxPoint &absolutSpaceSize) override;
 		};
 	}

@@ -24,6 +24,7 @@ namespace SO
 		//---- properties ----
 		struct WindowProperties
 		{
+			std::string* title;
 			Drawing::pxPoint size;
 			Drawing::fColor* backColor;
 			Drawing::fColor* frontColor;
@@ -37,7 +38,8 @@ namespace SO
 		//////////////////////////////////////////
 		// functions
 		//---- init ----
-		Window_Base();
+		//Window_Base();
+		Window_Base(const std::string &NewTitle, const pxPoint &size);
 		~Window_Base();
 		//---- main ----
 		virtual void Start() override;

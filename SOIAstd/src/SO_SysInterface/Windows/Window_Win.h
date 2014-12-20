@@ -23,7 +23,8 @@ namespace SO
 		//////////////////////////////////////////////////
 		// functions
 		//---- init ----
-		Window_Win();
+		//Window_Win();
+		Window_Win(const std::string &NewTitle, const pxPoint &size);
 		~Window_Win();
 		virtual void Start() override;
 		//---- windows ----

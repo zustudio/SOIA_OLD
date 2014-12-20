@@ -24,6 +24,15 @@ cPoint::~cPoint()
 	//delete px;
 }
 
+float cPoint::getFX()
+{
+	return X;
+}
+float cPoint::getFY()
+{
+	return Y;
+}
+
 pxPoint cPoint::ToPxPoint(const pxPoint &absolutSpaceSize)
 {
 	pxPoint absolute = fPoint::ToPxPoint(absolutSpaceSize);

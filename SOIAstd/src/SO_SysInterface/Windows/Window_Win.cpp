@@ -36,9 +36,13 @@ LRESULT CALLBACK SO::Window_Win::WindowProcedure(HWND window, unsigned int msg, 
 
 //////////////////////////////////////////////////////////////////////////////////////
 // init
-SO::Window_Win::Window_Win() : Window_Base()
+//SO::Window_Win::Window_Win() : Window_Base()
+//{
+//	
+//}
+SO::Window_Win::Window_Win(const std::string &NewTitle, const pxPoint &size) : Window_Base(NewTitle, size)
 {
-	
+
 }
 SO::Window_Win::~Window_Win()
 {
@@ -71,7 +75,7 @@ void SO::Window_Win::Start()
 		hwnd = CreateWindowEx(
 			WS_EX_CLIENTEDGE,
 			myclass,
-			"The title of my window",
+			props.title->c_str(),
 			WS_OVERLAPPEDWINDOW,
 			CW_USEDEFAULT, CW_USEDEFAULT, props.size.X, props.size.Y,
 			NULL, NULL, GetModuleHandle(0), NULL);
@@ -136,7 +140,7 @@ void SO::Window_Win::pxDrawLine(pxPoint a, pxPoint b)
 {
 	HDC hdc;
 	Win32_PrepDrawing(hdc);
-	::SetCursorPos(a.X, b.X);
+	::MoveToEx(hdc, a.X, a.Y, NULL);
 	::LineTo(hdc, b.X, b.Y);
 	Win32_EndDrawing(hdc);
 }
