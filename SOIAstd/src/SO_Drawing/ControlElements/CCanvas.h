@@ -9,6 +9,7 @@
 
 #include "Control.h"
 #include "fColor.h"
+#include <deque>
 
 namespace SO
 {

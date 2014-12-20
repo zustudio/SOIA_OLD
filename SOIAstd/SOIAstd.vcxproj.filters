@@ -120,6 +120,9 @@
     <ClInclude Include="src\SO_Drawing\DataStructs\fCanvasObject.h">
       <Filter>SO_Drawing\DataStructs</Filter>
     </ClInclude>
+    <ClInclude Include="src\SO_Drawing\ControlElements\CTextBox.h">
+      <Filter>SO_Drawing\ControlElements</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\IA_Engine\Framework\Data.cpp">
@@ -175,6 +178,9 @@
     </ClCompile>
     <ClCompile Include="src\SO_Drawing\DataStructs\fCanvasObject.cpp">
       <Filter>SO_Drawing\DataStructs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_Drawing\ControlElements\CTextBox.cpp">
+      <Filter>SO_Drawing\ControlElements</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

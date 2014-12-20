@@ -6,6 +6,7 @@
 #include "Engine.h"
 #include "Window.h"
 #include "CCanvas.h"
+#include "CTextBox.h"
 
 using namespace std;
 using namespace SO;
@@ -28,6 +29,8 @@ int main()
 	win->AddControl<CCanvas>();
 	win->AddControl<CCanvas>();
 	win->AddControl<Control>();
+	CTextBox* tBox = win->AddControl<CTextBox>();
+	tBox->Text = std::string("hallo, dies ist ein \nmultiline test\nbin sehr gespannt");
 	//win->Start();
 	thread t2 = thread(&SO::Window::Start, &*win);
 	std::cout << "win test end";

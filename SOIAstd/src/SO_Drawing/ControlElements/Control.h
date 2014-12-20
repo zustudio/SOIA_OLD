@@ -15,6 +15,7 @@ namespace SO
 	{
 		class cPoint;
 		class fPoint;
+		class fColor;
 
 		class Control
 		{
@@ -26,6 +27,9 @@ namespace SO
 			//---- properties ----
 			cPoint* Location;
 			cPoint* Size;
+
+			fColor* BorderColor;
+
 			/////////////////////////////////////////////////////
 			// functions
 			//---- init ----
@@ -34,7 +38,7 @@ namespace SO
 			//---- visual ----
 			void SetTrans(const fPoint &NewLoc, const fPoint &NewSize);
 			//---- drawing ----
-			virtual void Draw() {}
+			virtual void Draw();
 		};
 	}
 }

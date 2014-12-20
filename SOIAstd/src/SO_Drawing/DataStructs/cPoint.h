@@ -13,17 +13,28 @@ namespace SO
 		class cPoint : public fPoint
 		{
 		public:
+			///////////////////////////////////////////////////////////////////////////////
+			// data
 			pxPoint* px;
 
-			//cPoint();
+			///////////////////////////////////////////////////////////////////////////////
+			// functions
+			//---- init ----
 			cPoint(float fX, float fY, int pxX = 0, int pxY= 0);
 			cPoint(const fPoint &newF = fPoint(), const pxPoint &newPx = pxPoint());
 			~cPoint();
-
+			//---- getter /setter ----
 			float getFX();
 			float getFY();
-
+			//---- conversion ----
 			virtual pxPoint ToPxPoint(pxPoint &absolutSpaceSize) override;
+			//---- math ----
+			cPoint operator+(cPoint a)
+			{
+				cPoint r = Vector2D::operator+(a);
+				*(r.px) += *(a.px);
+				return r;
+			}
 		};
 	}
 }

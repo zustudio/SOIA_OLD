@@ -21,20 +21,13 @@ using namespace SO::Drawing;
 CCanvas::CCanvas(Window_Base *newWindow, const fPoint &newLoc, const fPoint &newSize) : Control(newWindow, newLoc, newSize)
 {
 	Objects = new std::deque<fCanvasObject*>();
-	DrawRect(fPoint(0.4, 0.4), fPoint(0.2, 0.2), fColor(1, 0, 0));
-	DrawRect(fPoint(0, 0), fPoint(0.1, 0.1), fColor(0, 1, 0));
-	DrawLine(fPoint(0.5, 0.5), fPoint(0.9, 0.9), fColor(0, 0, 1));
-	DrawText(fPoint(0, 0), new std::string("Dies ist ein test"), fColor(0,0.5,1));
 }
 
 /////////////////////////////////////////////////////////////////////////////////
 // loop
 void CCanvas::Draw()
 {
-	fColor* front = new fColor(0.9, 0, 0.9);
-	fColor* back = new fColor(0.9, 0.9, 0.9);
-	myWindow->DrawRect(*Location, *Size, front, back);
-
+	Control::Draw();
 	DrawObjects();
 }
 void CCanvas::DrawObjects()

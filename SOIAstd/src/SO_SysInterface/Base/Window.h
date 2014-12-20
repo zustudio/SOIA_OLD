@@ -37,7 +37,7 @@ namespace SO
 		//---- drawing ----
 		virtual void Draw() override;
 		//---- control-functions ----
-		template <class CClass> void AddControl()
+		template <class CClass> CClass* AddControl()
 		{
 			//create new control
 			CClass* newControl = new CClass(static_cast<Window_Base*>(this));
@@ -53,6 +53,8 @@ namespace SO
 				myControls[iC]->SetTrans(cur, fPoint(1, d.Y));
 				cur += d;
 			}
+
+			return newControl;
 		}
 	};
 }
