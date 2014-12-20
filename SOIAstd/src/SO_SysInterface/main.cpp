@@ -7,6 +7,7 @@
 #include "Window.h"
 #include "CCanvas.h"
 #include "CTextBox.h"
+#include "DebugVisual.h"
 
 using namespace std;
 using namespace SO;
@@ -30,7 +31,7 @@ int main()
 	win->AddControl<CCanvas>();
 	win->AddControl<Control>();
 	CTextBox* tBox = win->AddControl<CTextBox>();
-	tBox->Text = std::string("hallo, dies ist ein \nmultiline test\nbin sehr gespannt");
+	tBox->Text = std::string("hallo, dies ist ein \nmultiline test\nbin sehr gespannt\n");
 	//win->Start();
 	thread t2 = thread(&SO::Window::Start, &*win);
 	std::cout << "win test end";
@@ -38,11 +39,15 @@ int main()
 	IA::Game* currentGame = new IA::Game();
 	IA::Engine* currentEngine = new IA::Engine(currentGame);
 
+
+	SO::UI::DebugVisual* CurDebugVis = new SO::UI::DebugVisual(currentEngine);
+	thread t3 = thread(&SO::UI::DebugVisual::Start, CurDebugVis);
+
 	thread t1 = thread(&IA::Engine::Start, &*currentEngine);
 	currentEngine->MThread.AddLoops(5);
 
 	string text = string();
-	std::getline(cin, text);
+	//std::getline(cin, text);
 
 	SOIA::ConsoleService* console = new SOIA::ConsoleService(currentEngine);
 	console->Start();
@@ -51,6 +56,7 @@ int main()
 
 	t1.join();
 	t2.join();
+	t3.join();
 	cout << "engine exited";
 
 	return 0;

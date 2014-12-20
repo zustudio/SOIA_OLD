@@ -58,6 +58,12 @@
     <Filter Include="ZABS_Math\DataStructs">
       <UniqueIdentifier>{a426412a-29ab-4302-beab-325429bcaf26}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SO_UI">
+      <UniqueIdentifier>{8b1ad79d-d31b-4aa2-a87e-d72676c4a2a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SO_UI\Information">
+      <UniqueIdentifier>{e119b606-dfa1-46a2-a35f-59bb040b173c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Definitions\stdafx.h">
@@ -123,6 +129,9 @@
     <ClInclude Include="src\SO_Drawing\ControlElements\CTextBox.h">
       <Filter>SO_Drawing\ControlElements</Filter>
     </ClInclude>
+    <ClInclude Include="src\SO_UI\Information\DebugVisual.h">
+      <Filter>SO_UI\Information</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\IA_Engine\Framework\Data.cpp">
@@ -181,6 +190,9 @@
     </ClCompile>
     <ClCompile Include="src\SO_Drawing\ControlElements\CTextBox.cpp">
       <Filter>SO_Drawing\ControlElements</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_UI\Information\DebugVisual.cpp">
+      <Filter>SO_UI\Information</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

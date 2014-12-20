@@ -40,11 +40,13 @@ void CTextBox::ProcessText()
 {
 	Texts.clear();
 
-	std::stringstream sstream = std::stringstream(Text);
-	std::string single;
-
-	while (std::getline(sstream, single, '\n'))
+	int p_Last = 0;
+	for (std::string::size_type p_Char = 0; p_Char < Text.size(); p_Char++)
 	{
-		Texts.push_back(new std::string(single));
+		if (Text[p_Char] == '\n')
+		{
+			Texts.push_back(new std::string(Text.substr(p_Last, p_Char - p_Last)));
+			p_Last = p_Char + 1;
+		}
 	}
 }

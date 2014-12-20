@@ -54,7 +54,7 @@ SO::Window_Win::~Window_Win()
 void SO::Window_Win::Start()
 {
 	std::cout << "hello world!\n";
-	const char* const myclass = "myclass";
+	const char* const myclass = props.title->c_str();
 	WNDCLASSEX wc;
 
 	wc.cbSize = sizeof(WNDCLASSEX);

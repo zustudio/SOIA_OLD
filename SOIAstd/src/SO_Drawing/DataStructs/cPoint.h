@@ -27,6 +27,7 @@ namespace SO
 			float getFX();
 			float getFY();
 			//---- conversion ----
+			cPoint(const Vector2D<float> a) {X = a.X; Y = a.Y; px = new pxPoint();}
 			virtual pxPoint ToPxPoint(pxPoint &absolutSpaceSize) override;
 			//---- math ----
 			cPoint operator+(cPoint a)

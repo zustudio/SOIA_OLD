@@ -14,6 +14,7 @@ using namespace std;
 Engine::Engine(IA::Game* NewGame)
 {
 	CurrentGame = NewGame;
+	Knowledge = new Data(1114);
 }
 Engine::~Engine()
 {
