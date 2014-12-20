@@ -56,3 +56,11 @@ namespace SO
 	SetDCPenColor(hdc, getColor(props.frontColor)); \
 }
 #define Win32_EndDrawing(hdc) ::ReleaseDC(hwnd, hdc);
+//---- color texting ----
+/* preperates the hdc for drawing a text*/
+#define Win32_PrepText(hdc) { \
+	hdc = ::GetDC(hwnd); \
+	SetTextColor(hdc, getColor(props.frontColor)); \
+	/*SetBkColor(hdc, getColor(props.backColor));*/ \
+	SetBkMode(hdc, TRANSPARENT); \
+}

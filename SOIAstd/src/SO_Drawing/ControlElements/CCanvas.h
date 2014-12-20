@@ -36,6 +36,7 @@ namespace SO
 			//---- draw ----
 			void DrawRect(const fPoint &a, const fPoint &size, const fColor &color = fColor(0, 0, 0));
 			void DrawLine(const fPoint &a, const fPoint &b, const fColor &color = fColor(0, 0, 0));
+			void DrawText(const fPoint &a, std::string *text, const fColor &color = fColor(0, 0, 0));
 			void Clear();
 			//---- calc ----
 		private:

@@ -6,12 +6,13 @@ using namespace SO::Drawing;
 
 //////////////////////////////////////////////////
 // init
-fCanvasObject::fCanvasObject(CanvasObjT NewType, const fPoint &NewP1, const fPoint &NewP2, const fColor &NewColor)
+fCanvasObject::fCanvasObject(CanvasObjT NewType, const fPoint &NewP1, const fPoint &NewP2, const fColor &NewColor, void *NewContent)
 {
 	Type = NewType;
 	P1 = new fPoint(NewP1);
 	P2 = new fPoint(NewP2);
 	Color = new fColor(NewColor);
+	Content = NewContent;
 }
 fCanvasObject::~fCanvasObject()
 {

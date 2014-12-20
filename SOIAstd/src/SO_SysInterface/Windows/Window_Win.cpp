@@ -132,7 +132,7 @@ void SO::Window_Win::SetVars()
 void SO::Window_Win::pxDrawText(pxPoint Loc, const std::string &text)
 {
 	HDC hdc;
-	Win32_PrepDrawing(hdc);
+	Win32_PrepText(hdc);
 	::TextOut(hdc, Loc.X, Loc.Y, const_cast<char *>(text.c_str()), strlen(text.c_str()));
 	Win32_EndDrawing(hdc);
 }

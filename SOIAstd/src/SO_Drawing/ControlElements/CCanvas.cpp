@@ -24,6 +24,7 @@ CCanvas::CCanvas(Window_Base *newWindow, const fPoint &newLoc, const fPoint &new
 	DrawRect(fPoint(0.4, 0.4), fPoint(0.2, 0.2), fColor(1, 0, 0));
 	DrawRect(fPoint(0, 0), fPoint(0.1, 0.1), fColor(0, 1, 0));
 	DrawLine(fPoint(0.5, 0.5), fPoint(0.9, 0.9), fColor(0, 0, 1));
+	DrawText(fPoint(0, 0), new std::string("Dies ist ein test"), fColor(0,0.5,1));
 }
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -49,6 +50,8 @@ void CCanvas::DrawObjects()
 			case CanvasObjT::Line:
 				myWindow->DrawLine(getAbsCP(*curO.P1), getAbsCP(*curO.P2), curO.Color);
 				break;
+			case CanvasObjT::Text:
+				myWindow->DrawText(getAbsCP(*curO.P1), *static_cast<std::string*>(curO.Content), curO.Color);
 		}
 	}
 }
@@ -62,6 +65,10 @@ void CCanvas::DrawRect(const fPoint &a, const fPoint &size, const fColor &color)
 void CCanvas::DrawLine(const fPoint &a, const fPoint &b, const fColor &color)
 {
 	Objects->push_back(new fCanvasObject(CanvasObjT::Line, a, b, color));
+}
+void CCanvas::DrawText(const fPoint &a, std::string *text, const fColor &color)
+{
+	Objects->push_back(new fCanvasObject(CanvasObjT::Text, a, a, color, text));
 }
 void CCanvas::Clear()
 {
