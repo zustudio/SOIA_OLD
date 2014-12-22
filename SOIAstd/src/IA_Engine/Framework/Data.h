@@ -21,19 +21,28 @@ namespace IA
 		// functions
 
 		//---- public data access ----
-		// set
+		// set & get (operators)
+		//  -content
+		Data* operator =(int NewContent)		{ Content = NewContent; return this; }
+		operator int()							{ return Content; }
+		//  -children
+		Data* operator[] (int iData)			{ return NET_getConnected(iData); }
+		Data* operator>> (Data* NewChild)		{ NET_Connect(NewChild); return this; }
+		
+		// set (functions)
 		void NET_AddSequence(std::deque<int>&);
 		void NET_Add(int);
 		void NET_Connect(Data* NewData);
 		void NET_Disconnect(Data* Data);
 		void NET_DisconnectAll();
-		// get
+		// get (functions)
 		Data* NET_getConnected(int Num);
 		int NET_getConnectedNum();
 
 		//----       init         ----
 		Data();
 		Data(int NewObject, std::string NewText = "");
+		
 	};
 
 }

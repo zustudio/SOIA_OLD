@@ -64,6 +64,15 @@
     <Filter Include="SO_UI\Information">
       <UniqueIdentifier>{e119b606-dfa1-46a2-a35f-59bb040b173c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="IA_MeaningStream">
+      <UniqueIdentifier>{db8af4a7-a31b-446c-b79a-77ca8a00f5cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IA_MeaningStream\SDL">
+      <UniqueIdentifier>{669a74c2-6ab2-4254-9fc5-450576707535}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SO_UI\Explorer">
+      <UniqueIdentifier>{500110fc-ca57-4efa-8187-ef2f2c810582}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Definitions\stdafx.h">
@@ -132,6 +141,18 @@
     <ClInclude Include="src\SO_UI\Information\DebugVisual.h">
       <Filter>SO_UI\Information</Filter>
     </ClInclude>
+    <ClInclude Include="src\IA_MeaningStream\SDL\SDL.h">
+      <Filter>IA_MeaningStream\SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IA_Engine\Applied\Data_StateState.h">
+      <Filter>IA_Engine\Applied</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IA_Engine\Applied\Engine_StatedState.h">
+      <Filter>IA_Engine\Applied</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_UI\Explorer\DataExplorer.h">
+      <Filter>SO_UI\Explorer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\IA_Engine\Framework\Data.cpp">
@@ -193,6 +214,15 @@
     </ClCompile>
     <ClCompile Include="src\SO_UI\Information\DebugVisual.cpp">
       <Filter>SO_UI\Information</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IA_Engine\Applied\Data_StatedState.cpp">
+      <Filter>IA_Engine\Applied</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IA_Engine\Applied\Engine_StatedState.cpp">
+      <Filter>IA_Engine\Applied</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_UI\Explorer\DataExplorer.cpp">
+      <Filter>SO_UI\Explorer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

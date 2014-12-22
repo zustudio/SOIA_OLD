@@ -4,6 +4,7 @@
 #include "ConsoleService.h"
 #include "Game.h"
 #include "Engine.h"
+#include "Engine_StatedState.h"
 #include "Window.h"
 #include "CCanvas.h"
 #include "CTextBox.h"
@@ -28,11 +29,7 @@ int main()
 	std::cout << "win test end";
 
 	IA::Game* currentGame = new IA::Game();
-	IA::Engine* currentEngine = new IA::Engine(currentGame);
-
-
-	/*SO::UI::DebugVisual* CurDebugVis = new SO::UI::DebugVisual(currentEngine);
-	thread t3 = thread(&SO::UI::DebugVisual::Start, CurDebugVis);*/
+	IA::Engine_StatedState* currentEngine = new IA::Engine_StatedState(currentGame);
 
 	thread t1 = thread(&IA::Engine::Start, &*currentEngine);
 	currentEngine->MThread.AddLoops(5);
