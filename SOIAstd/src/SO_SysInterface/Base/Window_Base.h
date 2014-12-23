@@ -51,6 +51,7 @@ namespace SO
 		//---- drawing ----
 		virtual void DrawText(cPoint Loc, const std::string &text, fColor *frontColor = nullptr, fColor *backColor = nullptr);
 		virtual void DrawLine(cPoint a, cPoint b, fColor *frontColor = nullptr, fColor *backColor = nullptr);
+		virtual void DrawArrow(cPoint a, cPoint b, fColor *frontColor = nullptr, fColor *backColor = nullptr);
 		virtual void DrawRect(cPoint a, cPoint b, fColor *frontColor = nullptr, fColor *backColor = nullptr);
 
 		virtual void pxDrawText(pxPoint Loc, const std::string &text);

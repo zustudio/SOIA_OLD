@@ -19,6 +19,7 @@ DebugVisual::DebugVisual(IA::Engine* NewEngine) : Window(std::string("DebugVisua
 	TextMain->Text = "nothing\nand less: ";
 	TextMain->Text += std::to_string((int)*CurrentEngine->Knowledge) + "\n";
 	TextMain->Text += std::to_string((int)*(*CurrentEngine->Knowledge)[0]) + '\n';
+	TextMain->Text += *CurrentEngine->Knowledge->Text + '\n';
 }
 
 void DebugVisual::Start()

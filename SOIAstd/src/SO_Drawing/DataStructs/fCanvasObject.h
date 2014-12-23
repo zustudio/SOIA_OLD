@@ -11,6 +11,7 @@ namespace SO
 		{
 			Null,
 			Line,
+			Arrow,
 			Rectangle,
 			Text
 		};

@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include <cmath>
+
 namespace ZABS
 {
 	namespace Math
@@ -38,6 +40,10 @@ namespace ZABS
 				Y += a.Y;
 				return tmp;
 			}
+			Vector2D<T> operator -(Vector2D<T> a)
+			{
+				return Vector2D<T>(X - a.X, Y - a.Y);
+			}
 			Vector2D<T> operator *(Vector2D<T> a)
 			{
 				return Vector2D<T>(a.X *X, a.Y * Y);
@@ -51,9 +57,31 @@ namespace ZABS
 			}
 
 			//---- scalar operation ----
-			Vector2D<T> operator *(int n)
+			Vector2D<T> operator *(T n)
 			{
 				return Vector2D<T>(X * n, Y * n);
+			}
+
+			///////////////////////////////////////////////////////////
+			// vector math
+			Vector2D<T> Normalized()
+			{
+				Vector2D<T> temp = *this;
+				return Vector2D<T>(temp * (1/Length()));
+			}
+			T Length()
+			{
+				T back;
+				back = std::sqrt(std::pow(X, 2) + std::pow(Y, 2));
+				return back;
+			}
+			Vector2D<T> RotateZ(float angle)
+			{
+				Vector2D<T> temp = *this;
+				double length = Length();
+				double previousAngleToX = std::asin((temp*(1 / length)).Y);
+				previousAngleToX = X >= 0 ? previousAngleToX : 3.14159 - previousAngleToX;
+				return Vector2D<T>(std::cos(previousAngleToX + angle), std::sin(previousAngleToX + angle)) * length;
 			}
 		};
 	}

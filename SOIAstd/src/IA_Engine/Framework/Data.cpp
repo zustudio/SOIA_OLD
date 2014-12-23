@@ -62,11 +62,7 @@ Data* Data::NET_getConnected(int Num)
 
 ///////////////////////////////////////////////
 // init
-Data::Data()
-{
-	Content = 0;
-}
-Data::Data(int NewObject, std::string NewText)
+Data::Data(int NewObject, const std::string &NewText)
 {
 	Content = NewObject;
 	if (NewText != "")

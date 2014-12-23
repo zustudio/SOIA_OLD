@@ -7,6 +7,7 @@
 
 #include "stdafx.h"
 #include "DebugVisual.h"
+#include "DataExplorer.h"
 #include "Engine.h"
 #include "ConsoleService.h"
 
@@ -67,14 +68,12 @@ void ConsoleService::Start()
 			{
 				DebugVisual *visual = new DebugVisual(CurrentEngine);
 				AddWindow<DebugVisual>(visual);
-			}/*
+			}
 			else if (arg == "dataexplorer")
 			{
-				DataExplorer^ data = gcnew DataExplorer(CurrentEngine);
-				Thread^ dataThread = gcnew Thread(gcnew ThreadStart(data, &DataExplorer::Start));
-				dataThread->Start();
-				CurrentDataExplorers->Add(data);
-			}*/
+				DataExplorer* data = new DataExplorer(CurrentEngine);
+				AddWindow<DataExplorer>(data);
+			}
 			else if (arg == "help" || arg == "?")
 			{
 				cout << ("");

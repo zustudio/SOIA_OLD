@@ -32,16 +32,15 @@ namespace IA
 		// set (functions)
 		void NET_AddSequence(std::deque<int>&);
 		void NET_Add(int);
-		void NET_Connect(Data* NewData);
+		virtual void NET_Connect(Data* NewData);
 		void NET_Disconnect(Data* Data);
 		void NET_DisconnectAll();
 		// get (functions)
-		Data* NET_getConnected(int Num);
-		int NET_getConnectedNum();
+		virtual Data* NET_getConnected(int Num);
+		virtual int NET_getConnectedNum();
 
 		//----       init         ----
-		Data();
-		Data(int NewObject, std::string NewText = "");
+		Data(int NewObject = 0, const std::string &NewText = "");
 		
 	};
 

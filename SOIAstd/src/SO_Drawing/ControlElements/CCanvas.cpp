@@ -43,6 +43,9 @@ void CCanvas::DrawObjects()
 			case CanvasObjT::Line:
 				myWindow->DrawLine(getAbsCP(*curO.P1), getAbsCP(*curO.P2), curO.Color);
 				break;
+			case CanvasObjT::Arrow:
+				myWindow->DrawArrow(getAbsCP(*curO.P1), getAbsCP(*curO.P2), curO.Color);
+				break;
 			case CanvasObjT::Text:
 				myWindow->DrawText(getAbsCP(*curO.P1), *static_cast<std::string*>(curO.Content), curO.Color);
 		}
@@ -59,7 +62,11 @@ void CCanvas::DrawLine(const fPoint &a, const fPoint &b, const fColor &color)
 {
 	Objects->push_back(new fCanvasObject(CanvasObjT::Line, a, b, color));
 }
-void CCanvas::DrawText(const fPoint &a, std::string *text, const fColor &color)
+void CCanvas::DrawArrow(const fPoint &a, const fPoint &b, const fColor &color)
+{
+	Objects->push_back(new fCanvasObject(CanvasObjT::Arrow, a, b, color));
+}
+void CCanvas::CDrawText(const fPoint &a, std::string *text, const fColor &color)
 {
 	Objects->push_back(new fCanvasObject(CanvasObjT::Text, a, a, color, text));
 }

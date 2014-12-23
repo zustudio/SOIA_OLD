@@ -10,6 +10,7 @@
 ///////////////////////////////////////////////////////////
 
 #include "Data.h"
+#include "Data_StatedState.h"
 #include "Definitions.h"
 
 
@@ -31,7 +32,7 @@
 //----  symbol  ----
 #define symbol		tempSDL_pData0 = new DATA(dCAT_CONTENT);
 
-#define newsymbol	category \
+#define newsymbol	symbol \
 					DATA* /*>>NameOfSymbol<<*/
 
 #define endsymbol	;
@@ -53,4 +54,7 @@
 					*tempSDL_pData0 = /*>>NewContent<<*/
 
 #define isdefault	is dCAT_CONTENT;
+
+//---- properties ----
+#define name(Name)	; tempSDL_pData0->Text = new std::string(Name)
 

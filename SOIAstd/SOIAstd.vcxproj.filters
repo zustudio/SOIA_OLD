@@ -73,6 +73,9 @@
     <Filter Include="SO_UI\Explorer">
       <UniqueIdentifier>{500110fc-ca57-4efa-8187-ef2f2c810582}</UniqueIdentifier>
     </Filter>
+    <Filter Include="IA_MeaningStream\ExtendedData">
+      <UniqueIdentifier>{24d08b07-654a-420b-bb7c-5538c27a10f3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Definitions\stdafx.h">
@@ -144,13 +147,19 @@
     <ClInclude Include="src\IA_MeaningStream\SDL\SDL.h">
       <Filter>IA_MeaningStream\SDL</Filter>
     </ClInclude>
-    <ClInclude Include="src\IA_Engine\Applied\Data_StateState.h">
-      <Filter>IA_Engine\Applied</Filter>
-    </ClInclude>
     <ClInclude Include="src\IA_Engine\Applied\Engine_StatedState.h">
       <Filter>IA_Engine\Applied</Filter>
     </ClInclude>
     <ClInclude Include="src\SO_UI\Explorer\DataExplorer.h">
+      <Filter>SO_UI\Explorer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IA_MeaningStream\ExtendedData\ExData.h">
+      <Filter>IA_MeaningStream\ExtendedData</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IA_Engine\Applied\Data_StatedState.h">
+      <Filter>IA_Engine\Applied</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_UI\Explorer\DEGraph.h">
       <Filter>SO_UI\Explorer</Filter>
     </ClInclude>
   </ItemGroup>
@@ -222,6 +231,12 @@
       <Filter>IA_Engine\Applied</Filter>
     </ClCompile>
     <ClCompile Include="src\SO_UI\Explorer\DataExplorer.cpp">
+      <Filter>SO_UI\Explorer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IA_MeaningStream\ExtendedData\ExData.cpp">
+      <Filter>IA_MeaningStream\ExtendedData</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_UI\Explorer\DEGraph.cpp">
       <Filter>SO_UI\Explorer</Filter>
     </ClCompile>
   </ItemGroup>

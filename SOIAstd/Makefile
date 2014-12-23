@@ -13,16 +13,15 @@ else
 	@echo -SOIAstd: link
 endif
 
-$(BINDIR)%.obj: %.cpp
+$(BINDIR)%.obj: %.cpp %.h
 ifeq ($(IDE),vs13)
-	@cl $(CLFLAGS) -c $^
+	@cl $(CLFLAGS) -c $<
 	@mv $(subst $(BINDIR),,$@) $(BINDIR)
 else
-	@$(CC) $(INCLUDES) $(CFLAGS) -c -o $@ $^
+	@$(CC) $(INCLUDES) $(CFLAGS) -c -o $@ $<
 	@echo -SOIAstd: $@
 endif
 
-%.cpp: %.h
 
 rebuild:
 	make clean

@@ -1,6 +1,11 @@
 // c Maxim Urschumzew
 
 //////////////////////////////////////////////////////////////////////////////////
+// ai settings
+/*	initial lenght of data link */
+#define cIA_LinkContent 8
+
+//////////////////////////////////////////////////////////////////////////////////
 // versioning
 
 /*  version of engine to be compiled
@@ -16,7 +21,7 @@
 	#define cIA_Engine			Engine
 #elif cIA_EngineVersion == 1
 	#define cIA_DataVersion		1
-	#define cIA_Data			Data
+	#define cIA_Data			Data_StatedState
 	#define cIA_Engine			Engine_StatedState
 #endif
 
@@ -27,7 +32,13 @@
 	1 - only basic
 	2 - detailed information
 */
-#define cSO_DebugDE 2
+#define cSO_DebugDE 1
+
+/*  debug info for Data
+	0 - none
+	1 - all
+*/
+#define cSO_DebugData 1
 
 //////////////////////////////////////////////////////////////////////////////////
 // os dependencies
