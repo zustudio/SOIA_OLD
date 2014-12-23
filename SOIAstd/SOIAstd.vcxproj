@@ -37,36 +37,84 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <NMakeBuildCommandLine>make IDE=vs13</NMakeBuildCommandLine>
-    <NMakeOutput>SOIA.exe</NMakeOutput>
+    <NMakeOutput>Debug/SOIA.exe</NMakeOutput>
     <NMakeCleanCommandLine>make clean</NMakeCleanCommandLine>
     <NMakeReBuildCommandLine>make rebuild IDE=vs13</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);src/Definitions/;src/Service/Console/</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);src/Definitions/;src/SO_UI/Information/;src/SO_UI/Explorer;src/SO_Service/Console/;src/SO_SysInterface/Base;src/SO_SysInterface/Windows;src/SO_Drawing/DataStructs;src/SO_Drawing/ControlElements;src/IA_Engine/Framework;src/IA_Engine/Applied/;src/IA_Game/Framework;src/IA_MeaningStream/SDL/;src/IA_MeaningStream/ExtendedData/;src/ZABS_Math/DataStructs</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <NMakeBuildCommandLine>make IDE=vs13</NMakeBuildCommandLine>
-    <NMakeOutput>SOIA.exe</NMakeOutput>
+    <NMakeOutput>Debug/SOIA.exe</NMakeOutput>
     <NMakeCleanCommandLine>make clean</NMakeCleanCommandLine>
     <NMakeReBuildCommandLine>make rebuild IDE=vs13</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);src/Definitions/;src/Service/Console/</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);src/Definitions/;src/SO_UI/Information/;src/SO_UI/Explorer;src/SO_Service/Console/;src/SO_SysInterface/Base;src/SO_SysInterface/Windows;src/SO_Drawing/DataStructs;src/SO_Drawing/ControlElements;src/IA_Engine/Framework;src/IA_Engine/Applied/;src/IA_Game/Framework;src/IA_MeaningStream/SDL/;src/IA_MeaningStream/ExtendedData/;src/ZABS_Math/DataStructs</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="Makefile" />
-    <Text Include="make.config">
-      <SubType>Designer</SubType>
-    </Text>
-    <Text Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Definitions\Definitions.h" />
     <ClInclude Include="src\Definitions\stdafx.h" />
-    <ClInclude Include="src\Service\Console\ConsoleService.h" />
+    <ClInclude Include="src\IA_Engine\Applied\Data_StatedState.h" />
+    <ClInclude Include="src\IA_Engine\Applied\Engine_StatedState.h" />
+    <ClInclude Include="src\IA_Engine\Framework\Data.h" />
+    <ClInclude Include="src\IA_Engine\Framework\Engine.h" />
+    <ClInclude Include="src\IA_Game\Framework\Game.h" />
+    <ClInclude Include="src\IA_MeaningStream\ExtendedData\ExData.h" />
+    <ClInclude Include="src\IA_MeaningStream\SDL\SDL.h" />
+    <ClInclude Include="src\SO_Drawing\ControlElements\CCanvas.h" />
+    <ClInclude Include="src\SO_Drawing\ControlElements\Control.h" />
+    <ClInclude Include="src\SO_Drawing\ControlElements\CTextBox.h" />
+    <ClInclude Include="src\SO_Drawing\DataStructs\cPoint.h" />
+    <ClInclude Include="src\SO_Drawing\DataStructs\fCanvasObject.h" />
+    <ClInclude Include="src\SO_Drawing\DataStructs\fColor.h" />
+    <ClInclude Include="src\SO_Drawing\DataStructs\fPoint.h" />
+    <ClInclude Include="src\SO_Drawing\DataStructs\pxPoint.h" />
+    <ClInclude Include="src\SO_Service\Console\ConsoleService.h" />
+    <ClInclude Include="src\SO_SysInterface\Base\Thread.h" />
+    <ClInclude Include="src\SO_SysInterface\Base\Window.h" />
+    <ClInclude Include="src\SO_SysInterface\Base\Window_Base.h" />
+    <ClInclude Include="src\SO_SysInterface\main.h" />
+    <ClInclude Include="src\SO_SysInterface\Ubuntu\Window_Ubu.h" />
+    <ClInclude Include="src\SO_SysInterface\Windows\Window_Win.h" />
+    <ClInclude Include="src\SO_UI\Explorer\DataExplorer.h" />
+    <ClInclude Include="src\SO_UI\Explorer\DEGraph.h" />
+    <ClInclude Include="src\SO_UI\Information\DebugVisual.h" />
+    <ClInclude Include="src\ZABS_Math\DataStructs\Vector2D.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Service\Console\ConsoleService.cpp" />
-    <ClCompile Include="src\SysInterface\main.cpp" />
+    <ClCompile Include="src\IA_Engine\Applied\Data_StatedState.cpp" />
+    <ClCompile Include="src\IA_Engine\Applied\Engine_StatedState.cpp" />
+    <ClCompile Include="src\IA_Engine\Framework\Data.cpp" />
+    <ClCompile Include="src\IA_Engine\Framework\Engine.cpp" />
+    <ClCompile Include="src\IA_Game\Framework\Game.cpp" />
+    <ClCompile Include="src\IA_MeaningStream\ExtendedData\ExData.cpp" />
+    <ClCompile Include="src\SO_Drawing\ControlElements\CCanvas.cpp" />
+    <ClCompile Include="src\SO_Drawing\ControlElements\Control.cpp" />
+    <ClCompile Include="src\SO_Drawing\ControlElements\CTextBox.cpp" />
+    <ClCompile Include="src\SO_Drawing\DataStructs\cPoint.cpp" />
+    <ClCompile Include="src\SO_Drawing\DataStructs\fCanvasObject.cpp" />
+    <ClCompile Include="src\SO_Drawing\DataStructs\fColor.cpp" />
+    <ClCompile Include="src\SO_Drawing\DataStructs\fPoint.cpp" />
+    <ClCompile Include="src\SO_Drawing\DataStructs\pxPoint.cpp" />
+    <ClCompile Include="src\SO_Service\Console\ConsoleService.cpp" />
+    <ClCompile Include="src\SO_SysInterface\Base\Thread.cpp" />
+    <ClCompile Include="src\SO_SysInterface\Base\Window.cpp" />
+    <ClCompile Include="src\SO_SysInterface\Base\Window_Base.cpp" />
+    <ClCompile Include="src\SO_SysInterface\main.cpp" />
+    <ClCompile Include="src\SO_SysInterface\Ubuntu\Window_Ubu.cpp" />
+    <ClCompile Include="src\SO_SysInterface\Windows\Window_Win.cpp" />
+    <ClCompile Include="src\SO_UI\Explorer\DataExplorer.cpp" />
+    <ClCompile Include="src\SO_UI\Explorer\DEGraph.cpp" />
+    <ClCompile Include="src\SO_UI\Information\DebugVisual.cpp" />
+    <ClCompile Include="src\ZABS_Math\DataStructs\Vector2D.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="make.cfg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

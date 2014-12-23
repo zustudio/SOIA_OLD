@@ -1,38 +1,246 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Text Include="readme.txt" />
     <Text Include="Makefile" />
-    <Text Include="make.config" />
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="SysInterface">
-      <UniqueIdentifier>{46552e71-f1fd-44f9-abaa-1c8c6715a702}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Definitions">
       <UniqueIdentifier>{f869d965-44c5-43f4-a782-0e503e7cd01c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Service">
+    <Filter Include="IA_Engine">
+      <UniqueIdentifier>{f88730ff-ff2e-4d2b-a054-e50a6aa6c175}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SO_Service">
       <UniqueIdentifier>{e519d717-66b1-42cf-af92-4e2be79eab17}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Service\Console">
+    <Filter Include="SO_Service\Console">
       <UniqueIdentifier>{45420253-abf0-4673-84ab-e94a463b473c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SO_SysInterface">
+      <UniqueIdentifier>{46552e71-f1fd-44f9-abaa-1c8c6715a702}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IA_Game">
+      <UniqueIdentifier>{900edc59-187e-4e27-9ccb-052119e6c857}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IA_Engine\Framework">
+      <UniqueIdentifier>{01ffa7df-1ad2-4397-a14f-7a2ca4f3ed27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IA_Engine\Applied">
+      <UniqueIdentifier>{0ed0f018-86f4-4058-92b5-9702ff5f0428}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IA_Game\Framework">
+      <UniqueIdentifier>{d1a4acaf-c200-45f5-9e24-741f2f45be0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IA_Game\Applied">
+      <UniqueIdentifier>{61dcbf89-6b4c-4853-9881-f1a6771f59e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SO_SysInterface\Base">
+      <UniqueIdentifier>{0e24a3d0-3173-4aca-a100-90d8fe518bf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SO_SysInterface\Windows">
+      <UniqueIdentifier>{d326b577-16c0-4d80-adc7-a83cf20c2f6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SO_SysInterface\Ubuntu">
+      <UniqueIdentifier>{25b87c7e-1c8c-4c30-b07b-b67f95dda534}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SO_Drawing">
+      <UniqueIdentifier>{cbe67a6a-158f-461e-8746-8849608ae239}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SO_Drawing\DataStructs">
+      <UniqueIdentifier>{3b91202b-4fce-4ad8-a310-70f3a4030c11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SO_Drawing\ControlElements">
+      <UniqueIdentifier>{de7a986c-d5ed-4e55-ad77-afd4439b3e85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZABS_Math">
+      <UniqueIdentifier>{327b3e7d-3975-4279-a537-1ecd2f150df7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZABS_Math\DataStructs">
+      <UniqueIdentifier>{a426412a-29ab-4302-beab-325429bcaf26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SO_UI">
+      <UniqueIdentifier>{8b1ad79d-d31b-4aa2-a87e-d72676c4a2a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SO_UI\Information">
+      <UniqueIdentifier>{e119b606-dfa1-46a2-a35f-59bb040b173c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IA_MeaningStream">
+      <UniqueIdentifier>{db8af4a7-a31b-446c-b79a-77ca8a00f5cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IA_MeaningStream\SDL">
+      <UniqueIdentifier>{669a74c2-6ab2-4254-9fc5-450576707535}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SO_UI\Explorer">
+      <UniqueIdentifier>{500110fc-ca57-4efa-8187-ef2f2c810582}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IA_MeaningStream\ExtendedData">
+      <UniqueIdentifier>{24d08b07-654a-420b-bb7c-5538c27a10f3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Definitions\stdafx.h">
       <Filter>Definitions</Filter>
     </ClInclude>
-    <ClInclude Include="src\Service\Console\ConsoleService.h">
-      <Filter>Service\Console</Filter>
+    <ClInclude Include="src\IA_Engine\Framework\Data.h">
+      <Filter>IA_Engine\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IA_Engine\Framework\Engine.h">
+      <Filter>IA_Engine\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IA_Game\Framework\Game.h">
+      <Filter>IA_Game\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_Service\Console\ConsoleService.h">
+      <Filter>SO_Service\Console</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_SysInterface\Base\Thread.h">
+      <Filter>SO_SysInterface\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_SysInterface\Windows\Window_Win.h">
+      <Filter>SO_SysInterface\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_SysInterface\Base\Window_Base.h">
+      <Filter>SO_SysInterface\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Definitions\Definitions.h">
+      <Filter>Definitions</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_SysInterface\main.h">
+      <Filter>SO_SysInterface</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_SysInterface\Ubuntu\Window_Ubu.h">
+      <Filter>SO_SysInterface\Ubuntu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ZABS_Math\DataStructs\Vector2D.h">
+      <Filter>ZABS_Math\DataStructs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_Drawing\DataStructs\fPoint.h">
+      <Filter>SO_Drawing\DataStructs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_Drawing\DataStructs\pxPoint.h">
+      <Filter>SO_Drawing\DataStructs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_Drawing\ControlElements\CCanvas.h">
+      <Filter>SO_Drawing\ControlElements</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_Drawing\ControlElements\Control.h">
+      <Filter>SO_Drawing\ControlElements</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_SysInterface\Base\Window.h">
+      <Filter>SO_SysInterface\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_Drawing\DataStructs\fColor.h">
+      <Filter>SO_Drawing\DataStructs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_Drawing\DataStructs\cPoint.h">
+      <Filter>SO_Drawing\DataStructs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_Drawing\DataStructs\fCanvasObject.h">
+      <Filter>SO_Drawing\DataStructs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_Drawing\ControlElements\CTextBox.h">
+      <Filter>SO_Drawing\ControlElements</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_UI\Information\DebugVisual.h">
+      <Filter>SO_UI\Information</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IA_MeaningStream\SDL\SDL.h">
+      <Filter>IA_MeaningStream\SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IA_Engine\Applied\Engine_StatedState.h">
+      <Filter>IA_Engine\Applied</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_UI\Explorer\DataExplorer.h">
+      <Filter>SO_UI\Explorer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IA_MeaningStream\ExtendedData\ExData.h">
+      <Filter>IA_MeaningStream\ExtendedData</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IA_Engine\Applied\Data_StatedState.h">
+      <Filter>IA_Engine\Applied</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_UI\Explorer\DEGraph.h">
+      <Filter>SO_UI\Explorer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\SysInterface\main.cpp">
-      <Filter>SysInterface</Filter>
+    <ClCompile Include="src\IA_Engine\Framework\Data.cpp">
+      <Filter>IA_Engine\Framework</Filter>
     </ClCompile>
-    <ClCompile Include="src\Service\Console\ConsoleService.cpp">
-      <Filter>Service\Console</Filter>
+    <ClCompile Include="src\IA_Engine\Framework\Engine.cpp">
+      <Filter>IA_Engine\Framework</Filter>
     </ClCompile>
+    <ClCompile Include="src\IA_Game\Framework\Game.cpp">
+      <Filter>IA_Game\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_SysInterface\main.cpp">
+      <Filter>SO_SysInterface</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_Service\Console\ConsoleService.cpp">
+      <Filter>SO_Service\Console</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_SysInterface\Base\Thread.cpp">
+      <Filter>SO_SysInterface\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_SysInterface\Windows\Window_Win.cpp">
+      <Filter>SO_SysInterface\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_SysInterface\Base\Window_Base.cpp">
+      <Filter>SO_SysInterface\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_SysInterface\Ubuntu\Window_Ubu.cpp">
+      <Filter>SO_SysInterface\Ubuntu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ZABS_Math\DataStructs\Vector2D.cpp">
+      <Filter>ZABS_Math\DataStructs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_Drawing\DataStructs\fPoint.cpp">
+      <Filter>SO_Drawing\DataStructs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_Drawing\DataStructs\pxPoint.cpp">
+      <Filter>SO_Drawing\DataStructs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_Drawing\ControlElements\CCanvas.cpp">
+      <Filter>SO_Drawing\ControlElements</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_Drawing\ControlElements\Control.cpp">
+      <Filter>SO_Drawing\ControlElements</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_SysInterface\Base\Window.cpp">
+      <Filter>SO_SysInterface\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_Drawing\DataStructs\fColor.cpp">
+      <Filter>SO_Drawing\DataStructs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_Drawing\DataStructs\cPoint.cpp">
+      <Filter>SO_Drawing\DataStructs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_Drawing\DataStructs\fCanvasObject.cpp">
+      <Filter>SO_Drawing\DataStructs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_Drawing\ControlElements\CTextBox.cpp">
+      <Filter>SO_Drawing\ControlElements</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_UI\Information\DebugVisual.cpp">
+      <Filter>SO_UI\Information</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IA_Engine\Applied\Data_StatedState.cpp">
+      <Filter>IA_Engine\Applied</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IA_Engine\Applied\Engine_StatedState.cpp">
+      <Filter>IA_Engine\Applied</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_UI\Explorer\DataExplorer.cpp">
+      <Filter>SO_UI\Explorer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IA_MeaningStream\ExtendedData\ExData.cpp">
+      <Filter>IA_MeaningStream\ExtendedData</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_UI\Explorer\DEGraph.cpp">
+      <Filter>SO_UI\Explorer</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="make.cfg" />
   </ItemGroup>
 </Project>

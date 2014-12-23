@@ -2,25 +2,26 @@
 # global makefile for SOIA
 ########################################################################
 
-include make.config
+include make.cfg
 
 
 all: $(OBJS)
 ifeq ($(IDE),vs13)
-	@cl -Zi -o $(EXEC) $^
+	cl $(CLFLAGS) -Fe$(EXEC) $^ user32.lib gdi32.lib
 else
-	@$(CC) $(CFLAGS) -o $(EXEC) $^
+	@$(CC) $(CFLAGS) -o $(EXEC) $^ $(LIBS)
 	@echo -SOIAstd: link
 endif
 
-$(BINDIR)%.obj: $(MAKES)%.cpp
+$(BINDIR)%.obj: %.cpp %.h
 ifeq ($(IDE),vs13)
-	@cl -Zi -c $^
+	@cl $(CLFLAGS) -c $<
 	@mv $(subst $(BINDIR),,$@) $(BINDIR)
 else
-	@$(CC) $(INCLUDES) $(CFLAGS) -c -o $@ $^
+	@$(CC) $(INCLUDES) $(CFLAGS) -c -o $@ $<
 	@echo -SOIAstd: $@
 endif
+
 
 rebuild:
 	make clean
