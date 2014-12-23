@@ -5,9 +5,14 @@
 namespace IA
 {
 	class Game;
+	class Data_StatedState;
 	class Engine_StatedState : public Engine
 	{
 	public:
+		///////////////////////////////////////
+		// vars
+		Data_StatedState* Current;
+
 		///////////////////////////////////////
 		// functions
 		//----  init   ----

@@ -29,7 +29,7 @@ Engine_StatedState::Engine_StatedState(IA::Game* NewGame) : Engine(NewGame)
 			name("Visible")
 		endsub
 
-		newsub Current is 114
+		sub Current is 114
 			name("Current")
 		endsub
 	endsymbol
@@ -43,5 +43,12 @@ Engine_StatedState::~Engine_StatedState()
 
 void Engine_StatedState::Tick()
 {
+	SDL_start
 
+	newsymbol added is 1
+		newsub added2 is 2
+		endsub
+	endsymbol
+
+	*Current >> added;
 }

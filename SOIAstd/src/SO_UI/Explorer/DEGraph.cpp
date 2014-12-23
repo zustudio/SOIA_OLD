@@ -268,7 +268,13 @@ void DEGraph::DrawObjects()
 		ExData* current = AllDrawnObjects[p_Obj];
 		fPoint Loc = fPoint(current->Location.X - 0.5* current->Extend.X, current->Location.Y);
 		DrawRect(Loc, current->Extend);
-		CDrawText(current->Location, current->Text);
+		if (current->Text)
+			CDrawText(current->Location, current->Text);
+		else
+		{
+			std::string *text = new std::string(std::to_string(current->Data::Content));
+			CDrawText(current->Location, text);
+		}
 	}
 }
 /** draws the connections between the objects*/

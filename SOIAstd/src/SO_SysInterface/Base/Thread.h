@@ -1,5 +1,11 @@
 #pragma once
 
+namespace std
+{
+	class mutex;
+	class condition_variable;
+}
+
 namespace SO
 {
 	class Thread
@@ -9,10 +15,17 @@ namespace SO
 	public:
 		struct threadConf
 		{
+			//std threading
+			std::mutex* m;
+			std::condition_variable* cv;
+
+			//internal threading
+			//- init -
+			threadConf();
 			bool bEnabled = true;
 			int Loops = 0;
-			void Disable() {	bEnabled = false;}
-			void AddLoops(int n) { Loops += n;}
+			void Disable();
+			void AddLoops(int n);
 		};
 	public:
 		Thread::threadConf MThread;

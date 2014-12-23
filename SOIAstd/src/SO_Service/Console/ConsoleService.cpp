@@ -28,9 +28,13 @@ void ConsoleService::Start()
 {
 	bool bLoop = true;
 	std::string input;
+
 	while (bLoop)
 	{
+		std::cout << std::endl << "[User]: ";
+
 		getline(cin, input);
+
 		input.push_back(' ');
 
 		std::vector<std::string> args;
@@ -77,11 +81,11 @@ void ConsoleService::Start()
 			else if (arg == "help" || arg == "?")
 			{
 				cout << ("");
-				cout << "Currently available commands are:\n    add i\n    debugvisual\n    dataexplorer";
+				cout << "=> [Console]: Currently available commands are:\n    add i\n    debugvisual\n    dataexplorer\n";
 			}
 			else
 			{
-				cout << "Could not parse command\n";
+				cout << "=> [Console]: Could not parse command (" + arg + ")\n";
 			}
 		}
 	}
