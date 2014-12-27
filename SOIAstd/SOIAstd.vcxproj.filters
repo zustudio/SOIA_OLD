@@ -162,6 +162,9 @@
     <ClInclude Include="src\SO_UI\Explorer\DEGraph.h">
       <Filter>SO_UI\Explorer</Filter>
     </ClInclude>
+    <ClInclude Include="src\IA_Game\Applied\Game_StatedState.h">
+      <Filter>IA_Game\Applied</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\IA_Engine\Framework\Data.cpp">
@@ -239,8 +242,12 @@
     <ClCompile Include="src\SO_UI\Explorer\DEGraph.cpp">
       <Filter>SO_UI\Explorer</Filter>
     </ClCompile>
+    <ClCompile Include="src\IA_Game\Applied\Game_StatedState.cpp">
+      <Filter>IA_Game\Applied</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="make.cfg" />
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

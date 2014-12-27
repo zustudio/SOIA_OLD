@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="IA::Data" Collapsed="true">
+    <Position X="3.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABACAAYAgAAAACAAAAgBgAAAAEAABAACAAgCAAAAAg=</HashCode>
+      <FileName>src\IA_Engine\Framework\Data.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IA::Game" Collapsed="true">
+    <Position X="0.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAACAAIAAAAAAAQAAAA=</HashCode>
+      <FileName>src\IA_Game\Framework\Game.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IA::Engine" Collapsed="true">
+    <Position X="0.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAgAAAQAAAAAAAAAACAAAAAAAAAABAAAAAQAQAA=</HashCode>
+      <FileName>src\IA_Engine\Framework\Engine.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IA::Data_StatedState" Collapsed="true">
+    <Position X="3.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAQAAAAAACAAAAAAAAAAAAAAAAAAQAAACAAAAA=</HashCode>
+      <FileName>src\IA_Engine\Applied\Data_StatedState.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IA::Game_StatedState" Collapsed="true">
+    <Position X="0.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>src\IA_Game\Applied\Game_StatedState.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IA::Engine_StatedState" Collapsed="true">
+    <Position X="0.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACgAAQAAAAAAAAIAAAAAAQgQAQ=</HashCode>
+      <FileName>src\IA_Engine\Applied\Engine_StatedState.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SO::Window" Collapsed="true">
+    <Position X="9.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAoAAAAAAAAAAIQAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>src\SO_SysInterface\Base\Window.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SO::Thread" Collapsed="true">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAASAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>src\SO_SysInterface\Base\Thread.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SO::Window_Base" Collapsed="true">
+    <Position X="4" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACABAACAAAgBAAAAAAAAAQACQAAAEAEgAAAIDQIA=</HashCode>
+      <FileName>src\SO_SysInterface\Base\Window_Base.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SO::Window_Win" Collapsed="true">
+    <Position X="3" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAABAAAAAAAAABAAQCAQAAAAAgAhDQAA=</HashCode>
+      <FileName>src\SO_SysInterface\Windows\Window_Win.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SO::Window_Ubu" Collapsed="true">
+    <Position X="5.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAgACABAABCAAAAAAAMAAEREAAABAIAoAADQIA=</HashCode>
+      <FileName>src\SO_SysInterface\Ubuntu\Window_Ubu.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SO::DEGraph" Collapsed="true">
+    <Position X="7.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AYAAEAAAACBAAgQAAcCQAAAAQAAAgAAAQAAIAAAAAAA=</HashCode>
+      <FileName>src\SO_UI\Explorer\DEGraph.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="std::thread" Collapsed="true">
+    <Position X="13.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAACgAAAAEAAAAIAACQAAQIAAAAAQAgAAAAQAA=</HashCode>
+      <FileName>c:\program files (x86)\microsoft visual studio 12.0\vc\include\thread</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="std::mutex" Collapsed="true">
+    <Position X="16.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAIAA=</HashCode>
+      <FileName>c:\program files (x86)\microsoft visual studio 12.0\vc\include\mutex</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="std::condition_variable" Collapsed="true">
+    <Position X="13.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQIAQAAAAAAAgAAQAAAEAAAEAABgABABAgA=</HashCode>
+      <FileName>c:\program files (x86)\microsoft visual studio 12.0\vc\include\condition_variable</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SOIA::ConsoleService" Collapsed="true">
+    <Position X="15" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACBIAAAAAAAAAAAAAAAAAAAAABAAAEAAAIA=</HashCode>
+      <FileName>src\SO_Service\Console\ConsoleService.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SO::Drawing::Control" Collapsed="true">
+    <Position X="6.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAgAAggACAAIAAAACAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>src\SO_Drawing\ControlElements\Control.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SO::Drawing::fColor" Collapsed="true">
+    <Position X="15" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAAAABAAAAAAAAACKAEAAQA=</HashCode>
+      <FileName>src\SO_Drawing\DataStructs\fColor.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SO::Drawing::pxPoint" Collapsed="true">
+    <Position X="0.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>src\SO_Drawing\DataStructs\pxPoint.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SO::Drawing::fPoint" Collapsed="true">
+    <Position X="2.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAIAAAAAAAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>src\SO_Drawing\DataStructs\fPoint.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SO::Drawing::cPoint" Collapsed="true">
+    <Position X="2.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAgAAAAAAAAAACAAAAAAAAAAAAAAAAAEAAgEAAAQAA=</HashCode>
+      <FileName>src\SO_Drawing\DataStructs\cPoint.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SO::Drawing::fCanvasObject" Collapsed="true">
+    <Position X="13.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAgAAAAAAAAAAAQAAAACAAAAAAQAAgAAAAEA=</HashCode>
+      <FileName>src\SO_Drawing\DataStructs\fCanvasObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SO::Drawing::CCanvas" Collapsed="true">
+    <Position X="7.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAIAAAAgAAAEAAAAABQAAAAAEAAEAAAAJAAAA=</HashCode>
+      <FileName>src\SO_Drawing\ControlElements\CCanvas.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SO::Drawing::CTextBox" Collapsed="true">
+    <Position X="5.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAEAgAAAAAAAAAAAAAAAAAAAAAACAACAAA=</HashCode>
+      <FileName>src\SO_Drawing\ControlElements\CTextBox.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZABS::Math::Vector2D&lt;T&gt;" Collapsed="true">
+    <Position X="1.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIQAEAAAAAEAAAAAAAAQBAAAAAAAAAAAAgAAAAYAA=</HashCode>
+      <FileName>src\ZABS_Math\DataStructs\Vector2D.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SO::UI::DebugVisual" Collapsed="true">
+    <Position X="8.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAQCAAAAIA=</HashCode>
+      <FileName>src\SO_UI\Information\DebugVisual.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SO::UI::DataExplorer" Collapsed="true">
+    <Position X="10.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAIA=</HashCode>
+      <FileName>src\SO_UI\Explorer\DataExplorer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IA::MeaningStream::ExData" Collapsed="true">
+    <Position X="16.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAIAAAAAAAAAAAAABIEQAAAAAAAAAAAQAABAAAABAA=</HashCode>
+      <FileName>src\IA_MeaningStream\ExtendedData\ExData.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="SO::Drawing::CanvasObjT" Collapsed="true">
+    <Position X="13.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAoACAABAAA=</HashCode>
+      <FileName>src\SO_Drawing\DataStructs\fCanvasObject.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

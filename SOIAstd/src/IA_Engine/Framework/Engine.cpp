@@ -97,17 +97,7 @@ int Engine::InfluencedRand(vector<float> &Chances)
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // io
-Data* Engine::IFuncResultOfAction(Data* Output)
-{
-	Data* Result = CurrentGame->IFuncResultOfAction(Output);
 
-	cout << std::to_string(Output->Content);
-	cout << "->";
-	cout << std::to_string(Result->Content);
-	cout << "\n";
-
-	return Result;
-}
 //Data* Engine::ReadData()
 //{
 //	Monitor::Enter(Lock);

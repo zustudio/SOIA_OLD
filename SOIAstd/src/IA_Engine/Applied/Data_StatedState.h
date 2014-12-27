@@ -30,7 +30,7 @@ namespace IA
 		/////////////////////////////////////////////
 		// functions
 		//---- init ----
-		Data_StatedState(int NewObject, const std::string &NewText = "", DataType NewType = DataType::Content);
+		Data_StatedState(int NewObject = 0, const std::string &NewText = "", DataType NewType = DataType::Content);
 		//---- overrides ----
 		virtual void NET_Connect(Data* NewData) override;
 		virtual int NET_getConnectedNum() override;

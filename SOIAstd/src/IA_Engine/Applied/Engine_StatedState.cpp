@@ -1,5 +1,7 @@
+#include "stdafx.h"
 
 #include "SDL.h"
+#include "Game_StatedState.h"
 #include "Engine_StatedState.h"
 
 using namespace IA;
@@ -13,19 +15,15 @@ Engine_StatedState::Engine_StatedState(IA::Game* NewGame) : Engine(NewGame)
 	symbol Knowledge is 1475
 		name("Knowledge")
 
-		newsub test is 2001
-			name("test")
-		endsub
-
-		newsub Action is 111
+		sub Action is 111
 			name("Action")
 		endsub
 
-		newsub Result is 112
+		sub Result is 112
 			name("Result")
 		endsub
 
-		newsub Visible is 113
+		sub Visible is 113
 			name("Visible")
 		endsub
 
@@ -45,10 +43,25 @@ void Engine_StatedState::Tick()
 {
 	SDL_start
 
-	newsymbol added is 1
-		newsub added2 is 2
+	newsymbol added1 is 2
+		newsub added2 is *IFuncResultOfAction(added1)
 		endsub
 	endsymbol
 
-	*Current >> added;
+
+
+	*Current >> added1;
+}
+
+Data_StatedState* Engine_StatedState::IFuncResultOfAction(Data_StatedState* Output)
+{
+	Data_StatedState* Result = ((Game_StatedState*)CurrentGame)->IFuncResultOfAction(Output);
+
+	std::cout << "[IA]: ";
+	std::cout << std::to_string(Output->Data::Content);
+	std::cout << "->";
+	std::cout << std::to_string(Result->Data::Content);
+	std::cout << "\n";
+
+	return Result;
 }

@@ -3,6 +3,7 @@
 #include "stdafx.h"
 #include "ConsoleService.h"
 #include "Game.h"
+#include "Game_StatedState.h"
 #include "Engine.h"
 #include "Engine_StatedState.h"
 #include "Window.h"
@@ -20,7 +21,7 @@ int main()
 	std::cout << "# Artificial Intelligence Operating System #\n";
 	std::cout << "############################################\n";
 
-	IA::Game* currentGame = new IA::Game();
+	IA::Game_StatedState* currentGame = new IA::Game_StatedState();
 	IA::Engine_StatedState* currentEngine = new IA::Engine_StatedState(currentGame);
 
 	thread t1 = thread(&IA::Engine::Start, &*currentEngine);
