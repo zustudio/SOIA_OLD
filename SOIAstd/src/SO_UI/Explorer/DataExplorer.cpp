@@ -1,7 +1,6 @@
 
 #include <string>
 
-#include "Data.h"
 #include "Engine.h"
 #include "fPoint.h"
 #include "CCanvas.h"
@@ -16,7 +15,7 @@ DataExplorer::DataExplorer(IA::Engine* NewEngine) : Window(std::string("DataExpl
 	CurrentEngine = NewEngine;
 
 	//create window
-	myDEGraph = new DEGraph(CurrentEngine->Knowledge, this, fPoint(), fPoint(1, 1));
+	myDEGraph = new DEGraph(CurrentEngine->getDataStart(), this, fPoint(), fPoint(1, 1));
 	myControls.push_back(myDEGraph);
 }
 

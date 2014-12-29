@@ -1,7 +1,7 @@
 
 #include <string>
 
-#include "Data.h"
+#include "IData.h"
 #include "Engine.h"
 #include "fPoint.h"
 #include "CTextBox.h"
@@ -17,9 +17,9 @@ DebugVisual::DebugVisual(IA::Engine* NewEngine) : Window(std::string("DebugVisua
 	//draw window
 	TextMain = AddControl<CTextBox>();
 	TextMain->Text = "nothing\nand less: ";
-	TextMain->Text += std::to_string((int)*CurrentEngine->Knowledge) + "\n";
-	TextMain->Text += std::to_string((int)*(*CurrentEngine->Knowledge)[0]) + '\n';
-	TextMain->Text += *CurrentEngine->Knowledge->Text + '\n';
+	TextMain->Text += std::to_string((int)*CurrentEngine->getDataStart()) + "\n";
+	TextMain->Text += std::to_string((int)*(*CurrentEngine->getDataStart())[0]) + '\n';
+	//TextMain->Text += *CurrentEngine->Knowledge->Text + '\n';
 }
 
 void DebugVisual::Start()

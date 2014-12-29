@@ -1,17 +1,13 @@
 
-#include "Data_StatedState.h"
+
+#include "stdafx.h"
 #include "Game_StatedState.h"
 
 using namespace IA;
 
-Data_StatedState* Game_StatedState::CalculateResult(Data_StatedState* Input)
+std::vector<int>* Game_StatedState::CalculateResult(IData* Input)
 {
-	Data_StatedState* result = new Data_StatedState();
-	result->Data::Content = Input->Data::Content + 1;
+	std::vector<int>* result = new std::vector<int>();
+	result->push_back(int(*Input) + 3);
 	return result;
-}
-
-Data_StatedState* Game_StatedState::IFuncResultOfAction(Data_StatedState* Input)
-{
-	return CalculateResult(Input);
 }

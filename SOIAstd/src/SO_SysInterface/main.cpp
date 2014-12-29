@@ -1,18 +1,21 @@
 // c Maxim Urschumzew 2014
 
+#include "IA_SSt.h"
 #include "stdafx.h"
 #include "ConsoleService.h"
 #include "Game.h"
 #include "Game_StatedState.h"
 #include "Engine.h"
-#include "Engine_StatedState.h"
 #include "Window.h"
 #include "CCanvas.h"
 #include "CTextBox.h"
 #include "DebugVisual.h"
 
+#include "main.h"
+
 using namespace std;
 using namespace SO;
+
 
 int main()
 {
@@ -22,7 +25,7 @@ int main()
 	std::cout << "############################################\n";
 
 	IA::Game_StatedState* currentGame = new IA::Game_StatedState();
-	IA::Engine_StatedState* currentEngine = new IA::Engine_StatedState(currentGame);
+	IA::Engine_SSt* currentEngine = new IA::Engine_SSt(currentGame);
 
 	thread t1 = thread(&IA::Engine::Start, &*currentEngine);
 	currentEngine->MThread.AddLoops(5);

@@ -1,12 +1,21 @@
+
 #include "stdafx.h"
-#include <deque>
+
+#include "IA_SSt.h"
+
 #include "ExData.h"
 
+#include "SDL_Modules.h"
+
+using namespace IA;
+using namespace IA::Def_MTypes;
 using namespace IA::MeaningStream;
+
+extern std::vector<std::string> IA::MDLVECTOR;
 
 ////////////////////////////////////////////////////////////////
 // init
-ExData::ExData(cIA_Data* NewSource, std::deque<ExData*>* AllObjects) : Data_StatedState(*NewSource)
+ExData::ExData(IData* NewSource, std::deque<ExData*>* AllObjects)
 {
 	CurrentSource = NewSource;
 	CurrentAllObjects = AllObjects;
@@ -16,14 +25,43 @@ ExData::ExData(cIA_Data* NewSource, std::deque<ExData*>* AllObjects) : Data_Stat
 	Location = fPoint();
 }
 
-std::deque<ExData*>* ExData::getConnected(Data_StatedState::LinkType ConnectionType)
+///////////////////////////////////////////////////////////////
+// properties
+
+std::string* ExData::getText()
 {
-	std::deque<Data*>* dataList = new std::deque<Data*>();
+	if (checkM(MText))
+	{
+		std::string* realText = ((cIA_Data*)CurrentSource)->Text;
+		if (*realText != std::string(""))
+		{
+			return realText;
+		}
+	}
+	return new std::string(std::to_string(int(*CurrentSource)));
+}
+
+std::deque<ExData*>* ExData::getConnected(LinkType ConnectionType)
+{
+	std::deque<IData*>* dataList = new std::deque<IData*>();
 	std::deque<ExData*>* exDataList = new std::deque<ExData*>();
-	int n = CurrentSource->NET_getConnectedNum(ConnectionType);
+
+	int n;
+	if (checkM(MTypes))
+		n = ((cIA_Data*)CurrentSource)->getConnectedNum(ConnectionType);
+	else
+		n = CurrentSource->getConnectedNum();
+
 	for (int iD = 0; iD < n; iD++)
-	{	
-		dataList->push_back(CurrentSource->NET_getConnected(iD, ConnectionType));
+	{
+		IData* data;
+
+		if (checkM(MTypes))
+			data = ((cIA_Data*)CurrentSource)->getConnected(iD, ConnectionType);
+		else
+			data = CurrentSource->getConnected(iD);
+
+		dataList->push_back(data);
 	}
 	for (int iExD = 0; iExD < CurrentAllObjects->size(); iExD++)
 	{

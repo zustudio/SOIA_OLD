@@ -10,6 +10,7 @@
 
 #include <string>
 #include <vector>
+#include <deque>
 #include <algorithm>
 
 #include <random>
@@ -17,6 +18,6 @@
 #include <thread>
 
 //--- mine ---
-#include "Data.h"
+#include "IData.h"
 
 

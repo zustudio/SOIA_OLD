@@ -67,22 +67,22 @@
     <Filter Include="IA_MeaningStream">
       <UniqueIdentifier>{db8af4a7-a31b-446c-b79a-77ca8a00f5cb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="IA_MeaningStream\SDL">
-      <UniqueIdentifier>{669a74c2-6ab2-4254-9fc5-450576707535}</UniqueIdentifier>
-    </Filter>
     <Filter Include="SO_UI\Explorer">
       <UniqueIdentifier>{500110fc-ca57-4efa-8187-ef2f2c810582}</UniqueIdentifier>
     </Filter>
     <Filter Include="IA_MeaningStream\ExtendedData">
       <UniqueIdentifier>{24d08b07-654a-420b-bb7c-5538c27a10f3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="IA_MeaningStream\SDL">
+      <UniqueIdentifier>{669a74c2-6ab2-4254-9fc5-450576707535}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IA_Engine\Modules">
+      <UniqueIdentifier>{fcda6d60-2c70-4451-87c6-339e0520965a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Definitions\stdafx.h">
       <Filter>Definitions</Filter>
-    </ClInclude>
-    <ClInclude Include="src\IA_Engine\Framework\Data.h">
-      <Filter>IA_Engine\Framework</Filter>
     </ClInclude>
     <ClInclude Include="src\IA_Engine\Framework\Engine.h">
       <Filter>IA_Engine\Framework</Filter>
@@ -144,20 +144,11 @@
     <ClInclude Include="src\SO_UI\Information\DebugVisual.h">
       <Filter>SO_UI\Information</Filter>
     </ClInclude>
-    <ClInclude Include="src\IA_MeaningStream\SDL\SDL.h">
-      <Filter>IA_MeaningStream\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="src\IA_Engine\Applied\Engine_StatedState.h">
-      <Filter>IA_Engine\Applied</Filter>
-    </ClInclude>
     <ClInclude Include="src\SO_UI\Explorer\DataExplorer.h">
       <Filter>SO_UI\Explorer</Filter>
     </ClInclude>
     <ClInclude Include="src\IA_MeaningStream\ExtendedData\ExData.h">
       <Filter>IA_MeaningStream\ExtendedData</Filter>
-    </ClInclude>
-    <ClInclude Include="src\IA_Engine\Applied\Data_StatedState.h">
-      <Filter>IA_Engine\Applied</Filter>
     </ClInclude>
     <ClInclude Include="src\SO_UI\Explorer\DEGraph.h">
       <Filter>SO_UI\Explorer</Filter>
@@ -165,11 +156,32 @@
     <ClInclude Include="src\IA_Game\Applied\Game_StatedState.h">
       <Filter>IA_Game\Applied</Filter>
     </ClInclude>
+    <ClInclude Include="src\IA_MeaningStream\SDL\SDL.h">
+      <Filter>IA_MeaningStream\SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IA_MeaningStream\SDL\SDL_IA.h">
+      <Filter>IA_MeaningStream\SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IA_Engine\Framework\IData.h">
+      <Filter>IA_Engine\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IA_Engine\Applied\IA_SSt.h">
+      <Filter>IA_Engine\Applied</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IA_Engine\Modules\MTypes.h">
+      <Filter>IA_Engine\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IA_Engine\Modules\MText.h">
+      <Filter>IA_Engine\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IA_Engine\Modules\MNET_Base.h">
+      <Filter>IA_Engine\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IA_MeaningStream\SDL\SDL_Modules.h">
+      <Filter>IA_MeaningStream\SDL</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\IA_Engine\Framework\Data.cpp">
-      <Filter>IA_Engine\Framework</Filter>
-    </ClCompile>
     <ClCompile Include="src\IA_Engine\Framework\Engine.cpp">
       <Filter>IA_Engine\Framework</Filter>
     </ClCompile>
@@ -227,12 +239,6 @@
     <ClCompile Include="src\SO_UI\Information\DebugVisual.cpp">
       <Filter>SO_UI\Information</Filter>
     </ClCompile>
-    <ClCompile Include="src\IA_Engine\Applied\Data_StatedState.cpp">
-      <Filter>IA_Engine\Applied</Filter>
-    </ClCompile>
-    <ClCompile Include="src\IA_Engine\Applied\Engine_StatedState.cpp">
-      <Filter>IA_Engine\Applied</Filter>
-    </ClCompile>
     <ClCompile Include="src\SO_UI\Explorer\DataExplorer.cpp">
       <Filter>SO_UI\Explorer</Filter>
     </ClCompile>
@@ -245,9 +251,11 @@
     <ClCompile Include="src\IA_Game\Applied\Game_StatedState.cpp">
       <Filter>IA_Game\Applied</Filter>
     </ClCompile>
+    <ClCompile Include="src\IA_Engine\Applied\IA_SSt.cpp">
+      <Filter>IA_Engine\Applied</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="make.cfg" />
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

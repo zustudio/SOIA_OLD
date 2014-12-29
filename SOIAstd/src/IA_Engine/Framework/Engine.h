@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <iostream>
 #include "Game.h"
 #include "Thread.h"
 
@@ -10,11 +11,11 @@ namespace IA
 	class Game;
 	class Engine : public SO::Thread
 	{
-	public:
 		///////////////////////////////////////////////////////////////////
 		// variables
 		//---- data ----
-		Data* Knowledge;
+	public:
+		virtual IData* getDataStart() = 0;
 		//---- instances ----
 		IA::Game* CurrentGame;
 
@@ -30,14 +31,14 @@ namespace IA
 		virtual int InfluencedRand(std::vector<float> &Chances);
 		//virtual int InfluencedRand(array<float>* Chances);
 		//----   io    ----
-		Data* IFuncResultOfAction(Data* Output)
+		std::vector<int>* IFuncResultOfAction(IData* Output)
 		{
-			Data* Result = CurrentGame->IFuncResultOfAction(Output);
+			std::vector<int>* Result = CurrentGame->IFuncResultOfAction(Output);
 
 			std::cout << "[IA]: ";
-			std::cout << std::to_string(Output->Content);
+			std::cout << int(*Output);
 			std::cout << "->";
-			std::cout << std::to_string(Result->Content);
+			std::cout << (*Result)[0];
 			std::cout << "\n";
 
 			return Result;

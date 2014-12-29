@@ -21,7 +21,7 @@
 	#define cIA_Engine			Engine
 #elif cIA_EngineVersion == 1
 	#define cIA_DataVersion		1
-	#define cIA_Data			Data_StatedState
+	#define cIA_Data			Data_SSt
 	#define cIA_Engine			Engine_StatedState
 #endif
 

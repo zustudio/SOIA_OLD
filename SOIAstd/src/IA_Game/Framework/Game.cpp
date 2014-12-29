@@ -8,16 +8,16 @@ using namespace IA;
 
 //////////////////////////////////////////////////////////////
 // game
-Data* Game::CalculateResult(Data* Input)
+std::vector<int>* Game::CalculateResult(IData* Input)
 {
-	Data* result = new Data();
-	result->Content = Input->Content;
+	std::vector<int>* result = new std::vector<int>();
+	result->push_back(int(*Input));
 	return result;
 }
 
 //////////////////////////////////////////////////////////////
 // io
-Data* Game::IFuncResultOfAction(Data* Input)
+std::vector<int>* Game::IFuncResultOfAction(IData* Input)
 {
 	return CalculateResult(Input);
 }

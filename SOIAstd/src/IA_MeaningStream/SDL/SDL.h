@@ -9,8 +9,7 @@
 //		 engine are written wholly in lowercase letters
 ///////////////////////////////////////////////////////////
 
-#include "Data.h"
-#include "Data_StatedState.h"
+#include "../../IA_Engine/Applied/IA_SSt.h"
 #include "Definitions.h"
 
 
@@ -28,7 +27,7 @@
 					DATA* tempSDL_pBackup0;
 
 ///////////////////////////////////////////////////////////
-/* structure to create new data elements*/
+/* structure to create new data elements */
 //----  symbol  ----
 #define symbol		tempSDL_pData0 = new DATA(dCAT_CONTENT);
 
@@ -56,5 +55,6 @@
 #define isdefault	is dCAT_CONTENT;
 
 //---- properties ----
-#define name(Name)	; tempSDL_pData0->Text = new std::string(Name)
+#define name(Name)	; \
+					tempSDL_pData0->Text = new std::string(Name)
 

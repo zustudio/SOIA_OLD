@@ -1,21 +1,21 @@
 
 #pragma once
+#include "IA_SSt.h"
 #include "stdafx.h"
+#include "MTypes.h"
 
-#include "Data.h"
-#include "Data_StatedState.h"
-
+using namespace IA::Def_MTypes;
 
 namespace IA
 {
 	namespace MeaningStream
 	{
-		class ExData : public cIA_Data
+		class ExData
 		{
 		public:
 			///////////////////////////////////////////////////
 			// vars
-			cIA_Data* CurrentSource;
+			IData* CurrentSource;
 			std::deque<ExData*>* CurrentAllObjects;
 
 			int HierarchicDistance;
@@ -26,8 +26,12 @@ namespace IA
 
 			///////////////////////////////////////////////////
 			// functions
-			ExData(cIA_Data* NewSource, std::deque<ExData*> *AllObjects);
-			std::deque<ExData*>* getConnected(Data_StatedState::LinkType ConnectionType);
+			//---- init ----
+			ExData(IData* NewSource, std::deque<ExData*> *AllObjects);
+			//---- properites ----
+			std::string* getText();
+			//---- network mirroring ----
+			std::deque<ExData*>* getConnected(LinkType ConnectionType = LinkType::Both);
 		};
 	}
 }

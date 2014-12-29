@@ -5,12 +5,9 @@
 
 namespace IA
 {
-	class Data_StatedState;
-
 	class Game_StatedState : public Game
 	{
 	public:
-		virtual Data_StatedState* CalculateResult(Data_StatedState* Input);
-		virtual Data_StatedState* IFuncResultOfAction(Data_StatedState* Input);
+		virtual std::vector<int>* CalculateResult(IData* Input) override;
 	};
 }

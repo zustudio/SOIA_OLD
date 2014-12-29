@@ -14,7 +14,6 @@ using namespace std;
 Engine::Engine(IA::Game* NewGame)
 {
 	CurrentGame = NewGame;
-	Knowledge = new Data(1114);
 }
 Engine::~Engine()
 {
@@ -25,10 +24,12 @@ Engine::~Engine()
 // tick
 void Engine::Tick()
 {
-	Data* test;
-	test = new IA::Data();
+	IData* test;
+	/*test = new IA::IData();
 	test->Content = 0;
-	IFuncResultOfAction(test)->Content;
+	IFuncResultOfAction(test)->Content;*/
+
+	std::cout << "[IA-Engine]: no engine implementation";
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -98,7 +99,7 @@ int Engine::InfluencedRand(vector<float> &Chances)
 /////////////////////////////////////////////////////////////////////////////////////////
 // io
 
-//Data* Engine::ReadData()
+//IData* Engine::ReadData()
 //{
 //	Monitor::Enter(Lock);
 //	return Knowledge;
