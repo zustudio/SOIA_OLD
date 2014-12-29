@@ -12,25 +12,34 @@ Engine_SSt::Engine_SSt(IA::Game* NewGame) : Engine(NewGame)
 {
 	SDL_start
 
-	symbol Knowledge is 1475
+		symbol Knowledge is 1475
 		setname("Knowledge")
 
 		sub Action is 111
-			setname("Action")
+		setname("Action")
 		endsub
 
 		sub Result is 112
-			setname("Result")
+		setname("Result")
 		endsub
 
 		sub Visible is 113
-			setname("Visible")
+		setname("Visible")
 		endsub
 
 		sub Current is 114
-			setname("Current")
+		setname("Current")
 		endsub
-	endsymbol
+		endsymbol
+
+		newsymbol nDat is 2
+		endsymbol
+
+		newsymbol nDat2 is 3
+		endsymbol
+	*Action >> nDat;
+	*Action >> nDat2;
+
 }
 
 Engine_SSt::~Engine_SSt()
@@ -47,7 +56,14 @@ void Engine_SSt::Tick()
 		endsub
 	endsymbol
 
+	newsymbol t1 is 3
+	endsymbol
 	*Current >> added1;
+	*Current >> t1;
+
+	int sim = Action->llink(Current, 2);
+	std::string text = std::to_string(sim);
+	std::cout << text;
 
 }
 

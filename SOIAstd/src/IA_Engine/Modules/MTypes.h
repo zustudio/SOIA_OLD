@@ -4,21 +4,21 @@
 
 #include "IData.h"
 
+#define exEnum(enumname, operations) class enumname {private: int i; public: enumname(int newI = 0) { i = newI; } operator int() { return i; } operations }
+#define enumElement(name, var) static const int name = var
+
 namespace IA
 {
 	///////////////////////////////////////////////
 	// type definitions
-	enum class DataType
-	{
-		Content,
-		Link
-	};
-	enum class LinkType
-	{
-		Both,
-		Uplink,
-		Downlink
-	};
+	exEnum(DataType, 
+		enumElement(Content, 0);
+		enumElement(Link, 1);
+	);
+	exEnum(LinkType,
+		enumElement(Downlink, 1);
+		enumElement(Uplink, 2);
+	);
 
 	template <class Super>
 	class MTypes : public Super
@@ -39,21 +39,21 @@ namespace IA
 		{
 			switch (((MTypes<Super>*)NewSub)->Type)
 			{
-			case DataType::Content:
-			{
-				MTypes<Super>* link = new MTypes<Super>(DataType::Link, cIA_LinkContent);
-				this->Super::connect(link);
-				link->Super::connect(NewSub);
-			} break;
-			case DataType::Link:
-			{
-				Super::connect(NewSub);
-			} break;
+				case DataType::Content:
+				{
+					MTypes<Super>* link = new MTypes<Super>(DataType::Link, cIA_LinkContent);
+					this->Super::connect(link);
+					link->Super::connect(NewSub);
+				} break;
+				default:/*case DataType::Link:*/
+				{
+					Super::connect(NewSub);
+				} break;
 			}
 		}
 		virtual IData* getConnected(int i = 0) override
 		{
-			return getConnected(i, LinkType::Both);
+			return getConnected(i, LinkType::Uplink | LinkType::Downlink);
 		}
 		virtual IData* getConnected(int &i, LinkType WantedLink)
 		{
@@ -66,33 +66,33 @@ namespace IA
 #if cSO_DebugData >= 1
 				if (link->getConnectedNum() > 2) { std::cout << "[Data]: error: more than 2 connections of link\n"; }
 #endif
-				if ((*link)[0] == this && (WantedLink == LinkType::Downlink || WantedLink == LinkType::Both))
+					if ((WantedLink & LinkType::Downlink) && (link->Type == DataType::Link) && (*link)[0] == this)
+					{
+						return (*link)[1];
+					}
+					else if ((WantedLink & LinkType::Uplink) && (link->Type == DataType::Link) && (*link)[1] == this)
+					{
+						return (*link)[0];
+					}
+					else
+					{
+						i++;
+						return getConnected(i, WantedLink);
+					}
+				} break;
+				default:/*case DataType::Link:*/
 				{
-					return (*link)[1];
-				}
-				else if ((*link)[1] == this && (WantedLink == LinkType::Uplink || WantedLink == LinkType::Both))
-				{
-					return (*link)[0];
-				}
-				else
-				{
-					i++;
-					return getConnected(i, WantedLink);
-				}
-			} break;
-			case DataType::Link:
-			{
-				return Super::getConnected(i);
-			} break;
+					return Super::getConnected(i);
+				} break;
 			}
 		}
 		virtual int getConnectedNum() override
 		{
-			return getConnectedNum(LinkType::Both);
+			return getConnectedNum(LinkType::Downlink | LinkType::Uplink);
 		}
 		virtual int getConnectedNum(LinkType WantedLink)
 		{
-			if (WantedLink == LinkType::Both || this->Type == DataType::Link)
+			if (/*WantedLink & (LinkType::Downlink | LinkType::Uplink) || */this->Type != DataType::Content)
 			{
 				return Super::getConnectedNum();
 			}

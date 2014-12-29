@@ -3,8 +3,9 @@
 #include "Engine.h"
 #include "IData.h"
 	#include "MNET_Base.h"
-	#include "MTypes.h"
 	#include "MText.h"
+	#include "MTypes.h"
+	#include "MSimDec.h"
 
 #include "SDL.h"
 
@@ -13,12 +14,13 @@ SDL_Modules_Init
 namespace IA
 {
 
-	class Data_SSt : public MText< MTypes< MNET_Base <IData> > >
+	class Data_SSt : public MText< MSimDec< MNET_Base <IData> > >
 	{
 	public:
-		Data_SSt(int NewContent = 0, const std::string &NewText = "", DataType NewDataType = DataType::Content) : MText(NewText, NewDataType, NewContent)
+		Data_SSt(int NewContent = 0, const std::string &NewText = "", DataType2 NewDataType = DataType2::Content) : MText(NewText, NewDataType, NewContent)
 		{
 			registerM(MText);
+			registerM(MSimDec);
 			registerM(MTypes);
 			registerM(MNET_Base);
 		};

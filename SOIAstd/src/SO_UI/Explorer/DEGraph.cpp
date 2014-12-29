@@ -87,7 +87,7 @@ ExData* DEGraph::exe_Convert(IData* Current, int Depth, std::deque<IData*>* Igno
 	
 
 #if cSO_DebugDE > 1
-	std::cout << "[DE]:  " + *currentObj->Text + " in -depth of " + std::to_string(Depth) + '\n';
+	std::cout << "[DE]:  " + (checkM(MText) ? *currentObj->getText() : std::to_string(currentObj->CurrentSource->get())) + " in -depth of " + std::to_string(Depth) + '\n';
 #endif
 
 	Ignore->push_back(Current);

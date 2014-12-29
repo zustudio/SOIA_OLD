@@ -63,6 +63,7 @@
     <ClInclude Include="src\IA_Engine\Framework\Engine.h" />
     <ClInclude Include="src\IA_Engine\Framework\IData.h" />
     <ClInclude Include="src\IA_Engine\Modules\MNET_Base.h" />
+    <ClInclude Include="src\IA_Engine\Modules\MSimDec.h" />
     <ClInclude Include="src\IA_Engine\Modules\MText.h" />
     <ClInclude Include="src\IA_Engine\Modules\MTypes.h" />
     <ClInclude Include="src\IA_Game\Applied\Game_StatedState.h" />

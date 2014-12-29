@@ -180,6 +180,9 @@
     <ClInclude Include="src\IA_MeaningStream\SDL\SDL_Modules.h">
       <Filter>IA_MeaningStream\SDL</Filter>
     </ClInclude>
+    <ClInclude Include="src\IA_Engine\Modules\MSimDec.h">
+      <Filter>IA_Engine\Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\IA_Engine\Framework\Engine.cpp">

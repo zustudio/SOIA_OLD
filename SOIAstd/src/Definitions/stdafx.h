@@ -25,6 +25,7 @@
 	#include "MNET_Base.h"
 	#include "MText.h"
 	#include "MTypes.h"
+	#include "MSimDec.h"
 // SO Drawing
 #include "fColor.h"
 #include "Vector2D.h"
