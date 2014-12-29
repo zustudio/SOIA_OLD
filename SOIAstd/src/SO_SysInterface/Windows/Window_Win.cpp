@@ -15,7 +15,6 @@ LRESULT CALLBACK SO::Window_Win::WindowProcedure(HWND window, unsigned int msg, 
 	switch (msg)
 	{
 	case WM_DESTROY:
-		std::cout << "\ndestroying window\n";
 		PostQuitMessage(0);
 		return 0L;
 	case WM_SIZE:		//same as paint
