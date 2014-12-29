@@ -1,6 +1,5 @@
 #include "stdafx.h"
-#include "fColor.h"
-#include "cPoint.h"
+
 #include "Window_Base.h"
 
 using namespace SO;

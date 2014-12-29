@@ -1,9 +1,8 @@
-#include "IA_SSt.h"
 
-#include "SDL.h"
 #include "stdafx.h"
+#include "SDL.h"
 
-#include "Game_StatedState.h"
+#include "IA_SSt.h"
 
 using namespace IA;
 
@@ -32,7 +31,6 @@ Engine_SSt::Engine_SSt(IA::Game* NewGame) : Engine(NewGame)
 			setname("Current")
 		endsub
 	endsymbol
-	
 }
 
 Engine_SSt::~Engine_SSt()

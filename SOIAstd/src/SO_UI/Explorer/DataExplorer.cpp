@@ -1,9 +1,6 @@
 
-#include <string>
+#include "stdafx.h"
 
-#include "Engine.h"
-#include "fPoint.h"
-#include "CCanvas.h"
 #include "DEGraph.h"
 #include "DataExplorer.h"
 

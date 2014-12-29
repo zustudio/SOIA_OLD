@@ -6,10 +6,10 @@
  */
 
 #include "stdafx.h"
+
+#include "ConsoleService.h"
 #include "DebugVisual.h"
 #include "DataExplorer.h"
-#include "Engine.h"
-#include "ConsoleService.h"
 
 using namespace SOIA;
 using namespace SO::UI;

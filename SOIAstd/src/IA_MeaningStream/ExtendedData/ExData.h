@@ -1,10 +1,12 @@
 
 #pragma once
-#include "IA_SSt.h"
-#include "stdafx.h"
-#include "MTypes.h"
 
-using namespace IA::Def_MTypes;
+#include <deque>
+
+#include "fPoint.h"
+#include "IData.h"
+	#include "MTypes.h"
+
 
 namespace IA
 {

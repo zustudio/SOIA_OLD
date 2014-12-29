@@ -17,12 +17,14 @@
 /*sets the engine and data types accordingly to EngineVersion*/
 #if cIA_EngineVersion == 0
 	#define cIA_DataVersion		0
-	#define cIA_Data			Data
+	#define cIA_Data			IData
 	#define cIA_Engine			Engine
 #elif cIA_EngineVersion == 1
 	#define cIA_DataVersion		1
 	#define cIA_Data			Data_SSt
 	#define cIA_Engine			Engine_StatedState
+	#include "Game_SSt.h"
+	#include "IA_SSt.h"
 #endif
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -32,13 +34,13 @@
 	1 - only basic
 	2 - detailed information
 */
-#define cSO_DebugDE 1
+#define cSO_DebugDE 0
 
 /*  debug info for Data
 	0 - none
 	1 - all
 */
-#define cSO_DebugData 1
+#define cSO_DebugData 0
 
 //////////////////////////////////////////////////////////////////////////////////
 // os dependencies

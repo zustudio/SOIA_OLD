@@ -1,32 +1,25 @@
 #pragma once
 
 #include "Definitions.h"
-#include "MNET_Base.h"
+
+#include "IData.h"
 
 namespace IA
 {
-	namespace Def_MTypes
+	///////////////////////////////////////////////
+	// type definitions
+	enum class DataType
 	{
-		///////////////////////////////////////////////
-		// type definitions
-		enum class DataType
-		{
-			Content,
-			Link
-		};
-		enum class LinkType
-		{
-			Both,
-			Uplink,
-			Downlink
-		};
-	}
-}
+		Content,
+		Link
+	};
+	enum class LinkType
+	{
+		Both,
+		Uplink,
+		Downlink
+	};
 
-using namespace IA::Def_MTypes;
-
-namespace IA
-{
 	template <class Super>
 	class MTypes : public Super
 	{
@@ -48,7 +41,7 @@ namespace IA
 			{
 			case DataType::Content:
 			{
-				MTypes<Super>* link = new MTypes<Super>(DataType::Link);
+				MTypes<Super>* link = new MTypes<Super>(DataType::Link, cIA_LinkContent);
 				this->Super::connect(link);
 				link->Super::connect(NewSub);
 			} break;

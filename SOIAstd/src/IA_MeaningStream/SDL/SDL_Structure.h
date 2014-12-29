@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////
-// Symbol Description Language
+// Symbol Description Language - Structure
 //	offers ability to describe Data structures
 //	in an abstract, but easier readable way
 //
@@ -9,7 +9,6 @@
 //		 engine are written wholly in lowercase letters
 ///////////////////////////////////////////////////////////
 
-#include "../../IA_Engine/Applied/IA_SSt.h"
 #include "Definitions.h"
 
 

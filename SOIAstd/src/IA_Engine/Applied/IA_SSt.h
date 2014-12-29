@@ -1,18 +1,12 @@
 #pragma once
 
-#include <vector>
-#include <string>
-
 #include "Engine.h"
-
 #include "IData.h"
-#include "MTypes.h"
-#include "MText.h"
-#include "MNET_Base.h"
+	#include "MNET_Base.h"
+	#include "MTypes.h"
+	#include "MText.h"
 
 #include "SDL.h"
-
-using namespace IA::Def_MTypes;
 
 SDL_Modules_Init
 

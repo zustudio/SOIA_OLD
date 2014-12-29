@@ -1,14 +1,10 @@
 
 #include "stdafx.h"
-
-#include "IA_SSt.h"
+#include "SDL.h"
 
 #include "ExData.h"
 
-#include "SDL_Modules.h"
-
 using namespace IA;
-using namespace IA::Def_MTypes;
 using namespace IA::MeaningStream;
 
 SDL_Modules_Init

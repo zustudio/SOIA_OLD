@@ -5,8 +5,9 @@
 #include <vector>
 #include <string>
 
+#include "SDL_Modules.h"
 
 namespace IA
 {
-	std::vector<std::string> gIA_RegisteredDataModules = std::vector<std::string>();
+	std::vector<std::string> MDLVECTOR = std::vector<std::string>();
 }

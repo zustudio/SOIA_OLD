@@ -1,7 +1,8 @@
 
 
+#include "Game_SSt.h"
+
 #include "stdafx.h"
-#include "Game_StatedState.h"
 
 using namespace IA;
 

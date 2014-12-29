@@ -1,6 +1,8 @@
 // SOIAme.h
 #pragma once
 
+#include <vector>
+
 #include "IData.h"
 
 namespace IA {

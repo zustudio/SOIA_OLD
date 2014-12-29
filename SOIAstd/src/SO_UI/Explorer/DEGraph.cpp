@@ -1,9 +1,8 @@
 // c Maxim Urschumzew 2014
 
 #include "stdafx.h"
-#include "CCanvas.h"
-#include "ExData.h"
-#include "fPoint.h"
+#include "SDL.h"
+
 #include "DEGraph.h"
 
 using namespace IA::MeaningStream;
