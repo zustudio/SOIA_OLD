@@ -11,7 +11,7 @@ using namespace IA;
 using namespace IA::Def_MTypes;
 using namespace IA::MeaningStream;
 
-extern std::vector<std::string> IA::MDLVECTOR;
+SDL_Modules_Init
 
 ////////////////////////////////////////////////////////////////
 // init

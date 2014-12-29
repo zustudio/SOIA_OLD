@@ -10,24 +10,23 @@
 #include "MText.h"
 #include "MNET_Base.h"
 
-#include "SDL_Modules.h"
+#include "SDL.h"
 
 using namespace IA::Def_MTypes;
 
+SDL_Modules_Init
+
 namespace IA
 {
-	extern std::vector<std::string> MDLVECTOR;
 
 	class Data_SSt : public MText< MTypes< MNET_Base <IData> > >
 	{
 	public:
 		Data_SSt(int NewContent = 0, const std::string &NewText = "", DataType NewDataType = DataType::Content) : MText(NewText, NewDataType, NewContent)
 		{
-			
 			registerM(MText);
 			registerM(MTypes);
 			registerM(MNET_Base);
-
 		};
 	};
 

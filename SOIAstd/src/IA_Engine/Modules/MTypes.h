@@ -9,12 +9,12 @@ namespace IA
 	{
 		///////////////////////////////////////////////
 		// type definitions
-		static enum DataType
+		enum class DataType
 		{
 			Content,
 			Link
 		};
-		static enum LinkType
+		enum class LinkType
 		{
 			Both,
 			Uplink,

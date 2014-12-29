@@ -1,8 +1,8 @@
 #include "IA_SSt.h"
 
+#include "SDL.h"
 #include "stdafx.h"
 
-#include "SDL.h"
 #include "Game_StatedState.h"
 
 using namespace IA;
@@ -14,22 +14,22 @@ Engine_SSt::Engine_SSt(IA::Game* NewGame) : Engine(NewGame)
 	SDL_start
 
 	symbol Knowledge is 1475
-		name("Knowledge")
+		setname("Knowledge")
 
 		sub Action is 111
-			name("Action")
+			setname("Action")
 		endsub
 
 		sub Result is 112
-			name("Result")
+			setname("Result")
 		endsub
 
 		sub Visible is 113
-			name("Visible")
+			setname("Visible")
 		endsub
 
 		sub Current is 114
-			name("Current")
+			setname("Current")
 		endsub
 	endsymbol
 	

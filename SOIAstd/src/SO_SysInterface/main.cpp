@@ -11,7 +11,7 @@
 #include "CTextBox.h"
 #include "DebugVisual.h"
 
-#include "main.h"
+#include "SDL_GlobalVars.h"
 
 using namespace std;
 using namespace SO;

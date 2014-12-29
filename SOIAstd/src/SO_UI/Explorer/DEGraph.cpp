@@ -9,7 +9,7 @@
 using namespace IA::MeaningStream;
 using namespace SO;
 
-extern std::vector<std::string> IA::MDLVECTOR;
+SDL_Modules_Init
 
 //////////////////////////////////////////////////////////////////////
 // init
