@@ -12,14 +12,14 @@
 //---- Values ----
 /*	the worst and best possible similarity between two structures*/
 #define SIM_Val_Max				cIA_LinkContent
-#define SIM_Val_Min				(SIM_Val_Max / 10)
+#define SIM_Val_Min				(SIM_Val_Max / 20)
 /*	value that causes data to be in "superposition", postponing its evaluation to the next (int)(*X) call*/
 #define SIM_Val_X 987654
 //---- LinkContentFunction Variables ----
 /*	slope of **function, causes SIM_Val_Min for n = n_children to be (1/Slope) */
 #define SIM_Slope			SIM_Val_Min
 /*	multiplicator for n_child's*/
-#define SIM_Demult			0.9
+#define SIM_Demult			0.7
 //---- math ----
 #define logBASE(val, base)	(std::log(val) / std::log(base))
 
@@ -41,19 +41,22 @@ namespace IA
 		// light linking = pattern matching
 		float llink(IData* te, int depth)
 		{
-			if (((MSimDec<Super>*)te)->bLLinked || bLLinked)
-				return SIM_Val_Max;
-
+			IData* lnk = this->connect(te, DataType::LightLink);
+			lnk->set(exe_llink(te, depth));
+			return *lnk;
+		}
+		float exe_llink(IData* te, int depth)
+		{
 			IData* me = this;
 
-			IData* lnk = ((MSimDec<Super>*)me)->connect(te, DataType::LightLink);
+			int lnk = SIM_Val_Max;
 			bLLinked = true;
 
 			if (depth > 0)		// else: if chain has ended, return default (value for no match)
 			{
 				if (int(*me) == int(*te))	//if me == te
 				{
-					*lnk = SIM_Val_Min;				//return value for best match
+					lnk = SIM_Val_Min;				//return value for best match
 				}
 				else						//else try to match the children
 				{
@@ -69,18 +72,18 @@ namespace IA
 					{												//
 					for (int pC_te = 0; pC_te < nC_te; pC_te++)		//
 					{
-						SIM_child = ((MSimDec<Super>*)(*me)[pC_me])->llink((*te)[pC_te], depth - 1);
+						SIM_child = ((MSimDec<Super>*)(*me)[pC_me])->exe_llink((*te)[pC_te], depth - 1);
 						n_child = -logBASE((SIM_child / SIM_Val_Max), SIM_Slope);
 						sum_n += SIM_Demult * n_child;
 					}
 					}
 
 					float sim = SIM_Val_Max * std::pow(SIM_Slope, (- sum_n / n_children));
-					*lnk = int(sim);
+					lnk = int(sim);
 				}
 			}
 
-			return *lnk;
+			return lnk;
 		}
 
 		///////////////////////////////////////////////
@@ -96,6 +99,7 @@ namespace IA
 			else
 			{
 				std::vector<float> Values;
+				std::vector<IData*> datas;
 				int n = Super::getConnectedNum();
 				for (int i = 0; i < n; i++)
 				{
@@ -103,11 +107,21 @@ namespace IA
 					if (isChild(lnk, DataType::LightLink, LinkType::NoLink))
 					{
 						Values.push_back((float)(lnk->Super::get()));
+
+						IData* content = lnk->Super::getConnected(0) == this ? lnk->Super::getConnected(1) : lnk->Super::getConnected(0);
+
+						datas.push_back(content);
 					}
 				}
 
+				n = Values.size();
+				for (int i = 0; i < n; i++)
+				{
+					Values[i] = SIM_Val_Max - Values[i];
+				}
+
 				int i_Value = ZABS::Math::Random::InfluencedRand(Values);
-				int value = Values[i_Value];
+				int value = *(datas[i_Value]);
 #if cSO_DebugData > 0
 				std::cout << "[MSimDec]: found " << Values.size() << " connected lightlinks" << std::endl;
 				for (int i_AllVals = 0; i_AllVals < Values.size(); i_AllVals++)
