@@ -12,18 +12,18 @@ Engine_SSt::Engine_SSt(IA::Game* NewGame) : Engine(NewGame)
 {
 	SDL_start
 
-		symbol Knowledge is 1475
+	symbol Knowledge is 1475
 		setname("Knowledge")
 
-		sub Action is 111
+		sub Action isllist(1, 3, 3, 4)
 		setname("Action")
 		endsub
 
-		sub Result is 112
+		sub Result isllist(1, 1, 0, 0)
 		setname("Result")
 		endsub
 
-		sub Visible is 113
+		sub Visible isllist(3, 2, 3, 3)
 		setname("Visible")
 		endsub
 
@@ -32,13 +32,24 @@ Engine_SSt::Engine_SSt(IA::Game* NewGame) : Engine(NewGame)
 		endsub
 		endsymbol
 
-		newsymbol nDat is 2
-		endsymbol
+		const int max = 4;
+	for (int i = 0; i < max; i++)
+	{
+		*((*Action)[i]) >> (*Result)[i];
+		*((*Result)[i]) >> (*Visible)[i];
+		if (i + 1 < max)
+		{
+			*((*Visible)[i]) >> (*Action)[i + 1];
+		}
+	}
 
-		newsymbol nDat2 is 3
-		endsymbol
+	/*newsymbol nDat is 2
+	endsymbol
+
+	newsymbol nDat2 is 3
+	endsymbol
 	*Action >> nDat;
-	*Action >> nDat2;
+	*Action >> nDat2;*/
 
 }
 
@@ -47,24 +58,77 @@ Engine_SSt::~Engine_SSt()
 
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////
+// main loop
 void Engine_SSt::Tick()
 {
 	SDL_start
 
-	newsymbol added1 is 2
-		newsub added2 is(*IFuncResultOfAction(added1))[0]
+	newsymbol unknown isdefault
+		newsub result is 1
 		endsub
 	endsymbol
 
-	newsymbol t1 is 3
-	endsymbol
-	*Current >> added1;
-	*Current >> t1;
+	*Action >> unknown;
+	*Result >> result;
 
-	int sim = Action->llink(Current, 2);
+	int n_CVisible = Visible->getConnectedNum();
+	Data_SSt* lastVisible = (Data_SSt*)(*Visible)[n_CVisible - 1];
+
+	*lastVisible >> unknown;
+
+	ReIntegrate(unknown);
+
+	/*int sim = Action->llink(Current, 2);
 	std::string text = std::to_string(sim);
 	std::cout << text;
+*/
+	
+}
 
+void Engine_SSt::ReIntegrate(Data_SSt* X)
+{
+	std::deque<Data_SSt*> similarityCandidates;
+
+	/*int nCat = X->getConnectedNum();
+	for (int iCat = 0; iCat < nCat; iCat++)
+	{
+		Data_SSt* Cat = (Data_SSt*)(*X)[iCat];
+		int nSimCand = Cat->getConnectedNum();
+		
+		for (int iSimCand = 0; iSimCand < nSimCand; iSimCand++)
+		{
+			Data_SSt* SimCand = (Data_SSt*)(*Cat)[iSimCand];
+			if (SimCand != X)
+			{
+				similarityCandidates.push_back(SimCand);
+			}
+		}
+	}*/
+
+	int nSimCand = Action->getConnectedNum();
+	for (int iSimCand = 0; iSimCand < nSimCand; iSimCand++)
+	{
+		Data_SSt* SimCand = (Data_SSt*)(*Action)[iSimCand];
+		if (SimCand != X)
+		{
+			similarityCandidates.push_back(SimCand);
+		}
+	}
+
+	X->set(SIM_Val_X + 1);
+
+	nSimCand = similarityCandidates.size();
+	for (int iSimCand = 0; iSimCand < nSimCand; iSimCand++)
+	{
+		int llresult = X->llink(similarityCandidates[iSimCand], 2);
+		X->bLLinked = false;
+		std::cout << "[IA_SSt]: linking " << (int)(*X) << " \tto " << (int)(*similarityCandidates[iSimCand]) << " \t=> " << llresult << std::endl;
+	}
+
+	X->set(SIM_Val_X);
+	int newVal = (int)(*X);
+	std::cout << "[IA_SSt]: new Action is " << newVal;
 }
 
 

@@ -86,10 +86,10 @@ void Window_Base::DrawArrow(cPoint a, cPoint b, fColor *frontColor, fColor *back
 	fPoint t_fA = a;
 	fPoint t_fB = b;
 
-	fPoint delta = a - b;
+	fPoint delta = b - a;
 	fPoint crossLineSingle = (delta.Normalized() * 0.01).RotateZ(3.14159 / 2);
-	fPoint crossPoint1 = t_fA + (delta * 0.95) + crossLineSingle;
-	fPoint crossPoint2 = t_fB + (delta * 0.95) - crossLineSingle;
+	fPoint crossPoint1 = t_fA + (delta * 0.95) /*+ fPoint(0, 0.05);*/ +crossLineSingle;
+	fPoint crossPoint2 = t_fA + (delta * 0.95) /*- fPoint(0, 0.05);*/ -crossLineSingle;
 
 	pxPoint pxPoint1 = t_fA.ToPxPoint(props.size);
 	pxPoint pxPoint2 = t_fB.ToPxPoint(props.size);
@@ -98,9 +98,9 @@ void Window_Base::DrawArrow(cPoint a, cPoint b, fColor *frontColor, fColor *back
 
 	SetColors(frontColor, backColor);
 	pxDrawLine(pxPoint1, pxPoint2);
-	pxDrawLine(pxCross1, pxCross2);
+	pxDrawLine(pxCross1, pxCross2);/*
 	pxDrawLine(pxCross1, pxPoint2);
-	pxDrawLine(pxCross2, pxPoint2);
+	pxDrawLine(pxCross2, pxPoint2);*/
 	ResetColors();
 }
 void Window_Base::DrawRect(cPoint a, cPoint b, fColor *frontColor, fColor *backColor)

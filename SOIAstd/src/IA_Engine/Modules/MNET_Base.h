@@ -30,7 +30,10 @@ namespace IA
 		virtual void set(int i) override		{ Content = i; }
 
 		virtual void connect(IData* NewSub)		{ ConnectedData.push_back(NewSub); ((MNET_Base<Super>*)NewSub)->ConnectedData.push_back(this); }
-		virtual IData* getConnected(int i = 0)	{ return i < ConnectedData.size() ? ConnectedData[i] : nullptr; }
+		virtual IData* getConnected(int i = 0)	{ return (i < ConnectedData.size() && i >= 0) ? ConnectedData[i] : nullptr; }
 		virtual int getConnectedNum()			{ return ConnectedData.size(); }
+
+		template<typename... Args>
+			bool isChild(IData* TestSub, Args&&... args)	{ return (std::find(ConnectedData.begin(), ConnectedData.end(), TestSub) != ConnectedData.end()); }
 	};
 }

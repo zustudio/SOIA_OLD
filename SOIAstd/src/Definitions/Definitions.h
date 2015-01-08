@@ -34,13 +34,14 @@
 	1 - only basic
 	2 - detailed information
 */
-#define cSO_DebugDE 0
+#define cSO_DebugDE 2
 
 /*  debug info for Data
 	0 - none
-	1 - all
+	1 - only neccessary
+	2 - all
 */
-#define cSO_DebugData 0
+#define cSO_DebugData 1
 
 //////////////////////////////////////////////////////////////////////////////////
 // os dependencies

@@ -283,12 +283,12 @@ void DEGraph::DrawConnections()
 
 		CurrentCanvas->DrawFloatArrow(new fPoint(current->Location->X, current->Location->Y + current->Extend->Y * 0.5), new fPoint(child->Location->X, child->Location->Y - child->Extend->Y * 0.5));
 		}*/
-		std::deque<ExData*>* Connected = current->getConnected(LinkType::Downlink);
+		std::deque<ExData*>* Connected = current->getConnected(LinkType::T_NormLink | LinkType::Downlink);
 		for (int p_Next = 0; p_Next < Connected->size(); p_Next++)
 		{
 			ExData* child = (*Connected)[p_Next];
 
-			DrawLine(fPoint(current->Location.X/* + current->Extend.X * 0.5*/, current->Location.Y + current->Extend.Y), fPoint(child->Location.X/* + child->Extend.X * 0.5*/, child->Location.Y), fColor(0.7,0.7,0.7));
+			DrawArrow(fPoint(current->Location.X/* + current->Extend.X * 0.5*/, current->Location.Y + current->Extend.Y), fPoint(child->Location.X/* + child->Extend.X * 0.5*/, child->Location.Y), fColor(0.7,0.7,0.7));
 		}
 	}
 }

@@ -33,7 +33,7 @@ namespace IA
 			//---- properites ----
 			std::string* getText();
 			//---- network mirroring ----
-			std::deque<ExData*>* getConnected(LinkType ConnectionType = LinkType::Downlink | LinkType::Uplink);
+			std::deque<ExData*>* getConnected(LinkType ConnectionType = LinkType::T_NormLink | LinkType::Downlink | LinkType::Uplink);
 		};
 	}
 }

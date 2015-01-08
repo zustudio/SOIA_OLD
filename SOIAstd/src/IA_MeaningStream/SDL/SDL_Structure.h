@@ -17,18 +17,21 @@
 /*global type of the engine's data (new shortcut)*/
 #define DATA cIA_Data
 /*default content for categories*/
-#define dCAT_CONTENT 1000
+#define dVAL		SDL_dContent
+#define dLISTVAL	SDL_dListHolderContent
 
 
 ///////////////////////////////////////////////////////////
 /* initializer for SDL */
-#define SDL_start	DATA* tempSDL_pData0; \
-					DATA* tempSDL_pBackup0;
+#define SDL_start	DATA*	tempSDL_pData0; \
+					DATA*	tempSDL_pBackup0; \
+					int		dVAL = 0; \
+					int dLISTVAL = 111;
 
 ///////////////////////////////////////////////////////////
 /* structure to create new data elements */
 //----  symbol  ----
-#define symbol		tempSDL_pData0 = new DATA(dCAT_CONTENT);
+#define symbol		tempSDL_pData0 = new DATA(dVAL);
 
 #define newsymbol	symbol \
 					DATA* /*>>NameOfSymbol<<*/
@@ -38,7 +41,7 @@
 //---- children ----
 #define sub			; \
 					tempSDL_pBackup0 = tempSDL_pData0; \
-					tempSDL_pData0 = new DATA(dCAT_CONTENT);
+					tempSDL_pData0 = new DATA(dVAL);
 
 #define newsub		sub \
 					DATA* /*>>NameOfChild<<*/
@@ -51,7 +54,19 @@
 #define is			= tempSDL_pData0; \
 					*tempSDL_pData0 = /*>>NewContent<<*/
 
-#define isdefault	is dCAT_CONTENT;
+#define isdefault	is dVAL;
+
+#define isllist(...)	= tempSDL_pData0; \
+						*tempSDL_pData0 = dLISTVAL; \
+						{ \
+							int SDL_intList[] = {__VA_ARGS__}; \
+							int n = sizeof(SDL_intList) / sizeof(int); \
+							for (int i = 0; i < n; i++) \
+							{ \
+								DATA* add = new DATA(SDL_intList[i]); \
+								*tempSDL_pData0 >> add; \
+							} \
+						}
 
 //---- properties ----
 #define setname(Name)	; \

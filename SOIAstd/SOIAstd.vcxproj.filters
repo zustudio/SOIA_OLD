@@ -79,6 +79,9 @@
     <Filter Include="IA_Engine\Modules">
       <UniqueIdentifier>{fcda6d60-2c70-4451-87c6-339e0520965a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ZABS_Math\Random">
+      <UniqueIdentifier>{ef806e19-932c-49dd-926e-285027872ea4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Definitions\stdafx.h">
@@ -153,9 +156,6 @@
     <ClInclude Include="src\SO_UI\Explorer\DEGraph.h">
       <Filter>SO_UI\Explorer</Filter>
     </ClInclude>
-    <ClInclude Include="src\IA_Game\Applied\Game_StatedState.h">
-      <Filter>IA_Game\Applied</Filter>
-    </ClInclude>
     <ClInclude Include="src\IA_MeaningStream\SDL\SDL.h">
       <Filter>IA_MeaningStream\SDL</Filter>
     </ClInclude>
@@ -182,6 +182,18 @@
     </ClInclude>
     <ClInclude Include="src\IA_Engine\Modules\MSimDec.h">
       <Filter>IA_Engine\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IA_MeaningStream\SDL\SDL_GlobalVars.h">
+      <Filter>IA_MeaningStream\SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IA_MeaningStream\SDL\SDL_Structure.h">
+      <Filter>IA_MeaningStream\SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IA_Game\Applied\Game_SSt.h">
+      <Filter>IA_Game\Applied</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ZABS_Math\Random\Random.h">
+      <Filter>ZABS_Math\Random</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -251,11 +263,14 @@
     <ClCompile Include="src\SO_UI\Explorer\DEGraph.cpp">
       <Filter>SO_UI\Explorer</Filter>
     </ClCompile>
-    <ClCompile Include="src\IA_Game\Applied\Game_StatedState.cpp">
-      <Filter>IA_Game\Applied</Filter>
-    </ClCompile>
     <ClCompile Include="src\IA_Engine\Applied\IA_SSt.cpp">
       <Filter>IA_Engine\Applied</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IA_Game\Applied\Game_SSt.cpp">
+      <Filter>IA_Game\Applied</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ZABS_Math\Random\Random.cpp">
+      <Filter>ZABS_Math\Random</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

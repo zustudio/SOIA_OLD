@@ -41,7 +41,7 @@
     <NMakeCleanCommandLine>make clean</NMakeCleanCommandLine>
     <NMakeReBuildCommandLine>make rebuild IDE=vs13</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);src/Definitions/;src/SO_UI/Information/;src/SO_UI/Explorer;src/SO_Service/Console/;src/SO_SysInterface/Base;src/SO_SysInterface/Windows;src/SO_Drawing/DataStructs;src/SO_Drawing/ControlElements;src/IA_Engine/Framework;src/IA_Engine/Applied/;src/IA_Engine/Modules;src/IA_Game/Framework;src/IA_Game/Applied;src/IA_MeaningStream/SDL/;src/IA_MeaningStream/ExtendedData/;src/ZABS_Math/DataStructs</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);src/Definitions/;src/SO_UI/Information/;src/SO_UI/Explorer;src/SO_Service/Console/;src/SO_SysInterface/Base;src/SO_SysInterface/Windows;src/SO_Drawing/DataStructs;src/SO_Drawing/ControlElements;src/IA_Engine/Framework;src/IA_Engine/Applied/;src/IA_Engine/Modules;src/IA_Game/Framework;src/IA_Game/Applied;src/IA_MeaningStream/SDL/;src/IA_MeaningStream/ExtendedData/;src/ZABS_Math/DataStructs;src/ZABS_Math/Random</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <NMakeBuildCommandLine>make IDE=vs13</NMakeBuildCommandLine>
@@ -49,7 +49,7 @@
     <NMakeCleanCommandLine>make clean</NMakeCleanCommandLine>
     <NMakeReBuildCommandLine>make rebuild IDE=vs13</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);src/Definitions/;src/SO_UI/Information/;src/SO_UI/Explorer;src/SO_Service/Console/;src/SO_SysInterface/Base;src/SO_SysInterface/Windows;src/SO_Drawing/DataStructs;src/SO_Drawing/ControlElements;src/IA_Engine/Framework;src/IA_Engine/Applied/;src/IA_Engine/Modules;src/IA_Game/Framework;src/IA_Game/Applied;src/IA_MeaningStream/SDL/;src/IA_MeaningStream/ExtendedData/;src/ZABS_Math/DataStructs</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);src/Definitions/;src/SO_UI/Information/;src/SO_UI/Explorer;src/SO_Service/Console/;src/SO_SysInterface/Base;src/SO_SysInterface/Windows;src/SO_Drawing/DataStructs;src/SO_Drawing/ControlElements;src/IA_Engine/Framework;src/IA_Engine/Applied/;src/IA_Engine/Modules;src/IA_Game/Framework;src/IA_Game/Applied;src/IA_MeaningStream/SDL/;src/IA_MeaningStream/ExtendedData/;src/ZABS_Math/DataStructs;src/ZABS_Math/Random</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>
@@ -66,12 +66,14 @@
     <ClInclude Include="src\IA_Engine\Modules\MSimDec.h" />
     <ClInclude Include="src\IA_Engine\Modules\MText.h" />
     <ClInclude Include="src\IA_Engine\Modules\MTypes.h" />
-    <ClInclude Include="src\IA_Game\Applied\Game_StatedState.h" />
+    <ClInclude Include="src\IA_Game\Applied\Game_SSt.h" />
     <ClInclude Include="src\IA_Game\Framework\Game.h" />
     <ClInclude Include="src\IA_MeaningStream\ExtendedData\ExData.h" />
     <ClInclude Include="src\IA_MeaningStream\SDL\SDL.h" />
+    <ClInclude Include="src\IA_MeaningStream\SDL\SDL_GlobalVars.h" />
     <ClInclude Include="src\IA_MeaningStream\SDL\SDL_IA.h" />
     <ClInclude Include="src\IA_MeaningStream\SDL\SDL_Modules.h" />
+    <ClInclude Include="src\IA_MeaningStream\SDL\SDL_Structure.h" />
     <ClInclude Include="src\SO_Drawing\ControlElements\CCanvas.h" />
     <ClInclude Include="src\SO_Drawing\ControlElements\Control.h" />
     <ClInclude Include="src\SO_Drawing\ControlElements\CTextBox.h" />
@@ -91,11 +93,12 @@
     <ClInclude Include="src\SO_UI\Explorer\DEGraph.h" />
     <ClInclude Include="src\SO_UI\Information\DebugVisual.h" />
     <ClInclude Include="src\ZABS_Math\DataStructs\Vector2D.h" />
+    <ClInclude Include="src\ZABS_Math\Random\Random.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\IA_Engine\Applied\IA_SSt.cpp" />
     <ClCompile Include="src\IA_Engine\Framework\Engine.cpp" />
-    <ClCompile Include="src\IA_Game\Applied\Game_StatedState.cpp" />
+    <ClCompile Include="src\IA_Game\Applied\Game_SSt.cpp" />
     <ClCompile Include="src\IA_Game\Framework\Game.cpp" />
     <ClCompile Include="src\IA_MeaningStream\ExtendedData\ExData.cpp" />
     <ClCompile Include="src\SO_Drawing\ControlElements\CCanvas.cpp" />
@@ -117,6 +120,7 @@
     <ClCompile Include="src\SO_UI\Explorer\DEGraph.cpp" />
     <ClCompile Include="src\SO_UI\Information\DebugVisual.cpp" />
     <ClCompile Include="src\ZABS_Math\DataStructs\Vector2D.cpp" />
+    <ClCompile Include="src\ZABS_Math\Random\Random.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="make.cfg" />

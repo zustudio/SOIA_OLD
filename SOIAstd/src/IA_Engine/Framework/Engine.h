@@ -28,7 +28,7 @@ namespace IA
 		//---- ticking ----
 		virtual void Tick() override;
 		//----  rand   ----
-		virtual int InfluencedRand(std::vector<float> &Chances);
+		//virtual int InfluencedRand(std::vector<float> &Chances);
 		//virtual int InfluencedRand(array<float>* Chances);
 		//----   io    ----
 		std::vector<int>* IFuncResultOfAction(IData* Output)

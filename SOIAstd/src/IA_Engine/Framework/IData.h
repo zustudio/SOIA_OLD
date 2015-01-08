@@ -14,6 +14,9 @@ namespace IA
 		virtual void connect(IData* NewSub) = 0;
 		virtual IData* getConnected(int i = 0) = 0;
 		virtual int getConnectedNum() = 0;
+		//---- tests (of children) ----
+		template<typename... Args>
+		bool isChild(IData* TestSub, Args&&... args) {}
 
 		/////////////////////////////////////////
 		// operators

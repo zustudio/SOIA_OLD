@@ -14,10 +14,10 @@ SDL_Modules_Init
 namespace IA
 {
 
-	class Data_SSt : public MText< MSimDec< MNET_Base <IData> > >
-	{
+	class Data_SSt : public  MSimDec< MText< MNET_Base <IData> > >
+	{ 
 	public:
-		Data_SSt(int NewContent = 0, const std::string &NewText = "", DataType2 NewDataType = DataType2::Content) : MText(NewText, NewDataType, NewContent)
+		Data_SSt(int NewContent = 0, const std::string &NewText = "", DataType NewDataType = DataType::Content) : MSimDec(NewDataType, NewText, NewContent)
 		{
 			registerM(MText);
 			registerM(MSimDec);
@@ -43,9 +43,10 @@ namespace IA
 		//----  init   ----
 		Engine_SSt(IA::Game* newGame);
 		virtual ~Engine_SSt();
+		//----  main   ----
+		virtual void Tick() override;
+		virtual void ReIntegrate(Data_SSt* X);
 		//----  vars   ----
 		virtual IData* getDataStart() override;
-		//----  tick   ----
-		virtual void Tick() override;
 	};
 }
