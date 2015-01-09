@@ -64,20 +64,30 @@ void Engine_SSt::Tick()
 {
 	SDL_start
 
-	newsymbol unknown isdefault
+	newsymbol action isdefault
 		newsub result is 1
 		endsub
 	endsymbol
 
-	*Action >> unknown;
+	*Action >> action;
 	*Result >> result;
 
 	int n_CVisible = Visible->getConnectedNum();
 	Data_SSt* lastVisible = (Data_SSt*)(*Visible)[n_CVisible - 1];
 
-	*lastVisible >> unknown;
+	*lastVisible >> action;
 
-	ReIntegrate(unknown);
+	ReIntegrate(action);
+
+	std::vector<int> input = *IFuncResultOfAction(action);
+
+	result->set(input[0]);
+
+	newsymbol visible is input[1]
+	endsymbol
+
+	*result >> visible;
+	*Visible >> visible;
 
 	/*int sim = Action->llink(Current, 2);
 	std::string text = std::to_string(sim);
@@ -128,7 +138,7 @@ void Engine_SSt::ReIntegrate(Data_SSt* X)
 
 	X->set(SIM_Val_X);
 	int newVal = (int)(*X);
-	std::cout << "[IA_SSt]: new Action is " << newVal;
+	std::cout << "[IA_SSt]: new Action is " << newVal << std::endl;
 }
 
 

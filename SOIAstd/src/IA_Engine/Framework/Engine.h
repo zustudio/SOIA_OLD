@@ -38,7 +38,12 @@ namespace IA
 			std::cout << "[IA]: ";
 			std::cout << int(*Output);
 			std::cout << "->";
+
 			std::cout << (*Result)[0];
+			for (int i = 1; i < Result->size(); i++)
+			{
+				std::cout << ", " << (*Result)[i];
+			}
 			std::cout << "\n";
 
 			return Result;

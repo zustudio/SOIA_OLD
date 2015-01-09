@@ -17,11 +17,19 @@ namespace IA
 		std::deque<IData*> ConnectedData;
 
 		//////////////////////////////////////////////
-		// constructor
+		// con-/de-structor
 		MNET_Base(int NewContent = 0)
 		{
 			Content = NewContent;
 			ConnectedData = std::deque<IData*>();
+		}
+		virtual ~MNET_Base()
+		{
+			int n = getConnectedNum();
+			for (int i = 0; i < n; i++)
+			{
+				disconnect(getConnected(i));
+			}
 		}
 
 		//////////////////////////////////////////////
@@ -29,7 +37,19 @@ namespace IA
 		virtual int get() override				{ return Content; }
 		virtual void set(int i) override		{ Content = i; }
 
-		virtual void connect(IData* NewSub)		{ ConnectedData.push_back(NewSub); ((MNET_Base<Super>*)NewSub)->ConnectedData.push_back(this); }
+		virtual void connect(IData* NewSub)
+		{
+			ConnectedData.push_back(NewSub);
+			((MNET_Base<Super>*)NewSub)->ConnectedData.push_back(this);
+		}
+		virtual void disconnect(IData* OldSub)
+		{
+			MNET_Base<Super>* oldSub = (MNET_Base<Super>*)OldSub;
+			if (isChild(oldSub))
+			{
+				oldSub->ConnectedData.erase(std::find(oldSub->ConnectedData.begin(), oldSub->ConnectedData.end(), OldSub));
+			}
+		}
 		virtual IData* getConnected(int i = 0)	{ return (i < ConnectedData.size() && i >= 0) ? ConnectedData[i] : nullptr; }
 		virtual int getConnectedNum()			{ return ConnectedData.size(); }
 

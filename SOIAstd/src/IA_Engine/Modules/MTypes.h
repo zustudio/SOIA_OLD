@@ -23,6 +23,8 @@ namespace IA
 
 		enumElement(T_NormLink, 1 << 8);		// values describe the type of linkage data (LinkType::NormLink => DataType::Link)
 		enumElement(T_LightLink, 1 << 9);
+
+		enumElement(M_GreatesMatch, NoLink | Downlink | Uplink | T_NormLink | T_LightLink);
 	);
 
 	template <class Super>
@@ -36,7 +38,10 @@ namespace IA
 		///////////////////////////////////////////////
 		// init
 		template<typename... Args>
-		MTypes(DataType NewType, Args&&... args) : Super(args...) { Type = NewType; }
+		MTypes(DataType NewType, Args&&... args) : Super(args...)
+		{
+			Type = NewType;
+		}
 
 		///////////////////////////////////////////////
 		// overrides
@@ -55,6 +60,35 @@ namespace IA
 				{
 					Super::connect(NewSub);
 				} break;
+			}
+		}
+		virtual void disconnect(IData* OldSub) override
+		{
+			MTypes<Super>* oldSub = (MTypes<Super>*)OldSub;
+			switch (oldSub->Type)
+			{
+				case DataType::Content:
+				{
+					if (isChild(OldSub, DataType::Content, LinkType::M_GreatesMatch))
+					{
+						int n_Links = Super::getConnectedNum();
+						for (int i_Link = 0; i_Link < n_Links; i_Link++)
+						{
+							MTypes<Super>* link = (MTypes<Super>*)Super::getConnected(i_Link);
+							if (link->isChild(oldSub, DataType::Content, LinkType::M_GreatesMatch & !(LinkType::Uplink | LinkType::Downlink)))
+							{
+								delete link;
+								break;
+							}
+						}
+					}
+				}
+				break;
+				default: /*case DataType::SomeLink*/
+				{
+					Super::disconnect(OldSub);
+				}
+				break;
 			}
 		}
 		virtual IData* getConnected(int i = 0) override
