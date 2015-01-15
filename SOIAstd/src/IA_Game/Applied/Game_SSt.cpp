@@ -17,7 +17,7 @@ std::vector<int>* Game_StatedState::CalculateResult(IData* Input)
 	result->push_back(int(*Input) == LastVisible ? 1 : 0);
 
 	float rand = (float)std::rand() / (float)RAND_MAX;
-	LastVisible = rand * 4;
+	LastVisible = rand * 3;
 	result->push_back(LastVisible);
 
 	return result;

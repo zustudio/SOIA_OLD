@@ -195,6 +195,33 @@
     <ClInclude Include="src\ZABS_Math\Random\Random.h">
       <Filter>ZABS_Math\Random</Filter>
     </ClInclude>
+    <ClInclude Include="src\IA_MeaningStream\ExtendedData\ExGroup.h">
+      <Filter>IA_MeaningStream\ExtendedData</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IA_MeaningStream\ExtendedData\ExDSet.h">
+      <Filter>IA_MeaningStream\ExtendedData</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IA_MeaningStream\ExtendedData\IGroupingCriteria.h">
+      <Filter>IA_MeaningStream\ExtendedData</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IA_MeaningStream\ExtendedData\GroupCrit_Parentage.h">
+      <Filter>IA_MeaningStream\ExtendedData</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IA_MeaningStream\ExtendedData\IGroupFunction.h">
+      <Filter>IA_MeaningStream\ExtendedData</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IA_MeaningStream\ExtendedData\GroupFunc_DataPoints.h">
+      <Filter>IA_MeaningStream\ExtendedData</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IA_MeaningStream\ExtendedData\IDraw.h">
+      <Filter>IA_MeaningStream\ExtendedData</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IA_MeaningStream\ExtendedData\Draw_2D.h">
+      <Filter>IA_MeaningStream\ExtendedData</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ZABS_Math\DataStructs\VectorND.h">
+      <Filter>ZABS_Math\DataStructs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\IA_Engine\Framework\Engine.cpp">
@@ -271,6 +298,24 @@
     </ClCompile>
     <ClCompile Include="src\ZABS_Math\Random\Random.cpp">
       <Filter>ZABS_Math\Random</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IA_MeaningStream\ExtendedData\ExGroup.cpp">
+      <Filter>IA_MeaningStream\ExtendedData</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IA_MeaningStream\ExtendedData\ExDSet.cpp">
+      <Filter>IA_MeaningStream\ExtendedData</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IA_MeaningStream\ExtendedData\GroupCrit_Parentage.cpp">
+      <Filter>IA_MeaningStream\ExtendedData</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IA_MeaningStream\ExtendedData\GroupFunc_DataPoints.cpp">
+      <Filter>IA_MeaningStream\ExtendedData</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IA_MeaningStream\ExtendedData\Draw_2D.cpp">
+      <Filter>IA_MeaningStream\ExtendedData</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ZABS_Math\DataStructs\VectorND.cpp">
+      <Filter>ZABS_Math\DataStructs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

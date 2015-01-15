@@ -1,11 +1,12 @@
 
 #pragma once
 
-#include <deque>
+#include "stdafx.h"
 
-#include "fPoint.h"
-#include "IData.h"
-	#include "MTypes.h"
+#include "VectorND.h"
+//#include "fPoint.h"
+//#include "IData.h"
+//	#include "MTypes.h"
 
 
 namespace IA
@@ -25,6 +26,12 @@ namespace IA
 			std::deque<ExData*> Children;
 			fPoint Location;
 			fPoint Extend;
+
+			struct SInterpretedProps
+			{
+				VectorND<float> IntExtend = VectorND<float>(0);
+			};
+			SInterpretedProps InterpProps;
 
 			///////////////////////////////////////////////////
 			// functions

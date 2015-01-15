@@ -68,7 +68,15 @@
     <ClInclude Include="src\IA_Engine\Modules\MTypes.h" />
     <ClInclude Include="src\IA_Game\Applied\Game_SSt.h" />
     <ClInclude Include="src\IA_Game\Framework\Game.h" />
+    <ClInclude Include="src\IA_MeaningStream\ExtendedData\Draw_2D.h" />
     <ClInclude Include="src\IA_MeaningStream\ExtendedData\ExData.h" />
+    <ClInclude Include="src\IA_MeaningStream\ExtendedData\ExDSet.h" />
+    <ClInclude Include="src\IA_MeaningStream\ExtendedData\ExGroup.h" />
+    <ClInclude Include="src\IA_MeaningStream\ExtendedData\GroupCrit_Parentage.h" />
+    <ClInclude Include="src\IA_MeaningStream\ExtendedData\GroupFunc_DataPoints.h" />
+    <ClInclude Include="src\IA_MeaningStream\ExtendedData\IDraw.h" />
+    <ClInclude Include="src\IA_MeaningStream\ExtendedData\IGroupFunction.h" />
+    <ClInclude Include="src\IA_MeaningStream\ExtendedData\IGroupingCriteria.h" />
     <ClInclude Include="src\IA_MeaningStream\SDL\SDL.h" />
     <ClInclude Include="src\IA_MeaningStream\SDL\SDL_GlobalVars.h" />
     <ClInclude Include="src\IA_MeaningStream\SDL\SDL_IA.h" />
@@ -93,6 +101,7 @@
     <ClInclude Include="src\SO_UI\Explorer\DEGraph.h" />
     <ClInclude Include="src\SO_UI\Information\DebugVisual.h" />
     <ClInclude Include="src\ZABS_Math\DataStructs\Vector2D.h" />
+    <ClInclude Include="src\ZABS_Math\DataStructs\VectorND.h" />
     <ClInclude Include="src\ZABS_Math\Random\Random.h" />
   </ItemGroup>
   <ItemGroup>
@@ -100,7 +109,12 @@
     <ClCompile Include="src\IA_Engine\Framework\Engine.cpp" />
     <ClCompile Include="src\IA_Game\Applied\Game_SSt.cpp" />
     <ClCompile Include="src\IA_Game\Framework\Game.cpp" />
+    <ClCompile Include="src\IA_MeaningStream\ExtendedData\Draw_2D.cpp" />
     <ClCompile Include="src\IA_MeaningStream\ExtendedData\ExData.cpp" />
+    <ClCompile Include="src\IA_MeaningStream\ExtendedData\ExDSet.cpp" />
+    <ClCompile Include="src\IA_MeaningStream\ExtendedData\ExGroup.cpp" />
+    <ClCompile Include="src\IA_MeaningStream\ExtendedData\GroupCrit_Parentage.cpp" />
+    <ClCompile Include="src\IA_MeaningStream\ExtendedData\GroupFunc_DataPoints.cpp" />
     <ClCompile Include="src\SO_Drawing\ControlElements\CCanvas.cpp" />
     <ClCompile Include="src\SO_Drawing\ControlElements\Control.cpp" />
     <ClCompile Include="src\SO_Drawing\ControlElements\CTextBox.cpp" />
@@ -120,6 +134,7 @@
     <ClCompile Include="src\SO_UI\Explorer\DEGraph.cpp" />
     <ClCompile Include="src\SO_UI\Information\DebugVisual.cpp" />
     <ClCompile Include="src\ZABS_Math\DataStructs\Vector2D.cpp" />
+    <ClCompile Include="src\ZABS_Math\DataStructs\VectorND.cpp" />
     <ClCompile Include="src\ZABS_Math\Random\Random.cpp" />
   </ItemGroup>
   <ItemGroup>

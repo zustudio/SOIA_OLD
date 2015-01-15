@@ -5,6 +5,11 @@
 
 #include "DEGraph.h"
 
+#include "ExDSet.h"
+#include "Draw_2D.h"
+#include "GroupCrit_Parentage.h"
+#include "GroupFunc_DataPoints.h"
+
 using namespace IA::MeaningStream;
 using namespace SO;
 
@@ -64,6 +69,23 @@ void DEGraph::Draw(int Depth)
 	Clear();
 	DrawObjects();
 	DrawConnections();
+
+	//TEST:
+	std::deque<ExGroup*> testgroups = std::deque<ExGroup*>();
+	GroupCrit_Parentage* crit = new GroupCrit_Parentage();
+	crit->CreateFrom(AllDrawnObjects[0]);
+	testgroups.push_back(new ExGroup(crit, new GroupFunc_DataPoints()));
+
+
+	ExDSet testSet = ExDSet(testgroups, &AllDrawnObjects);
+
+	testSet.AddToGroups(AllDrawnObjects);
+	testSet.Scan();
+
+	Draw_2D* drawingObject = new Draw_2D();
+	drawingObject->Draw(this, testSet.GetGroups());
+
+	//ENDTEST
 
 }
 

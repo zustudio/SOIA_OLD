@@ -104,7 +104,7 @@ namespace IA
 				for (int i = 0; i < n; i++)
 				{
 					MSimDec<Super>* lnk = (MSimDec<Super>*) Super::getConnected(i);
-					if (isChild(lnk, DataType::LightLink, LinkType::NoLink))
+					if (MTypes<Super>::isChild(lnk, DataType::LightLink, LinkType::NoLink))
 					{
 						Values.push_back((float)(lnk->Super::get()));
 
@@ -130,7 +130,7 @@ namespace IA
 				}
 				std::cout << "[MSimDec]: chosen option => [" << i_Value << "]" << std::endl;
 #endif
-				set(value);
+				Super::set(value);
 				return value;
 			}
 		}

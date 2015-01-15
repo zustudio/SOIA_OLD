@@ -15,15 +15,15 @@ Engine_SSt::Engine_SSt(IA::Game* NewGame) : Engine(NewGame)
 	symbol Knowledge is 1475
 		setname("Knowledge")
 
-		sub Action isllist(1, 3, 3, 4)
+		sub Action isllist(0, 1, 2, 3)
 		setname("Action")
 		endsub
 
-		sub Result isllist(1, 1, 0, 0)
+		sub Result isllist(0, 1, 1, 1)
 		setname("Result")
 		endsub
 
-		sub Visible isllist(3, 2, 3, 3)
+		sub Visible isllist(1, 2, 3, 0)
 		setname("Visible")
 		endsub
 
@@ -62,9 +62,12 @@ Engine_SSt::~Engine_SSt()
 // main loop
 void Engine_SSt::Tick()
 {
+	static int i = 0;
+
 	SDL_start
 
 	newsymbol action isdefault
+		setname(std::string("X") + std::to_string(i))
 		newsub result is 1
 		endsub
 	endsymbol
@@ -72,8 +75,8 @@ void Engine_SSt::Tick()
 	*Action >> action;
 	*Result >> result;
 
-	int n_CVisible = Visible->getConnectedNum();
-	Data_SSt* lastVisible = (Data_SSt*)(*Visible)[n_CVisible - 1];
+	int n_CVisible = Visible->getConnectedNum(LinkType::T_NormLink | LinkType::Downlink);
+	Data_SSt* lastVisible = (Data_SSt*)(Visible->getConnected(n_CVisible - 1, LinkType::T_NormLink | LinkType::Downlink));
 
 	*lastVisible >> action;
 
@@ -93,6 +96,7 @@ void Engine_SSt::Tick()
 	std::string text = std::to_string(sim);
 	std::cout << text;
 */
+	i++;
 	
 }
 

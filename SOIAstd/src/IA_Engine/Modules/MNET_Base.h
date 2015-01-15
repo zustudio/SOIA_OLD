@@ -2,6 +2,7 @@
 
 #include "IData.h"
 
+#include <algorithm>
 #include <deque>
 
 
