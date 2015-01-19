@@ -3,6 +3,7 @@
 #pragma once
 
 #include <cmath>
+#include "VectorND.h"
 
 namespace ZABS
 {
@@ -21,6 +22,11 @@ namespace ZABS
 			{
 				X = newX;
 				Y = newY;
+			}
+			Vector2D(VectorND<T> base)
+			{
+				X = base[0];
+				Y = base[1];
 			}
 			~Vector2D()
 			{

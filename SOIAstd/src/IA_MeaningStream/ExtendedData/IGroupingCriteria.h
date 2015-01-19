@@ -16,6 +16,8 @@ namespace IA
 			/*Checks, whether another data matches this criterias definition.
 				@return: 0 if no match; 1 - 10 if continueously better match*/
 			virtual int Complies(ExData*) = 0;
+			/*Returns template, form which this criteria was created*/
+			virtual ExData* GetBaseData() = 0;
 		};
 	}
 }

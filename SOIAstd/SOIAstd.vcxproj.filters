@@ -222,6 +222,9 @@
     <ClInclude Include="src\ZABS_Math\DataStructs\VectorND.h">
       <Filter>ZABS_Math\DataStructs</Filter>
     </ClInclude>
+    <ClInclude Include="src\IA_MeaningStream\ExtendedData\GroupCrit_Equal.h">
+      <Filter>IA_MeaningStream\ExtendedData</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\IA_Engine\Framework\Engine.cpp">
@@ -316,6 +319,9 @@
     </ClCompile>
     <ClCompile Include="src\ZABS_Math\DataStructs\VectorND.cpp">
       <Filter>ZABS_Math\DataStructs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IA_MeaningStream\ExtendedData\GroupCrit_Equal.cpp">
+      <Filter>IA_MeaningStream\ExtendedData</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

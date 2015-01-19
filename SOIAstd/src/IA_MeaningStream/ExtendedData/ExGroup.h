@@ -28,12 +28,16 @@ namespace IA
 			/*Removes an item from this group.*/
 			bool Remove(ExData*);
 
-			//---- encapsuled IGroupFunc functionality ----
+			//---- encapsuled 'Interface' functionality ----
 			virtual VectorND<float>* GetExtend();
+			VectorND<float>* GetLocation(ExData* Target);
+			VectorND<float>* GetBaseLocation();
+			ExData* ExGroup::GetBaseData();
 
 			//---- getter / setter ----
 			std::deque<ExData*>* GetOccupants();
 			std::deque<ExGroup*>* GetChildGroups();
+			void AddChildGroup(ExGroup*);
 
 			///////////////////////////////////////////////////
 			// variables

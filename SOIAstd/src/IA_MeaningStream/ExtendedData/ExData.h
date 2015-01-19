@@ -30,6 +30,9 @@ namespace IA
 			struct SInterpretedProps
 			{
 				VectorND<float> IntExtend = VectorND<float>(0);
+				VectorND<float> IntLocation = VectorND<float>(0);
+				VectorND<float> FloatExtend = VectorND<float>(0);
+				VectorND<float> FloatLocation = VectorND<float>(0);
 			};
 			SInterpretedProps InterpProps;
 

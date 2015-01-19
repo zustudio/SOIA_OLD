@@ -42,11 +42,27 @@ bool ExGroup::Remove(ExData* Data)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// encapsuled IGroupFunc functionality
+// encapsuled functionality
+//---- IGroupFunc ----
 VectorND<float>* ExGroup::GetExtend()
 {
 	return Function->GetExtend(Occupants);
 }
+VectorND<float>* ExGroup::GetLocation(ExData* Target)
+{
+	return Function->GetLocation(Target, Occupants);
+}
+VectorND<float>* ExGroup::GetBaseLocation()
+{
+	return Function->GetBaseLocation(Criteria->GetBaseData(), Occupants);
+}
+//---- IGroupingCriteria ----
+ExData* ExGroup::GetBaseData()
+{
+	return Criteria->GetBaseData();
+}
+
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // getter / setter
@@ -58,3 +74,11 @@ std::deque<ExGroup*>* ExGroup::GetChildGroups()
 {
 	return &ChildGroups;
 }
+void ExGroup::AddChildGroup(ExGroup* NewGroup)
+{
+	if (NewGroup)
+	{
+		ChildGroups.push_back(NewGroup);
+	}
+}
+

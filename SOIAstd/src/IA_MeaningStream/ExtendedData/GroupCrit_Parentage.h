@@ -18,6 +18,7 @@ namespace IA
 			//---- override ----
 			virtual bool CreateFrom(ExData* NewObligatoryParent) override;
 			virtual int Complies(ExData* Test) override;
+			virtual ExData* GetBaseData() override;
 		};
 	}
 }

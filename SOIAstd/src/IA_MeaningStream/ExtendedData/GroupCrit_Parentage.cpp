@@ -9,6 +9,11 @@ bool GroupCrit_Parentage::CreateFrom(ExData* NewObligatoryParent)
 	return true;
 }
 
+ExData* GroupCrit_Parentage::GetBaseData()
+{
+	return ObligatoryParent;
+}
+
 int GroupCrit_Parentage::Complies(ExData* Test)
 {
 	float result = 0;

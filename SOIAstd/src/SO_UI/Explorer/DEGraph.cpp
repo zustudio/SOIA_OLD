@@ -8,6 +8,7 @@
 #include "ExDSet.h"
 #include "Draw_2D.h"
 #include "GroupCrit_Parentage.h"
+#include "GroupCrit_Equal.h"
 #include "GroupFunc_DataPoints.h"
 
 using namespace IA::MeaningStream;
@@ -50,10 +51,10 @@ void DEGraph::Draw(int Depth)
 
 #if cSO_DebugDE > 0
 	std::cout << "[DE]: -- parent has " + std::to_string(Parent->Children.size()) + " Children\n";
-	std::cout << "[DE]: questing for longest horizontal data line\n";
+	//std::cout << "[DE]: questing for longest horizontal data line\n";
 #endif
 
-	int MaxHor = LongestHorizontalDataLine(Parent);
+	/*int MaxHor = LongestHorizontalDataLine(Parent);
 
 #if cSO_DebugDE > 0
 	std::cout << "[DE]: -- longest line is " << std::to_string(MaxHor) << " long\n";
@@ -68,14 +69,20 @@ void DEGraph::Draw(int Depth)
 
 	Clear();
 	DrawObjects();
-	DrawConnections();
+	DrawConnections();*/
 
 	//TEST:
 	std::deque<ExGroup*> testgroups = std::deque<ExGroup*>();
+
+	GroupCrit_Equal* crit1 = new GroupCrit_Equal();
+	crit1->CreateFrom(AllDrawnObjects[0]);
+	testgroups.push_back(new ExGroup(crit1, new GroupFunc_DataPoints()));
+
 	GroupCrit_Parentage* crit = new GroupCrit_Parentage();
 	crit->CreateFrom(AllDrawnObjects[0]);
 	testgroups.push_back(new ExGroup(crit, new GroupFunc_DataPoints()));
 
+	testgroups[0]->AddChildGroup(testgroups[1]);
 
 	ExDSet testSet = ExDSet(testgroups, &AllDrawnObjects);
 

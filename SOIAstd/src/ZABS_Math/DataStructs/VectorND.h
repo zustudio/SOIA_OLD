@@ -4,6 +4,7 @@
 
 #include <cmath>
 #include <vector>
+#include <string>
 
 namespace ZABS
 {
@@ -11,22 +12,24 @@ namespace ZABS
 	{
 		template<class T> class VectorND
 		{
-		public:
+		private:
 			/////////////////////////////////////////////////////////
 			// data
 			std::vector<T> val;
+			std::string text;
+		public:
 			/////////////////////////////////////////////////////////
 			// constructors
 			VectorND(const std::vector<T> &NewVal)
 			{
 				val = NewVal;
 			}
-			VectorND(int dim)
+			VectorND(int dim, T defaultValue = 0)
 			{
 				val = std::vector<T>();
 				for (int i = 0; i < dim; i++)
 				{
-					val.push_back(0);
+					val.push_back(defaultValue);
 				}
 			}
 			~VectorND()
@@ -36,56 +39,58 @@ namespace ZABS
 			/////////////////////////////////////////////////////////
 			// math
 			//---- helpers ----
-			int dim()
+			int dim() const
 			{
 				return val.size();
 			}
 			//---- access operation ----
-			T& operator [](int i)
+			T& operator [](T i)
 			{
 				if (i >= 0 && i < dim())
 					return val[i];
 				else
-					return 0;
+				{
+					for (int delta = i + 1 - dim(); delta > 0; delta--)
+					{
+						val.push_back(0);
+					}
+					return val[i];
+				}
 			}
 			//---- list operation ----
-			VectorND<T> operator +(VectorND<T> a)
+			void intern_OpAdd(VectorND<T> &a, VectorND<T> &b, VectorND<T> &r)
 			{
-				int n = std::fmax(this->din(), a->dim());
-				VectorND<T> result = VectorND<T>(n);
+				int n = std::fmax(a.dim(), b.dim());
 				for (int i_single = 0; i_single < n; i_single++)
 				{
-					result[i_single] = (*this)[i_single] + a[i_single];
+					r[i_single] = a[i_single] + b[i_single];
 				}
+			}
+			VectorND<T> operator +(VectorND<T> a)
+			{
+				VectorND<T> result = VectorND<T>(1);
+				intern_OpAdd((*this), a, result);
 				return result;
 			}
 			VectorND<T> operator +=(VectorND<T> a)
 			{
 				VectorND<T> tmp(*this);
-				tmp = tmp + a;
+				intern_OpAdd(*this, a, *this);
 				return tmp;
 			}
-			/*VectorND<T> operator -(VectorND<T> a)
+			/////////////////////////////////////////////////////////
+			// conversions
+			operator std::string& ()
 			{
-				return VectorND<T>(X - a.X, Y - a.Y);
+				text = std::string("(");
+				int n = dim();
+				for (int i = 0; i < n; i++)
+				{
+					text += (std::to_string((*this)[i]) + "|");
+				}
+				text += ")";
+				return text;
 			}
-			VectorND<T> operator *(VectorND<T> a)
-			{
-				return VectorND<T>(a.X *X, a.Y * Y);
-			}
-			VectorND<T> operator *=(VectorND<T> a)
-			{
-				VectorND<T> tmp = VectorND<T>(*this);
-				X *= a.X;
-				Y *= a.Y;
-				return tmp;
-			}*/
-
-			//---- scalar operation ----
-			/*VectorND<T> operator *(T n)
-			{
-				return VectorND<T>(X * n, Y * n);
-			}*/
 		};
 	}
 }

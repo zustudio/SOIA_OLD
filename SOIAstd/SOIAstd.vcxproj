@@ -72,6 +72,7 @@
     <ClInclude Include="src\IA_MeaningStream\ExtendedData\ExData.h" />
     <ClInclude Include="src\IA_MeaningStream\ExtendedData\ExDSet.h" />
     <ClInclude Include="src\IA_MeaningStream\ExtendedData\ExGroup.h" />
+    <ClInclude Include="src\IA_MeaningStream\ExtendedData\GroupCrit_Equal.h" />
     <ClInclude Include="src\IA_MeaningStream\ExtendedData\GroupCrit_Parentage.h" />
     <ClInclude Include="src\IA_MeaningStream\ExtendedData\GroupFunc_DataPoints.h" />
     <ClInclude Include="src\IA_MeaningStream\ExtendedData\IDraw.h" />
@@ -113,6 +114,7 @@
     <ClCompile Include="src\IA_MeaningStream\ExtendedData\ExData.cpp" />
     <ClCompile Include="src\IA_MeaningStream\ExtendedData\ExDSet.cpp" />
     <ClCompile Include="src\IA_MeaningStream\ExtendedData\ExGroup.cpp" />
+    <ClCompile Include="src\IA_MeaningStream\ExtendedData\GroupCrit_Equal.cpp" />
     <ClCompile Include="src\IA_MeaningStream\ExtendedData\GroupCrit_Parentage.cpp" />
     <ClCompile Include="src\IA_MeaningStream\ExtendedData\GroupFunc_DataPoints.cpp" />
     <ClCompile Include="src\SO_Drawing\ControlElements\CCanvas.cpp" />

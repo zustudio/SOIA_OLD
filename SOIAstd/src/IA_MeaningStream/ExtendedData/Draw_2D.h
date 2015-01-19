@@ -11,6 +11,7 @@ namespace IA
 		{
 		public:
 			virtual void Draw(CCanvas* Canvas, std::deque<ExGroup*>* Groups) override;
+			void exe_SetLocation(ExGroup* Group, VectorND<float> &IntLocation);
 		};
 	}
 }
