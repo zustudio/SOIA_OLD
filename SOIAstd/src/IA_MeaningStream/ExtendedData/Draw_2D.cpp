@@ -44,7 +44,8 @@ void Draw_2D::Draw(CCanvas* Canvas, std::deque<ExGroup*>* Groups)
 	}
 
 
-	exe_SetLocation((*Groups)[0], VectorND<float>(2));
+	VectorND<float> start = VectorND<float>(2);
+	exe_SetLocation((*Groups)[0], start);
 
 
 	//---------------- find the max int demensions of locations ------------------

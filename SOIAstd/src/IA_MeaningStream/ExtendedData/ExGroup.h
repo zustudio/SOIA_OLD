@@ -32,7 +32,7 @@ namespace IA
 			virtual VectorND<float>* GetExtend();
 			VectorND<float>* GetLocation(ExData* Target);
 			VectorND<float>* GetBaseLocation();
-			ExData* ExGroup::GetBaseData();
+			ExData* GetBaseData();
 
 			//---- getter / setter ----
 			std::deque<ExData*>* GetOccupants();
