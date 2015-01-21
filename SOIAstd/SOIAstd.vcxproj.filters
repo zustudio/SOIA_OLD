@@ -82,6 +82,9 @@
     <Filter Include="ZABS_Math\Random">
       <UniqueIdentifier>{ef806e19-932c-49dd-926e-285027872ea4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SO_Service\InternCommunication">
+      <UniqueIdentifier>{e497adcf-b925-4e7b-9e49-f569b26cb1e4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Definitions\stdafx.h">
@@ -225,6 +228,15 @@
     <ClInclude Include="src\IA_MeaningStream\ExtendedData\GroupCrit_Equal.h">
       <Filter>IA_MeaningStream\ExtendedData</Filter>
     </ClInclude>
+    <ClInclude Include="src\SO_Service\InternCommunication\ICom.h">
+      <Filter>SO_Service\InternCommunication</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_Service\InternCommunication\Com_Handle.h">
+      <Filter>SO_Service\InternCommunication</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_Service\InternCommunication\Com_Center.h">
+      <Filter>SO_Service\InternCommunication</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\IA_Engine\Framework\Engine.cpp">
@@ -322,6 +334,9 @@
     </ClCompile>
     <ClCompile Include="src\IA_MeaningStream\ExtendedData\GroupCrit_Equal.cpp">
       <Filter>IA_MeaningStream\ExtendedData</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_Service\InternCommunication\Com_Handle.cpp">
+      <Filter>SO_Service\InternCommunication</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
