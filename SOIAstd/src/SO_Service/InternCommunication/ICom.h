@@ -1,7 +1,8 @@
 
 #pragma once
 
-#include "ICom.h"
+#include "ICmd.h"
+#include "Handle.h"
 
 namespace SO
 {
@@ -9,14 +10,15 @@ namespace SO
 	{
 		class ICom
 		{
+		public:
 			/////////////////////////////////
-			// about this:
-			virtual std::string& getName() = 0;
+			// getting information
+			virtual void cGetCommands(std::vector<SO::Base::Handle<SO::Base::ICmd> > &Commands) = 0;
 
 			////////////////////////////////
 			// io
-			void out(const ICom &target);
-			void in(const ICom &caller);
+			virtual bool cSend(const SO::Base::Handle<SO::Com::ICom> &Target, const SO::Base::ICmd &Command, const std::vector<void*> &Args) = 0;
+			/*virtual void cReceive(const ICom &caller, const Com_Cmd &Cmd) = 0;*/
 		};
 	}
 }

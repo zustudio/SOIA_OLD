@@ -11,17 +11,26 @@
 #include "DebugVisual.h"
 #include "DataExplorer.h"
 
+
 using namespace SOIA;
+using namespace SO::Base;
 using namespace SO::UI;
+using namespace SO::Com;
 using namespace IA;
 using namespace std;
+
+
+#include "Com_Cmd.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // init
 
-ConsoleService::ConsoleService(Engine* newEngine)
+ConsoleService::ConsoleService(Engine* newEngine, ComService* NewUp) : IIComIO(NewUp)
 {
 	CurrentEngine = newEngine;
+	ComCenter = Up;
+
+	ComCenter->Register(cGetHandle());
 }
 
 void ConsoleService::Start()
@@ -38,17 +47,36 @@ void ConsoleService::Start()
 		input.push_back(' ');
 
 		std::vector<std::string> args;
+		std::string target;
 
 		int p_Last = 0;
 		for (std::string::size_type p_Char = 0; p_Char < input.size(); p_Char++)
 		{
 			if (input[p_Char] == ' ' || input[p_Char] == '\n')
 			{
-				args.push_back(input.substr(p_Last, p_Char - p_Last));
+				if (input[p_Last] == '@')
+				{
+					target = input.substr(p_Last + 1, p_Char - p_Last - 1);
+				}
+				else
+				{
+					args.push_back(input.substr(p_Last, p_Char - p_Last));
+				}
 				p_Last = p_Char + 1;
 			}
 		}
 
+		Handle<ICom> outTarget;
+		Handle<ICmd> outCmd;
+		std::vector<void*> outArgs;
+		bool result;
+		result = ComCenter->TranslateString(target, args, outTarget, outCmd, outArgs);
+		if (result)
+		{
+			cSend(outTarget, *outCmd.getObj(), outArgs);
+		}
+
+/*
 		for (std::vector<std::string>::size_type p_Arg = 0; p_Arg < args.size(); p_Arg++)
 		{
 			std::string arg = args[p_Arg];
@@ -82,12 +110,73 @@ void ConsoleService::Start()
 			{
 				cout << ("");
 				cout << "=> [Console]: Currently available commands are:\n    add i\n    debugvisual\n    dataexplorer\n";
-			}
+			}*/
 			else
 			{
-				cout << "=> [Console]: Could not parse command (" + arg + ")\n";
+				cout << "=> [Console]: Could not parse command (" << /*arg */ "??" << ")\n";
 			}
-		}
+		//}
 	}
 	CurrentEngine->MThread.Disable();
+}
+
+////////////////////////////////////////////////////////////////////////////
+// ICom Interface
+Handle<ICom>& ConsoleService::cGetHandle()
+{
+	TryCreateHandle("Console");
+	return IIComIO::cGetHandle();
+}
+void ConsoleService::cGetCommands(std::vector<Handle<ICmd> > &Commands)
+{
+	Commands.push_back(Handle<ICmd>(new Com_Cmd<SOIA::ConsoleService>(&ConsoleService::cmd_echo), std::string("echo")));
+	Commands.push_back(Handle<ICmd>(new Com_Cmd<SOIA::ConsoleService>(&ConsoleService::cmd_create), std::string("create")));
+}
+
+bool ConsoleService::cmd_echo(const Handle<ICom> &Caller, const std::vector<void*> &Args)
+{
+	bool result = true;
+
+	std::cout << "[" << Caller.getName() << "]: ";
+
+	for (void* genArg : Args)
+	{
+		std::string* arg = (std::string*)genArg;
+		if (arg)
+		{
+			std::cout << *arg << " ";
+		}
+		else
+		{
+			result = false;
+		}
+	}
+	return result;
+}
+
+bool ConsoleService::cmd_create(const Handle<ICom> &Caller, const std::vector<void*> &Args)
+{
+	bool result = true;
+	std::string* arg = (std::string*) Args[0];
+	if (arg)
+	{
+		std::string text = *arg;
+		if (text == "dataexplorer")
+		{
+			std::string name = std::string("dataexplorer");
+			auto temp = Handle<ICom>(nullptr, name);
+			ComCenter->AdjustComName(temp);
+
+			DataExplorer* data = new DataExplorer(CurrentEngine, ComCenter);
+			AddWindow<DataExplorer>(data);
+
+			Handle<ICom> hndl = Handle<ICom>(data, name);
+			ComCenter->Register(hndl, true);
+		}
+		else
+		{
+			result = false;
+		}
+	}
+	return result;
 }

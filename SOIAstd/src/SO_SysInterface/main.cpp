@@ -21,7 +21,9 @@ int main()
 	std::thread t1 = std::thread(&IA::Engine::Start, &*currentEngine);
 	//currentEngine->MThread.AddLoops(5);
 
-	SOIA::ConsoleService* console = new SOIA::ConsoleService(currentEngine);
+	SO::Com::ComService* ComCenter = new SO::Com::ComService();
+
+	SOIA::ConsoleService* console = new SOIA::ConsoleService(currentEngine, ComCenter);
 	console->Start();
 
 	t1.join();
