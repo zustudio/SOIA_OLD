@@ -27,7 +27,7 @@ namespace SO
 			// management
 			void Register(Handle<ICom> &Com, bool bForceNoNameCheck = false);
 			void AdjustComName(Handle<ICom> &Com);
-			bool TranslateString(const std::string &Target, const std::vector<std::string> &Args, Handle<ICom> &outTarget, Handle<ICmd> &outCmd, std::vector<void*> &outArgs);
+			bool TranslateString(const std::string &Target, const std::vector<std::string> &Args, std::vector<Handle<ICom> > &outTargets, Handle<ICmd> &outCmd, std::vector<void*> &outArgs);
 
 			/////////////////////////////////////////////////
 			// message distribution

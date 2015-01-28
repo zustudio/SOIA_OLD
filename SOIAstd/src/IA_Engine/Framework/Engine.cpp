@@ -6,12 +6,15 @@
 #include "Thread.h"
 #include "Engine.h"
 
+#include "Com_Cmd.h"
+
 using namespace IA;
+using namespace SO::Com;
 using namespace std;
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // init
-Engine::Engine(IA::Game* NewGame)
+Engine::Engine(IA::Game* NewGame, ComService* Up) : IIComIO(Up)
 {
 	CurrentGame = NewGame;
 }
@@ -25,86 +28,24 @@ Engine::~Engine()
 void Engine::Tick()
 {
 	IData* test;
-	/*test = new IA::IData();
-	test->Content = 0;
-	IFuncResultOfAction(test)->Content;*/
 
 	std::cout << "[IA-Engine]: no engine implementation";
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//// rand
-//int Engine::InfluencedRand(vector<float> &Chances)
-//{
-//	float sum;
-//	vector<float> relativeChances = vector<float>();
-//	vector<float> chanceDestribution = vector<float>();
-//	float randomFloat;
-//	int chosenInt;
-//
-//	//add elements to arrays
-//	for (int i = 0; i < Chances.size(); i++)
-//	{
-//		relativeChances.push_back(0);
-//		chanceDestribution.push_back(0);
-//	}
-//	////move negative chances up into positive ones
-//	float smallestChance = 0;
-//	for (int i = 0; i < Chances.size(); i++)
-//	{
-//		smallestChance = smallestChance <= Chances[i]? smallestChance : Chances[i];
-//	}
-//	for (int i = 0; i < Chances.size(); i++)
-//	{
-//		Chances[i] -= smallestChance;
-//	}
-//
-//	//set minimal chance
-//	for (int i = 0; i < Chances.size(); i++)
-//	{
-//		if (Chances[i] < 1)
-//			Chances[i] = 1;
-//	}
-//
-//	//calculate chance destribution
-//	//sum up all elements of chances
-//	for (int i = 0; i < Chances.size(); i++)
-//	{
-//		sum += Chances[i];
-//	}
-//	//divide by sum
-//	for (int i = 0; i < Chances.size(); i++)
-//	{
-//		relativeChances[i] = Chances[i] / sum;
-//	}
-//	//add previous chances to current element
-//	for (int i = 0; i < Chances.size(); i++)
-//	{
-//		chanceDestribution[i] += relativeChances[i] + (i > 0 ? chanceDestribution[i - 1] : 0);
-//	}
-//
-//	//get a random float
-//	randomFloat = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-//
-//	//calculate which possibility was chosen
-//	for (int i = Chances.size() - 1; i >= 0; i--)
-//	{
-//		if (randomFloat <= chanceDestribution[i])
-//			chosenInt = i;
-//	}
-//	return chosenInt;
-//}
-
-
 /////////////////////////////////////////////////////////////////////////////////////////
-// io
+// ICom
+void Engine::cGetCommands(std::vector<SO::Base::Handle<SO::Base::ICmd> > &Commands)
+{
+	ICom_RegisterCmd(Commands, Engine, cmd_add, "add");
+}
+Handle<ICom>& Engine::cGetHandle()
+{
+	TryCreateHandle<Engine>("SOIA"); 
+	return IIComIO::cGetHandle();
+}
 
-//IData* Engine::ReadData()
-//{
-//	Monitor::Enter(Lock);
-//	return Knowledge;
-//}
-//void Engine::StopData()
-//{
-//	Monitor::Exit(Lock);
-//}
+bool Engine::cmd_add(const SO::Base::Handle<ICom> &Caller, const std::vector<void*> &Args)
+{
+	Engine::MThread.AddLoops(1);
+	return true;
+}

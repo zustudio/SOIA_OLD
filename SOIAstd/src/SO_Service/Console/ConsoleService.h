@@ -43,11 +43,10 @@ namespace SOIA
 		//--- ICom Interface ---
 		virtual void cGetCommands(std::vector<Handle<ICmd> > &Commands) override;
 		virtual Handle<ICom>& cGetHandle() override;
-
+		//--- ICom commands ---
+		T_com_cmd_func cmd_exit;
 		T_com_cmd_func cmd_echo;
 		T_com_cmd_func cmd_create;
-		/*bool cmd_echo(const Handle<ICom> &Caller, const std::vector<void*> &Args);*/
-		//bool cmd_create(const Handle<ICom> &Caller, const std::vector<void*> &Args);
 
 	private:
 		///////////////////////////////////////////////////////////////
@@ -57,8 +56,8 @@ namespace SOIA
 		std::deque<SO::Window*> Windows;
 		std::deque<std::thread*> Threads;
 		SO::Com::ComService* ComCenter;
-
-
+		//--- status ---
+		bool bLoop;
 		
 	};
 }

@@ -31,23 +31,31 @@ ConsoleService::ConsoleService(Engine* newEngine, ComService* NewUp) : IIComIO(N
 	ComCenter = Up;
 
 	ComCenter->Register(cGetHandle());
+	ComCenter->Register(CurrentEngine->cGetHandle());
+
+	bLoop = true;
 }
 
 void ConsoleService::Start()
 {
-	bool bLoop = true;
-	std::string input;
+	std::string input = std::string("");
+	std::string currentTarget = std::string("");
 
 	while (bLoop)
 	{
-		std::cout << std::endl << "[User]: ";
+		std::cout << std::endl << "[User";
+		if (currentTarget != "")
+		{
+			std::cout << "@" << currentTarget;
+		}
+		std::cout << "]: ";
 
 		getline(cin, input);
 
 		input.push_back(' ');
 
 		std::vector<std::string> args;
-		std::string target;
+		std::string newTarget = currentTarget;
 
 		int p_Last = 0;
 		for (std::string::size_type p_Char = 0; p_Char < input.size(); p_Char++)
@@ -56,7 +64,7 @@ void ConsoleService::Start()
 			{
 				if (input[p_Last] == '@')
 				{
-					target = input.substr(p_Last + 1, p_Char - p_Last - 1);
+					newTarget = input.substr(p_Last + 1, p_Char - p_Last - 1);
 				}
 				else
 				{
@@ -66,14 +74,45 @@ void ConsoleService::Start()
 			}
 		}
 
-		Handle<ICom> outTarget;
+		//out vars
+		std::vector<Handle<ICom> > outTargets;
 		Handle<ICmd> outCmd;
 		std::vector<void*> outArgs;
-		bool result;
-		result = ComCenter->TranslateString(target, args, outTarget, outCmd, outArgs);
-		if (result)
+		bool result = false;
+
+		//call
+		result = ComCenter->TranslateString(newTarget, args, outTargets, outCmd, outArgs);
+
+		//interpretation
+		if (args.size() > 0)
 		{
-			cSend(outTarget, *outCmd.getObj(), outArgs);
+			if (result)
+			{
+
+				if (outTargets.size() == 1)
+				{
+					cSend(outTargets[0], *outCmd.getObj(), outArgs);
+				}
+				else
+				{
+					std::cout << "=> [Console]: Command ambigious.\n";
+				}
+			}
+			else
+			{
+				cout << "=> [Console]: Could not parse command ( @" << newTarget << " : "<< args[0] << " )\n";
+			}
+		}
+		else
+		{
+			if (result || newTarget == "")
+			{
+				currentTarget = newTarget;
+			}
+			else
+			{
+				std::cout << "=> [Console]: Could not find target '" << newTarget << "'.\n";
+			}
 		}
 
 /*
@@ -111,10 +150,7 @@ void ConsoleService::Start()
 				cout << ("");
 				cout << "=> [Console]: Currently available commands are:\n    add i\n    debugvisual\n    dataexplorer\n";
 			}*/
-			else
-			{
-				cout << "=> [Console]: Could not parse command (" << /*arg */ "??" << ")\n";
-			}
+			
 		//}
 	}
 	CurrentEngine->MThread.Disable();
@@ -124,13 +160,20 @@ void ConsoleService::Start()
 // ICom Interface
 Handle<ICom>& ConsoleService::cGetHandle()
 {
-	TryCreateHandle("Console");
+	TryCreateHandle<ConsoleService>("Console"); 
 	return IIComIO::cGetHandle();
 }
 void ConsoleService::cGetCommands(std::vector<Handle<ICmd> > &Commands)
 {
-	Commands.push_back(Handle<ICmd>(new Com_Cmd<SOIA::ConsoleService>(&ConsoleService::cmd_echo), std::string("echo")));
-	Commands.push_back(Handle<ICmd>(new Com_Cmd<SOIA::ConsoleService>(&ConsoleService::cmd_create), std::string("create")));
+	ICom_RegisterCmd(Commands, ConsoleService, cmd_echo, "echo");
+	ICom_RegisterCmd(Commands, ConsoleService, cmd_create, "create");
+	ICom_RegisterCmd(Commands, ConsoleService, cmd_exit, "exit");
+}
+
+bool ConsoleService::cmd_exit(const Handle<ICom> &Caller, const std::vector<void*> &Args)
+{
+	bLoop = false;
+	return true;
 }
 
 bool ConsoleService::cmd_echo(const Handle<ICom> &Caller, const std::vector<void*> &Args)
@@ -151,6 +194,7 @@ bool ConsoleService::cmd_echo(const Handle<ICom> &Caller, const std::vector<void
 			result = false;
 		}
 	}
+	std::cout << std::endl;
 	return result;
 }
 

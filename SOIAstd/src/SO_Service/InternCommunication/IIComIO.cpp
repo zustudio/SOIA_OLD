@@ -8,6 +8,7 @@ using namespace SO::Com;
 IIComIO::IIComIO(ComService* NewComService)
 {
 	Up = NewComService;
+	Hndl = nullptr;
 }
 
 //////////////////////////////////////////////////////////
@@ -21,15 +22,8 @@ Handle<ICom>& IIComIO::cGetHandle()
 {
 	if (!Hndl)
 	{
-		Hndl = new Handle<ICom>(this, std::string(""));
+		TryCreateHandle<IIComIO>("");
 	}
 	return *Hndl;
 }
 
-void IIComIO::TryCreateHandle(const std::string &Name)
-{
-	if (!Hndl)
-	{
-		Hndl = new Handle<ICom>(this, Name);
-	}
-}

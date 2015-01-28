@@ -41,7 +41,7 @@ namespace IA
 		///////////////////////////////////////
 		// functions
 		//----  init   ----
-		Engine_SSt(IA::Game* newGame);
+		Engine_SSt(IA::Game* newGame, SO::Com::ComService* Up);
 		virtual ~Engine_SSt();
 		//----  main   ----
 		virtual void Tick() override;

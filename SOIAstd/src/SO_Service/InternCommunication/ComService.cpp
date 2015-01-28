@@ -41,46 +41,99 @@ void ComService::AdjustComName(Handle<ICom> &Com)
 	}
 }
 
-bool ComService::TranslateString(const std::string &Target, const std::vector<std::string> &Args, Handle<ICom> &outTarget, Handle<ICmd> &outCmd, std::vector<void*> &outArgs)
+bool ComService::TranslateString(const std::string &Target_Name, const std::vector<std::string> &Args, std::vector<Handle<ICom> > &outTargets, Handle<ICmd> &outCmd, std::vector<void*> &outArgs)
 {
 	bool result = false;
 
-	//set target
-	for (Handle<ICom> test : Communicators)
+	//target
+	Handle<ICom> Target_NameHndl = Handle<ICom>(nullptr, Target_Name);
+	ICom* Target_Obj = Target_NameHndl.getObj(Communicators);
+	Handle<ICom> Target_ObjHndl;
+
+	if (Args.size() == 0)
 	{
-		if (test.getName() == Target)
+		if (Target_Obj)
 		{
-			outTarget = test;
-			result = true;
+			return true;
+		}
+		else
+		{
+			return false;
 		}
 	}
 
-	if (!result)
+	//commands
+	std::vector<Handle<ICmd> > Command_Hndls = std::vector<Handle<ICmd> >();
+	Handle<ICmd> Command_NameHndl = Handle<ICmd>(nullptr, Args[0]);
+	Handle<ICmd> Command_ObjHndl;
+
+	if (Target_Obj)
 	{
-		return result;
+		Target_ObjHndl = Handle<ICom>(Target_Obj, Target_Name);
+		outTargets.push_back(Target_ObjHndl);
+
+		Target_Obj->cGetCommands(Command_Hndls);
+		ICmd* Cmd_Obj = Command_NameHndl.getObj(Command_Hndls);
+		if (Cmd_Obj)
+		{
+			Command_ObjHndl = Handle<ICmd>(Cmd_Obj, Args[0]);
+			result = true;
+		}
 	}
 	else
 	{
-		result = false;
-	}
-
-	//set command
-	ICom* com = outTarget.getObj();
-	std::vector<Handle<ICmd> > commands;
-	com->cGetCommands(commands);
-	for (auto command : commands)
-	{
-		if (command.getName() == Args[0])
+		for (auto TestTarget_ObjHndl : Communicators)
 		{
-			outCmd = command;
-			result = true;
+			std::vector<Handle<ICmd> > TestCmd_Hndls = std::vector<Handle<ICmd> >();
+			TestTarget_ObjHndl.getObj()->cGetCommands(TestCmd_Hndls);
+			ICmd* Cmd_Obj = Command_NameHndl.getObj(TestCmd_Hndls);
+			if (Cmd_Obj)
+			{
+				outTargets.push_back(TestTarget_ObjHndl);
+				Command_ObjHndl = Handle<ICmd>(Cmd_Obj, Args[0]);
+				result = true;
+			}
 		}
 	}
+	outCmd = Command_ObjHndl;
+	
 
-	if (!result)
-	{
-		return result;
-	}
+	////set target
+	//for (Handle<ICom> test : Communicators)
+	//{
+	//	if (test.getName() == Target)
+	//	{
+	//		outTarget = test;
+	//		result = true;
+	//	}
+	//}
+
+	//if (!result)
+	//{
+	//	return result;
+	//}
+	//else
+	//{
+	//	result = false;
+	//}
+
+	////set command
+	//ICom* com = outTarget.getObj();
+	//std::vector<Handle<ICmd> > commands;
+	//com->cGetCommands(commands);
+	//for (auto command : commands)
+	//{
+	//	if (command.getName() == Args[0])
+	//	{
+	//		outCmd = command;
+	//		result = true;
+	//	}
+	//}
+
+	//if (!result)
+	//{
+	//	return result;
+	//}
 
 	//set arguments
 	for (int i_Arg = 1; i_Arg < Args.size(); i_Arg++)
@@ -99,7 +152,7 @@ bool ComService::Forward(const Handle<ICom> &Target, const Handle<ICom> &Caller,
 
 	if (foundTarget)
 	{
-		result = Command.Execute(foundTarget, (void*)&Caller, Args);
+		result = Command.Execute((void*)foundTarget, (void*)&Caller, Args);
 	}
 	return result;
 }

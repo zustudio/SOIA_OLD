@@ -8,7 +8,7 @@ using namespace IA;
 
 ////////////////////////////////////////////////////////////
 // init
-Engine_SSt::Engine_SSt(IA::Game* NewGame) : Engine(NewGame)
+Engine_SSt::Engine_SSt(IA::Game* NewGame, SO::Com::ComService* ComCenter) : Engine(NewGame, ComCenter)
 {
 	SDL_start
 
