@@ -19,7 +19,6 @@ int main()
 	IA::Engine_SSt* currentEngine = new IA::Engine_SSt(currentGame);
 
 	std::thread t1 = std::thread(&IA::Engine::Start, &*currentEngine);
-	//currentEngine->MThread.AddLoops(5);
 
 	SOIA::ConsoleService* console = new SOIA::ConsoleService(currentEngine);
 	console->Start();
