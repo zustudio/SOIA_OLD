@@ -255,6 +255,9 @@
     <ClInclude Include="src\SO_Base\Handle.h">
       <Filter>SO_Base</Filter>
     </ClInclude>
+    <ClInclude Include="src\SO_Base\VoidPointer.h">
+      <Filter>SO_Base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\IA_Engine\Framework\Engine.cpp">
@@ -361,6 +364,9 @@
     </ClCompile>
     <ClCompile Include="src\SO_Service\InternCommunication\IIComIO.cpp">
       <Filter>SO_Service\InternCommunication</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_Base\VoidPointer.cpp">
+      <Filter>SO_Base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

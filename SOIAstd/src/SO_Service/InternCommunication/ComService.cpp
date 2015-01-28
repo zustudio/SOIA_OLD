@@ -41,7 +41,7 @@ void ComService::AdjustComName(Handle<ICom> &Com)
 	}
 }
 
-bool ComService::TranslateString(const std::string &Target_Name, const std::vector<std::string> &Args, std::vector<Handle<ICom> > &outTargets, Handle<ICmd> &outCmd, std::vector<void*> &outArgs)
+bool ComService::TranslateString(const std::string &Target_Name, const std::vector<std::string> &Args, std::vector<Handle<ICom> > &outTargets, Handle<ICmd> &outCmd, std::vector<VoidPointer> &outArgs)
 {
 	bool result = false;
 
@@ -138,14 +138,16 @@ bool ComService::TranslateString(const std::string &Target_Name, const std::vect
 	//set arguments
 	for (int i_Arg = 1; i_Arg < Args.size(); i_Arg++)
 	{
-		outArgs.push_back((void*) new std::string(Args[i_Arg]));
+		std::string* arg = new std::string(Args[i_Arg]);
+		VoidPointer vp = VoidPointer(*arg);
+		outArgs.push_back(vp);
 	}
 	return result;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////
 // message distribution
-bool ComService::Forward(const Handle<ICom> &Target, const Handle<ICom> &Caller, const ICmd &Command, const std::vector<void*> &Args)
+bool ComService::Forward(const Handle<ICom> &Target, const Handle<ICom> &Caller, const ICmd &Command, const std::vector<VoidPointer> &Args)
 {
 	bool result = false;
 	ICom* foundTarget = Target.getObj(Communicators);
@@ -160,7 +162,7 @@ bool ComService::Forward(const Handle<ICom> &Target, const Handle<ICom> &Caller,
 ////////////////////////////////////////////////////////////////////////////////////////
 // ICom
 //---- publicily executable commands ----
-//bool ComService::cmd_ToggleVerbose(const std::vector<void*> &Args)
+//bool ComService::cmd_ToggleVerbose(const std::vector<VoidPointer> &Args)
 //{
 //	bVerbose = !bVerbose;
 //	return true;

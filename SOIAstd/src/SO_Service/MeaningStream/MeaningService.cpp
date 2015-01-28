@@ -6,21 +6,8 @@ using namespace SO::MeaningStream;
 using namespace SO::Com;
 
 //////////////////////////////////////////////////////////////////////////////////////
-// external executable commands
-bool MeaningService::cmd_CreateDSet(const Handle<ICom> &Caller, const std::vector<void*> &Args)
-{
-	//const Handle<ExDSet> &NewSet
-	//DataSets.push_back(NewSet);
-	return false;
-}
-void MeaningService::cmd_AddDGroup(const Handle<ICom> &Caller, const std::vector<void*> &Args)
-{
-	//Target.getObj(&DataSets)->AddGroup(NewGroup.getObj());
-}
-
-//////////////////////////////////////////////////////////////////////////////////////
 // management
-MeaningService::MeaningService()
+MeaningService::MeaningService(ComService* Up) : IIComIO(Up)
 {
 
 }
@@ -30,4 +17,51 @@ MeaningService::~MeaningService()
 	{
 		delete set.getObj();
 	}
+}
+//////////////////////////////////////////////////////////////////////////////////////
+// ICom
+void MeaningService::cGetCommands(std::vector<Handle<ICmd> > &Commands)
+{
+	ICom_RegisterCmd(Commands, MeaningService, cmd_create, "create");
+}
+Handle<ICom>& MeaningService::cGetHandle()
+{
+	TryCreateHandle("MeaningS");
+	return IIComIO::cGetHandle();
+}
+
+bool MeaningService::cmd_create(const Handle<ICom> &Caller, const std::vector<VoidPointer> &Args)
+{
+	ICom_GetSingleArg(std::string, typeToCreate, Args, 0, true);
+
+	if (*typeToCreate == "set")
+	{
+		ICom_GetSingleArg(Handle<ExDSet>, setHndl, Args, 1, true);
+		DataSets.push_back(setHndl->getObj());
+	}
+	else if (*typeToCreate == "group")
+	{
+		ICom_GetSingleArg(Handle<ExDSet>, setHndl, Args, 1, false)
+		if (!setHndl)
+		{
+			ICom_GetSingleArg(std::string, setName, Args, 1, false);
+			if (setName)
+			{
+				Handle<ExDSet> tempHndl = Handle<ExDSet>(nullptr, *setName);
+				setHndl = new Handle<ExDSet>(tempHndl.getObj(DataSets), *setName);
+				if (!setHndl)
+				{
+					return false;
+				}
+			}
+			else
+			{
+				return false;
+			}
+		}
+		ICom_GetSingleArg(Handle<ExGroup>, groupHndl, Args, 2, true);
+		
+		setHndl->getObj()->AddGroup(groupHndl->getObj());
+	}
+	
 }

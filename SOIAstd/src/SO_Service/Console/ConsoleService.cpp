@@ -77,7 +77,7 @@ void ConsoleService::Start()
 		//out vars
 		std::vector<Handle<ICom> > outTargets;
 		Handle<ICmd> outCmd;
-		std::vector<void*> outArgs;
+		std::vector<VoidPointer> outArgs;
 		bool result = false;
 
 		//call
@@ -160,7 +160,7 @@ void ConsoleService::Start()
 // ICom Interface
 Handle<ICom>& ConsoleService::cGetHandle()
 {
-	TryCreateHandle<ConsoleService>("Console"); 
+	TryCreateHandle("Console"); 
 	return IIComIO::cGetHandle();
 }
 void ConsoleService::cGetCommands(std::vector<Handle<ICmd> > &Commands)
@@ -170,21 +170,21 @@ void ConsoleService::cGetCommands(std::vector<Handle<ICmd> > &Commands)
 	ICom_RegisterCmd(Commands, ConsoleService, cmd_exit, "exit");
 }
 
-bool ConsoleService::cmd_exit(const Handle<ICom> &Caller, const std::vector<void*> &Args)
+bool ConsoleService::cmd_exit(const Handle<ICom> &Caller, const std::vector<VoidPointer> &Args)
 {
 	bLoop = false;
 	return true;
 }
 
-bool ConsoleService::cmd_echo(const Handle<ICom> &Caller, const std::vector<void*> &Args)
+bool ConsoleService::cmd_echo(const Handle<ICom> &Caller, const std::vector<VoidPointer> &Args)
 {
 	bool result = true;
 
 	std::cout << "[" << Caller.getName() << "]: ";
 
-	for (void* genArg : Args)
+	for (VoidPointer genArg : Args)
 	{
-		std::string* arg = (std::string*)genArg;
+		std::string* arg = genArg.CastTo<std::string>();
 		if (arg)
 		{
 			std::cout << *arg << " ";
@@ -198,10 +198,10 @@ bool ConsoleService::cmd_echo(const Handle<ICom> &Caller, const std::vector<void
 	return result;
 }
 
-bool ConsoleService::cmd_create(const Handle<ICom> &Caller, const std::vector<void*> &Args)
+bool ConsoleService::cmd_create(const Handle<ICom> &Caller, const std::vector<VoidPointer> &Args)
 {
 	bool result = true;
-	std::string* arg = (std::string*) Args[0];
+	std::string* arg = Args[0].CastTo<std::string>();
 	if (arg)
 	{
 		std::string text = *arg;

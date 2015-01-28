@@ -16,8 +16,8 @@ namespace SO
 		{
 			//////////////////////////////////////////////////////////////////////////////////////
 			// definitions
-			//typedef bool(TargetC::* TargetFuncType) (const SO::Base::Handle<ICom> &Caller, const std::vector<void*> &Args);
-			using T_com_cmd_func = bool (TargetC::*) (const SO::Base::Handle<ICom> &Caller, const std::vector<void*> &Args);
+			//typedef bool(TargetC::* TargetFuncType) (const SO::Base::Handle<ICom> &Caller, const std::vector<VoidPointer> &Args);
+			using T_com_cmd_func = bool (TargetC::*) (const SO::Base::Handle<ICom> &Caller, const std::vector<VoidPointer> &Args);
 
 		public:
 			//////////////////////////////////////////////////////////////////////////////////////
@@ -25,7 +25,7 @@ namespace SO
 			//---- init ----
 			Com_Cmd(T_com_cmd_func NewFunc)	{ Cmd = NewFunc; }
 			//---- exec ----
-			virtual bool Execute(void* TargetObject, void* Caller, const std::vector<void*> &Args) const override
+			virtual bool Execute(void* TargetObject, void* Caller, const std::vector<VoidPointer> &Args) const override
 			{
 				TargetC* targetObject = static_cast<TargetC*>(reinterpret_cast<ICom*>(TargetObject));
 				SO::Base::Handle<SO::Com::ICom>* caller = (SO::Base::Handle<SO::Com::ICom>*)Caller;

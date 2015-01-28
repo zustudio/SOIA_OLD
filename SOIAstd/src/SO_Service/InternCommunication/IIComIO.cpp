@@ -13,7 +13,7 @@ IIComIO::IIComIO(ComService* NewComService)
 
 //////////////////////////////////////////////////////////
 // implementation
-bool IIComIO::cSend(const Handle<ICom> &Target, const ICmd &Command, const std::vector<void*> &Args)
+bool IIComIO::cSend(const Handle<ICom> &Target, const ICmd &Command, const std::vector<VoidPointer> &Args)
 {
 	return Up->Forward(Target, cGetHandle(), Command, Args);
 }
@@ -22,8 +22,16 @@ Handle<ICom>& IIComIO::cGetHandle()
 {
 	if (!Hndl)
 	{
-		TryCreateHandle<IIComIO>("");
+		TryCreateHandle("");
 	}
 	return *Hndl;
+}
+
+void IIComIO::TryCreateHandle(const std::string &Name)
+{
+	if (!Hndl)
+	{
+		Hndl = new Handle<ICom>(this, Name);
+	}
 }
 

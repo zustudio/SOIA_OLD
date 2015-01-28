@@ -27,16 +27,16 @@ namespace SO
 			// management
 			void Register(Handle<ICom> &Com, bool bForceNoNameCheck = false);
 			void AdjustComName(Handle<ICom> &Com);
-			bool TranslateString(const std::string &Target, const std::vector<std::string> &Args, std::vector<Handle<ICom> > &outTargets, Handle<ICmd> &outCmd, std::vector<void*> &outArgs);
+			bool TranslateString(const std::string &Target, const std::vector<std::string> &Args, std::vector<Handle<ICom> > &outTargets, Handle<ICmd> &outCmd, std::vector<VoidPointer> &outArgs);
 
 			/////////////////////////////////////////////////
 			// message distribution
-			bool Forward(const Handle<ICom> &Target, const Handle<ICom> &Caller, const ICmd &Command, const std::vector<void*> &Args);
+			bool Forward(const Handle<ICom> &Target, const Handle<ICom> &Caller, const ICmd &Command, const std::vector<VoidPointer> &Args);
 
 			/////////////////////////////////////////////////
 			// ICom
 			//---- commands ----
-			//bool cmd_ToggleVerbose(const std::vector<void*> &Args);
+			//bool cmd_ToggleVerbose(const std::vector<VoidPointer> &Args);
 			////---- implementation ----
 			//virtual void cGetCommands(std::vector<Handle<ICmd> > &Commands) override;
 

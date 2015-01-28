@@ -5,6 +5,9 @@
 
 #include "SDL_GlobalVars.h"
 
+//TEST
+#include "VoidPointer.h"
+
 using namespace SO;
 
 
@@ -14,7 +17,6 @@ int main()
 	std::cout << "################## SOIAstd #################\n";
 	std::cout << "# Artificial Intelligence Operating System #\n";
 	std::cout << "############################################\n";
-
 
 	SO::Com::ComService* ComCenter = new SO::Com::ComService();
 

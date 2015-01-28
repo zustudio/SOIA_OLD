@@ -40,12 +40,32 @@ void Engine::cGetCommands(std::vector<SO::Base::Handle<SO::Base::ICmd> > &Comman
 }
 Handle<ICom>& Engine::cGetHandle()
 {
-	TryCreateHandle<Engine>("SOIA"); 
+	TryCreateHandle("SOIA"); 
 	return IIComIO::cGetHandle();
 }
 
-bool Engine::cmd_add(const SO::Base::Handle<ICom> &Caller, const std::vector<void*> &Args)
+bool Engine::cmd_add(const SO::Base::Handle<ICom> &Caller, const std::vector<VoidPointer> &Args)
 {
+	//ICom_GetSingleArg(int, Num, Args, 0, false);
+	if (Args.size() > 0)
+	{
+
+		int* Num = Args[0].CastTo<int>();
+		std::string* NumText = Args[0].CastTo<std::string>();
+
+		if (Num)
+		{
+			MThread.AddLoops(*Num);
+			return true;
+		}
+		//ICom_GetSingleArg(std::string, NumText, Args, 0, false);
+		if (NumText)
+		{
+			int times = std::atoi(NumText->c_str());
+			MThread.AddLoops(times);
+			return true;
+		}
+	}
 	Engine::MThread.AddLoops(1);
 	return true;
 }

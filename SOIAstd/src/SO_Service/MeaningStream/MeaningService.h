@@ -5,7 +5,7 @@
 #include "ExGroup.h"
 #include "ExDSet.h"
 
-#include "ICom.h"
+#include "IIComIO.h"
 #include "Com_Cmd.h"
 
 #include <deque>
@@ -20,17 +20,12 @@ namespace SO
 {
 	namespace MeaningStream
 	{
-		class MeaningService : ICom
+		class MeaningService : IIComIO
 		{
 		public:
 			//////////////////////////////////////////////////////
-			// external callable commands
-			bool cmd_CreateDSet(const Handle<ICom> &Caller, const std::vector<void*> &Args);
-			void cmd_AddDGroup(const Handle<ICom> &Caller, const std::vector<void*> &Args);
-
-			//////////////////////////////////////////////////////
 			// management
-			MeaningService();
+			MeaningService(ComService* Up);
 			~MeaningService();
 
 			//////////////////////////////////////////////////////
@@ -38,8 +33,13 @@ namespace SO
 			std::vector<Handle<ExDSet>> DataSets;
 
 			//////////////////////////////////////////////////////
-			// ICom interface
-//			virtual void cReceive(const ICom &caller, const Com_Cmd &Cmd) override;
+			// ICom
+			//---- inteface ----
+			void cGetCommands(std::vector<Handle<ICmd> > &Commands) override;
+			Handle<ICom>& cGetHandle() override;
+			//---- external callable commands ----
+			T_com_cmd_func cmd_create;
+
 		};
 	}
 }

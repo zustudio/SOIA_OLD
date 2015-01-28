@@ -2,6 +2,7 @@
 #pragma once
 
 #include <vector>
+#include "VoidPointer.h"
 
 namespace SO
 {
@@ -10,7 +11,7 @@ namespace SO
 		class ICmd
 		{
 		public:
-			virtual bool Execute(void* TargetObj, void* Caller, const std::vector<void*> &Args) const = 0;
+			virtual bool Execute(void* TargetObj, void* Caller, const std::vector<VoidPointer> &Args) const = 0;
 		};
 	}
 }
