@@ -20,7 +20,7 @@ namespace SO
 {
 	namespace MeaningStream
 	{
-		class MeaningService : IIComIO
+		class MeaningService : public IIComIO
 		{
 		public:
 			//////////////////////////////////////////////////////

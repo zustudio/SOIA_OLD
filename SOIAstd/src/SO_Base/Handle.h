@@ -43,12 +43,17 @@ namespace SO
 						}
 					}
 				}
+				return nullptr;
 			}
 			T* getObj() const
 			{
 				if (Obj)
 				{
 					return Obj;
+				}
+				else
+				{
+					return nullptr;
 				}
 			}
 			/////////////////////////////////////////////////////////////////////
