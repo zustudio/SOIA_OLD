@@ -5,6 +5,7 @@
  *      Author: mxu
  */
 
+#include <thread>
 #include <mutex>
 #include <condition_variable>
 
@@ -13,39 +14,36 @@
 using namespace SO;
 
 
-//////////////////////////////////////////////////////////////////////////
-// struct
-Thread::threadConf::threadConf()
-{
-	m = new std::mutex();
-	cv = new std::condition_variable();
-}
-void Thread::threadConf::AddLoops(int n)
-{
-	Loops += n;
-	cv->notify_one();
-}
-void Thread::threadConf::Disable()
-{
-	bEnabled = false;
-	cv->notify_one();
-}
 
 //////////////////////////////////////////////////////////////////////////
-// init
+// public constructing / stopping
 Thread::Thread()
 {
 	MThread = threadConf();
 }
 Thread::~Thread()
 {
-	delete MThread.m;
-	delete MThread.cv;
+}
+
+void Thread::Start()
+{
+	MThread.bEnabled = true;
+
+	MThread.m = new std::mutex();
+	MThread.cv = new std::condition_variable();
+	MThread.thrd = new std::thread(&Thread::EntryPoint, this);
+}
+void Thread::Stop()
+{
+	MThread.bEnabled = false;
 }
 
 ///////////////////////////////////////////////////////////////////////////
-void Thread::Start()
+// private main loop
+void Thread::EntryPoint()
 {
+	MThread.AddLoops(Init());
+
 	while (MThread.bEnabled)
 	{
 		if (MThread.Loops > 0 || MThread.Loops == -1)
@@ -67,11 +65,30 @@ void Thread::Start()
 	}
 }
 
-void Thread::Tick()
+
+//////////////////////////////////////////////////////////////////////////
+// struct
+Thread::threadConf::threadConf()
 {
-	// do something in child class
+	thrd = nullptr;
+	m = nullptr;
+	cv = nullptr;
 }
-
-
+Thread::threadConf::~threadConf()
+{
+	if (m) delete m;
+	if (cv) delete cv;
+	if (thrd) delete thrd;
+}
+void Thread::threadConf::AddLoops(int n)
+{
+	Loops += n;
+	cv->notify_one();
+}
+void Thread::threadConf::Disable()
+{
+	bEnabled = false;
+	cv->notify_one();
+}
 
 

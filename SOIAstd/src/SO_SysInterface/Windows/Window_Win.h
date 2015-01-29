@@ -26,7 +26,7 @@ namespace SO
 		//Window_Win();
 		Window_Win(const std::string &NewTitle, const pxPoint &size);
 		~Window_Win();
-		virtual void Start() override;
+		virtual int Init() override;
 		//---- windows ----
 		static LRESULT CALLBACK WindowProcedure(HWND window, unsigned int msg, WPARAM wp, LPARAM lp);
 		//---- loop ----

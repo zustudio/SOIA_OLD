@@ -23,9 +23,9 @@ namespace SO
 			///////////////////////////////////////////////////////////
 			// functions
 			DataExplorer(IA::Engine* NewEngine, SO::Com::ComService* NewUp);
-			virtual void Start() override;
 			//---- ICom -----
 			virtual void cGetCommands(std::vector<Handle<ICmd> > &Commands) override;
+			virtual Handle<ICom>& cGetHandle() override;
 
 		private:
 			///////////////////////////////////////////////////////////

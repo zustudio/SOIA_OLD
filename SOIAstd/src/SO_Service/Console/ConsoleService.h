@@ -6,6 +6,7 @@
 
 //properties
 #include "ComService.h"
+#include "MeaningService.h"
 #include <deque>
 
 namespace IA
@@ -31,15 +32,9 @@ namespace SOIA
 		///////////////////////////////////////////////////////////////
 		// functions
 		//--- init ---
-		ConsoleService(IA::Engine* newEngine, SO::Com::ComService* NewUp);
+		ConsoleService();
 		//--- runtime ---
 		void Start();
-		//--- create window ---
-		template <class WClass> void AddWindow(WClass *Window)
-		{
-			Threads.push_back(new std::thread(&WClass::Start, Window));
-			Windows.push_back(Window);
-		}
 		//--- ICom Interface ---
 		virtual void cGetCommands(std::vector<Handle<ICmd> > &Commands) override;
 		virtual Handle<ICom>& cGetHandle() override;
@@ -52,10 +47,13 @@ namespace SOIA
 		///////////////////////////////////////////////////////////////
 		// variables
 		//--- external instances ---
+		//- singular
 		IA::Engine* CurrentEngine;
-		std::deque<SO::Window*> Windows;
-		std::deque<std::thread*> Threads;
-		SO::Com::ComService* ComCenter;
+		SO::Com::ComService* Srvc_Com;
+		SO::MeaningStream::MeaningService* Srvc_MeanStrm;
+		//- multiple
+		std::deque<SO::Thread*> Threads;
+		//std::deque<std::thread*> Threads;
 		//--- status ---
 		bool bLoop;
 		

@@ -32,19 +32,21 @@ Handle<ICom>& MeaningService::cGetHandle()
 
 bool MeaningService::cmd_create(const Handle<ICom> &Caller, const std::vector<VoidPointer> &Args)
 {
-	ICom_GetSingleArg(std::string, typeToCreate, Args, 0, true);
+	std::string* typeToCreate = Args[0].CastTo<std::string>();
+	if (!typeToCreate)
+		return false;
 
 	if (*typeToCreate == "set")
 	{
-		ICom_GetSingleArg(Handle<ExDSet>, setHndl, Args, 1, true);
+		Handle<ExDSet>* setHndl = Args[1].CastTo<Handle<ExDSet> >();
 		DataSets.push_back(setHndl->getObj());
 	}
 	else if (*typeToCreate == "group")
 	{
-		ICom_GetSingleArg(Handle<ExDSet>, setHndl, Args, 1, false)
+		Handle<ExDSet>* setHndl = Args[1].CastTo<Handle<ExDSet> >();
 		if (!setHndl)
 		{
-			ICom_GetSingleArg(std::string, setName, Args, 1, false);
+			std::string* setName = Args[1].CastTo<std::string>();
 			if (setName)
 			{
 				Handle<ExDSet> tempHndl = Handle<ExDSet>(nullptr, *setName);
@@ -59,7 +61,7 @@ bool MeaningService::cmd_create(const Handle<ICom> &Caller, const std::vector<Vo
 				return false;
 			}
 		}
-		ICom_GetSingleArg(Handle<ExGroup>, groupHndl, Args, 2, true);
+		Handle<ExGroup>* groupHndl = Args[2].CastTo<Handle<ExGroup> >();
 		
 		setHndl->getObj()->AddGroup(groupHndl->getObj());
 	}

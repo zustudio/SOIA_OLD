@@ -17,13 +17,14 @@ DataExplorer::DataExplorer(IA::Engine* NewEngine, ComService* NewUp) : Window(st
 	myControls.push_back(myDEGraph);
 }
 
-void DataExplorer::Start()
-{
-	Window::Start();
-}
 
 //////////////////////////////////////////////////////////////////////
 // ICom
+Handle<ICom>& DataExplorer::cGetHandle()
+{
+	TryCreateHandle("DataExplorer");
+	return IIComIO::cGetHandle();
+}
 void DataExplorer::cGetCommands(std::vector<Handle<ICmd> > &Commands)
 {
 

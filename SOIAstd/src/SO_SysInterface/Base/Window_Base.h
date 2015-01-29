@@ -35,7 +35,7 @@ namespace SO
 		Window_Base(const std::string &NewTitle, const pxPoint &size);
 		~Window_Base();
 		//---- main ----
-		virtual void Start() override;
+		virtual int Init() override;
 		//---- loop ----
 		virtual void Tick() override;		//functions below can be called from tick, if events are raised
 			virtual void SetVars();

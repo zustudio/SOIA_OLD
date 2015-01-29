@@ -30,7 +30,6 @@ namespace SO
 			///////////////////////////////////////////////////////////
 			// functions
 			DebugVisual(IA::Engine* NewEngine);
-			virtual void Start() override;
 		};
 	}
 }

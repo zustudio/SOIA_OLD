@@ -20,6 +20,7 @@ namespace IA
 		/*initializes AI Engine*/
 		Engine(IA::Game* NewGame, SO::Com::ComService* Up);
 		virtual ~Engine();
+		virtual int Init() override;
 		//---- ticking ----
 		virtual void Tick() override;
 		//----   io    ----

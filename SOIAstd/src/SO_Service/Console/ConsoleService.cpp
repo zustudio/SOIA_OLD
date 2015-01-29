@@ -16,6 +16,7 @@ using namespace SOIA;
 using namespace SO::Base;
 using namespace SO::UI;
 using namespace SO::Com;
+using namespace SO::MeaningStream;
 using namespace IA;
 using namespace std;
 
@@ -25,13 +26,17 @@ using namespace std;
 //////////////////////////////////////////////////////////////////////////////
 // init
 
-ConsoleService::ConsoleService(Engine* newEngine, ComService* NewUp) : IIComIO(NewUp)
+ConsoleService::ConsoleService() : IIComIO(new ComService())
 {
-	CurrentEngine = newEngine;
-	ComCenter = Up;
+	// initialize services
+	//- communication service
+	Srvc_Com = Up;
+	Srvc_Com->Register(cGetHandle());
+	//- meaning stream service
+	Srvc_MeanStrm = new MeaningService(Up);
+	Srvc_Com->Register(Srvc_MeanStrm->cGetHandle());
 
-	ComCenter->Register(cGetHandle());
-	ComCenter->Register(CurrentEngine->cGetHandle());
+	cSend("Console", "create", "AI");
 
 	bLoop = true;
 }
@@ -44,10 +49,7 @@ void ConsoleService::Start()
 	while (bLoop)
 	{
 		std::cout << std::endl << "[User";
-		if (currentTarget != "")
-		{
-			std::cout << "@" << currentTarget;
-		}
+		std::cout << (currentTarget == "" ? "" : "@" + currentTarget);
 		std::cout << "]: ";
 
 		getline(cin, input);
@@ -81,7 +83,7 @@ void ConsoleService::Start()
 		bool result = false;
 
 		//call
-		result = ComCenter->TranslateString(newTarget, args, outTargets, outCmd, outArgs);
+		result = Srvc_Com->TranslateString(newTarget, args, outTargets, outCmd, outArgs);
 
 		//interpretation
 		if (args.size() > 0)
@@ -153,7 +155,6 @@ void ConsoleService::Start()
 			
 		//}
 	}
-	CurrentEngine->MThread.Disable();
 }
 
 ////////////////////////////////////////////////////////////////////////////
@@ -172,7 +173,13 @@ void ConsoleService::cGetCommands(std::vector<Handle<ICmd> > &Commands)
 
 bool ConsoleService::cmd_exit(const Handle<ICom> &Caller, const std::vector<VoidPointer> &Args)
 {
+	for (auto thread : Threads)
+	{
+		thread->Stop();
+	}
+
 	bLoop = false;
+
 	return true;
 }
 
@@ -205,17 +212,33 @@ bool ConsoleService::cmd_create(const Handle<ICom> &Caller, const std::vector<Vo
 	if (arg)
 	{
 		std::string text = *arg;
-		if (text == "dataexplorer")
+		SO::Thread* newThread = nullptr;
+
+		if (text == "AI")
 		{
-			std::string name = std::string("dataexplorer");
-			auto temp = Handle<ICom>(nullptr, name);
-			ComCenter->AdjustComName(temp);
+			cIA_Game* game = new cIA_Game();
+			CurrentEngine = new cIA_Engine(game, Srvc_Com);
+			newThread = CurrentEngine;
+		}
+		else if (text == "dataexplorer")
+		{
+			newThread = new DataExplorer(CurrentEngine, Srvc_Com);
+		}
+		else if (text == "debugvisual")
+		{
+			newThread = new DebugVisual(CurrentEngine);
+		}
 
-			DataExplorer* data = new DataExplorer(CurrentEngine, ComCenter);
-			AddWindow<DataExplorer>(data);
+		if (newThread)
+		{
+			Threads.push_back(newThread);
+			newThread->Start();
 
-			Handle<ICom> hndl = Handle<ICom>(data, name);
-			ComCenter->Register(hndl, true);
+			IIComIO* newComThread = dynamic_cast<IIComIO*>(newThread);
+			if (newComThread)
+			{
+				Srvc_Com->Register(newComThread->cGetHandle());
+			}
 		}
 		else
 		{

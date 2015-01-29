@@ -22,7 +22,8 @@
 #elif cIA_EngineVersion == 1
 	#define cIA_DataVersion		1
 	#define cIA_Data			Data_SSt
-	#define cIA_Engine			Engine_StatedState
+	#define cIA_Engine			Engine_SSt
+	#define cIA_Game			Game_StatedState
 	#include "Game_SSt.h"
 	#include "IA_SSt.h"
 #endif
