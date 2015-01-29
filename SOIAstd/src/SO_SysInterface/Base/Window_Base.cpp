@@ -7,17 +7,6 @@ using namespace std;
 
 ///////////////////////////////////////////////////
 // init
-//Window_Base::Window_Base()
-//{
-//	props = WindowProperties();
-//	props.title = new std::string("Title");
-//	props.backColor = new fColor(1, 1, 1);
-//	props.frontColor = new fColor(0, 0, 0);
-//	props.copyBackC = props.backColor;
-//	props.copyFrontC = props.frontColor;
-//	props.size = pxPoint(400, 400);
-//
-//}
 Window_Base::Window_Base(const std::string &NewTitle, const pxPoint &size)
 {
 	props.title = new std::string(NewTitle);
@@ -36,13 +25,12 @@ Window_Base::~Window_Base()
 	delete props.copyBackC;
 	delete props.copyFrontC;
 }
-
-///////////////////////////////////////////////////
-// main
-void Window_Base::Start()
+int Window_Base::Init()
 {
 	std::cout << "Window class: application compiled without window interface, exiting.";
+	return -1;
 }
+
 //////////////////////////////////////////////////
 // ticking loop
 void Window_Base::Tick()

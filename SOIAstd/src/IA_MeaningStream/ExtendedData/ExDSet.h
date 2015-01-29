@@ -19,6 +19,7 @@ namespace IA
 			// functions
 			//---- init ----
 			ExDSet(const std::deque<ExGroup*> &NewGroups, std::deque<ExData*>* AllData);
+			void AddGroup(ExGroup* NewGroup);
 			//---- runtime grouping ----
 			/*Creates data set from the given ExData.
 				- ExData must be already parented.*/

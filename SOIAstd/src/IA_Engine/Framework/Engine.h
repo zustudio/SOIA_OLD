@@ -3,33 +3,26 @@
 #include <iostream>
 #include "Game.h"
 #include "Thread.h"
+#include "IIComIO.h"
+#include "ComService.h"
 
 
 namespace IA
 {
 	class Data;
 	class Game;
-	class Engine : public SO::Thread
+	class Engine : public SO::Thread, public SO::Com::IIComIO
 	{
-		///////////////////////////////////////////////////////////////////
-		// variables
-		//---- data ----
 	public:
-		virtual IData* getDataStart() = 0;
-		//---- instances ----
-		IA::Game* CurrentGame;
-
 		///////////////////////////////////////////////////////////////////
 		// functions
 		//----  init   ----
 		/*initializes AI Engine*/
-		Engine(IA::Game* NewGame);
+		Engine(IA::Game* NewGame, SO::Com::ComService* Up);
 		virtual ~Engine();
+		virtual int Init() override;
 		//---- ticking ----
 		virtual void Tick() override;
-		//----  rand   ----
-		//virtual int InfluencedRand(std::vector<float> &Chances);
-		//virtual int InfluencedRand(array<float>* Chances);
 		//----   io    ----
 		std::vector<int>* IFuncResultOfAction(IData* Output)
 		{
@@ -48,6 +41,20 @@ namespace IA
 
 			return Result;
 		}
+
+		///////////////////////////////////////////////////////////////////
+		// ICom interface
+		virtual void cGetCommands(std::vector<SO::Base::Handle<SO::Base::ICmd> > &Commands) override;
+		virtual Handle<SO::Com::ICom>& cGetHandle() override;
+		T_com_cmd_func cmd_add;
+
+		///////////////////////////////////////////////////////////////////
+		// variables
+		//---- data ----
+	public:
+		virtual IData* getDataStart() = 0;
+		//---- instances ----
+		IA::Game* CurrentGame;
 
 	};
 

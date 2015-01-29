@@ -82,6 +82,15 @@
     <Filter Include="ZABS_Math\Random">
       <UniqueIdentifier>{ef806e19-932c-49dd-926e-285027872ea4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SO_Service\InternCommunication">
+      <UniqueIdentifier>{e497adcf-b925-4e7b-9e49-f569b26cb1e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SO_Service\MeaningStream">
+      <UniqueIdentifier>{94b49bce-731d-4a0f-b389-d6ca089d11b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SO_Base">
+      <UniqueIdentifier>{54219e13-e0ca-4fce-9edc-11a2539d6c05}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Definitions\stdafx.h">
@@ -225,6 +234,30 @@
     <ClInclude Include="src\IA_MeaningStream\ExtendedData\GroupCrit_Equal.h">
       <Filter>IA_MeaningStream\ExtendedData</Filter>
     </ClInclude>
+    <ClInclude Include="src\SO_Service\InternCommunication\ICom.h">
+      <Filter>SO_Service\InternCommunication</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_Service\InternCommunication\ComService.h">
+      <Filter>SO_Service\InternCommunication</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_Service\InternCommunication\Com_Cmd.h">
+      <Filter>SO_Service\InternCommunication</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_Service\MeaningStream\MeaningService.h">
+      <Filter>SO_Service\MeaningStream</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_Base\ICmd.h">
+      <Filter>SO_Base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_Service\InternCommunication\IIComIO.h">
+      <Filter>SO_Service\InternCommunication</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_Base\Handle.h">
+      <Filter>SO_Base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_Base\VoidPointer.h">
+      <Filter>SO_Base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\IA_Engine\Framework\Engine.cpp">
@@ -322,6 +355,18 @@
     </ClCompile>
     <ClCompile Include="src\IA_MeaningStream\ExtendedData\GroupCrit_Equal.cpp">
       <Filter>IA_MeaningStream\ExtendedData</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_Service\MeaningStream\MeaningService.cpp">
+      <Filter>SO_Service\MeaningStream</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_Service\InternCommunication\ComService.cpp">
+      <Filter>SO_Service\InternCommunication</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_Service\InternCommunication\IIComIO.cpp">
+      <Filter>SO_Service\InternCommunication</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_Base\VoidPointer.cpp">
+      <Filter>SO_Base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

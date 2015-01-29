@@ -5,8 +5,9 @@
 #include "DataExplorer.h"
 
 using namespace SO::UI;
+using namespace SO::Com;
 
-DataExplorer::DataExplorer(IA::Engine* NewEngine) : Window(std::string("DataExplorer"))
+DataExplorer::DataExplorer(IA::Engine* NewEngine, ComService* NewUp) : Window(std::string("DataExplorer")), IIComIO(NewUp)
 {
 	//init vars
 	CurrentEngine = NewEngine;
@@ -16,7 +17,15 @@ DataExplorer::DataExplorer(IA::Engine* NewEngine) : Window(std::string("DataExpl
 	myControls.push_back(myDEGraph);
 }
 
-void DataExplorer::Start()
+
+//////////////////////////////////////////////////////////////////////
+// ICom
+Handle<ICom>& DataExplorer::cGetHandle()
 {
-	Window::Start();
+	TryCreateHandle("DataExplorer");
+	return IIComIO::cGetHandle();
+}
+void DataExplorer::cGetCommands(std::vector<Handle<ICmd> > &Commands)
+{
+
 }

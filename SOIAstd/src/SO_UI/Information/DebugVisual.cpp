@@ -27,8 +27,3 @@ DebugVisual::DebugVisual(IA::Engine* NewEngine) : Window(std::string("DebugVisua
 		TextMain->Text += *data->Text + '\n';
 	}
 }
-
-void DebugVisual::Start()
-{
-	Window::Start();
-}
