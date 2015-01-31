@@ -26,7 +26,6 @@ namespace IA
 		};
 	};
 
-	class Game;
 	class Engine_SSt : public Engine
 	{
 	public:
