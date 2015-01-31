@@ -3,6 +3,10 @@
 #include "Window.h"
 #include "IIComIO.h"
 
+#include "IDraw.h"
+#include "CCanvas.h"
+#include "MeaningService.h"
+
 namespace IA
 {
 	class Engine;
@@ -22,7 +26,8 @@ namespace SO
 		public:
 			///////////////////////////////////////////////////////////
 			// functions
-			DataExplorer(IA::Engine* NewEngine, SO::Com::ComService* NewUp);
+			DataExplorer(IA::Engine* NewEngine, SO::Com::ComService* NewUp, SO::MeaningStream::MeaningService* MSrvc);
+			virtual void Tick() override;
 			//---- ICom -----
 			virtual void cGetCommands(std::vector<Handle<ICmd> > &Commands) override;
 			virtual Handle<ICom>& cGetHandle() override;
@@ -34,7 +39,13 @@ namespace SO
 
 			///////////////////////////////////////////////////////////
 			// controls
-			DEGraph* myDEGraph;
+			//DEGraph* myDEGraph;
+			SO::Drawing::CCanvas* Canvas;
+			IDraw* Drawable;
+
+			//////////////////////////////////////////////////////////
+			// Service
+			SO::MeaningStream::MeaningService* MeaningSrvc;
 		};
 	}
 }

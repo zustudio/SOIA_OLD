@@ -1,6 +1,10 @@
 
 #include "MeaningService.h"
 
+#include "GroupCrit_Equal.h"
+#include "GroupCrit_Parentage.h"
+#include "GroupFunc_DataPoints.h"
+
 using namespace IA;
 using namespace IA::MeaningStream;
 using namespace SO::MeaningStream;
@@ -131,7 +135,7 @@ bool MeaningService::cmd_addgroup(const Handle<ICom> &Caller, const std::vector<
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // cmd FUNCTIONALITY
-//------------------------------------------
+//-------------------------------------------------------------------------------------------------------------
 //    converting
 bool MeaningService::cmd_convertdata(const Handle<ICom> &Caller, const std::vector<VoidPointer> &Args)
 {
@@ -183,9 +187,125 @@ ExData* MeaningService::exe_Convert(IData* Current, int Depth, std::deque<IData*
 
 	return currentObj;
 }
-//---------------------------------------
+
+//-------------------------------------------------------------------------------------------------------------
 //     interpreting
 bool MeaningService::cmd_interpretdata(const Handle<ICom> &Caller, const std::vector<VoidPointer> &Args)
 {
+	SetHierarchicBonds(RegisteredData[0]);
+	cSend("Console", "echo", "-- parent has " + std::to_string(RegisteredData[0]->Children.size()) + " Children\n");
+	CreateAutoGroups();
+	//cSend("Console", "echo", "-- created")
 	return true;
+}
+/** First sets the distance of every DE_Objects to the master-parent,
+then checks every object for the connected data with the lowest distance
+and sets it as parent of the current one
+*/
+void MeaningService::SetHierarchicBonds(ExData* Current)
+{
+	//set distances
+	exe_SetHierarchicDistances(Current, nullptr, 0);
+
+	//set parents & children
+	ExData* nearest;
+	ExData* current;
+	for (int p_Obj = 0; p_Obj < RegisteredData.size(); p_Obj++)
+	{
+		current = RegisteredData[p_Obj];
+
+
+		std::deque<ExData*> connected = *current->getConnected();
+		if (connected.size() == 0)
+			continue;
+
+		if (current->HierarchicDistance == 0)
+		{
+			current->Parent = NULL;
+			continue;
+		}
+
+		nearest = connected[0];
+
+		for (int p_Next = 0; p_Next < connected.size(); p_Next++)
+		{
+			if (connected[p_Next]->HierarchicDistance < nearest->HierarchicDistance)
+				nearest = connected[p_Next];
+		}
+
+		current->Parent = nearest;
+		nearest->Children.push_back(current);
+	}
+}
+
+void MeaningService::exe_SetHierarchicDistances(ExData* Current, ExData* Caller, int Distance)
+{
+	std::deque<ExData*> connected = *Current->getConnected();
+	if (Caller)
+		connected.erase(std::find(connected.begin(), connected.end(), Caller));
+
+	for (int p_Next = 0; p_Next < connected.size(); p_Next++)
+	{
+		if (connected[p_Next]->HierarchicDistance >= 0 && connected[p_Next]->HierarchicDistance + 1 <= Distance)
+			return;
+	}
+
+	Current->HierarchicDistance = Distance;
+	for (int p_Next = 0; p_Next < connected.size(); p_Next++)
+	{
+		exe_SetHierarchicDistances(connected[p_Next], Current, Distance + 1);
+	}
+}
+
+void MeaningService::CreateAutoGroups()
+{
+	std::deque<ExGroup*> groups = std::deque<ExGroup*>();
+	std::deque<ExData*> owners = std::deque<ExData*>();
+
+	
+
+	for (ExData* data : RegisteredData)
+	{
+		//create parentage group
+		if (data->Children.size() > 0)
+		{
+			GroupCrit_Parentage* crit = new GroupCrit_Parentage();
+			crit->CreateFrom(data);
+			groups.push_back(new ExGroup(crit, new GroupFunc_DataPoints()));
+			owners.push_back(data);
+
+			cSend("Console", "echo", " -- Added group of: " + *data->getText());
+		}
+	}
+	
+	GroupCrit_Equal* crit = new GroupCrit_Equal();
+	crit->CreateFrom(RegisteredData[0]);
+	groups.push_front(new ExGroup(crit, new GroupFunc_DataPoints()));
+	owners.push_front(RegisteredData[0]);
+
+	
+
+
+	
+
+	ExDSet* newSet = new ExDSet(groups, &RegisteredData);
+	newSet->AddToGroups(RegisteredData);
+	newSet->Scan();
+
+	for (ExGroup* parentGroup : groups)
+	{
+		std::deque<ExData*> parents = *parentGroup->GetOccupants(); // = parentGroup->GetBaseData();
+		for (ExGroup* childGroup : groups)
+		{
+			for (ExData* test_Parent : parents)
+			{
+				if (test_Parent == childGroup->GetBaseData())
+					parentGroup->AddChildGroup(childGroup);
+			}
+		}
+
+	}
+
+	Handle<ExDSet> hndl = Handle<ExDSet>(newSet, "standard");
+	DataSets.push_back(hndl);
 }

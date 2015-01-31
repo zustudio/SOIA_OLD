@@ -47,6 +47,10 @@ namespace SO
 			//---- data conversion ----
 			ExData* Convert(IA::IData* myData, int Depth);
 			ExData* exe_Convert(IA::IData* Current, int Depth, std::deque<IA::IData*>* Ignore);
+			//---- data parentage interpretation ----
+			void SetHierarchicBonds(ExData* Current);
+			void exe_SetHierarchicDistances(ExData* Current, ExData* Caller, int Distance);
+			void CreateAutoGroups();
 
 			//////////////////////////////////////////////////////
 			// vars

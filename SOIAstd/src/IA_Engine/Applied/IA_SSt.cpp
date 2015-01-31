@@ -32,7 +32,7 @@ Engine_SSt::Engine_SSt(IA::Game* NewGame, SO::Com::ComService* ComCenter) : Engi
 		setname("Visible")
 		endsub
 
-		sub Current is 114
+		sub Current is 1114
 		setname("Current")
 		endsub
 		endsymbol

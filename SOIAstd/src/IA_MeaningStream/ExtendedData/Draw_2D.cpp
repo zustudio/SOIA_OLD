@@ -45,7 +45,7 @@ void Draw_2D::Draw(CCanvas* Canvas, std::deque<ExGroup*>* Groups)
 
 
 	VectorND<float> start = VectorND<float>(2);
-	exe_SetLocation((*Groups)[0], start);
+	exe_SetLocation((*Groups)[0], start, start);
 
 
 	//---------------- find the max int demensions of locations ------------------
@@ -79,6 +79,7 @@ void Draw_2D::Draw(CCanvas* Canvas, std::deque<ExGroup*>* Groups)
 				data->InterpProps.FloatExtend[i] = (1 / maxLoc[i]) * data->InterpProps.IntExtend[i] * 0.5F;
 				data->InterpProps.FloatLocation[i] = (1 / maxLoc[i]) * (data->InterpProps.IntLocation[i] + 0.5F);
 			}
+			data->InterpProps.FloatLocation[1] = 1 - data->InterpProps.FloatLocation[1];
 		}
 	}
 
@@ -100,34 +101,66 @@ void Draw_2D::Draw(CCanvas* Canvas, std::deque<ExGroup*>* Groups)
 
 			std::string *text = data->getText();
 			Canvas->CDrawText(Loc, text);
+
+
+
+			// draw arrows
+			std::deque<ExData*>* Connected = data->getConnected(LinkType::T_NormLink | LinkType::Downlink);
+			for (int p_Next = 0; p_Next < Connected->size(); p_Next++)
+			{
+				ExData* child = (*Connected)[p_Next];
+
+				Canvas->DrawArrow(fPoint(center.X/* + current->Extend.X * 0.5*/, center.Y + extend.Y * 0.5), fPoint(child->InterpProps.FloatLocation[0]/* + child->Extend.X * 0.5*/, child->InterpProps.FloatLocation[1] - child->InterpProps.FloatExtend[1] * 0.5), fColor(0.7, 0.7, 0.7));
+			}
+		}
+	}
+
+
+
+
+	for (ExGroup* group : *Groups)
+	{
+		for (ExData* data : *group->GetOccupants())
+		{
+			ExData* current = data;
+			/*for (int p_Child = 0; p_Child < current->Children.size(); p_Child++)
+			{
+			ExData* child = current->Children[p_Child];
+
+			CurrentCanvas->DrawFloatArrow(new fPoint(current->Location->X, current->Location->Y + current->Extend->Y * 0.5), new fPoint(child->Location->X, child->Location->Y - child->Extend->Y * 0.5));
+			}*/
+			
 		}
 	}
 }
 
-void Draw_2D::exe_SetLocation(ExGroup* Group, VectorND<float> &IntLocation)
+void Draw_2D::exe_SetLocation(ExGroup* Group, VectorND<float> &StartLoc, VectorND<float> &SteppingLoc)
 {
-	// so that my location is not recursively changed
-	VectorND<float> backupLoc = IntLocation;
-
 	// first a recursive call to all child groups
 	std::deque<ExGroup*> childGroups = *Group->GetChildGroups();
-	for (ExGroup* childGroup : childGroups)
+	if (childGroups.size() > 0)
 	{
-		exe_SetLocation(childGroup, backupLoc);
-	}
 
-	// reset my location
-	IntLocation = backupLoc;
+		VectorND<float> SubSteppingLoc = SteppingLoc;
+		for (ExGroup* childGroup : childGroups)
+		{
+			exe_SetLocation(childGroup, StartLoc, SubSteppingLoc);
+		}
+
+		StartLoc += *(childGroups[0])->GetBaseLocation();
+
+		SteppingLoc = StartLoc;
+	}
 
 	// setting the location of all current data occupants
 	std::deque<ExData*> occupants = *Group->GetOccupants();
+	VectorND<float>* loc = nullptr;
 	for (ExData* occupant : occupants)
 	{
-		VectorND<float>* loc = Group->GetLocation(occupant);
-		//IntLocation += *loc;
-		occupant->InterpProps.IntLocation = *loc + IntLocation;
+		loc = Group->GetLocation(occupant);
+		occupant->InterpProps.IntLocation = SteppingLoc + *loc;
 		std::cout << "[MS::Draw_2D]: Info: Set Location of '" + *occupant->getText() + "' to " + (std::string)occupant->InterpProps.IntLocation << std::endl;
-		delete loc;
 	}
-	IntLocation = *Group->GetBaseLocation();
+	SteppingLoc += *Group->GetLocation(nullptr);
+	delete loc;
 }

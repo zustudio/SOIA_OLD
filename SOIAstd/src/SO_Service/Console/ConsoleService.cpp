@@ -229,7 +229,7 @@ bool ConsoleService::cmd_create(const Handle<ICom> &Caller, const std::vector<Vo
 		}
 		else if (text == "dataexplorer")
 		{
-			newThread = new DataExplorer(CurrentEngine, Srvc_Com);
+			newThread = new DataExplorer(CurrentEngine, Srvc_Com, Srvc_MeanStrm);
 		}
 		else if (text == "debugvisual")
 		{

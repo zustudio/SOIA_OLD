@@ -46,7 +46,26 @@ bool ExGroup::Remove(ExData* Data)
 //---- IGroupFunc ----
 VectorND<float>* ExGroup::GetExtend()
 {
-	return Function->GetExtend(Occupants);
+	std::deque<VectorND<float>*> occExtends = std::deque < VectorND<float>*>();
+	std::deque<ExData*> dataToCalcExtendOf = Occupants;
+
+	for (auto occ : Occupants)
+	{
+		for (auto childGroup : ChildGroups)
+		{
+			if (childGroup->GetBaseData() == occ)
+			{
+				occExtends.push_back(childGroup->GetExtend());
+				dataToCalcExtendOf.erase(std::find(dataToCalcExtendOf.begin(), dataToCalcExtendOf.end(), occ));
+			}
+		}
+	}
+	
+	for (auto occ : dataToCalcExtendOf)
+	{
+		occExtends.push_back(&occ->InterpProps.IntExtend);
+	}
+	return Function->GetExtend(occExtends);
 }
 VectorND<float>* ExGroup::GetLocation(ExData* Target)
 {
@@ -76,7 +95,7 @@ std::deque<ExGroup*>* ExGroup::GetChildGroups()
 }
 void ExGroup::AddChildGroup(ExGroup* NewGroup)
 {
-	if (NewGroup)
+	if (NewGroup && NewGroup != this)
 	{
 		ChildGroups.push_back(NewGroup);
 	}
