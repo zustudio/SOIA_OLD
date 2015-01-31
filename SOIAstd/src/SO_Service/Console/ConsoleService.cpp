@@ -167,6 +167,7 @@ Handle<ICom>& ConsoleService::cGetHandle()
 void ConsoleService::cGetCommands(std::vector<Handle<ICmd> > &Commands)
 {
 	ICom_RegisterCmd(Commands, ConsoleService, cmd_echo, "echo");
+	ICom_RegisterCmd(Commands, ConsoleService, cmd_reply, "reply");
 	ICom_RegisterCmd(Commands, ConsoleService, cmd_create, "create");
 	ICom_RegisterCmd(Commands, ConsoleService, cmd_exit, "exit");
 }
@@ -181,6 +182,12 @@ bool ConsoleService::cmd_exit(const Handle<ICom> &Caller, const std::vector<Void
 	bLoop = false;
 
 	return true;
+}
+
+bool ConsoleService::cmd_reply(const Handle<ICom> &Caller, const std::vector<VoidPointer> &Args)
+{
+	std::cout << " => ";
+	return cmd_echo(Caller, Args);
 }
 
 bool ConsoleService::cmd_echo(const Handle<ICom> &Caller, const std::vector<VoidPointer> &Args)

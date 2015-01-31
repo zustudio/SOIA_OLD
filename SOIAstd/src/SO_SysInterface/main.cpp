@@ -23,7 +23,7 @@ int main()
 	//IA::Game_StatedState* currentGame = new IA::Game_StatedState();
 	//IA::Engine_SSt* currentEngine = new IA::Engine_SSt(currentGame, ComCenter);
 
-	std::thread t1 = std::thread(&IA::Engine::Start, &*currentEngine);
+	//std::thread t1 = std::thread(&IA::Engine::Start, &*currentEngine);
 
 	SOIA::ConsoleService* console = new SOIA::ConsoleService();
 	console->Start();

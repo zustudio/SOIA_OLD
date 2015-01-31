@@ -1,16 +1,19 @@
 
 #pragma once
 
+//parent class
+#include "IIComIO.h"
+//implementation neccessities
+#include "Com_Cmd.h"
+
+//properties
+#include "IData.h"
 #include "ExData.h"
 #include "ExGroup.h"
 #include "ExDSet.h"
-
-#include "IIComIO.h"
-#include "Com_Cmd.h"
+#include "Handle.h"
 
 #include <deque>
-
-#include "../../SO_Base/Handle.h"
 
 using namespace IA::MeaningStream;
 using namespace SO::Base;
@@ -29,17 +32,28 @@ namespace SO
 			~MeaningService();
 
 			//////////////////////////////////////////////////////
-			// vars
-			std::vector<Handle<ExDSet>> DataSets;
-
-			//////////////////////////////////////////////////////
 			// ICom
 			//---- inteface ----
 			void cGetCommands(std::vector<Handle<ICmd> > &Commands) override;
 			Handle<ICom>& cGetHandle() override;
 			//---- external callable commands ----
-			T_com_cmd_func cmd_create;
+			T_com_cmd_func cmd_info;
+			T_com_cmd_func cmd_addgroup;
+			T_com_cmd_func cmd_interpretdata;
+			T_com_cmd_func cmd_convertdata;
 
+			/////////////////////////////////////////////////////
+			// FUNCTIONALITY
+			//---- data conversion ----
+			ExData* Convert(IA::IData* myData, int Depth);
+			ExData* exe_Convert(IA::IData* Current, int Depth, std::deque<IA::IData*>* Ignore);
+
+			//////////////////////////////////////////////////////
+			// vars
+			std::vector<Handle<ExDSet>> DataSets;
+			std::deque<ExData*> RegisteredData;
+		private:
+			IA::Engine* CurrentEngine;
 		};
 	}
 }

@@ -4,7 +4,12 @@
 
 #include "IA_SSt.h"
 
+#include "MeaningService.h"
+#include "Com_Cmd.h"
+
 using namespace IA;
+using namespace SO::Base;
+using namespace SO::Com;
 
 ////////////////////////////////////////////////////////////
 // init
@@ -50,7 +55,10 @@ Engine_SSt::Engine_SSt(IA::Game* NewGame, SO::Com::ComService* ComCenter) : Engi
 	endsymbol
 	*Action >> nDat;
 	*Action >> nDat2;*/
-
+	std::vector<VoidPointer> Args;
+	Engine* cast_Engine = static_cast<Engine*>(this);
+	Args.push_back(*cast_Engine);
+	cSend(Handle<ICom>(nullptr, "MeaningSrvc"), SO::Com::Com_Cmd<SO::MeaningStream::MeaningService>(&SO::MeaningStream::MeaningService::cmd_convertdata), Args);
 }
 
 Engine_SSt::~Engine_SSt()

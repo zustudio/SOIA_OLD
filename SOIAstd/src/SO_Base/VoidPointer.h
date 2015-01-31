@@ -19,14 +19,14 @@ namespace SO
 			template<typename T>
 			VoidPointer(const T &NewObject)
 			{
-				T* temp = new T;
+				T* temp/* = new T*/;
 				Object = (void*) &NewObject;
 				ID = std::string(typeid(temp).name());
 			}
 			template<typename T>
 			T* CastTo() const
 			{
-				T* temp = new T;
+				T* temp/* = new T*/;
 				std::string ID2 = std::string(typeid(temp).name());
 
 				if (ID2 == ID)

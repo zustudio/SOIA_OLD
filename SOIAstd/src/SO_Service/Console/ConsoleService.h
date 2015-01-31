@@ -41,6 +41,7 @@ namespace SOIA
 		//--- ICom commands ---
 		T_com_cmd_func cmd_exit;
 		T_com_cmd_func cmd_echo;
+		T_com_cmd_func cmd_reply;
 		T_com_cmd_func cmd_create;
 
 	private:
