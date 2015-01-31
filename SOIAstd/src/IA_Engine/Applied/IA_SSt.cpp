@@ -20,6 +20,15 @@ Engine_SSt::Engine_SSt(IA::Game* NewGame, SO::Com::ComService* ComCenter) : Engi
 	symbol Knowledge is 1475
 		setname("Knowledge")
 
+		newsub test0 is 0
+			newsub test1 is 1
+				newsub test2 is 2
+					newsub test3 is 3
+					endsub
+				endsub
+			endsub
+		endsub
+
 		sub Action isllist(0, 1, 2, 3)
 		setname("Action")
 		endsub
@@ -70,6 +79,7 @@ Engine_SSt::~Engine_SSt()
 // main loop
 void Engine_SSt::Tick()
 {
+
 	static int i = 0;
 
 	SDL_start
