@@ -85,8 +85,8 @@ void Window_Base::DrawArrow(cPoint a, cPoint b, fColor *frontColor, fColor *back
 	pxPoint pxCross2 = crossPoint2.ToPxPoint(props.size);
 
 	SetColors(frontColor, backColor);
-	pxDrawLine(pxPoint1, pxPoint2);
-	pxDrawLine(pxCross1, pxCross2);/*
+	pxDrawLine(pxPoint1 + *a.px, pxPoint2 + *b.px);
+	pxDrawLine(pxCross1 + *a.px, pxCross2 + *b.px);/*
 	pxDrawLine(pxCross1, pxPoint2);
 	pxDrawLine(pxCross2, pxPoint2);*/
 	ResetColors();

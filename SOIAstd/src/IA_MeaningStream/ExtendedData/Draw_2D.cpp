@@ -65,7 +65,7 @@ void Draw_2D::Draw(CCanvas* Canvas, std::deque<ExGroup*>* Groups)
 		}
 	}
 	std::vector<float> add = std::vector<float>();
-	add.push_back(1);
+	add.push_back(0.5);
 	add.push_back(1);
 	maxLoc += VectorND<float>(add);
 
@@ -74,12 +74,15 @@ void Draw_2D::Draw(CCanvas* Canvas, std::deque<ExGroup*>* Groups)
 	{
 		for (ExData* data : *group->GetOccupants())
 		{
+			data->InterpProps.IntLocation[0] += 0.5F;
+			data->InterpProps.IntLocation[1] += 0.5F;
 			for (int i = 0; i < dim_Extend; i++)
 			{
-				data->InterpProps.FloatExtend[i] = (1 / maxLoc[i]) * data->InterpProps.IntExtend[i] * 0.5F;
-				data->InterpProps.FloatLocation[i] = (1 / maxLoc[i]) * (data->InterpProps.IntLocation[i] + 0.5F);
+				data->InterpProps.FloatExtend[i] = (1 / maxLoc[i]) * data->InterpProps.IntExtend[i] * 0.7F;
+				data->InterpProps.FloatLocation[i] = (1 / maxLoc[i]) * (data->InterpProps.IntLocation[i]);
 			}
 			data->InterpProps.FloatLocation[1] = 1 - data->InterpProps.FloatLocation[1];
+			
 		}
 	}
 
@@ -110,7 +113,8 @@ void Draw_2D::Draw(CCanvas* Canvas, std::deque<ExGroup*>* Groups)
 			{
 				ExData* child = (*Connected)[p_Next];
 
-				Canvas->DrawArrow(fPoint(center.X/* + current->Extend.X * 0.5*/, center.Y + extend.Y * 0.5), fPoint(child->InterpProps.FloatLocation[0]/* + child->Extend.X * 0.5*/, child->InterpProps.FloatLocation[1] - child->InterpProps.FloatExtend[1] * 0.5), fColor(0.7, 0.7, 0.7));
+				if (child->InterpProps.FloatExtend[0] != 0 || child->InterpProps.FloatExtend[1] != 0)
+					Canvas->DrawArrow(fPoint(center.X/* + current->Extend.X * 0.5*/, center.Y + extend.Y * 0.5), fPoint(child->InterpProps.FloatLocation[0]/* + child->Extend.X * 0.5*/, child->InterpProps.FloatLocation[1] - child->InterpProps.FloatExtend[1] * 0.5), fColor(0.7, 0.7, 0.7));
 			}
 		}
 	}

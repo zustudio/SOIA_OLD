@@ -75,6 +75,7 @@
     <ClInclude Include="src\IA_MeaningStream\ExtendedData\GroupCrit_Equal.h" />
     <ClInclude Include="src\IA_MeaningStream\ExtendedData\GroupCrit_Parentage.h" />
     <ClInclude Include="src\IA_MeaningStream\ExtendedData\GroupFunc_DataPoints.h" />
+    <ClInclude Include="src\IA_MeaningStream\ExtendedData\GroupFunc_List.h" />
     <ClInclude Include="src\IA_MeaningStream\ExtendedData\IDraw.h" />
     <ClInclude Include="src\IA_MeaningStream\ExtendedData\IGroupFunction.h" />
     <ClInclude Include="src\IA_MeaningStream\ExtendedData\IGroupingCriteria.h" />
@@ -125,6 +126,7 @@
     <ClCompile Include="src\IA_MeaningStream\ExtendedData\GroupCrit_Equal.cpp" />
     <ClCompile Include="src\IA_MeaningStream\ExtendedData\GroupCrit_Parentage.cpp" />
     <ClCompile Include="src\IA_MeaningStream\ExtendedData\GroupFunc_DataPoints.cpp" />
+    <ClCompile Include="src\IA_MeaningStream\ExtendedData\GroupFunc_List.cpp" />
     <ClCompile Include="src\SO_Base\VoidPointer.cpp" />
     <ClCompile Include="src\SO_Drawing\ControlElements\CCanvas.cpp" />
     <ClCompile Include="src\SO_Drawing\ControlElements\Control.cpp" />

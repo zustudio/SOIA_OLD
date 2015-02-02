@@ -39,6 +39,7 @@ namespace SO
 			//---- external callable commands ----
 			T_com_cmd_func cmd_info;
 			T_com_cmd_func cmd_addgroup;
+			T_com_cmd_func cmd_addgroupstrings;
 			T_com_cmd_func cmd_interpretdata;
 			T_com_cmd_func cmd_convertdata;
 

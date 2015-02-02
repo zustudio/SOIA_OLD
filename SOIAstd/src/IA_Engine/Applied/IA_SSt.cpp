@@ -10,6 +10,7 @@
 using namespace IA;
 using namespace SO::Base;
 using namespace SO::Com;
+using namespace SO::MeaningStream;
 
 ////////////////////////////////////////////////////////////
 // init
@@ -17,16 +18,16 @@ Engine_SSt::Engine_SSt(IA::Game* NewGame, SO::Com::ComService* ComCenter) : Engi
 {
 	SDL_start
 
-	symbol Knowledge is 1475
+		symbol Knowledge is 1475
 		setname("Knowledge")
 
 		newsub test0 is 0
-			newsub test1 is 1
-				newsub test2 is 2
-					newsub test3 is 3
-					endsub
-				endsub
-			endsub
+		newsub test1 is 1
+		newsub test2 is 2
+		/*newsub test3 is 3
+		endsub*/
+		endsub
+		endsub
 		endsub
 
 		sub Action isllist(0, 1, 2, 3)
@@ -45,6 +46,7 @@ Engine_SSt::Engine_SSt(IA::Game* NewGame, SO::Com::ComService* ComCenter) : Engi
 		setname("Current")
 		endsub
 		endsymbol
+
 
 		const int max = 4;
 	for (int i = 0; i < max; i++)
@@ -67,7 +69,11 @@ Engine_SSt::Engine_SSt(IA::Game* NewGame, SO::Com::ComService* ComCenter) : Engi
 	std::vector<VoidPointer> Args;
 	Engine* cast_Engine = static_cast<Engine*>(this);
 	Args.push_back(*cast_Engine);
-	cSend(Handle<ICom>(nullptr, "MeaningSrvc"), SO::Com::Com_Cmd<SO::MeaningStream::MeaningService>(&SO::MeaningStream::MeaningService::cmd_convertdata), Args);
+	cSend(Handle<ICom>(nullptr, "MeaningSrvc"), Com_Cmd<MeaningService>(&MeaningService::cmd_convertdata), Args);
+
+	cSend("MeaningSrvc", "addgroupstrings", "SDLcreated", "Equal", "Knowledge", " ", "DataPoints");
+	cSend("MeaningSrvc", "addgroupstrings", "SDLcreated", "Parentage", "Knowledge", "Knowledge", "DataPoints");
+	
 }
 
 Engine_SSt::~Engine_SSt()
@@ -116,6 +122,11 @@ void Engine_SSt::Tick()
 */
 	i++;
 	
+
+	std::vector<VoidPointer> Args;
+	Engine* cast_Engine = static_cast<Engine*>(this);
+	Args.push_back(*cast_Engine);
+	cSend(Handle<ICom>(nullptr, "MeaningSrvc"), Com_Cmd<MeaningService>(&MeaningService::cmd_convertdata), Args);
 }
 
 void Engine_SSt::ReIntegrate(Data_SSt* X)

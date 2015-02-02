@@ -17,7 +17,7 @@ bool IIComIO::cSend(const Handle<ICom> &Target, const ICmd &Command, const std::
 {
 	return Up->Forward(Target, cGetHandle(), Command, Args);
 }
-bool IIComIO::cSend(const std::string &Target, const std::string &Command, const std::string &Arg1, const std::string &Arg2, const std::string &Arg3)
+bool IIComIO::cSend(const std::string &Target, const std::string &Command, const std::string &Arg1, const std::string &Arg2, const std::string &Arg3, const std::string &Arg4, const std::string &Arg5)
 {
 	std::vector<std::string> args = std::vector<std::string>();
 	args.push_back(Command);
@@ -27,6 +27,10 @@ bool IIComIO::cSend(const std::string &Target, const std::string &Command, const
 		args.push_back(Arg2);
 	if (Arg3 != "")
 		args.push_back(Arg3);
+	if (Arg4 != "")
+		args.push_back(Arg4);
+	if (Arg5 != "")
+		args.push_back(Arg5);
 
 	std::vector<Handle<ICom> > outTargets;
 	Handle<ICmd> outCmd;

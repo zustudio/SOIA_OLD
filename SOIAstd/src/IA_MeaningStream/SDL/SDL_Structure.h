@@ -49,6 +49,7 @@
 					DATA* /*>>NameOfChild<<*/
 
 #define endsub		; \
+	 \
 					Data = SDLtempDATA.top(); \
 					SDLtempDATA.pop(); \
 					Backup = SDLtempDATA.top(); \

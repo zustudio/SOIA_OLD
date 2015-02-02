@@ -33,7 +33,7 @@ namespace SO
 			/////////////////////////////////////////////////////
 			// functions
 			//---- init ----
-			Control(Window_Base* NewWindow = nullptr, const fPoint &NewLoc = fPoint(), const fPoint &NewSize = fPoint());
+			Control(Window_Base* NewWindow = nullptr, const cPoint &NewLoc = cPoint(), const cPoint &NewSize = cPoint());
 			virtual ~Control();
 			//---- visual ----
 			void SetTrans(const fPoint &NewLoc, const fPoint &NewSize);

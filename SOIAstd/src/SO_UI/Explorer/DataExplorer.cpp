@@ -18,15 +18,18 @@ DataExplorer::DataExplorer(IA::Engine* NewEngine, ComService* NewUp, SO::Meaning
 	MeaningSrvc = MSrvc;
 
 	//create window
-	Canvas = new CCanvas(this, fPoint(), fPoint(1, 1));
+	TopTextBox = new CTextBox(this, cPoint(0, 0, 0, 0), cPoint(1, 0, 0, 50));
+	Canvas = new CCanvas(this, cPoint(0,0,0,50), cPoint(1,1,0,-50));
 	myControls.push_back(Canvas);
+	myControls.push_back(TopTextBox);
 
 
 
-	Handle<ExDSet> set = MeaningSrvc->DataSets[0];
+	Handle<ExDSet> set = MeaningSrvc->DataSets[MeaningSrvc->DataSets.size() - 1];
 
 
 	Drawable->Draw(Canvas, set.getObj()->GetGroups());
+	TopTextBox->Text = "Currently drawn data set: " + set.getName() + "\n    - Number of groups: " + std::to_string(set.getObj()->GetGroups()->size()) + '\n';
 }
 
 void DataExplorer::Tick()

@@ -5,6 +5,7 @@
 
 #include "IDraw.h"
 #include "CCanvas.h"
+#include "CTextBox.h"
 #include "MeaningService.h"
 
 namespace IA
@@ -40,6 +41,7 @@ namespace SO
 			///////////////////////////////////////////////////////////
 			// controls
 			//DEGraph* myDEGraph;
+			SO::Drawing::CTextBox* TopTextBox;
 			SO::Drawing::CCanvas* Canvas;
 			IDraw* Drawable;
 

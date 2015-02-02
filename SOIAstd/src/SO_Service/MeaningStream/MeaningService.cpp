@@ -4,6 +4,7 @@
 #include "GroupCrit_Equal.h"
 #include "GroupCrit_Parentage.h"
 #include "GroupFunc_DataPoints.h"
+#include "GroupFunc_List.h"
 
 using namespace IA;
 using namespace IA::MeaningStream;
@@ -31,6 +32,7 @@ void MeaningService::cGetCommands(std::vector<Handle<ICmd> > &Commands)
 {
 	ICom_RegisterCmd(Commands, MeaningService, cmd_info, "info");
 	ICom_RegisterCmd(Commands, MeaningService, cmd_addgroup, "addgroup");
+	ICom_RegisterCmd(Commands, MeaningService, cmd_addgroupstrings, "addgroupstrings");
 	ICom_RegisterCmd(Commands, MeaningService, cmd_convertdata, "convertdata");
 	ICom_RegisterCmd(Commands, MeaningService, cmd_interpretdata, "interpretdata");
 }
@@ -53,6 +55,130 @@ bool MeaningService::cmd_info(const Handle<ICom> &Caller, const std::vector<Void
 	return true;
 }
 
+/*	Creates new group from passed strings, and adds it to stringly passed DataSet
+	 @Arg0: (std::string)				DataSet to add to.
+	 @Arg1: (std::string)				Grouping criterium:
+										 - Equal
+										 - Parentage
+	 @Arg2: (IData* | std::string)		Pointer to group owner, or name of group owner (pointer will be gotten from (local'RegisteredData'))
+	 @Arg3: (IData* | std::string)		Pointer to owner of parent group, or name thereof.
+	 @Arg4: (std::string)				Group Function:
+										 - DataPoints
+										 - List
+*/
+bool MeaningService::cmd_addgroupstrings(const Handle<ICom> &Caller, const std::vector<VoidPointer> &Args)
+{
+	if (Args.size() < 4)
+		return false;
+
+	std::string* set_Name = Args[0].CastTo<std::string>();
+	std::string* crit_Name = Args[1].CastTo<std::string>();
+	std::string* owner_Name = Args[2].CastTo<std::string>();
+	IData* owner_Pointer = Args[2].CastTo<IData>();
+	std::string* parent_Name = Args[3].CastTo<std::string>();
+	IData* parent_Pointer = Args[3].CastTo<IData>();
+	std::string* func_Name = Args[4].CastTo<std::string>();
+
+	ExDSet* set = Handle<ExDSet>(nullptr, *set_Name).getObj(DataSets);
+	if (!set)
+	{
+		set = new ExDSet(std::deque<ExGroup*>(), &RegisteredData);
+		DataSets.push_back(Handle<ExDSet>(set, *set_Name));
+	}
+	ExGroup* group = nullptr;
+
+	if (set)
+	{
+		IGroupingCriteria* crit;
+		IGroupFunction* func;
+		//set crit
+		if (*crit_Name == "Equal")
+		{
+			crit = new GroupCrit_Equal();
+		}
+		else /*if (*crit_Name == "Parentage) */
+		{
+			crit = new GroupCrit_Parentage();
+		}
+		//set func
+		if (*func_Name == "DataPoints")
+		{
+			func = new GroupFunc_DataPoints();
+		}
+		if (*func_Name == "List")
+		{
+			func = new GroupFunc_List();
+		}
+		//set crit data
+		ExData* exOwner_Pointer = nullptr;
+		if (owner_Name)
+		{
+			for (ExData* test : RegisteredData)
+			{
+				if (*test->getText() == *owner_Name)
+				{
+					exOwner_Pointer = test;
+				}
+			}
+		}
+		if (owner_Pointer)
+		{
+			for (ExData* test : RegisteredData)
+			{
+				if (test->CurrentSource == owner_Pointer)
+				{
+					exOwner_Pointer = test;
+				}
+			}
+		}
+		if (exOwner_Pointer)
+		{
+			crit->CreateFrom(exOwner_Pointer);
+		}
+		//try to get parent group
+		std::deque<ExGroup*>* groups = set->GetGroups();
+		ExData* exParent_Pointer = nullptr;
+		ExGroup* exParentGroup_Pointer = nullptr;
+		if (parent_Name)
+		{
+			for (ExData* test : RegisteredData)
+			{
+				if (*test->getText() == *parent_Name)
+				{
+					exParent_Pointer = test;
+				}
+			}
+		}
+		if (parent_Pointer)
+		{
+			for (ExData* test : RegisteredData)
+			{
+				if (test->CurrentSource == parent_Pointer)
+				{
+					exParent_Pointer = test;
+				}
+			}
+		}
+
+		if (exParent_Pointer)
+		{
+			for (ExGroup* group : *groups)
+			{
+				if (group->GetBaseData() == exParent_Pointer)
+				{
+					exParentGroup_Pointer = group;
+					break;
+				}
+			}
+		}
+
+
+		group = new ExGroup(crit, func);
+		if (exParentGroup_Pointer) { exParentGroup_Pointer->AddChildGroup(group); }
+		set->AddGroup(group);
+		set->Scan();
+	}
+}
 /*	Adds the passed group to named or referenced DataSet
 	 @Arg0:	(std::string | Handle<DataSet>)	DataSet to be added to (is created if neccessary).
 	 @Arg1: (ExGroup)						Group to be added.
@@ -151,7 +277,13 @@ bool MeaningService::cmd_convertdata(const Handle<ICom> &Caller, const std::vect
 	}
 	if (CurrentEngine)
 	{
-		Convert(CurrentEngine->getDataStart(), 10);
+		Convert(CurrentEngine->getDataStart(), 20);
+		//rescan all sets
+		for (auto set : DataSets)
+		{
+			set.getObj()->Scan();
+		}
+		cmd_interpretdata(Caller, Args);
 	}
 	return result;
 }
@@ -282,9 +414,6 @@ void MeaningService::CreateAutoGroups()
 	crit->CreateFrom(RegisteredData[0]);
 	groups.push_front(new ExGroup(crit, new GroupFunc_DataPoints()));
 	owners.push_front(RegisteredData[0]);
-
-	
-
 
 	
 
