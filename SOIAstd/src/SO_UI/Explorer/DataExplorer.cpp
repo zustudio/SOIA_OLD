@@ -25,7 +25,7 @@ DataExplorer::DataExplorer(IA::Engine* NewEngine, ComService* NewUp, SO::Meaning
 
 
 
-	Handle<ExDSet> set = MeaningSrvc->DataSets[MeaningSrvc->DataSets.size() - 1];
+	Handle<ExDSet> set = MeaningSrvc->GetSetByName("SDLcreated");
 
 
 	Drawable->Draw(Canvas, set.getObj()->GetGroups());

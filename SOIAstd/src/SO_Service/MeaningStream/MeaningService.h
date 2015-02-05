@@ -32,6 +32,10 @@ namespace SO
 			~MeaningService();
 
 			//////////////////////////////////////////////////////
+			// public access
+			Handle<ExDSet> GetSetByName(const std::string &Name);
+
+			//////////////////////////////////////////////////////
 			// ICom
 			//---- inteface ----
 			void cGetCommands(std::vector<Handle<ICmd> > &Commands) override;
@@ -42,12 +46,14 @@ namespace SO
 			T_com_cmd_func cmd_addgroupstrings;
 			T_com_cmd_func cmd_interpretdata;
 			T_com_cmd_func cmd_convertdata;
+			T_com_cmd_func cmd_adddata;
 
 			/////////////////////////////////////////////////////
 			// FUNCTIONALITY
 			//---- data conversion ----
 			ExData* Convert(IA::IData* myData, int Depth);
 			ExData* exe_Convert(IA::IData* Current, int Depth, std::deque<IA::IData*>* Ignore);
+			ExData* getConverted(IA::IData* data);
 			//---- data parentage interpretation ----
 			void SetHierarchicBonds(ExData* Current);
 			void exe_SetHierarchicDistances(ExData* Current, ExData* Caller, int Distance);

@@ -26,6 +26,15 @@ MeaningService::~MeaningService()
 		delete set.getObj();
 	}
 }
+
+//////////////////////////////////////////////////////////////////////////////////////
+// public acess
+Handle<ExDSet> MeaningService::GetSetByName(const std::string &Name)
+{
+	Handle<ExDSet> hTemp = Handle<ExDSet>(nullptr, Name);
+	return Handle<ExDSet>(hTemp.getObj(DataSets), Name);
+}
+
 //////////////////////////////////////////////////////////////////////////////////////
 // ICom
 void MeaningService::cGetCommands(std::vector<Handle<ICmd> > &Commands)
@@ -68,7 +77,7 @@ bool MeaningService::cmd_info(const Handle<ICom> &Caller, const std::vector<Void
 */
 bool MeaningService::cmd_addgroupstrings(const Handle<ICom> &Caller, const std::vector<VoidPointer> &Args)
 {
-	if (Args.size() < 4)
+	if (Args.size() < 5)
 		return false;
 
 	std::string* set_Name = Args[0].CastTo<std::string>();
@@ -167,7 +176,6 @@ bool MeaningService::cmd_addgroupstrings(const Handle<ICom> &Caller, const std::
 				if (group->GetBaseData() == exParent_Pointer)
 				{
 					exParentGroup_Pointer = group;
-					break;
 				}
 			}
 		}
@@ -263,34 +271,44 @@ bool MeaningService::cmd_addgroup(const Handle<ICom> &Caller, const std::vector<
 // cmd FUNCTIONALITY
 //-------------------------------------------------------------------------------------------------------------
 //    converting
+bool MeaningService::cmd_adddata(const Handle<ICom> &Caller, const std::vector<VoidPointer> &Args)
+{
+	return false;
+}
 bool MeaningService::cmd_convertdata(const Handle<ICom> &Caller, const std::vector<VoidPointer> &Args)
 {
 	bool result = false;
 	Engine* newEngine = nullptr;
+	IData* newData = nullptr;
 	if (Args.size() >= 1)
 	{
 		newEngine = Args[0].CastTo<Engine>();
+		newData = Args[0].CastTo<IData>();
 	}
 	if (newEngine)
 	{
 		CurrentEngine = newEngine;
 	}
+	if (newData)
+	{
+		Convert(newData, 20);
+	}
+
 	if (CurrentEngine)
 	{
 		Convert(CurrentEngine->getDataStart(), 20);
 		//rescan all sets
-		for (auto set : DataSets)
-		{
-			set.getObj()->Scan();
-		}
-		cmd_interpretdata(Caller, Args);
 	}
+	for (auto set : DataSets)
+	{
+		set.getObj()->Scan();
+	}
+	cmd_interpretdata(Caller, Args);
 	return result;
 }
 /** creates ExData for every connected data point of the passed data up to the passed depth*/
 ExData* MeaningService::Convert(IData* myData, int Depth)
 {
-	RegisteredData.clear();
 	return exe_Convert(myData, Depth, new std::deque<IData*>());
 }
 ExData* MeaningService::exe_Convert(IData* Current, int Depth, std::deque<IData*>* Ignore)
@@ -301,8 +319,13 @@ ExData* MeaningService::exe_Convert(IData* Current, int Depth, std::deque<IData*
 	if (std::find(Ignore->begin(), Ignore->end(), Current) != Ignore->end())
 		return nullptr;
 
-	ExData* currentObj = new ExData(Current, &RegisteredData);
-	RegisteredData.push_back(currentObj);
+	//if obj is not in current list, than create it from scratch
+	ExData* currentObj = getConverted(Current);
+	if (!currentObj)
+	{
+		currentObj = new ExData(Current, &RegisteredData);
+		RegisteredData.push_back(currentObj);
+	}
 
 
 #if cSO_DebugDE > 1
@@ -318,6 +341,19 @@ ExData* MeaningService::exe_Convert(IData* Current, int Depth, std::deque<IData*
 	}
 
 	return currentObj;
+}
+ExData* MeaningService::getConverted(IA::IData* data)
+{
+	ExData* result = nullptr;
+	for (ExData* test : RegisteredData)
+	{
+		if (test->CurrentSource == data)
+		{
+			result = test;
+			break;
+		}
+	}
+	return result;
 }
 
 //-------------------------------------------------------------------------------------------------------------

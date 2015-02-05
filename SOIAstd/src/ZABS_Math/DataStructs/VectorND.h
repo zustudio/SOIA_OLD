@@ -78,6 +78,26 @@ namespace ZABS
 				intern_OpAdd(*this, a, *this);
 				return tmp;
 			}
+			//---- scalar operation ----
+			void intern_OpMult(VectorND<T> &a, VectorND<T> &b, VectorND<T> &r)
+			{
+				int n = std::fmax(a.dim(), b.dim());
+				for (int i_single = 0; i_single < n; i_single++)
+				{
+					r[i_single] = a[i_single] * b[i_single];
+				}
+			}
+			VectorND<T> operator *(float a)
+			{
+				VectorND<T> result = VectorND<T>(1);
+				VectorND<T> other = VectorND<T>(dim());
+				for (int i = 0; i < dim(); i++)
+				{
+					other[i] = a;
+				}
+				intern_OpMult((*this), other, result);
+				return result;
+			}
 			/////////////////////////////////////////////////////////
 			// conversions
 			operator std::string& ()

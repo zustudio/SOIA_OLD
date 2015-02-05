@@ -51,6 +51,7 @@ void Draw_2D::Draw(CCanvas* Canvas, std::deque<ExGroup*>* Groups)
 	//---------------- find the max int demensions of locations ------------------
 
 	VectorND<float> maxLoc = VectorND<float>(dim_Extend);
+	VectorND<float> minLoc = VectorND<float>(dim_Extend);
 	
 	for (ExGroup* group : *Groups)
 	{
@@ -61,21 +62,24 @@ void Draw_2D::Draw(CCanvas* Canvas, std::deque<ExGroup*>* Groups)
 			for (int i = 0; i < n; i++)
 			{
 				maxLoc[i] = std::fmax(maxLoc[i], loc[i]);
+				minLoc[i] = std::fmin(minLoc[i], loc[i]);
 			}
 		}
 	}
 	std::vector<float> add = std::vector<float>();
 	add.push_back(0.5);
-	add.push_back(1);
+	add.push_back(0.5);
 	maxLoc += VectorND<float>(add);
+	minLoc += (VectorND<float>(add) * -1);
+
+	maxLoc += (minLoc * -1);
 
 	//----------------- rescale all int locs & extends into float ones ---------------
 	for (ExGroup* group : *Groups)
 	{
 		for (ExData* data : *group->GetOccupants())
 		{
-			data->InterpProps.IntLocation[0] += 0.5F;
-			data->InterpProps.IntLocation[1] += 0.5F;
+			data->InterpProps.IntLocation += (minLoc * -1);
 			for (int i = 0; i < dim_Extend; i++)
 			{
 				data->InterpProps.FloatExtend[i] = (1 / maxLoc[i]) * data->InterpProps.IntExtend[i] * 0.7F;

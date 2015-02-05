@@ -43,9 +43,11 @@ VectorND<float>* GroupFunc_List::GetLocation(ExData* target, const std::deque<Ex
 		ExData* child1 = i < Occupants.size() ? Occupants[i] : nullptr;
 
 		if (child0)
-			(*result)[1] += (0.5F * child0->InterpProps.IntExtend[1]);
+			(*result)[1] -= (0.5F * child0->InterpProps.IntExtend[1]);
 		if (child1)
-			(*result)[1] += (0.5F * child1->InterpProps.IntExtend[1]);
+			(*result)[1] -= (0.5F * child1->InterpProps.IntExtend[1]);
+		else
+			result = new VectorND<float>(std::vector<float>({ child0->InterpProps.IntExtend[0], 0.0F }));
 
 		child0 = child1;
 
@@ -98,8 +100,8 @@ VectorND<float>* GroupFunc_List::GetBaseLocation(ExData* Base, const std::deque<
 
 	if (Base)
 	{
-		result.push_back(2);
-		result.push_back(Base->InterpProps.IntExtend[1] + 1);
+		result.push_back(-0.75F);
+		result.push_back(/*Base->InterpProps.IntExtend[1] + */1);
 	}
 
 	return new VectorND<float>(result);

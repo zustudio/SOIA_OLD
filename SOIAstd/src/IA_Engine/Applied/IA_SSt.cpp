@@ -16,19 +16,40 @@ using namespace SO::MeaningStream;
 // init
 Engine_SSt::Engine_SSt(IA::Game* NewGame, SO::Com::ComService* ComCenter) : Engine(NewGame, ComCenter)
 {
-	SDL_start
+	SDL_start(true)
 
-		symbol Knowledge is 1475
+		symbol Knowledge is(1475)
 		setname("Knowledge")
 
-		newsub test0 is 0
-		newsub test1 is 1
-		newsub test2 is 2
-		/*newsub test3 is 3
+
+
+		/*newsub test0 is(90)
+		setname("test0")
+		newsub test0_0 is(900)
+		setname("test0_0")
+		newsub test0_0_0 isllist(100, 101, 102, 103)
+		newsub hor1 is(111)
+		newsub hor2 is(112)
+		endsub
+		endsub
+		setname("test0_0_0")
+		endsub
+		endsub
+		endsub
+
+
+
+		newsub test1 isllist(2, 3, 4, 5)
+		setname("test1")
+		endsub
+
+		newsub test2 isllist(6,7,8,9)
+		setname("test2")
+		endsub
+
+		newsub test3 is(112)
+		setname("test3")
 		endsub*/
-		endsub
-		endsub
-		endsub
 
 		sub Action isllist(0, 1, 2, 3)
 		setname("Action")
@@ -42,7 +63,7 @@ Engine_SSt::Engine_SSt(IA::Game* NewGame, SO::Com::ComService* ComCenter) : Engi
 		setname("Visible")
 		endsub
 
-		sub Current is 1114
+		sub Current is(1114)
 		setname("Current")
 		endsub
 		endsymbol
@@ -71,8 +92,15 @@ Engine_SSt::Engine_SSt(IA::Game* NewGame, SO::Com::ComService* ComCenter) : Engi
 	Args.push_back(*cast_Engine);
 	cSend(Handle<ICom>(nullptr, "MeaningSrvc"), Com_Cmd<MeaningService>(&MeaningService::cmd_convertdata), Args);
 
-	cSend("MeaningSrvc", "addgroupstrings", "SDLcreated", "Equal", "Knowledge", " ", "DataPoints");
-	cSend("MeaningSrvc", "addgroupstrings", "SDLcreated", "Parentage", "Knowledge", "Knowledge", "DataPoints");
+//	std::vector<VoidPointer> SDLARGS;
+//	SDLARGS.push_back(VoidPointer(std::string("SDLcreated")));
+//	SDLARGS.push_back(VoidPointer(std::string("")))
+//	SDLARGS.push_back(VoidPointer(Knowledge));
+//
+//	cSend(Handle<ICom>(nullptr, "MeaningSrvc"), Com_Cmd<MeaningService>(&MeaningService::cmd_addgroupstrings), SDLARGS);
+
+	//cSend("MeaningSrvc", "addgroupstrings", "SDLcreated", "Equal", "Knowledge", " ", "DataPoints");
+	//cSend("MeaningSrvc", "addgroupstrings", "SDLcreated", "Parentage", "Knowledge", "Knowledge", "List");
 	
 }
 
@@ -88,11 +116,12 @@ void Engine_SSt::Tick()
 
 	static int i = 0;
 
-	SDL_start
+
+	SDL_start(false)
 
 	newsymbol action isdefault
 		setname(std::string("X") + std::to_string(i))
-		newsub result is 1
+		newsub result is(1)
 		endsub
 	endsymbol
 
@@ -110,8 +139,9 @@ void Engine_SSt::Tick()
 
 	result->set(input[0]);
 
-	newsymbol visible is input[1]
+	newsymbol visible is(input[1])
 	endsymbol
+
 
 	*result >> visible;
 	*Visible >> visible;
