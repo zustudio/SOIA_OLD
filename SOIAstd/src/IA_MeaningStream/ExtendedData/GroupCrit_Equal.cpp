@@ -19,7 +19,7 @@ int GroupCrit_Equal::Complies(ExData* Test)
 	float result = 0;
 	if (Test == EqualData)
 	{
-		result = 10;
+		result = 11;
 	}
 	return result;
 }

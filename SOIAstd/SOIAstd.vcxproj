@@ -62,6 +62,7 @@
     <ClInclude Include="src\IA_Engine\Applied\IA_SSt.h" />
     <ClInclude Include="src\IA_Engine\Framework\Engine.h" />
     <ClInclude Include="src\IA_Engine\Framework\IData.h" />
+    <ClInclude Include="src\IA_Engine\Modules\MDebug.h" />
     <ClInclude Include="src\IA_Engine\Modules\MNET_Base.h" />
     <ClInclude Include="src\IA_Engine\Modules\MSimDec.h" />
     <ClInclude Include="src\IA_Engine\Modules\MText.h" />
@@ -86,6 +87,7 @@
     <ClInclude Include="src\IA_MeaningStream\SDL\SDL_Structure.h" />
     <ClInclude Include="src\SO_Base\Handle.h" />
     <ClInclude Include="src\SO_Base\ICmd.h" />
+    <ClInclude Include="src\SO_Base\IDebugObj.h" />
     <ClInclude Include="src\SO_Base\VoidPointer.h" />
     <ClInclude Include="src\SO_Drawing\ControlElements\CCanvas.h" />
     <ClInclude Include="src\SO_Drawing\ControlElements\Control.h" />
@@ -127,6 +129,7 @@
     <ClCompile Include="src\IA_MeaningStream\ExtendedData\GroupCrit_Parentage.cpp" />
     <ClCompile Include="src\IA_MeaningStream\ExtendedData\GroupFunc_DataPoints.cpp" />
     <ClCompile Include="src\IA_MeaningStream\ExtendedData\GroupFunc_List.cpp" />
+    <ClCompile Include="src\SO_Base\IDebugObj.cpp" />
     <ClCompile Include="src\SO_Base\VoidPointer.cpp" />
     <ClCompile Include="src\SO_Drawing\ControlElements\CCanvas.cpp" />
     <ClCompile Include="src\SO_Drawing\ControlElements\Control.cpp" />

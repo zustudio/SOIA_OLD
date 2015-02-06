@@ -25,6 +25,7 @@ void ExDSet::Scan()
 
 void ExDSet::AddToGroups(const std::deque<ExData*> &AllData)
 {
+	std::cout << "[DATASET]: " << std::endl;
 	for (ExData* data : AllData)
 	{
 		ExGroup* foundGroup = nullptr;

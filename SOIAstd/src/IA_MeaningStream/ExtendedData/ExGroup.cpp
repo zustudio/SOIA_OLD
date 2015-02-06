@@ -20,6 +20,7 @@ int ExGroup::TryAdd(ExData* Data)
 		if (std::find(Occupants.begin(), Occupants.end(), Data) == Occupants.end())		// if not already added
 		{
 			Occupants.push_back(Data);													// add now
+			//std::cout << "    - Added data '" << *Data->getText() << "'\t\tto group of '" << *GetBaseData()->getText() << "'" << std::endl;
 		}
 	}
 	return compatability;

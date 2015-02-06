@@ -47,7 +47,7 @@
 /* structure to create new data elements */
 //----  symbol  ----
 #define symbol		SDLtempDATA.push(new DATA(dVAL)); \
-					cSend("MeaningSrvc", "convertdata", {p_DATA(SDLtempDATA.top()) } ); \
+					if (bCreateGroups) cSend("MeaningSrvc", "convertdata", {p_DATA(SDLtempDATA.top()) } ); \
 					if (bCreateGroups) cSend("MeaningSrvc", "addgroupstrings", {p_TEXT("SDLcreated"), p_TEXT("Equal"), p_DATA(SDLtempDATA.top()), 0, p_TEXT("DataPoints") } ); \
 					PARENT = SDLtempDATA.top();
 
@@ -62,8 +62,8 @@
 					PARENT = SDLtempDATA.top(); \
 					SDLtempDATA.push(new DATA(dVAL)); \
 					*PARENT >> SDLtempDATA.top(); \
-					cSend("MeaningSrvc", "convertdata", {VoidPointer(*(Engine*) this)}); \
-					cSend("MeaningSrvc", "convertdata", {p_DATA(SDLtempDATA.top()) } );
+					if (bCreateGroups) cSend("MeaningSrvc", "convertdata", {VoidPointer(*(Engine*) this)}); \
+					if (bCreateGroups) cSend("MeaningSrvc", "convertdata", {p_DATA(SDLtempDATA.top()) } );
 
 #define newsub		sub \
 					DATA* /*>>NameOfChild<<*/

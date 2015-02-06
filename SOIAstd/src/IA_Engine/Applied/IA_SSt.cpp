@@ -51,15 +51,15 @@ Engine_SSt::Engine_SSt(IA::Game* NewGame, SO::Com::ComService* ComCenter) : Engi
 		setname("test3")
 		endsub*/
 
-		sub Action isllist(0, 1, 2, 3)
+		sub Action isllist(100, 200, 300, 400)
 		setname("Action")
 		endsub
 
-		sub Result isllist(0, 1, 1, 1)
+		sub Result isllist(101, 201, 301, 401)
 		setname("Result")
 		endsub
 
-		sub Visible isllist(1, 2, 3, 0)
+		sub Visible isllist(102, 202, 302, 402)
 		setname("Visible")
 		endsub
 
@@ -125,6 +125,7 @@ void Engine_SSt::Tick()
 		endsub
 	endsymbol
 
+
 	*Action >> action;
 	*Result >> result;
 
@@ -132,6 +133,8 @@ void Engine_SSt::Tick()
 	Data_SSt* lastVisible = (Data_SSt*)(Visible->getConnected(n_CVisible - 1, LinkType::T_NormLink | LinkType::Downlink));
 
 	*lastVisible >> action;
+
+	action->ii_setBreakPointsEnabled(true);
 
 	ReIntegrate(action);
 

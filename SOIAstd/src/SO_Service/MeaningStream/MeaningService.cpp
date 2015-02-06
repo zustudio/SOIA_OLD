@@ -325,12 +325,14 @@ ExData* MeaningService::exe_Convert(IData* Current, int Depth, std::deque<IData*
 	{
 		currentObj = new ExData(Current, &RegisteredData);
 		RegisteredData.push_back(currentObj);
+
+#if cSO_DebugDE > 1
+		cSend("Console", "echo", (checkM(MText) ? *currentObj->getText() : std::to_string(currentObj->CurrentSource->get())) + " in -depth of " + std::to_string(Depth) + '\n');
+#endif
+		
 	}
 
 
-#if cSO_DebugDE > 1
-	cSend("Console", "echo", (checkM(MText) ? *currentObj->getText() : std::to_string(currentObj->CurrentSource->get())) + " in -depth of " + std::to_string(Depth) + '\n');
-#endif
 
 	Ignore->push_back(Current);
 	Depth -= 1;
@@ -361,7 +363,7 @@ ExData* MeaningService::getConverted(IA::IData* data)
 bool MeaningService::cmd_interpretdata(const Handle<ICom> &Caller, const std::vector<VoidPointer> &Args)
 {
 	SetHierarchicBonds(RegisteredData[0]);
-	cSend("Console", "echo", "-- parent has " + std::to_string(RegisteredData[0]->Children.size()) + " Children\n");
+	//cSend("Console", "echo", "-- parent has " + std::to_string(RegisteredData[0]->Children.size()) + " Children\n");
 	CreateAutoGroups();
 	//cSend("Console", "echo", "-- created")
 	return true;
@@ -442,7 +444,7 @@ void MeaningService::CreateAutoGroups()
 			groups.push_back(new ExGroup(crit, new GroupFunc_DataPoints()));
 			owners.push_back(data);
 
-			cSend("Console", "echo", " -- Added group of: " + *data->getText());
+			//cSend("Console", "echo", " -- Added group of: " + *data->getText());
 		}
 	}
 	

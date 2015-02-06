@@ -261,6 +261,12 @@
     <ClInclude Include="src\IA_MeaningStream\ExtendedData\GroupFunc_List.h">
       <Filter>IA_MeaningStream\ExtendedData</Filter>
     </ClInclude>
+    <ClInclude Include="src\SO_Base\IDebugObj.h">
+      <Filter>SO_Base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IA_Engine\Modules\MDebug.h">
+      <Filter>IA_Engine\Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\IA_Engine\Framework\Engine.cpp">
@@ -373,6 +379,9 @@
     </ClCompile>
     <ClCompile Include="src\IA_MeaningStream\ExtendedData\GroupFunc_List.cpp">
       <Filter>IA_MeaningStream\ExtendedData</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_Base\IDebugObj.cpp">
+      <Filter>SO_Base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
