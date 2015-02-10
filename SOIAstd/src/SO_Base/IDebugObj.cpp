@@ -4,6 +4,7 @@
 
 //functionality
 #include <intrin.h>
+#include <csignal>
 #include <iostream>
 #include <string>
 #include "Thread.h"
