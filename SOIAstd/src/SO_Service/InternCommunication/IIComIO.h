@@ -3,6 +3,7 @@
 
 //Super
 #include "ICom.h"
+//#include "IDebugObj.h"
 
 //vars
 #include "ComService.h"
@@ -11,7 +12,7 @@ namespace SO
 {
 	namespace Com
 	{
-		class IIComIO : public ICom
+		class IIComIO : public ICom //, public IDebugObj
 		{
 		public:
 			//helper definitions
@@ -25,7 +26,7 @@ namespace SO
 
 		protected:
 			////////////////////////////////////////////////////////
-			// implementation of functionality for child classes
+			// implementation of ICom functionality for child classes
 			virtual bool cSend(const Handle<ICom> &Target, const ICmd &Command, const std::vector<VoidPointer> &Args) override;
 			virtual bool cSend(const std::string &Target, const std::string &Command, const std::vector<VoidPointer> &Args);
 			virtual bool cSend(const std::string &Target, const std::string &Command, const std::string &Arg1 = "", const std::string &Arg2 = "", const std::string &Arg3 = "", const std::string &Arg4 = "", const std::string &Arg5 = "");

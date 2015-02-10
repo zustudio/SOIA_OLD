@@ -12,13 +12,16 @@ using namespace SO::Base;
 using namespace SO::Com;
 using namespace SO::MeaningStream;
 
+//TEST
+#define DownChild(data, num)	(data->getConnected(num, LinkType::T_NormLink | LinkType::Downlink))
+
 ////////////////////////////////////////////////////////////
 // init
 Engine_SSt::Engine_SSt(IA::Game* NewGame, SO::Com::ComService* ComCenter) : Engine(NewGame, ComCenter)
 {
 	SDL_start(true)
 
-		symbol Knowledge is(1475)
+	symbol Knowledge is(1475)
 		setname("Knowledge")
 
 
@@ -51,35 +54,51 @@ Engine_SSt::Engine_SSt(IA::Game* NewGame, SO::Com::ComService* ComCenter) : Engi
 		setname("test3")
 		endsub*/
 
-		sub Action isllist(100, 200, 300, 400)
+		/*sub Action is(147)
 		setname("Action")
+			newsub s0 is(100)
+				setdebug(true)
+			endsub
+			newsub s1 is(200)
+			endsub
+			newsub s2 is(300)
+			endsub
+			newsub s3 is(400)
+			endsub
+		endsub*/
+
+		sub Action isllist(0, 0, 1, 2)
+			setname("Action")
 		endsub
 
-		sub Result isllist(101, 201, 301, 401)
-		setname("Result")
+		sub Result isllist(0, 1, 1, 1)
+			setname("Result")
 		endsub
 
-		sub Visible isllist(102, 202, 302, 402)
-		setname("Visible")
+		sub Visible isllist(0, 1, 2, 0)
+			setname("Visible")
 		endsub
 
 		sub Current is(1114)
-		setname("Current")
+			setname("Current")
 		endsub
-		endsymbol
+	endsymbol
 
 
-		const int max = 4;
+	const int max = 4;
 	for (int i = 0; i < max; i++)
 	{
-		*((*Action)[i]) >> (*Result)[i];
-		*((*Result)[i]) >> (*Visible)[i];
+		*DownChild(Action, i) >> DownChild(Result, i);
+		*DownChild(Result, i) >> DownChild(Visible, i);
 		if (i + 1 < max)
 		{
-			*((*Visible)[i]) >> (*Action)[i + 1];
+			*DownChild(Visible, i) >> DownChild(Action, i + 1);
 		}
+
+		
 	}
 
+	//ii_BreakThread("post");
 	/*newsymbol nDat is 2
 	endsymbol
 
@@ -87,10 +106,15 @@ Engine_SSt::Engine_SSt(IA::Game* NewGame, SO::Com::ComService* ComCenter) : Engi
 	endsymbol
 	*Action >> nDat;
 	*Action >> nDat2;*/
-	std::vector<VoidPointer> Args;
-	Engine* cast_Engine = static_cast<Engine*>(this);
-	Args.push_back(*cast_Engine);
-	cSend(Handle<ICom>(nullptr, "MeaningSrvc"), Com_Cmd<MeaningService>(&MeaningService::cmd_convertdata), Args);
+
+	for (int i = 0; i < 2; i++)
+	{
+		std::vector<VoidPointer> Args;
+		Engine* cast_Engine = static_cast<Engine*>(this);
+		Args.push_back(*cast_Engine);
+		cSend(Handle<ICom>(nullptr, "MeaningSrvc"), Com_Cmd<MeaningService>(&MeaningService::cmd_convertdata), Args);
+		std::cout << "[AI]: converted data";
+	}
 
 //	std::vector<VoidPointer> SDLARGS;
 //	SDLARGS.push_back(VoidPointer(std::string("SDLcreated")));
@@ -117,6 +141,8 @@ void Engine_SSt::Tick()
 	static int i = 0;
 
 
+	ii_BreakThread("0");
+
 	SDL_start(false)
 
 	newsymbol action isdefault
@@ -126,28 +152,36 @@ void Engine_SSt::Tick()
 	endsymbol
 
 
+
 	*Action >> action;
 	*Result >> result;
+
+	ii_BreakThread("1");
 
 	int n_CVisible = Visible->getConnectedNum(LinkType::T_NormLink | LinkType::Downlink);
 	Data_SSt* lastVisible = (Data_SSt*)(Visible->getConnected(n_CVisible - 1, LinkType::T_NormLink | LinkType::Downlink));
 
 	*lastVisible >> action;
 
-	action->ii_setBreakPointsEnabled(true);
+	ii_BreakThread("2");
 
 	ReIntegrate(action);
+
+	ii_BreakThread("3");
 
 	std::vector<int> input = *IFuncResultOfAction(action);
 
 	result->set(input[0]);
 
 	newsymbol visible is(input[1])
-	endsymbol
+		endsymbol
 
+		ii_BreakThread("4");
 
 	*result >> visible;
 	*Visible >> visible;
+
+	ii_BreakThread("5");
 
 	/*int sim = Action->llink(Current, 2);
 	std::string text = std::to_string(sim);
@@ -160,6 +194,8 @@ void Engine_SSt::Tick()
 	Engine* cast_Engine = static_cast<Engine*>(this);
 	Args.push_back(*cast_Engine);
 	cSend(Handle<ICom>(nullptr, "MeaningSrvc"), Com_Cmd<MeaningService>(&MeaningService::cmd_convertdata), Args);
+
+	ii_BreakThread("6");
 }
 
 void Engine_SSt::ReIntegrate(Data_SSt* X)
@@ -182,10 +218,11 @@ void Engine_SSt::ReIntegrate(Data_SSt* X)
 		}
 	}*/
 
-	int nSimCand = Action->getConnectedNum();
+	int nSimCand = Action->getConnectedNum(LinkType::T_NormLink | LinkType::Downlink);
 	for (int iSimCand = 0; iSimCand < nSimCand; iSimCand++)
 	{
-		Data_SSt* SimCand = (Data_SSt*)(*Action)[iSimCand];
+		Data_SSt* SimCand = (Data_SSt*)DownChild(Action, iSimCand);
+		//Data_SSt* SimCand = (Data_SSt*)(*Action)[iSimCand];
 		if (SimCand != X)
 		{
 			similarityCandidates.push_back(SimCand);

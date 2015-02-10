@@ -1,5 +1,7 @@
 
 #include "IIComIO.h"
+#include "Com_Cmd.h"
+#include "Thread.h"
 
 using namespace SO::Com;
 
@@ -70,4 +72,3 @@ void IIComIO::TryCreateHandle(const std::string &Name)
 		Hndl = new Handle<ICom>(this, Name);
 	}
 }
-

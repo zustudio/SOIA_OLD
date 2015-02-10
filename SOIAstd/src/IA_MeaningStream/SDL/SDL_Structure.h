@@ -95,6 +95,9 @@
 						}
 
 //---- properties ----
-#define setname(Name)	; \
-						SDLtempDATA.top()->Text = new std::string(Name)
+#define setname(Name)		; \
+							SDLtempDATA.top()->Text = new std::string(Name)
+
+#define setdebug(bEnable)	; \
+							SDLtempDATA.top()->ii_SetBreakPointsEnabled(bEnable)
 

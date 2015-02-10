@@ -5,8 +5,6 @@
 
 #include "SDL_GlobalVars.h"
 
-//TEST
-#include "VoidPointer.h"
 
 using namespace SO;
 

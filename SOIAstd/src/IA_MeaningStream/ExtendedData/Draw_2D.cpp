@@ -107,8 +107,8 @@ void Draw_2D::Draw(CCanvas* Canvas, std::deque<ExGroup*>* Groups)
 			Canvas->DrawRect(Loc, extend);
 
 			std::string *text = data->getText();
-			Canvas->CDrawText(Loc, text);
-
+			std::string* temp = new std::string(*text + " {" + std::to_string((int)data->CurrentSource->get()) + "}");
+			Canvas->CDrawText(Loc, temp);
 
 
 			// draw arrows

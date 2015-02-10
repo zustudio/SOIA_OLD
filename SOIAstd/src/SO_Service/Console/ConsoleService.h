@@ -43,6 +43,8 @@ namespace SOIA
 		T_com_cmd_func cmd_echo;
 		T_com_cmd_func cmd_reply;
 		T_com_cmd_func cmd_create;
+		T_com_cmd_func cmd_break;
+		T_com_cmd_func cmd_continue;
 
 	private:
 		///////////////////////////////////////////////////////////////
@@ -53,7 +55,7 @@ namespace SOIA
 		SO::Com::ComService* Srvc_Com;
 		SO::MeaningStream::MeaningService* Srvc_MeanStrm;
 		//- multiple
-		std::deque<SO::Thread*> Threads;
+		std::vector<Handle<SO::Thread> > Threads;
 		//std::deque<std::thread*> Threads;
 		//--- status ---
 		bool bLoop;

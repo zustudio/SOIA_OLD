@@ -20,6 +20,8 @@ using namespace SO;
 Thread::Thread()
 {
 	MThread = threadConf();
+	MThread.m = new std::mutex();
+	MThread.cv = new std::condition_variable();
 }
 Thread::~Thread()
 {
@@ -28,9 +30,6 @@ Thread::~Thread()
 void Thread::Start()
 {
 	MThread.bEnabled = true;
-
-	MThread.m = new std::mutex();
-	MThread.cv = new std::condition_variable();
 	MThread.thrd = new std::thread(&Thread::EntryPoint, this);
 }
 void Thread::Stop()
@@ -50,7 +49,7 @@ void Thread::EntryPoint()
 		{
 			//do something
 			Tick();
-			MThread.Loops = MThread.Loops > 0 ? MThread.Loops - 1 : -1;
+			MThread.Loops = MThread.Loops==0? 0 : (MThread.Loops==-1? -1 : MThread.Loops-1);
 		}
 		else
 		{
@@ -63,6 +62,19 @@ void Thread::EntryPoint()
 			lock.unlock();
 		}
 	}
+}
+
+//////////////////////////////////////////////////////////////////////////
+// IDebugObj implementation
+void Thread::ii_Wait(bool* bWake)
+{
+	std::unique_lock<std::mutex> lock(*MThread.m);
+	MThread.cv->wait(lock, [&bWake] { return *bWake; });
+	lock.unlock();
+}
+void Thread::ii_Wake()
+{
+	MThread.cv->notify_one();
 }
 
 

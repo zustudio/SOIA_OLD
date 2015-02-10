@@ -15,10 +15,10 @@ SDL_Modules_Init
 namespace IA
 {
 
-	class Data_SSt : public  MDebug< MSimDec< MText< MNET_Base <IData> > > >
+	class Data_SSt : public  MSimDec< MDebug <MText< MNET_Base <IData> > > >
 	{ 
 	public:
-		Data_SSt(int NewContent = 0, const std::string &NewText = "", DataType NewDataType = DataType::Content) : MDebug(NewDataType, NewText, NewContent)
+		Data_SSt(int NewContent = 0, const std::string &NewText = "", DataType NewDataType = DataType::Content) : MSimDec(NewDataType, NewText, NewContent)
 		{
 			registerM(MDebug);
 			registerM(MText);

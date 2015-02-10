@@ -57,6 +57,7 @@ namespace SO
 			//---- data parentage interpretation ----
 			void SetHierarchicBonds(ExData* Current);
 			void exe_SetHierarchicDistances(ExData* Current, ExData* Caller, int Distance);
+			void ResetHierarchicDistances();
 			void CreateAutoGroups();
 
 			//////////////////////////////////////////////////////

@@ -17,6 +17,7 @@ using namespace SO::Base;
 using namespace SO::UI;
 using namespace SO::Com;
 using namespace SO::MeaningStream;
+using namespace SO;
 using namespace IA;
 using namespace std;
 
@@ -28,6 +29,9 @@ using namespace std;
 
 ConsoleService::ConsoleService() : IIComIO(new ComService())
 {
+	// initialize variables
+	Threads = std::vector<Handle<SO::Thread> >();
+
 	// initialize services
 	//- communication service
 	Srvc_Com = Up;
@@ -169,6 +173,8 @@ void ConsoleService::cGetCommands(std::vector<Handle<ICmd> > &Commands)
 	ICom_RegisterCmd(Commands, ConsoleService, cmd_echo, "echo");
 	ICom_RegisterCmd(Commands, ConsoleService, cmd_reply, "reply");
 	ICom_RegisterCmd(Commands, ConsoleService, cmd_create, "create");
+	ICom_RegisterCmd(Commands, ConsoleService, cmd_break, "break");
+	ICom_RegisterCmd(Commands, ConsoleService, cmd_continue, "continue");
 	ICom_RegisterCmd(Commands, ConsoleService, cmd_exit, "exit");
 }
 
@@ -176,7 +182,7 @@ bool ConsoleService::cmd_exit(const Handle<ICom> &Caller, const std::vector<Void
 {
 	for (auto thread : Threads)
 	{
-		thread->Stop();
+		thread.getObj()->Stop();
 	}
 
 	bLoop = false;
@@ -238,7 +244,7 @@ bool ConsoleService::cmd_create(const Handle<ICom> &Caller, const std::vector<Vo
 
 		if (newThread)
 		{
-			Threads.push_back(newThread);
+			Threads.push_back(Handle<SO::Thread>(newThread, text));
 			newThread->Start();
 
 			IIComIO* newComThread = dynamic_cast<IIComIO*>(newThread);
@@ -253,4 +259,58 @@ bool ConsoleService::cmd_create(const Handle<ICom> &Caller, const std::vector<Vo
 		}
 	}
 	return result;
+}
+
+/////////////////////////////////////////////////////////////////////
+// debug functionality
+bool ConsoleService::cmd_break(const Handle<ICom> &Caller, const std::vector<VoidPointer> &Args)
+{
+	std::string* nameOfThread;
+	if (Args.size() > 0)
+	{
+		nameOfThread = Args[0].CastTo<std::string>();
+	}
+	if (!nameOfThread)
+	{
+		return false;
+	}
+
+	Handle<Thread> hndl_thread = Handle<Thread>(nullptr, *nameOfThread);
+	Thread* thread = hndl_thread.getObj(Threads);
+
+	if (thread)
+	{
+		thread->ii_BreakThread();
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+bool ConsoleService::cmd_continue(const Handle<ICom> &Caller, const std::vector<VoidPointer> &Args)
+{
+	std::string* nameOfThread;
+	if (Args.size() > 0)
+	{
+		nameOfThread = Args[0].CastTo<std::string>();
+	}
+	if (!nameOfThread)
+	{
+		return false;
+	}
+
+	Handle<Thread> hndl_thread = Handle<Thread>(nullptr, *nameOfThread);
+
+	Thread* thread = hndl_thread.getObj(Threads);
+
+	if (thread)
+	{
+		thread->ii_Continue();
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }

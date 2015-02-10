@@ -12,12 +12,19 @@
 
 using namespace SO::Base;
 
+namespace SOIA
+{
+	class ConsoleService;
+}
+
 namespace SO
 {
 	namespace Com
 	{
 		class ComService/* : public SO::Com::IIComIO*/
 		{
+			friend class SOIA::ConsoleService;
+
 		public:
 			/////////////////////////////////////////////////
 			// init 

@@ -32,22 +32,24 @@ namespace SO
 			//---- ICom -----
 			virtual void cGetCommands(std::vector<Handle<ICmd> > &Commands) override;
 			virtual Handle<ICom>& cGetHandle() override;
+			//---- commands ----
+			T_com_cmd_func cmd_redraw;
+			T_com_cmd_func cmd_setset;
 
 		private:
 			///////////////////////////////////////////////////////////
-			// data
-			IA::Engine* CurrentEngine;
+			// settings
+			//---- data access point ----
+			IA::Engine* CurrentEngine; // not needed?
+			SO::MeaningStream::MeaningService* MeaningSrvc;
+			//---- drawn set handle ----
+			std::string DrawnSet;
 
 			///////////////////////////////////////////////////////////
 			// controls
-			//DEGraph* myDEGraph;
 			SO::Drawing::CTextBox* TopTextBox;
 			SO::Drawing::CCanvas* Canvas;
 			IDraw* Drawable;
-
-			//////////////////////////////////////////////////////////
-			// Service
-			SO::MeaningStream::MeaningService* MeaningSrvc;
 		};
 	}
 }

@@ -20,8 +20,24 @@ namespace IA
 		// functionality
 		virtual void set(int i) override
 		{
-			ii_break();
+			//break first, then exec real command
+			ii_Break();
 			Super::set(i);
+		}
+		virtual void connect(IData* NewSub) override
+		{
+			//try to break myself
+			ii_Break();
+
+			//try to break my target
+			MDebug<Super>* target = dynamic_cast<MDebug<Super>*>(NewSub);
+			if (target)
+			{
+				target->ii_Break();
+			}
+
+			//execute real command
+			Super::connect(NewSub);
 		}
 
 	};

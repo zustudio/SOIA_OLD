@@ -374,6 +374,8 @@ and sets it as parent of the current one
 */
 void MeaningService::SetHierarchicBonds(ExData* Current)
 {
+	//reset distances
+	ResetHierarchicDistances();
 	//set distances
 	exe_SetHierarchicDistances(Current, nullptr, 0);
 
@@ -403,6 +405,7 @@ void MeaningService::SetHierarchicBonds(ExData* Current)
 				nearest = connected[p_Next];
 		}
 
+		cSend("Console", "reply", "Parent: " + *nearest->getText() + "\tChild: " + *current->getText());
 		current->Parent = nearest;
 		nearest->Children.push_back(current);
 	}
@@ -424,6 +427,14 @@ void MeaningService::exe_SetHierarchicDistances(ExData* Current, ExData* Caller,
 	for (int p_Next = 0; p_Next < connected.size(); p_Next++)
 	{
 		exe_SetHierarchicDistances(connected[p_Next], Current, Distance + 1);
+	}
+}
+
+void MeaningService::ResetHierarchicDistances()
+{
+	for (ExData* data : RegisteredData)
+	{
+		data->HierarchicDistance = -1;
 	}
 }
 

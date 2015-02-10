@@ -1,4 +1,8 @@
+
 #pragma once
+
+//super class
+#include "IDebugObj.h"
 
 namespace std
 {
@@ -9,7 +13,7 @@ namespace std
 
 namespace SO
 {
-	class Thread
+	class Thread : public SO::Base::IDebugObj
 	{
 	public:
 		///////////////////////////////////////////
@@ -25,6 +29,11 @@ namespace SO
 		///////////////////////////////////////////
 		// main loop
 		void EntryPoint();
+
+		///////////////////////////////////////////
+		// IDebugObj implementation
+		virtual void ii_Wait(bool* bWake) override;
+		virtual void ii_Wake() override;
 
 	protected:
 		///////////////////////////////////////////
