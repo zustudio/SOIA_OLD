@@ -2,8 +2,11 @@
 #pragma once
 
 //Super
-#include "ICom.h"
-//#include "IDebugObj.h"
+#include "IIComIn.h"
+#include "IIComOut.h"
+
+#include "Handle.h"
+#include "Com_Cmd.h"
 
 //vars
 #include "ComService.h"
@@ -12,28 +15,26 @@ namespace SO
 {
 	namespace Com
 	{
-		class IIComIO : public ICom //, public IDebugObj
+		class IIComIO : public IIComIn, virtual public IIComOut
 		{
 		public:
-			//helper definitions
-			typedef bool (T_com_cmd_func)(const Handle<ICom> &Caller, const std::vector<VoidPointer> &Args);
-			#define ICom_RegisterCmd(list, classT, func, name) list.push_back(SO::Base::Handle<SO::Base::ICmd>(new SO::Com::Com_Cmd<classT>(&classT::func), std::string(name)));
-
 			////////////////////////////////////////////////////////
 			// publicily accessed functions
 			IIComIO(ComService* NewComService);
 			virtual Handle<ICom>& cGetHandle();
+			virtual void cGetCommands(std::vector<Handle<ICmd> > &Commands);
+
+			T_com_cmd_func cmd_help;
 
 		protected:
 			////////////////////////////////////////////////////////
-			// implementation of ICom functionality for child classes
-			virtual bool cSend(const Handle<ICom> &Target, const ICmd &Command, const std::vector<VoidPointer> &Args) override;
+			// Improvements over IIComIn & IIComOut
+			//---- Common ----
+			void TryCreateHandle(const std::string &Name);
+			//---- OUT ----
+			virtual bool cSend(const Handle<ICom> &Target, const ICmd &Command, const std::vector<VoidPointer> &Args);
 			virtual bool cSend(const std::string &Target, const std::string &Command, const std::vector<VoidPointer> &Args);
 			virtual bool cSend(const std::string &Target, const std::string &Command, const std::string &Arg1 = "", const std::string &Arg2 = "", const std::string &Arg3 = "", const std::string &Arg4 = "", const std::string &Arg5 = "");
-
-			////////////////////////////////////////////////////////
-			// helpers
-			void TryCreateHandle(const std::string &Name);
 
 			////////////////////////////////////////////////////////
 			// variables

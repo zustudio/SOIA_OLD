@@ -16,6 +16,7 @@ using namespace SOIA;
 using namespace SO::Base;
 using namespace SO::UI;
 using namespace SO::Com;
+using namespace SO::Debug;
 using namespace SO::MeaningStream;
 using namespace SO;
 using namespace IA;
@@ -31,6 +32,8 @@ ConsoleService::ConsoleService() : IIComIO(new ComService())
 {
 	// initialize variables
 	Threads = std::vector<Handle<SO::Thread> >();
+	bLoop = true;
+	LastTalker = "";
 
 	// initialize services
 	//- communication service
@@ -39,10 +42,15 @@ ConsoleService::ConsoleService() : IIComIO(new ComService())
 	//- meaning stream service
 	Srvc_MeanStrm = new MeaningService(Up);
 	Srvc_Com->Register(Srvc_MeanStrm->cGetHandle());
+	//- debug service
+	Srvc_Debug = new DebugService(Up);
+	Srvc_Com->Register(Srvc_Debug->cGetHandle());
 
+	// initialize system via Com
+	cSend("DebugSrvc", "setdebuglevel", "Draw2D", "0");
+	cSend("DebugSrvc", "setdebuglevel", "MeaningSrvc", "5");
 	cSend("Console", "create", "AI");
 
-	bLoop = true;
 }
 
 void ConsoleService::Start()
@@ -52,6 +60,8 @@ void ConsoleService::Start()
 
 	while (bLoop)
 	{
+		LastTalker = "";
+
 		std::cout << std::endl << "[User";
 		std::cout << (currentTarget == "" ? "" : "@" + currentTarget);
 		std::cout << "]: ";
@@ -101,7 +111,11 @@ void ConsoleService::Start()
 				}
 				else
 				{
-					std::cout << "=> [Console]: Command ambigious.\n";
+					cSend("Console", "reply", "Command ambigious. Following targets are available:");
+					for (auto target : outTargets)
+					{
+						cSend("Console", "reply", " - @" + target.getName());
+					}
 				}
 			}
 			else
@@ -120,44 +134,6 @@ void ConsoleService::Start()
 				std::cout << "=> [Console]: Could not find target '" << newTarget << "'.\n";
 			}
 		}
-
-/*
-		for (std::vector<std::string>::size_type p_Arg = 0; p_Arg < args.size(); p_Arg++)
-		{
-			std::string arg = args[p_Arg];
-
-			if (arg == "exit")
-				bLoop = false;
-			else if (arg == "add")
-			{
-				if (p_Arg + 1 < args.size())
-				{
-					int times = std::atoi(args[p_Arg + 1].c_str());
-					CurrentEngine->MThread.AddLoops(times);
-					p_Arg++;
-				}
-				else
-				{
-					CurrentEngine->MThread.AddLoops(1);
-				}
-			}
-			else if (arg == "debugvisual")
-			{
-				DebugVisual *visual = new DebugVisual(CurrentEngine);
-				AddWindow<DebugVisual>(visual);
-			}
-			else if (arg == "dataexplorer")
-			{
-				DataExplorer* data = new DataExplorer(CurrentEngine);
-				AddWindow<DataExplorer>(data);
-			}
-			else if (arg == "help" || arg == "?")
-			{
-				cout << ("");
-				cout << "=> [Console]: Currently available commands are:\n    add i\n    debugvisual\n    dataexplorer\n";
-			}*/
-			
-		//}
 	}
 }
 
@@ -170,29 +146,28 @@ Handle<ICom>& ConsoleService::cGetHandle()
 }
 void ConsoleService::cGetCommands(std::vector<Handle<ICmd> > &Commands)
 {
+	IIComIO::cGetCommands(Commands);
+
 	ICom_RegisterCmd(Commands, ConsoleService, cmd_echo, "echo");
 	ICom_RegisterCmd(Commands, ConsoleService, cmd_reply, "reply");
 	ICom_RegisterCmd(Commands, ConsoleService, cmd_create, "create");
-	ICom_RegisterCmd(Commands, ConsoleService, cmd_break, "break");
-	ICom_RegisterCmd(Commands, ConsoleService, cmd_continue, "continue");
 	ICom_RegisterCmd(Commands, ConsoleService, cmd_exit, "exit");
 }
 
-bool ConsoleService::cmd_exit(const Handle<ICom> &Caller, const std::vector<VoidPointer> &Args)
-{
-	for (auto thread : Threads)
-	{
-		thread.getObj()->Stop();
-	}
-
-	bLoop = false;
-
-	return true;
-}
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+// Console Output
 bool ConsoleService::cmd_reply(const Handle<ICom> &Caller, const std::vector<VoidPointer> &Args)
 {
-	std::cout << " => ";
+	//decide whether to write arrow, or blank space
+	if (Caller.getName() != LastTalker)
+	{
+		std::cout << " => ";
+	}
+	else
+	{
+		std::cout << "    ";
+	}
+	//than call echo for printing real message
 	return cmd_echo(Caller, Args);
 }
 
@@ -200,8 +175,22 @@ bool ConsoleService::cmd_echo(const Handle<ICom> &Caller, const std::vector<Void
 {
 	bool result = true;
 
-	std::cout << "[" << Caller.getName() << "]: ";
+	// do not write caller name, if last written entry is of the same origin
+	if (Caller.getName() != LastTalker)
+	{
+		std::cout << "[" << Caller.getName() << "]: ";
+		LastTalker = Caller.getName();
+	}
+	else
+	{
+		int n = LastTalker.length();
+		for (int i = 0; i < (n+4); i++)
+		{
+			std::cout << " ";
+		}
+	}
 
+	//try to cast every passed arg to string and write it to standard console
 	for (VoidPointer genArg : Args)
 	{
 		std::string* arg = genArg.CastTo<std::string>();
@@ -218,6 +207,8 @@ bool ConsoleService::cmd_echo(const Handle<ICom> &Caller, const std::vector<Void
 	return result;
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+// Thread managment
 bool ConsoleService::cmd_create(const Handle<ICom> &Caller, const std::vector<VoidPointer> &Args)
 {
 	bool result = true;
@@ -261,56 +252,16 @@ bool ConsoleService::cmd_create(const Handle<ICom> &Caller, const std::vector<Vo
 	return result;
 }
 
-/////////////////////////////////////////////////////////////////////
-// debug functionality
-bool ConsoleService::cmd_break(const Handle<ICom> &Caller, const std::vector<VoidPointer> &Args)
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+// exiting
+bool ConsoleService::cmd_exit(const Handle<ICom> &Caller, const std::vector<VoidPointer> &Args)
 {
-	std::string* nameOfThread;
-	if (Args.size() > 0)
+	for (auto thread : Threads)
 	{
-		nameOfThread = Args[0].CastTo<std::string>();
-	}
-	if (!nameOfThread)
-	{
-		return false;
+		thread.getObj()->Stop();
 	}
 
-	Handle<Thread> hndl_thread = Handle<Thread>(nullptr, *nameOfThread);
-	Thread* thread = hndl_thread.getObj(Threads);
+	bLoop = false;
 
-	if (thread)
-	{
-		thread->ii_BreakThread();
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
-bool ConsoleService::cmd_continue(const Handle<ICom> &Caller, const std::vector<VoidPointer> &Args)
-{
-	std::string* nameOfThread;
-	if (Args.size() > 0)
-	{
-		nameOfThread = Args[0].CastTo<std::string>();
-	}
-	if (!nameOfThread)
-	{
-		return false;
-	}
-
-	Handle<Thread> hndl_thread = Handle<Thread>(nullptr, *nameOfThread);
-
-	Thread* thread = hndl_thread.getObj(Threads);
-
-	if (thread)
-	{
-		thread->ii_Continue();
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	return true;
 }

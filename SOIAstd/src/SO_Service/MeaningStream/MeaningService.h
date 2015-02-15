@@ -3,6 +3,7 @@
 
 //parent class
 #include "IIComIO.h"
+#include "IIDebuggable.h"
 //implementation neccessities
 #include "Com_Cmd.h"
 
@@ -23,7 +24,7 @@ namespace SO
 {
 	namespace MeaningStream
 	{
-		class MeaningService : public IIComIO
+		class MeaningService : public IIComIO, Debug::IIDebuggable
 		{
 		public:
 			//////////////////////////////////////////////////////

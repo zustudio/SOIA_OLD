@@ -65,20 +65,6 @@ void Thread::EntryPoint()
 }
 
 //////////////////////////////////////////////////////////////////////////
-// IDebugObj implementation
-void Thread::ii_Wait(bool* bWake)
-{
-	std::unique_lock<std::mutex> lock(*MThread.m);
-	MThread.cv->wait(lock, [&bWake] { return *bWake; });
-	lock.unlock();
-}
-void Thread::ii_Wake()
-{
-	MThread.cv->notify_one();
-}
-
-
-//////////////////////////////////////////////////////////////////////////
 // struct
 Thread::threadConf::threadConf()
 {

@@ -1,20 +1,20 @@
 
 #pragma once
 
-#include "IDebugObj.h"
+#include "IIDebuggable.h"
 
 namespace IA
 {
 	using namespace SO::Base;
 
 	template <class Super>
-	class MDebug : public Super, public IDebugObj
+	class MDebug : public Super, virtual public SO::Debug::IIDebuggable
 	{
 	public:
 		////////////////////////////////////////////////////////////
 		// init
 		template<typename... Args>
-		MDebug(Args&&... args) : Super(args...) {}
+		MDebug(Args&&... args) : Super(args...), IIDebuggable() {}
 
 		////////////////////////////////////////////////////////////
 		// functionality
@@ -38,6 +38,13 @@ namespace IA
 
 			//execute real command
 			Super::connect(NewSub);
+		}
+
+		//////////////////////////////////////////////////
+		// IIComOut<-IDebuggable interface
+		virtual Handle<ICom>& cGetHandle() override
+		{
+			return Handle<ICom>();
 		}
 
 	};

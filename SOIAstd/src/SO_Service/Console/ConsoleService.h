@@ -7,6 +7,7 @@
 //properties
 #include "ComService.h"
 #include "MeaningService.h"
+#include "DebugService.h"
 #include <deque>
 
 namespace IA
@@ -43,8 +44,6 @@ namespace SOIA
 		T_com_cmd_func cmd_echo;
 		T_com_cmd_func cmd_reply;
 		T_com_cmd_func cmd_create;
-		T_com_cmd_func cmd_break;
-		T_com_cmd_func cmd_continue;
 
 	private:
 		///////////////////////////////////////////////////////////////
@@ -54,11 +53,13 @@ namespace SOIA
 		IA::Engine* CurrentEngine;
 		SO::Com::ComService* Srvc_Com;
 		SO::MeaningStream::MeaningService* Srvc_MeanStrm;
+		SO::Debug::DebugService* Srvc_Debug;
 		//- multiple
 		std::vector<Handle<SO::Thread> > Threads;
 		//std::deque<std::thread*> Threads;
 		//--- status ---
 		bool bLoop;
+		std::string LastTalker;
 		
 	};
 }

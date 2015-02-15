@@ -8,13 +8,18 @@
 
 #include "Com_Cmd.h"
 
+#include <thread>
+#include <mutex>
+#include <condition_variable>
+
+
 using namespace IA;
 using namespace SO::Com;
 using namespace std;
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // init
-Engine::Engine(IA::Game* NewGame, ComService* Up) : IIComIO(Up)
+Engine::Engine(IA::Game* NewGame, ComService* Up) : IIComIO(Up), IIDebuggable(Up)
 {
 	CurrentGame = NewGame;
 }
@@ -37,17 +42,7 @@ void Engine::Tick()
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
-// ICom
-void Engine::cGetCommands(std::vector<SO::Base::Handle<SO::Base::ICmd> > &Commands)
-{
-	ICom_RegisterCmd(Commands, Engine, cmd_add, "add");
-}
-Handle<ICom>& Engine::cGetHandle()
-{
-	TryCreateHandle("SOIA"); 
-	return IIComIO::cGetHandle();
-}
-
+// commands
 bool Engine::cmd_add(const SO::Base::Handle<ICom> &Caller, const std::vector<VoidPointer> &Args)
 {
 	//ICom_GetSingleArg(int, Num, Args, 0, false);
@@ -72,4 +67,70 @@ bool Engine::cmd_add(const SO::Base::Handle<ICom> &Caller, const std::vector<Voi
 	}
 	Engine::MThread.AddLoops(1);
 	return true;
+}
+
+bool Engine::cmd_break(const Handle<ICom> &Caller, const std::vector<VoidPointer> &Args)
+{
+	//backup current bEnabled
+	bool bBackup = MThread.bEnabled;
+	//start lock
+	bool* bWake = &MThread.bEnabled;
+	*bWake = false;
+	std::unique_lock<std::mutex> lock(*MThread.m);
+	MThread.cv->wait(lock, [&bWake] { return *bWake; });
+
+	//delock thread
+	lock.unlock();
+	//restore backup
+	MThread.bEnabled = bBackup;
+	return true;
+}
+bool Engine::cmd_continue(const Handle<ICom> &Caller, const std::vector<VoidPointer> &Args)
+{
+	MThread.bEnabled = true;
+	MThread.cv->notify_one();
+	return true;
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// ICom
+void Engine::cGetCommands(std::vector<SO::Base::Handle<SO::Base::ICmd> > &Commands)
+{
+	IIComIO::cGetCommands(Commands);
+
+	ICom_RegisterCmd(Commands, Engine, cmd_add, "add");
+	ICom_RegisterCmd(Commands, Engine, cmd_break, "break");
+	ICom_RegisterCmd(Commands, Engine, cmd_continue, "continue");
+}
+Handle<ICom>& Engine::cGetHandle()
+{
+	TryCreateHandle("SOIA"); 
+	return IIComIO::cGetHandle();
+}
+
+///////////////////////////////////////////////////////////////////////////
+// IDebuggable interface
+void Engine::ii_Break(const std::string &Message)
+{
+	cmd_break(Handle<ICom>(), {});
+}
+
+///////////////////////////////////////////////////////////////////////////
+// game io
+std::vector<int>* Engine::IFuncResultOfAction(IData* Output)
+{
+	std::vector<int>* Result = CurrentGame->IFuncResultOfAction(Output);
+
+	std::cout << "[IA]: ";
+	std::cout << int(*Output);
+	std::cout << "->";
+
+	std::cout << (*Result)[0];
+	for (int i = 1; i < Result->size(); i++)
+	{
+		std::cout << ", " << (*Result)[i];
+	}
+	std::cout << "\n";
+
+	return Result;
 }

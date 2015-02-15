@@ -14,7 +14,7 @@ DataExplorer::DataExplorer(IA::Engine* NewEngine, ComService* NewUp, SO::Meaning
 {
 	//init vars
 	CurrentEngine = NewEngine;
-	Drawable = new Draw_2D();
+	Drawable = new Draw_2D(Up);
 	MeaningSrvc = MSrvc;
 	DrawnSet = "SDLcreated";
 

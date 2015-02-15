@@ -12,13 +12,12 @@ namespace SO
 		{
 		public:
 			/////////////////////////////////
-			// getting information
-			virtual void cGetCommands(std::vector<SO::Base::Handle<SO::Base::ICmd> > &Commands) = 0;
+			// Common Input / Output information
+			virtual SO::Base::Handle<ICom>& cGetHandle() = 0;
 
-			////////////////////////////////
-			// io
-			virtual bool cSend(const SO::Base::Handle<SO::Com::ICom> &Target, const SO::Base::ICmd &Command, const std::vector<SO::Base::VoidPointer> &Args) = 0;
-			/*virtual void cReceive(const ICom &caller, const Com_Cmd &Cmd) = 0;*/
+			/////////////////////////////////
+			// Rather input information - refactor into IIComIn?
+			virtual void cGetCommands(std::vector<SO::Base::Handle<SO::Base::ICmd> > &Commands) = 0;
 		};
 	}
 }

@@ -91,6 +91,9 @@
     <Filter Include="SO_Base">
       <UniqueIdentifier>{54219e13-e0ca-4fce-9edc-11a2539d6c05}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SO_Service\Debug">
+      <UniqueIdentifier>{c845e159-93fa-436b-868a-bdc62eebb3ef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Definitions\stdafx.h">
@@ -261,11 +264,20 @@
     <ClInclude Include="src\IA_MeaningStream\ExtendedData\GroupFunc_List.h">
       <Filter>IA_MeaningStream\ExtendedData</Filter>
     </ClInclude>
-    <ClInclude Include="src\SO_Base\IDebugObj.h">
-      <Filter>SO_Base</Filter>
-    </ClInclude>
     <ClInclude Include="src\IA_Engine\Modules\MDebug.h">
       <Filter>IA_Engine\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_Service\Debug\DebugService.h">
+      <Filter>SO_Service\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_Service\Debug\IIDebuggable.h">
+      <Filter>SO_Service\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_Service\InternCommunication\IIComIn.h">
+      <Filter>SO_Service\InternCommunication</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SO_Service\InternCommunication\IIComOut.h">
+      <Filter>SO_Service\InternCommunication</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -380,11 +392,23 @@
     <ClCompile Include="src\IA_MeaningStream\ExtendedData\GroupFunc_List.cpp">
       <Filter>IA_MeaningStream\ExtendedData</Filter>
     </ClCompile>
-    <ClCompile Include="src\SO_Base\IDebugObj.cpp">
-      <Filter>SO_Base</Filter>
+    <ClCompile Include="src\SO_Service\Debug\DebugService.cpp">
+      <Filter>SO_Service\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_Service\Debug\IIDebuggable.cpp">
+      <Filter>SO_Service\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_Service\InternCommunication\IIComOut.cpp">
+      <Filter>SO_Service\InternCommunication</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_Service\InternCommunication\IIComIn.cpp">
+      <Filter>SO_Service\InternCommunication</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="make.cfg" />
+    <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
   </ItemGroup>
 </Project>

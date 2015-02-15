@@ -10,6 +10,7 @@
 using namespace IA;
 using namespace SO::Base;
 using namespace SO::Com;
+using namespace SO::Debug;
 using namespace SO::MeaningStream;
 
 //TEST
@@ -59,7 +60,6 @@ Engine_SSt::Engine_SSt(IA::Game* NewGame, SO::Com::ComService* ComCenter) : Engi
 		Engine* cast_Engine = static_cast<Engine*>(this);
 		Args.push_back(*cast_Engine);
 		cSend(Handle<ICom>(nullptr, "MeaningSrvc"), Com_Cmd<MeaningService>(&MeaningService::cmd_convertdata), Args);
-		std::cout << "[AI]: converted data";
 	}
 }
 
@@ -73,7 +73,7 @@ Engine_SSt::~Engine_SSt()
 void Engine_SSt::Tick()
 {
 
-	ii_SetBreakPointsEnabled(true);
+	ii_SetBreakPointsEnabled(false);
 	ii_Break();
 
 	static int i = 0;
@@ -135,12 +135,12 @@ void Engine_SSt::ReIntegrate(Data_SSt* X)
 	{
 		int llresult = X->llink(similarityCandidates[iSimCand], 2);
 		X->bLLinked = false;
-		std::cout << "[IA_SSt]: linking " << (int)(*X) << " \tto " << (int)(*similarityCandidates[iSimCand]) << " \t=> " << llresult << std::endl;
+		ii_Log(EDebugLevel::Info_Loop, "[IA_SSt]: linking " + std::to_string((int)(*X)) + " \tto "  + std::to_string((int)(*similarityCandidates[iSimCand])) + " \t=> " + std::to_string(llresult));
 	}
 
 	X->set(SIM_Val_X);
 	int newVal = (int)(*X);
-	std::cout << "[IA_SSt]: new Action is " << newVal << std::endl;
+	ii_Log(EDebugLevel::Info_MainFunction, "[IA_SSt]: new Action is " + std::to_string(newVal));
 }
 
 

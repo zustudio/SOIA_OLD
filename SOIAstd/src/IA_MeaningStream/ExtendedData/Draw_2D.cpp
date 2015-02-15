@@ -2,8 +2,13 @@
 #include "Draw_2D.h"
 
 using namespace IA::MeaningStream;
+using namespace SO::Debug;
+using namespace SO::Com;
 
-#define DebugLog(string) std::cout << string << std::endl;
+Draw_2D::Draw_2D(ComService* NewUp) : IIDebuggable(NewUp)
+{
+
+}
 
 void Draw_2D::Draw(CCanvas* Canvas, std::deque<ExGroup*>* Groups)
 {
@@ -15,11 +20,11 @@ void Draw_2D::Draw(CCanvas* Canvas, std::deque<ExGroup*>* Groups)
 		dim_Extend = std::fmax(extend->dim(), dim_Extend);
 	}
 
-	std::cout << "[MS::Draw_2D]: Info: Maximal Dimension of groups is " + std::to_string(dim_Extend) + '\n';
+	ii_Log(EDebugLevel::Info_MainFunction, "[MS::Draw_2D]: Info: Maximal Dimension of groups is " + std::to_string(dim_Extend));
 
 	if (dim_Extend > 2)
 	{
-		std::cout << "[MeaningStream::Draw_2D]: Error: Dimension of extend of drawn groups out of bounds\n";
+		ii_Log(EDebugLevel::Info_MainFunction, "[MeaningStream::Draw_2D]: Error: Dimension of extend of drawn groups out of bounds.");
 		return;
 	}
 
@@ -40,7 +45,7 @@ void Draw_2D::Draw(CCanvas* Canvas, std::deque<ExGroup*>* Groups)
 		if (data)
 			data->InterpProps.IntExtend = *group->GetExtend();
 
-		std::cout << "[MS::Draw_2D]: Info: Found data '" + *data->getText() + "' with extend of " + (std::string)data->InterpProps.IntExtend << std::endl;
+		ii_Log(EDebugLevel::Info_Loop, "[MS::Draw_2D]: Info: Found data '" + *data->getText() + "' with extend of " + (std::string)data->InterpProps.IntExtend);
 	}
 
 
@@ -167,8 +172,19 @@ void Draw_2D::exe_SetLocation(ExGroup* Group, VectorND<float> &StartLoc, VectorN
 	{
 		loc = Group->GetLocation(occupant);
 		occupant->InterpProps.IntLocation = SteppingLoc + *loc;
-		std::cout << "[MS::Draw_2D]: Info: Set Location of '" + *occupant->getText() + "' to " + (std::string)occupant->InterpProps.IntLocation << std::endl;
+		ii_Log(EDebugLevel::Info_Loop, "[MS::Draw_2D]: Info: Set Location of '" + *occupant->getText() + "' to " + (std::string)occupant->InterpProps.IntLocation);
 	}
 	SteppingLoc += *Group->GetLocation(nullptr);
 	delete loc;
+}
+
+/////////////////////////////////////////////////////////////////////////////////////
+// IComOut interface
+Handle<ICom>& Draw_2D::cGetHandle()
+{
+	if (hndl == nullptr)
+	{
+		hndl = new Handle<ICom>(this, "Draw2D");
+	}
+	return *hndl;
 }

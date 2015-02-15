@@ -89,7 +89,7 @@ void DEGraph::Draw(int Depth)
 	testSet.AddToGroups(AllDrawnObjects);
 	testSet.Scan();
 
-	Draw_2D* drawingObject = new Draw_2D();
+	Draw_2D* drawingObject = new Draw_2D(nullptr);
 	drawingObject->Draw(this, testSet.GetGroups());
 
 	//ENDTEST

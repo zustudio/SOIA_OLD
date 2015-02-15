@@ -13,7 +13,7 @@ using namespace SO::Com;
 
 //////////////////////////////////////////////////////////////////////////////////////
 // management
-MeaningService::MeaningService(ComService* Up) : IIComIO(Up)
+MeaningService::MeaningService(ComService* NewUp) : IIComIO(NewUp), IIDebuggable(NewUp)
 {
 	DataSets = std::vector < Handle<ExDSet> >();
 	RegisteredData = std::deque<ExData*>();
@@ -39,6 +39,7 @@ Handle<ExDSet> MeaningService::GetSetByName(const std::string &Name)
 // ICom
 void MeaningService::cGetCommands(std::vector<Handle<ICmd> > &Commands)
 {
+	IIComIO::cGetCommands(Commands);
 	ICom_RegisterCmd(Commands, MeaningService, cmd_info, "info");
 	ICom_RegisterCmd(Commands, MeaningService, cmd_addgroup, "addgroup");
 	ICom_RegisterCmd(Commands, MeaningService, cmd_addgroupstrings, "addgroupstrings");
@@ -220,46 +221,6 @@ bool MeaningService::cmd_addgroup(const Handle<ICom> &Caller, const std::vector<
 		set->AddGroup(group);
 	}
 
-
-
-
-/*
-
-
-
-	std::string* typeToCreate = Args[0].CastTo<std::string>();
-	if (!typeToCreate)
-		return false;
-
-	if (*typeToCreate == "set")
-	{
-		Handle<ExDSet>* setHndl = Args[1].CastTo<Handle<ExDSet> >();
-		DataSets.push_back(setHndl->getObj());
-	}
-	else if (*typeToCreate == "group")
-	{
-		Handle<ExDSet>* setHndl = Args[1].CastTo<Handle<ExDSet> >();
-		if (!setHndl)
-		{
-			std::string* setName = Args[1].CastTo<std::string>();
-			if (setName)
-			{
-				Handle<ExDSet> tempHndl = Handle<ExDSet>(nullptr, *setName);
-				setHndl = new Handle<ExDSet>(tempHndl.getObj(DataSets), *setName);
-				if (!setHndl)
-				{
-					return false;
-				}
-			}
-			else
-			{
-				return false;
-			}
-		}
-		Handle<ExGroup>* groupHndl = Args[2].CastTo<Handle<ExGroup> >();
-		
-		setHndl->getObj()->AddGroup(groupHndl->getObj());
-	}*/
 	return true;
 }
 
@@ -303,6 +264,9 @@ bool MeaningService::cmd_convertdata(const Handle<ICom> &Caller, const std::vect
 	{
 		set.getObj()->Scan();
 	}
+
+	ii_Log(Debug::EDebugLevel::Info_MainFunction, "Converted data.");
+
 	cmd_interpretdata(Caller, Args);
 	return result;
 }
@@ -326,13 +290,8 @@ ExData* MeaningService::exe_Convert(IData* Current, int Depth, std::deque<IData*
 		currentObj = new ExData(Current, &RegisteredData);
 		RegisteredData.push_back(currentObj);
 
-#if cSO_DebugDE > 1
-		cSend("Console", "echo", (checkM(MText) ? *currentObj->getText() : std::to_string(currentObj->CurrentSource->get())) + " in -depth of " + std::to_string(Depth) + '\n');
-#endif
-		
+		ii_Log(Debug::EDebugLevel::Info_Loop, (checkM(MText) ? *currentObj->getText() : std::to_string(currentObj->CurrentSource->get())) + " in -depth of " + std::to_string(Depth) + '\n');
 	}
-
-
 
 	Ignore->push_back(Current);
 	Depth -= 1;
@@ -365,7 +324,9 @@ bool MeaningService::cmd_interpretdata(const Handle<ICom> &Caller, const std::ve
 	SetHierarchicBonds(RegisteredData[0]);
 	//cSend("Console", "echo", "-- parent has " + std::to_string(RegisteredData[0]->Children.size()) + " Children\n");
 	CreateAutoGroups();
-	//cSend("Console", "echo", "-- created")
+	
+	ii_Log(Debug::EDebugLevel::Info_MainFunction, "Interpreted data.");
+
 	return true;
 }
 /** First sets the distance of every DE_Objects to the master-parent,
@@ -405,7 +366,8 @@ void MeaningService::SetHierarchicBonds(ExData* Current)
 				nearest = connected[p_Next];
 		}
 
-		cSend("Console", "reply", "Parent: " + *nearest->getText() + "\tChild: " + *current->getText());
+		ii_Log(Debug::EDebugLevel::Info_Loop, "Parent: " + *nearest->getText() + "\tChild: " + *current->getText());
+		//cSend("DebugSrvc", "log", "3", "Parent: " + *nearest->getText() + "\tChild: " + *current->getText());
 		current->Parent = nearest;
 		nearest->Children.push_back(current);
 	}
