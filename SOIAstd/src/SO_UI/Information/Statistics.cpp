@@ -2,6 +2,7 @@
 #include "Statistics.h"
 
 using namespace SO::Debug;
+using namespace SO::Drawing;
 
 //////////////////////////////////////////////////////
 // init
@@ -44,6 +45,23 @@ int Statistics::GetNum(float Equal)
 			num++;
 	}
 	return num;
+}
+
+std::vector<fPoint> Statistics::GetYGraph_Integrated()
+{
+	std::vector<fPoint> list_points = std::vector<fPoint>();
+
+	float y = 0;
+	float x = -1;
+
+	for (float val : Values)
+	{
+		y += val;
+		x++;
+		fPoint point = fPoint(x, y);
+		list_points.push_back(point);
+	}
+	return list_points;
 }
 
 ////////////////////////////////////////////////////////////////

@@ -282,6 +282,9 @@
     <ClInclude Include="src\SO_UI\Information\Statistics.h">
       <Filter>SO_UI\Information</Filter>
     </ClInclude>
+    <ClInclude Include="src\SO_Drawing\ControlElements\CGraph.h">
+      <Filter>SO_Drawing\ControlElements</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\IA_Engine\Framework\Engine.cpp">
@@ -409,6 +412,9 @@
     </ClCompile>
     <ClCompile Include="src\SO_UI\Information\Statistics.cpp">
       <Filter>SO_UI\Information</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_Drawing\ControlElements\CGraph.cpp">
+      <Filter>SO_Drawing\ControlElements</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

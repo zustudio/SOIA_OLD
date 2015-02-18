@@ -89,6 +89,7 @@
     <ClInclude Include="src\SO_Base\ICmd.h" />
     <ClInclude Include="src\SO_Base\VoidPointer.h" />
     <ClInclude Include="src\SO_Drawing\ControlElements\CCanvas.h" />
+    <ClInclude Include="src\SO_Drawing\ControlElements\CGraph.h" />
     <ClInclude Include="src\SO_Drawing\ControlElements\Control.h" />
     <ClInclude Include="src\SO_Drawing\ControlElements\CTextBox.h" />
     <ClInclude Include="src\SO_Drawing\DataStructs\cPoint.h" />
@@ -135,6 +136,7 @@
     <ClCompile Include="src\IA_MeaningStream\ExtendedData\GroupFunc_List.cpp" />
     <ClCompile Include="src\SO_Base\VoidPointer.cpp" />
     <ClCompile Include="src\SO_Drawing\ControlElements\CCanvas.cpp" />
+    <ClCompile Include="src\SO_Drawing\ControlElements\CGraph.cpp" />
     <ClCompile Include="src\SO_Drawing\ControlElements\Control.cpp" />
     <ClCompile Include="src\SO_Drawing\ControlElements\CTextBox.cpp" />
     <ClCompile Include="src\SO_Drawing\DataStructs\cPoint.cpp" />

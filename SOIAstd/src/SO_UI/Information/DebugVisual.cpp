@@ -3,6 +3,7 @@
 #include "SDL.h"
 
 #include "CTextBox.h"
+#include "CGraph.h"
 #include "DebugVisual.h"
 #include "Statistics.h"
 
@@ -24,6 +25,7 @@ DebugVisual::DebugVisual(IA::Engine* NewEngine, SO::Com::ComService* NewUp) : Wi
 	//draw window
 	TextActionStats = AddControl<CTextBox>();
 	TextResultStats = AddControl<CTextBox>();
+	Graph_Results = AddControl<CGraph>();
 }
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -64,5 +66,11 @@ bool DebugVisual::cmd_redraw(const Handle<ICom> &Caller, const std::vector<VoidP
 	resultText += (" - Ratio:    " + std::to_string((float)pos / (float)neg) + '\n');
 	
 	TextResultStats->Text = resultText;
+
+	//draw graph
+
+	std::vector<fPoint> dataPoints = resultStats.GetYGraph_Integrated();
+	Graph_Results->SetDataPoints(dataPoints);
+
 	return true;
 }

@@ -7,16 +7,17 @@
 
 #pragma once
 
+#include "cPoint.h"
+#include "pxPoint.h"
+#include "fPoint.h"
+#include "fColor.h"
+
 namespace SO
 {
 	class Window_Base;
 
 	namespace Drawing
 	{
-		class cPoint;
-		class fPoint;
-		class fColor;
-
 		class Control
 		{
 		public:

@@ -3,6 +3,7 @@
 
 //properties
 #include <vector>
+#include "fPoint.h"
 
 namespace SO
 {
@@ -29,6 +30,8 @@ namespace SO
 			// Returns number of elements with matching attribute.
 			int GetNum(EValueAttribute attribute = EValueAttribute::all);
 			int GetNum(float Equal);
+			// Returns a vector of fPoints, so that it can be drawn as graph.
+			std::vector<Drawing::fPoint> GetYGraph_Integrated();
 
 			//---- set values ---
 			// Adds new value.

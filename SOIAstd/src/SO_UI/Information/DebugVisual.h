@@ -13,6 +13,7 @@ namespace SO
 	namespace Drawing
 	{
 		class CTextBox;
+		class CGraph;
 	}
 
 	namespace UI
@@ -34,6 +35,7 @@ namespace SO
 			// controls
 			SO::Drawing::CTextBox* TextActionStats;
 			SO::Drawing::CTextBox* TextResultStats;
+			Drawing::CGraph* Graph_Results;
 
 			///////////////////////////////////////////////////////////
 			// data
