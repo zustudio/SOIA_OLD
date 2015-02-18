@@ -279,6 +279,9 @@
     <ClInclude Include="src\SO_Service\InternCommunication\IIComOut.h">
       <Filter>SO_Service\InternCommunication</Filter>
     </ClInclude>
+    <ClInclude Include="src\SO_UI\Information\Statistics.h">
+      <Filter>SO_UI\Information</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\IA_Engine\Framework\Engine.cpp">
@@ -404,11 +407,11 @@
     <ClCompile Include="src\SO_Service\InternCommunication\IIComIn.cpp">
       <Filter>SO_Service\InternCommunication</Filter>
     </ClCompile>
+    <ClCompile Include="src\SO_UI\Information\Statistics.cpp">
+      <Filter>SO_UI\Information</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="make.cfg" />
-    <None Include="ClassDiagram.cd" />
-    <None Include="ClassDiagram1.cd" />
-    <None Include="ClassDiagram2.cd" />
   </ItemGroup>
 </Project>

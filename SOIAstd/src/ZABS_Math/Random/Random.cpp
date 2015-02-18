@@ -11,6 +11,12 @@ using namespace ZABS::Math;
 //  rand
 int Random::InfluencedRand(std::vector<float> &Chances)
 {
+	//one time:
+	auto static const seed = std::random_device()();
+	std::mt19937 random_engine(seed);
+	std::uniform_real_distribution<float> distribution(0.0, 1.0);
+
+	//always:
 	float sum;
 	std::vector<float> relativeChances = std::vector<float>();
 	std::vector<float> chanceDestribution = std::vector<float>();
@@ -59,7 +65,7 @@ int Random::InfluencedRand(std::vector<float> &Chances)
 	}
 
 	//get a random float
-	randomFloat = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+	randomFloat = distribution(random_engine);
 
 	//calculate which possibility was chosen
 	for (int i = Chances.size() - 1; i >= 0; i--)

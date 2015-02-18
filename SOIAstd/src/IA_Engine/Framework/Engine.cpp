@@ -112,7 +112,8 @@ Handle<ICom>& Engine::cGetHandle()
 // IDebuggable interface
 void Engine::ii_Break(const std::string &Message)
 {
-	cmd_break(Handle<ICom>(), {});
+	if (GetBreakEnabled())
+		cmd_break(Handle<ICom>(), {});
 }
 
 ///////////////////////////////////////////////////////////////////////////

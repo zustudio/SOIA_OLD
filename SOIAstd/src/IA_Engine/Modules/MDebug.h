@@ -44,7 +44,8 @@ namespace IA
 		// IIComOut<-IDebuggable interface
 		virtual Handle<ICom>& cGetHandle() override
 		{
-			return Handle<ICom>();
+			auto p_hndl = new Handle<ICom>(this, "MDebug");
+			return *p_hndl;
 		}
 
 	};

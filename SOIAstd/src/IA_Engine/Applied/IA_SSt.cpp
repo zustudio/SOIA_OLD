@@ -20,6 +20,11 @@ using namespace SO::MeaningStream;
 // init
 Engine_SSt::Engine_SSt(IA::Game* NewGame, SO::Com::ComService* ComCenter) : Engine(NewGame, ComCenter)
 {
+	// init class
+	ActionStats = Statistics();
+	ResultStats = Statistics();
+
+	// init data
 	SDL_start(true)
 
 	symbol Knowledge is(1475)
@@ -96,9 +101,15 @@ void Engine_SSt::Tick()
 
 	ReIntegrate(action);
 
+	//stats:
+	ActionStats.AddValue(action->get());
+
 	std::vector<int> input = *IFuncResultOfAction(action);
 
 	result->set(input[0]);
+
+	//stats:
+	ResultStats.AddValue(result->get());
 
 	newsymbol visible is(input[1])
 	endsymbol
@@ -149,4 +160,12 @@ void Engine_SSt::ReIntegrate(Data_SSt* X)
 IData* Engine_SSt::getDataStart()
 {
 	return Knowledge;
+}
+Statistics& Engine_SSt::getActionStatistics()
+{
+	return ActionStats;
+}
+Statistics& Engine_SSt::getResultStatistics()
+{
+	return ResultStats;
 }

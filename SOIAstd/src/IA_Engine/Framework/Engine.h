@@ -9,6 +9,7 @@
 #include <iostream>
 #include "Game.h"
 #include "ComService.h"
+#include "Statistics.h"
 
 
 namespace IA
@@ -47,9 +48,11 @@ namespace IA
 
 		///////////////////////////////////////////////////////////////////
 		// variables
-		//---- data ----
+		//---- access to properties ----
 	public:
 		virtual IData* getDataStart() = 0;
+		virtual SO::Debug::Statistics& getResultStatistics() = 0;
+		virtual SO::Debug::Statistics& getActionStatistics() = 0;
 		//---- instances ----
 		IA::Game* CurrentGame;
 

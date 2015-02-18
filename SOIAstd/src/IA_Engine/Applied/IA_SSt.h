@@ -32,14 +32,6 @@ namespace IA
 	{
 	public:
 		///////////////////////////////////////
-		// vars
-		Data_SSt* Knowledge;
-		Data_SSt* Action;
-		Data_SSt* Result;
-		Data_SSt* Visible;
-		Data_SSt* Current;
-
-		///////////////////////////////////////
 		// functions
 		//----  init   ----
 		Engine_SSt(IA::Game* newGame, SO::Com::ComService* Up);
@@ -49,5 +41,21 @@ namespace IA
 		virtual void ReIntegrate(Data_SSt* X);
 		//----  vars   ----
 		virtual IData* getDataStart() override;
+		virtual SO::Debug::Statistics& getActionStatistics() override;
+		virtual SO::Debug::Statistics& getResultStatistics() override;
+
+	private:
+		///////////////////////////////////////
+		// vars
+		//---- data pointer ----
+		Data_SSt* Knowledge;
+		Data_SSt* Action;
+		Data_SSt* Result;
+		Data_SSt* Visible;
+		Data_SSt* Current;
+		//---- stats ----
+		SO::Debug::Statistics ActionStats;
+		SO::Debug::Statistics ResultStats;
+
 	};
 }

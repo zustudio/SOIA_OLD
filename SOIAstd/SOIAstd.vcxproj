@@ -115,6 +115,7 @@
     <ClInclude Include="src\SO_UI\Explorer\DataExplorer.h" />
     <ClInclude Include="src\SO_UI\Explorer\DEGraph.h" />
     <ClInclude Include="src\SO_UI\Information\DebugVisual.h" />
+    <ClInclude Include="src\SO_UI\Information\Statistics.h" />
     <ClInclude Include="src\ZABS_Math\DataStructs\Vector2D.h" />
     <ClInclude Include="src\ZABS_Math\DataStructs\VectorND.h" />
     <ClInclude Include="src\ZABS_Math\Random\Random.h" />
@@ -158,14 +159,12 @@
     <ClCompile Include="src\SO_UI\Explorer\DataExplorer.cpp" />
     <ClCompile Include="src\SO_UI\Explorer\DEGraph.cpp" />
     <ClCompile Include="src\SO_UI\Information\DebugVisual.cpp" />
+    <ClCompile Include="src\SO_UI\Information\Statistics.cpp" />
     <ClCompile Include="src\ZABS_Math\DataStructs\Vector2D.cpp" />
     <ClCompile Include="src\ZABS_Math\DataStructs\VectorND.cpp" />
     <ClCompile Include="src\ZABS_Math\Random\Random.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram.cd" />
-    <None Include="ClassDiagram1.cd" />
-    <None Include="ClassDiagram2.cd" />
     <None Include="make.cfg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

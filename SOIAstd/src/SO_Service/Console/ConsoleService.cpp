@@ -230,7 +230,7 @@ bool ConsoleService::cmd_create(const Handle<ICom> &Caller, const std::vector<Vo
 		}
 		else if (text == "debugvisual")
 		{
-			newThread = new DebugVisual(CurrentEngine);
+			newThread = new DebugVisual(CurrentEngine, Srvc_Com);
 		}
 
 		if (newThread)
