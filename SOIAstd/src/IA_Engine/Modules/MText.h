@@ -13,7 +13,7 @@ namespace IA
 		{
 			Text = new std::string(NewText);
 		}
-
+		virtual ~MText(){}
 		std::string* Text;
 	};
 }

@@ -6,6 +6,10 @@
 
 #include "MTypes.h"
 #include "Random.h"
+#include "ExponentialFunction.h"
+#include "LinearFunction.h"
+
+using namespace ZABS::Math;
 
 //////////////////////////////////////////////////////////////////////////////////
 // Definitions
@@ -19,9 +23,14 @@
 /*	slope of **function, causes SIM_Val_Min for n = n_children to be (1/Slope) */
 #define SIM_Slope			SIM_Val_Min
 /*	multiplicator for n_child's*/
-#define SIM_Demult			0.7
+#define SIM_Demult			1
+//---- functions ----
+#define SIM_MapFunctionType	LinearFunction
+#define SIM_MapFunctionArgs	{-100, 100}	//{SIM_Val_Max, SIM_Slope}
+#define mapfunction(x)		SIM_MapFunctionType::get_f((x), SIM_MapFunctionArgs)
+#define rev_mapfunction(f)	SIM_MapFunctionType::get_reverse_x((f), SIM_MapFunctionArgs)
 //---- math ----
-#define logBASE(val, base)	(std::log(val) / std::log(base))
+//#define logBASE(val, base)	(std::log(val) / std::log(base))
 
 
 namespace IA
@@ -37,6 +46,7 @@ namespace IA
 		// init
 		template<typename... Args>
 		MSimDec(DataType NewType, Args&&... args) : MTypes<Super>(NewType, args...) { bLLinked = false; }
+		virtual ~MSimDec() {}
 		///////////////////////////////////////////////
 		// light linking = pattern matching
 		float llink(IData* te, int depth)
@@ -73,12 +83,15 @@ namespace IA
 					for (int pC_te = 0; pC_te < nC_te; pC_te++)		//
 					{
 						SIM_child = ((MSimDec<Super>*)(*me)[pC_me])->exe_llink((*te)[pC_te], depth - 1);
-						n_child = -logBASE((SIM_child / SIM_Val_Max), SIM_Slope);
+						//n_child = -logBASE((SIM_child / SIM_Val_Max), SIM_Slope);
+						n_child = -rev_mapfunction(SIM_child);
 						sum_n += SIM_Demult * n_child;
 					}
 					}
 
-					float sim = SIM_Val_Max * std::pow(SIM_Slope, (- sum_n / n_children));
+					float sim = mapfunction(-sum_n / n_children);
+
+					//float sim = SIM_Val_Max * std::pow(SIM_Slope, (- sum_n / n_children));
 					lnk = int(sim);
 				}
 			}
@@ -89,51 +102,62 @@ namespace IA
 		///////////////////////////////////////////////
 		// overrides
 		//------------------------ content  -----------------------
-		virtual int get() override
+		virtual int CollapseOpenLLinks()
+		{
+			std::vector<float> Values;
+			std::vector<IData*> datas;
+			std::vector<IData*> llinks;
+			int n = Super::getConnectedNum();
+			for (int i = 0; i < n; i++)
+			{
+				MSimDec<Super>* lnk = (MSimDec<Super>*) Super::getConnected(i);
+				if (MTypes<Super>::isChild(lnk, DataType::LightLink, LinkType::NoLink))
+				{
+					llinks.push_back(lnk);
+					Values.push_back((float)(lnk->Super::get()));
+
+					IData* content = lnk->Super::getConnected(0) == this ? lnk->Super::getConnected(1) : lnk->Super::getConnected(0);
+
+					datas.push_back(content);
+				}
+			}
+
+			n = Values.size();
+			for (int i = 0; i < n; i++)
+			{
+				Values[i] = SIM_Val_Max - Values[i];
+			}
+
+			int i_Value = ZABS::Math::Random::InfluencedRand(Values);
+			int value = *(datas[i_Value]);
+#if cSO_DebugData > 0
+			std::cout << "[MSimDec]: found " << Values.size() << " connected lightlinks" << std::endl;
+			for (int i_AllVals = 0; i_AllVals < Values.size(); i_AllVals++)
+			{
+				std::cout << "[MSimDec]:  - [" << i_AllVals << "] " << Values[i_AllVals] << std::endl;
+			}
+			std::cout << "[MSimDec]: chosen option => [" << i_Value << "]" << std::endl;
+#endif
+			Super::set(value);
+
+			//delete llinks again:
+			for (IData* temp : llinks)
+			{
+				temp->Destroy();
+				delete temp;
+			}
+
+			return value;
+		}
+
+		/*virtual int get() override
 		{
 			int realValue = Super::get();
 			if (realValue != SIM_Val_X)
 			{
 				return realValue;
 			}
-			else
-			{
-				std::vector<float> Values;
-				std::vector<IData*> datas;
-				int n = Super::getConnectedNum();
-				for (int i = 0; i < n; i++)
-				{
-					MSimDec<Super>* lnk = (MSimDec<Super>*) Super::getConnected(i);
-					if (MTypes<Super>::isChild(lnk, DataType::LightLink, LinkType::NoLink))
-					{
-						Values.push_back((float)(lnk->Super::get()));
-
-						IData* content = lnk->Super::getConnected(0) == this ? lnk->Super::getConnected(1) : lnk->Super::getConnected(0);
-
-						datas.push_back(content);
-					}
-				}
-
-				n = Values.size();
-				for (int i = 0; i < n; i++)
-				{
-					Values[i] = SIM_Val_Max - Values[i];
-				}
-
-				int i_Value = ZABS::Math::Random::InfluencedRand(Values);
-				int value = *(datas[i_Value]);
-#if cSO_DebugData > 0
-				std::cout << "[MSimDec]: found " << Values.size() << " connected lightlinks" << std::endl;
-				for (int i_AllVals = 0; i_AllVals < Values.size(); i_AllVals++)
-				{
-					std::cout << "[MSimDec]:  - [" << i_AllVals << "] " << Values[i_AllVals] << std::endl;
-				}
-				std::cout << "[MSimDec]: chosen option => [" << i_Value << "]" << std::endl;
-#endif
-				Super::set(value);
-				return value;
-			}
-		}
+		}*/
 		//------------------------ children -----------------------
 		virtual void connect(IData* NewSub) override { connect(NewSub, DataType::Link); }
 		virtual IData* connect(IData* NewSub, DataType WantedLinkType)

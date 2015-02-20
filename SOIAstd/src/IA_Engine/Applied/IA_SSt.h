@@ -25,7 +25,8 @@ namespace IA
 			registerM(MSimDec);
 			registerM(MTypes);
 			registerM(MNET_Base);
-		};
+		}
+		virtual ~Data_SSt() {}
 	};
 
 	class Engine_SSt : public Engine
@@ -43,6 +44,7 @@ namespace IA
 		virtual IData* getDataStart() override;
 		virtual SO::Debug::Statistics& getActionStatistics() override;
 		virtual SO::Debug::Statistics& getResultStatistics() override;
+
 
 	private:
 		///////////////////////////////////////

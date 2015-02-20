@@ -15,6 +15,7 @@ namespace IA
 		// init
 		template<typename... Args>
 		MDebug(Args&&... args) : Super(args...), IIDebuggable() {}
+		virtual ~MDebug() {}
 
 		////////////////////////////////////////////////////////////
 		// functionality

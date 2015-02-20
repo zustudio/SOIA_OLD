@@ -42,6 +42,7 @@ namespace IA
 		{
 			Type = NewType;
 		}
+		virtual ~MTypes() {}
 
 		///////////////////////////////////////////////
 		// overrides

@@ -4,9 +4,11 @@ namespace IA
 {
 	class IData
 	{
-		public:
+	public:
 		//////////////////////////////////////////
 		// abstract functions
+		//---- destructor ----
+		virtual void Destroy() = 0;
 		//---- interaction with content ----
 		virtual int get() = 0;
 		virtual void set(int New) = 0;

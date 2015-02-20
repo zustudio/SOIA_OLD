@@ -118,7 +118,7 @@ void Engine_SSt::Tick()
 	*Visible >> visible;
 
 	i++;
-	
+
 	std::vector<VoidPointer> Args;
 	Engine* cast_Engine = static_cast<Engine*>(this);
 	Args.push_back(*cast_Engine);
@@ -150,7 +150,12 @@ void Engine_SSt::ReIntegrate(Data_SSt* X)
 	}
 
 	X->set(SIM_Val_X);
+	X->CollapseOpenLLinks();
 	int newVal = (int)(*X);
+
+
+
+
 	ii_Log(EDebugLevel::Info_MainFunction, "[IA_SSt]: new Action is " + std::to_string(newVal));
 }
 

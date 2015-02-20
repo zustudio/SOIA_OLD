@@ -24,12 +24,12 @@ namespace IA
 			Content = NewContent;
 			ConnectedData = std::deque<IData*>();
 		}
-		virtual ~MNET_Base()
+		virtual void Destroy() override
 		{
-			int n = getConnectedNum();
+			int n = MNET_Base::getConnectedNum();
 			for (int i = 0; i < n; i++)
 			{
-				disconnect(getConnected(i));
+				MNET_Base::disconnect(MNET_Base::getConnected(i));
 			}
 		}
 
@@ -48,7 +48,7 @@ namespace IA
 			MNET_Base<Super>* oldSub = (MNET_Base<Super>*)OldSub;
 			if (isChild(oldSub))
 			{
-				oldSub->ConnectedData.erase(std::find(oldSub->ConnectedData.begin(), oldSub->ConnectedData.end(), OldSub));
+				oldSub->ConnectedData.erase(std::find(oldSub->ConnectedData.begin(), oldSub->ConnectedData.end(), this));
 			}
 		}
 		virtual IData* getConnected(int i = 0)	{ return (i < ConnectedData.size() && i >= 0) ? ConnectedData[i] : nullptr; }

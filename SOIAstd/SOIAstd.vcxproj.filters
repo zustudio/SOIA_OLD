@@ -94,6 +94,9 @@
     <Filter Include="SO_Service\Debug">
       <UniqueIdentifier>{c845e159-93fa-436b-868a-bdc62eebb3ef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ZABS_Math\Functions">
+      <UniqueIdentifier>{21b4c853-5cac-4562-b079-59988621fc89}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Definitions\stdafx.h">
@@ -285,6 +288,15 @@
     <ClInclude Include="src\SO_Drawing\ControlElements\CGraph.h">
       <Filter>SO_Drawing\ControlElements</Filter>
     </ClInclude>
+    <ClInclude Include="src\ZABS_Math\Functions\LinearFunction.h">
+      <Filter>ZABS_Math\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ZABS_Math\Functions\IFunction.h">
+      <Filter>ZABS_Math\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ZABS_Math\Functions\ExponentialFunction.h">
+      <Filter>ZABS_Math\Functions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\IA_Engine\Framework\Engine.cpp">
@@ -415,6 +427,12 @@
     </ClCompile>
     <ClCompile Include="src\SO_Drawing\ControlElements\CGraph.cpp">
       <Filter>SO_Drawing\ControlElements</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ZABS_Math\Functions\LinearFunction.cpp">
+      <Filter>ZABS_Math\Functions</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ZABS_Math\Functions\ExponentialFunction.cpp">
+      <Filter>ZABS_Math\Functions</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

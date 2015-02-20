@@ -2,7 +2,8 @@
 #include <random>
 
 #include "Random.h"
-
+#include <iostream>
+#include <string>
 
 using namespace ZABS::Math;
 
@@ -13,7 +14,7 @@ int Random::InfluencedRand(std::vector<float> &Chances)
 {
 	//one time:
 	auto static const seed = std::random_device()();
-	std::mt19937 random_engine(seed);
+	static std::mt19937 random_engine(seed);
 	std::uniform_real_distribution<float> distribution(0.0, 1.0);
 
 	//always:
