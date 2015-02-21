@@ -8,9 +8,9 @@
 
 #include "Com_Cmd.h"
 
-#include <thread>
 #include <mutex>
 #include <condition_variable>
+#include <thread>
 
 
 using namespace IA;

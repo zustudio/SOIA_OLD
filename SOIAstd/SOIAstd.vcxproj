@@ -122,6 +122,7 @@
     <ClInclude Include="src\ZABS_Math\Functions\ExponentialFunction.h" />
     <ClInclude Include="src\ZABS_Math\Functions\IFunction.h" />
     <ClInclude Include="src\ZABS_Math\Functions\LinearFunction.h" />
+    <ClInclude Include="src\ZABS_Math\Functions\ReversedExponentialFunction.h" />
     <ClInclude Include="src\ZABS_Math\Random\Random.h" />
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +170,7 @@
     <ClCompile Include="src\ZABS_Math\DataStructs\VectorND.cpp" />
     <ClCompile Include="src\ZABS_Math\Functions\ExponentialFunction.cpp" />
     <ClCompile Include="src\ZABS_Math\Functions\LinearFunction.cpp" />
+    <ClCompile Include="src\ZABS_Math\Functions\ReversedExponentialFunction.cpp" />
     <ClCompile Include="src\ZABS_Math\Random\Random.cpp" />
   </ItemGroup>
   <ItemGroup>

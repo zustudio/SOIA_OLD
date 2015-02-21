@@ -28,7 +28,8 @@ namespace IA
 		}
 		virtual ~Data_SSt() {}
 	};
-
+	
+	
 	class Engine_SSt : public Engine
 	{
 	public:

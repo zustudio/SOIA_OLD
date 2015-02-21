@@ -7,6 +7,7 @@
 #include "MTypes.h"
 #include "Random.h"
 #include "ExponentialFunction.h"
+#include "ReversedExponentialFunction.h"
 #include "LinearFunction.h"
 
 using namespace ZABS::Math;
@@ -25,8 +26,8 @@ using namespace ZABS::Math;
 /*	multiplicator for n_child's*/
 #define SIM_Demult			1
 //---- functions ----
-#define SIM_MapFunctionType	LinearFunction
-#define SIM_MapFunctionArgs	{-100, 100}	//{SIM_Val_Max, SIM_Slope}
+#define SIM_MapFunctionType	ReversedExponentialFunction
+#define SIM_MapFunctionArgs	{100, 1, 0.01F}	//{SIM_Val_Max, SIM_Slope}
 #define mapfunction(x)		SIM_MapFunctionType::get_f((x), SIM_MapFunctionArgs)
 #define rev_mapfunction(f)	SIM_MapFunctionType::get_reverse_x((f), SIM_MapFunctionArgs)
 //---- math ----
@@ -59,14 +60,14 @@ namespace IA
 		{
 			IData* me = this;
 
-			int lnk = SIM_Val_Max;
+			int lnk = mapfunction(0);
 			bLLinked = true;
 
 			if (depth > 0)		// else: if chain has ended, return default (value for no match)
 			{
 				if (int(*me) == int(*te))	//if me == te
 				{
-					lnk = SIM_Val_Min;				//return value for best match
+					lnk = mapfunction(1);				//return value for best match
 				}
 				else						//else try to match the children
 				{
@@ -77,6 +78,7 @@ namespace IA
 					float n_child = 0;			// scalar value: (n=0 -> no match | n=1 -> perfect match) is calculated for each child
 					float sum_n = 0;			// sum of single scalar values
 					int n_children = std::fmax(nC_me, nC_te);		// total amount of combinations between children
+					//int n_children = nC_me * nC_te;
 
 					for (int pC_me = 0; pC_me < nC_me; pC_me++)		// iterate over every comibination
 					{												//
@@ -84,12 +86,12 @@ namespace IA
 					{
 						SIM_child = ((MSimDec<Super>*)(*me)[pC_me])->exe_llink((*te)[pC_te], depth - 1);
 						//n_child = -logBASE((SIM_child / SIM_Val_Max), SIM_Slope);
-						n_child = -rev_mapfunction(SIM_child);
+						n_child = rev_mapfunction(SIM_child);
 						sum_n += SIM_Demult * n_child;
 					}
 					}
 
-					float sim = mapfunction(-sum_n / n_children);
+					float sim = mapfunction(sum_n / n_children);
 
 					//float sim = SIM_Val_Max * std::pow(SIM_Slope, (- sum_n / n_children));
 					lnk = int(sim);

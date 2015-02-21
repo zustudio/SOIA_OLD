@@ -297,6 +297,9 @@
     <ClInclude Include="src\ZABS_Math\Functions\ExponentialFunction.h">
       <Filter>ZABS_Math\Functions</Filter>
     </ClInclude>
+    <ClInclude Include="src\ZABS_Math\Functions\ReversedExponentialFunction.h">
+      <Filter>ZABS_Math\Functions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\IA_Engine\Framework\Engine.cpp">
@@ -432,6 +435,9 @@
       <Filter>ZABS_Math\Functions</Filter>
     </ClCompile>
     <ClCompile Include="src\ZABS_Math\Functions\ExponentialFunction.cpp">
+      <Filter>ZABS_Math\Functions</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ZABS_Math\Functions\ReversedExponentialFunction.cpp">
       <Filter>ZABS_Math\Functions</Filter>
     </ClCompile>
   </ItemGroup>
