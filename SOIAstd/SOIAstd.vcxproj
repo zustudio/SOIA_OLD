@@ -117,6 +117,7 @@
     <ClInclude Include="src\SO_UI\Explorer\DEGraph.h" />
     <ClInclude Include="src\SO_UI\Information\DebugVisual.h" />
     <ClInclude Include="src\SO_UI\Information\Statistics.h" />
+    <ClInclude Include="src\ZABS_Math\DataStructs\Matrix2D.h" />
     <ClInclude Include="src\ZABS_Math\DataStructs\Vector2D.h" />
     <ClInclude Include="src\ZABS_Math\DataStructs\VectorND.h" />
     <ClInclude Include="src\ZABS_Math\Functions\ExponentialFunction.h" />

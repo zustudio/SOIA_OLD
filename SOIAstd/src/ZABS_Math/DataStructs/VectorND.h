@@ -78,6 +78,15 @@ namespace ZABS
 				intern_OpAdd(*this, a, *this);
 				return tmp;
 			}
+			T Sum()
+			{
+				T result = 0;
+				for (T element : val)
+				{
+					result += element;
+				}
+				return result;
+			}
 			//---- scalar operation ----
 			void intern_OpMult(VectorND<T> &a, VectorND<T> &b, VectorND<T> &r)
 			{

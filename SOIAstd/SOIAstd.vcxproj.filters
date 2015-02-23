@@ -300,6 +300,9 @@
     <ClInclude Include="src\ZABS_Math\Functions\ReversedExponentialFunction.h">
       <Filter>ZABS_Math\Functions</Filter>
     </ClInclude>
+    <ClInclude Include="src\ZABS_Math\DataStructs\Matrix2D.h">
+      <Filter>ZABS_Math\DataStructs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\IA_Engine\Framework\Engine.cpp">

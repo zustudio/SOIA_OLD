@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include "MTypes.h"
+#include "Matrix2D.h"
 #include "Random.h"
 #include "ExponentialFunction.h"
 #include "ReversedExponentialFunction.h"
@@ -78,22 +79,59 @@ namespace IA
 					float n_child = 0;			// scalar value: (n=0 -> no match | n=1 -> perfect match) is calculated for each child
 					float sum_n = 0;			// sum of single scalar values
 					int n_children = std::fmax(nC_me, nC_te);		// total amount of combinations between children
-					//int n_children = nC_me * nC_te;
+					Matrix2D<float> linkResults = Matrix2D<float>(n_children, n_children, 0);
 
 					for (int pC_me = 0; pC_me < nC_me; pC_me++)		// iterate over every comibination
 					{												//
 					for (int pC_te = 0; pC_te < nC_te; pC_te++)		//
 					{
 						SIM_child = ((MSimDec<Super>*)(*me)[pC_me])->exe_llink((*te)[pC_te], depth - 1);
-						//n_child = -logBASE((SIM_child / SIM_Val_Max), SIM_Slope);
 						n_child = rev_mapfunction(SIM_child);
-						sum_n += SIM_Demult * n_child;
+
+						// save results into a matrix for calculation
+						linkResults.set(pC_me, pC_te, n_child);
+
+						//sum_n += SIM_Demult * n_child;
 					}
 					}
+
+					// calculate value of best match:
+					std::vector<float> ColumnSums;
+					std::vector<float> RowSums;
+
+					//   I - calculate sums of individual columns and rows
+					for (int x = 0; x < n_children; x++)
+					{
+						ColumnSums.push_back(linkResults.GetColumn(x).Sum());
+					}
+
+					for (int y = 0; y < n_children; y++)
+					{
+						RowSums.push_back(linkResults.GetRow(y).Sum());
+					}
+
+					//  II - calculate for each linkResult the value of connections, which would be lost, if this linkResult
+					//		 would be taken as matching path, thus disallowing all value of corresponding rows and columns
+					Matrix2D<float> lostValues = Matrix<float>(n_children, n_children, 0);
+
+					for (int x = 0; x < n_children; x++)
+					{
+						for (int y = 0; y < n_children; y++)
+						{
+							lostValues.set(x, y, ColumnSums[x] + RowSums[x] - 2 * (*linkResults.get(x, y)));
+						}
+					}
+
+					// III - try to minimize value lost (thus maximizing the perfectness of match) via finding lowest lostValues
+
+					//  IV - calculate the total match perfectness, via finding linkresults corresponding to lowest lostValues
+
+
+
+
 
 					float sim = mapfunction(sum_n / n_children);
 
-					//float sim = SIM_Val_Max * std::pow(SIM_Slope, (- sum_n / n_children));
 					lnk = int(sim);
 				}
 			}
