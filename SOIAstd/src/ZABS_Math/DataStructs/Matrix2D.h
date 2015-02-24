@@ -81,6 +81,17 @@ namespace ZABS
 				return VectorND<T>(result);
 			}
 
+			//---- converting ----
+			std::string to_string()
+			{
+				std::string result;
+				for (int y = 0; y < SizeY; y++)
+				{
+					result += GetRow(y).to_intstring() + std::string("\n");
+				}
+				return result;
+			}
+
 		private:
 			/////////////////////////////////////////////////
 			// variables

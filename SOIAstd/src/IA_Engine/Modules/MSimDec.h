@@ -70,7 +70,7 @@ namespace IA
 				{
 					lnk = mapfunction(1);				//return value for best match
 				}
-				else						//else try to match the children
+				else if (depth > 1)						//else try to match the children
 				{
 					int nC_me = me->getConnectedNum();
 					int nC_te = te->getConnectedNum();
@@ -90,9 +90,27 @@ namespace IA
 
 						// save results into a matrix for calculation
 						linkResults.set(pC_me, pC_te, n_child);
-
-						//sum_n += SIM_Demult * n_child;
 					}
+					}
+
+					if (depth == 2)
+					{
+						std::cout << "\t\t\t" << "[MSimDec]: Linking x to y:" << std::endl;
+						std::cout << "[";
+						for (int xData = 0; xData < nC_me; xData++)
+						{
+							std::cout << (*me)[xData]->get() << " |";
+						}
+						std::cout << "]" << std::endl;
+						
+						std::cout << linkResults.to_string();
+
+						std::cout << "[";
+						for (int yData = 0; yData < nC_te; yData++)
+						{
+							std::cout << (*te)[yData]->get() << " |";
+						}
+						std::cout << "]" << std::endl;
 					}
 
 					// calculate value of best match:
@@ -112,24 +130,68 @@ namespace IA
 
 					//  II - calculate for each linkResult the value of connections, which would be lost, if this linkResult
 					//		 would be taken as matching path, thus disallowing all value of corresponding rows and columns
-					Matrix2D<float> lostValues = Matrix<float>(n_children, n_children, 0);
+					//Matrix2D<float> lostValues = Matrix<float>(n_children, n_children, 0);
+					std::deque<float> sortedLostValues = { 1000000 };	// (from lowest to highest)
+					std::deque<std::pair<float, Vector2D<int> > > sortedLinkGains = { std::make_pair(1000000, Vector2D<int>()) };
+					std::deque<float> sortedLinkGains_Display = { 1000000 };
 
 					for (int x = 0; x < n_children; x++)
 					{
 						for (int y = 0; y < n_children; y++)
 						{
-							lostValues.set(x, y, ColumnSums[x] + RowSums[x] - 2 * (*linkResults.get(x, y)));
+							//lostValues.set(x, y, ColumnSums[x] + RowSums[x] - 2 * (*linkResults.get(x, y)));
+
+							float lostValue = ColumnSums[x] + RowSums[x] - 3 * (*linkResults.get(x, y));
+
+							// III - Try to minimize value lost (thus maximizing the perfectness of match) via finding lowest lostValues
+							//         Sort value into already sorted values.
+							for (int i = 0; i < sortedLostValues.size(); i++)
+							{
+								if (lostValue <= sortedLostValues[i])
+								{
+									sortedLostValues.insert(sortedLostValues.begin() + i, lostValue);
+									float linkResult = *linkResults.get(x, y);
+									auto pair = std::make_pair(linkResult, Vector2D<int>(x, y));
+									sortedLinkGains.insert(sortedLinkGains.begin() + i, pair);
+									sortedLinkGains_Display.insert(sortedLinkGains_Display.begin() + i, pair.first);
+									break;
+								}
+							}
+						}
+					}
+					if (depth == 2)
+					{
+						std::cout << "\t\t\t" << "[MSimDec]: Sorted Values are: " << (std::string)VectorND<float>(sortedLostValues) << std::endl;
+						std::cout << "\t\t\t" << "[MSimDec]: Corresponding link results: " << std::string(VectorND<float>(sortedLinkGains_Display)) << std::endl;
+					}
+					
+
+					//  IV - calculate the total match perfectness, via finding linkresults corresponding to lowest lostValues,
+					//       ignore values, if their row or column is already used
+					std::vector<int> usedColumns;
+					std::vector<int> usedRows;
+
+		
+					std::cout << "\t\t\t[MSimDec]: Chosen links are: ";
+					int found = 0;
+					for (int i = 0; found < n_children; i++)
+					{
+						auto pair = sortedLinkGains[i];
+						if (std::find(usedColumns.begin(), usedColumns.end(), pair.second.X) == usedColumns.end()
+							&& std::find(usedRows.begin(), usedRows.end(), pair.second.Y) == usedRows.end())
+						{
+							sum_n += pair.first;
+							usedColumns.push_back(pair.second.X);
+							usedRows.push_back(pair.second.Y);
+							std::cout << "(" << pair.second.X << " | " << pair.second.Y << "); ";
+							found++;
 						}
 					}
 
-					// III - try to minimize value lost (thus maximizing the perfectness of match) via finding lowest lostValues
+					if (depth == 2)
+						std::cout << "\t\t\t" << "[MSimDec]: Counting first " << n_children << " elements. " << "Equal to " << sum_n << std::endl;
 
-					//  IV - calculate the total match perfectness, via finding linkresults corresponding to lowest lostValues
-
-
-
-
-
+					
 					float sim = mapfunction(sum_n / n_children);
 
 					lnk = int(sim);

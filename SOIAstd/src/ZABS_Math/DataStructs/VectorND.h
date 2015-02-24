@@ -4,6 +4,7 @@
 
 #include <cmath>
 #include <vector>
+#include <deque>
 #include <string>
 
 namespace ZABS
@@ -23,6 +24,14 @@ namespace ZABS
 			VectorND(const std::vector<T> &NewVal)
 			{
 				val = NewVal;
+			}
+			VectorND(const std::deque<T> &NewDeque)
+			{
+				val = std::vector<T>();
+				for (T element : NewDeque)
+				{
+					val.push_back(element);
+				}
 			}
 			VectorND(int dim, T defaultValue = 0)
 			{
@@ -109,6 +118,17 @@ namespace ZABS
 			}
 			/////////////////////////////////////////////////////////
 			// conversions
+			std::string to_intstring()
+			{
+				text = std::string("(");
+				int n = dim();
+				for (int i = 0; i < n; i++)
+				{
+					text += (std::to_string((int)std::round((*this)[i])) + "|");
+				}
+				text += ")";
+				return text;
+			}
 			operator std::string& ()
 			{
 				text = std::string("(");
