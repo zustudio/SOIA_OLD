@@ -15,6 +15,7 @@
 
 using namespace IA;
 using namespace SO::Com;
+using namespace SO::Debug;
 using namespace std;
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -122,16 +123,14 @@ std::vector<int>* Engine::IFuncResultOfAction(IData* Output)
 {
 	std::vector<int>* Result = CurrentGame->IFuncResultOfAction(Output);
 
-	std::cout << "[IA]: ";
-	std::cout << int(*Output);
-	std::cout << "->";
+	std::string logtext = "AI: " + std::to_string(int(*Output)) + "->";
 
-	std::cout << (*Result)[0];
+	logtext += std::to_string((*Result)[0]);
 	for (int i = 1; i < Result->size(); i++)
 	{
-		std::cout << ", " << (*Result)[i];
+		logtext += ", " + std::to_string((*Result)[i]);
 	}
-	std::cout << "\n";
+	ii_Log(EDebugLevel::Info_MainFunction, logtext);
 
 	return Result;
 }

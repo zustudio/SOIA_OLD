@@ -16,6 +16,10 @@ using namespace SO::Com;
 // init
 IIDebuggable::IIDebuggable(ComService* NewUp) : IIComOut()
 {
+	init(NewUp);
+}
+void IIDebuggable::init(ComService* NewUp)
+{
 	Up = NewUp;
 	hndl = nullptr;
 	bEnabled = false;

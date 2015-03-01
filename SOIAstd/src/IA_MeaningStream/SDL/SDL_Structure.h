@@ -28,6 +28,8 @@
 #define p_TEXT(text) VoidPointer(*(new std::string(text)))
 /*macro for easier creation of VoidPointer to IData*/
 #define p_DATA(data) VoidPointer(*(static_cast<IData*>(data)))
+/*macro for abstracted creation of new datas*/
+#define NEWDATA(content) new DATA(content)
 
 
 ///////////////////////////////////////////////////////////
@@ -46,7 +48,7 @@
 ///////////////////////////////////////////////////////////
 /* structure to create new data elements */
 //----  symbol  ----
-#define symbol		SDLtempDATA.push(new DATA(dVAL)); \
+#define symbol		SDLtempDATA.push(NEWDATA(dVAL)); \
 					if (bCreateGroups) cSend("MeaningSrvc", "convertdata", {p_DATA(SDLtempDATA.top()) } ); \
 					if (bCreateGroups) cSend("MeaningSrvc", "addgroupstrings", {p_TEXT("SDLcreated"), p_TEXT("Equal"), p_DATA(SDLtempDATA.top()), 0, p_TEXT("DataPoints") } ); \
 					PARENT = SDLtempDATA.top();
@@ -60,7 +62,7 @@
 //---- children ----
 #define sub			; \
 					PARENT = SDLtempDATA.top(); \
-					SDLtempDATA.push(new DATA(dVAL)); \
+					SDLtempDATA.push(NEWDATA(dVAL)); \
 					*PARENT >> SDLtempDATA.top(); \
 					if (bCreateGroups) cSend("MeaningSrvc", "convertdata", {VoidPointer(*(Engine*) this)}); \
 					if (bCreateGroups) cSend("MeaningSrvc", "convertdata", {p_DATA(SDLtempDATA.top()) } );
@@ -89,7 +91,7 @@
 							int n = sizeof(SDL_intList) / sizeof(int); \
 							for (int i = 0; i < n; i++) \
 							{ \
-								DATA* add = new DATA(SDL_intList[i]); \
+								DATA* add = NEWDATA(SDL_intList[i]); \
 								*SDLtempDATA.top() >> add; \
 							} \
 						}

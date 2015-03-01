@@ -3,6 +3,19 @@
 
 #include "IIDebuggable.h"
 
+////////////////////////////////////////////////////////////////////////
+// Definitions
+/*Macro for faster logging. Preferebly logs via MDebug module and IIDebuggable interface, else via std::cout.*/
+#define DataLog(Message)	do { \
+								if (checkM(MDebug)) \
+									static_cast<DATA*>(this)->ii_Log(SO::Debug::EDebugLevel::Info_SubFunction, Message); \
+								else \
+									std::cout << Message << std::endl; \
+							} while(0)
+
+////////////////////////////////////////////////////////////////////////
+// Main class
+
 namespace IA
 {
 	using namespace SO::Base;
@@ -14,7 +27,10 @@ namespace IA
 		////////////////////////////////////////////////////////////
 		// init
 		template<typename... Args>
-		MDebug(Args&&... args) : Super(args...), IIDebuggable() {}
+		MDebug(SO::Com::ComService* NewUp, Args&&... args) : Super(args...)
+		{
+			IIDebuggable::init(NewUp);
+		}
 		virtual ~MDebug() {}
 
 		////////////////////////////////////////////////////////////
@@ -48,7 +64,6 @@ namespace IA
 			auto p_hndl = new Handle<ICom>(this, "MDebug");
 			return *p_hndl;
 		}
-
 	};
 	
 }

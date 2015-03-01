@@ -99,7 +99,12 @@ bool DebugService::cmd_log(const Handle<ICom> &Caller, const std::vector<VoidPoi
 			// if verbosity of current message is allowed
 			if (verbosity <= *p_allowedVerbosity)
 			{
-				cSend("Console", "echo", *p_message);
+				// forward message with handle of my caller
+				std::vector< Handle<ICom> > outTarget;
+				Handle<ICmd> outCommand;
+				std::vector<VoidPointer> outArgs;
+				Up->TranslateString("Console", { "echo", *p_message }, outTarget, outCommand, outArgs);
+				Up->Forward(outTarget[0], Caller, *outCommand.getObj(), outArgs);
 			}
 			result = true;
 		}

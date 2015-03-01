@@ -53,7 +53,7 @@ namespace IA
 			{
 				case DataType::Content:
 				{
-					MTypes<Super>* link = new MTypes<Super>(DataType::Link, "" ,cIA_LinkContent);
+					MTypes<Super>* link = new MTypes<Super>(DataType::Link, nullptr, "" ,cIA_LinkContent);
 					this->Super::connect(link);
 					link->Super::connect(NewSub);
 				} break;

@@ -4,7 +4,9 @@
 #include <vector>
 #include <iostream>
 
+#include "SDL.h"
 #include "MTypes.h"
+#include "MDebug.h"
 #include "Matrix2D.h"
 #include "Random.h"
 #include "ExponentialFunction.h"
@@ -28,11 +30,9 @@ using namespace ZABS::Math;
 #define SIM_Demult			1
 //---- functions ----
 #define SIM_MapFunctionType	ReversedExponentialFunction
-#define SIM_MapFunctionArgs	{100, 1, 0.01F}	//{SIM_Val_Max, SIM_Slope}
+#define SIM_MapFunctionArgs	{100, 1, 0.001F}	//{SIM_Val_Max, SIM_Slope}
 #define mapfunction(x)		SIM_MapFunctionType::get_f((x), SIM_MapFunctionArgs)
 #define rev_mapfunction(f)	SIM_MapFunctionType::get_reverse_x((f), SIM_MapFunctionArgs)
-//---- math ----
-//#define logBASE(val, base)	(std::log(val) / std::log(base))
 
 
 namespace IA
@@ -61,7 +61,7 @@ namespace IA
 		{
 			IData* me = this;
 
-			int lnk = mapfunction(0);
+			float lnk = mapfunction(0);
 			bLLinked = true;
 
 			if (depth > 0)		// else: if chain has ended, return default (value for no match)
@@ -95,22 +95,28 @@ namespace IA
 
 					if (depth == 2)
 					{
-						std::cout << "\t\t\t" << "[MSimDec]: Linking x to y:" << std::endl;
-						std::cout << "[";
+						std::string meData = "[";
+						std::string teData = "[";
+
 						for (int xData = 0; xData < nC_me; xData++)
 						{
-							std::cout << (*me)[xData]->get() << " |";
+							meData += std::to_string((*me)[xData]->get());
+							meData += " |";
 						}
-						std::cout << "]" << std::endl;
+						meData += "]";
 						
-						std::cout << linkResults.to_string();
-
-						std::cout << "[";
 						for (int yData = 0; yData < nC_te; yData++)
 						{
-							std::cout << (*te)[yData]->get() << " |";
+							teData += std::to_string((*te)[yData]->get());
+							teData += " |";
 						}
-						std::cout << "]" << std::endl;
+						teData += "]";
+						
+
+						DataLog("Linking x to y:");
+						DataLog(meData);
+						DataLog(linkResults.to_string());
+						DataLog(teData);
 					}
 
 					// calculate value of best match:
@@ -130,7 +136,6 @@ namespace IA
 
 					//  II - calculate for each linkResult the value of connections, which would be lost, if this linkResult
 					//		 would be taken as matching path, thus disallowing all value of corresponding rows and columns
-					//Matrix2D<float> lostValues = Matrix<float>(n_children, n_children, 0);
 					std::deque<float> sortedLostValues = { 1000000 };	// (from lowest to highest)
 					std::deque<std::pair<float, Vector2D<int> > > sortedLinkGains = { std::make_pair(1000000, Vector2D<int>()) };
 					std::deque<float> sortedLinkGains_Display = { 1000000 };
@@ -139,8 +144,6 @@ namespace IA
 					{
 						for (int y = 0; y < n_children; y++)
 						{
-							//lostValues.set(x, y, ColumnSums[x] + RowSums[x] - 2 * (*linkResults.get(x, y)));
-
 							float lostValue = ColumnSums[x] + RowSums[x] - 3 * (*linkResults.get(x, y));
 
 							// III - Try to minimize value lost (thus maximizing the perfectness of match) via finding lowest lostValues
@@ -161,8 +164,8 @@ namespace IA
 					}
 					if (depth == 2)
 					{
-						std::cout << "\t\t\t" << "[MSimDec]: Sorted Values are: " << (std::string)VectorND<float>(sortedLostValues) << std::endl;
-						std::cout << "\t\t\t" << "[MSimDec]: Corresponding link results: " << std::string(VectorND<float>(sortedLinkGains_Display)) << std::endl;
+						DataLog("Sorted Values are: " + (std::string)VectorND<float>(sortedLostValues));
+						DataLog("Corresponding link results: " + std::string(VectorND<float>(sortedLinkGains_Display)));
 					}
 					
 
@@ -172,7 +175,7 @@ namespace IA
 					std::vector<int> usedRows;
 
 		
-					std::cout << "\t\t\t[MSimDec]: Chosen links are: ";
+					std::string chosenLinks_text;
 					int found = 0;
 					for (int i = 0; found < n_children; i++)
 					{
@@ -183,18 +186,18 @@ namespace IA
 							sum_n += pair.first;
 							usedColumns.push_back(pair.second.X);
 							usedRows.push_back(pair.second.Y);
-							std::cout << "(" << pair.second.X << " | " << pair.second.Y << "); ";
+							chosenLinks_text += std::string("(") + std::to_string(pair.second.X) + " | " + std::to_string(pair.second.Y) + "); ";
 							found++;
 						}
 					}
+					DataLog("Chosen links are: " + chosenLinks_text);
 
 					if (depth == 2)
-						std::cout << "\t\t\t" << "[MSimDec]: Counting first " << n_children << " elements. " << "Equal to " << sum_n << std::endl;
-
+						DataLog("Counting first " + std::to_string(n_children) + " elements. Equal to " + std::to_string(sum_n));
 					
 					float sim = mapfunction(sum_n / n_children);
 
-					lnk = int(sim);
+					lnk = sim;
 				}
 			}
 
@@ -232,14 +235,12 @@ namespace IA
 
 			int i_Value = ZABS::Math::Random::InfluencedRand(Values);
 			int value = *(datas[i_Value]);
-#if cSO_DebugData > 0
-			std::cout << "[MSimDec]: found " << Values.size() << " connected lightlinks" << std::endl;
+			DataLog("Found " + std::to_string(Values.size()) + " connected lightlinks");
 			for (int i_AllVals = 0; i_AllVals < Values.size(); i_AllVals++)
 			{
-				std::cout << "[MSimDec]:  - [" << i_AllVals << "] " << Values[i_AllVals] << std::endl;
+				DataLog(" - [" + std::to_string(i_AllVals) + "] " + std::to_string(Values[i_AllVals]));
 			}
-			std::cout << "[MSimDec]: chosen option => [" << i_Value << "]" << std::endl;
-#endif
+			DataLog("chosen option => [" + std::to_string(i_Value) + "]");
 			Super::set(value);
 
 			//delete llinks again:
@@ -252,14 +253,6 @@ namespace IA
 			return value;
 		}
 
-		/*virtual int get() override
-		{
-			int realValue = Super::get();
-			if (realValue != SIM_Val_X)
-			{
-				return realValue;
-			}
-		}*/
 		//------------------------ children -----------------------
 		virtual void connect(IData* NewSub) override { connect(NewSub, DataType::Link); }
 		virtual IData* connect(IData* NewSub, DataType WantedLinkType)
@@ -268,7 +261,7 @@ namespace IA
 			{
 				case DataType::Content:
 				{
-					MSimDec<Super>* link = new MSimDec<Super>(WantedLinkType, "", cIA_LinkContent);
+					MSimDec<Super>* link = new MSimDec<Super>(WantedLinkType, nullptr, "", cIA_LinkContent);
 					this->Super::connect(link);
 					link->Super::connect(NewSub);
 					return link;

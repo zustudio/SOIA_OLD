@@ -178,6 +178,7 @@ bool ConsoleService::cmd_echo(const Handle<ICom> &Caller, const std::vector<Void
 	// do not write caller name, if last written entry is of the same origin
 	if (Caller.getName() != LastTalker)
 	{
+		std::cout << std::endl;
 		std::cout << "[" << Caller.getName() << "]: ";
 		LastTalker = Caller.getName();
 	}

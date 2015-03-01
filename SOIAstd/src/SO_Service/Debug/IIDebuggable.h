@@ -44,6 +44,7 @@ namespace SO
 			// functions
 			//---- init ----
 			IIDebuggable(SO::Com::ComService* NewUp = nullptr);
+			void init(SO::Com::ComService* NewUp);
 			//---- to be called by child class, at breakable code ----
 			virtual void ii_Break(const std::string &message = "");
 			void ii_Log(EDebugLevel level, const std::string &message);

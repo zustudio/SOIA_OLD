@@ -1,6 +1,5 @@
 
 #include "stdafx.h"
-#include "SDL.h"
 
 #include "IA_SSt.h"
 
@@ -119,10 +118,10 @@ void Engine_SSt::Tick()
 
 	i++;
 
-	std::vector<VoidPointer> Args;
+	/*std::vector<VoidPointer> Args;
 	Engine* cast_Engine = static_cast<Engine*>(this);
 	Args.push_back(*cast_Engine);
-	cSend(Handle<ICom>(nullptr, "MeaningSrvc"), Com_Cmd<MeaningService>(&MeaningService::cmd_convertdata), Args);
+	cSend(Handle<ICom>(nullptr, "MeaningSrvc"), Com_Cmd<MeaningService>(&MeaningService::cmd_convertdata), Args);*/
 }
 
 void Engine_SSt::ReIntegrate(Data_SSt* X)
@@ -146,17 +145,14 @@ void Engine_SSt::ReIntegrate(Data_SSt* X)
 	{
 		int llresult = X->llink(similarityCandidates[iSimCand], 2);
 		X->bLLinked = false;
-		ii_Log(EDebugLevel::Info_Loop, "[IA_SSt]: linking " + std::to_string((int)(*X)) + " \tto "  + std::to_string((int)(*similarityCandidates[iSimCand])) + " \t=> " + std::to_string(llresult));
+		ii_Log(EDebugLevel::Info_Loop, "linking " + std::to_string((int)(*X)) + " \tto "  + std::to_string((int)(*similarityCandidates[iSimCand])) + " \t=> " + std::to_string(llresult));
 	}
 
 	X->set(SIM_Val_X);
 	X->CollapseOpenLLinks();
 	int newVal = (int)(*X);
 
-
-
-
-	ii_Log(EDebugLevel::Info_MainFunction, "[IA_SSt]: new Action is " + std::to_string(newVal));
+	ii_Log(EDebugLevel::Info_MainFunction, "New Action is " + std::to_string(newVal));
 }
 
 

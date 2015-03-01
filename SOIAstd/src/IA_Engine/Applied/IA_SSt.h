@@ -10,15 +10,17 @@
 
 #include "SDL.h"
 
+#undef NEWDATA
+#define NEWDATA(content) new DATA(content, "", DataType::Content, IIComIO::Up)
+
 SDL_Modules_Init
 
 namespace IA
 {
-
 	class Data_SSt : public  MSimDec< MDebug <MText< MNET_Base <IData> > > >
-	{ 
+	{
 	public:
-		Data_SSt(int NewContent = 0, const std::string &NewText = "", DataType NewDataType = DataType::Content) : MSimDec(NewDataType, NewText, NewContent)
+		Data_SSt(int NewContent = 0, const std::string &NewText = "", DataType NewDataType = DataType::Content, SO::Com::ComService* NewUp = nullptr) : MSimDec(NewDataType, NewUp, NewText, NewContent)
 		{
 			registerM(MDebug);
 			registerM(MText);
@@ -28,7 +30,6 @@ namespace IA
 		}
 		virtual ~Data_SSt() {}
 	};
-	
 	
 	class Engine_SSt : public Engine
 	{
