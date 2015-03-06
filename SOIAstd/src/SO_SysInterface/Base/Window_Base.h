@@ -1,22 +1,16 @@
-#pragma once 
+#pragma once
 
 #include <string>
-#include <deque>
 
 #include "Thread.h"
+#include "fColor.h"
 #include "cPoint.h"
 #include "pxPoint.h"
-#include "cPoint.h"
 
 using namespace SO::Drawing;
 
 namespace SO
 {
-	namespace Drawing
-	{
-		class fColor;
-	}
-
 	class Window_Base : public Thread
 	{
 	public:
@@ -41,7 +35,7 @@ namespace SO
 		Window_Base(const std::string &NewTitle, const pxPoint &size);
 		~Window_Base();
 		//---- main ----
-		virtual void Start() override;
+		virtual int Init() override;
 		//---- loop ----
 		virtual void Tick() override;		//functions below can be called from tick, if events are raised
 			virtual void SetVars();

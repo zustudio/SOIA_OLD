@@ -1,17 +1,24 @@
 // c Maxim Urschumzew 2014
 
 #include "stdafx.h"
-#include "CCanvas.h"
-#include "ExData.h"
-#include "fPoint.h"
+#include "SDL.h"
+
 #include "DEGraph.h"
+
+#include "ExDSet.h"
+#include "Draw_2D.h"
+#include "GroupCrit_Parentage.h"
+#include "GroupCrit_Equal.h"
+#include "GroupFunc_DataPoints.h"
 
 using namespace IA::MeaningStream;
 using namespace SO;
 
+SDL_Modules_Init
+
 //////////////////////////////////////////////////////////////////////
 // init
-DEGraph::DEGraph(Data* DataToDraw, Window_Base* newWindow, const fPoint &newLoc, const fPoint &newSize) : CCanvas(newWindow, newLoc, newSize)
+DEGraph::DEGraph(IData* DataToDraw, Window_Base* newWindow, const fPoint &newLoc, const fPoint &newSize) : CCanvas(newWindow, newLoc, newSize)
 {
 	CurrentData = DataToDraw;
 	AllDrawnObjects = std::deque<ExData*>();
@@ -44,10 +51,10 @@ void DEGraph::Draw(int Depth)
 
 #if cSO_DebugDE > 0
 	std::cout << "[DE]: -- parent has " + std::to_string(Parent->Children.size()) + " Children\n";
-	std::cout << "[DE]: questing for longest horizontal data line\n";
+	//std::cout << "[DE]: questing for longest horizontal data line\n";
 #endif
 
-	int MaxHor = LongestHorizontalDataLine(Parent);
+	/*int MaxHor = LongestHorizontalDataLine(Parent);
 
 #if cSO_DebugDE > 0
 	std::cout << "[DE]: -- longest line is " << std::to_string(MaxHor) << " long\n";
@@ -62,18 +69,41 @@ void DEGraph::Draw(int Depth)
 
 	Clear();
 	DrawObjects();
-	DrawConnections();
+	DrawConnections();*/
+
+	//TEST:
+	std::deque<ExGroup*> testgroups = std::deque<ExGroup*>();
+
+	GroupCrit_Equal* crit1 = new GroupCrit_Equal();
+	crit1->CreateFrom(AllDrawnObjects[0]);
+	testgroups.push_back(new ExGroup(crit1, new GroupFunc_DataPoints()));
+
+	GroupCrit_Parentage* crit = new GroupCrit_Parentage();
+	crit->CreateFrom(AllDrawnObjects[0]);
+	testgroups.push_back(new ExGroup(crit, new GroupFunc_DataPoints()));
+
+	testgroups[0]->AddChildGroup(testgroups[1]);
+
+	ExDSet testSet = ExDSet(testgroups, &AllDrawnObjects);
+
+	testSet.AddToGroups(AllDrawnObjects);
+	testSet.Scan();
+
+	Draw_2D* drawingObject = new Draw_2D(nullptr);
+	drawingObject->Draw(this, testSet.GetGroups());
+
+	//ENDTEST
 
 }
 
 //////////////////////////////////////////////////////////////////////
 // converting
 /** creates DE_Objects for every connected data point of the passed data up to the passed depth*/
-ExData* DEGraph::Convert(Data* myData, int Depth)
+ExData* DEGraph::Convert(IData* myData, int Depth)
 {
-	return exe_Convert(myData, Depth, new std::deque<Data*>());
+	return exe_Convert(myData, Depth, new std::deque<IData*>());
 }
-ExData* DEGraph::exe_Convert(Data* Current, int Depth, std::deque<Data*>* Ignore)
+ExData* DEGraph::exe_Convert(IData* Current, int Depth, std::deque<IData*>* Ignore)
 {
 	if (Depth < 0)
 		return nullptr;
@@ -81,20 +111,20 @@ ExData* DEGraph::exe_Convert(Data* Current, int Depth, std::deque<Data*>* Ignore
 	if (std::find(Ignore->begin(), Ignore->end(), Current) != Ignore->end())
 		return nullptr;
 
-	ExData* currentObj = new ExData((cIA_Data*)Current, &AllDrawnObjects);
+	ExData* currentObj = new ExData(Current, &AllDrawnObjects);
 	AllDrawnObjects.push_back(currentObj);
 	
 
 #if cSO_DebugDE > 1
-	std::cout << "[DE]:  " + *currentObj->Text + " in -depth of " + std::to_string(Depth) + '\n';
+	std::cout << "[DE]:  " + (checkM(MText) ? *currentObj->getText() : std::to_string(currentObj->CurrentSource->get())) + " in -depth of " + std::to_string(Depth) + '\n';
 #endif
 
 	Ignore->push_back(Current);
 	Depth -= 1;
 
-	for (int p_Next = 0; p_Next < Current->NET_getConnectedNum(); p_Next++)
+	for (int p_Next = 0; p_Next < Current->getConnectedNum(); p_Next++)
 	{
-		exe_Convert(Current->NET_getConnected(p_Next), Depth, Ignore);
+		exe_Convert(Current->getConnected(p_Next), Depth, Ignore);
 	}
 
 	return currentObj;
@@ -117,17 +147,13 @@ void DEGraph::SetHierarchicBonds(ExData* Current)
 		current = AllDrawnObjects[p_Obj];
 
 
-		std::deque<ExData*> connected = *current->getConnected(Data_StatedState::LinkType::Both);
+		std::deque<ExData*> connected = *current->getConnected();
 		if (connected.size() == 0)
 			continue;
 
 		if (current->HierarchicDistance == 0)
 		{
-			/*for (int p_Next = 0; p_Next < connected->size(); p_Next++)
-			{
-			current->Children->push_back(connected[p_Next]);
-			connected[p_Next]->Parent = current;
-			}*/
+			current->Parent = NULL;
 			continue;
 		}
 
@@ -146,7 +172,7 @@ void DEGraph::SetHierarchicBonds(ExData* Current)
 
 void DEGraph::exe_SetHierarchicDistances(ExData* Current, ExData* Caller, int Distance)
 {
-	std::deque<ExData*> connected = *Current->getConnected(Data_StatedState::LinkType::Both);
+	std::deque<ExData*> connected = *Current->getConnected();
 	if (Caller)
 		connected.erase(std::find(connected.begin(), connected.end(), Caller));
 
@@ -171,19 +197,19 @@ int DEGraph::LongestHorizontalDataLine(ExData* Parent)
 
 int DEGraph::exe_LongestHorizontalDataLine(ExData* Current)
 {
-	std::deque<ExData*> children;
-	children = Current->Children;
+	std::deque<ExData*>* children;
+	children = &Current->Children;
 
-	if (children.size() == 0)
+	if (children->size() == 0)
 	{
 		return 1;
 	}
 	else
 	{
 		int sum = 0;
-		for (int p_Next = 0; p_Next < children.size(); p_Next++)
+		for (int p_Next = 0; p_Next < children->size(); p_Next++)
 		{
-			ExData* next = children[p_Next];
+			ExData* next = (*children)[p_Next];
 			sum += exe_LongestHorizontalDataLine(next);
 		}
 		return sum;
@@ -199,14 +225,15 @@ int DEGraph::HorizontalDataLine(ExData* Parent, int Distance)
 /** sets the location variables of objects to their wanted location*/
 void DEGraph::SetObjectPosition(ExData* Parent, int Depth)
 {
-	exe_SetObjectPosition(Parent, Parent, Depth, fPoint(0, 0));
+	fPoint Start(0,0);
+	exe_SetObjectPosition(Parent, Parent, Depth, Start);
 
 	for (int p_Obj = 0; p_Obj < AllDrawnObjects.size(); p_Obj++)
 	{
 		ExData* obj = AllDrawnObjects[p_Obj];
 		if (obj->Extend.X == 0 && obj->Extend.Y == 0)
 		{
-			std::cout << "[DE]: WARNING: found " + *obj->Text + " without extend\n";
+			std::cout << "[DE]: WARNING: found " + std::to_string(int(*obj->CurrentSource))/*->Text*/ + " without extend\n";
 			obj->Extend = fPoint(0.1, 0.1);
 		}
 
@@ -268,7 +295,9 @@ void DEGraph::DrawObjects()
 		ExData* current = AllDrawnObjects[p_Obj];
 		fPoint Loc = fPoint(current->Location.X - 0.5* current->Extend.X, current->Location.Y);
 		DrawRect(Loc, current->Extend);
-		CDrawText(current->Location, current->Text);
+		
+		std::string *text = current->getText();
+		CDrawText(current->Location, text);
 	}
 }
 /** draws the connections between the objects*/
@@ -283,12 +312,12 @@ void DEGraph::DrawConnections()
 
 		CurrentCanvas->DrawFloatArrow(new fPoint(current->Location->X, current->Location->Y + current->Extend->Y * 0.5), new fPoint(child->Location->X, child->Location->Y - child->Extend->Y * 0.5));
 		}*/
-		std::deque<ExData*>* Connected = current->getConnected(Data_StatedState::LinkType::Downlink);
+		std::deque<ExData*>* Connected = current->getConnected(LinkType::T_NormLink | LinkType::Downlink);
 		for (int p_Next = 0; p_Next < Connected->size(); p_Next++)
 		{
 			ExData* child = (*Connected)[p_Next];
 
-			DrawLine(fPoint(current->Location.X/* + current->Extend.X * 0.5*/, current->Location.Y + current->Extend.Y), fPoint(child->Location.X/* + child->Extend.X * 0.5*/, child->Location.Y), fColor(0.7,0.7,0.7));
+			DrawArrow(fPoint(current->Location.X/* + current->Extend.X * 0.5*/, current->Location.Y + current->Extend.Y), fPoint(child->Location.X/* + child->Extend.X * 0.5*/, child->Location.Y), fColor(0.7,0.7,0.7));
 		}
 	}
 }

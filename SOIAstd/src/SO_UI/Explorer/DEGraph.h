@@ -18,19 +18,19 @@ namespace SO
 		// vars
 		//---- instances ----
 		std::deque<ExData*> AllDrawnObjects;
-		Data* CurrentData;
+		IData* CurrentData;
 
 		//////////////////////////////////////////////////////
 		// functions
 		//---- init ----
-		DEGraph(Data* DataToDraw, Window_Base* newWindow = nullptr, const fPoint &newLoc = fPoint(), const fPoint &newSize = fPoint());
+		DEGraph(IData* DataToDraw, Window_Base* newWindow = nullptr, const fPoint &newLoc = fPoint(), const fPoint &newSize = fPoint());
 		//---- draw ----
 		virtual void Draw() override;
 		void Draw(int Depth);
 
 		//---- converting ----
-		ExData* Convert(Data* Data, int Depth);
-		ExData* exe_Convert(Data* Current, int Depth, std::deque<Data*>* Ignore);
+		ExData* Convert(IData* Data, int Depth);
+		ExData* exe_Convert(IData* Current, int Depth, std::deque<IData*>* Ignore);
 		void SetHierarchicBonds(ExData* Current);
 		void exe_SetHierarchicDistances(ExData* Current, ExData* Caller, int Distance);
 		int LongestHorizontalDataLine(ExData* Parent);

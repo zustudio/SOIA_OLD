@@ -24,8 +24,8 @@ namespace SO
 			cPoint(const fPoint &newF = fPoint(), const pxPoint &newPx = pxPoint());
 			~cPoint();
 			//---- getter /setter ----
-			float getFX();
-			float getFY();
+			float getFX() const;
+			float getFY() const;
 			//---- conversion ----
 			cPoint(const Vector2D<float> a) {X = a.X; Y = a.Y; px = new pxPoint();}
 			virtual pxPoint ToPxPoint(pxPoint &absolutSpaceSize) override;

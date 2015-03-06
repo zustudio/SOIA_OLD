@@ -1,6 +1,12 @@
 #pragma once
 
 #include "Window.h"
+#include "IIComIO.h"
+
+#include "IDraw.h"
+#include "CCanvas.h"
+#include "CTextBox.h"
+#include "MeaningService.h"
 
 namespace IA
 {
@@ -16,21 +22,34 @@ namespace SO
 
 	namespace UI
 	{
-		class DataExplorer : public Window
+		class DataExplorer : public Window, public SO::Com::IIComIO
 		{
 		public:
 			///////////////////////////////////////////////////////////
-			// data
-			IA::Engine* CurrentEngine;
+			// functions
+			DataExplorer(IA::Engine* NewEngine, SO::Com::ComService* NewUp, SO::MeaningStream::MeaningService* MSrvc);
+			virtual void Tick() override;
+			//---- ICom -----
+			virtual void cGetCommands(std::vector<Handle<ICmd> > &Commands) override;
+			virtual Handle<ICom>& cGetHandle() override;
+			//---- commands ----
+			T_com_cmd_func cmd_redraw;
+			T_com_cmd_func cmd_setset;
+
+		private:
+			///////////////////////////////////////////////////////////
+			// settings
+			//---- data access point ----
+			IA::Engine* CurrentEngine; // not needed?
+			SO::MeaningStream::MeaningService* MeaningSrvc;
+			//---- drawn set handle ----
+			std::string DrawnSet;
 
 			///////////////////////////////////////////////////////////
 			// controls
-			DEGraph* myDEGraph;
-
-			///////////////////////////////////////////////////////////
-			// functions
-			DataExplorer(IA::Engine* NewEngine);
-			virtual void Start() override;
+			SO::Drawing::CTextBox* TopTextBox;
+			SO::Drawing::CCanvas* Canvas;
+			IDraw* Drawable;
 		};
 	}
 }

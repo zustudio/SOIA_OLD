@@ -15,7 +15,6 @@ LRESULT CALLBACK SO::Window_Win::WindowProcedure(HWND window, unsigned int msg, 
 	switch (msg)
 	{
 	case WM_DESTROY:
-		std::cout << "\ndestroying window\n";
 		PostQuitMessage(0);
 		return 0L;
 	case WM_SIZE:		//same as paint
@@ -51,7 +50,7 @@ SO::Window_Win::~Window_Win()
 
 //////////////////////////////////////////////////////////////////////////////////////
 // start
-void SO::Window_Win::Start()
+int SO::Window_Win::Init()
 {
 	std::cout << "hello world!\n";
 	const char* const myclass = props.title->c_str();
@@ -86,12 +85,13 @@ void SO::Window_Win::Start()
 		if (hwnd)
 		{
 			ShowWindow(hwnd, SW_SHOWDEFAULT);
-			MSG msg;
-
-			MThread.AddLoops(-1);
-			Thread::Start();
+		}
+		else
+		{
+			Stop();
 		}
 	}
+	return -1;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////

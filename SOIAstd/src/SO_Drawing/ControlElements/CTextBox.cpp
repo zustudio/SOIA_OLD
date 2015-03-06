@@ -11,7 +11,7 @@ using namespace SO::Drawing;
 
 ///////////////////////////////////////////////////////////////////
 // init
-CTextBox::CTextBox(Window_Base *newWindow, const fPoint &newLoc, const fPoint &newSize) : Control(newWindow, newLoc, newSize)
+CTextBox::CTextBox(Window_Base *newWindow, const cPoint &newLoc, const cPoint &newSize) : Control(newWindow, newLoc, newSize)
 {
 	Text = std::string();
 	Texts = std::deque<std::string*>();

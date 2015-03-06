@@ -31,7 +31,7 @@ namespace SO
 		// functions
 	public:
 		//---- init ----
-	    Window_Ubu();
+	    Window_Ubu(const std::string &NewTitle, const pxPoint &size);
 	    ~Window_Ubu();
 		virtual void Start() override;
 		//---- loop ----

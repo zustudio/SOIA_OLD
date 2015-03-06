@@ -16,10 +16,10 @@ using namespace SO::Drawing;
 
 /////////////////////////////////////////////////////////////////////
 // init
-Control::Control(Window_Base* NewWindow, const fPoint &NewLoc, const fPoint &NewSize)
+Control::Control(Window_Base* NewWindow, const cPoint &NewLoc, const cPoint &NewSize)
 {
-	Location = new cPoint(NewLoc, pxPoint(1, 1));
-	Size = new cPoint(NewSize, pxPoint(-2, -2));
+	Location = new cPoint(NewLoc.X, NewLoc.Y, NewLoc.px->X + 1, NewLoc.px->Y + 1);
+	Size = new cPoint(NewSize.X, NewSize.Y, NewSize.px->X - 2, NewSize.px->Y - 2);
 	myWindow = NewWindow;
 
 	BorderColor = new fColor(0.5, 0.5, 0.5);

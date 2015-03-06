@@ -1,24 +1,25 @@
 // SOIAme.h
-
 #pragma once
+
+#include <vector>
+
+#include "IData.h"
 
 namespace IA {
 
 	class Game
 	{
+	public:
 		///////////////////////////////////////////////////////////////////////
 		// game
-	public:
-		virtual Data* CalculateResult(Data* Input);
+		virtual std::vector<int>* CalculateResult(IData* Input);
 
 		///////////////////////////////////////////////////////////////////////
 		// io
-	public:
-		Data* IFuncResultOfAction(Data* Input);
+		std::vector<int>* IFuncResultOfAction(IData* Input);
 
 		///////////////////////////////////////////////////////////////////////
 		// init
-	public:
 		virtual void init();
 	};
 }

@@ -20,11 +20,11 @@ cPoint::~cPoint()
 	//delete px;
 }
 
-float cPoint::getFX()
+float cPoint::getFX() const
 {
 	return X;
 }
-float cPoint::getFY()
+float cPoint::getFY() const
 {
 	return Y;
 }

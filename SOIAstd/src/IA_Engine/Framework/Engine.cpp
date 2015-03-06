@@ -6,114 +6,131 @@
 #include "Thread.h"
 #include "Engine.h"
 
+#include "Com_Cmd.h"
+
+#include <mutex>
+#include <condition_variable>
+#include <thread>
+
+
 using namespace IA;
+using namespace SO::Com;
+using namespace SO::Debug;
 using namespace std;
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // init
-Engine::Engine(IA::Game* NewGame)
+Engine::Engine(IA::Game* NewGame, ComService* Up) : IIComIO(Up), IIDebuggable(Up)
 {
 	CurrentGame = NewGame;
-	Knowledge = new Data(1114);
 }
 Engine::~Engine()
 {
 
+}
+int Engine::Init()
+{
+	return 0;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // tick
 void Engine::Tick()
 {
-	Data* test;
-	test = new IA::Data();
-	test->Content = 0;
-	IFuncResultOfAction(test)->Content;
+	IData* test;
+
+	std::cout << "[IA-Engine]: no engine implementation";
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
-// rand
-int Engine::InfluencedRand(vector<float> &Chances)
+// commands
+bool Engine::cmd_add(const SO::Base::Handle<ICom> &Caller, const std::vector<VoidPointer> &Args)
 {
-	float sum;
-	vector<float> relativeChances = vector<float>();
-	vector<float> chanceDestribution = vector<float>();
-	float randomFloat;
-	int chosenInt;
+	//ICom_GetSingleArg(int, Num, Args, 0, false);
+	if (Args.size() > 0)
+	{
 
-	//add elements to arrays
-	for (int i = 0; i < Chances.size(); i++)
-	{
-		relativeChances.push_back(0);
-		chanceDestribution.push_back(0);
-	}
-	////move negative chances up into positive ones
-	float smallestChance = 0;
-	for (int i = 0; i < Chances.size(); i++)
-	{
-		smallestChance = smallestChance <= Chances[i]? smallestChance : Chances[i];
-	}
-	for (int i = 0; i < Chances.size(); i++)
-	{
-		Chances[i] -= smallestChance;
-	}
+		int* Num = Args[0].CastTo<int>();
+		std::string* NumText = Args[0].CastTo<std::string>();
 
-	//set minimal chance
-	for (int i = 0; i < Chances.size(); i++)
-	{
-		if (Chances[i] < 1)
-			Chances[i] = 1;
+		if (Num)
+		{
+			MThread.AddLoops(*Num);
+			return true;
+		}
+		//ICom_GetSingleArg(std::string, NumText, Args, 0, false);
+		if (NumText)
+		{
+			int times = std::atoi(NumText->c_str());
+			MThread.AddLoops(times);
+			return true;
+		}
 	}
-
-	//calculate chance destribution
-	//sum up all elements of chances
-	for (int i = 0; i < Chances.size(); i++)
-	{
-		sum += Chances[i];
-	}
-	//divide by sum
-	for (int i = 0; i < Chances.size(); i++)
-	{
-		relativeChances[i] = Chances[i] / sum;
-	}
-	//add previous chances to current element
-	for (int i = 0; i < Chances.size(); i++)
-	{
-		chanceDestribution[i] += relativeChances[i] + (i > 0 ? chanceDestribution[i - 1] : 0);
-	}
-
-	//get a random float
-	randomFloat = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-
-	//calculate which possibility was chosen
-	for (int i = Chances.size() - 1; i >= 0; i--)
-	{
-		if (randomFloat <= chanceDestribution[i])
-			chosenInt = i;
-	}
-	return chosenInt;
+	Engine::MThread.AddLoops(1);
+	return true;
 }
 
+bool Engine::cmd_break(const Handle<ICom> &Caller, const std::vector<VoidPointer> &Args)
+{
+	//backup current bEnabled
+	bool bBackup = MThread.bEnabled;
+	//start lock
+	bool* bWake = &MThread.bEnabled;
+	*bWake = false;
+	std::unique_lock<std::mutex> lock(*MThread.m);
+	MThread.cv->wait(lock, [&bWake] { return *bWake; });
+
+	//delock thread
+	lock.unlock();
+	//restore backup
+	MThread.bEnabled = bBackup;
+	return true;
+}
+bool Engine::cmd_continue(const Handle<ICom> &Caller, const std::vector<VoidPointer> &Args)
+{
+	MThread.bEnabled = true;
+	MThread.cv->notify_one();
+	return true;
+}
 
 /////////////////////////////////////////////////////////////////////////////////////////
-// io
-Data* Engine::IFuncResultOfAction(Data* Output)
+// ICom
+void Engine::cGetCommands(std::vector<SO::Base::Handle<SO::Base::ICmd> > &Commands)
 {
-	Data* Result = CurrentGame->IFuncResultOfAction(Output);
+	IIComIO::cGetCommands(Commands);
 
-	cout << std::to_string(Output->Content);
-	cout << "->";
-	cout << std::to_string(Result->Content);
-	cout << "\n";
+	ICom_RegisterCmd(Commands, Engine, cmd_add, "add");
+	ICom_RegisterCmd(Commands, Engine, cmd_break, "break");
+	ICom_RegisterCmd(Commands, Engine, cmd_continue, "continue");
+}
+Handle<ICom>& Engine::cGetHandle()
+{
+	TryCreateHandle("SOIA"); 
+	return IIComIO::cGetHandle();
+}
+
+///////////////////////////////////////////////////////////////////////////
+// IDebuggable interface
+void Engine::ii_Break(const std::string &Message)
+{
+	if (GetBreakEnabled())
+		cmd_break(Handle<ICom>(), {});
+}
+
+///////////////////////////////////////////////////////////////////////////
+// game io
+std::vector<int>* Engine::IFuncResultOfAction(IData* Output)
+{
+	std::vector<int>* Result = CurrentGame->IFuncResultOfAction(Output);
+
+	std::string logtext = "AI: " + std::to_string(int(*Output)) + "->";
+
+	logtext += std::to_string((*Result)[0]);
+	for (int i = 1; i < Result->size(); i++)
+	{
+		logtext += ", " + std::to_string((*Result)[i]);
+	}
+	ii_Log(EDebugLevel::Info_MainFunction, logtext);
 
 	return Result;
 }
-//Data* Engine::ReadData()
-//{
-//	Monitor::Enter(Lock);
-//	return Knowledge;
-//}
-//void Engine::StopData()
-//{
-//	Monitor::Exit(Lock);
-//}

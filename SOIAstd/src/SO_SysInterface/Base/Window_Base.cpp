@@ -1,6 +1,5 @@
 #include "stdafx.h"
-#include "fColor.h"
-#include "cPoint.h"
+
 #include "Window_Base.h"
 
 using namespace SO;
@@ -8,17 +7,6 @@ using namespace std;
 
 ///////////////////////////////////////////////////
 // init
-//Window_Base::Window_Base()
-//{
-//	props = WindowProperties();
-//	props.title = new std::string("Title");
-//	props.backColor = new fColor(1, 1, 1);
-//	props.frontColor = new fColor(0, 0, 0);
-//	props.copyBackC = props.backColor;
-//	props.copyFrontC = props.frontColor;
-//	props.size = pxPoint(400, 400);
-//
-//}
 Window_Base::Window_Base(const std::string &NewTitle, const pxPoint &size)
 {
 	props.title = new std::string(NewTitle);
@@ -37,13 +25,12 @@ Window_Base::~Window_Base()
 	delete props.copyBackC;
 	delete props.copyFrontC;
 }
-
-///////////////////////////////////////////////////
-// main
-void Window_Base::Start()
+int Window_Base::Init()
 {
 	std::cout << "Window class: application compiled without window interface, exiting.";
+	return -1;
 }
+
 //////////////////////////////////////////////////
 // ticking loop
 void Window_Base::Tick()
@@ -87,10 +74,10 @@ void Window_Base::DrawArrow(cPoint a, cPoint b, fColor *frontColor, fColor *back
 	fPoint t_fA = a;
 	fPoint t_fB = b;
 
-	fPoint delta = a - b;
+	fPoint delta = b - a;
 	fPoint crossLineSingle = (delta.Normalized() * 0.01).RotateZ(3.14159 / 2);
-	fPoint crossPoint1 = t_fA + (delta * 0.95) + crossLineSingle;
-	fPoint crossPoint2 = t_fB + (delta * 0.95) - crossLineSingle;
+	fPoint crossPoint1 = t_fA + (delta * 0.95) /*+ fPoint(0, 0.05);*/ +crossLineSingle;
+	fPoint crossPoint2 = t_fA + (delta * 0.95) /*- fPoint(0, 0.05);*/ -crossLineSingle;
 
 	pxPoint pxPoint1 = t_fA.ToPxPoint(props.size);
 	pxPoint pxPoint2 = t_fB.ToPxPoint(props.size);
@@ -98,10 +85,10 @@ void Window_Base::DrawArrow(cPoint a, cPoint b, fColor *frontColor, fColor *back
 	pxPoint pxCross2 = crossPoint2.ToPxPoint(props.size);
 
 	SetColors(frontColor, backColor);
-	pxDrawLine(pxPoint1, pxPoint2);
-	pxDrawLine(pxCross1, pxCross2);
+	pxDrawLine(pxPoint1 + *a.px, pxPoint2 + *b.px);
+	pxDrawLine(pxCross1 + *a.px, pxCross2 + *b.px);/*
 	pxDrawLine(pxCross1, pxPoint2);
-	pxDrawLine(pxCross2, pxPoint2);
+	pxDrawLine(pxCross2, pxPoint2);*/
 	ResetColors();
 }
 void Window_Base::DrawRect(cPoint a, cPoint b, fColor *frontColor, fColor *backColor)

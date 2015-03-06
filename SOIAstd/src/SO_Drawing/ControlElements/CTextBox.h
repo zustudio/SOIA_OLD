@@ -20,7 +20,7 @@ namespace SO
 			//////////////////////////////////////////////////////////
 			// functions
 			//---- init ----
-			CTextBox(Window_Base* newWindow = nullptr, const fPoint &newLoc = fPoint(), const fPoint &newSize = fPoint());
+			CTextBox(Window_Base* newWindow = nullptr, const cPoint &newLoc = cPoint(), const cPoint &newSize = cPoint());
 			//---- draw ----
 			virtual void Draw() override;
 			//---- text ----

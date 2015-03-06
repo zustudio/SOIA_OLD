@@ -18,7 +18,7 @@ using namespace std;
 
 ////////////////////////////////////////////////////////////////////
 // init
-Window_Ubu::Window_Ubu() : Window_Base()
+Window_Ubu::Window_Ubu(const std::string &NewTitle, const pxPoint &size) : Window_Base(NewTitle, size)
 {
 
 }
@@ -39,7 +39,7 @@ void Window_Ubu::Start ()
 								 InputOutput, visual, CWBackPixel,
 								 &frame_attributes);
 
-	XStoreName(display, frame_window, "Hello World Example");
+	XStoreName(display, frame_window, props.title->c_str());
 	XSelectInput(display, frame_window, ExposureMask | StructureNotifyMask);
 
 	XMapWindow(display, frame_window);
@@ -106,7 +106,7 @@ void Window_Ubu::SetVars()
 void Window_Ubu::pxDrawText(pxPoint Loc, const string &text)
 {
 	XLib_PrepDrawing(props.frontColor);
-	XDrawString(display, frame_window, graphical_context,	Loc.X, Loc.Y, text.c_str(), strlen(text.c_str()));
+	XDrawString(display, frame_window, graphical_context,	Loc.X + 1, Loc.Y + 13, text.c_str(), strlen(text.c_str()));
 }
 void Window_Ubu::pxDrawLine(pxPoint a, pxPoint b)
 {

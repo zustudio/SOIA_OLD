@@ -30,7 +30,7 @@ namespace SO
 			/////////////////////////////////////////////////////////////////////////////////////
 			// functions
 			//---- init ----
-			CCanvas(Window_Base* newWindow = nullptr, const fPoint &newLoc = fPoint(), const fPoint &newSize = fPoint());
+			CCanvas(Window_Base* newWindow = nullptr, const cPoint &newLoc = cPoint(), const cPoint &newSize = cPoint());
 			//---- loop ----
 			virtual void Draw() override;
 			void DrawObjects();

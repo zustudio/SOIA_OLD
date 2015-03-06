@@ -18,7 +18,7 @@ using namespace SO::Drawing;
 
 ///////////////////////////////////////////////////////////
 // init
-CCanvas::CCanvas(Window_Base *newWindow, const fPoint &newLoc, const fPoint &newSize) : Control(newWindow, newLoc, newSize)
+CCanvas::CCanvas(Window_Base *newWindow, const cPoint &newLoc, const cPoint &newSize) : Control(newWindow, newLoc, newSize)
 {
 	Objects = new std::deque<fCanvasObject*>();
 }
@@ -86,6 +86,9 @@ cPoint CCanvas::getAbsCP(const fPoint &a, bool bDelta)
 {
 	cPoint back;
 	back = cPoint((*Size) * a);
+	back.px->X = (*Size->px).X * a.X;
+	back.px->Y = (*Size->px).Y * a.Y;
+
 	if (!bDelta)
 	{
 		back += *Location;

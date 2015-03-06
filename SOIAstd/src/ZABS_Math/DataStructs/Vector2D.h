@@ -3,6 +3,7 @@
 #pragma once
 
 #include <cmath>
+#include "VectorND.h"
 
 namespace ZABS
 {
@@ -21,6 +22,11 @@ namespace ZABS
 			{
 				X = newX;
 				Y = newY;
+			}
+			Vector2D(VectorND<T> base)
+			{
+				X = base[0];
+				Y = base[1];
 			}
 			~Vector2D()
 			{
@@ -79,7 +85,7 @@ namespace ZABS
 			{
 				Vector2D<T> temp = *this;
 				double length = Length();
-				double previousAngleToX = std::asin((temp*(1 / length)).Y);
+				double previousAngleToX = std::asin((temp.Normalized()).Y);
 				previousAngleToX = X >= 0 ? previousAngleToX : 3.14159 - previousAngleToX;
 				return Vector2D<T>(std::cos(previousAngleToX + angle), std::sin(previousAngleToX + angle)) * length;
 			}

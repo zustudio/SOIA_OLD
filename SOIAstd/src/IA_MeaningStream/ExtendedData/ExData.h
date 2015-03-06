@@ -1,21 +1,24 @@
 
 #pragma once
+
 #include "stdafx.h"
 
-#include "Data.h"
-#include "Data_StatedState.h"
+#include "VectorND.h"
+//#include "fPoint.h"
+//#include "IData.h"
+//	#include "MTypes.h"
 
 
 namespace IA
 {
 	namespace MeaningStream
 	{
-		class ExData : public cIA_Data
+		class ExData
 		{
 		public:
 			///////////////////////////////////////////////////
 			// vars
-			cIA_Data* CurrentSource;
+			IData* CurrentSource;
 			std::deque<ExData*>* CurrentAllObjects;
 
 			int HierarchicDistance;
@@ -24,10 +27,23 @@ namespace IA
 			fPoint Location;
 			fPoint Extend;
 
+			struct SInterpretedProps
+			{
+				VectorND<float> IntExtend = VectorND<float>(0);
+				VectorND<float> IntLocation = VectorND<float>(0);
+				VectorND<float> FloatExtend = VectorND<float>(0);
+				VectorND<float> FloatLocation = VectorND<float>(0);
+			};
+			SInterpretedProps InterpProps;
+
 			///////////////////////////////////////////////////
 			// functions
-			ExData(cIA_Data* NewSource, std::deque<ExData*> *AllObjects);
-			std::deque<ExData*>* getConnected(Data_StatedState::LinkType ConnectionType);
+			//---- init ----
+			ExData(IData* NewSource, std::deque<ExData*> *AllObjects);
+			//---- properites ----
+			std::string* getText();
+			//---- network mirroring ----
+			std::deque<ExData*>* getConnected(LinkType ConnectionType = LinkType::T_NormLink | LinkType::Downlink | LinkType::Uplink);
 		};
 	}
 }
