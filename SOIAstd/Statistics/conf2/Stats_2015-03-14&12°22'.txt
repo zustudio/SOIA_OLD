@@ -1,0 +1,19 @@
+----    Statistics report for SOIA    ----
+
+General information
+ - date:        2015-03-14&12:21:53
+ - used engine: Engine Stated State (1)
+ - used data:   MDebug<-MText<-MSimDec<-MTypes<-MNET_Base<-
+
+Action Statistics
+ - 0: 35
+ - 1: 32
+ - 2: 33
+ - 3: 0
+
+Result Statistics
+ - All:      100
+ - Positive: 93
+ - Zero: 7
+ - Ratio:    13.285714
+

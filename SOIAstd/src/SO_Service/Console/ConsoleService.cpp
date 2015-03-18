@@ -49,7 +49,11 @@ ConsoleService::ConsoleService() : IIComIO(new ComService())
 	// initialize system via Com
 	cSend("DebugSrvc", "setdebuglevel", "Draw2D", "0");
 	cSend("DebugSrvc", "setdebuglevel", "MeaningSrvc", "5");
+	cSend("DebugSrvc", "setdebuglevel", "MDebug", "2");
+	cSend("DebugSrvc", "setdebuglevel", "SOIA", "2");
 	cSend("Console", "create", "AI");
+	cSend("SOIA", "add", "100");
+	cSend("Console", "create", "debugvisual");
 
 }
 

@@ -30,7 +30,7 @@ using namespace ZABS::Math;
 #define SIM_Demult			1
 //---- functions ----
 #define SIM_MapFunctionType	ReversedExponentialFunction
-#define SIM_MapFunctionArgs	{100, 1, 0.001F}	//{SIM_Val_Max, SIM_Slope}
+#define SIM_MapFunctionArgs	{100, 1, 0.0001F}	//{SIM_Val_Max, SIM_Slope}
 #define mapfunction(x)		SIM_MapFunctionType::get_f((x), SIM_MapFunctionArgs)
 #define rev_mapfunction(f)	SIM_MapFunctionType::get_reverse_x((f), SIM_MapFunctionArgs)
 

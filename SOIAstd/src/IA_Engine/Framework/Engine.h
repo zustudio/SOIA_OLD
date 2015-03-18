@@ -50,6 +50,7 @@ namespace IA
 		// variables
 		//---- access to properties ----
 	public:
+		virtual std::string getEngineName() = 0;
 		virtual IData* getDataStart() = 0;
 		virtual SO::Debug::Statistics& getResultStatistics() = 0;
 		virtual SO::Debug::Statistics& getActionStatistics() = 0;

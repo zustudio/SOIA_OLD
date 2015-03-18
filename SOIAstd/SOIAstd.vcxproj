@@ -57,6 +57,7 @@
     <Text Include="Makefile" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Definitions\CPPExtensions.h" />
     <ClInclude Include="src\Definitions\Definitions.h" />
     <ClInclude Include="src\Definitions\stdafx.h" />
     <ClInclude Include="src\IA_Engine\Applied\IA_SSt.h" />
@@ -107,6 +108,7 @@
     <ClInclude Include="src\SO_Service\InternCommunication\IIComIO.h" />
     <ClInclude Include="src\SO_Service\InternCommunication\IIComOut.h" />
     <ClInclude Include="src\SO_Service\MeaningStream\MeaningService.h" />
+    <ClInclude Include="src\SO_SysInterface\Base\File.h" />
     <ClInclude Include="src\SO_SysInterface\Base\Thread.h" />
     <ClInclude Include="src\SO_SysInterface\Base\Window.h" />
     <ClInclude Include="src\SO_SysInterface\Base\Window_Base.h" />
@@ -157,6 +159,7 @@
     <ClCompile Include="src\SO_Service\InternCommunication\IIComIO.cpp" />
     <ClCompile Include="src\SO_Service\InternCommunication\IIComOut.cpp" />
     <ClCompile Include="src\SO_Service\MeaningStream\MeaningService.cpp" />
+    <ClCompile Include="src\SO_SysInterface\Base\File.cpp" />
     <ClCompile Include="src\SO_SysInterface\Base\Thread.cpp" />
     <ClCompile Include="src\SO_SysInterface\Base\Window.cpp" />
     <ClCompile Include="src\SO_SysInterface\Base\Window_Base.cpp" />

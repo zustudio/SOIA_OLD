@@ -158,6 +158,10 @@ void Engine_SSt::ReIntegrate(Data_SSt* X)
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // variables
+std::string Engine_SSt::getEngineName()
+{
+	return "Engine Stated State";
+}
 IData* Engine_SSt::getDataStart()
 {
 	return Knowledge;
