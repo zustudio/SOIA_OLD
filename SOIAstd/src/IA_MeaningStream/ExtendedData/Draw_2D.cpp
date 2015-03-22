@@ -1,9 +1,15 @@
 
+#include "stdafx.h"
+
 #include "Draw_2D.h"
+
+#include "SDL.h"
 
 using namespace IA::MeaningStream;
 using namespace SO::Debug;
 using namespace SO::Com;
+
+SDL_Modules_Init
 
 Draw_2D::Draw_2D(ComService* NewUp) : IIDebuggable(NewUp)
 {
@@ -95,10 +101,6 @@ void Draw_2D::Draw(CCanvas* Canvas, std::deque<ExGroup*>* Groups)
 		}
 	}
 
-	//TEST
-	//return;
-	//ENDTEST
-
 	//---- drawing the data ----
 	Canvas->Clear();
 
@@ -109,21 +111,39 @@ void Draw_2D::Draw(CCanvas* Canvas, std::deque<ExGroup*>* Groups)
 			fPoint center = Vector2D<float>(data->InterpProps.FloatLocation);
 			fPoint extend = Vector2D<float>(data->InterpProps.FloatExtend);
 			fPoint Loc = fPoint(center.X - 0.5* extend.X, center.Y - 0.5*extend.Y);
-			Canvas->DrawRect(Loc, extend);
+			//Canvas->DrawRect(Loc, extend);
 
-			std::string *text = data->getText();
+			Canvas->DrawObject(data);
+
+			/*std::string *text = data->getText();
 			std::string* temp = new std::string(*text + " {" + std::to_string((int)data->CurrentSource->get()) + "}");
-			Canvas->CDrawText(Loc, temp);
+			Canvas->CDrawText(Loc, temp);*/
 
 
 			// draw arrows
-			std::deque<ExData*>* Connected = data->getConnected(LinkType::T_NormLink | LinkType::Downlink);
+			std::deque<ExData*>* Connected = data->getConnected(LinkType::T_NormLink | LinkType::T_LightLink | LinkType::Downlink);
 			for (int p_Next = 0; p_Next < Connected->size(); p_Next++)
 			{
 				ExData* child = (*Connected)[p_Next];
 
+				// draw only, if child is at valid position
 				if (child->InterpProps.FloatExtend[0] != 0 || child->InterpProps.FloatExtend[1] != 0)
-					Canvas->DrawArrow(fPoint(center.X/* + current->Extend.X * 0.5*/, center.Y + extend.Y * 0.5), fPoint(child->InterpProps.FloatLocation[0]/* + child->Extend.X * 0.5*/, child->InterpProps.FloatLocation[1] - child->InterpProps.FloatExtend[1] * 0.5), fColor(0.7, 0.7, 0.7));
+				{
+					fPoint pt_arrowStart = fPoint(center.X, center.Y + extend.Y * 0.5);
+					fPoint pt_arrowEnd = fPoint(child->InterpProps.FloatLocation[0], child->InterpProps.FloatLocation[1] - child->InterpProps.FloatExtend[1] * 0.5);
+					fPoint pt_arrowDelta = pt_arrowEnd - pt_arrowStart;
+					Canvas->DrawArrow(pt_arrowStart, pt_arrowEnd, fColor(0.7, 0.7, 0.7));
+
+					fPoint pt_valueLocation = pt_arrowStart + pt_arrowDelta * 0.5F;
+					std::string* p_string_arrowValue = new std::string("");
+					if (checkM(MSimDec) && checkM(MNET_Base))
+					{
+						cIA_Data* p_castData = (cIA_Data*)(data->CurrentSource);
+						auto p_link = p_castData->MNET_Base<IData>::getConnected(p_Next);
+						p_string_arrowValue = new std::string(std::to_string(p_link->get()));
+					}
+					Canvas->CDrawText(pt_valueLocation, p_string_arrowValue, fColor(0.9, 0.1, 0));
+				}
 			}
 		}
 	}

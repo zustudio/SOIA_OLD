@@ -11,7 +11,7 @@ SDL_Modules_Init
 
 ////////////////////////////////////////////////////////////////
 // init
-ExData::ExData(IData* NewSource, std::deque<ExData*>* AllObjects)
+ExData::ExData(IData* NewSource, std::deque<ExData*>* AllObjects) : fCanvasObject(CanvasObjT::Custom, fPoint(0,0), fPoint(0.1, 0.1), fColor(0, 1, 0))
 {
 	CurrentSource = NewSource;
 	CurrentAllObjects = AllObjects;
@@ -19,6 +19,8 @@ ExData::ExData(IData* NewSource, std::deque<ExData*>* AllObjects)
 	HierarchicDistance = -1;
 	Children = std::deque<ExData*>();
 	Location = fPoint();
+
+	bHighlighted = false;
 }
 
 ///////////////////////////////////////////////////////////////
@@ -67,4 +69,35 @@ std::deque<ExData*>* ExData::getConnected(LinkType ConnectionType)
 		}
 	}
 	return exDataList;
+}
+
+////////////////////////////////////////////////////////////////////////////7
+// custom parts interface
+std::vector<fCanvasObject*>* ExData::GetCustomParts()
+{
+	while (CustomParts.size() > 0)
+	{
+		fCanvasObject* temp = CustomParts[CustomParts.size() - 1];
+		CustomParts.pop_back();
+		delete temp;
+	}
+
+	fPoint center = Vector2D<float>(InterpProps.FloatLocation);
+	fPoint extend = Vector2D<float>(InterpProps.FloatExtend);
+	fPoint Loc = fPoint(center.X - 0.5* extend.X, center.Y - 0.5*extend.Y);
+	//fColor color = bHighlighted ? fColor(1, 0.2, 0.2) : fColor(0, 1, 0);
+	if (bHighlighted)
+		CustomParts.push_back(new fCanvasObject(CanvasObjT::FilledRectangle, Loc, extend, fColor(0.7, 0.75, 1.0)));
+	else
+		CustomParts.push_back(new fCanvasObject(CanvasObjT::Rectangle, Loc, extend, fColor(0,0,0)));
+
+	std::string *text = getText();
+	std::string* temp = new std::string(*text + " {" + std::to_string(CurrentSource->get()) + "}");
+	CustomParts.push_back(new fCanvasObject(CanvasObjT::Text, Loc, Loc, fColor(0.1, 0.1, 0.5), temp));
+
+	return &CustomParts;
+}
+void ExData::Highlight(bool bEnable)
+{
+	bHighlighted = bEnable;
 }

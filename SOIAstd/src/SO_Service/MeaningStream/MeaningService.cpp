@@ -397,6 +397,8 @@ void MeaningService::ResetHierarchicDistances()
 	for (ExData* data : RegisteredData)
 	{
 		data->HierarchicDistance = -1;
+		data->Parent = nullptr;
+		data->Children.clear();
 	}
 }
 
