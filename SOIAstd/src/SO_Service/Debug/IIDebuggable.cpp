@@ -1,6 +1,8 @@
 
 //super class
-#include <intrin.h>
+#ifdef def_CCCL
+	#include <intrin.h>
+#endif
 #include <csignal>
 #include <iostream>
 #include <string>

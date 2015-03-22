@@ -3,15 +3,15 @@
 
 #include "IIDebuggable.h"
 
+namespace IA
+{
+	class DATA;
+}
+
 ////////////////////////////////////////////////////////////////////////
 // Definitions
 /*Macro for faster logging. Preferebly logs via MDebug module and IIDebuggable interface, else via std::cout.*/
-#define DataLog(Message)	do { \
-								if (checkM(MDebug)) \
-									static_cast<DATA*>(this)->ii_Log(SO::Debug::EDebugLevel::Info_SubFunction, Message); \
-								else \
-									std::cout << Message << std::endl; \
-							} while(0)
+
 
 ////////////////////////////////////////////////////////////////////////
 // Main class
@@ -55,6 +55,11 @@ namespace IA
 
 			//execute real command
 			Super::connect(NewSub);
+		}
+
+		virtual void DataLog(const std::string &Message)
+		{
+			// do nothing
 		}
 
 		//////////////////////////////////////////////////

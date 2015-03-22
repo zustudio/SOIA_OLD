@@ -17,22 +17,22 @@ using namespace SO;
 
 int main()
 {
-	std::cout << "############################################\n";
+	std::cout << "#############################c###############\n";
 	std::cout << "################## SOIAstd #################\n";
 	std::cout << "# Artificial Intelligence Operating System #\n";
 	std::cout << "############################################\n";
 
 	////////////////////////////////////
 	// TESTING
-	File f = File("TEST.txt", FileOptions::TypeTags);
-	std::string content1 = "This should be my text!!\nAnd this as well ;)\n";
-	int content2 = 1475963;
-	std::string content3 = " <- this is a great number?\n";
-
-	f.Content.push_back(SO::Base::VoidPointer(content1));
-	f.Content.push_back(SO::Base::VoidPointer(content2));
-	f.Content.push_back(SO::Base::VoidPointer(content3));
-	f.Write();
+//	File f = File("TEST.txt", FileOptions::TypeTags);
+//	std::string content1 = "This should be my text!!\nAnd this as well ;)\n";
+//	int content2 = 1475963;
+//	std::string content3 = " <- this is a great number?\n";
+//
+//	f.Content.push_back(SO::Base::VoidPointer(content1));
+//	f.Content.push_back(SO::Base::VoidPointer(content2));
+//	f.Content.push_back(SO::Base::VoidPointer(content3));
+//	f.Write();
 	// ENDTESTING
 	///////////////////////////////////
 

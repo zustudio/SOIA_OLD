@@ -1,3 +1,4 @@
+#include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -20,13 +21,14 @@ using namespace std;
 // init
 Window_Ubu::Window_Ubu(const std::string &NewTitle, const pxPoint &size) : Window_Base(NewTitle, size)
 {
-
+	display = nullptr;
+	XInitThreads();
 }
 Window_Ubu::~Window_Ubu()
 {
 
 }
-void Window_Ubu::Start ()
+int Window_Ubu::Init ()
 {
 	display = XOpenDisplay(NULL);
 	visual = DefaultVisual(display, 0);
@@ -49,9 +51,9 @@ void Window_Ubu::Start ()
 	wm_delete_window = XInternAtom(display, "WM_DELETE_WINDOW", False);
 	XSetWMProtocols(display, frame_window, &wm_delete_window, 1);
 
+	return -1;
+
 	//start and end of loop
-	MThread.AddLoops(-1);
-	Thread::Start();
 	XCloseDisplay(display);
 }
 
@@ -71,9 +73,11 @@ void Window_Ubu::DispatchMessage()
 {
 	XEvent event;
 	XNextEvent(display, &event);
+	std::cout << "[Window_Ubu]: found event: " << event.type << std::endl;
 		switch ( event.type )
 		{
 			case Expose:
+			case GraphicsExpose:
 				props.bDirty = true;
 				break;
 			case ClientMessage:
@@ -103,18 +107,37 @@ void Window_Ubu::SetVars()
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // drawing
 //---- subroutines ----
+void Window_Ubu::Refresh()
+{
+	if (display)
+	{
+		XExposeEvent event = XExposeEvent();
+		event.display = display;
+		event.type = Expose;
+		event.window = frame_window;
+		std::cout << "[Window_Ubu]: pre event sending" << std::endl;
+		bool r = XSendEvent(display, frame_window, true, ExposureMask, (XEvent*)(&event));
+		std::cout << "[Window_Ubu]: event send? " << r << std::endl;
+	}
+}
 void Window_Ubu::pxDrawText(pxPoint Loc, const string &text)
 {
+	if (!display)
+		return;
 	XLib_PrepDrawing(props.frontColor);
 	XDrawString(display, frame_window, graphical_context,	Loc.X + 1, Loc.Y + 13, text.c_str(), strlen(text.c_str()));
 }
 void Window_Ubu::pxDrawLine(pxPoint a, pxPoint b)
 {
+	if (!display)
+		return;
 	XLib_PrepDrawing(props.frontColor);
 	XDrawLine(display, frame_window, graphical_context, a.X, a.Y, b.X, b.Y);
 }
 void Window_Ubu::pxDrawRect(pxPoint a, pxPoint b)
 {
+	if (!display)
+		return;
 	XLib_PrepDrawing(props.backColor);
 	XFillRectangle(display, frame_window, graphical_context, a.X, a.Y, b.X, b.Y);
 	XLib_PrepDrawing(props.frontColor);

@@ -10,12 +10,12 @@ File::File(const std::string &InName, const FileOptions &InOptions)
 {
 	Name = InName;
 	Options = InOptions;
-	OutStream.open(Name);
+	OutStream->open(Name);
 }
 
 File::~File()
 {
-	OutStream.close();
+	OutStream->close();
 }
 
 //////////////////////////////////////////////////
@@ -52,8 +52,8 @@ bool File::WriteObject(const VoidPointer &InObject)
 	}
 
 	if (Options & FileOptions::TypeTags)
-		OutStream << tag;
-	OutStream << out.c_str() << '\n';
+		*OutStream << tag;
+	*OutStream << out.c_str() << '\n';
 	
 
 	return result;

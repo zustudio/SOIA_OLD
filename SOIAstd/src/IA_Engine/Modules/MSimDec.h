@@ -13,6 +13,8 @@
 #include "ReversedExponentialFunction.h"
 #include "LinearFunction.h"
 
+SDL_Modules_Init
+
 using namespace ZABS::Math;
 
 //////////////////////////////////////////////////////////////////////////////////
