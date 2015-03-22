@@ -29,7 +29,7 @@ void CTextBox::Draw()
 	pxPoint d(0, 13);
 	for (int iT = 0; iT < Texts.size(); iT++)
 	{
-		myWindow->DrawText(*Location + cPoint(fPoint(), cur), *Texts[iT]);
+		myWindow->DrawText(cPoint(Location->getFX(), Location->getFY(), Location->px->X + cur.X, Location->px->Y + cur.Y), *Texts[iT]);
 		cur += d;
 	}
 }

@@ -51,7 +51,6 @@ namespace IA
 		virtual SO::Debug::Statistics& getActionStatistics() override;
 		virtual SO::Debug::Statistics& getResultStatistics() override;
 
-
 	private:
 		///////////////////////////////////////
 		// vars

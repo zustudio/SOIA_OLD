@@ -114,7 +114,13 @@ Handle<ICom>& Engine::cGetHandle()
 void Engine::ii_Break(const std::string &Message)
 {
 	if (GetBreakEnabled())
+	{
+		if (Message != "")
+		{
+			ii_Log(EDebugLevel::Warning, std::string("[BREAK] ") + Message);
+		}
 		cmd_break(Handle<ICom>(), {});
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////

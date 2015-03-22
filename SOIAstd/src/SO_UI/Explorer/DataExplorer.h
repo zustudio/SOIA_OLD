@@ -51,6 +51,7 @@ namespace SO
 			///////////////////////////////////////////////////////////
 			// controls
 			SO::Drawing::CTextBox* TopTextBox;
+			SO::Drawing::CTextBox* TextBox_SelectedDataInfo;
 			SO::Drawing::CCanvas* Canvas;
 			IDraw* Drawable;
 		};

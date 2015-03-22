@@ -244,11 +244,11 @@ namespace IA
 			Super::set(value);
 
 			//delete llinks again:
-			for (IData* temp : llinks)
+			/*for (IData* temp : llinks)
 			{
 				temp->Destroy();
 				delete temp;
-			}
+			}*/
 
 			return value;
 		}

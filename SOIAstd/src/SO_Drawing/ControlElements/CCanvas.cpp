@@ -111,7 +111,8 @@ void CCanvas::Clear()
 	{
 		first = Objects[0];
 		Objects.pop_front();
-		delete first;
+		if (first->Type != CanvasObjT::Custom)
+			delete first;
 	}
 }
 /////////////////////////////////////////////////////////////////////////////////
