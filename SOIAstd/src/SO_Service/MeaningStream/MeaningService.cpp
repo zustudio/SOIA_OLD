@@ -397,6 +397,8 @@ void MeaningService::ResetHierarchicDistances()
 	for (ExData* data : RegisteredData)
 	{
 		data->HierarchicDistance = -1;
+		data->Parent = nullptr;
+		data->Children.clear();
 	}
 }
 
@@ -446,6 +448,28 @@ void MeaningService::CreateAutoGroups()
 
 	}
 
-	Handle<ExDSet> hndl = Handle<ExDSet>(newSet, "standard");
-	DataSets.push_back(hndl);
+	// try to find dataset already in list, else create a new one
+	Handle<ExDSet>* hndlToWriteTo = new Handle<ExDSet>();
+	bool hndlAlreadyInList = false;
+
+	for (int i_hndl_set = 0; i_hndl_set < DataSets.size(); i_hndl_set++)
+	{
+		Handle<ExDSet> temp_hndl_set = DataSets[i_hndl_set];
+
+		if (temp_hndl_set.getName() == "standard")
+		{
+			hndlToWriteTo = &DataSets[i_hndl_set];
+			hndlAlreadyInList = true;
+			break;
+		}
+	}
+
+	(*hndlToWriteTo) = Handle<ExDSet>(newSet, "standard");
+
+	if (!hndlAlreadyInList)
+	{
+		DataSets.push_back(*hndlToWriteTo);
+		delete hndlToWriteTo;
+	}
+
 }

@@ -38,6 +38,7 @@ namespace SO
 			virtual ~Control();
 			//---- visual ----
 			void SetTrans(const fPoint &NewLoc, const fPoint &NewSize);
+			void SetTrans(const cPoint &NewLoc, const cPoint &NewSize);
 			//---- drawing ----
 			virtual void Draw();
 		};

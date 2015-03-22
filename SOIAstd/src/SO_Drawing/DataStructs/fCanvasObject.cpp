@@ -13,7 +13,30 @@ fCanvasObject::fCanvasObject(CanvasObjT NewType, const fPoint &NewP1, const fPoi
 	P2 = new fPoint(NewP2);
 	Color = new fColor(NewColor);
 	Content = NewContent;
+	CustomParts = std::vector<fCanvasObject*>();
 }
 fCanvasObject::~fCanvasObject()
 {
+}
+
+//////////////////////////////////////////////////
+// custom parts pseudo-interface
+std::vector<fCanvasObject*>* fCanvasObject::GetCustomParts()
+{
+	return &CustomParts;
+}
+void fCanvasObject::Highlight(bool bEnable)
+{
+	static fColor* backup;
+
+	if (bEnable)
+	{
+		backup = Color;
+		Color = new fColor(1, 0.2, 0.2);
+	}
+	else
+	{
+		delete Color;
+		Color = backup;
+	}
 }

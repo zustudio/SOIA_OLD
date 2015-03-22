@@ -118,10 +118,10 @@ void Engine_SSt::Tick()
 
 	i++;
 
-	/*std::vector<VoidPointer> Args;
+	std::vector<VoidPointer> Args;
 	Engine* cast_Engine = static_cast<Engine*>(this);
 	Args.push_back(*cast_Engine);
-	cSend(Handle<ICom>(nullptr, "MeaningSrvc"), Com_Cmd<MeaningService>(&MeaningService::cmd_convertdata), Args);*/
+	cSend(Handle<ICom>(nullptr, "MeaningSrvc"), Com_Cmd<MeaningService>(&MeaningService::cmd_convertdata), Args);
 }
 
 void Engine_SSt::ReIntegrate(Data_SSt* X)
@@ -148,6 +148,9 @@ void Engine_SSt::ReIntegrate(Data_SSt* X)
 		ii_Log(EDebugLevel::Info_Loop, "linking " + std::to_string((int)(*X)) + " \tto "  + std::to_string((int)(*similarityCandidates[iSimCand])) + " \t=> " + std::to_string(llresult));
 	}
 
+	ii_SetBreakPointsEnabled(true);
+	ii_Break("linked all - before collapse");
+
 	X->set(SIM_Val_X);
 	X->CollapseOpenLLinks();
 	int newVal = (int)(*X);
@@ -158,6 +161,10 @@ void Engine_SSt::ReIntegrate(Data_SSt* X)
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // variables
+std::string Engine_SSt::getEngineName()
+{
+	return "Engine Stated State";
+}
 IData* Engine_SSt::getDataStart()
 {
 	return Knowledge;

@@ -303,6 +303,12 @@
     <ClInclude Include="src\ZABS_Math\DataStructs\Matrix2D.h">
       <Filter>ZABS_Math\DataStructs</Filter>
     </ClInclude>
+    <ClInclude Include="src\SO_SysInterface\Base\File.h">
+      <Filter>SO_SysInterface\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Definitions\CPPExtensions.h">
+      <Filter>Definitions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\IA_Engine\Framework\Engine.cpp">
@@ -442,6 +448,9 @@
     </ClCompile>
     <ClCompile Include="src\ZABS_Math\Functions\ReversedExponentialFunction.cpp">
       <Filter>ZABS_Math\Functions</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SO_SysInterface\Base\File.cpp">
+      <Filter>SO_SysInterface\Base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

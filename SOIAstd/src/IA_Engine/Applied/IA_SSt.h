@@ -22,11 +22,14 @@ namespace IA
 	public:
 		Data_SSt(int NewContent = 0, const std::string &NewText = "", DataType NewDataType = DataType::Content, SO::Com::ComService* NewUp = nullptr) : MSimDec(NewDataType, NewUp, NewText, NewContent)
 		{
-			registerM(MDebug);
-			registerM(MText);
-			registerM(MSimDec);
-			registerM(MTypes);
-			registerM(MNET_Base);
+			if (!checkM(MDebug))
+			{
+				registerM(MDebug);
+				registerM(MText);
+				registerM(MSimDec);
+				registerM(MTypes);
+				registerM(MNET_Base);
+			}
 		}
 		virtual ~Data_SSt() {}
 	};
@@ -43,10 +46,10 @@ namespace IA
 		virtual void Tick() override;
 		virtual void ReIntegrate(Data_SSt* X);
 		//----  vars   ----
+		virtual std::string getEngineName() override;
 		virtual IData* getDataStart() override;
 		virtual SO::Debug::Statistics& getActionStatistics() override;
 		virtual SO::Debug::Statistics& getResultStatistics() override;
-
 
 	private:
 		///////////////////////////////////////

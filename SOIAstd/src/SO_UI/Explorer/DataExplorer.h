@@ -35,6 +35,8 @@ namespace SO
 			//---- commands ----
 			T_com_cmd_func cmd_redraw;
 			T_com_cmd_func cmd_setset;
+			T_com_cmd_func cmd_select;
+			T_com_cmd_func cmd_deselect;
 
 		private:
 			///////////////////////////////////////////////////////////
@@ -44,10 +46,12 @@ namespace SO
 			SO::MeaningStream::MeaningService* MeaningSrvc;
 			//---- drawn set handle ----
 			std::string DrawnSet;
+			ExData* SelectedData;
 
 			///////////////////////////////////////////////////////////
 			// controls
 			SO::Drawing::CTextBox* TopTextBox;
+			SO::Drawing::CTextBox* TextBox_SelectedDataInfo;
 			SO::Drawing::CCanvas* Canvas;
 			IDraw* Drawable;
 		};

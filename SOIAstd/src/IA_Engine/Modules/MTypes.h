@@ -1,11 +1,11 @@
 #pragma once
 
 #include "Definitions.h"
+#include "CPPExtensions.h"
 
 #include "IData.h"
 
-#define exEnum(enumname, operations) class enumname {private: int i; public: enumname(int newI = 0) { i = newI; } operator int() { return i; } operations }
-#define enumElement(name, var) static const int name = var
+
 
 namespace IA
 {

@@ -35,6 +35,13 @@ void Control::SetTrans(const fPoint &NewLoc, const fPoint &NewSize)
 	Location = new cPoint(NewLoc, pxPoint(1, 1));
 	Size = new cPoint(NewSize, pxPoint(-2, -2));
 }
+void Control::SetTrans(const cPoint &NewLoc, const cPoint &NewSize)
+{
+	delete Location;
+	delete Size;
+	Location = new cPoint(NewLoc.X, NewLoc.Y, NewLoc.px->X + 1, NewLoc.px->Y + 1);
+	Size = new cPoint(NewSize.X, NewSize.Y, NewSize.px->X - 2, NewSize.px->Y - 2);
+}
 /////////////////////////////////////////////////////////////////////
 // draw
 void Control::Draw()

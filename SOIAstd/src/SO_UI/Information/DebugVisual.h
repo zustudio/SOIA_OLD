@@ -29,10 +29,14 @@ namespace SO
 			virtual void cGetCommands(std::vector<Handle<ICmd> > &Commands) override;
 			virtual Handle<ICom> &cGetHandle() override;
 			T_com_cmd_func cmd_redraw;
+			T_com_cmd_func cmd_safe;
+			//---- helpers ----
+			const std::string GetTimeAndDate();
 
 		private:
 			///////////////////////////////////////////////////////////
 			// controls
+			SO::Drawing::CTextBox* TextGeneralInfo;
 			SO::Drawing::CTextBox* TextActionStats;
 			SO::Drawing::CTextBox* TextResultStats;
 			Drawing::CGraph* Graph_Results;

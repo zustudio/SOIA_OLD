@@ -6,6 +6,12 @@
 #include "SDL_GlobalVars.h"
 
 
+////////////////////////////////////
+// TESTING
+#include "File.h"
+// ENDTESTING
+///////////////////////////////////
+
 using namespace SO;
 
 
@@ -16,12 +22,19 @@ int main()
 	std::cout << "# Artificial Intelligence Operating System #\n";
 	std::cout << "############################################\n";
 
-	//SO::Com::ComService* ComCenter = new SO::Com::ComService();
+	////////////////////////////////////
+	// TESTING
+	File f = File("TEST.txt", FileOptions::TypeTags);
+	std::string content1 = "This should be my text!!\nAnd this as well ;)\n";
+	int content2 = 1475963;
+	std::string content3 = " <- this is a great number?\n";
 
-	//IA::Game_StatedState* currentGame = new IA::Game_StatedState();
-	//IA::Engine_SSt* currentEngine = new IA::Engine_SSt(currentGame, ComCenter);
-
-	//std::thread t1 = std::thread(&IA::Engine::Start, &*currentEngine);
+	f.Content.push_back(SO::Base::VoidPointer(content1));
+	f.Content.push_back(SO::Base::VoidPointer(content2));
+	f.Content.push_back(SO::Base::VoidPointer(content3));
+	f.Write();
+	// ENDTESTING
+	///////////////////////////////////
 
 	SOIA::ConsoleService* console = new SOIA::ConsoleService();
 	console->Start();
