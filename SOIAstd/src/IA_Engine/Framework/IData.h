@@ -19,7 +19,7 @@ namespace IA
 		virtual int getConnectedNum() = 0;
 		//---- tests (of children) ----
 		template<typename... Args>
-		bool isChild(IData* TestSub, Args&&... args) {}
+		bool isChild(IData* TestSub, Args&&... args) { return false; }
 
 		/////////////////////////////////////////
 		// operators

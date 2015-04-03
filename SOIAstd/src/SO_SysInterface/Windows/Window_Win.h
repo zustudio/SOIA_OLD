@@ -33,6 +33,7 @@ namespace SO
 		virtual void Tick() override;
 			virtual void SetVars() override;
 		//---- drawing ----
+		virtual void Refresh() override;
 		virtual void pxDrawText(pxPoint Loc, const std::string &text) override;
 		virtual void pxDrawLine(pxPoint a, pxPoint b) override;
 		virtual void pxDrawRect(pxPoint a, pxPoint b) override;

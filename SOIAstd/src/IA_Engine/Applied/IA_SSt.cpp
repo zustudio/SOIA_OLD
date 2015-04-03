@@ -118,6 +118,8 @@ void Engine_SSt::Tick()
 
 	i++;
 
+	action->ReevaluateLinks();
+
 	std::vector<VoidPointer> Args;
 	Engine* cast_Engine = static_cast<Engine*>(this);
 	Args.push_back(*cast_Engine);

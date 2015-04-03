@@ -60,14 +60,17 @@ std::deque<ExData*>* ExData::getConnected(LinkType ConnectionType)
 			data = CurrentSource->getConnected(iD);
 
 		dataList->push_back(data);
-	}
-	for (int iExD = 0; iExD < CurrentAllObjects->size(); iExD++)
-	{
-		if (std::find(dataList->begin(), dataList->end(), (*CurrentAllObjects)[iExD]->CurrentSource) != dataList->end())
+
+		// find corresponding ExtendedData
+		for (int iExD = 0; iExD < CurrentAllObjects->size(); iExD++)
 		{
-			exDataList->push_back((*CurrentAllObjects)[iExD]);
+			if ((*CurrentAllObjects)[iExD]->CurrentSource == data)
+			{
+				exDataList->push_back((*CurrentAllObjects)[iExD]);
+			}
 		}
 	}
+	
 	return exDataList;
 }
 
