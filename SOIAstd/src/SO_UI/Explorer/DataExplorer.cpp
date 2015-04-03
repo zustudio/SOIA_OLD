@@ -117,10 +117,11 @@ bool DataExplorer::cmd_redraw(const Handle<ICom> &Caller, const std::vector<Void
 		
 	}
 
-	// refresh window
-	TopTextBox->Draw();
-	Canvas->Draw();
-	TextBox_SelectedDataInfo->Draw();
+//	// refresh window
+//	TopTextBox->Draw();
+//	Canvas->Draw();
+//	TextBox_SelectedDataInfo->Draw();
+	Refresh();
 
 	return result;
 }

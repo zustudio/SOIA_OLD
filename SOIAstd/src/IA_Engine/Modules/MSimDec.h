@@ -13,10 +13,12 @@
 #include "ReversedExponentialFunction.h"
 #include "LinearFunction.h"
 
+SDL_Modules_Init
+
 using namespace ZABS::Math;
 
 //////////////////////////////////////////////////////////////////////////////////
-// Definitions
+// SIM Definitions
 //---- Values ----
 /*	the worst and best possible similarity between two structures*/
 #define SIM_Val_Max				cIA_LinkContent
@@ -33,6 +35,11 @@ using namespace ZABS::Math;
 #define SIM_MapFunctionArgs	{100, 1, 0.0001F}	//{SIM_Val_Max, SIM_Slope}
 #define mapfunction(x)		SIM_MapFunctionType::get_f((x), SIM_MapFunctionArgs)
 #define rev_mapfunction(f)	SIM_MapFunctionType::get_reverse_x((f), SIM_MapFunctionArgs)
+
+//////////////////////////////////////////////////////////////////////////////////
+// ABS Definitions
+//---- Values ----
+#define ABS_Val_ReevalThreshold (SIM_Val_Max/2)
 
 
 namespace IA
@@ -144,7 +151,7 @@ namespace IA
 					{
 						for (int y = 0; y < n_children; y++)
 						{
-							float lostValue = ColumnSums[x] + RowSums[x] - 3 * (*linkResults.get(x, y));
+							float lostValue = ColumnSums[x] + RowSums[y] - 3 * (*linkResults.get(x, y));
 
 							// III - Try to minimize value lost (thus maximizing the perfectness of match) via finding lowest lostValues
 							//         Sort value into already sorted values.
@@ -205,6 +212,28 @@ namespace IA
 		}
 
 		///////////////////////////////////////////////
+		// naive abstraction = simple pattern creation
+		void ReevaluateLinks()
+		{
+			std::vector<IData*> llinks;
+			std::vector<IData*> contents;
+			GetLinks(DataType::LightLink, llinks, contents);
+
+			for (int i_llink = 0; i_llink < llinks.size(); i_llink++)
+			{
+				if (llinks[i_llink]->get() > ABS_Val_ReevalThreshold)
+				{
+					DataLog("Reevaluate: " + std::to_string(contents[i_llink]->get()));
+					CreateNaiveAbstraction(contents[i_llink]);
+				}
+			}
+		}
+		void CreateNaiveAbstraction(IData* te)
+		{
+			
+		}
+
+		///////////////////////////////////////////////
 		// overrides
 		//------------------------ content  -----------------------
 		virtual int CollapseOpenLLinks()
@@ -213,6 +242,8 @@ namespace IA
 			std::vector<IData*> datas;
 			std::vector<IData*> llinks;
 			int n = Super::getConnectedNum();
+
+			//TODO: use refactored function getllinks
 			for (int i = 0; i < n; i++)
 			{
 				MSimDec<Super>* lnk = (MSimDec<Super>*) Super::getConnected(i);
@@ -226,6 +257,7 @@ namespace IA
 					datas.push_back(content);
 				}
 			}
+			//END of TODO
 
 			n = Values.size();
 			for (int i = 0; i < n; i++)
@@ -251,6 +283,23 @@ namespace IA
 			}*/
 
 			return value;
+		}
+
+		void GetLinks(DataType InDataType, std::vector<IData*> &OutLLinks, std::vector<IData*> &OutConnectedContents)
+		{
+			int n = Super::getConnectedNum();
+
+			for (int i = 0; i < n; i++)
+			{
+				MSimDec<Super>* lnk = (MSimDec<Super>*) Super::getConnected(i);
+				if (MTypes<Super>::isChild(lnk, InDataType, LinkType::NoLink))
+				{
+					OutLLinks.push_back(lnk);
+
+					IData* content = lnk->Super::getConnected(0) == this ? lnk->Super::getConnected(1) : lnk->Super::getConnected(0);
+					OutConnectedContents.push_back(content);
+				}
+			}
 		}
 
 		//------------------------ children -----------------------

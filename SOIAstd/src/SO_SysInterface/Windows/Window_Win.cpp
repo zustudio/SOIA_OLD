@@ -128,6 +128,10 @@ void SO::Window_Win::SetVars()
 
 ////////////////////////////////////////////////////////////////
 // drawing functions
+void SO::Window_Win::Refresh()
+{
+	Draw();
+}
 void SO::Window_Win::pxDrawText(pxPoint Loc, const std::string &text)
 {
 	HDC hdc;

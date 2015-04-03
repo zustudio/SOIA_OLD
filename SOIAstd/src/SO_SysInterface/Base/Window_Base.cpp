@@ -100,6 +100,7 @@ void Window_Base::DrawRect(cPoint a, cPoint b, fColor *frontColor, fColor *backC
 	ResetColors();
 }
 // functions to be implemented
+void Window_Base::Refresh() {}
 void Window_Base::pxDrawText(pxPoint Loc,const string& text){}
 void Window_Base::pxDrawLine(pxPoint a, pxPoint b) {}
 void Window_Base::pxDrawRect(pxPoint a, pxPoint b) {}

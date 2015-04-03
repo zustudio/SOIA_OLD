@@ -121,10 +121,17 @@ void Draw_2D::Draw(CCanvas* Canvas, std::deque<ExGroup*>* Groups)
 
 
 			// draw arrows
-			std::deque<ExData*>* Connected = data->getConnected(LinkType::T_NormLink | LinkType::T_LightLink | LinkType::Downlink);
+			std::deque<ExData*>* Connected = data->getConnected(LinkType::T_NormLink | LinkType::T_LightLink | LinkType::Downlink | LinkType::Uplink);
 			for (int p_Next = 0; p_Next < Connected->size(); p_Next++)
 			{
 				ExData* child = (*Connected)[p_Next];
+
+				if (checkM(MSimDec) && checkM(MNET_Base))
+				{
+					cIA_Data* p_castData = (cIA_Data*)(data->CurrentSource);
+					if (!p_castData->isChild(child->CurrentSource, DataType::Content, LinkType::T_LightLink | LinkType::T_NormLink | LinkType::Downlink))
+						continue;
+				}
 
 				// draw only, if child is at valid position
 				if (child->InterpProps.FloatExtend[0] != 0 || child->InterpProps.FloatExtend[1] != 0)

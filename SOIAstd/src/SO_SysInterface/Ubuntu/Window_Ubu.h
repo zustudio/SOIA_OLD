@@ -33,13 +33,14 @@ namespace SO
 		//---- init ----
 	    Window_Ubu(const std::string &NewTitle, const pxPoint &size);
 	    ~Window_Ubu();
-		virtual void Start() override;
+		virtual int Init() override;
 		//---- loop ----
 		virtual void Tick() override;
 			void DispatchMessage();
 			virtual void SetVars() override;
 		//---- utility functions ----
 	public:
+		virtual void Refresh() override;
 		virtual void pxDrawText(pxPoint Loc, const std::string &text) override;
 		virtual void pxDrawLine(pxPoint a, pxPoint b) override;
 		virtual void pxDrawRect(pxPoint a, pxPoint b) override;

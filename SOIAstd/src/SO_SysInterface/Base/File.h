@@ -34,7 +34,7 @@ namespace SO
 		/////////////////////////////////////////////////////////
 		// Variables
 		//---- streams ----
-		std::ofstream OutStream;
+		std::ofstream* OutStream;
 		//---- name ----
 		std::string Name;
 		//---- content ----

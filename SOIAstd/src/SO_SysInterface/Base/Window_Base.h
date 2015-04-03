@@ -43,6 +43,8 @@ namespace SO
 		//////////////////////////////////////////
 		// utility functions
 		//---- drawing ----
+		virtual void Refresh();
+
 		virtual void DrawText(cPoint Loc, const std::string &text, fColor *frontColor = nullptr, fColor *backColor = nullptr);
 		virtual void DrawLine(cPoint a, cPoint b, fColor *frontColor = nullptr, fColor *backColor = nullptr);
 		virtual void DrawArrow(cPoint a, cPoint b, fColor *frontColor = nullptr, fColor *backColor = nullptr);

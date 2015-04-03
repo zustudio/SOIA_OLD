@@ -32,6 +32,14 @@ namespace IA
 			}
 		}
 		virtual ~Data_SSt() {}
+
+		void DataLog(const std::string &Message)
+		{
+			if (checkM(MDebug))
+				static_cast<DATA*>(this)->ii_Log(SO::Debug::EDebugLevel::Info_SubFunction, Message);
+			else
+				std::cout << Message << std::endl;
+		}
 	};
 	
 	class Engine_SSt : public Engine
