@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Mathematics">
+      <UniqueIdentifier>{cef44a50-353d-4809-a5c4-83e7b9b06a42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Reflection">
+      <UniqueIdentifier>{a58abd7d-73b5-4afa-adbb-d73604d619b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Reflection\NameAttribute">
+      <UniqueIdentifier>{2515807c-65cd-43a4-b13b-5276a6fc0e64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Reflection\TypeAttribute">
+      <UniqueIdentifier>{0e24f388-09b9-4d38-85ad-e6fb8fef8762}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Reflection\NameAttribute\Public">
+      <UniqueIdentifier>{5fcf5130-f4de-4590-b510-13c0e5e823d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Reflection\TypeAttribute\Public">
+      <UniqueIdentifier>{6dbd56fb-6a5f-4f77-b147-9261d2943c16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Reflection\TypeAttribute\Private">
+      <UniqueIdentifier>{e9b0008d-3a00-4780-9e04-5953cec5cdc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Thread">
+      <UniqueIdentifier>{6cbd7f40-45cc-4515-a1ab-b64d1aa40dae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Thread\Public">
+      <UniqueIdentifier>{5e9e18d6-76a4-4b34-8d28-0b02e28bd9c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Thread\Private">
+      <UniqueIdentifier>{60ad3665-e0a1-449e-9abe-53f68b879667}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mathematics\Random">
+      <UniqueIdentifier>{a6badd28-a78a-4bda-82e2-2537ac340d82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mathematics\DataStructures">
+      <UniqueIdentifier>{6c1b24a3-2382-46c8-928f-b2b258942bfe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mathematics\Functions">
+      <UniqueIdentifier>{915ea8fa-30f0-4bd7-baf6-6715fe3cb81e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mathematics\DataStructures\Public">
+      <UniqueIdentifier>{fd0cb6a5-9135-4f24-a191-85db1d178e08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mathematics\Functions\Public">
+      <UniqueIdentifier>{6f98681c-f202-4ce8-b70e-5674d13c2452}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mathematics\Functions\Private">
+      <UniqueIdentifier>{8c5c52d2-6800-4ea7-af80-15fb707b0698}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mathematics\Random\Public">
+      <UniqueIdentifier>{eff5aa81-2af8-407a-b514-e7b6a8572fbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mathematics\Random\Private">
+      <UniqueIdentifier>{677e27e5-191a-4040-8493-a2929b937534}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="File">
+      <UniqueIdentifier>{6d9e4b24-5aca-41c7-b3d8-c7a51e9596f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="File\Public">
+      <UniqueIdentifier>{0a74b893-e3bc-4ea9-baa0-03ad03de0cad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="File\Private">
+      <UniqueIdentifier>{9e51e3e4-0c2f-4d6d-899a-b665e3d2c877}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Mathematics\DataStructures\Public\Matrix2D.h">
+      <Filter>Mathematics\DataStructures\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematics\DataStructures\Public\Vector2D.h">
+      <Filter>Mathematics\DataStructures\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematics\DataStructures\Public\VectorND.h">
+      <Filter>Mathematics\DataStructures\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematics\Functions\Public\ExponentialFunction.h">
+      <Filter>Mathematics\Functions\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematics\Functions\Public\IFunction.h">
+      <Filter>Mathematics\Functions\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematics\Functions\Public\LinearFunction.h">
+      <Filter>Mathematics\Functions\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematics\Functions\Public\ReversedExponentialFunction.h">
+      <Filter>Mathematics\Functions\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematics\Random\Public\Random.h">
+      <Filter>Mathematics\Random\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="File\Public\File.h">
+      <Filter>File\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\NameAttribute\Public\Handle.h">
+      <Filter>Reflection\NameAttribute\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\TypeAttribute\Public\VoidPointer.h">
+      <Filter>Reflection\TypeAttribute\Public</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Mathematics\Functions\Private\ExponentialFunction.cpp">
+      <Filter>Mathematics\Functions\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Mathematics\Functions\Private\LinearFunction.cpp">
+      <Filter>Mathematics\Functions\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Mathematics\Functions\Private\ReversedExponentialFunction.cpp">
+      <Filter>Mathematics\Functions\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Mathematics\Random\Private\Random.cpp">
+      <Filter>Mathematics\Random\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="File\Private\File.cpp">
+      <Filter>File\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Reflection\TypeAttribute\Private\VoidPointer.cpp">
+      <Filter>Reflection\TypeAttribute\Private</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

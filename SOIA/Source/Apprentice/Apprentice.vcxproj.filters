@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Text Include="readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{791332bb-2961-49f4-84da-5ccfab09956c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{8135a74d-1e80-4a34-94c5-17cf7e506a4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Applied">
+      <UniqueIdentifier>{834ac249-e3ed-41e3-b1d6-310b31054cc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Modules">
+      <UniqueIdentifier>{8abcd2ec-96c6-45bc-b63f-739d1bdb0dcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Framework">
+      <UniqueIdentifier>{dc658910-d8f7-46fe-847d-501398390282}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Applied\Public">
+      <UniqueIdentifier>{4838cb21-ecbe-49e2-9dd7-a3ce1043e8ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Applied\Private">
+      <UniqueIdentifier>{b94aa6e7-7975-4010-97d5-f4d55c2a67ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Framework\Private">
+      <UniqueIdentifier>{23876c88-a84c-4511-850d-d4cc3f587ff7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Modules\Classes">
+      <UniqueIdentifier>{08b2de07-8ec6-43b9-8b1a-0ef18b736ee5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Modules\Private">
+      <UniqueIdentifier>{dcdaf41b-6616-4740-934f-e718fcd6adaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Framework\Public">
+      <UniqueIdentifier>{f3cef5bd-0f03-43c4-9bb9-7028777ba511}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Private">
+      <UniqueIdentifier>{f34f717a-0145-451c-b7e9-e293a5388782}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Public">
+      <UniqueIdentifier>{fb9283ba-5c98-433b-90b0-e8e734accd42}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Engine\Applied\Private\IA_SSt.cpp">
+      <Filter>Engine\Applied\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Framework\Private\Engine.cpp">
+      <Filter>Engine\Framework\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Private\Game.cpp">
+      <Filter>Game\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Private\Game_SSt.cpp">
+      <Filter>Game\Private</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Engine\Applied\Public\IA_SSt.h">
+      <Filter>Engine\Applied\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Framework\Public\Engine.h">
+      <Filter>Engine\Framework\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Framework\Public\IData.h">
+      <Filter>Engine\Framework\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Modules\Classes\Definitions.h">
+      <Filter>Engine\Modules\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Modules\Classes\MDebug.h">
+      <Filter>Engine\Modules\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Modules\Classes\MNET_Base.h">
+      <Filter>Engine\Modules\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Modules\Classes\MSimDec.h">
+      <Filter>Engine\Modules\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Modules\Classes\MText.h">
+      <Filter>Engine\Modules\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Modules\Classes\MTypes.h">
+      <Filter>Engine\Modules\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Modules\Classes\SDL.h">
+      <Filter>Engine\Modules\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Modules\Classes\SDL_GlobalVars.h">
+      <Filter>Engine\Modules\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Modules\Classes\SDL_IA.h">
+      <Filter>Engine\Modules\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Modules\Classes\SDL_Modules.h">
+      <Filter>Engine\Modules\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Modules\Classes\SDL_Structure.h">
+      <Filter>Engine\Modules\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Public\Game.h">
+      <Filter>Game\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Public\Game_SSt.h">
+      <Filter>Game\Public</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

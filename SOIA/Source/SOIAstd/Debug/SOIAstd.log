@@ -1,0 +1,12 @@
+﻿Build started 31.03.2015 01:12:35.
+     1>Project "C:\Users\User\Git\SOIAstd\SOIAstd\SOIAstd.vcxproj" on node 2 (Build target(s)).
+     1>Build:
+         make IDE=vs13
+         Draw_2D.cpp
+     1>c:\users\user\git\soiastd\soiastd\src\ia_meaningstream\sdl\SDL_Structure.h(32): warning C4005: 'NEWDATA' : macro redefinition
+                 C:\Users\User\Git\SOIAstd\SOIAstd\src\IA_Engine\Applied\IA_SSt.h(14) : see previous definition of 'NEWDATA'
+     1>Done Building Project "C:\Users\User\Git\SOIAstd\SOIAstd\SOIAstd.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:15.41
