@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Core">
+      <UniqueIdentifier>{5cc5b946-afd9-4c7c-8db1-944e1fb4e996}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests">
+      <UniqueIdentifier>{7cfff006-00e6-4a84-8d0d-22ec1321363f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Environment">
+      <UniqueIdentifier>{ad549c8a-2b73-4349-8cba-d72a9d2d3737}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Environment\Private">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Tests\Environment\Public">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Core\main.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\Environment\Private\VectorTest.cpp">
+      <Filter>Tests\Environment\Private</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Tests\Environment\Public\VectorTest.h">
+      <Filter>Tests\Environment\Public</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
