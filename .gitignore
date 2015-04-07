@@ -1,5 +1,9 @@
-/*/Debug/*
+/SOIA/Binary/*
+/SOIA/Intermediate/*
+/SOIA/Documentation/GeneratedDocumentation/*
 /**/*.opensdf
 /**/*.pdb
+/**/*.d
 /**/*.obj
 /**/*.exe
+/**/*.dll

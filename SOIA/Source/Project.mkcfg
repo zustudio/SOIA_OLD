@@ -1,0 +1,21 @@
+########################################################################
+# Make configuration file: Every project directory has to contain it.
+########################################################################
+
+# \/ top level solution directory as seen from this file
+SOLUTION_DIR = ../../
+
+# \/ name of executable
+PROJECT_NAME := name
+
+# \/ if this project is in path 'SOLUTION_DIR/Source/PROJECT-SUBDIR/PROJECT_NAME/'
+PROJECT_SUBDIR := subdir?/
+
+# \/ directories of possible dependencies - beware of devilish circlular dependencies ;)
+PROJECT_DEPENDENCY := dependencies?
+
+# \/ how this project is to be compiled - i.e. (Executable | SharedLibrary | StaticLibrary)
+TARGET_ROLE := Executable
+
+# \/ what subfolders do exist in this project?
+MODULES := module1 module2/submA module2/submB

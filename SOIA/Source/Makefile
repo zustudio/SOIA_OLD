@@ -2,17 +2,58 @@
 # global SOIA project makefile
 ####################################################################
 
-all:
-	@echo global: make all
-	@echo –SOIAstd: make all
-	@$(MAKE) -s -C SOIAstd/
+PROJECT_DIRS := Environment/ Graphics/ Programs/UnitTest/ 
+
+define make-project
+@$(MAKE) -s -C $1 -f Makefile.generated.mk
+endef
+
+##################################################################
+# Targets
+
+.PHONY: all clean Environment Graphics UnitTest Documentation
+
+
+# main targets
+all: Graphics
 
 clean:
-	$(MAKE) -f Environment/Makefile clean
-	$(MAKE) -f Programs/UnitTest/Makefile clean
+	$(call make-project,Environment) clean
+	$(call make-project,Graphics) clean
+	$(call make-project,Programs/UnitTest) clean
 
-Environment.dll:
-	$(MAKE) -f Environment/Makefile
+rebuild: clean all
 
-UnitTest: Environment.dll
-	$(MAKE) -f Programs/UnitTest/Makefile
+# individual projects
+Environment: Makefiles
+	$(call make-project,Environment) all
+
+Graphics: Makefiles Environment
+	$(call make-project,Graphics) all
+
+UnitTest: Makefiles Environment
+	$(call make-project,Programs/UnitTest) all
+
+# documentation
+Documentation:
+	rm -rf ../Documentation/GeneratedDocumentation
+	cd ../Documentation/Doxygen && doxygen doxygen.cfg
+
+
+
+
+
+MAKEFILES := $(addsuffix Makefile.generated.mk,$(PROJECT_DIRS)) $(addsuffix Makefile.generated.mkcfg,$(PROJECT_DIRS))
+
+Makefiles: $(MAKEFILES)
+
+define copy-files
+$1Makefile.generated.mk: Makefile.template.mk
+	cp $$< $$@
+	@echo $(patsubst %/,%,$1): Copied $$(notdir $$@)
+$1Makefile.generated.mkcfg: Makefile.template.mkcfg
+	cp $$< $$@
+	@echo $(patsubst %/,%,$1): Copied $$(notdir $$@)
+endef
+
+$(foreach pdir,$(PROJECT_DIRS),$(eval $(call copy-files,$(pdir))))

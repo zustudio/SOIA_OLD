@@ -1,0 +1,39 @@
+########################################################################
+# Make configuration file: Graphics
+########################################################################
+
+# \/ top level solution directory as seen from this file
+SOLUTION_DIR = ../../
+
+# \/ name of executable
+PROJECT_NAME := Graphics
+
+# \/ if this project is in path 'SOLUTION_DIR/Source/PROJECT-SUBDIR/PROJECT_NAME/'
+PROJECT_SUBDIR :=
+
+# \/ directories of possible dependencies - beware of devilish circlular dependencies ;)
+PROJECT_DEPENDENCY := Environment
+
+# \/ how this project is to be compiled - i.e. (Executable | SharedLibrary | StaticLibrary)
+TARGET_ROLE := SharedLibrary
+
+# \/ what subfolders do exist in this project?
+MODULES := DataStructures WindowUserInterface/Core WindowUserInterface/ControlElements
+
+#------------------------- windows only -------------------------
+# \/ Windows based .cpp/.obj files
+ifeq ($(OS),Windows_NT)
+	MODULES += WindowUserInterface/PlatformWindows
+	EXTRA_LIBNAMES := gdi32
+	EXTRA_CFLAGS += -D def_OSWindows
+	EXTRA_CLFLAGS += -Ddef_OSWindows
+#-------------------------- linux only -----------------------------
+else
+	UNAME_S := $(shell uname -s)
+    ifeq ($(UNAME_S),Linux)
+    	OBJS += $(BINDIR)Window_Ubu.obj
+    	LIBS +=  $(BINDIR)libX11.so
+    	#LIBS +=  /usr/lib/x86_64-linux-gnu/libX11.so
+        CFLAGS += -D def_OSUbuntu
+    endif
+endif

@@ -34,6 +34,18 @@
     <Filter Include="WindowUserInterface\Core\Classes">
       <UniqueIdentifier>{a499139b-747a-4a12-a9f6-69d16e1b3d08}</UniqueIdentifier>
     </Filter>
+    <Filter Include="WindowUserInterface\PlatformWindows">
+      <UniqueIdentifier>{66d71709-f18a-4401-acb2-4a10f5d0567c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="WindowUserInterface\PlatformLinux">
+      <UniqueIdentifier>{da1288fa-654b-423f-ac4e-2e2fc7b3ac29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="WindowUserInterface\PlatformWindows\Classes">
+      <UniqueIdentifier>{1410e86c-3895-4a84-a527-2554802e10bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="WindowUserInterface\PlatformWindows\Private">
+      <UniqueIdentifier>{e1c348b3-e07e-4627-9c8f-755e97c5b437}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DataStructures\Private\cPoint.cpp">
@@ -69,11 +81,8 @@
     <ClCompile Include="WindowUserInterface\Core\Private\Window_Base.cpp">
       <Filter>WindowUserInterface\Core\Private</Filter>
     </ClCompile>
-    <ClCompile Include="WindowUserInterface\Core\Private\Window_Ubu.cpp">
-      <Filter>WindowUserInterface\Core\Private</Filter>
-    </ClCompile>
-    <ClCompile Include="WindowUserInterface\Core\Private\Window_Win.cpp">
-      <Filter>WindowUserInterface\Core\Private</Filter>
+    <ClCompile Include="WindowUserInterface\PlatformWindows\Private\Window_Win.cpp">
+      <Filter>WindowUserInterface\PlatformWindows\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -107,14 +116,11 @@
     <ClInclude Include="WindowUserInterface\Core\Classes\Window_Base.h">
       <Filter>WindowUserInterface\Core\Classes</Filter>
     </ClInclude>
-    <ClInclude Include="WindowUserInterface\Core\Classes\Window_Ubu.h">
-      <Filter>WindowUserInterface\Core\Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="WindowUserInterface\Core\Classes\Window_Win.h">
-      <Filter>WindowUserInterface\Core\Classes</Filter>
-    </ClInclude>
     <ClInclude Include="WindowUserInterface\Core\Public\Window.h">
       <Filter>WindowUserInterface\Core\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowUserInterface\PlatformWindows\Classes\Window_Win.h">
+      <Filter>WindowUserInterface\PlatformWindows\Classes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

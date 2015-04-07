@@ -1,4 +1,3 @@
-#include "stdafx.h"
 
 #include "Window_Base.h"
 

@@ -8,7 +8,7 @@
 
 #include "VoidPointer.h"
 
-/* custom extendable enum class */
+/* custom extendable enum class (REMOVE)*/
 #define exEnum(enumname, operations) class enumname {private: int i; public: enumname(int newI = 0) { i = newI; } operator int() { return i; } operations }
 #define enumElement(name, var) static const int name = var
 

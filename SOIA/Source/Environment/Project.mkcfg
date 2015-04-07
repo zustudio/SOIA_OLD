@@ -1,0 +1,15 @@
+########################################################################
+# global rules for Environment.dll
+########################################################################
+
+SOLUTION_DIR = ../../
+
+# \/ name of executable
+PROJECT_NAME := Environment
+PROJECT_SUBDIR := 
+PROJECT_DEPENDENCY :=
+
+TARGET_ROLE := SharedLibrary
+
+MODULES := File Mathematics/DataStructures Mathematics/Functions Mathematics/Random \
+Reflection/NameAttribute Reflection/TypeAttribute Thread

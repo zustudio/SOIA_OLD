@@ -5,11 +5,10 @@
  *      Author: mxu
  */
 
-#include "stdafx.h"
 
 #include <deque>
 
-#include "../../SO_Drawing/ControlElements/Control.h"		//full path needed for cl.exe vs13 compiler (includes same named file)
+#include "Control.h"		//full path needed for cl.exe vs13 compiler (includes same named file)
 #include "Window.h"
 
 using namespace SO;
