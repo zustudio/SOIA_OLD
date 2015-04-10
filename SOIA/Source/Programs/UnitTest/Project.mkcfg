@@ -7,8 +7,8 @@ SOLUTION_DIR = ../../../
 # \/ name of executable
 PROJECT_NAME := UnitTest
 PROJECT_SUBDIR := Programs/
-PROJECT_DEPENDENCY :=Environment
+PROJECT_DEPENDENCY := Environment Graphics
 
 TARGET_ROLE := Executable
 
-MODULES := Core Tests/Environment
+MODULES := Core Tests/Environment Tests/Graphics

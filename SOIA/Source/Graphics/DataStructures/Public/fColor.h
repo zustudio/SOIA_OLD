@@ -1,20 +1,17 @@
 #pragma once
 
-namespace SO
+namespace Graphics
 {
-	namespace Drawing
+	class fColor
 	{
-		class fColor
-		{
-		public:
-			fColor();
-			fColor(float NewR, float NewG, float NewB, float NewA = 1);
-			~fColor();
+	public:
+		fColor();
+		fColor(float NewR, float NewG, float NewB, float NewA = 1);
+		~fColor();
 
-			float R, G, B, A;
+		float R, G, B, A;
 
-			void Set(float NewR, float NewG, float NewB, float NewA = 1);
+		void Set(float NewR, float NewG, float NewB, float NewA = 1);
 
-		};
-	}
+	};
 }

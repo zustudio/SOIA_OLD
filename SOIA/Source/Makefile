@@ -2,24 +2,26 @@
 # global SOIA project makefile
 ####################################################################
 
-PROJECT_DIRS := Environment/ Graphics/ Programs/UnitTest/ 
+PROJECT_DIRS := Environment/ Graphics/ Apprentice/ Supervisor/ Programs/UnitTest/ 
 
 define make-project
-@$(MAKE) -s -C $1 -f Makefile.generated.mk
+$(MAKE) -C $1 -f Makefile.generated.mk
 endef
 
 ##################################################################
 # Targets
 
-.PHONY: all clean Environment Graphics UnitTest Documentation
+.PHONY: all clean Environment Graphics Apprentice Supervisor UnitTest Documentation
 
 
 # main targets
-all: Graphics
+all: UnitTest
 
 clean:
 	$(call make-project,Environment) clean
 	$(call make-project,Graphics) clean
+	$(call make-project,Apprentice) clean
+	$(call make-project,Supervisor) clean
 	$(call make-project,Programs/UnitTest) clean
 
 rebuild: clean all
@@ -31,7 +33,13 @@ Environment: Makefiles
 Graphics: Makefiles Environment
 	$(call make-project,Graphics) all
 
-UnitTest: Makefiles Environment
+Apprentice: Makefiles Environment
+	$(call make-project,Apprentice) all
+
+Supervisor: Makefiles Environment Graphics Apprentice
+	$(call make-project,Supervisor) all
+
+UnitTest: Makefiles Environment Graphics
 	$(call make-project,Programs/UnitTest) all
 
 # documentation

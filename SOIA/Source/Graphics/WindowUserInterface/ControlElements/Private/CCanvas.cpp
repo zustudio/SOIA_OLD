@@ -14,7 +14,6 @@
 #include "CCanvas.h"
 
 using namespace SO;
-using namespace SO::Drawing;
 
 ///////////////////////////////////////////////////////////
 // init

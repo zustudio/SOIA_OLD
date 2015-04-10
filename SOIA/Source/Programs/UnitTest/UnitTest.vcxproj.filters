@@ -18,18 +18,54 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="Core\Private">
+      <UniqueIdentifier>{876de299-4912-4866-8616-3e978b7cf69c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Public">
+      <UniqueIdentifier>{ba27c3f0-db73-4cf5-9b1c-2ee198ecd2bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Graphics">
+      <UniqueIdentifier>{1e966dcf-42c2-4fc9-a4cd-6fa39009d77f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Graphics\Public">
+      <UniqueIdentifier>{a566e682-0394-4b1e-ab95-b2e9426c768e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Graphics\Private">
+      <UniqueIdentifier>{2db7b1f6-1b13-4e36-b860-9aca7a940300}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Core\main.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
     <ClCompile Include="Tests\Environment\Private\VectorTest.cpp">
       <Filter>Tests\Environment\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\Environment\Private\LinFuncTest.cpp">
+      <Filter>Tests\Environment\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\Environment\Private\MatrixTest.cpp">
+      <Filter>Tests\Environment\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\main.cpp">
+      <Filter>Core\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\Graphics\Private\WindowCreation.cpp">
+      <Filter>Tests\Graphics\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Tests\Environment\Public\VectorTest.h">
       <Filter>Tests\Environment\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\Environment\Public\LinFuncTest.h">
+      <Filter>Tests\Environment\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\Environment\Public\MatrixTest.h">
+      <Filter>Tests\Environment\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Public\TestInterface.h">
+      <Filter>Core\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\Graphics\Public\WindowCreation.h">
+      <Filter>Tests\Graphics\Public</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

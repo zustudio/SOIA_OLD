@@ -1,5 +1,10 @@
 
+// include super class
+#include "TestInterface.h"
+
+// include class to be tested
 #include "LinearFunction.h"
+
 
 namespace UnitTest
 {
@@ -7,10 +12,10 @@ namespace Tests
 {
 namespace Environment
 {
-	class LinFuncTest
+	class LinFuncTest : public UnitTest::Core::TestInterface
 	{
 	public:
-		void Execute();
+		virtual bool Execute() override;
 	};
 }
 }

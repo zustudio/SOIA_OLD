@@ -2,7 +2,7 @@
 #include "fColor.h"
 #include "fCanvasObject.h"
 
-using namespace SO::Drawing;
+using namespace Graphics;
 
 //////////////////////////////////////////////////
 // init

@@ -19,7 +19,7 @@ namespace SO
 	);
 
 
-	class File
+	class __declspec(dllexport) File
 	{
 	public:
 		//////////////////////////////////////////////////////////

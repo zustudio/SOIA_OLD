@@ -13,23 +13,20 @@
 
 #include "Window_Base.h"
 
-namespace SO
+namespace Graphics
 {
-	namespace Drawing
+	class CGraph : public CCanvas
 	{
-		class CGraph : public CCanvas
-		{
-		public:
-			///////////////////////////////////////////////////
-			// functions
-			//---- init ----
-			CGraph(Window_Base* newWindow = nullptr, const cPoint &newLoc = cPoint(), const cPoint &newSize = cPoint());
+	public:
+		///////////////////////////////////////////////////
+		// functions
+		//---- init ----
+		CGraph(SO::Window_Base* newWindow = nullptr, const cPoint &newLoc = cPoint(), const cPoint &newSize = cPoint());
 
-			void SetDataPoints(const std::vector<fPoint> &NewDataPoints);
+		void SetDataPoints(const std::vector<fPoint> &NewDataPoints);
 
-		private:
-			std::vector<fPoint> DataPoints;
+	private:
+		std::vector<fPoint> DataPoints;
 
-		};
-	}
+	};
 }

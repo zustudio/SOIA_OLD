@@ -1,0 +1,21 @@
+﻿Build started 10.04.2015 20:55:21.
+     1>Project "C:\Users\User\Git\SOIAstd\SOIA\Source\Apprentice\Apprentice.vcxproj" on node 2 (Rebuild target(s)).
+     1>Rebuild:
+         make rebuild
+         make clean
+         make[1]: Entering directory '/c/Users/User/Git/SOIAstd/SOIA/Source/Apprentice'
+         rm -rf  Apprentice.dll
+         make[1]: Leaving directory '/c/Users/User/Git/SOIAstd/SOIA/Source/Apprentice'
+         make all
+         make[1]: Entering directory '/c/Users/User/Git/SOIAstd/SOIA/Source/Apprentice'
+         g++ -m64 -g -std=gnu++11 -pthread -fpermissive -w -Lc:/MinGW/lib -isystemC:\MinGW\include\c++\4.8.2 -isystemC:\MinGW\include\c++\4.8.2\backward -isystemC:\MinGW\include\c++\4.8.2\x86_64-w64-mingw32 -isystemC:\MinGW\mingw\include -isystemC:\MinGW\lib64\gcc\x86_64-w64-mingw32\4.8.2\include -isystemC:\MinGW\lib64\gcc\x86_64-w64-mingw32\4.8.2\include-fixed -D def_CCGCC -shared -o Apprentice.dll testbuild/Engine/Framework/Private/Engine.obj testbuild/Engine/Applied/Private/IA_SSt.obj testbuild/Game/Private/Game_SSt.obj testbuild/Game/Private/Game.obj 
+         echo -SOIAstd: link
+         -SOIAstd: link
+         echo testbuild/Engine/Framework/Private testbuild/Engine/Applied/Private testbuild/Engine/Modules/Private testbuild/Game/Private
+         testbuild/Engine/Framework/Private testbuild/Engine/Applied/Private testbuild/Engine/Modules/Private testbuild/Game/Private
+         make[1]: Leaving directory '/c/Users/User/Git/SOIAstd/SOIA/Source/Apprentice'
+     1>Done Building Project "C:\Users\User\Git\SOIAstd\SOIA\Source\Apprentice\Apprentice.vcxproj" (Rebuild target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:02.46

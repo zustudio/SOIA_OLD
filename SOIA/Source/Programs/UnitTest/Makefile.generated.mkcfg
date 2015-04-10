@@ -23,12 +23,38 @@ INTERMEDIATE_DIR = $(SOLUTION_DIR)Intermediate/$(PROJECT_SUBDIR)$(PROJECT_NAME)/
 BINARY_DIR = $(SOLUTION_DIR)Binaries/
 
 # \/ CC & FLAGS
-CC = g++
-CFLAGS = $(EXTRA_CFLAGS) -MD -m64 -g -std=gnu++11 -pthread -fpermissive -w -Lc:/MinGW/lib -isystemC:\MinGW\include\c++\4.8.2 -isystemC:\MinGW\include\c++\4.8.2\backward -isystemC:\MinGW\include\c++\4.8.2\x86_64-w64-mingw32 -isystemC:\MinGW\mingw\include -isystemC:\MinGW\lib64\gcc\x86_64-w64-mingw32\4.8.2\include -isystemC:\MinGW\lib64\gcc\x86_64-w64-mingw32\4.8.2\include-fixed -D def_CCGCC
-CLFLAGS = $(EXTRA_CLFLAGS) -Zi -nologo -EHsc -Ddef_CCCL -Od
+GCC = g++
+MSVC = cl.exe
+GCC_CFLAGS = $(EXTRA_GCC_FLAGS) -MD -m64 -g -std=gnu++11 -pthread -fpermissive -w -Lc:/MinGW/lib -isystemC:\MinGW\include\c++\4.8.2 -isystemC:\MinGW\include\c++\4.8.2\backward -isystemC:\MinGW\include\c++\4.8.2\x86_64-w64-mingw32 -isystemC:\MinGW\mingw\include -isystemC:\MinGW\lib64\gcc\x86_64-w64-mingw32\4.8.2\include -isystemC:\MinGW\lib64\gcc\x86_64-w64-mingw32\4.8.2\include-fixed -D def_CCGCC
+MSVC_CFLAGS = $(EXTRA_MSVC_CLFLAGS) -Zi -nologo -EHsc -Ddef_CCCL -Od
 
 # \/ Prepare linking command (decide whether to build a shared library, 
 #    a static library, or an executable)
+
+ifdef def_IDE_VisualStudio
+	CC = $(MSVC)
+	CFLAGS = $(MSVC_CFLAGS)
+	COMPILER_INFILE = $$<
+	COMPILER_OUTFILE = -Fo$$@
+	
+	LINKER = $(MSVC_LINKER)
+	LINKER_ARG_FLAGS = $(MSVC_LINKER_ARG_FLAGS)
+	LINKER_ARG_OUT = $(MSVC_LINKER_ARG_OUT)
+	LINKER_ARG_LIBS = $(MSVC_LINKER_ARG_LIBS)
+else
+	CC = $(GCC)
+	CFLAGS = $(GCC_CFLAGS)
+	COMPILER_INFILE = $$<
+	COMPILER_OUTFILE = -o $$@
+	
+	LINKER = $(GCC_LINKER)
+	LINKER_ARG_FLAGS = $(GCC_LINKER_ARG_FLAGS)
+	LINKER_ARG_OUT = $(GCC_LINKER_ARG_OUT)
+	LINKER_ARG_LIBS = $(GCC_LINKER_ARG_LIBS)
+endif
+
+
+
 
 # set target name
 TARGET = $(BINARY_DIR)$(PROJECT_NAME).$(TARGET_EXT)
@@ -36,15 +62,25 @@ TARGET = $(BINARY_DIR)$(PROJECT_NAME).$(TARGET_EXT)
 # set linker and main args
 ifeq ($(TARGET_ROLE),Executable)
 	TARGET_EXT := exe
-	GCCLINKER := g++
-	GCCLINKER_ARG_FLAGS := $(CFLAGS)
-	GCCLINKER_ARG_OUT := -o $(TARGET)
+	
+	GCC_LINKER := $(CC)
+	GCC_LINKER_ARG_FLAGS := $(CFLAGS)
+	GCC_LINKER_ARG_OUT := -o $(TARGET)
+	
+	MSVC_LINKER := $(MSVC)
+	MSVC_LINKER_ARG_FLAGS :=
+	MSVC_LINKER_ARG_OUT := -Fe$(TARGET)
 else
 	ifeq ($(TARGET_ROLE),SharedLibrary)
 		TARGET_EXT := dll
-		GCCLINKER := g++
-		GCCLINKER_ARG_FLAGS := $(CFLAGS) -shared
-		GCCLINKER_ARG_OUT := -o $(TARGET) -Wl,--out-implib,$(subst .dll,.lib,$(TARGET))
+		
+		GCC_LINKER := $(CC)
+		GCC_LINKER_ARG_FLAGS := $(CFLAGS) -shared
+		GCC_LINKER_ARG_OUT := -o $(TARGET) -Wl,--out-implib,$(subst .dll,.lib,$(TARGET))
+		
+		MSVC_LINKER := $(MSVC)
+		MSVC_LINKER_ARG_FLAGS := -LD
+		MSVC_LINKER_ARG_OUT := -Fe$(TARGET)
 	else
 		TARGET_EXT := lib
 		GCCLINKER := ar
@@ -55,7 +91,8 @@ endif
 
 # set included libs (LIB_NAMES are set in include-public-modules)
 LIB_DIRS := $(BINARY_DIR)
-GCCLINKER_ARG_LIBS = $(addprefix -L,$(LIB_DIRS)) $(addprefix -l,$(LIB_NAMES) $(EXTRA_LIBNAMES))
+GCC_LINKER_ARG_LIBS = $(addprefix -L,$(LIB_DIRS)) $(addprefix -l,$(LIB_NAMES) $(EXTRA_LIBNAMES))
+MSVC_LINKER_ARG_LIBS = $(patsubst %,$(BINARY_DIR)%.lib,$(LIB_NAMES)) $(addsuffix .lib,$(EXTRA_LIBNAMES))
 
 
 ##############################################################

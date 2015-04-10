@@ -8,8 +8,6 @@ namespace SO
 {
 	namespace Drawing
 	{
-		class fPoint;
-
 		class CTextBox : public Control
 		{
 		public:

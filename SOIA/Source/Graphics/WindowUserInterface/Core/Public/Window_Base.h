@@ -3,16 +3,15 @@
 #include <string>
 #include <iostream>
 
-#include "Thread.h"
 #include "fColor.h"
 #include "cPoint.h"
 #include "pxPoint.h"
 
-using namespace SO::Drawing;
+using namespace Graphics;
 
 namespace SO
 {
-	class Window_Base : public Thread
+	class Window_Base
 	{
 	public:
 		//////////////////////////////////////////
@@ -20,12 +19,13 @@ namespace SO
 		struct WindowProperties
 		{
 			std::string* title;
-			Drawing::pxPoint size;
-			Drawing::fColor* backColor;
-			Drawing::fColor* frontColor;
-			Drawing::fColor* copyBackC;
-			Drawing::fColor* copyFrontC;
-			bool bDirty;					//true if window needs to be redrawn
+			pxPoint size;
+			fColor* backColor;
+			fColor* frontColor;
+			fColor* copyBackC;
+			fColor* copyFrontC;
+			bool bDirty;					//< true if window needs to be redrawn
+			bool bOpen;						//< true, if window is currently open
 
 		};
 		WindowProperties props;
@@ -34,11 +34,11 @@ namespace SO
 		// functions
 		//---- init ----
 		Window_Base(const std::string &NewTitle, const pxPoint &size);
-		~Window_Base();
+		virtual ~Window_Base();
 		//---- main ----
-		virtual int Init() override;
+		virtual int Open();
 		//---- loop ----
-		virtual void Tick() override;		//functions below can be called from tick, if events are raised
+		virtual void Tick();		//functions below can be called from tick, if events are raised
 			virtual void SetVars();
 			virtual void Draw();
 		//////////////////////////////////////////

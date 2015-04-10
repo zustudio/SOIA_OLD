@@ -8,6 +8,7 @@
 #pragma once
 
 #include "Control.h"
+using namespace Graphics;
 
 //////////////////////////////////////////////////////////////////////////////////
 // os dependencies
@@ -29,10 +30,6 @@ namespace SO
 	class Window_Base;
 	class Window_Win;
 	class Window_Ubu;
-	namespace Drawing
-	{
-		class Control;
-	}
 
 	class Window : public Window_OS
 	{
@@ -40,7 +37,7 @@ namespace SO
 		//////////////////////////////////////////
 		// variables
 		//---- instances ----
-		std::deque<Drawing::Control*> myControls;
+		std::deque<Graphics::Control*> myControls;
 
 		//////////////////////////////////////////
 		//functions
@@ -54,7 +51,7 @@ namespace SO
 		{
 			//create new control
 			CClass* newControl = new CClass(static_cast<Window_Base*>(this));
-			myControls.push_back((Drawing::Control*)newControl);
+			myControls.push_back((Graphics::Control*)newControl);
 
 			//apply sizes
 			int NumControls = myControls.size();

@@ -10,14 +10,17 @@ $(eval $(call set-object-dirs,null))
 
 
 $(TARGET): $(OBJS)
-	@echo $(PROJECT_SUBDIR)$(PROJECT_NAME) \> Linking...
-	@$(GCCLINKER) $(GCCLINKER_ARG_FLAGS) $(GCCLINKER_ARG_OUT) $^ $(GCCLINKER_ARG_LIBS) 
+	echo $(PROJECT_SUBDIR)$(PROJECT_NAME) \> Linking...
+	$(LINKER) $(LINKER_ARG_FLAGS) $(LINKER_ARG_OUT) $^ $(LINKER_ARG_LIBS) 
 
 define make-goal
 $(1)%.obj: %.cpp
-	@echo $(PROJECT_SUBDIR)$(PROJECT_NAME) \> Compiling... $$(notdir $$@)
-	@$(CC) $(INCLUDES) $(CFLAGS) -c $$< -o $$@
-
+	echo $(PROJECT_SUBDIR)$(PROJECT_NAME) \> Compiling... $$(notdir $$@)
+	#ifdef def_IDE_VisualStudio
+		$(CC) $(INCLUDES) $(CFLAGS) -c $(COMPILER_INFILE) $(COMPILER_OUTFILE) 
+	#else
+	#	@$(CC) $(INCLUDES) $(CFLAGS) -c  -o $$@
+	#endif
 endef
 
 

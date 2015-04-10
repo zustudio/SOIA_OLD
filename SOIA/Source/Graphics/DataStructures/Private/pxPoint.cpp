@@ -5,7 +5,7 @@
 #include "fPoint.h"
 #include "pxPoint.h"
 
-using namespace SO::Drawing;
+using namespace Graphics;
 
 ////////////////////////////////////////////////////////////////////////////
 // init

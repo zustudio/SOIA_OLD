@@ -15,6 +15,9 @@ Window_Base::Window_Base(const std::string &NewTitle, const pxPoint &size)
 	props.frontColor = new fColor(0, 0, 0);
 	props.copyBackC = props.backColor;
 	props.copyFrontC = props.frontColor;
+
+	props.bDirty = false;
+	props.bOpen = false;
 }
 Window_Base::~Window_Base()
 {
@@ -24,7 +27,7 @@ Window_Base::~Window_Base()
 	delete props.copyBackC;
 	delete props.copyFrontC;
 }
-int Window_Base::Init()
+int Window_Base::Open()
 {
 	std::cout << "Window class: application compiled without window interface, exiting.";
 	return -1;

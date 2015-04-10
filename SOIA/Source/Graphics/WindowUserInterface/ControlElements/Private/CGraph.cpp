@@ -2,7 +2,6 @@
 #include "CGraph.h"
 
 using namespace SO;
-using namespace SO::Drawing;
 
 CGraph::CGraph(Window_Base* newWindow, const cPoint &newLoc, const cPoint &newSize) : CCanvas(newWindow, newLoc, newSize)
 {

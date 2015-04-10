@@ -34,13 +34,9 @@ LRESULT CALLBACK SO::Window_Win::WindowProcedure(HWND window, unsigned int msg, 
 
 //////////////////////////////////////////////////////////////////////////////////////
 // init
-//SO::Window_Win::Window_Win() : Window_Base()
-//{
-//	
-//}
 SO::Window_Win::Window_Win(const std::string &NewTitle, const pxPoint &size) : Window_Base(NewTitle, size)
 {
-
+	hwnd = 0;
 }
 SO::Window_Win::~Window_Win()
 {
@@ -49,9 +45,8 @@ SO::Window_Win::~Window_Win()
 
 //////////////////////////////////////////////////////////////////////////////////////
 // start
-int SO::Window_Win::Init()
+int SO::Window_Win::Open()
 {
-	std::cout << "hello world!\n";
 	const char* const myclass = props.title->c_str();
 	WNDCLASSEX wc;
 
@@ -84,13 +79,20 @@ int SO::Window_Win::Init()
 		if (hwnd)
 		{
 			ShowWindow(hwnd, SW_SHOWDEFAULT);
+
+			props.bOpen = true;
+			do
+			{
+				Tick();
+			}
+			while (props.bOpen);
 		}
 		else
 		{
-			Stop();
+			return -1;
 		}
 	}
-	return -1;
+	return 0;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -113,7 +115,7 @@ void SO::Window_Win::Tick()
 	}
 	else
 	{
-		MThread.Disable();
+		props.bOpen = false;
 	}
 }
 

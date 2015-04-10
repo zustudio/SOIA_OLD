@@ -1,6 +1,6 @@
 #include "fColor.h"
 
-using namespace SO::Drawing;
+using namespace Graphics;
 
 fColor::fColor()
 {

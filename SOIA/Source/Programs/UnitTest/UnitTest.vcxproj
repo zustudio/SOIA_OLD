@@ -12,10 +12,17 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\main.cpp" />
+    <ClCompile Include="Tests\Environment\Private\LinFuncTest.cpp" />
+    <ClCompile Include="Tests\Environment\Private\MatrixTest.cpp" />
     <ClCompile Include="Tests\Environment\Private\VectorTest.cpp" />
+    <ClCompile Include="Tests\Graphics\Private\WindowCreation.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Core\Public\TestInterface.h" />
+    <ClInclude Include="Tests\Environment\Public\LinFuncTest.h" />
+    <ClInclude Include="Tests\Environment\Public\MatrixTest.h" />
     <ClInclude Include="Tests\Environment\Public\VectorTest.h" />
+    <ClInclude Include="Tests\Graphics\Public\WindowCreation.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{88117870-5EBA-452B-BD87-2D6EE7FDFEE2}</ProjectGuid>
@@ -43,7 +50,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <NMakeBuildCommandLine>make</NMakeBuildCommandLine>
+    <NMakeBuildCommandLine>make --eval=def_IDE_VisualStudio:=1 -C ../../ all</NMakeBuildCommandLine>
     <NMakeOutput>UnitTest.exe</NMakeOutput>
     <NMakeCleanCommandLine>make clean</NMakeCleanCommandLine>
     <NMakeReBuildCommandLine>make rebuild</NMakeReBuildCommandLine>

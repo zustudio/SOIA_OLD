@@ -3,7 +3,7 @@
 #include "pxPoint.h"
 #include "cPoint.h"
 
-using namespace SO::Drawing;
+using namespace Graphics;
 
 cPoint::cPoint(float fX, float fY, int pxX, int pxY)
 {

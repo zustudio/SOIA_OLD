@@ -12,7 +12,6 @@
 #include "Window.h"
 
 using namespace SO;
-using namespace SO::Drawing;
 
 SO::Window::Window(const std::string &NewTitle, const pxPoint &size) : Window_OS(NewTitle, size)
 {

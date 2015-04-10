@@ -24,7 +24,7 @@ MODULES := DataStructures WindowUserInterface/Core WindowUserInterface/ControlEl
 # \/ Windows based .cpp/.obj files
 ifeq ($(OS),Windows_NT)
 	MODULES += WindowUserInterface/PlatformWindows
-	EXTRA_LIBNAMES := gdi32
+	EXTRA_LIBNAMES := user32 gdi32
 	EXTRA_CFLAGS += -D def_OSWindows
 	EXTRA_CLFLAGS += -Ddef_OSWindows
 #-------------------------- linux only -----------------------------
