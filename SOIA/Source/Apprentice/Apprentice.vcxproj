@@ -41,6 +41,7 @@
     <NMakeCleanCommandLine>make clean</NMakeCleanCommandLine>
     <NMakeReBuildCommandLine>make rebuild</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)SOIA/Source/Environment/;$(SolutionDir)SOIA/Source/Apprentice/</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <NMakeBuildCommandLine>make</NMakeBuildCommandLine>
@@ -56,8 +57,12 @@
     <ClCompile Include="Engine\Framework\Private\Engine.cpp" />
     <ClCompile Include="Game\Private\Game.cpp" />
     <ClCompile Include="Game\Private\Game_SSt.cpp" />
+    <ClCompile Include="Modules\Private\ActivationModule.cpp" />
+    <ClCompile Include="SSt\Private\SStModuleConfiguration.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Core\Public\Module.h" />
+    <ClInclude Include="Core\Public\ModuleConfiguration.h" />
     <ClInclude Include="Engine\Applied\Public\IA_SSt.h" />
     <ClInclude Include="Engine\Framework\Public\Engine.h" />
     <ClInclude Include="Engine\Framework\Public\IData.h" />
@@ -74,6 +79,13 @@
     <ClInclude Include="Engine\Modules\Classes\SDL_Structure.h" />
     <ClInclude Include="Game\Public\Game.h" />
     <ClInclude Include="Game\Public\Game_SSt.h" />
+    <ClInclude Include="Modules\Public\ActivationModule.h" />
+    <ClInclude Include="SSt\Public\SStModuleConfiguration.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Makefile.generated.mk" />
+    <None Include="Makefile.generated.mkcfg" />
+    <None Include="Project.mkcfg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

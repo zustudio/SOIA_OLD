@@ -8,19 +8,24 @@ $(eval $(foreach projectinclude,$(PROJECTINCLUDES),$(eval $(call include-public-
 $(eval $(call include-local-modules,null))
 $(eval $(call set-object-dirs,null))
 
+ifeq ($(def_IDE_VisualStudio),1)
+	ECHOCMD := :
+else
+	ECHOCMD := echo 
+endif
+
 
 $(TARGET): $(OBJS)
 	echo $(PROJECT_SUBDIR)$(PROJECT_NAME) \> Linking...
-	$(LINKER) $(LINKER_ARG_FLAGS) $(LINKER_ARG_OUT) $^ $(LINKER_ARG_LIBS) 
+	$(LINKER) $(LINKER_ARG_FLAGS) $(LINKER_ARG_OUT) $^ $(LINKER_ARG_LIBS)
+	@rm -rf /obj /Debug
+
 
 define make-goal
 $(1)%.obj: %.cpp
-	echo $(PROJECT_SUBDIR)$(PROJECT_NAME) \> Compiling... $$(notdir $$@)
-	#ifdef def_IDE_VisualStudio
-		$(CC) $(INCLUDES) $(CFLAGS) -c $(COMPILER_INFILE) $(COMPILER_OUTFILE) 
-	#else
-	#	@$(CC) $(INCLUDES) $(CFLAGS) -c  -o $$@
-	#endif
+	$(ECHOCMD) $(PROJECT_SUBDIR)$(PROJECT_NAME) \> Compiling... $$(notdir $$<)
+	gcc $(INCLUDES) $(GCC_CFLAGS) -MM -MF"$$(@:.obj=.d)" -MT$$(@) "$$<"
+	$(CC) $(INCLUDES) $(CFLAGS) -c $(COMPILER_INFILE) $(COMPILER_OUTFILE)
 endef
 
 
@@ -40,7 +45,7 @@ rebuild:
 	make all
 
 clean:
-	@rm -rf $(OBJS) $(TARGET) $(INTERMEDIATE_DIR) $(BINARY_DIR)
+	@rm -rf $(INTERMEDIATE_DIR) $(BINARY_DIR)
 	@echo $(PROJECT_SUBDIR)$(PROJECT_NAME): Cleaned intermediate and binary folder.
 
 -include $(OBJS:.obj=.d)

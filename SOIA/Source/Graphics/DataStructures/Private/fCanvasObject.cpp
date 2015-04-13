@@ -1,3 +1,6 @@
+
+#include "PrivateDefinitions.h"
+
 #include "fPoint.h"
 #include "fColor.h"
 #include "fCanvasObject.h"

@@ -1,4 +1,6 @@
 
+#include "PrivateDefinitions.h"
+
 // include my class definition
 #include "LinFuncTest.h"
 using namespace UnitTest::Tests::Environment;

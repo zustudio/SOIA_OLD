@@ -2,7 +2,7 @@
 #pragma once
 
 // include Super class
-#include "Module.h"
+#include "Core/Public/Module.h"
 
 namespace Apprentice
 {
@@ -13,6 +13,8 @@ public:
 	// Event definitions
 
 	static Environment::Event ERequest_ActivateNextModules;
+
+	Commands* CommandList;
 
 	//////////////////////////////////////////////////////////////
 	// Init

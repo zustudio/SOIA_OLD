@@ -5,7 +5,7 @@
 
 namespace Graphics
 {
-	class fPoint : public ZABS::Math::Vector2D<float>
+	class DLLIMPEXP fPoint : public ZABS::Math::Vector2D<float>
 	{
 	public:
 		//---- init ----

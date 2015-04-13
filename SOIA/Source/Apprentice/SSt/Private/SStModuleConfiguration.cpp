@@ -1,11 +1,11 @@
 
 // include class
-#include "SStModuleConfiguration.h"
+#include "SSt/Public/SStModuleConfiguration.h"
 using namespace Apprentice;
 using namespace Environment;
 
 // include SOIA classes
-#include "ActivationModule.h"
+#include "Modules/Public/ActivationModule.h"
 
 
 //////////////////////////////////////////////////////////////
@@ -25,8 +25,9 @@ SStModuleConfiguration::~SStModuleConfiguration()
 
 void SStModuleConfiguration::Handle(const Event &InEvent)
 {
-	if (InEvent == ActivationModule::ERequest_ActivateNextModules)
+	if (InEvent.ID == ActivationModule::ERequest_ActivateNextModules.ID)
 	{
-
+		ActivationModule* module = new ActivationModule();
+		module->CommandList->DoAnotherThing
 	}
 }

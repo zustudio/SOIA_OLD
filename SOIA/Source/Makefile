@@ -5,7 +5,7 @@
 PROJECT_DIRS := Environment/ Graphics/ Apprentice/ Supervisor/ Programs/UnitTest/ 
 
 define make-project
-$(MAKE) -C $1 -f Makefile.generated.mk
+@$(MAKE) -s -C $1 -f Makefile.generated.mk
 endef
 
 ##################################################################
@@ -18,11 +18,11 @@ endef
 all: UnitTest
 
 clean:
-	$(call make-project,Environment) clean
-	$(call make-project,Graphics) clean
-	$(call make-project,Apprentice) clean
-	$(call make-project,Supervisor) clean
-	$(call make-project,Programs/UnitTest) clean
+	@$(call make-project,Environment) clean
+	@$(call make-project,Graphics) clean
+	@$(call make-project,Apprentice) clean
+	@$(call make-project,Supervisor) clean
+	@$(call make-project,Programs/UnitTest) clean
 
 rebuild: clean all
 
@@ -36,19 +36,16 @@ Graphics: Makefiles Environment
 Apprentice: Makefiles Environment
 	$(call make-project,Apprentice) all
 
-Supervisor: Makefiles Environment Graphics Apprentice
+Supervisor: Makefiles Environment Graphics
 	$(call make-project,Supervisor) all
 
-UnitTest: Makefiles Environment Graphics
+UnitTest: Makefiles Environment Graphics Supervisor
 	$(call make-project,Programs/UnitTest) all
 
 # documentation
 Documentation:
 	rm -rf ../Documentation/GeneratedDocumentation
 	cd ../Documentation/Doxygen && doxygen doxygen.cfg
-
-
-
 
 
 MAKEFILES := $(addsuffix Makefile.generated.mk,$(PROJECT_DIRS)) $(addsuffix Makefile.generated.mkcfg,$(PROJECT_DIRS))

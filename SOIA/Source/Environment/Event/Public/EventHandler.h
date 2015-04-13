@@ -1,6 +1,8 @@
 
 #pragma once
 
+#include "Event.h"
+
 namespace Environment
 {
 class EventHandler

@@ -7,7 +7,7 @@ namespace ZABS
 {
 	namespace Math
 	{
-		class __declspec(dllexport) LinearFunction
+		class DLLIMPEXP LinearFunction
 		{
 		public:
 			static float get_f(float x, const std::vector<float> &params);

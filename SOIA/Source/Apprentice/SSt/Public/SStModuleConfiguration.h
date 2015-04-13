@@ -2,7 +2,7 @@
 #pragma once
 
 //include Super class
-#include "ModuleConfiguration.h"
+#include "Core/Public/ModuleConfiguration.h"
 
 namespace Apprentice
 {

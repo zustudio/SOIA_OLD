@@ -8,7 +8,7 @@ namespace Graphics
 	class pxPoint;
 	class fPoint;
 
-	class cPoint : public fPoint
+	class DLLIMPEXP cPoint : public fPoint
 	{
 	public:
 		///////////////////////////////////////////////////////////////////////////////

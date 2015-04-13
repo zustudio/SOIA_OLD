@@ -54,6 +54,8 @@
     <ClCompile Include="Game\Private\Game_SSt.cpp">
       <Filter>Game\Private</Filter>
     </ClCompile>
+    <ClCompile Include="SSt\Private\SStModuleConfiguration.cpp" />
+    <ClCompile Include="Modules\Private\ActivationModule.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Applied\Public\IA_SSt.h">
@@ -104,5 +106,14 @@
     <ClInclude Include="Game\Public\Game_SSt.h">
       <Filter>Game\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Core\Public\Module.h" />
+    <ClInclude Include="Core\Public\ModuleConfiguration.h" />
+    <ClInclude Include="SSt\Public\SStModuleConfiguration.h" />
+    <ClInclude Include="Modules\Public\ActivationModule.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Makefile.generated.mk" />
+    <None Include="Makefile.generated.mkcfg" />
+    <None Include="Project.mkcfg" />
   </ItemGroup>
 </Project>

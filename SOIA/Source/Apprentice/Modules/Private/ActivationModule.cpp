@@ -1,6 +1,6 @@
 
 // include class
-#include "ActivationModule.h"
+#include "Modules/Public/ActivationModule.h"
 using namespace Apprentice;
 using namespace Environment;
 

@@ -11,5 +11,5 @@ PROJECT_DEPENDENCY :=
 
 TARGET_ROLE := SharedLibrary
 
-MODULES := File Mathematics/DataStructures Mathematics/Functions Mathematics/Random \
+MODULES := PreProcessor File Mathematics/DataStructures Mathematics/Functions Mathematics/Random Mathematics/Runtime \
 Reflection/NameAttribute Reflection/TypeAttribute Thread

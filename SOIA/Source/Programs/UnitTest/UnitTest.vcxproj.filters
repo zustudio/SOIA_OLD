@@ -44,11 +44,14 @@
     <ClCompile Include="Tests\Environment\Private\MatrixTest.cpp">
       <Filter>Tests\Environment\Private</Filter>
     </ClCompile>
-    <ClCompile Include="Core\main.cpp">
-      <Filter>Core\Private</Filter>
-    </ClCompile>
     <ClCompile Include="Tests\Graphics\Private\WindowCreation.cpp">
       <Filter>Tests\Graphics\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Private\main.cpp">
+      <Filter>Core\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\Supervisor\Private\MathTest.cpp">
+      <Filter>Tests\Environment\Public</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -67,5 +70,16 @@
     <ClInclude Include="Tests\Graphics\Public\WindowCreation.h">
       <Filter>Tests\Graphics\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Tests\Supervisor\Public\MathTest.h">
+      <Filter>Tests\Environment\Private</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Classes\PrivateDefinitions.h">
+      <Filter>Tests\Environment\Private</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Makefile.generated.mk" />
+    <None Include="Makefile.generated.mkcfg" />
+    <None Include="Project.mkcfg" />
   </ItemGroup>
 </Project>

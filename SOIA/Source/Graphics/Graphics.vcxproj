@@ -11,32 +11,46 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ControlElements\Private\CCanvas.cpp" />
+    <ClCompile Include="ControlElements\Private\CGraph.cpp" />
+    <ClCompile Include="ControlElements\Private\Control.cpp" />
+    <ClCompile Include="ControlElements\Private\CTextBox.cpp" />
+    <ClCompile Include="Core\Private\Window.cpp" />
+    <ClCompile Include="Core\Private\Window_Base.cpp" />
     <ClCompile Include="DataStructures\Private\cPoint.cpp" />
     <ClCompile Include="DataStructures\Private\fCanvasObject.cpp" />
     <ClCompile Include="DataStructures\Private\fColor.cpp" />
     <ClCompile Include="DataStructures\Private\fPoint.cpp" />
     <ClCompile Include="DataStructures\Private\pxPoint.cpp" />
+    <ClCompile Include="PlatformWindows\Private\Window_Win.cpp" />
     <ClCompile Include="WindowUserInterface\ControlElements\Private\CCanvas.cpp" />
     <ClCompile Include="WindowUserInterface\ControlElements\Private\CGraph.cpp" />
     <ClCompile Include="WindowUserInterface\ControlElements\Private\Control.cpp" />
     <ClCompile Include="WindowUserInterface\ControlElements\Private\CTextBox.cpp" />
-    <ClCompile Include="WindowUserInterface\Core\Private\Window.cpp" />
-    <ClCompile Include="WindowUserInterface\Core\Private\Window_Base.cpp" />
-    <ClCompile Include="WindowUserInterface\PlatformWindows\Private\Window_Win.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ControlElements\Public\CCanvas.h" />
+    <ClInclude Include="ControlElements\Public\CGraph.h" />
+    <ClInclude Include="ControlElements\Public\Control.h" />
+    <ClInclude Include="ControlElements\Public\CTextBox.h" />
+    <ClInclude Include="Core\Classes\PrivateDefinitions.h" />
+    <ClInclude Include="Core\Public\Window.h" />
+    <ClInclude Include="Core\Public\Window_Base.h" />
     <ClInclude Include="DataStructures\Public\cPoint.h" />
     <ClInclude Include="DataStructures\Public\fCanvasObject.h" />
     <ClInclude Include="DataStructures\Public\fColor.h" />
     <ClInclude Include="DataStructures\Public\fPoint.h" />
     <ClInclude Include="DataStructures\Public\pxPoint.h" />
+    <ClInclude Include="PlatformWindows\Public\Window_Win.h" />
     <ClInclude Include="WindowUserInterface\ControlElements\Public\CCanvas.h" />
     <ClInclude Include="WindowUserInterface\ControlElements\Public\CGraph.h" />
     <ClInclude Include="WindowUserInterface\ControlElements\Public\Control.h" />
     <ClInclude Include="WindowUserInterface\ControlElements\Public\CTextBox.h" />
-    <ClInclude Include="WindowUserInterface\Core\Classes\Window_Base.h" />
-    <ClInclude Include="WindowUserInterface\Core\Public\Window.h" />
-    <ClInclude Include="WindowUserInterface\PlatformWindows\Classes\Window_Win.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Makefile.generated.mk" />
+    <None Include="Makefile.generated.mkcfg" />
+    <None Include="Project.mkcfg" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{024B32D2-E265-4D87-BBA1-E7FCFA5203EB}</ProjectGuid>
@@ -69,6 +83,7 @@
     <NMakeCleanCommandLine>make clean</NMakeCleanCommandLine>
     <NMakeReBuildCommandLine>make --eval=def_IDE_VisualStudio:=1 -C ../ rebuild</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)SOIA/Source/</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <NMakeBuildCommandLine>make</NMakeBuildCommandLine>

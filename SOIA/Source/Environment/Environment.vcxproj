@@ -11,25 +11,66 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Command\Public\Command.h" />
+    <ClInclude Include="Command\Public\CommandExecutor.h" />
+    <ClInclude Include="Event\Public\Event.h" />
+    <ClInclude Include="Event\Public\EventDispatcher.h" />
+    <ClInclude Include="Event\Public\EventHandler.h" />
     <ClInclude Include="File\Public\File.h" />
     <ClInclude Include="Mathematics\DataStructures\Public\Matrix2D.h" />
     <ClInclude Include="Mathematics\DataStructures\Public\Vector2D.h" />
     <ClInclude Include="Mathematics\DataStructures\Public\VectorND.h" />
     <ClInclude Include="Mathematics\Functions\Public\ExponentialFunction.h" />
+    <ClInclude Include="Mathematics\Functions\Public\FunctionObject.h" />
     <ClInclude Include="Mathematics\Functions\Public\IFunction.h" />
     <ClInclude Include="Mathematics\Functions\Public\LinearFunction.h" />
     <ClInclude Include="Mathematics\Functions\Public\ReversedExponentialFunction.h" />
     <ClInclude Include="Mathematics\Random\Public\Random.h" />
+    <ClInclude Include="Mathematics\Runtime\Public\Constant.h" />
+    <ClInclude Include="Mathematics\Runtime\Public\FunctionCache.h" />
+    <ClInclude Include="Mathematics\Runtime\Public\FunctionCacheItem.h" />
+    <ClInclude Include="Mathematics\Runtime\Public\MathContainer.h" />
+    <ClInclude Include="Mathematics\Runtime\Public\Operation.h" />
+    <ClInclude Include="Mathematics\Runtime\Public\OP_Add.h" />
+    <ClInclude Include="Mathematics\Runtime\Public\OP_CalculateFunction.h" />
+    <ClInclude Include="Mathematics\Runtime\Public\OP_If.h" />
+    <ClInclude Include="Mathematics\Runtime\Public\OP_Multiply.h" />
+    <ClInclude Include="Mathematics\Runtime\Public\OP_Substract.h" />
+    <ClInclude Include="Mathematics\Runtime\Public\Value.h" />
+    <ClInclude Include="Mathematics\Runtime\Public\Value_id.h" />
+    <ClInclude Include="Mathematics\Runtime\Public\Variable.h" />
+    <ClInclude Include="PreProcessor\Classes\PrivateDefinitions.h" />
     <ClInclude Include="Reflection\NameAttribute\Public\Handle.h" />
     <ClInclude Include="Reflection\TypeAttribute\Public\VoidPointer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Command\Private\Command.cpp" />
+    <ClCompile Include="Event\Private\EventDispatcher.cpp" />
     <ClCompile Include="File\Private\File.cpp" />
     <ClCompile Include="Mathematics\Functions\Private\ExponentialFunction.cpp" />
+    <ClCompile Include="Mathematics\Functions\Private\FunctionObject.cpp" />
     <ClCompile Include="Mathematics\Functions\Private\LinearFunction.cpp" />
     <ClCompile Include="Mathematics\Functions\Private\ReversedExponentialFunction.cpp" />
     <ClCompile Include="Mathematics\Random\Private\Random.cpp" />
+    <ClCompile Include="Mathematics\Runtime\Private\Constant.cpp" />
+    <ClCompile Include="Mathematics\Runtime\Private\FunctionCache.cpp" />
+    <ClCompile Include="Mathematics\Runtime\Private\FunctionCacheItem.cpp" />
+    <ClCompile Include="Mathematics\Runtime\Private\MathContainer.cpp" />
+    <ClCompile Include="Mathematics\Runtime\Private\Operation.cpp" />
+    <ClCompile Include="Mathematics\Runtime\Private\OP_Add.cpp" />
+    <ClCompile Include="Mathematics\Runtime\Private\OP_CalculateFunction.cpp" />
+    <ClCompile Include="Mathematics\Runtime\Private\OP_If.cpp" />
+    <ClCompile Include="Mathematics\Runtime\Private\OP_Multiply.cpp" />
+    <ClCompile Include="Mathematics\Runtime\Private\OP_Substract.cpp" />
+    <ClCompile Include="Mathematics\Runtime\Private\Value.cpp" />
+    <ClCompile Include="Mathematics\Runtime\Private\Value_ID.cpp" />
+    <ClCompile Include="Mathematics\Runtime\Private\Variable.cpp" />
     <ClCompile Include="Reflection\TypeAttribute\Private\VoidPointer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Makefile.generated.mk" />
+    <None Include="Makefile.generated.mkcfg" />
+    <None Include="Project.mkcfg" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{92E27BA5-3CE9-4E8F-89CF-D0096E895C62}</ProjectGuid>
@@ -58,10 +99,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <NMakeBuildCommandLine>make --eval=def_IDE_VisualStudio:=1 -C ../ Environment</NMakeBuildCommandLine>
-    <NMakeOutput>Environment.dll</NMakeOutput>
+    <NMakeOutput>../Binaries/Environment.dll</NMakeOutput>
     <NMakeCleanCommandLine>make -C ../ clean</NMakeCleanCommandLine>
     <NMakeReBuildCommandLine>make --eval=def_IDE_VisualStudio:=1 -C ../ rebuild</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <OutDir>$(SolutionDir)SOIA\Binaries\</OutDir>
+    <IntDir>$(SolutionDir)SOIA\Intermediate\</IntDir>
+    <IncludePath>$(SolutionDir)SOIA/Source/;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <NMakeBuildCommandLine>make</NMakeBuildCommandLine>

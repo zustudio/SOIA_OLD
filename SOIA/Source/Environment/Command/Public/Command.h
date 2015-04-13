@@ -4,7 +4,9 @@
 #include <vector>
 #include <functional>
 
-#include "VoidPointer.h"
+#include "CommandExecutor.h"
+
+#include "Reflection/TypeAttribute/Public/VoidPointer.h"
 using namespace SO::Base;
 
 namespace Environment
@@ -12,11 +14,14 @@ namespace Environment
 class Command
 {
 public:
-	virtual bool Execute(void* Caller, const std::vector<VoidPointer> &Args) const = 0;
+
+	Command()
+
+	virtual bool Execute(void* Caller, const std::vector<VoidPointer> &Args);
 
 
 	CommandExecutor* TargetObj;
-	std::function<void(const CommandExecutor&, std::vector<VoidPointer>&)> TargetFunction;
+	std::function<void(const CommandExecutor&, const std::vector<VoidPointer>&)> TargetFunction;
 
 
 

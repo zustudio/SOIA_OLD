@@ -10,41 +10,38 @@
     <Filter Include="DataStructures\Private">
       <UniqueIdentifier>{1088be58-cdbf-4933-a801-7c3430f14572}</UniqueIdentifier>
     </Filter>
-    <Filter Include="WindowUserInterface">
-      <UniqueIdentifier>{9c7caf56-f0ab-42cf-a517-33f981beb211}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="WindowUserInterface\ControlElements">
+    <Filter Include="ControlElements">
       <UniqueIdentifier>{a500bec7-80db-4ab1-afdd-cedfbf27ce5f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="WindowUserInterface\ControlElements\Public">
+    <Filter Include="ControlElements\Public">
       <UniqueIdentifier>{773f8ac9-f5f0-4ad1-ab16-657932f2c026}</UniqueIdentifier>
     </Filter>
-    <Filter Include="WindowUserInterface\ControlElements\Private">
+    <Filter Include="ControlElements\Private">
       <UniqueIdentifier>{d8a210c6-7eb7-4ea3-9e83-65a78f6bcce4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="WindowUserInterface\Core">
+    <Filter Include="Core">
       <UniqueIdentifier>{166813f1-ac48-4d05-8872-514560bb70bd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="WindowUserInterface\Core\Public">
+    <Filter Include="Core\Public">
       <UniqueIdentifier>{0a2bf13a-2abe-4fc2-8337-c2a33b93a97f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="WindowUserInterface\Core\Private">
+    <Filter Include="Core\Private">
       <UniqueIdentifier>{8a2f637e-cb5b-4bee-9f9f-ca54732261c1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="WindowUserInterface\Core\Classes">
+    <Filter Include="Core\Classes">
       <UniqueIdentifier>{a499139b-747a-4a12-a9f6-69d16e1b3d08}</UniqueIdentifier>
     </Filter>
-    <Filter Include="WindowUserInterface\PlatformWindows">
-      <UniqueIdentifier>{66d71709-f18a-4401-acb2-4a10f5d0567c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="WindowUserInterface\PlatformLinux">
+    <Filter Include="PlatformLinux">
       <UniqueIdentifier>{da1288fa-654b-423f-ac4e-2e2fc7b3ac29}</UniqueIdentifier>
     </Filter>
-    <Filter Include="WindowUserInterface\PlatformWindows\Classes">
-      <UniqueIdentifier>{1410e86c-3895-4a84-a527-2554802e10bc}</UniqueIdentifier>
+    <Filter Include="PlatformWindows">
+      <UniqueIdentifier>{66d71709-f18a-4401-acb2-4a10f5d0567c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="WindowUserInterface\PlatformWindows\Private">
+    <Filter Include="PlatformWindows\Private">
       <UniqueIdentifier>{e1c348b3-e07e-4627-9c8f-755e97c5b437}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlatformWindows\Public">
+      <UniqueIdentifier>{1410e86c-3895-4a84-a527-2554802e10bc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -64,26 +61,28 @@
       <Filter>DataStructures\Private</Filter>
     </ClCompile>
     <ClCompile Include="WindowUserInterface\ControlElements\Private\CCanvas.cpp">
-      <Filter>WindowUserInterface\ControlElements\Private</Filter>
+      <Filter>ControlElements\Private</Filter>
     </ClCompile>
     <ClCompile Include="WindowUserInterface\ControlElements\Private\CGraph.cpp">
-      <Filter>WindowUserInterface\ControlElements\Private</Filter>
+      <Filter>ControlElements\Private</Filter>
     </ClCompile>
     <ClCompile Include="WindowUserInterface\ControlElements\Private\Control.cpp">
-      <Filter>WindowUserInterface\ControlElements\Private</Filter>
+      <Filter>ControlElements\Private</Filter>
     </ClCompile>
     <ClCompile Include="WindowUserInterface\ControlElements\Private\CTextBox.cpp">
-      <Filter>WindowUserInterface\ControlElements\Private</Filter>
+      <Filter>ControlElements\Private</Filter>
     </ClCompile>
-    <ClCompile Include="WindowUserInterface\Core\Private\Window.cpp">
-      <Filter>WindowUserInterface\Core\Private</Filter>
+    <ClCompile Include="Core\Private\Window.cpp">
+      <Filter>Core\Private</Filter>
     </ClCompile>
-    <ClCompile Include="WindowUserInterface\Core\Private\Window_Base.cpp">
-      <Filter>WindowUserInterface\Core\Private</Filter>
+    <ClCompile Include="PlatformWindows\Private\Window_Win.cpp">
+      <Filter>PlatformWindows\Private</Filter>
     </ClCompile>
-    <ClCompile Include="WindowUserInterface\PlatformWindows\Private\Window_Win.cpp">
-      <Filter>WindowUserInterface\PlatformWindows\Private</Filter>
-    </ClCompile>
+    <ClCompile Include="ControlElements\Private\CCanvas.cpp" />
+    <ClCompile Include="ControlElements\Private\CGraph.cpp" />
+    <ClCompile Include="ControlElements\Private\Control.cpp" />
+    <ClCompile Include="ControlElements\Private\CTextBox.cpp" />
+    <ClCompile Include="Core\Private\Window_Base.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataStructures\Public\cPoint.h">
@@ -102,25 +101,35 @@
       <Filter>DataStructures\Public</Filter>
     </ClInclude>
     <ClInclude Include="WindowUserInterface\ControlElements\Public\CCanvas.h">
-      <Filter>WindowUserInterface\ControlElements\Public</Filter>
+      <Filter>ControlElements\Public</Filter>
     </ClInclude>
     <ClInclude Include="WindowUserInterface\ControlElements\Public\CGraph.h">
-      <Filter>WindowUserInterface\ControlElements\Public</Filter>
+      <Filter>ControlElements\Public</Filter>
     </ClInclude>
     <ClInclude Include="WindowUserInterface\ControlElements\Public\Control.h">
-      <Filter>WindowUserInterface\ControlElements\Public</Filter>
+      <Filter>ControlElements\Public</Filter>
     </ClInclude>
     <ClInclude Include="WindowUserInterface\ControlElements\Public\CTextBox.h">
-      <Filter>WindowUserInterface\ControlElements\Public</Filter>
+      <Filter>ControlElements\Public</Filter>
     </ClInclude>
-    <ClInclude Include="WindowUserInterface\Core\Classes\Window_Base.h">
-      <Filter>WindowUserInterface\Core\Classes</Filter>
+    <ClInclude Include="Core\Classes\PrivateDefinitions.h">
+      <Filter>Core\Classes</Filter>
     </ClInclude>
-    <ClInclude Include="WindowUserInterface\Core\Public\Window.h">
-      <Filter>WindowUserInterface\Core\Public</Filter>
+    <ClInclude Include="Core\Public\Window.h">
+      <Filter>Core\Public</Filter>
     </ClInclude>
-    <ClInclude Include="WindowUserInterface\PlatformWindows\Classes\Window_Win.h">
-      <Filter>WindowUserInterface\PlatformWindows\Classes</Filter>
+    <ClInclude Include="PlatformWindows\Public\Window_Win.h">
+      <Filter>PlatformWindows\Public</Filter>
     </ClInclude>
+    <ClInclude Include="ControlElements\Public\CCanvas.h" />
+    <ClInclude Include="ControlElements\Public\CGraph.h" />
+    <ClInclude Include="ControlElements\Public\Control.h" />
+    <ClInclude Include="ControlElements\Public\CTextBox.h" />
+    <ClInclude Include="Core\Public\Window_Base.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Makefile.generated.mk" />
+    <None Include="Makefile.generated.mkcfg" />
+    <None Include="Project.mkcfg" />
   </ItemGroup>
 </Project>

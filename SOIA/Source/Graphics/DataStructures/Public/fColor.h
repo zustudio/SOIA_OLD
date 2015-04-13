@@ -2,7 +2,7 @@
 
 namespace Graphics
 {
-	class fColor
+	class DLLIMPEXP fColor
 	{
 	public:
 		fColor();

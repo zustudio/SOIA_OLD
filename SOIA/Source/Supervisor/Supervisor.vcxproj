@@ -10,6 +10,22 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Makefile.generated.mk" />
+    <None Include="Makefile.generated.mkcfg" />
+    <None Include="Project.mkcfg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Core\Private\Application.cpp" />
+    <ClCompile Include="Logica\Private\LogicService.cpp" />
+    <ClCompile Include="Logica\Private\SchroedingerApplication.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Core\Classes\PrivateDefinitions.h" />
+    <ClInclude Include="Core\Public\Application.h" />
+    <ClInclude Include="Logica\Public\LogicService.h" />
+    <ClInclude Include="Logica\Public\SchroedingerApplication.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{12C1FB1A-E0BD-4067-8A85-5A89D6E45F4B}</ProjectGuid>
     <Keyword>MakeFileProj</Keyword>
@@ -41,6 +57,7 @@
     <NMakeCleanCommandLine>make clean</NMakeCleanCommandLine>
     <NMakeReBuildCommandLine>make rebuild</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)SOIA/Source/</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <NMakeBuildCommandLine>make</NMakeBuildCommandLine>

@@ -1,0 +1,34 @@
+
+#include "Environment/PreProcessor/Classes/PrivateDefinitions.h"
+
+#include "Environment/Mathematics/Runtime/Public/OP_If.h"
+using namespace Environment;
+
+#include <assert.h>
+
+OP_If::OP_If(const std::vector<Value_ID> &InOperands) : Operation(InOperands)
+{
+
+}
+
+double OP_If::Calculate(const std::vector<Value*> &DefinedValues)
+{
+	Value* op1;
+	Value* op2;
+	Value* op3;
+	FindOperands(DefinedValues, op1, op2, op3);
+
+	double testResult = op1->Calculate(DefinedValues);
+	double result;
+
+	if (testResult <= 0)
+	{
+		result = op2->Calculate(DefinedValues);
+	}
+	else
+	{
+		result = op3->Calculate(DefinedValues);
+	}
+
+	return result;
+}

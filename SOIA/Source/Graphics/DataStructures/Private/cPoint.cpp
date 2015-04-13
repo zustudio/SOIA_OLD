@@ -1,4 +1,6 @@
 
+#include "PrivateDefinitions.h"
+
 #include "fPoint.h"
 #include "pxPoint.h"
 #include "cPoint.h"

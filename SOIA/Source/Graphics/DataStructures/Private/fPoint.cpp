@@ -5,6 +5,8 @@
  *      Author: mxu
  */
 
+#include "PrivateDefinitions.h"
+
 #include "Vector2D.h"
 #include "pxPoint.h"
 #include "fPoint.h"

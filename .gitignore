@@ -1,9 +1,12 @@
-/SOIA/Binary/*
+/SOIA/Binaries/*
 /SOIA/Intermediate/*
 /SOIA/Documentation/GeneratedDocumentation/*
-/**/*.opensdf
-/**/*.pdb
 /**/*.d
 /**/*.obj
 /**/*.exe
 /**/*.dll
+/**/*.opensdf
+/**/*.pdb
+/**/*.ilk
+/**/*.exp
+/**/*.lib

@@ -1,3 +1,6 @@
+
+#include "PrivateDefinitions.h"
+
 #include "fColor.h"
 
 using namespace Graphics;

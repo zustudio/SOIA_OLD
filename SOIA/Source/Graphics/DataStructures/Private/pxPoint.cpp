@@ -1,6 +1,9 @@
 /*
  * pxPoint.cpp
 */
+
+#include "PrivateDefinitions.h"
+
 #include "Vector2D.h"
 #include "fPoint.h"
 #include "pxPoint.h"

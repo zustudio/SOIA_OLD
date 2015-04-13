@@ -1,4 +1,6 @@
 
+#include "PrivateDefinitions.h"
+
 #include "LinearFunction.h"
 
 using namespace ZABS::Math;

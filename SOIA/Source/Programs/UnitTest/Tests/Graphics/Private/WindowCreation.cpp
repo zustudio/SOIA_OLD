@@ -1,4 +1,6 @@
 
+#include "PrivateDefinitions.h"
+
 //include class
 #include "WindowCreation.h"
 using namespace UnitTest::Tests::Graphics;
@@ -10,6 +12,7 @@ using namespace SO;
 using namespace SO::Drawing;
 
 #include <iostream>
+#include <string>
 
 bool WindowCreation::Execute()
 {
@@ -22,5 +25,8 @@ bool WindowCreation::Execute()
 	canvas1->DrawFilledRect(fPoint(0.2,0.1),fPoint(0.5,0.8),fColor(0.1,0.8,0.2));
 
 	test->Open();
+
+	std::string in;
+	std::getline(std::cin, in);
 	return true;
 }

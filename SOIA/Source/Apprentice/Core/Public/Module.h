@@ -1,12 +1,14 @@
 
-// include Super class
-#include "EventDispatcher.h"
-
 #pragma once
+
+// include Super class
+#include "Event/Public/EventDispatcher.h"
+#include "Command/Public/CommandExecutor.h"
+
 
 namespace Apprentice
 {
-class Module : public Environment::EventDispatcher
+class Module : public Environment::EventDispatcher, public Environment::CommandExecutor
 {
 public:
 	////////////////////////////////////////////
@@ -17,6 +19,12 @@ public:
 
 	////////////////////////////////////////////
 	// Action System
+
+	struct Commands : Environment::CommandExecutor::Commands
+	{
+		Environment::TCommandFunction DoAnotherThing;
+	};
+
 
 };
 }

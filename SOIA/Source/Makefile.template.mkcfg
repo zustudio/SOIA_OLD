@@ -25,15 +25,17 @@ BINARY_DIR = $(SOLUTION_DIR)Binaries/
 # \/ CC & FLAGS
 GCC = g++
 MSVC = cl.exe
-GCC_CFLAGS = $(EXTRA_GCC_FLAGS) -MD -m64 -g -std=gnu++11 -pthread -fpermissive -w -Lc:/MinGW/lib -isystemC:\MinGW\include\c++\4.8.2 -isystemC:\MinGW\include\c++\4.8.2\backward -isystemC:\MinGW\include\c++\4.8.2\x86_64-w64-mingw32 -isystemC:\MinGW\mingw\include -isystemC:\MinGW\lib64\gcc\x86_64-w64-mingw32\4.8.2\include -isystemC:\MinGW\lib64\gcc\x86_64-w64-mingw32\4.8.2\include-fixed -D def_CCGCC
-MSVC_CFLAGS = $(EXTRA_MSVC_CLFLAGS) -Zi -nologo -EHsc -Ddef_CCCL -Od
+
+CFLAGS = -Ddef_BUILD_PROJECTNAME=$(PROJECT_NAME) 
+GCC_CFLAGS = -Ddef_BUILD_COMPILER_GCC $(EXTRA_GCC_FLAGS) -m64 -g -std=gnu++11 -pthread -fpermissive -w -Lc:/MinGW/lib -isystemC:\MinGW\include\c++\4.8.2 -isystemC:\MinGW\include\c++\4.8.2\backward -isystemC:\MinGW\include\c++\4.8.2\x86_64-w64-mingw32 -isystemC:\MinGW\mingw\include -isystemC:\MinGW\lib64\gcc\x86_64-w64-mingw32\4.8.2\include -isystemC:\MinGW\lib64\gcc\x86_64-w64-mingw32\4.8.2\include-fixed
+MSVC_CFLAGS = -Ddef_BUILD_COMPILER_MSVC $(EXTRA_MSVC_FLAGS) -Zi -nologo -EHsc  -Od
 
 # \/ Prepare linking command (decide whether to build a shared library, 
 #    a static library, or an executable)
 
 ifdef def_IDE_VisualStudio
 	CC = $(MSVC)
-	CFLAGS = $(MSVC_CFLAGS)
+	CFLAGS += $(MSVC_CFLAGS)
 	COMPILER_INFILE = $$<
 	COMPILER_OUTFILE = -Fo$$@
 	
@@ -43,7 +45,7 @@ ifdef def_IDE_VisualStudio
 	LINKER_ARG_LIBS = $(MSVC_LINKER_ARG_LIBS)
 else
 	CC = $(GCC)
-	CFLAGS = $(GCC_CFLAGS)
+	CFLAGS += $(GCC_CFLAGS)
 	COMPILER_INFILE = $$<
 	COMPILER_OUTFILE = -o $$@
 	
@@ -68,7 +70,7 @@ ifeq ($(TARGET_ROLE),Executable)
 	GCC_LINKER_ARG_OUT := -o $(TARGET)
 	
 	MSVC_LINKER := $(MSVC)
-	MSVC_LINKER_ARG_FLAGS :=
+	MSVC_LINKER_ARG_FLAGS := $(CFLAGS)
 	MSVC_LINKER_ARG_OUT := -Fe$(TARGET)
 else
 	ifeq ($(TARGET_ROLE),SharedLibrary)
@@ -79,7 +81,7 @@ else
 		GCC_LINKER_ARG_OUT := -o $(TARGET) -Wl,--out-implib,$(subst .dll,.lib,$(TARGET))
 		
 		MSVC_LINKER := $(MSVC)
-		MSVC_LINKER_ARG_FLAGS := -LD
+		MSVC_LINKER_ARG_FLAGS := $(CFLAGS) -LD
 		MSVC_LINKER_ARG_OUT := -Fe$(TARGET)
 	else
 		TARGET_EXT := lib
@@ -126,7 +128,7 @@ $(eval PUBLIC_H_DIRS := $(addsuffix Public/,$(LOCAL_MODULE_DIRS) $(PUBLIC_MODULE
 
 $(eval CPPS := $(foreach sdir,$(CPP_DIRS),$(wildcard $(sdir)**.cpp)))
 $(eval OBJS := $(patsubst $(SOURCE_DIR)%.cpp,$(INTERMEDIATE_DIR)%.obj,$(subst /Private/,/,$(CPPS))))
-$(eval INCLUDES := $(addprefix -I,$(LOCAL_H_DIRS) $(PUBLIC_H_DIRS)))
+$(eval INCLUDES := $(addprefix -I,$(LOCAL_H_DIRS) $(PUBLIC_H_DIRS) $(SOLUTION_DIR)Source/ ))
 
 $(eval OBJ_DIRS := $(sort $(dir $(OBJS))))
 

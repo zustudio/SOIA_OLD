@@ -18,15 +18,15 @@ PROJECT_DEPENDENCY := Environment
 TARGET_ROLE := SharedLibrary
 
 # \/ what subfolders do exist in this project?
-MODULES := DataStructures WindowUserInterface/Core WindowUserInterface/ControlElements
+MODULES := DataStructures Core ControlElements
 
 #------------------------- windows only -------------------------
 # \/ Windows based .cpp/.obj files
 ifeq ($(OS),Windows_NT)
-	MODULES += WindowUserInterface/PlatformWindows
+	MODULES += PlatformWindows
 	EXTRA_LIBNAMES := user32 gdi32
-	EXTRA_CFLAGS += -D def_OSWindows
-	EXTRA_CLFLAGS += -Ddef_OSWindows
+	EXTRA_GCC_FLAGS += -Ddef_BUILD_OS_Windows
+	EXTRA_MSVC_FLAGS += -Ddef_BUILD_OS_Windows
 #-------------------------- linux only -----------------------------
 else
 	UNAME_S := $(shell uname -s)
