@@ -1,9 +1,9 @@
 
-#include "PrivateDefinitions.h"
+#include "Graphics/Core/Classes/PrivateDefinitions.h"
 
-#include "fPoint.h"
-#include "pxPoint.h"
-#include "cPoint.h"
+#include "Graphics/DataStructures/Public/fPoint.h"
+#include "Graphics/DataStructures/Public/pxPoint.h"
+#include "Graphics/DataStructures/Public/cPoint.h"
 
 using namespace Graphics;
 

@@ -5,13 +5,12 @@
  *      Author: mxu
  */
 
-#include "PrivateDefinitions.h"
+#include "Graphics/Core/Classes/PrivateDefinitions.h"
 
-#include "Window_Base.h"
-#include "fPoint.h"
-#include "cPoint.h"
-#include "fColor.h"
-#include "Control.h"
+#include "Graphics/ControlElements/Public/Control.h"
+
+#include "Graphics/Core/Public/Window_Base.h"
+
 
 using namespace SO;
 
@@ -48,4 +47,14 @@ void Control::SetTrans(const cPoint &NewLoc, const cPoint &NewSize)
 void Control::Draw()
 {
 	myWindow->DrawRect(*Location, *Size, BorderColor);
+}
+
+////////////////////////////////////////////////////////////////
+// events
+void Control::CheckMouseButtonPressedEventAppliance(const pxPoint& InCoordinates)
+{
+	pxPoint controlLocation = Location->ToPxPoint(myWindow->props.size);
+	pxPoint controlSize = Size->ToPxPoint(myWindow->props.size);
+	if (InCoordinates.X > controlLocation.X && InCoordinates.Y > controlLocation.Y)
+		MouseButtonPressedEvent.Raise();
 }

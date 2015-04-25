@@ -1,27 +1,89 @@
-﻿Build started 12.04.2015 21:58:12.
-     1>Project "C:\Users\User\Git\SOIAstd\SOIA\Source\Graphics\Graphics.vcxproj" on node 3 (Build target(s)).
-     1>Build:
-         make --eval=def_IDE_VisualStudio:=1 -C ../ Graphics
+﻿Build started 18.04.2015 10:46:13.
+     1>Project "C:\Users\User\Git\SOIAstd\SOIA\Source\Graphics\Graphics.vcxproj" on node 3 (Rebuild target(s)).
+     1>Rebuild:
+         make --eval=def_IDE_VisualStudio:=1 -C ../ rebuild
          make: Entering directory '/c/Users/User/Git/SOIAstd/SOIA/Source'
          make[1]: Entering directory '/c/Users/User/Git/SOIAstd/SOIA/Source/Environment'
+         Environment: Cleaned intermediate and binary folder.
+         make[1]: Leaving directory '/c/Users/User/Git/SOIAstd/SOIA/Source/Environment'
+         make[1]: Entering directory '/c/Users/User/Git/SOIAstd/SOIA/Source/Graphics'
+         Graphics: Cleaned intermediate and binary folder.
+         make[1]: Leaving directory '/c/Users/User/Git/SOIAstd/SOIA/Source/Graphics'
+         make[1]: Entering directory '/c/Users/User/Git/SOIAstd/SOIA/Source/Apprentice'
+         Apprentice: Cleaned intermediate and binary folder.
+         make[1]: Leaving directory '/c/Users/User/Git/SOIAstd/SOIA/Source/Apprentice'
+         make[1]: Entering directory '/c/Users/User/Git/SOIAstd/SOIA/Source/Supervisor'
+         Supervisor: Cleaned intermediate and binary folder.
+         make[1]: Leaving directory '/c/Users/User/Git/SOIAstd/SOIA/Source/Supervisor'
+         make[1]: Entering directory '/c/Users/User/Git/SOIAstd/SOIA/Source/Programs/UnitTest'
+         Programs/UnitTest: Cleaned intermediate and binary folder.
+         make[1]: Leaving directory '/c/Users/User/Git/SOIAstd/SOIA/Source/Programs/UnitTest'
+         make[1]: Entering directory '/c/Users/User/Git/SOIAstd/SOIA/Source/Environment'
+         File.cpp
          ReversedExponentialFunction.cpp
          LinearFunction.cpp
+         GenericMathFunction.cpp
          ExponentialFunction.cpp
          Random.cpp
      1>c:\users\user\git\soiastd\soia\source\environment\mathematics\random\private\random.cpp(55): warning C4700: uninitialized local variable 'sum' used
          Operation.cpp
          Value_ID.cpp
          OP_Add.cpp
+         FunctionCache.cpp
          Constant.cpp
+         FunctionCacheItem.cpp
          Variable.cpp
          MathContainer.cpp
-     1>../../Source/Environment/Mathematics/Runtime/Private/MathContainer.cpp(35): warning C4172: returning address of local variable or temporary
-     1>c:\users\user\git\soiastd\soia\source\environment\mathematics\runtime\private\mathcontainer.cpp(47): warning C4715: 'Environment::MathContainer::CalculateValue' : not all control paths return a value
+     1>c:\users\user\git\soiastd\soia\source\environment\mathematics\runtime\private\mathcontainer.cpp(48): warning C4715: 'Environment::MathContainer::CalculateValue' : not all control paths return a value
          OP_If.cpp
          OP_CalculateFunction.cpp
-     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.MakeFile.Targets(38,5): warning MSB5021: "cmd" and its child processes are being terminated in order to cancel the build.
-     1>Done Building Project "C:\Users\User\Git\SOIAstd\SOIA\Source\Graphics\Graphics.vcxproj" (Build target(s)) -- FAILED.
+         OP_Multiply.cpp
+         OP_Substract.cpp
+         Value.cpp
+         VoidPointer.cpp
+         RFunction.cpp
+         Element_ID.cpp
+         RContainer.cpp
+     1>../../Source/Environment/Reflection/ID/Private/RContainer.cpp(35): warning C4172: returning address of local variable or temporary
+         RElement.cpp
+         Environment > Linking...
+            Creating library ../../Binaries/Environment.lib and object ../../Binaries/Environment.exp
+         make[1]: Leaving directory '/c/Users/User/Git/SOIAstd/SOIA/Source/Environment'
+         make[1]: Entering directory '/c/Users/User/Git/SOIAstd/SOIA/Source/Graphics'
+         pxPoint.cpp
+         fColor.cpp
+         fCanvasObject.cpp
+         cPoint.cpp
+         fPoint.cpp
+         Window.cpp
+         Window_Base.cpp
+         CGraph.cpp
+         CTextBox.cpp
+         CCanvas.cpp
+         Control.cpp
+         Window_Win.cpp
+         Graphics > Linking...
+            Creating library ../../Binaries/Graphics.lib and object ../../Binaries/Graphics.exp
+         make[1]: Leaving directory '/c/Users/User/Git/SOIAstd/SOIA/Source/Graphics'
+         make[1]: Entering directory '/c/Users/User/Git/SOIAstd/SOIA/Source/Supervisor'
+         RApplication.cpp
+         ServiceProvider.cpp
+         RService.cpp
+         LogicService.cpp
+         SchroedingerApplication.cpp
+         Supervisor > Linking...
+            Creating library ../../Binaries/Supervisor.lib and object ../../Binaries/Supervisor.exp
+     1>ServiceProvider.obj : error LNK2019: unresolved external symbol "public: __thiscall Supervisor::ConsoleService::ConsoleService(class Environment::RContainer &)" (??0ConsoleService@Supervisor@@QAE@AAVRContainer@Environment@@@Z) referenced in function "public: __thiscall Supervisor::ServiceProvider::ServiceProvider(void)" (??0ServiceProvider@Supervisor@@QAE@XZ)
+     1>../../Binaries/Supervisor.dll : fatal error LNK1120: 1 unresolved externals
+         Makefile.generated.mk:19: recipe for target '../../Binaries/Supervisor.dll' failed
+         make[1]: *** [../../Binaries/Supervisor.dll] Error 2
+         make[1]: Leaving directory '/c/Users/User/Git/SOIAstd/SOIA/Source/Supervisor'
+         Makefile:40: recipe for target 'Supervisor' failed
+         make: *** [Supervisor] Error 2
+         make: Leaving directory '/c/Users/User/Git/SOIAstd/SOIA/Source'
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.MakeFile.Targets(43,5): error MSB3073: The command "make --eval=def_IDE_VisualStudio:=1 -C ../ rebuild" exited with code 2.
+     1>Done Building Project "C:\Users\User\Git\SOIAstd\SOIA\Source\Graphics\Graphics.vcxproj" (Rebuild target(s)) -- FAILED.
 
 Build FAILED.
 
-Time Elapsed 00:00:06.17
+Time Elapsed 00:00:22.98

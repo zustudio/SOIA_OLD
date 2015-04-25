@@ -1,15 +1,12 @@
 
-#include "PrivateDefinitions.h"
+#include "Graphics/Core/Classes/PrivateDefinitions.h"
+
+#include "Graphics/ControlElements/Public/CTextBox.h"
 
 #include <string>
 #include <sstream>
 
-#include "fPoint.h"
-#include "Window_Base.h"
-#include "CTextBox.h"
-
 using namespace SO;
-using namespace SO::Drawing;
 
 ///////////////////////////////////////////////////////////////////
 // init

@@ -8,9 +8,18 @@ namespace std
 	class condition_variable;
 }
 
-namespace SO
+namespace Environment
 {
-	class Thread
+	enum class EThreadStatus
+	{
+		AwaitingStart,
+		Working,
+		Sleeping,
+		WakingUp,
+		Stopping
+	};
+
+	class DLLIMPEXP Thread
 	{
 	public:
 		///////////////////////////////////////////
@@ -19,42 +28,29 @@ namespace SO
 		Thread();
 		virtual ~Thread();
 		//--- to be called from thread creator ---
-		virtual void Start() final;
-		virtual void Stop() final;
-
-	private:
-		///////////////////////////////////////////
-		// main loop
-		void EntryPoint();
+		void Start();
+		void Stop();
 
 	protected:
 		///////////////////////////////////////////
 		// internal workings
 		//--- init ---
-		virtual int Init() = 0;
-		//--- tick ---
-		virtual void Tick() = 0;
+		virtual void Main() = 0;
 
+		/// Sets thread to sleeping until WakeUp call.
+		void Sleep();
+
+		/// Wakes Thread.
+		void WakeUp();
 
 		///////////////////////////////////////////
 		// variables
-	protected:
-		struct threadConf
-		{
-			//std threading
-			std::thread* thrd;
-			std::mutex* m;
-			std::condition_variable* cv;
+	private:
 
-			//internal threading
-			//- init -
-			threadConf();
-			~threadConf();
-			bool bEnabled = true;
-			int Loops = 0;
-			void Disable();
-			void AddLoops(int n);
-		};
-		Thread::threadConf MThread;
+		EThreadStatus ThreadStatus;
+
+		std::thread* InternalThread;
+		std::mutex* InternalMutex;
+		std::condition_variable* InternalConditionVariable;
 	};
 }

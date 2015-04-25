@@ -14,6 +14,7 @@
     <ClCompile Include="Core\Private\main.cpp" />
     <ClCompile Include="Tests\Environment\Private\LinFuncTest.cpp" />
     <ClCompile Include="Tests\Environment\Private\MatrixTest.cpp" />
+    <ClCompile Include="Tests\Environment\Private\ObjectTest.cpp" />
     <ClCompile Include="Tests\Environment\Private\VectorTest.cpp" />
     <ClCompile Include="Tests\Graphics\Private\WindowCreation.cpp" />
     <ClCompile Include="Tests\Supervisor\Private\MathTest.cpp" />
@@ -23,6 +24,7 @@
     <ClInclude Include="Core\Public\TestInterface.h" />
     <ClInclude Include="Tests\Environment\Public\LinFuncTest.h" />
     <ClInclude Include="Tests\Environment\Public\MatrixTest.h" />
+    <ClInclude Include="Tests\Environment\Public\ObjectTest.h" />
     <ClInclude Include="Tests\Environment\Public\VectorTest.h" />
     <ClInclude Include="Tests\Graphics\Public\WindowCreation.h" />
     <ClInclude Include="Tests\Supervisor\Public\MathTest.h" />

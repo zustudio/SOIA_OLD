@@ -55,6 +55,9 @@ namespace SO
 		virtual void pxDrawLine(pxPoint a, pxPoint b);
 		virtual void pxDrawRect(pxPoint a, pxPoint b);
 
+		//---- events ----
+		virtual void ForwardMouseButtonPressedEvent(const pxPoint &InCoordinates) = 0;
+
 		//////////////////////////////////////////
 		// private helpers
 	private:

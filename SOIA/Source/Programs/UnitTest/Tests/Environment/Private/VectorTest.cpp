@@ -1,6 +1,8 @@
 
+#include "Programs/UnitTest/Core/Classes/PrivateDefinitions.h"
+
 //This class
-#include "VectorTest.h"
+#include "Programs/UnitTest/Tests/Environment/Public/VectorTest.h"
 
 //used in code
 #include <iostream>

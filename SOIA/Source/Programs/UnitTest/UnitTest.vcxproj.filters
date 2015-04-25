@@ -53,6 +53,9 @@
     <ClCompile Include="Tests\Supervisor\Private\MathTest.cpp">
       <Filter>Tests\Environment\Public</Filter>
     </ClCompile>
+    <ClCompile Include="Tests\Environment\Private\ObjectTest.cpp">
+      <Filter>Tests\Environment\Public</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Tests\Environment\Public\VectorTest.h">
@@ -74,6 +77,9 @@
       <Filter>Tests\Environment\Private</Filter>
     </ClInclude>
     <ClInclude Include="Core\Classes\PrivateDefinitions.h">
+      <Filter>Tests\Environment\Private</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\Environment\Public\ObjectTest.h">
       <Filter>Tests\Environment\Private</Filter>
     </ClInclude>
   </ItemGroup>

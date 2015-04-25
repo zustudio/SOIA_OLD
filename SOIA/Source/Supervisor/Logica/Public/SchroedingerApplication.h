@@ -1,14 +1,18 @@
 
 #pragma once
 
-#include "Supervisor/Core/Public/Application.h"
+#include "Environment/Reflection/ID/Public/RApplication.h"
+#include "Environment/Event/Public/Event.h"
 
 
 namespace Supervisor
 {
-	class DLLIMPEXP SchroedingerApplication : public Application
+	class DLLIMPEXP SchroedingerApplication : public Environment::RApplication
 	{
 	public:
-		virtual void Execute() override;
+		SchroedingerApplication(Environment::RContainer &InServiceContainer);
+		virtual void Main() override;
+
+		bool eventhandler_ButtonPressed(Environment::EventDetails*);
 	};
 }

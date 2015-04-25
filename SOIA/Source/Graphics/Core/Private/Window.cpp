@@ -34,4 +34,12 @@ void SO::Window::Draw()
 	}
 }
 
+void SO::Window::ForwardMouseButtonPressedEvent(const pxPoint &InCoordinates)
+{
+	for (auto control : myControls)
+	{
+		control->CheckMouseButtonPressedEventAppliance(InCoordinates);
+	}
+}
+
 

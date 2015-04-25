@@ -16,13 +16,17 @@
     <None Include="Project.mkcfg" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Console\Private\ConsoleService.cpp" />
     <ClCompile Include="Core\Private\Application.cpp" />
+    <ClCompile Include="Core\Private\ServiceProvider.cpp" />
     <ClCompile Include="Logica\Private\LogicService.cpp" />
     <ClCompile Include="Logica\Private\SchroedingerApplication.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Console\Public\ConsoleService.h" />
     <ClInclude Include="Core\Classes\PrivateDefinitions.h" />
     <ClInclude Include="Core\Public\Application.h" />
+    <ClInclude Include="Core\Public\ServiceProvider.h" />
     <ClInclude Include="Logica\Public\LogicService.h" />
     <ClInclude Include="Logica\Public\SchroedingerApplication.h" />
   </ItemGroup>

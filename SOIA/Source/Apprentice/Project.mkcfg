@@ -12,10 +12,10 @@ PROJECT_NAME := Apprentice
 PROJECT_SUBDIR := 
 
 # \/ directories of possible dependencies - beware of devilish circlular dependencies ;)
-PROJECT_DEPENDENCY := Environment/
+PROJECT_DEPENDENCY := Environment
 
 # \/ how this project is to be compiled - i.e. (Executable | SharedLibrary | StaticLibrary)
 TARGET_ROLE := SharedLibrary
 
 # \/ what subfolders do exist in this project?
-MODULES := Engine/Framework Engine/Applied Engine/Modules Game
+MODULES := Core SSt

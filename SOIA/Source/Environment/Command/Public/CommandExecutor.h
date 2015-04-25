@@ -1,20 +1,18 @@
 
 #pragma once
 
+#include "Command.h"
+
 namespace Environment
 {
-	
-	typedef bool(CommandExecutor::* TCommandFunction)();
-
-class CommandExecutor
-{
-public:
-	struct Commands
+	class CommandExecutor
 	{
-		Command DoSomething;
-	};
+	public:
+		struct Commands
+		{
+			Command DoSomething;
+		};
 
-	TCommandFunction h;
-};
+	};
 	
 }

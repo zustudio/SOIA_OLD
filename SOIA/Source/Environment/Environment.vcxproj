@@ -14,14 +14,14 @@
     <ClInclude Include="Command\Public\Command.h" />
     <ClInclude Include="Command\Public\CommandExecutor.h" />
     <ClInclude Include="Event\Public\Event.h" />
-    <ClInclude Include="Event\Public\EventDispatcher.h" />
-    <ClInclude Include="Event\Public\EventHandler.h" />
+    <ClInclude Include="Event\Public\EventDetails.h" />
     <ClInclude Include="File\Public\File.h" />
     <ClInclude Include="Mathematics\DataStructures\Public\Matrix2D.h" />
+    <ClInclude Include="Mathematics\DataStructures\Public\Range.h" />
     <ClInclude Include="Mathematics\DataStructures\Public\Vector2D.h" />
     <ClInclude Include="Mathematics\DataStructures\Public\VectorND.h" />
     <ClInclude Include="Mathematics\Functions\Public\ExponentialFunction.h" />
-    <ClInclude Include="Mathematics\Functions\Public\FunctionObject.h" />
+    <ClInclude Include="Mathematics\Functions\Public\GenericMathFunction.h" />
     <ClInclude Include="Mathematics\Functions\Public\IFunction.h" />
     <ClInclude Include="Mathematics\Functions\Public\LinearFunction.h" />
     <ClInclude Include="Mathematics\Functions\Public\ReversedExponentialFunction.h" />
@@ -40,15 +40,27 @@
     <ClInclude Include="Mathematics\Runtime\Public\Value_id.h" />
     <ClInclude Include="Mathematics\Runtime\Public\Variable.h" />
     <ClInclude Include="PreProcessor\Classes\PrivateDefinitions.h" />
+    <ClInclude Include="PreProcessor\Public\BuildMacros.h" />
+    <ClInclude Include="PreProcessor\Public\CPPExtensions.h" />
+    <ClInclude Include="PreProcessor\Public\Definitions.h" />
+    <ClInclude Include="Reflection\ID\Public\Element_ID.h" />
+    <ClInclude Include="Reflection\ID\Public\RApplication.h" />
+    <ClInclude Include="Reflection\ID\Public\RClass.h" />
+    <ClInclude Include="Reflection\ID\Public\RContainer.h" />
+    <ClInclude Include="Reflection\ID\Public\RElement.h" />
+    <ClInclude Include="Reflection\ID\Public\RFunction.h" />
+    <ClInclude Include="Reflection\ID\Public\RFunctionInterface.h" />
+    <ClInclude Include="Reflection\ID\Public\RService.h" />
     <ClInclude Include="Reflection\NameAttribute\Public\Handle.h" />
     <ClInclude Include="Reflection\TypeAttribute\Public\VoidPointer.h" />
+    <ClInclude Include="Thread\Public\Thread.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Command\Private\Command.cpp" />
-    <ClCompile Include="Event\Private\EventDispatcher.cpp" />
+    <ClCompile Include="Event\Private\Event.cpp" />
     <ClCompile Include="File\Private\File.cpp" />
     <ClCompile Include="Mathematics\Functions\Private\ExponentialFunction.cpp" />
-    <ClCompile Include="Mathematics\Functions\Private\FunctionObject.cpp" />
+    <ClCompile Include="Mathematics\Functions\Private\GenericMathFunction.cpp" />
     <ClCompile Include="Mathematics\Functions\Private\LinearFunction.cpp" />
     <ClCompile Include="Mathematics\Functions\Private\ReversedExponentialFunction.cpp" />
     <ClCompile Include="Mathematics\Random\Private\Random.cpp" />
@@ -65,7 +77,14 @@
     <ClCompile Include="Mathematics\Runtime\Private\Value.cpp" />
     <ClCompile Include="Mathematics\Runtime\Private\Value_ID.cpp" />
     <ClCompile Include="Mathematics\Runtime\Private\Variable.cpp" />
+    <ClCompile Include="Reflection\ID\Private\Element_ID.cpp" />
+    <ClCompile Include="Reflection\ID\Private\RApplication.cpp" />
+    <ClCompile Include="Reflection\ID\Private\RContainer.cpp" />
+    <ClCompile Include="Reflection\ID\Private\RElement.cpp" />
+    <ClCompile Include="Reflection\ID\Private\RFunction.cpp" />
+    <ClCompile Include="Reflection\ID\Private\RService.cpp" />
     <ClCompile Include="Reflection\TypeAttribute\Private\VoidPointer.cpp" />
+    <ClCompile Include="Thread\Private\Thread.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Makefile.generated.mk" />

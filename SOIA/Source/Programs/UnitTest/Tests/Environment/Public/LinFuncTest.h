@@ -1,9 +1,9 @@
 
 // include super class
-#include "TestInterface.h"
+#include "Programs/UnitTest/Core/Public/TestInterface.h"
 
 // include class to be tested
-#include "LinearFunction.h"
+#include "Environment/Mathematics/Functions/Public/LinearFunction.h"
 
 
 namespace UnitTest

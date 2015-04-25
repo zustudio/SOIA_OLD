@@ -7,11 +7,13 @@
 
 #pragma once
 
-#include "cPoint.h"
-#include "pxPoint.h"
-#include "fPoint.h"
-#include "fColor.h"
+#include "Graphics/Core/Public/Window_Base.h"
+#include "Graphics/DataStructures/Public/fPoint.h"
+#include "Graphics/DataStructures/Public/cPoint.h"
+#include "Graphics/DataStructures/Public/fColor.h"
 using namespace Graphics;
+
+#include "Environment/Event/Public/Event.h"
 
 namespace SO
 {
@@ -43,6 +45,9 @@ namespace Graphics
 		void SetTrans(const cPoint &NewLoc, const cPoint &NewSize);
 		//---- drawing ----
 		virtual void Draw();
+		//---- events ----
+		void CheckMouseButtonPressedEventAppliance(const pxPoint& InCoordinates);
+		Environment::Event MouseButtonPressedEvent;
 	};
 }
 

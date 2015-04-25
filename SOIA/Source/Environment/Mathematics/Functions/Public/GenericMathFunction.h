@@ -5,10 +5,10 @@
 
 namespace Environment
 {
-	class DLLIMPEXP FunctionObject
+	class DLLIMPEXP GenericMathFunction
 	{
 	public:
-		FunctionObject(MathContainer* InRuntime, const Value_ID &InFunction);
+		GenericMathFunction(MathContainer* InRuntime, const Value_ID &InFunction);
 		double get(double x);
 
 	private:

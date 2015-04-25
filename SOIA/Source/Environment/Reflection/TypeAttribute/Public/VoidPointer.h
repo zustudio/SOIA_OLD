@@ -32,6 +32,25 @@ namespace SO
 				else
 					return nullptr;
 			}
+			template<typename T>
+			bool IsType() const
+			{
+				std::string ID2 = std::string(typeid(T).name());
+
+				return (ID2 == ID);
+			}
+			template<typename T>
+			T& GetReference() const
+			{
+				if (IsType<T>())
+				{
+					T* p_Object = (T*)Object;
+					T& object = *p_Object;
+					return object;
+				}
+				T object = T();
+				return object;
+			}
 
 		private:
 			void* Object;

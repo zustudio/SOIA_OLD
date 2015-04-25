@@ -8,13 +8,10 @@
 #pragma once
 
 #include "Control.h"
-#include "fColor.h"
 #include <deque>
 
 namespace Graphics
 {
-	class fPoint;
-	class fColor;
 	class fCanvasObject;
 
 	class __declspec(dllexport) CCanvas : public Control

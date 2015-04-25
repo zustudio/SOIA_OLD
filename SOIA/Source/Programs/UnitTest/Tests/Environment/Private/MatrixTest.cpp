@@ -1,5 +1,7 @@
 
-#include "MatrixTest.h"
+#include "Programs/UnitTest/Core/Classes/PrivateDefinitions.h"
+
+#include "Programs/UnitTest/Tests/Environment/Public/MatrixTest.h"
 
 #include <iostream>
 

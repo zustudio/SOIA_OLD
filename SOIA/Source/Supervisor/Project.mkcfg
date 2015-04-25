@@ -12,10 +12,10 @@ PROJECT_NAME := Supervisor
 PROJECT_SUBDIR := 
 
 # \/ directories of possible dependencies - beware of devilish circlular dependencies ;)
-PROJECT_DEPENDENCY := Environment Graphics
+PROJECT_DEPENDENCY := Environment Graphics Apprentice
 
 # \/ how this project is to be compiled - i.e. (Executable | SharedLibrary | StaticLibrary)
 TARGET_ROLE := SharedLibrary
 
 # \/ what subfolders do exist in this project?
-MODULES := Core Logica #InternalCommunication Console Logging DataInterpretation DataStatistics DataExplorer
+MODULES := Core Logica Console #InternalCommunication Logging DataInterpretation DataStatistics DataExplorer

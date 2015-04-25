@@ -1,8 +1,8 @@
 
-#include "PrivateDefinitions.h"
+#include "Programs/UnitTest/Core/Classes/PrivateDefinitions.h"
 
 // include my class definition
-#include "LinFuncTest.h"
+#include "Programs/UnitTest/Tests/Environment/Public/LinFuncTest.h"
 using namespace UnitTest::Tests::Environment;
 using namespace ZABS::Math;
 

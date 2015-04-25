@@ -23,7 +23,7 @@ void CGraph::Draw()
 
 	// draw function
 	fPoint Scale = fPoint(1 / (SizeMax.X - SizeMin.X), 1 / (SizeMax.Y - SizeMin.Y));
-	for (FunctionObject function : Functions)
+	for (GenericMathFunction function : Functions)
 	{
 		fPoint RelativeLocation0 = fPoint(0, 0);
 		fPoint RelativeLocation1;
@@ -71,7 +71,7 @@ void CGraph::SetDataPoints(const std::vector<fPoint> &NewDataPoints)
 	}
 }
 
-void CGraph::AddFunction(const FunctionObject &InFunctionObject)
+void CGraph::AddFunction(const GenericMathFunction &InFunctionObject)
 {
 	Functions.push_back(InFunctionObject);
 }

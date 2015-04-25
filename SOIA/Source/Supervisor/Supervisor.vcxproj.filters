@@ -9,11 +9,15 @@
     <ClCompile Include="Logica\Private\LogicService.cpp" />
     <ClCompile Include="Core\Private\Application.cpp" />
     <ClCompile Include="Logica\Private\SchroedingerApplication.cpp" />
+    <ClCompile Include="Console\Private\ConsoleService.cpp" />
+    <ClCompile Include="Core\Private\ServiceProvider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Logica\Public\LogicService.h" />
     <ClInclude Include="Core\Public\Application.h" />
-    <ClInclude Include="Core\Classes\PrivateDefinitions.h" />
     <ClInclude Include="Logica\Public\SchroedingerApplication.h" />
+    <ClInclude Include="Console\Public\ConsoleService.h" />
+    <ClInclude Include="Core\Public\ServiceProvider.h" />
+    <ClInclude Include="Core\Classes\PrivateDefinitions.h" />
   </ItemGroup>
 </Project>

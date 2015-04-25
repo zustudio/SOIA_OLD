@@ -46,6 +46,10 @@ namespace SO
 		virtual ~Window();
 		//---- drawing ----
 		virtual void Draw() override;
+
+		//---- events ----
+		virtual void ForwardMouseButtonPressedEvent(const pxPoint &InCoordinates) override;
+
 		//---- control-functions ----
 		template <class CClass> CClass* AddControl()
 		{

@@ -1,14 +1,16 @@
 
 #pragma once
 
-//interface
-#include "IIComIO.h"
+// include super class
+#include "Environment/Reflection/ID/Public/RApplication.h"
 
-//properties
-#include "ComService.h"
-#include "MeaningService.h"
-#include "DebugService.h"
+// include SOIA
+#include "Environment/Reflection/ID/Public/RFunction.h"
+using namespace Environment;
+
+// include std
 #include <deque>
+
 
 namespace IA
 {
@@ -25,25 +27,28 @@ namespace std
 	class thread;
 }
 
-namespace SOIA
+namespace Supervisor
 {
-	class ConsoleService : public SO::Com::IIComIO
+	class DLLIMPEXP ConsoleService : public RApplication
 	{
 	public:
 		///////////////////////////////////////////////////////////////
 		// functions
 		//--- init ---
-		ConsoleService();
+		ConsoleService(Environment::RContainer &InServices);
 		//--- runtime ---
-		void Start();
-		//--- ICom Interface ---
-		virtual void cGetCommands(std::vector<Handle<ICmd> > &Commands) override;
-		virtual Handle<ICom>& cGetHandle() override;
-		//--- ICom commands ---
-		T_com_cmd_func cmd_exit;
-		T_com_cmd_func cmd_echo;
-		T_com_cmd_func cmd_reply;
-		T_com_cmd_func cmd_create;
+		virtual void Main() override;
+
+		bool cmd_exit();
+		/*Environment::TargetFunctionType cmd_echo;
+		Environment::TargetFunctionType cmd_reply;*/
+		bool cmd_create(const std::string &Name);
+
+	protected:
+		//----- input interpretation -----
+
+		/// Returns vector of matching functions, as well as arguments to be applied to these.
+		bool InterpretInput(const std::vector<std::string> &InInput, std::vector<RService*> &OutServices, std::vector<RFunctionInterface*> &OutFunctions, std::vector<SO::Base::VoidPointer> &OutArgs);
 
 	private:
 		///////////////////////////////////////////////////////////////
@@ -51,12 +56,7 @@ namespace SOIA
 		//--- external instances ---
 		//- singular
 		IA::Engine* CurrentEngine;
-		SO::Com::ComService* Srvc_Com;
-		SO::MeaningStream::MeaningService* Srvc_MeanStrm;
-		SO::Debug::DebugService* Srvc_Debug;
-		//- multiple
-		std::vector<Handle<SO::Thread> > Threads;
-		//std::deque<std::thread*> Threads;
+
 		//--- status ---
 		bool bLoop;
 		std::string LastTalker;

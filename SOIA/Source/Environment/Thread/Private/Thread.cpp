@@ -5,13 +5,14 @@
  *      Author: mxu
  */
 
+#include "Environment/PreProcessor/Classes/PrivateDefinitions.h"
+
 #include <thread>
 #include <mutex>
 #include <condition_variable>
 
-#include "Thread.h"
-
-using namespace SO;
+#include "Environment/Thread/Public/Thread.h"
+using namespace Environment;
 
 
 
@@ -19,74 +20,46 @@ using namespace SO;
 // public constructing / stopping
 Thread::Thread()
 {
-	MThread = threadConf();
-	MThread.m = new std::mutex();
-	MThread.cv = new std::condition_variable();
+	ThreadStatus = EThreadStatus::AwaitingStart;
+
+	InternalMutex = new std::mutex();
+	InternalConditionVariable = new std::condition_variable();
 }
 Thread::~Thread()
 {
+	if (InternalMutex) delete InternalMutex;
+	if (InternalConditionVariable) delete InternalConditionVariable;
+	if (InternalThread) delete InternalThread;
 }
 
 void Thread::Start()
 {
-	MThread.bEnabled = true;
-	MThread.thrd = new std::thread(&Thread::EntryPoint, this);
+	ThreadStatus = EThreadStatus::Working;
+	InternalThread = new std::thread(&Thread::Main, this);
 }
 void Thread::Stop()
 {
-	MThread.bEnabled = false;
-}
-
-///////////////////////////////////////////////////////////////////////////
-// private main loop
-void Thread::EntryPoint()
-{
-	MThread.AddLoops(Init());
-
-	while (MThread.bEnabled)
-	{
-		if (MThread.Loops > 0 || MThread.Loops == -1)
-		{
-			//do something
-			Tick();
-			MThread.Loops = MThread.Loops==0? 0 : (MThread.Loops==-1? -1 : MThread.Loops-1);
-		}
-		else
-		{
-			int* pLoops = &MThread.Loops;
-			bool* pBEnabled = &MThread.bEnabled;
-			//wait for wakeup
-			std::unique_lock<std::mutex> lock(*MThread.m);
-			MThread.cv->wait(lock, [&pLoops,&pBEnabled] {return (*pLoops) > 0 || (*pLoops) == -1 || !(*pBEnabled); });
-
-			lock.unlock();
-		}
-	}
+	
 }
 
 //////////////////////////////////////////////////////////////////////////
-// struct
-Thread::threadConf::threadConf()
+// internal
+void Thread::Sleep()
 {
-	thrd = nullptr;
-	m = nullptr;
-	cv = nullptr;
+	ThreadStatus = EThreadStatus::Sleeping;
+
+	EThreadStatus* p_ThreadStatus = &ThreadStatus;
+	//wait for wakeup
+	std::unique_lock<std::mutex> lock = std::unique_lock<std::mutex>(*InternalMutex);
+	InternalConditionVariable->wait(lock, [&p_ThreadStatus] {return *p_ThreadStatus == EThreadStatus::WakingUp; });
+	lock.unlock();
+
+	ThreadStatus = EThreadStatus::Working;
 }
-Thread::threadConf::~threadConf()
+void Thread::WakeUp()
 {
-	if (m) delete m;
-	if (cv) delete cv;
-	if (thrd) delete thrd;
-}
-void Thread::threadConf::AddLoops(int n)
-{
-	Loops += n;
-	cv->notify_one();
-}
-void Thread::threadConf::Disable()
-{
-	bEnabled = false;
-	cv->notify_one();
+	ThreadStatus = EThreadStatus::WakingUp;
+	InternalConditionVariable->notify_one();
 }
 
 

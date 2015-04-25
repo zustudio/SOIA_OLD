@@ -5,15 +5,12 @@
  *      Author: mxu
  */
 
-#include "PrivateDefinitions.h"
+#include "Graphics/Core/Classes/PrivateDefinitions.h"
 
-#include "fPoint.h"
-#include "cPoint.h"
-#include "fColor.h"
-#include "Vector2D.h"
-#include "fCanvasObject.h"
-#include "Window_Base.h"
-#include "CCanvas.h"
+#include "Graphics/ControlElements/Public/CCanvas.h"
+
+#include "Graphics/DataStructures/Public/fCanvasObject.h"
+
 
 using namespace SO;
 

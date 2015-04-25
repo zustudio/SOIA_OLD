@@ -14,4 +14,19 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main\Private\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Project.mkcfg" />
+    <None Include="Makefile.generated.mk" />
+    <None Include="Makefile.generated.mkcfg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Core\Classes\PrivateDefinitions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>

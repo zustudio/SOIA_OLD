@@ -56,6 +56,8 @@
     </ClCompile>
     <ClCompile Include="SSt\Private\SStModuleConfiguration.cpp" />
     <ClCompile Include="Modules\Private\ActivationModule.cpp" />
+    <ClCompile Include="Core\Private\Engine.cpp" />
+    <ClCompile Include="SSt\Private\Engine_SSt.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Applied\Public\IA_SSt.h">
@@ -110,6 +112,9 @@
     <ClInclude Include="Core\Public\ModuleConfiguration.h" />
     <ClInclude Include="SSt\Public\SStModuleConfiguration.h" />
     <ClInclude Include="Modules\Public\ActivationModule.h" />
+    <ClInclude Include="Core\Public\Engine.h" />
+    <ClInclude Include="Core\Classes\PrivateDefinitions.h" />
+    <ClInclude Include="SSt\Public\Engine_SSt.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Makefile.generated.mk" />

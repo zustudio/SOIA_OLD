@@ -10,6 +10,17 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main\Private\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Makefile.generated.mk" />
+    <None Include="Makefile.generated.mkcfg" />
+    <None Include="Project.mkcfg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Core\Classes\PrivateDefinitions.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{606667AF-ADEC-42D0-9515-8B802F39ED41}</ProjectGuid>
     <Keyword>MakeFileProj</Keyword>
@@ -36,11 +47,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <NMakeBuildCommandLine>make</NMakeBuildCommandLine>
-    <NMakeOutput>SOIA.exe</NMakeOutput>
-    <NMakeCleanCommandLine>make clean</NMakeCleanCommandLine>
+    <NMakeBuildCommandLine>make -s --eval=def_IDE_VisualStudio:=1 -C ../ all</NMakeBuildCommandLine>
+    <NMakeOutput>../../Binaries/SOIA.exe</NMakeOutput>
+    <NMakeCleanCommandLine>make -s --eval=def_IDE_VisualStudio:=1 -C ../ clean</NMakeCleanCommandLine>
     <NMakeReBuildCommandLine>make rebuild</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)SOIA/Source/</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <NMakeBuildCommandLine>make</NMakeBuildCommandLine>

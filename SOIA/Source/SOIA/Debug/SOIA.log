@@ -1,11 +1,15 @@
-﻿Build started 12.04.2015 21:58:10.
-     1>Project "C:\Users\User\Git\SOIAstd\SOIA\Source\SOIA\SOIA.vcxproj" on node 3 (Build target(s)).
+﻿Build started 25.04.2015 12:45:24.
+     1>Project "C:\Users\User\Git\SOIAstd\SOIA\Source\SOIA\SOIA.vcxproj" on node 2 (Build target(s)).
      1>Build:
-         make
-         make: *** No targets specified and no makefile found.  Stop.
-     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.MakeFile.Targets(38,5): error MSB3073: The command "make" exited with code 2.
-     1>Done Building Project "C:\Users\User\Git\SOIAstd\SOIA\Source\SOIA\SOIA.vcxproj" (Build target(s)) -- FAILED.
+         make -s --eval=def_IDE_VisualStudio:=1 -C ../ all
+         CTextBox.cpp
+         Graphics > Linking...
+            Creating library ../../Binaries/Graphics.lib and object ../../Binaries/Graphics.exp
+         SchroedingerApplication.cpp
+         Supervisor > Linking...
+            Creating library ../../Binaries/Supervisor.lib and object ../../Binaries/Supervisor.exp
+     1>Done Building Project "C:\Users\User\Git\SOIAstd\SOIA\Source\SOIA\SOIA.vcxproj" (Build target(s)).
 
-Build FAILED.
+Build succeeded.
 
-Time Elapsed 00:00:00.33
+Time Elapsed 00:00:04.11

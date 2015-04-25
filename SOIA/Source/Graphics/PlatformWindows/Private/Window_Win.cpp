@@ -25,6 +25,7 @@ LRESULT CALLBACK SO::Window_Win::WindowProcedure(HWND window, unsigned int msg, 
 		c->props.bDirty = true;
 		return DefWindowProc(window, msg, wp, lp);
 	case WM_LBUTTONDOWN:
+		c->ForwardMouseButtonPressedEvent(pxPoint(LOWORD(lp), HIWORD(lp)));
 		//std::cout << "\nmouse left button down at (" << LOWORD(lp) << ',' << HIWORD(lp) << ")\n";
 		// fall thru
 	

@@ -11,4 +11,4 @@ PROJECT_DEPENDENCY := Environment Graphics Supervisor
 
 TARGET_ROLE := Executable
 
-MODULES := Core Tests/Environment Tests/Graphics Tests/Supervisor
+MODULES := Core Tests/Graphics Tests/Supervisor

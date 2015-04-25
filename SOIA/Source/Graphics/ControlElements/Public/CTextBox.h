@@ -4,26 +4,23 @@
 #include <string>
 #include <deque>
 
-namespace SO
+namespace Graphics
 {
-	namespace Drawing
+	class DLLIMPEXP CTextBox : public Control
 	{
-		class DLLIMPEXP CTextBox : public Control
-		{
-		public:
-			//////////////////////////////////////////////////////////
-			// vars
-			std::deque<std::string*> Texts;
-			std::string Text;
-			//////////////////////////////////////////////////////////
-			// functions
-			//---- init ----
-			CTextBox(Window_Base* newWindow = nullptr, const cPoint &newLoc = cPoint(), const cPoint &newSize = cPoint());
-			//---- draw ----
-			virtual void Draw() override;
-			//---- text ----
-			void ProcessText();
-		};
-	}
+	public:
+		//////////////////////////////////////////////////////////
+		// vars
+		std::deque<std::string*> Texts;
+		std::string Text;
+		//////////////////////////////////////////////////////////
+		// functions
+		//---- init ----
+		CTextBox(SO::Window_Base* newWindow = nullptr, const cPoint &newLoc = cPoint(), const cPoint &newSize = cPoint());
+		//---- draw ----
+		virtual void Draw() override;
+		//---- text ----
+		void ProcessText();
+	};
 }
 

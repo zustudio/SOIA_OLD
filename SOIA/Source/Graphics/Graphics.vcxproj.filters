@@ -112,9 +112,6 @@
     <ClInclude Include="WindowUserInterface\ControlElements\Public\CTextBox.h">
       <Filter>ControlElements\Public</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Classes\PrivateDefinitions.h">
-      <Filter>Core\Classes</Filter>
-    </ClInclude>
     <ClInclude Include="Core\Public\Window.h">
       <Filter>Core\Public</Filter>
     </ClInclude>
@@ -126,6 +123,7 @@
     <ClInclude Include="ControlElements\Public\Control.h" />
     <ClInclude Include="ControlElements\Public\CTextBox.h" />
     <ClInclude Include="Core\Public\Window_Base.h" />
+    <ClInclude Include="Core\Classes\PrivateDefinitions.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Makefile.generated.mk" />

@@ -5,7 +5,7 @@
 #include "Graphics/ControlElements/Public/CCanvas.h"
 
 #include "Environment/Mathematics/DataStructures/Public/Vector2D.h"
-#include "Environment/Mathematics/Functions/Public/FunctionObject.h"
+#include "Environment/Mathematics/Functions/Public/GenericMathFunction.h"
 #include "Graphics/DataStructures/Public/cPoint.h"
 #include "Graphics/DataStructures/Public/fPoint.h"
 #include "Graphics/DataStructures/Public/pxPoint.h"
@@ -29,7 +29,7 @@ namespace Graphics
 
 		//---- data ----
 		void SetDataPoints(const std::vector<fPoint> &NewDataPoints);
-		void AddFunction(const Environment::FunctionObject &InFunction);
+		void AddFunction(const Environment::GenericMathFunction &InFunction);
 
 		//////////////////////////////////////////////////
 		// Variables
@@ -39,7 +39,7 @@ namespace Graphics
 		float DeltaX;
 	private:
 		std::vector<fPoint> DataPoints;
-		std::vector<Environment::FunctionObject> Functions;
+		std::vector<Environment::GenericMathFunction> Functions;
 
 	};
 }

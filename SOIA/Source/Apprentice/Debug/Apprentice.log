@@ -1,11 +1,11 @@
-﻿Build started 12.04.2015 21:58:12.
-     1>Project "C:\Users\User\Git\SOIAstd\SOIA\Source\Apprentice\Apprentice.vcxproj" on node 2 (Build target(s)).
-     1>Build:
-         make
-         make: *** No targets specified and no makefile found.  Stop.
-     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.MakeFile.Targets(38,5): error MSB3073: The command "make" exited with code 2.
-     1>Done Building Project "C:\Users\User\Git\SOIAstd\SOIA\Source\Apprentice\Apprentice.vcxproj" (Build target(s)) -- FAILED.
+﻿Build started 18.04.2015 10:46:13.
+     1>Project "C:\Users\User\Git\SOIAstd\SOIA\Source\Apprentice\Apprentice.vcxproj" on node 2 (Rebuild target(s)).
+     1>Rebuild:
+         make rebuild
+         make: *** No rule to make target 'rebuild'.  Stop.
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.MakeFile.Targets(43,5): error MSB3073: The command "make rebuild" exited with code 2.
+     1>Done Building Project "C:\Users\User\Git\SOIAstd\SOIA\Source\Apprentice\Apprentice.vcxproj" (Rebuild target(s)) -- FAILED.
 
 Build FAILED.
 
-Time Elapsed 00:00:00.06
+Time Elapsed 00:00:00.05
