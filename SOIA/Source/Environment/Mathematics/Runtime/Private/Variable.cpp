@@ -8,14 +8,14 @@ Variable::Variable(int InCustomID, double InContent)
 {
 	VariableNumber = InCustomID;
 	Content = InContent;
-	ID.bIsConstant = false;
+	GetID().UniqueIdentifier = VariableNumber;
 }
 
-void Variable::SetID(Value_ID InID)
+void Variable::SetID(Element_ID InID)
 {
 	Value::SetID(InID);
-	ID.bIsConstant = false;
-	ID.UniqueIdentifier = VariableNumber;
+
+	GetID().UniqueIdentifier = VariableNumber;
 }
 
 double Variable::Calculate(const std::vector<Value*> &InDefinedVariables)

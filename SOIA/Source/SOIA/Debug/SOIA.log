@@ -1,11 +1,11 @@
-﻿Build started 25.04.2015 20:19:17.
+﻿Build started 25.04.2015 21:34:39.
      1>Project "C:\Users\User\Git\SOIAstd\SOIA\Source\SOIA\SOIA.vcxproj" on node 2 (Build target(s)).
      1>Build:
          make -s --eval=def_IDE_VisualStudio:=1 -C ../ all
-         SchroedingerApplication.cpp
-         Supervisor > Linking...
+         Variable.cpp
+         Environment > Linking...
      1>Done Building Project "C:\Users\User\Git\SOIAstd\SOIA\Source\SOIA\SOIA.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:02.48
+Time Elapsed 00:00:01.33

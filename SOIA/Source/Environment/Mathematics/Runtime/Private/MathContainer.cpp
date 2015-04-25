@@ -4,56 +4,48 @@
 #include "Environment/Mathematics/Runtime/Public/MathContainer.h"
 using namespace Environment;
 
-MathContainer::MathContainer()
+MathContainer::MathContainer() : RContainer(Range<int>(1000,10000000))
 {
-	FreeID = Value_ID();
-	FreeID.UniqueIdentifier = 1000;
 	FuncCache = FunctionCache();
 }
 
-Value_ID& MathContainer::DefineValue(Value* InValue)
-{
-	InValue->SetID(FreeID);
-	FreeID.UniqueIdentifier++;
+//Element_ID& MathContainer::DefineValue(Value* InValue)
+//{
+//	InValue->SetID(FreeID);
+//	FreeID.UniqueIdentifier++;
+//
+//	DefinedValues.push_back(InValue);
+//
+//	return InValue->ID;
+//}
+//Element_ID MathContainer::RedefineValue(const Element_ID& InChangingID, Value* InNewValue)
+//{
+//	int n = DefinedValues.size();
+//	for (int i = 0; i < n; i++)
+//	{
+//		if (DefinedValues[i]->ID == InChangingID)
+//		{
+//			InNewValue->SetID(InChangingID);
+//			DefinedValues[i] = InNewValue;
+//			break;
+//		}
+//	}
+//	Element_ID res = InChangingID;
+//	return res;
+//}
 
-	DefinedValues.push_back(InValue);
-
-	return InValue->ID;
-}
-Value_ID MathContainer::RedefineValue(const Value_ID& InChangingID, Value* InNewValue)
+double MathContainer::CalculateValue(const Element_ID &InID)
 {
-	int n = DefinedValues.size();
-	for (int i = 0; i < n; i++)
+	Value* element = GetElement<Value>(InID);
+	if (element)
 	{
-		if (DefinedValues[i]->ID == InChangingID)
-		{
-			InNewValue->SetID(InChangingID);
-			DefinedValues[i] = InNewValue;
-			break;
-		}
+		return element->Calculate(GetAllElements<Value>());
 	}
-	Value_ID res = InChangingID;
-	return res;
+		
 }
 
-double MathContainer::CalculateValue(const Value_ID &InID)
+void MathContainer::SetValueName(const Element_ID &InID, const std::string &InName)
 {
-	for (Value* value : DefinedValues)
-	{
-		if (value->ID == InID)
-		{
-			return value->Calculate(DefinedValues);
-		}
-	}
-}
-
-void MathContainer::SetValueName(const Value_ID &InID, const std::string &InName)
-{
-	for (Value* value : DefinedValues)
-	{
-		if (value->ID == InID)
-		{
-			value->ID.name = InName;
-		}
-	}
+	RElement* element = GetElement<Value>(InID);
+	element->GetID().Name = InName;
 }

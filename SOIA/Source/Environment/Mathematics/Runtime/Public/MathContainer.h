@@ -1,27 +1,28 @@
 
 #pragma once
 
+#include "Environment/Reflection/ID/Public/RContainer.h"
+
 #include "Operation.h"
 #include "Value.h"
-#include "Value_ID.h"
 #include "FunctionCache.h"
 
 namespace Environment
 {
-	class DLLIMPEXP MathContainer
+	class DLLIMPEXP MathContainer : public RContainer
 	{
 	public:
 		MathContainer();
 
-		Value_ID& DefineValue(Value*);
-		Value_ID RedefineValue(const Value_ID&, Value*);
-		double CalculateValue(const Value_ID &InID);
-		void SetValueName(const Value_ID &InID, const std::string &InName);
+		/*Element_ID& DefineValue(Value*);
+		Element_ID RedefineValue(const Element_ID&, Value*);*/
+		double CalculateValue(const Element_ID &InID);
+		void SetValueName(const Element_ID &InID, const std::string &InName);
 
-		/*double CalculateFunction(const Value_ID &InID);*/
+		/*double CalculateFunction(const Element_ID &InID);*/
 
-		Value_ID FreeID;
-		std::vector<Value*> DefinedValues;
+		//Element_ID FreeID;
+		//std::vector<Value*> DefinedValues;
 		FunctionCache FuncCache;
 	};
 }

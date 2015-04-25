@@ -9,12 +9,12 @@ FunctionCache::FunctionCache()
 	CachedFunctions = std::vector<FunctionCacheItem>();
 }
 
-void FunctionCache::CacheFunctionCall(const Value_ID &InFunction, double InOperand0, double InResult)
+void FunctionCache::CacheFunctionCall(const Element_ID &InFunction, double InOperand0, double InResult)
 {
 	CachedFunctions.push_back(FunctionCacheItem(InFunction, InOperand0, InResult));
 }
 
-bool FunctionCache::GetCachedFunctionCall(const Value_ID &InFunction, double InOperand0, double &OutResult)
+bool FunctionCache::GetCachedFunctionCall(const Element_ID &InFunction, double InOperand0, double &OutResult)
 {
 	bool result = false;
 	for (FunctionCacheItem functionCall : CachedFunctions)

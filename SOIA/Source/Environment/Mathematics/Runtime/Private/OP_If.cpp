@@ -6,7 +6,7 @@ using namespace Environment;
 
 #include <assert.h>
 
-OP_If::OP_If(const std::vector<Value_ID> &InOperands) : Operation(InOperands)
+OP_If::OP_If(const std::vector<Element_ID> &InOperands) : Operation(InOperands)
 {
 
 }

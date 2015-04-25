@@ -10,7 +10,7 @@ namespace Environment
 	public:
 		RElement() {};
 		virtual ~RElement() {};
-		void SetID(Element_ID InID);
+		virtual void SetID(Element_ID InID);
 		Element_ID& GetID();
 	private:
 		Element_ID ID;

@@ -6,7 +6,7 @@ using namespace Environment;
 
 #include <assert.h>
 
-OP_Multiply::OP_Multiply(const std::vector<Value_ID> &InOperands) : Operation(InOperands)
+OP_Multiply::OP_Multiply(const std::vector<Element_ID> &InOperands) : Operation(InOperands)
 {
 
 }

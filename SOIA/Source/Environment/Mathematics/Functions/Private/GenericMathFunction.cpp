@@ -9,19 +9,19 @@ using namespace Environment;
 
 #include <iostream>
 
-GenericMathFunction::GenericMathFunction(MathContainer* InRuntime, const Value_ID &InFunction)
+GenericMathFunction::GenericMathFunction(MathContainer* InRuntime, const Element_ID &InFunction)
 {
 	MathRuntime = InRuntime;
 	Function = InFunction;
-	FunctionCall = MathRuntime->DefineValue(new Constant(0));
+	FunctionCall = MathRuntime->Register(new Constant(0));
 }
 
 double GenericMathFunction::get(double x)
 {
 	double result;
-	MathRuntime->RedefineValue(FunctionCall, new OP_CalculateFunction(&MathRuntime->FuncCache, std::vector < Value_ID > {
+	MathRuntime->ReRegister(FunctionCall, new OP_CalculateFunction(&MathRuntime->FuncCache, std::vector < Element_ID > {
 		Function,
-		MathRuntime->DefineValue(new Constant(x)) }));
+		MathRuntime->Register(new Constant(x)) }));
 	std::cout << std::endl << "GenericMathFunction: New Calculation: X=" << x << std::endl;
 	result = MathRuntime->CalculateValue(FunctionCall);
 	return result;

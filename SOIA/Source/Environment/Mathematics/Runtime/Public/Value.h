@@ -1,19 +1,19 @@
 
 #pragma once
 
-#include "Value_ID.h"
+#include "Environment/Reflection/ID/Public/RElement.h"
 
 #include <vector>
 
 namespace Environment
 {
-	class DLLIMPEXP Value
+	class DLLIMPEXP Value : public RElement
 	{
 	public:
-		virtual void SetID(Value_ID InID);
+		//virtual void SetID(Element_ID InID);
 
 		virtual double Calculate(const std::vector<Value*> &DefinedValues) = 0;
 
-		Value_ID ID;
+		//Element_ID ID;
 	};
 }

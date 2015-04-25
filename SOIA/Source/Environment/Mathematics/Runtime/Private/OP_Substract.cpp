@@ -6,7 +6,7 @@ using namespace Environment;
 
 #include <assert.h>
 
-OP_Substract::OP_Substract(const std::vector<Value_ID> &InOperands) : Operation(InOperands)
+OP_Substract::OP_Substract(const std::vector<Element_ID> &InOperands) : Operation(InOperands)
 {
 
 }

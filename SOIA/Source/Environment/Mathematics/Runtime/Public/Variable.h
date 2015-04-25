@@ -10,7 +10,7 @@ namespace Environment
 	public:
 		Variable(int InVariableNumber, double InContent);
 
-		virtual void SetID(Value_ID InID) override;
+		virtual void SetID(Element_ID InID) override;
 		virtual double Calculate(const std::vector<Value*> &InDefinedValues) override;
 
 		int VariableNumber;

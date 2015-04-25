@@ -82,8 +82,13 @@ Element_ID RContainer::NextFreeID()
 	}
 	else
 	{
-		RElement* lastObject = Objects[Objects.size() - 1];
-		lastUniqueIdentifier = lastObject->GetID().UniqueIdentifier;
+		auto i_Object = Objects.end();
+		do
+		{
+			i_Object--;
+			RElement* lastObject = *i_Object;
+			lastUniqueIdentifier = lastObject->GetID().UniqueIdentifier;
+		} while (!AllowedIDs.IsInRange(lastUniqueIdentifier));
 	}
 
 	assert(lastUniqueIdentifier < AllowedIDs.Upper - 1);

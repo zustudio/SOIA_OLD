@@ -4,7 +4,7 @@
 #include "Environment/Mathematics/Runtime/Public/Operation.h"
 using namespace Environment;
 
-Operation::Operation(const std::vector<Value_ID> &InOperands)
+Operation::Operation(const std::vector<Element_ID> &InOperands)
 {
 	Operands = InOperands;
 }
@@ -20,7 +20,7 @@ bool Operation::FindOperands(const std::vector<Value*> &InDefinedValues, Value* 
 	{
 		for (int i = 0; i < Operands.size(); i++)
 		{
-			if (Operands.size() > found_Num && value->ID == Operands[i])
+			if (Operands.size() > found_Num && value->GetID() == Operands[i])
 			{
 				OutOperands[i] = value;
 				found_Num++;

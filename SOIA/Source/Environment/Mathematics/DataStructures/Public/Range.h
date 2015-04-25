@@ -27,6 +27,14 @@ namespace Environment
 			Upper = InUpper;
 		}
 
+		//----- usage -----
+
+		/// Tests whether number is in range.
+		bool IsInRange(const T& InTest)
+		{
+			return (InTest >= Lower && InTest <= Upper);
+		}
+
 		//////////////////////////////////////////////////////////////////
 		// Variables
 		T Lower;

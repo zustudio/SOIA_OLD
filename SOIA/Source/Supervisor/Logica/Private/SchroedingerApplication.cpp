@@ -23,7 +23,7 @@ using namespace Environment;
 using namespace SO;
 using namespace Graphics;
 
-#define d(arguments) (runtime.DefineValue(arguments))
+#define d(arguments) (runtime.Register(arguments))
 
 SchroedingerApplication::SchroedingerApplication(Environment::RContainer &InServiceContainer) : RApplication(InServiceContainer)
 {
@@ -38,66 +38,66 @@ void SchroedingerApplication::Main()
 	double val_DeltaX = 5e-12;
 
 	//create constants
-	auto MinusC = runtime.DefineValue(new Constant(-1.6382e38));
+	auto MinusC = runtime.Register(new Constant(-1.6382e38));
 	auto W = d(new Constant(-12.9e-18));
 	auto DeltaX = d(new Constant(val_DeltaX));
 
-	Value_ID &Psi = d(new Constant(0));
-	Value_ID &PsiDot d(new Constant(0));
+	auto &Psi = d(new Constant(0));
+	auto &PsiDot d(new Constant(0));
 
-	auto W_pot = d(new OP_If(std::vector<Value_ID>({
-		d(new OP_Substract(std::vector<Value_ID>({
+	auto W_pot = d(new OP_If(std::vector<Element_ID>({
+		d(new OP_Substract(std::vector<Element_ID>({
 			d(new Variable(0, 0)),
 			d(new Constant(XMax)) }))),
 		d(new Constant(-16e-18)),
 		d(new Constant(0)) })));
 
 	auto PsiDotDot =
-		d(new OP_Multiply(std::vector<Value_ID>({
-			d(new OP_Multiply(std::vector<Value_ID>({
+		d(new OP_Multiply(std::vector<Element_ID>({
+			d(new OP_Multiply(std::vector<Element_ID>({
 				MinusC,
-				d(new OP_Substract(std::vector<Value_ID>({
+				d(new OP_Substract(std::vector<Element_ID>({
 					W,
-					d(new OP_CalculateFunction(&runtime.FuncCache, std::vector<Value_ID>({
+					d(new OP_CalculateFunction(&runtime.FuncCache, std::vector<Element_ID>({
 						W_pot,
 						d(new Variable(0, 0)) }))) }))) }))),
-			d(new OP_CalculateFunction(&runtime.FuncCache, std::vector<Value_ID>({
+			d(new OP_CalculateFunction(&runtime.FuncCache, std::vector<Element_ID>({
 				Psi,
-				d(new OP_Substract(std::vector<Value_ID>({
+				d(new OP_Substract(std::vector<Element_ID>({
 					d(new Variable(0, 0)),
 					DeltaX }))) }))) })));
 
-	runtime.RedefineValue(PsiDot, new OP_If(std::vector<Value_ID>({
+	runtime.ReRegister(PsiDot, new OP_If(std::vector<Element_ID>({
 		d(new Variable(0, 0)),
 		d(new Constant(0)),
-		d(new OP_Add(std::vector<Value_ID>({
-			d(new OP_CalculateFunction(&runtime.FuncCache, std::vector<Value_ID>({
+		d(new OP_Add(std::vector<Element_ID>({
+			d(new OP_CalculateFunction(&runtime.FuncCache, std::vector<Element_ID>({
 				PsiDot,
-				d(new OP_Substract(std::vector<Value_ID>({
+				d(new OP_Substract(std::vector<Element_ID>({
 					d(new Variable(0, 0)),
 					DeltaX }))) }))),
-			d(new OP_Multiply(std::vector<Value_ID>({
+			d(new OP_Multiply(std::vector<Element_ID>({
 				DeltaX,
-				d(new OP_CalculateFunction(&runtime.FuncCache, std::vector<Value_ID>({
+				d(new OP_CalculateFunction(&runtime.FuncCache, std::vector<Element_ID>({
 					PsiDotDot,
-					d(new OP_Substract(std::vector<Value_ID>({
+					d(new OP_Substract(std::vector<Element_ID>({
 						d(new Variable(0, 0)),
 						d(new Constant(0)) }))) }))) }))) }))) })));
 
-	runtime.RedefineValue(Psi, new OP_If(std::vector<Value_ID>({
+	runtime.ReRegister(Psi, new OP_If(std::vector<Element_ID>({
 		d(new Variable(0,0)),
 		d(new Constant(1)),
-		d(new OP_Add(std::vector<Value_ID>({
-			d(new OP_CalculateFunction(&runtime.FuncCache, std::vector<Value_ID>({
+		d(new OP_Add(std::vector<Element_ID>({
+			d(new OP_CalculateFunction(&runtime.FuncCache, std::vector<Element_ID>({
 				Psi,
-				d(new OP_Substract(std::vector<Value_ID>({
+				d(new OP_Substract(std::vector<Element_ID>({
 					d(new Variable(0, 0)),
 					DeltaX }))) }))),
-			d(new OP_Multiply(std::vector<Value_ID>({
+			d(new OP_Multiply(std::vector<Element_ID>({
 				DeltaX,
-				d(new OP_CalculateFunction(&runtime.FuncCache, std::vector<Value_ID>({
+				d(new OP_CalculateFunction(&runtime.FuncCache, std::vector<Element_ID>({
 					PsiDot,
-					d(new OP_Substract(std::vector<Value_ID>({
+					d(new OP_Substract(std::vector<Element_ID>({
 						d(new Variable(0, 0)),
 						d(new Constant(0)) }))) }))) }))) }))) })));
 
@@ -105,29 +105,29 @@ void SchroedingerApplication::Main()
 	runtime.SetValueName(PsiDot, "PsiDot");
 	runtime.SetValueName(PsiDotDot, "PsiDotDot");
 
-	auto P = d(new OP_Multiply(std::vector<Value_ID>({
+	auto P = d(new OP_Multiply(std::vector<Element_ID>({
 		DeltaX,
-		d(new OP_Multiply(std::vector<Value_ID>({
-			d(new OP_CalculateFunction(&runtime.FuncCache, std::vector<Value_ID>({
+		d(new OP_Multiply(std::vector<Element_ID>({
+			d(new OP_CalculateFunction(&runtime.FuncCache, std::vector<Element_ID>({
 				Psi,
 				d(new Variable(0, 0)) }))),
-			d(new OP_CalculateFunction(&runtime.FuncCache, std::vector<Value_ID>({
+			d(new OP_CalculateFunction(&runtime.FuncCache, std::vector<Element_ID>({
 				Psi,
 				d(new Variable(0, 0)) }))) }))) })));
 	
 	auto CumP = d(new Constant(0));
 
-	runtime.RedefineValue(CumP, 
-		new OP_If(std::vector<Value_ID>({
+	runtime.ReRegister(CumP, 
+		new OP_If(std::vector<Element_ID>({
 			d(new Variable(0,0)),
 			d(new Constant(0)),
-			d(new OP_Add(std::vector<Value_ID>({
-				d(new OP_CalculateFunction(&runtime.FuncCache, std::vector<Value_ID>({
+			d(new OP_Add(std::vector<Element_ID>({
+				d(new OP_CalculateFunction(&runtime.FuncCache, std::vector<Element_ID>({
 					CumP,
-					d(new OP_Substract(std::vector<Value_ID>({
+					d(new OP_Substract(std::vector<Element_ID>({
 						d(new Variable(0, 0)),
 						DeltaX }))) }))),
-				d(new OP_CalculateFunction(&runtime.FuncCache, std::vector<Value_ID>({
+				d(new OP_CalculateFunction(&runtime.FuncCache, std::vector<Element_ID>({
 					P,
 					d(new Variable(0, 0)) }))) }))) })));
 
@@ -143,19 +143,19 @@ void SchroedingerApplication::Main()
 	std::string t;
 	std::getline(std::cin, t);
 
-	auto ScaledP = d(new OP_Multiply(std::vector<Value_ID>({
+	auto ScaledP = d(new OP_Multiply(std::vector<Element_ID>({
 		d(new Constant(Multiplier)),
 		d(new OP_CalculateFunction(&runtime.FuncCache, {
 			P,
 			d(new Variable(0, 0)) })) })));
 
-	auto ScaledCumP = d(new OP_Multiply(std::vector<Value_ID>({
+	auto ScaledCumP = d(new OP_Multiply(std::vector<Element_ID>({
 		d(new Constant(Multiplier)),
 		d(new OP_CalculateFunction(&runtime.FuncCache, {
 			CumP,
 			d(new Variable(0, 0)) })) })));
 
-	auto ScaledW_pot = d(new OP_Multiply(std::vector<Value_ID>({
+	auto ScaledW_pot = d(new OP_Multiply(std::vector<Element_ID>({
 		d(new Constant(1e17)),
 		d(new OP_CalculateFunction(&runtime.FuncCache, {
 			W_pot,
@@ -180,7 +180,7 @@ void SchroedingerApplication::Main()
 	for (int i = 0; i < WTimes; i++)
 	{
 		double WTrial = WStep * i;
-		runtime.RedefineValue(W, new Constant(-WTrial));
+		runtime.ReRegister(W, new Constant(-WTrial));
 		runtime.FuncCache.Clear();
 		double result = PObject.get(XMax * 3);
 		results.set(0, i, WTrial);
