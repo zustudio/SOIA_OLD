@@ -73,11 +73,11 @@ namespace Environment
 			return true;
 		}
 
-		/// Recursively sets passed pointers to correctly casted members of TestArgument vector.
+		/// Recursively sets passed pointers to correctly cast members of TestArgument vector.
 		template<typename FirstArgument_Type, typename... TailArguments_Types>
 		bool rec_MatchArgument(std::vector<SO::Base::VoidPointer>::const_iterator i_TestArgument, FirstArgument_Type*& p_FirstArgument, TailArguments_Types*&... p_TailArguments)
 		{
-			p_FirstArgument = i_TestArgument->CastTo<FirstArgument_Type>();
+			p_FirstArgument = i_TestArgument->ConvertTo<FirstArgument_Type>();
 			if (p_FirstArgument)
 			{
 				if (sizeof...(TailArguments_Types))

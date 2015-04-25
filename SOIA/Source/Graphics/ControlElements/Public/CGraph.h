@@ -2,7 +2,7 @@
 #pragma once
 
 //Super class
-#include "Graphics/ControlElements/Public/CCanvas.h"
+#include "Graphics/ControlElements/Public/Control.h"
 
 #include "Environment/Mathematics/DataStructures/Public/Vector2D.h"
 #include "Environment/Mathematics/Functions/Public/GenericMathFunction.h"
@@ -16,7 +16,7 @@
 
 namespace Graphics
 {
-	class DLLIMPEXP CGraph : public CCanvas
+	class DLLIMPEXP CGraph : public Control
 	{
 	public:
 		///////////////////////////////////////////////////
@@ -29,7 +29,7 @@ namespace Graphics
 
 		//---- data ----
 		void SetDataPoints(const std::vector<fPoint> &NewDataPoints);
-		void AddFunction(const Environment::GenericMathFunction &InFunction);
+		void AddFunction(const Environment::GenericMathFunction &InFunction, const fColor &InColor);
 
 		//////////////////////////////////////////////////
 		// Variables
@@ -40,6 +40,7 @@ namespace Graphics
 	private:
 		std::vector<fPoint> DataPoints;
 		std::vector<Environment::GenericMathFunction> Functions;
+		std::vector<fColor> Colors;
 
 	};
 }

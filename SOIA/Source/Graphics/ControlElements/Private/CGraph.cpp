@@ -9,7 +9,7 @@ using namespace Environment;
 
 //////////////////////////////////////////////////////////////
 // Init
-CGraph::CGraph(Window_Base* newWindow, const cPoint &newLoc, const cPoint &newSize) : CCanvas(newWindow, newLoc, newSize)
+CGraph::CGraph(Window_Base* newWindow, const cPoint &newLoc, const cPoint &newSize) : Control(newWindow, newLoc, newSize)
 {
 
 }
@@ -19,9 +19,11 @@ CGraph::CGraph(Window_Base* newWindow, const cPoint &newLoc, const cPoint &newSi
 void CGraph::Draw()
 {
 	// draw border & data points
-	CCanvas::Draw();
+	Control::Draw();
 
 	// draw function
+	auto color_iter = Colors.begin();
+
 	fPoint Scale = fPoint(1 / (SizeMax.X - SizeMin.X), 1 / (SizeMax.Y - SizeMin.Y));
 	for (GenericMathFunction function : Functions)
 	{
@@ -31,10 +33,23 @@ void CGraph::Draw()
 		{
 			RelativeLocation1 = fPoint((x - SizeMin.X) * Scale.X, 1 - (function.get(x) - SizeMin.Y) * Scale.Y);
 
-			myWindow->DrawLine(getAbsCP(RelativeLocation0), getAbsCP(RelativeLocation1), new fColor(0.1, 0.1, 0.9));
+			myWindow->DrawLine(getAbsCP(RelativeLocation0), getAbsCP(RelativeLocation1), &(*color_iter));
 
 			RelativeLocation0 = RelativeLocation1;
 		}
+		color_iter++;
+	}
+
+	// draw data points
+	fPoint RelativeLocation0 = fPoint(0, 0);
+	fPoint RelativeLocation1;
+	for (fPoint point : DataPoints)
+	{
+		RelativeLocation1 = fPoint((point.X - SizeMin.X) * Scale.X, 1 - (point.Y - SizeMin.Y) * Scale.Y);
+
+		myWindow->DrawLine(getAbsCP(RelativeLocation0), getAbsCP(RelativeLocation1), new fColor(0.0, 0.1, 0.1));
+
+		RelativeLocation0 = RelativeLocation1;
 	}
 
 	// draw axis
@@ -52,26 +67,11 @@ void CGraph::Draw()
 // Data
 void CGraph::SetDataPoints(const std::vector<fPoint> &NewDataPoints)
 {
-	//DataPoints = NewDataPoints;
-
-	//set properties
-	float maxX = NewDataPoints[NewDataPoints.size() - 1].X;
-	float maxY = NewDataPoints[NewDataPoints.size() - 1].Y;
-
-	float scaleX = 1 / maxX;
-	float scaleY = 1 / maxY;
-
-	//draw points
-	fPoint last = fPoint();
-	Clear();
-	for (fPoint point : NewDataPoints)
-	{
-		DrawLine(fPoint(0,1) + (last * fPoint(scaleX, -scaleX)), fPoint(0,1) + (point * fPoint(scaleX, -scaleX)));
-		last = point;
-	}
+	DataPoints = NewDataPoints;
 }
 
-void CGraph::AddFunction(const GenericMathFunction &InFunctionObject)
+void CGraph::AddFunction(const GenericMathFunction &InFunctionObject, const fColor& InColor)
 {
 	Functions.push_back(InFunctionObject);
+	Colors.push_back(InColor);
 }

@@ -5,6 +5,8 @@
 using namespace Apprentice;
 using namespace Environment;
 
+#include "Apprentice/SSt/Public/SStModuleConfiguration.h"
+
 #include <iostream>
 
 Engine_SSt::Engine_SSt(RContainer &InServiceContainer) : Engine(InServiceContainer)
@@ -15,6 +17,7 @@ Engine_SSt::Engine_SSt(RContainer &InServiceContainer) : Engine(InServiceContain
 void Engine_SSt::Init()
 {
 	std::cout << "Initializing..." << std::endl;
+	auto conf = SStModuleConfiguration();
 }
 
 void Engine_SSt::Tick()

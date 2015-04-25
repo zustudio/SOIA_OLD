@@ -1,19 +1,18 @@
 
-// include Super class
-#include "Event/Public/EventHandler.h"
-
 #pragma once
+
+#include "Environment/Reflection/ID/Public/RFunction.h"
 
 namespace Apprentice
 {
-class ModuleConfiguration : public Environment::EventHandler
+class ModuleConfiguration
 {
 public:
 	//////////////////////////////////////////////////////////////
 	// Init
 
-	ModuleConfiguration();
-	virtual ~ModuleConfiguration();
+	/*ModuleConfiguration();
+	virtual ~ModuleConfiguration();*/
 
 	//////////////////////////////////////////////////////////////
 	// Events

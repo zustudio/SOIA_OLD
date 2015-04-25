@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "VectorND.h"
+#include "Vector2D.h"
 
 #include <vector>
 
@@ -24,9 +24,9 @@ namespace ZABS
 			}
 
 			//---- properties ----
-			VectorND<int> Dim()
+			Vector2D<int> Dim()
 			{
-				return VectorND<int>({ SizeX, SizeY });
+				return Vector2D<int>({ SizeX, SizeY });
 			}
 			void Resize(int NewSizeX, int NewSizeY, T value)
 			{
@@ -49,7 +49,7 @@ namespace ZABS
 			T* get(int x, int y)
 			{
 				if (x < SizeX && y < SizeY)
-					return &Content[x + y * SizeY];
+					return &Content[x + y * SizeX];
 				else
 					return nullptr;
 			}

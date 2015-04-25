@@ -14,6 +14,7 @@
     <ClCompile Include="ControlElements\Private\CCanvas.cpp" />
     <ClCompile Include="ControlElements\Private\CGraph.cpp" />
     <ClCompile Include="ControlElements\Private\Control.cpp" />
+    <ClCompile Include="ControlElements\Private\CTable.cpp" />
     <ClCompile Include="ControlElements\Private\CTextBox.cpp" />
     <ClCompile Include="Core\Private\Window.cpp" />
     <ClCompile Include="Core\Private\Window_Base.cpp" />
@@ -32,6 +33,7 @@
     <ClInclude Include="ControlElements\Public\CCanvas.h" />
     <ClInclude Include="ControlElements\Public\CGraph.h" />
     <ClInclude Include="ControlElements\Public\Control.h" />
+    <ClInclude Include="ControlElements\Public\CTable.h" />
     <ClInclude Include="ControlElements\Public\CTextBox.h" />
     <ClInclude Include="Core\Classes\PrivateDefinitions.h" />
     <ClInclude Include="Core\Public\Window.h" />

@@ -11,6 +11,7 @@ namespace SO
 		class VoidPointer
 		{
 		public:
+			//----- init -----
 			VoidPointer(const VoidPointer &ObjToCopy)
 			{
 				Object = ObjToCopy.Object;
@@ -22,6 +23,8 @@ namespace SO
 				Object = (void*) &NewObject;
 				ID = std::string(typeid(T*).name());
 			}
+
+			//----- public cast functionality -----
 			template<typename T>
 			T* CastTo() const
 			{
@@ -32,26 +35,33 @@ namespace SO
 				else
 					return nullptr;
 			}
+			template<typename NewType>
+			NewType* ConvertTo() const
+			{
+				if (IsType<NewType>())
+					return (NewType*)Object;
+				else
+				{
+					if (IsType<std::string>() && typeid(NewType) == typeid(int))
+					{
+						return (NewType*) new int(std::atoi(((std::string*)Object)->c_str()));
+					}
+					return nullptr;
+				}
+
+			}
+
+			//----- type checking -----
+		private:
 			template<typename T>
 			bool IsType() const
 			{
-				std::string ID2 = std::string(typeid(T).name());
-
-				return (ID2 == ID);
-			}
-			template<typename T>
-			T& GetReference() const
-			{
-				if (IsType<T>())
-				{
-					T* p_Object = (T*)Object;
-					T& object = *p_Object;
-					return object;
-				}
-				T object = T();
-				return object;
+				std::string ID2 = std::string(typeid(T*).name());
+				return ID2 == ID;
 			}
 
+			////////////////////////////////////////////////////////////////
+			// Variables
 		private:
 			void* Object;
 			std::string ID;

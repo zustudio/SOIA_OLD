@@ -113,22 +113,6 @@ void CCanvas::Clear()
 			delete first;
 	}
 }
-/////////////////////////////////////////////////////////////////////////////////
-// calculating
-cPoint CCanvas::getAbsCP(const fPoint &a, bool bDelta)
-{
-	cPoint back;
-	back = cPoint((*Size) * a);
-	back.px->X = (*Size->px).X * a.X;
-	back.px->Y = (*Size->px).Y * a.Y;
 
-	if (!bDelta)
-	{
-		back += *Location;
-		*back.px += *Location->px;
-	}
-
-	return back;
-}
 
 

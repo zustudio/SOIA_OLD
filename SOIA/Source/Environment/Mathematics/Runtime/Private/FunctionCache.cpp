@@ -30,3 +30,8 @@ bool FunctionCache::GetCachedFunctionCall(const Value_ID &InFunction, double InO
 	}
 	return result;
 }
+
+void FunctionCache::Clear()
+{
+	CachedFunctions.clear();
+}

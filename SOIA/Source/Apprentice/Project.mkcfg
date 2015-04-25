@@ -18,4 +18,4 @@ PROJECT_DEPENDENCY := Environment
 TARGET_ROLE := SharedLibrary
 
 # \/ what subfolders do exist in this project?
-MODULES := Core SSt
+MODULES := Core SSt Modules

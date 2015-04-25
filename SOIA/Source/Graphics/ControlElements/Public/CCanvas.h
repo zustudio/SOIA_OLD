@@ -41,8 +41,6 @@ namespace Graphics
 		void DrawObject(fCanvasObject* InObject);
 		void HighlightObject(fCanvasObject* InObject, bool bEnable);
 		void Clear();
-		//---- calc ----
-	protected:
-		cPoint getAbsCP(const fPoint &a, bool bDelta = false);
+		
 	};
 }

@@ -1,29 +1,23 @@
 
 #pragma once
 
-// include Super class
-#include "Event/Public/EventDispatcher.h"
-#include "Command/Public/CommandExecutor.h"
+#include "Environment/Event/Public/Event.h"
 
+#include "Environment/Reflection/ID/Public/RFunction.h"
 
 namespace Apprentice
 {
-class Module : public Environment::EventDispatcher, public Environment::CommandExecutor
+class Module
 {
 public:
 	////////////////////////////////////////////
 	// Init
 
-	Module(Environment::EventHandler* InModuleConfiguration);
-	virtual ~Module();
+	/*Module();
+	virtual ~Module();*/
 
 	////////////////////////////////////////////
 	// Action System
-
-	struct Commands : Environment::CommandExecutor::Commands
-	{
-		Environment::TCommandFunction DoAnotherThing;
-	};
 
 
 };

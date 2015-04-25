@@ -83,6 +83,7 @@
     <ClCompile Include="ControlElements\Private\Control.cpp" />
     <ClCompile Include="ControlElements\Private\CTextBox.cpp" />
     <ClCompile Include="Core\Private\Window_Base.cpp" />
+    <ClCompile Include="ControlElements\Private\CTable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataStructures\Public\cPoint.h">
@@ -124,6 +125,7 @@
     <ClInclude Include="ControlElements\Public\CTextBox.h" />
     <ClInclude Include="Core\Public\Window_Base.h" />
     <ClInclude Include="Core\Classes\PrivateDefinitions.h" />
+    <ClInclude Include="ControlElements\Public\CTable.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Makefile.generated.mk" />

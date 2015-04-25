@@ -2,7 +2,7 @@
 #pragma once
 
 // include Super class
-#include "Core/Public/Module.h"
+#include "Apprentice/Core/Public/Module.h"
 
 namespace Apprentice
 {
@@ -12,9 +12,7 @@ public:
 	//////////////////////////////////////////////////////////////
 	// Event definitions
 
-	static Environment::Event ERequest_ActivateNextModules;
-
-	Commands* CommandList;
+	Environment::Event ERequest_ActivateNextModules;
 
 	//////////////////////////////////////////////////////////////
 	// Init
@@ -22,5 +20,10 @@ public:
 	ActivationModule();
 	~ActivationModule();
 
+	////////////////////////////////////////////////////////////////////
+	// Commands
+	Environment::RFunctionInterface* cmd_Activate;
+private:
+	bool rawcmd_Activate();
 };
 }

@@ -1,17 +1,25 @@
 
+#include "Apprentice/Core/Classes/PrivateDefinitions.h"
+
 // include class
-#include "Modules/Public/ActivationModule.h"
+#include "Apprentice/Modules/Public/ActivationModule.h"
 using namespace Apprentice;
 using namespace Environment;
 
 //////////////////////////////////////////////////////////////
 // Init
 
-ActivationModule::ActivationModule()
+ActivationModule::ActivationModule() : 
+	cmd_Activate(new RFunction<ActivationModule>(this, &ActivationModule::rawcmd_Activate))
 {
-	RaiseEvent(ERequest_ActivateNextModules);
 }
 ActivationModule::~ActivationModule()
 {
 
+}
+
+bool ActivationModule::rawcmd_Activate()
+{
+	ERequest_ActivateNextModules.Raise();
+	return true;
 }

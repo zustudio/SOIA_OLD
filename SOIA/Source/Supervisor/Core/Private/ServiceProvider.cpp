@@ -16,11 +16,6 @@ ServiceProvider::ServiceProvider()
 	: 
 	Services(RContainer(Range<int>(0, 1000000)))
 {
-	int x;
-	int& rx = x;
-
-	SO::Base::VoidPointer p = SO::Base::VoidPointer(rx);
-	int& rx2 = p.GetReference<int>();
 
 	auto console = Services.Register(new ConsoleService(Services), "Console");
 	auto engine = Services.Register(new Engine_SSt(Services), "Engine");

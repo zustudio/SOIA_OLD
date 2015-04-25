@@ -48,6 +48,9 @@ namespace Graphics
 		//---- events ----
 		void CheckMouseButtonPressedEventAppliance(const pxPoint& InCoordinates);
 		Environment::Event MouseButtonPressedEvent;
+	protected:
+		//---- calc ----
+		cPoint getAbsCP(const fPoint &a, bool bDelta = false);
 	};
 }
 
