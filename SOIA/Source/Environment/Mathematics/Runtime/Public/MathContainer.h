@@ -17,6 +17,7 @@ namespace Environment
 		/*Element_ID& DefineValue(Value*);
 		Element_ID RedefineValue(const Element_ID&, Value*);*/
 		double CalculateValue(const Element_ID &InID);
+		double CalculateValue(const std::string& InName);
 		void SetValueName(const Element_ID &InID, const std::string &InName);
 
 		/*double CalculateFunction(const Element_ID &InID);*/

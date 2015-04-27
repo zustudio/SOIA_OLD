@@ -14,6 +14,9 @@ using namespace Supervisor;
 #include "Environment/Mathematics/Runtime/Public/Variable.h"
 using namespace Environment;
 
+#include "Environment/Mathematics/Runtime/Public/EquationString.h"
+
+
 #include "Environment/Reflection/ID/Public/RFunction.h"
 
 #include "Graphics/Core/Public/Window.h"
@@ -24,6 +27,7 @@ using namespace SO;
 using namespace Graphics;
 
 #define d(arguments) (runtime.Register(arguments))
+#define es(arguments) (EquationString(arguments).Parse(runtime))
 
 SchroedingerApplication::SchroedingerApplication(Environment::RContainer &InServiceContainer) : RApplication(InServiceContainer)
 {
@@ -32,7 +36,35 @@ SchroedingerApplication::SchroedingerApplication(Environment::RContainer &InServ
 
 void SchroedingerApplication::Main()
 {
+
 	MathContainer runtime = MathContainer();
+
+	///////// TEST
+	/*auto es = EquationString("z=3");
+	auto res = es.Tokenize().GenerateOperandDependency()->rec_RegisterToken(&runtime);
+
+	auto es2 = EquationString("sel(1,z,5)");
+	auto res2 = es2.Tokenize().GenerateOperandDependency()->rec_RegisterToken(&runtime);*/
+
+	es("a=3");
+	es("f(x)=sel(x>0,1,f(x-1)+5e-1)");
+	es("f_Max=f(4)");
+	
+	std::cout << "result is = " << runtime.CalculateValue("a") << std::endl;
+	std::cout << "result is = " << runtime.CalculateValue("f_Max") << std::endl;
+
+	auto funcObj = GenericMathFunction(&runtime, runtime.GetElement<Value>("f")->GetID());
+
+	Window testWin = Window("TEST");
+	auto testG = testWin.AddControl<CGraph>();
+	testG->DeltaX = 1;
+	testG->SizeMin = fPoint(-10, -10);
+	testG->SizeMax = fPoint(10, 10);
+	testG->AddFunction(funcObj, fColor(0.9, 0.5, 0.7));
+
+	testWin.Open();
+	
+	///////// ENDTEST
 
 	double XMax = 5e-11;
 	double val_DeltaX = 5e-12;
@@ -199,9 +231,9 @@ void SchroedingerApplication::Main()
 	CTable* TableWDep = subWindowWDep->AddControl<CTable>();
 	TableWDep->Matrix = results;
 
-	subWindowWDep->Open();
+	//subWindowWDep->Open();
 
-	/*Window* mainWindow = new Window("SchroedingerApplication");
+	Window* mainWindow = new Window("SchroedingerApplication");
 	CGraph* mainGraph = mainWindow->AddControl<CGraph>();
 	mainGraph->SizeMin = fPoint(0, -2);
 	mainGraph->SizeMax = fPoint(XMax*3, 2);
@@ -212,7 +244,7 @@ void SchroedingerApplication::Main()
 	mainGraph->AddFunction(PObject, fColor(0.1,0.9,0.1));
 	mainGraph->AddFunction(W_pot_Object, fColor(0.4,0.4,0.4));
 
-	mainWindow->Open();*/
+	mainWindow->Open();
 }
 
 bool SchroedingerApplication::eventhandler_ButtonPressed(Environment::EventDetails*)

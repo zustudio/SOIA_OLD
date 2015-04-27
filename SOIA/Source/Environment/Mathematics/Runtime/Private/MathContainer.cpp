@@ -4,9 +4,14 @@
 #include "Environment/Mathematics/Runtime/Public/MathContainer.h"
 using namespace Environment;
 
+#include "Environment/Mathematics/Runtime/Public/Constant.h"
+#include "Environment/Mathematics/Runtime/Public/Variable.h"
+
 MathContainer::MathContainer() : RContainer(Range<int>(1000,10000000))
 {
 	FuncCache = FunctionCache();
+	Register(new Constant(0.1), "MathRuntimeVersion");
+	Register(new Variable(0, 0));
 }
 
 //Element_ID& MathContainer::DefineValue(Value* InValue)
@@ -41,7 +46,16 @@ double MathContainer::CalculateValue(const Element_ID &InID)
 	{
 		return element->Calculate(GetAllElements<Value>());
 	}
-		
+	return 35505;
+}
+double MathContainer::CalculateValue(const std::string& InName)
+{
+	Value* element = GetElement<Value>(InName);
+	if (element)
+	{
+		return element->Calculate(GetAllElements<Value>());
+	}
+	return 35505;
 }
 
 void MathContainer::SetValueName(const Element_ID &InID, const std::string &InName)

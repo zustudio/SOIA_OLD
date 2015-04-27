@@ -27,14 +27,19 @@
     <ClInclude Include="Mathematics\Functions\Public\ReversedExponentialFunction.h" />
     <ClInclude Include="Mathematics\Random\Public\Random.h" />
     <ClInclude Include="Mathematics\Runtime\Public\Constant.h" />
+    <ClInclude Include="Mathematics\Runtime\Public\EquationString.h" />
+    <ClInclude Include="Mathematics\Runtime\Public\EquationToken.h" />
+    <ClInclude Include="Mathematics\Runtime\Public\EquationTokens.h" />
     <ClInclude Include="Mathematics\Runtime\Public\FunctionCache.h" />
     <ClInclude Include="Mathematics\Runtime\Public\FunctionCacheItem.h" />
     <ClInclude Include="Mathematics\Runtime\Public\MathContainer.h" />
     <ClInclude Include="Mathematics\Runtime\Public\Operation.h" />
     <ClInclude Include="Mathematics\Runtime\Public\OP_Add.h" />
     <ClInclude Include="Mathematics\Runtime\Public\OP_CalculateFunction.h" />
+    <ClInclude Include="Mathematics\Runtime\Public\OP_GreaterThan.h" />
     <ClInclude Include="Mathematics\Runtime\Public\OP_If.h" />
     <ClInclude Include="Mathematics\Runtime\Public\OP_Multiply.h" />
+    <ClInclude Include="Mathematics\Runtime\Public\OP_Select.h" />
     <ClInclude Include="Mathematics\Runtime\Public\OP_Substract.h" />
     <ClInclude Include="Mathematics\Runtime\Public\Value.h" />
     <ClInclude Include="Mathematics\Runtime\Public\Value_id.h" />
@@ -65,14 +70,18 @@
     <ClCompile Include="Mathematics\Functions\Private\ReversedExponentialFunction.cpp" />
     <ClCompile Include="Mathematics\Random\Private\Random.cpp" />
     <ClCompile Include="Mathematics\Runtime\Private\Constant.cpp" />
+    <ClCompile Include="Mathematics\Runtime\Private\EquationString.cpp" />
+    <ClCompile Include="Mathematics\Runtime\Private\EquationTokens.cpp" />
     <ClCompile Include="Mathematics\Runtime\Private\FunctionCache.cpp" />
     <ClCompile Include="Mathematics\Runtime\Private\FunctionCacheItem.cpp" />
     <ClCompile Include="Mathematics\Runtime\Private\MathContainer.cpp" />
     <ClCompile Include="Mathematics\Runtime\Private\Operation.cpp" />
     <ClCompile Include="Mathematics\Runtime\Private\OP_Add.cpp" />
     <ClCompile Include="Mathematics\Runtime\Private\OP_CalculateFunction.cpp" />
+    <ClCompile Include="Mathematics\Runtime\Private\OP_GreaterThan.cpp" />
     <ClCompile Include="Mathematics\Runtime\Private\OP_If.cpp" />
     <ClCompile Include="Mathematics\Runtime\Private\OP_Multiply.cpp" />
+    <ClCompile Include="Mathematics\Runtime\Private\OP_Select.cpp" />
     <ClCompile Include="Mathematics\Runtime\Private\OP_Substract.cpp" />
     <ClCompile Include="Mathematics\Runtime\Private\Value.cpp" />
     <ClCompile Include="Mathematics\Runtime\Private\Value_ID.cpp" />
@@ -89,6 +98,7 @@
   <ItemGroup>
     <None Include="Makefile.generated.mk" />
     <None Include="Makefile.generated.mkcfg" />
+    <None Include="Mathematics\Runtime\Private\EquationToken.cpp" />
     <None Include="Project.mkcfg" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

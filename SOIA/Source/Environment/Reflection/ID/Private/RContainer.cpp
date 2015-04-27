@@ -29,6 +29,9 @@ Element_ID& RContainer::Register(RElement* InObject, const std::string &InName)
 }
 Element_ID& RContainer::ReRegister(const Element_ID& InID, RElement* InObject)
 {
+	// if new object is already registered, unregister it
+	Unregister(InObject);
+
 	RElement** ObjectToReplace = GetElementPointer(InID);
 	if (ObjectToReplace)
 	{
@@ -39,6 +42,14 @@ Element_ID& RContainer::ReRegister(const Element_ID& InID, RElement* InObject)
 		return InObject->GetID();
 	}
 	return Element_ID();
+}
+void RContainer::Unregister(RElement* Object)
+{
+	auto foundObject = std::find(Objects.begin(), Objects.end(), Object);
+	if (foundObject != Objects.end())
+	{
+		Objects.erase(foundObject);
+	}
 }
 RElement** RContainer::GetElementPointer(const Element_ID &InID)
 {

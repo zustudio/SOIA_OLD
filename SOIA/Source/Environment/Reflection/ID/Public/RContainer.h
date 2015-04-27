@@ -26,6 +26,9 @@ namespace Environment
 		/// Overwrites old registration with a new Object.
 		Element_ID& ReRegister(const Element_ID &InID, RElement* InObject);
 
+		/// Unregisters object.
+		void Unregister(RElement* InObject);
+
 		/// Returns pointer to pointer to registered Object.
 		RElement** GetElementPointer(const Element_ID &InID);
 		RElement** GetElementPointer(const std::string &InName);
