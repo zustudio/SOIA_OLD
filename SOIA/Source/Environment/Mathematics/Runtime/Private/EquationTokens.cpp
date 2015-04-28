@@ -44,6 +44,22 @@ EquationToken* EquationTokens::GenerateOperandDependency()
 		}
 	}
 
+	//combine minus signs to numbers
+	for (auto iter = UnsortedTokens.begin(); iter < UnsortedTokens.end() - 2; iter++)
+	{
+		EquationToken* prevToken = (*iter);
+		EquationToken* minusToken = *(iter + 1);
+		EquationToken* nextToken = *(iter + 2);
+
+		if (minusToken->String == "-"
+			&& (prevToken->Type != TokenType::Number && prevToken->Type != TokenType::Variable && prevToken->Type != TokenType::ClosingBracket)
+			&& (nextToken->Type == TokenType::Number))
+		{
+			nextToken->String = minusToken->String + nextToken->String;
+			UnsortedTokens.erase(iter + 1);
+		}
+	}
+
 	//combine e numbers (1e-10)
 	for (auto iter = UnsortedTokens.begin(); iter < UnsortedTokens.end() - 2; iter++)
 	{
@@ -55,12 +71,12 @@ EquationToken* EquationTokens::GenerateOperandDependency()
 			if (nextNextToken->Type == TokenType::Number)
 			{
 				token->String += nextToken->String + nextNextToken->String;
-				UnsortedTokens.erase(iter + 1, iter + 2);
+				UnsortedTokens.erase(iter + 1, iter + 3);
 			}
 			else if (nextNextToken->String == "-" && iter < UnsortedTokens.end() - 3 && (*(iter+3))->Type == TokenType::Number)
 			{
 				token->String += nextToken->String + nextNextToken->String + (*(iter + 3))->String;
-				UnsortedTokens.erase(iter + 1, iter + 3);
+				UnsortedTokens.erase(iter + 1, iter + 4);
 			}
 		}
 	}
@@ -139,16 +155,17 @@ EquationToken* EquationTokens::GenerateOperandDependency()
 			if (Token->Type == TokenType::OpeningBracket)
 			{
 				Token->CollapseOperands(j, *Tokens);
-				TokenLists.push_front(&Token->Operands);
-				i = -1;
+				TokenLists.insert(TokenLists.begin() + i, &Token->Operands);
+				i--;
 				break;
 			}
 		}
-		if (i > -1)
-		{
-			MultDivAddSubstDependency(*Tokens);
-			VarAssignmentDependency(*Tokens);
-		}
+	}
+
+	for (auto tokens : TokenLists)
+	{
+		MultDivAddSubstDependency(*tokens);
+		VarAssignmentDependency(*tokens);
 	}
 
 	/////////////////////////////////////////////////////////7

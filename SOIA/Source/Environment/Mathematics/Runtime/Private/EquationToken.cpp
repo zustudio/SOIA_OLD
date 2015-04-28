@@ -20,7 +20,7 @@ EquationToken::EquationToken(const std::string& InString)
 	String = InString;
 
 	if (InString[0] == ' ')
-		Type == TokenType::WhiteSpace;
+		Type = TokenType::WhiteSpace;
 	else if (InString[0] == '=')
 		Type = TokenType::VariableAssignment;
 	else if (InString[0] == '(')
@@ -62,6 +62,7 @@ void EquationToken::CollapseOperands(int& InMyPosition, std::deque<EquationToken
 				Operands = std::deque<EquationToken*>(InAllTokens.begin() + InMyPosition + 1, InAllTokens.begin() + i);
 				InAllTokens.erase(InAllTokens.begin() + InMyPosition + 1, InAllTokens.begin() + i + 1);
 				Type = TokenType::CollapsedBracket;
+				break;
 			}
 		}
 		break;
@@ -115,7 +116,10 @@ Element_ID EquationToken::rec_RegisterToken(MathContainer* InRuntime)
 			else
 				break;
 		}
-		InRuntime->Register(new Constant(0), name);
+		if (! InRuntime->GetElement<Value>(name))
+		{
+			InRuntime->Register(new Constant(0), name);
+		}
 	}
 
 	// get ids of my operands

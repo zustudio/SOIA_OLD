@@ -15,6 +15,7 @@ RContainer::RContainer(const Range<int>& InAllowedIDs)
 // Public Object Access
 Element_ID& RContainer::Register(RElement* InObject, const std::string &InName)
 {
+
 	Element_ID freeID = NextFreeID();
 
 	std::string name = InName;
