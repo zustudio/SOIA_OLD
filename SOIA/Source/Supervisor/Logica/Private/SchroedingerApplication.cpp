@@ -39,11 +39,15 @@ void SchroedingerApplication::Main()
 
 	MathContainer runtime = MathContainer();
 
-	double XMax = 10e-11;
-	double val_DeltaX = 5e-12;
+	double XMax = 10e-10;
+	double val_DeltaX = 1e-12;
+
 
 	runtime.Register(new Constant(XMax), "a");
 	runtime.Register(new Constant(val_DeltaX), "dx");
+	//Constant* W = new Constant(5.12376e-19);
+	Constant* W = new Constant((1/9)*-13.35*1.602176e-19);
+	runtime.Register(W, "W");
 
 	///////// TEST
 	/*auto es = EquationString("z=3");
@@ -53,33 +57,90 @@ void SchroedingerApplication::Main()
 	auto res2 = es2.Tokenize().GenerateOperandDependency()->rec_RegisterToken(&runtime);*/
 
 	es("C=-1.6382e38");
-	es("W=-12.96e-18");
+	es("pi=3.14159");
+	//es("W=-13.325*1.602176e-19");
 
-	es("W_pot(x)=sel(x>a, -16e-18, 0)");
+	es("W_pot(x)=(-2.30708/x)*1e-28");
 	es("W_kin(x)=W-W_pot(x)");
 
 	es("Psi=0");
 	es("PsiDot=0");
 	
-	es("PsiDotDot(x)= sel(x>5e-11,0,C*W_kin(x)*Psi(x-dx) )");
-	es("PsiDot(x)=    sel(x>5e-11,0,PsiDot(x-dx)+PsiDotDot(x)*dx)");
-	es("Psi(x)=       sel(x>5e-11,1,Psi(x-dx)+PsiDot(x)*dx)");
+	es("PsiDotDot(x)= sel(x>1e-12,-1.7401e22,         (-2/x)*PsiDot(x-dx) + C*W_kin(x)*Psi(x-dx) )");
+	es("PsiDot(x)=    sel(x>1e-12,-1e10,      PsiDot(x-dx)+PsiDotDot(x)*dx)");
+	es("Psi(x)=       sel(x>1e-12,1,         Psi(x-dx)+PsiDot(x)*dx)");
 
-	es("SLD_W_pot(x)=W_kin(x)*1e16");
+	/*
+	
+	
 	
 	std::cout << "result is = " << runtime.CalculateValue("test") << std::endl;
 	std::cout << "result is = " << runtime.CalculateValue("testB") << std::endl;
+*/
 
+	es("P(x)=         Psi(x)*Psi(x)");
+	es("RP(r)=P(r)*4*pi*r*r*dx");
+
+	es("CumP(x)= sel(x>1e-12,0,         CumP(x-dx)+RP(x)*dx)");
+	es("CumP_XMax=CumP(a)");
+	double CumP_XMax = runtime.CalculateValue("CumP_XMax");
+	double Scale = 1 / CumP_XMax;
+	runtime.Register(new Constant(Scale), "Scale");
+
+	es("SLD_Psi(x)=Scale*Psi(x)");
+	es("SLD_P(x)=Scale*P(x)");
+	es("SLD_CumP(x)=Scale*CumP(x)");
+	es("RPP(r)=SLD_CumP(r+(1/10*a) )-SLD_CumP(r)");
+	
+
+	es("SLD_W_pot(x)=W_kin(x)*1e16");
+	auto pObj = GenericMathFunction(&runtime, runtime.GetElement<Value>("RPP")->GetID());
 	auto psiObj = GenericMathFunction(&runtime, runtime.GetElement<Value>("Psi")->GetID());
 	auto w_pot_Obj = GenericMathFunction(&runtime, runtime.GetElement<Value>("SLD_W_pot")->GetID());
 
-	Window testWin = Window("Schroe");
+
+
+	/*double WMax = 1.2*13.325*1.602176e-19;
+	int WTimes = 20;
+	double WStep = WMax / WTimes;
+
+	ZABS::Math::Matrix2D<double> results;
+	results.Resize(2, WTimes, 0);
+	std::vector<fPoint> dataPoints;
+
+	for (int i = 0; i < WTimes; i++)
+	{
+		double WTrial = WStep * i;
+		W->myValue = -WTrial;
+		runtime.FuncCache.Clear();
+		double result = psiObj.get(XMax);
+		results.set(0, i, WTrial);
+		results.set(1, i, result);
+		dataPoints.push_back(fPoint(WTrial, result));
+	}
+
+	Window* subWindowWDep = new Window("W->Psi(W)");
+
+	CGraph* GraphWDep = subWindowWDep->AddControl<CGraph>();
+	GraphWDep->SizeMin = fPoint(0, -2);
+	GraphWDep->SizeMax = fPoint(WMax, 2);
+	GraphWDep->DeltaX = WStep;
+	GraphWDep->SetDataPoints(dataPoints);
+
+	CTable* TableWDep = subWindowWDep->AddControl<CTable>();
+	TableWDep->Matrix = results;
+
+	subWindowWDep->Open();*/
+
+
+	Window testWin = Window("Schroe", pxPoint(800,500));
 	auto testG = testWin.AddControl<CGraph>();
 	testG->DeltaX = val_DeltaX;
 	testG->SizeMin = fPoint(0, -1);
-	testG->SizeMax = fPoint(XMax*2, 1);
-	testG->AddFunction(psiObj, fColor(0.9, 0.5, 0.7));
+	testG->SizeMax = fPoint(XMax, 1);
+	testG->AddFunction(pObj, fColor(1.0, 0, 0));
 	testG->AddFunction(w_pot_Obj, fColor(0.4, 0.4, 0.4));
+	testG->AddFunction(psiObj, fColor(0.9, 0.5, 0.7));
 
 	testWin.Open();
 	

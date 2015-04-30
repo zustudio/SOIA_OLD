@@ -36,6 +36,7 @@
     <ClInclude Include="Mathematics\Runtime\Public\Operation.h" />
     <ClInclude Include="Mathematics\Runtime\Public\OP_Add.h" />
     <ClInclude Include="Mathematics\Runtime\Public\OP_CalculateFunction.h" />
+    <ClInclude Include="Mathematics\Runtime\Public\OP_Divide.h" />
     <ClInclude Include="Mathematics\Runtime\Public\OP_GreaterThan.h" />
     <ClInclude Include="Mathematics\Runtime\Public\OP_If.h" />
     <ClInclude Include="Mathematics\Runtime\Public\OP_Multiply.h" />
@@ -78,6 +79,7 @@
     <ClCompile Include="Mathematics\Runtime\Private\Operation.cpp" />
     <ClCompile Include="Mathematics\Runtime\Private\OP_Add.cpp" />
     <ClCompile Include="Mathematics\Runtime\Private\OP_CalculateFunction.cpp" />
+    <ClCompile Include="Mathematics\Runtime\Private\OP_Divide.cpp" />
     <ClCompile Include="Mathematics\Runtime\Private\OP_GreaterThan.cpp" />
     <ClCompile Include="Mathematics\Runtime\Private\OP_If.cpp" />
     <ClCompile Include="Mathematics\Runtime\Private\OP_Multiply.cpp" />
@@ -96,6 +98,7 @@
     <ClCompile Include="Thread\Private\Thread.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram.cd" />
     <None Include="Makefile.generated.mk" />
     <None Include="Makefile.generated.mkcfg" />
     <None Include="Mathematics\Runtime\Private\EquationToken.cpp" />

@@ -2,6 +2,7 @@
 #pragma once
 
 #include "Environment/Mathematics/Runtime/Public/MathContainer.h"
+#include "Environment/Mathematics/Runtime/Public/Constant.h"
 
 namespace Environment
 {
@@ -15,5 +16,6 @@ namespace Environment
 		MathContainer* MathRuntime;
 		Element_ID Function;
 		Element_ID FunctionCall;
+		Constant* FunctionArgument0;
 	};
 }

@@ -14,14 +14,18 @@ GenericMathFunction::GenericMathFunction(MathContainer* InRuntime, const Element
 	MathRuntime = InRuntime;
 	Function = InFunction;
 	FunctionCall = MathRuntime->Register(new Constant(0));
+	FunctionArgument0 = new Constant(0);
+	MathRuntime->Register(FunctionArgument0);
 }
 
 double GenericMathFunction::get(double x)
 {
 	double result;
+
+	FunctionArgument0->myValue = x;
 	MathRuntime->ReRegister(FunctionCall, new OP_CalculateFunction(&MathRuntime->FuncCache, std::vector < Element_ID > {
 		Function,
-		MathRuntime->Register(new Constant(x)) }));
+		FunctionArgument0->GetID() }));
 	std::cout << std::endl << "GenericMathFunction: New Calculation: X=" << x << std::endl;
 	result = MathRuntime->CalculateValue(FunctionCall);
 	return result;

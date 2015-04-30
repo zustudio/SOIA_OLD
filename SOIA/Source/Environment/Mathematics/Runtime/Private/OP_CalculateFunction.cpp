@@ -38,10 +38,10 @@ double OP_CalculateFunction::Calculate(const std::vector<Value*> &DefinedValues)
 
 	// try get result from func cache, if not available calculate it
 	double result;
-	if (! FuncCache->GetCachedFunctionCall(GetID(), rVariable0, result))
+	if (! FuncCache->GetCachedFunctionCall(op0->GetID(), rVariable0, result))
 	{
 		result = op0->Calculate(ValuesToPassOn);
-		FuncCache->CacheFunctionCall(GetID(), rVariable0, result);
+		FuncCache->CacheFunctionCall(op0->GetID(), rVariable0, result);
 	}
 
 	std::cout << "OP_CalcFunc: " << op0->GetID().Name << "( " << rVariable0 << " ) = ";

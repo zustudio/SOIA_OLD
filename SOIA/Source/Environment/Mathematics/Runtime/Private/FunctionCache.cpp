@@ -21,7 +21,7 @@ bool FunctionCache::GetCachedFunctionCall(const Element_ID &InFunction, double I
 	{
 		if (InFunction == functionCall.CalledFunction)
 		{
-			if (InOperand0 == functionCall.Operand0)
+			if (DoublesEqual(InOperand0, functionCall.Operand0))
 			{
 				OutResult = functionCall.Result;
 				result = true;
@@ -34,4 +34,9 @@ bool FunctionCache::GetCachedFunctionCall(const Element_ID &InFunction, double I
 void FunctionCache::Clear()
 {
 	CachedFunctions.clear();
+}
+
+bool FunctionCache::DoublesEqual(const double& InA, const double& InB)
+{
+	return std::fabs(InA - InB) < std::numeric_limits<double>::epsilon();
 }

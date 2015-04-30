@@ -136,6 +136,7 @@
     <ClInclude Include="Mathematics\Runtime\Public\EquationToken.h" />
     <ClInclude Include="Mathematics\Runtime\Public\OP_GreaterThan.h" />
     <ClInclude Include="Mathematics\Runtime\Public\OP_Select.h" />
+    <ClInclude Include="Mathematics\Runtime\Public\OP_Divide.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mathematics\Functions\Private\ExponentialFunction.cpp">
@@ -183,11 +184,13 @@
     <ClCompile Include="Mathematics\Runtime\Private\EquationTokens.cpp" />
     <ClCompile Include="Mathematics\Runtime\Private\OP_GreaterThan.cpp" />
     <ClCompile Include="Mathematics\Runtime\Private\OP_Select.cpp" />
+    <ClCompile Include="Mathematics\Runtime\Private\OP_Divide.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Makefile.generated.mk" />
     <None Include="Makefile.generated.mkcfg" />
     <None Include="Project.mkcfg" />
     <None Include="Mathematics\Runtime\Private\EquationToken.cpp" />
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

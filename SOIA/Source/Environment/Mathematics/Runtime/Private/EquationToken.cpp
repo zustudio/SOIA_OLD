@@ -7,6 +7,7 @@ using namespace Environment;
 #include "Environment/Mathematics/Runtime/Public/OP_Add.h"
 #include "Environment/Mathematics/Runtime/Public/OP_Substract.h"
 #include "Environment/Mathematics/Runtime/Public/OP_Multiply.h"
+#include "Environment/Mathematics/Runtime/Public/OP_Divide.h"
 #include "Environment/Mathematics/Runtime/Public/OP_Select.h"
 #include "Environment/Mathematics/Runtime/Public/OP_GreaterThan.h"
 #include "Environment/Mathematics/Runtime/Public/OP_CalculateFunction.h"
@@ -138,6 +139,8 @@ Element_ID EquationToken::rec_RegisterToken(MathContainer* InRuntime)
 	case TokenType::MultiplyDivide:
 		if (String == "*")
 			return InRuntime->Register(new OP_Multiply(operandIDs));
+		else if (String == "/")
+			return InRuntime->Register(new OP_Divide(operandIDs));
 	case TokenType::AddSubstract:
 		if (String == "+")
 			return InRuntime->Register(new OP_Add(operandIDs));
