@@ -90,9 +90,6 @@
     <ClInclude Include="Mathematics\Random\Public\Random.h">
       <Filter>Mathematics\Random\Public</Filter>
     </ClInclude>
-    <ClInclude Include="File\Public\File.h">
-      <Filter>File\Public</Filter>
-    </ClInclude>
     <ClInclude Include="Reflection\NameAttribute\Public\Handle.h">
       <Filter>Reflection\NameAttribute\Public</Filter>
     </ClInclude>
@@ -137,6 +134,17 @@
     <ClInclude Include="Mathematics\Runtime\Public\OP_GreaterThan.h" />
     <ClInclude Include="Mathematics\Runtime\Public\OP_Select.h" />
     <ClInclude Include="Mathematics\Runtime\Public\OP_Divide.h" />
+    <ClInclude Include="File\Public\FileObject.h" />
+    <ClInclude Include="File\Public\PropertyTag.h" />
+    <ClInclude Include="Reflection\Atomic\Classes\SimpleAtomReflection.h" />
+    <ClInclude Include="Reflection\Atomic\Public\AtomReflectionProvider.h" />
+    <ClInclude Include="Reflection\Atomic\Public\AtomReflectionInterface.h" />
+    <ClInclude Include="File\Public\PropertyTagFactory.h" />
+    <ClInclude Include="File\Public\File.h">
+      <Filter>File\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="File\Public\TextFile.h" />
+    <ClInclude Include="File\Public\SaveFile.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mathematics\Functions\Private\ExponentialFunction.cpp">
@@ -150,9 +158,6 @@
     </ClCompile>
     <ClCompile Include="Mathematics\Random\Private\Random.cpp">
       <Filter>Mathematics\Random\Private</Filter>
-    </ClCompile>
-    <ClCompile Include="File\Private\File.cpp">
-      <Filter>File\Private</Filter>
     </ClCompile>
     <ClCompile Include="Reflection\TypeAttribute\Private\VoidPointer.cpp">
       <Filter>Reflection\TypeAttribute\Private</Filter>
@@ -185,6 +190,15 @@
     <ClCompile Include="Mathematics\Runtime\Private\OP_GreaterThan.cpp" />
     <ClCompile Include="Mathematics\Runtime\Private\OP_Select.cpp" />
     <ClCompile Include="Mathematics\Runtime\Private\OP_Divide.cpp" />
+    <ClCompile Include="File\Private\FileObject.cpp" />
+    <ClCompile Include="File\Private\PropertyTag.cpp" />
+    <ClCompile Include="Reflection\Atomic\Private\AtomReflectionProvider.cpp" />
+    <ClCompile Include="File\Private\PropertyTagFactory.cpp" />
+    <ClCompile Include="File\Private\File.cpp">
+      <Filter>File\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="File\Private\TextFile.cpp" />
+    <ClCompile Include="File\Private\SaveFile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Makefile.generated.mk" />

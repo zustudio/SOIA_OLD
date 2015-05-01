@@ -48,7 +48,7 @@ namespace Supervisor
 		//----- input interpretation -----
 
 		/// Returns vector of matching functions, as well as arguments to be applied to these.
-		bool InterpretInput(const std::vector<std::string> &InInput, std::vector<RService*> &OutServices, std::vector<RFunctionInterface*> &OutFunctions, std::vector<SO::Base::VoidPointer> &OutArgs);
+		bool InterpretInput(const std::vector<std::string> &InInput, std::vector<RService*> &OutServices, std::vector<RFunctionInterface*> &OutFunctions, std::vector<Environment::VoidPointer> &OutArgs);
 
 	private:
 		///////////////////////////////////////////////////////////////

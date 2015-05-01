@@ -16,6 +16,11 @@
     <ClInclude Include="Event\Public\Event.h" />
     <ClInclude Include="Event\Public\EventDetails.h" />
     <ClInclude Include="File\Public\File.h" />
+    <ClInclude Include="File\Public\FileObject.h" />
+    <ClInclude Include="File\Public\PropertyTag.h" />
+    <ClInclude Include="File\Public\PropertyTagFactory.h" />
+    <ClInclude Include="File\Public\SaveFile.h" />
+    <ClInclude Include="File\Public\TextFile.h" />
     <ClInclude Include="Mathematics\DataStructures\Public\Matrix2D.h" />
     <ClInclude Include="Mathematics\DataStructures\Public\Range.h" />
     <ClInclude Include="Mathematics\DataStructures\Public\Vector2D.h" />
@@ -49,6 +54,9 @@
     <ClInclude Include="PreProcessor\Public\BuildMacros.h" />
     <ClInclude Include="PreProcessor\Public\CPPExtensions.h" />
     <ClInclude Include="PreProcessor\Public\Definitions.h" />
+    <ClInclude Include="Reflection\Atomic\Public\AtomReflectionInterface.h" />
+    <ClInclude Include="Reflection\Atomic\Classes\SimpleAtomReflection.h" />
+    <ClInclude Include="Reflection\Atomic\Public\AtomReflectionProvider.h" />
     <ClInclude Include="Reflection\ID\Public\Element_ID.h" />
     <ClInclude Include="Reflection\ID\Public\RApplication.h" />
     <ClInclude Include="Reflection\ID\Public\RClass.h" />
@@ -65,6 +73,11 @@
     <ClCompile Include="Command\Private\Command.cpp" />
     <ClCompile Include="Event\Private\Event.cpp" />
     <ClCompile Include="File\Private\File.cpp" />
+    <ClCompile Include="File\Private\FileObject.cpp" />
+    <ClCompile Include="File\Private\PropertyTag.cpp" />
+    <ClCompile Include="File\Private\PropertyTagFactory.cpp" />
+    <ClCompile Include="File\Private\SaveFile.cpp" />
+    <ClCompile Include="File\Private\TextFile.cpp" />
     <ClCompile Include="Mathematics\Functions\Private\ExponentialFunction.cpp" />
     <ClCompile Include="Mathematics\Functions\Private\GenericMathFunction.cpp" />
     <ClCompile Include="Mathematics\Functions\Private\LinearFunction.cpp" />
@@ -88,6 +101,7 @@
     <ClCompile Include="Mathematics\Runtime\Private\Value.cpp" />
     <ClCompile Include="Mathematics\Runtime\Private\Value_ID.cpp" />
     <ClCompile Include="Mathematics\Runtime\Private\Variable.cpp" />
+    <ClCompile Include="Reflection\Atomic\Private\AtomReflectionProvider.cpp" />
     <ClCompile Include="Reflection\ID\Private\Element_ID.cpp" />
     <ClCompile Include="Reflection\ID\Private\RApplication.cpp" />
     <ClCompile Include="Reflection\ID\Private\RContainer.cpp" />

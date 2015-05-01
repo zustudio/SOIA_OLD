@@ -6,42 +6,36 @@
 #include <iostream>
 #include <fstream>
 
-#include "VoidPointer.h"
+#include "Environment/Reflection/TypeAttribute/Public/VoidPointer.h"
 
-/* custom extendable enum class (REMOVE)*/
-#define exEnum(enumname, operations) class enumname {private: int i; public: enumname(int newI = 0) { i = newI; } operator int() { return i; } operations }
-#define enumElement(name, var) static const int name = var
-
-namespace SO
+namespace Environment
 {
-	exEnum(FileOptions,
-		enumElement(TypeTags, 1 << 0);
-	);
-
-
-	class __declspec(dllexport) File
+	class DLLIMPEXP File
 	{
 	public:
 		//////////////////////////////////////////////////////////
 		// Functions
 		//---- init ----
-		File(const std::string &InName, const FileOptions &InOptions);
+		File(const std::string &InName, bool bWriteFile);
 		//---- deinit -----
 		~File();
 
 		//---- write to a file ----
 		void Write();
-		bool WriteObject(const SO::Base::VoidPointer &InObject);
+		void Read();
+		virtual void WriteObject(const VoidPointer &InObject) = 0;
+		virtual VoidPointer* ReadObject() = 0;
 
 		/////////////////////////////////////////////////////////
 		// Variables
 		//---- streams ----
 		std::ofstream* OutStream;
+		std::ifstream InStream;
 		//---- name ----
 		std::string Name;
 		//---- content ----
-		std::vector<SO::Base::VoidPointer> Content;
+		std::vector<VoidPointer> Content;
 		//---- options ----
-		FileOptions Options;
+		bool bWriting;
 	};
 }

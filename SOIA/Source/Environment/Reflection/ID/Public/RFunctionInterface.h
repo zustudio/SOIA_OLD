@@ -12,6 +12,6 @@ namespace Environment
 	class DLLIMPEXP RFunctionInterface : public RElement
 	{
 	public:
-		virtual bool Execute(const std::vector<SO::Base::VoidPointer> &InArgs) = 0;
+		virtual bool Execute(const std::vector<VoidPointer> &InArgs) = 0;
 	};
 }

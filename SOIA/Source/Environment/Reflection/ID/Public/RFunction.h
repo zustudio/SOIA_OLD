@@ -48,7 +48,7 @@ namespace Environment
 		}
 	
 		/// Execute via dynamic type application.
-		virtual bool Execute(const std::vector<SO::Base::VoidPointer> &InArgs) override
+		virtual bool Execute(const std::vector<Environment::VoidPointer> &InArgs) override
 		{
 			return MatchArgumentsAndExecute(InArgs, (CleanTypePointer<ArgumentTypes>().Pointer)...);
 		}
@@ -57,7 +57,7 @@ namespace Environment
 		//----- Helper Functions -----
 		/// Function for matching generic type vector to pre defined types then executing.
 		template<typename... p_Argument_Types>
-		bool MatchArgumentsAndExecute(const std::vector<SO::Base::VoidPointer>& TestArguments, p_Argument_Types... p_Arguments)
+		bool MatchArgumentsAndExecute(const std::vector<Environment::VoidPointer>& TestArguments, p_Argument_Types... p_Arguments)
 		{
 			if (TestArguments.size() == sizeof...(p_Argument_Types))
 			{
@@ -68,14 +68,14 @@ namespace Environment
 		}
 
 		/// NOP function.
-		bool rec_MatchArgument(std::vector<SO::Base::VoidPointer>::const_iterator i_TestArgument)
+		bool rec_MatchArgument(std::vector<Environment::VoidPointer>::const_iterator i_TestArgument)
 		{
 			return true;
 		}
 
 		/// Recursively sets passed pointers to correctly cast members of TestArgument vector.
 		template<typename FirstArgument_Type, typename... TailArguments_Types>
-		bool rec_MatchArgument(std::vector<SO::Base::VoidPointer>::const_iterator i_TestArgument, FirstArgument_Type*& p_FirstArgument, TailArguments_Types*&... p_TailArguments)
+		bool rec_MatchArgument(std::vector<Environment::VoidPointer>::const_iterator i_TestArgument, FirstArgument_Type*& p_FirstArgument, TailArguments_Types*&... p_TailArguments)
 		{
 			p_FirstArgument = i_TestArgument->ConvertTo<FirstArgument_Type>();
 			if (p_FirstArgument)
