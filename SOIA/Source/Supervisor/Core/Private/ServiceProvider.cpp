@@ -12,9 +12,8 @@ using namespace Environment;
 using namespace Apprentice;
 
 // TEST
+#include "Environment/Mathematics/Runtime/Public/Constant.h"
 #include "Environment/File/Public/SaveFile.h"
-#include "Environment/File/Public/TextFile.h"
-#include <sstream>
 #include <iostream>
 
 ServiceProvider::ServiceProvider() 
@@ -22,17 +21,36 @@ ServiceProvider::ServiceProvider()
 	Services(RContainer(Range<int>(0, 1000000)))
 {
 
-	TextFile* fileO = new TextFile("../../Binaries/TEST.txt", true);
-	fileO->Content.push_back(VoidPointer(*new std::string("<<double>[1234.5]>")));
-	fileO->Write();
-	delete fileO;
 
-	SaveFile file = SaveFile("../../Binaries/TEST.txt", false);
-	file.Read();
+	
 
-	double* iIn = file.Content[0].CastTo<double>();
-	std::cout << "result: " << *iIn << std::endl;
+	Constant c = Constant(123.4);
 
+	//write
+	SaveFile* of = new SaveFile("../../Binaries/TEST.txt", true);
+	of->Content.push_back((RElement*)&c);
+	of->Write();
+	delete of;
+
+
+	//read
+	SaveFile sf = SaveFile("../../Binaries/TEST.txt", false);
+	sf.Read();
+	RElement** pp_c = sf.Content[0].CastTo<RElement*>();
+	std::cout << ((Constant*)*pp_c)->myValue;
+
+	RClass* c_class = c.GetClass();
+
+	Constant* def_c = (Constant*)c_class->GetDefaultObject();
+
+	std::cout << "default val: " << def_c->myValue << std::endl;
+
+	double i = 789.1;
+	VoidPointer p = VoidPointer(i);
+	ElementReflection r = ElementReflection({ p });
+	def_c->LoadReflection(r);
+
+	std::cout << "new value" << def_c->myValue << std::endl;
 
 
 	auto console = Services.Register(new ConsoleService(Services), "Console");

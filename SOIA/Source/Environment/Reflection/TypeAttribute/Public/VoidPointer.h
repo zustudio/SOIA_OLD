@@ -6,7 +6,7 @@
 
 namespace Environment
 {
-	class VoidPointer
+	class DLLIMPEXP VoidPointer
 	{
 	public:
 		//----- init -----

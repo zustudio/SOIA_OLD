@@ -8,5 +8,5 @@ PropertyTag::PropertyTag(VoidPointer* InObject, const std::string& InTypeString,
 	: Object(InObject),
 	TypeString(InTypeString),
 	ContentString(InContentString),
-	CompleteString('<' + InTypeString + InContentString + '>')
+	CompleteString("<<" + InTypeString + ">[" + InContentString + "]>")
 {}

@@ -4,8 +4,8 @@
 #include "Programs/UnitTest/Core/Public/TestInterface.h"
 
 #define DLLIMPEXP
-#include "Environment/Reflection/ID/Public/RFunction.h"
-#include "Environment/Reflection/ID/Public/RElement.h"
+#include "Environment/Reflection/Element/Public/RFunction.h"
+#include "Environment/Reflection/Element/Public/RElement.h"
 
 namespace UnitTest
 {

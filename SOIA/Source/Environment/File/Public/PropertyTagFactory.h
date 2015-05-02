@@ -2,6 +2,7 @@
 #pragma once
 
 #include "PropertyTag.h"
+#include "FileObject.h"
 #include "Environment/Reflection/Atomic/Public/AtomReflectionProvider.h"
 
 namespace Environment
@@ -12,6 +13,7 @@ namespace Environment
 		PropertyTagFactory(AtomReflectionProvider* InReflectionProvider);
 
 		PropertyTag FromStream(std::istream& InStream);
+		PropertyTag FromObject(const FileObject& InObject);
 		PropertyTag FromSimpleObject(VoidPointer& InObject);
 
 	private:

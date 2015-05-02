@@ -4,6 +4,7 @@
 #include "File.h"
 
 #include "PropertyTagFactory.h"
+#include "FileObjectFactory.h"
 #include "Environment/Reflection/Atomic/Public/AtomReflectionProvider.h"
 
 namespace Environment
@@ -18,5 +19,6 @@ namespace Environment
 	private:
 		AtomReflectionProvider ReflectionProvider;
 		PropertyTagFactory TagFactory;
+		FileObjectFactory ObjectFactory;
 	};
 }

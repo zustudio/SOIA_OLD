@@ -4,9 +4,12 @@
 #include "Environment/Mathematics/Runtime/Public/Constant.h"
 using namespace Environment;
 
+
 Constant::Constant(double InConstant)
 {
 	myValue = InConstant;
+
+	Reflect<Type>(myValue);
 }
 
 double Constant::Calculate(const std::vector<Value*> &InDefinedValues)

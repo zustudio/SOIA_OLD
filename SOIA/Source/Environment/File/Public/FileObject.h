@@ -2,21 +2,26 @@
 #pragma once
 
 #include "PropertyTag.h"
-#include "Environment/Reflection/ID/Public/RElement.h"
+#include "Environment/Reflection/Element/Public/RElement.h"
 
 #include <vector>
 
 namespace Environment
 {
-	class FileObject
+	class DLLIMPEXP FileObject
 	{
 	public:
 		////////////////////////////////////////////////////////////////
 		// Functions
 		//----- Initializing -----
-		static FileObject FromTags(const std::vector<PropertyTag> InTags);
+		
 		/// Constructor
+		FileObject(RClass* InClass, const std::vector<VoidPointer>& InAttributes);
 
+		VoidPointer* CreateObject();
+
+		RClass* Class;
+		std::vector<VoidPointer> Attributes;
 
 	};
 }

@@ -1,11 +1,12 @@
 
 #pragma once
 
-#include "Environment/Mathematics/Runtime/Public/MathContainer.h"
-#include "Environment/Mathematics/Runtime/Public/Constant.h"
+#include "Environment/Reflection/Element/Public/Element_ID.h"
 
 namespace Environment
 {
+	class MathContainer;
+	class Constant;
 	class DLLIMPEXP GenericMathFunction
 	{
 	public:

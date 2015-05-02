@@ -16,10 +16,24 @@ PropertyTagFactory::PropertyTagFactory(AtomReflectionProvider* InReflectionProvi
 
 ////////////////////////////////////////////////////////////////
 // Factory Methods
+PropertyTag PropertyTagFactory::FromObject(const FileObject& InObject)
+{
+	std::string tags;
+	tags += (PropertyTag(nullptr, InObject.Class->GetType(), "").CompleteString);
+
+	for (auto attribute : InObject.Attributes)
+	{
+		tags += (FromSimpleObject(attribute).CompleteString);
+	}
+
+	PropertyTag result = PropertyTag(nullptr, "", "");
+	result.CompleteString = tags;
+	return result;
+}
 PropertyTag PropertyTagFactory::FromSimpleObject(VoidPointer& InObject)
 {
-	std::string TypeString = '<' + InObject.GetTypeID() + '>';
-	std::string ContentString = '[' + ObjectToString(InObject) + ']';
+	std::string TypeString = InObject.GetTypeID();
+	std::string ContentString = ObjectToString(InObject);
 	VoidPointer* Object = new VoidPointer(InObject);
 	return PropertyTag(Object, TypeString, ContentString);
 }
@@ -35,12 +49,12 @@ PropertyTag PropertyTagFactory::FromStream(std::istream& InStream)
 	std::stringstream completeStringStream;
 	completeStringStream << RemoveStartEndChar(CompleteString);
 	/// load type string from complete string
-	std::string TypeString = StreamToString(completeStringStream, '<', '>');
+	std::string TypeString = RemoveStartEndChar(StreamToString(completeStringStream, '<', '>'));
 	/// load content string from complete string
-	std::string ContentString = StreamToString(completeStringStream, '[', ']');
+	std::string ContentString = RemoveStartEndChar(StreamToString(completeStringStream, '[', ']'));
 
 	/// load object from string
-	VoidPointer* Object = StringToObject(RemoveStartEndChar(TypeString), RemoveStartEndChar(ContentString));
+	VoidPointer* Object = StringToObject(TypeString, ContentString);
 	return PropertyTag(Object, TypeString, ContentString);
 }
 
@@ -55,7 +69,10 @@ std::string PropertyTagFactory::ObjectToString(const VoidPointer& InPointer)
 VoidPointer* PropertyTagFactory::StringToObject(const std::string& InType, const std::string& InContent)
 {
 	AtomReflectionInterface* converter = ReflectionProvider->GetReflection(InType);
-	return converter->StringToObject(InContent);
+	if (converter)
+		return converter->StringToObject(InContent);
+	else
+		return nullptr;
 }
 
 std::string PropertyTagFactory::StreamToString(std::istream& InStream, const char& InStringStart, const char& InStringEnd)
