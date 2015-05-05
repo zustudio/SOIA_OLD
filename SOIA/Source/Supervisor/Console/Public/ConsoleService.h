@@ -2,10 +2,10 @@
 #pragma once
 
 // include super class
-#include "Environment/Reflection/ID/Public/RApplication.h"
+#include "Environment/Reflection/Element/Public/RApplication.h"
 
 // include SOIA
-#include "Environment/Reflection/ID/Public/RFunction.h"
+#include "Environment/Reflection/Element/Public/RFunction.h"
 using namespace Environment;
 
 // include std
@@ -48,7 +48,7 @@ namespace Supervisor
 		//----- input interpretation -----
 
 		/// Returns vector of matching functions, as well as arguments to be applied to these.
-		bool InterpretInput(const std::vector<std::string> &InInput, std::vector<RService*> &OutServices, std::vector<RFunctionInterface*> &OutFunctions, std::vector<SO::Base::VoidPointer> &OutArgs);
+		bool InterpretInput(const std::vector<std::string> &InInput, std::vector<RService*> &OutServices, std::vector<RFunctionInterface*> &OutFunctions, std::vector<Environment::VoidPointer> &OutArgs);
 
 	private:
 		///////////////////////////////////////////////////////////////

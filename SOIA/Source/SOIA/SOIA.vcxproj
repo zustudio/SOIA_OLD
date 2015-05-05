@@ -50,7 +50,7 @@
     <NMakeBuildCommandLine>make -s --eval=def_IDE_VisualStudio:=1 -C ../ all</NMakeBuildCommandLine>
     <NMakeOutput>../../Binaries/SOIA.exe</NMakeOutput>
     <NMakeCleanCommandLine>make -s --eval=def_IDE_VisualStudio:=1 -C ../ clean</NMakeCleanCommandLine>
-    <NMakeReBuildCommandLine>make rebuild</NMakeReBuildCommandLine>
+    <NMakeReBuildCommandLine>make -s --eval=def_IDE_VisualStudio:=1 -C ../ rebuild</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)SOIA/Source/</IncludePath>
   </PropertyGroup>

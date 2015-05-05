@@ -1,34 +1,11 @@
-﻿Build started 18.04.2015 10:57:24.
-     1>Project "C:\Users\User\Git\SOIAstd\SOIA\Source\Programs\UnitTest\UnitTest.vcxproj" on node 2 (Build target(s)).
-     1>Build:
-         make -s --eval=def_IDE_VisualStudio:=1 -C ../../ UnitTest
-         ServiceProvider.cpp
-     1>C:\Users\User\Git\SOIAstd\SOIA\Source\Supervisor/Core/Public/ServiceProvider.h(7): error C2059: syntax error : '__declspec(dllexport)'
-     1>C:\Users\User\Git\SOIAstd\SOIA\Source\Supervisor/Core/Public/ServiceProvider.h(7): error C2143: syntax error : missing ';' before '{'
-     1>C:\Users\User\Git\SOIAstd\SOIA\Source\Supervisor/Core/Public/ServiceProvider.h(7): error C2447: '{' : missing function header (old-style formal list?)
-     1>../../Source/Supervisor/Core/Private/ServiceProvider.cpp(6): error C2871: 'Supervisor' : a namespace with this name does not exist
-     1>../../Source/Supervisor/Core/Private/ServiceProvider.cpp(13): error C2653: 'ServiceProvider' : is not a class or namespace name
-     1>../../Source/Supervisor/Core/Private/ServiceProvider.cpp(14): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-     1>../../Source/Supervisor/Core/Private/ServiceProvider.cpp(16): error C2550: 'ServiceProvider' : constructor initializer lists are only allowed on constructor definitions
-     1>../../Source/Supervisor/Core/Private/ServiceProvider.cpp(17): error C2065: 'Services' : undeclared identifier
-     1>../../Source/Supervisor/Core/Private/ServiceProvider.cpp(17): error C2228: left of '.Register' must have class/struct/union
-                 type is 'unknown-type'
-     1>../../Source/Supervisor/Core/Private/ServiceProvider.cpp(17): error C2061: syntax error : identifier 'ConsoleService'
-     1>../../Source/Supervisor/Core/Private/ServiceProvider.cpp(19): error C2065: 'Services' : undeclared identifier
-     1>../../Source/Supervisor/Core/Private/ServiceProvider.cpp(19): error C2228: left of '.GetElement' must have class/struct/union
-                 type is 'unknown-type'
-     1>../../Source/Supervisor/Core/Private/ServiceProvider.cpp(19): error C2065: 'RService' : undeclared identifier
-     1>../../Source/Supervisor/Core/Private/ServiceProvider.cpp(19): error C3536: 'console': cannot be used before it is initialized
-     1>../../Source/Supervisor/Core/Private/ServiceProvider.cpp(19): error C2227: left of '->Start' must point to class/struct/union/generic type
-                 type is 'int'
-     1>../../Source/Supervisor/Core/Private/ServiceProvider.cpp(20): warning C4508: 'ServiceProvider' : function should return a value; 'void' return type assumed
-         Makefile.generated.mk:53: recipe for target '../../Intermediate/Supervisor/Core/ServiceProvider.obj' failed
-         make[1]: *** [../../Intermediate/Supervisor/Core/ServiceProvider.obj] Error 2
-         Makefile:41: recipe for target 'Supervisor' failed
-         make: *** [Supervisor] Error 2
-     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.MakeFile.Targets(38,5): error MSB3073: The command "make -s --eval=def_IDE_VisualStudio:=1 -C ../../ UnitTest" exited with code 2.
-     1>Done Building Project "C:\Users\User\Git\SOIAstd\SOIA\Source\Programs\UnitTest\UnitTest.vcxproj" (Build target(s)) -- FAILED.
+﻿Build started 30.04.2015 23:38:55.
+     1>Project "C:\Users\User\Git\IntelligenceProject\SOIA\Source\Programs\UnitTest\UnitTest.vcxproj" on node 4 (Rebuild target(s)).
+     1>Rebuild:
+         make rebuild
+         make: *** No rule to make target 'rebuild'.  Stop.
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.MakeFile.Targets(43,5): error MSB3073: The command "make rebuild" exited with code 2.
+     1>Done Building Project "C:\Users\User\Git\IntelligenceProject\SOIA\Source\Programs\UnitTest\UnitTest.vcxproj" (Rebuild target(s)) -- FAILED.
 
 Build FAILED.
 
-Time Elapsed 00:00:00.74
+Time Elapsed 00:00:00.44

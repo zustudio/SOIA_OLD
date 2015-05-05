@@ -2,10 +2,10 @@
 #pragma once
 
 // include super class
-#include "Environment/Reflection/ID/Public/RApplication.h"
+#include "Environment/Reflection/Element/Public/RApplication.h"
 
 // include SOIA
-#include "Environment/Reflection/ID/Public/RFunction.h"
+#include "Environment/Reflection/Element/Public/RFunction.h"
 
 namespace Apprentice
 {

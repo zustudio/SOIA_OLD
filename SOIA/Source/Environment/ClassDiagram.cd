@@ -63,7 +63,7 @@
       <FileName>Reflection\NameAttribute\Public\Handle.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SO::Base::VoidPointer" Collapsed="true">
+  <Class Name="Environment::VoidPointer" Collapsed="true">
     <Position X="36.75" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAQAAACAgAAgAAAAAAAAAAAAACAAAAAIAAAAAAA=</HashCode>

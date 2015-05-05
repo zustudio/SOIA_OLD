@@ -93,7 +93,7 @@ void ConsoleService::Main()
 		bool result;
 		std::vector<RService*> OutServices;
 		std::vector<RFunctionInterface*> OutFunctions;
-		std::vector<SO::Base::VoidPointer> OutArgs;
+		std::vector<Environment::VoidPointer> OutArgs;
 
 		result = InterpretInput(args, OutServices, OutFunctions, OutArgs);
 
@@ -172,7 +172,7 @@ bool ConsoleService::cmd_create(const std::string& InName)
 	return true;
 }
 
-bool ConsoleService::InterpretInput(const std::vector<std::string> &InInput, std::vector<RService*> &OutServices, std::vector<RFunctionInterface*> &OutFunctions, std::vector<SO::Base::VoidPointer> &OutArgs)
+bool ConsoleService::InterpretInput(const std::vector<std::string> &InInput, std::vector<RService*> &OutServices, std::vector<RFunctionInterface*> &OutFunctions, std::vector<Environment::VoidPointer> &OutArgs)
 {
 	bool result = false;
 	int ArgsStart = 0;
