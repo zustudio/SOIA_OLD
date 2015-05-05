@@ -4,6 +4,9 @@
 #include "Environment/Mathematics/Runtime/Public/FunctionCache.h"
 using namespace Environment;
 
+#include <cmath>
+#include <limits>
+
 FunctionCache::FunctionCache()
 {
 	CachedFunctions = std::vector<FunctionCacheItem>();
@@ -38,5 +41,5 @@ void FunctionCache::Clear()
 
 bool FunctionCache::DoublesEqual(const double& InA, const double& InB)
 {
-	return std::fabs(InA - InB) < std::numeric_limits<double>::epsilon();
+	return std::abs(double(InA - InB)) < std::numeric_limits<double>::epsilon();
 }

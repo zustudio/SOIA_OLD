@@ -4,6 +4,8 @@
 #include "Environment/Reflection/ID/Public/RContainer.h"
 using namespace Environment;
 
+#include <algorithm>
+
 ////////////////////////////////////////////////////////////////
 // Init
 RContainer::RContainer(const Range<int>& InAllowedIDs)
@@ -42,7 +44,8 @@ Element_ID& RContainer::ReRegister(const Element_ID& InID, RElement* InObject)
 
 		return InObject->GetID();
 	}
-	return Element_ID();
+
+	return Register(InObject);
 }
 void RContainer::Unregister(RElement* Object)
 {

@@ -26,7 +26,7 @@ namespace ZABS
 			//---- properties ----
 			Vector2D<int> Dim()
 			{
-				return Vector2D<int>({ SizeX, SizeY });
+				return Vector2D<int>(SizeX, SizeY);
 			}
 			void Resize(int NewSizeX, int NewSizeY, T value)
 			{
