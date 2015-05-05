@@ -26,12 +26,12 @@ VoidPointer* SaveFile::ReadObject()
 {
 	VoidPointer* result;
 
-	while (!InStream.eof())
+	while (!InStream->eof())
 	{
 		std::vector<PropertyTag> tags;
-		while (InStream.peek() != ',' && !InStream.eof())
+		while (InStream->peek() != ',' && !InStream->eof())
 		{
-			tags.push_back(TagFactory.FromStream(InStream));
+			tags.push_back(TagFactory.FromStream(*InStream));
 		}
 		FileObject object = ObjectFactory.FromTags(tags);
 		return object.CreateObject();

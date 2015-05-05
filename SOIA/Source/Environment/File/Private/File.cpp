@@ -22,8 +22,9 @@ File::File(const std::string &InName, bool bWriteFile)
 	}
 	else
 	{
-		InStream = std::ifstream(Name);
-		if (InStream.is_open())
+		InStream = new std::ifstream();
+		InStream->open(Name);
+		if (InStream->is_open())
 		{
 			std::cout << "Opened file " << Name << std::endl;
 		}

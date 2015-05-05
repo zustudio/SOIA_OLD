@@ -16,8 +16,8 @@ class ClassType##_Base: public SuperClassType \
 { \
 	public: \
 	using Super = SuperClassType; \
-	using Type = ClassType; \
-	virtual RClass* GetClass() override {return GetClassByType(typeid(ClassType).name());} \
+	using BaseType = ClassType##_Base; \
+	virtual RClass* GetClass() override {return GetClassByType(typeid(BaseType).name());} \
 };
 
 namespace Environment

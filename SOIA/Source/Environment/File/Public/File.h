@@ -30,7 +30,7 @@ namespace Environment
 		// Variables
 		//---- streams ----
 		std::ofstream* OutStream;
-		std::ifstream InStream;
+		std::ifstream* InStream;
 		//---- name ----
 		std::string Name;
 		//---- content ----
