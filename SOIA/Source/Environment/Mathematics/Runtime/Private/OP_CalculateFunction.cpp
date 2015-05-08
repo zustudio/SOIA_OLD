@@ -10,7 +10,7 @@ using namespace Environment;
 #include <assert.h>
 #include <iostream>
 
-OP_CalculateFunction::OP_CalculateFunction(FunctionCache *InFuncCache, const std::vector<Element_ID> &InOperands) : Operation(InOperands)
+OP_CalculateFunction::OP_CalculateFunction(FunctionCache *InFuncCache, const std::vector<Element_ID> &InOperands) : BaseType(InOperands)
 {
 	FuncCache = InFuncCache;
 }
@@ -44,8 +44,8 @@ double OP_CalculateFunction::Calculate(const std::vector<Value*> &DefinedValues)
 		FuncCache->CacheFunctionCall(op0->GetID(), rVariable0, result);
 	}
 
-	std::cout << "OP_CalcFunc: " << op0->GetID().Name << "( " << rVariable0 << " ) = ";
-	std::cout << result << std::endl;
+	//std::cout << "OP_CalcFunc: " << op0->GetID().Name << "( " << rVariable0 << " ) = ";
+	//std::cout << result << std::endl;
 
 	return result;
 }

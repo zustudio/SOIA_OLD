@@ -1,5 +1,5 @@
-﻿Build started 30.04.2015 23:38:55.
-     1>Project "C:\Users\User\Git\IntelligenceProject\SOIA\Source\SOIAstd\SOIAstd.vcxproj" on node 5 (Rebuild target(s)).
+﻿Build started 08.05.2015 17:42:07.
+     1>Project "C:\Users\User\Git\IntelligenceProject\SOIA\Source\SOIAstd\SOIAstd.vcxproj" on node 4 (Rebuild target(s)).
      1>Rebuild:
          make rebuild IDE=vs13
          make clean
@@ -12,8 +12,8 @@
          main.cpp
      1>C:\Users\User\Git\IntelligenceProject\SOIA\Source\SOIAstd\src\Definitions\stdafx.h(21): fatal error C1083: Cannot open include file: 'Definitions.h': No such file or directory
          Makefile:18: recipe for target 'Debug/main.obj' failed
-         make[1]: Leaving directory '/c/Users/User/Git/IntelligenceProject/SOIA/Source/SOIAstd'
          make[1]: *** [Debug/main.obj] Error 2
+         make[1]: Leaving directory '/c/Users/User/Git/IntelligenceProject/SOIA/Source/SOIAstd'
          Makefile:27: recipe for target 'rebuild' failed
          make: *** [rebuild] Error 2
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.MakeFile.Targets(43,5): error MSB3073: The command "make rebuild IDE=vs13" exited with code 2.
@@ -21,4 +21,4 @@
 
 Build FAILED.
 
-Time Elapsed 00:00:00.90
+Time Elapsed 00:00:00.84

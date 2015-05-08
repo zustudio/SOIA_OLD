@@ -6,4 +6,11 @@
 using namespace Environment;
 
 // Global element and atom reflection provider
-DLLIMPEXP ElementReflectionProvider GlobalReflectionProvider;
+namespace Environment
+{
+	ElementReflectionProvider GlobalReflectionProvider;
+	DLLIMPEXP ElementReflectionProvider* GetGlobalReflectionProvider()
+	{
+		return &GlobalReflectionProvider;
+	}
+}

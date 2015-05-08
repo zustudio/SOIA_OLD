@@ -5,10 +5,11 @@
 
 namespace Environment
 {
-	class DLLIMPEXP OP_Multiply : public Operation
+	RCLASS(OP_Multiply,Operation);
+	class DLLIMPEXP OP_Multiply : public OP_Multiply_Base
 	{
 	public:
-		OP_Multiply(const std::vector<Element_ID> &InOperands);
+		OP_Multiply(const std::vector<Element_ID> &InOperands = {});
 		virtual double Calculate(const std::vector<Value*> &DefinedValues) override;
 	};
 }

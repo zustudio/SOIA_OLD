@@ -6,9 +6,8 @@ using namespace Environment;
 
 #include <assert.h>
 
-OP_Add::OP_Add(const std::vector<Element_ID> &InOperands) : Operation(InOperands)
+OP_Add::OP_Add(const std::vector<Element_ID> &InOperands) : BaseType(InOperands)
 {
-
 }
 
 double OP_Add::Calculate(const std::vector<Value*> &DefinedValues)

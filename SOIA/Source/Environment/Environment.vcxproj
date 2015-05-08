@@ -22,6 +22,7 @@
     <ClInclude Include="File\Public\PropertyTagFactory.h" />
     <ClInclude Include="File\Public\SaveFile.h" />
     <ClInclude Include="File\Public\TextFile.h" />
+    <ClInclude Include="Global\Public\Globals.h" />
     <ClInclude Include="Mathematics\DataStructures\Public\Matrix2D.h" />
     <ClInclude Include="Mathematics\DataStructures\Public\Range.h" />
     <ClInclude Include="Mathematics\DataStructures\Public\Vector2D.h" />
@@ -61,6 +62,7 @@
     <ClInclude Include="Reflection\Element\Public\ElementReflection.h" />
     <ClInclude Include="Reflection\Element\Public\ElementReflectionProvider.h" />
     <ClInclude Include="Reflection\Element\Public\Element_ID.h" />
+    <ClInclude Include="Reflection\Element\Public\RAbstractClass.h" />
     <ClInclude Include="Reflection\Element\Public\RClass.h" />
     <ClInclude Include="Reflection\TypeAttribute\Public\ObjectMirror.h" />
     <ClInclude Include="Reflection\TypeAttribute\Public\ObjectMirrorInterface.h" />
@@ -114,6 +116,8 @@
     <ClCompile Include="Reflection\Element\Private\ElementReflectionProvider.cpp" />
     <ClCompile Include="Reflection\Element\Private\Element_ID.cpp" />
     <ClCompile Include="Reflection\Element\Private\RApplication.cpp" />
+    <ClCompile Include="Reflection\Element\Private\RClass.cpp" />
+    <ClCompile Include="Reflection\Element\Private\RAbstractClass.cpp" />
     <ClCompile Include="Reflection\Element\Private\RContainer.cpp" />
     <ClCompile Include="Reflection\Element\Private\RElement.cpp" />
     <ClCompile Include="Reflection\Element\Private\RFunction.cpp" />

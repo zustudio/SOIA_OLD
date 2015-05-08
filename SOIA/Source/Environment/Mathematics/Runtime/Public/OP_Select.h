@@ -5,10 +5,11 @@
 
 namespace Environment
 {
-	class DLLIMPEXP OP_Select : public Operation
+	RCLASS(OP_Select,Operation)
+	class DLLIMPEXP OP_Select : public OP_Select_Base
 	{
 	public:
-		OP_Select(const std::vector<Element_ID> &InOperands);
+		OP_Select(const std::vector<Element_ID> &InOperands = {});
 		virtual double Calculate(const std::vector<Value*> &DefinedValues) override;
 	};
 }

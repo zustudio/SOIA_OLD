@@ -4,10 +4,11 @@
 
 namespace Environment
 {
-	class DLLIMPEXP OP_GreaterThan : public Operation
+	RCLASS(OP_GreaterThan,Operation)
+	class DLLIMPEXP OP_GreaterThan : public OP_GreaterThan_Base
 	{
 	public:
-		OP_GreaterThan(const std::vector<Element_ID> &InOperands);
+		OP_GreaterThan(const std::vector<Element_ID> &InOperands = {});
 		virtual double Calculate(const std::vector<Value*> &DefinedValues) override;
 	};
 }

@@ -13,27 +13,16 @@ namespace Environment
 	class RClassTemplate : public RClass
 	{
 	public:
-		RClassTemplate(const std::string& InTypeID, const std::string& InBaseTypeID)
-		{
-			TypeID = InTypeID;
-			BaseTypeID = InBaseTypeID;
-		}
+		RClassTemplate(const std::string& InTypeID, const std::string& InBaseTypeID) : RClass(InTypeID, InBaseTypeID)
+		{}
 
 		virtual RElement* GetDefaultObject() override
 		{
 			return new RType();
 		}
-		virtual std::string GetType() override
+		virtual bool IsAbstract() override
 		{
-			return TypeID;
+			return false;
 		}
-		virtual bool IsType(const std::string& InTypeID) override
-		{
-			return (InTypeID == TypeID);
-		}
-
-	private:
-		std::string TypeID;
-		std::string BaseTypeID;
 	};
 }

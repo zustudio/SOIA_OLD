@@ -16,6 +16,8 @@ using namespace Apprentice;
 #include "Environment/File/Public/SaveFile.h"
 #include <iostream>
 
+#include "Environment/Global/Public/Globals.h"
+
 ServiceProvider::ServiceProvider() 
 	: 
 	Services(RContainer(Range<int>(0, 1000000)))
@@ -26,16 +28,21 @@ ServiceProvider::ServiceProvider()
 
 	Constant c = Constant(123.4);
 
+	std::cout << "writing to file..." << std::endl;
+
 	//write
-	SaveFile* of = new SaveFile("../../Binaries/TEST.txt", true);
+	SaveFile* of = new SaveFile("TEST.txt", true);
 	of->Content.push_back((RElement*)&c);
 	of->Write();
 	delete of;
 
+	std::cout << "reading from file..." << std::endl;
 
 	//read
-	SaveFile sf = SaveFile("../../Binaries/TEST.txt", false);
+	SaveFile sf = SaveFile("TEST.txt", false);
 	sf.Read();
+
+	std::cout << "interpreting result..." << std::endl;
 	RElement** pp_c = sf.Content[0].CastTo<RElement*>();
 	std::cout << ((Constant*)*pp_c)->myValue;
 
@@ -52,6 +59,8 @@ ServiceProvider::ServiceProvider()
 
 	std::cout << "new value" << def_c->myValue << std::endl;
 
+
+	std::cout << "creating services..." << std::endl;
 
 	auto console = Services.Register(new ConsoleService(Services), "Console");
 	auto engine = Services.Register(new Engine_SSt(Services), "Engine");

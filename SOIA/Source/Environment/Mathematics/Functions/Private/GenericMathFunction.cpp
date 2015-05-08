@@ -27,7 +27,7 @@ double GenericMathFunction::get(double x)
 	MathRuntime->ReRegister(FunctionCall, new OP_CalculateFunction(&MathRuntime->FuncCache, std::vector < Element_ID > {
 		Function,
 		FunctionArgument0->GetID() }));
-	std::cout << std::endl << "GenericMathFunction: New Calculation: X=" << x << std::endl;
+	//std::cout << std::endl << "GenericMathFunction: New Calculation: X=" << x << std::endl;
 	result = MathRuntime->CalculateValue(FunctionCall);
 	return result;
 }

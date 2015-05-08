@@ -9,7 +9,7 @@ Constant::Constant(double InConstant)
 {
 	myValue = InConstant;
 
-	Reflect<Type>(myValue);
+	Reflect(myValue);
 }
 
 double Constant::Calculate(const std::vector<Value*> &InDefinedValues)

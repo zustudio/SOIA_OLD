@@ -5,10 +5,11 @@
 
 namespace Environment
 {
-	class DLLIMPEXP OP_Substract : public Operation
+	RCLASS(OP_Substract,Operation)
+	class DLLIMPEXP OP_Substract : public OP_Substract_Base
 	{
 	public:
-		OP_Substract(const std::vector<Element_ID> &InOperands);
+		OP_Substract(const std::vector<Element_ID> &InOperands = {});
 		virtual double Calculate(const std::vector<Value*> &DefinedValues) override;
 	};
 }

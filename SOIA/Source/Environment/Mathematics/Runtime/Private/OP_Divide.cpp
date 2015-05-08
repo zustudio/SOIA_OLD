@@ -6,7 +6,7 @@ using namespace Environment;
 
 #include <assert.h>
 
-OP_Divide::OP_Divide(const std::vector<Element_ID> &InOperands) : Operation(InOperands)
+OP_Divide::OP_Divide(const std::vector<Element_ID> &InOperands) : BaseType(InOperands)
 {
 
 }
