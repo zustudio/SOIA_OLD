@@ -56,9 +56,13 @@
     <ClInclude Include="PreProcessor\Public\BuildMacros.h" />
     <ClInclude Include="PreProcessor\Public\CPPExtensions.h" />
     <ClInclude Include="PreProcessor\Public\Definitions.h" />
-    <ClInclude Include="Reflection\Atomic\Public\AtomReflectionInterface.h" />
+    <ClInclude Include="Reflection\Atomic\Classes\VectorAtomReflection.h" />
+    <ClInclude Include="Reflection\Atomic\Classes\VectorAtomReflectionTemplate.h" />
+    <ClInclude Include="Reflection\Atomic\Public\AtomReflection.h" />
     <ClInclude Include="Reflection\Atomic\Classes\SimpleAtomReflection.h" />
     <ClInclude Include="Reflection\Atomic\Public\AtomReflectionProvider.h" />
+    <ClInclude Include="Reflection\Atomic\Public\ReflectionFactory.h" />
+    <ClInclude Include="Reflection\Atomic\Public\VectorReflectionFactory.h" />
     <ClInclude Include="Reflection\Element\Public\ElementReflection.h" />
     <ClInclude Include="Reflection\Element\Public\ElementReflectionProvider.h" />
     <ClInclude Include="Reflection\Element\Public\Element_ID.h" />
@@ -74,6 +78,7 @@
     <ClInclude Include="Reflection\Element\Public\RFunctionInterface.h" />
     <ClInclude Include="Reflection\Element\Public\RService.h" />
     <ClInclude Include="Reflection\NameAttribute\Public\Handle.h" />
+    <ClInclude Include="Reflection\TypeAttribute\Public\ObjectMirrorTemplate.h" />
     <ClInclude Include="Reflection\TypeAttribute\Public\VoidPointer.h" />
     <ClInclude Include="Thread\Public\Thread.h" />
   </ItemGroup>
@@ -112,6 +117,8 @@
     <ClCompile Include="Mathematics\Runtime\Private\Value_ID.cpp" />
     <ClCompile Include="Mathematics\Runtime\Private\Variable.cpp" />
     <ClCompile Include="Reflection\Atomic\Private\AtomReflectionProvider.cpp" />
+    <ClCompile Include="Reflection\Atomic\Private\VectorAtomReflection.cpp" />
+    <ClCompile Include="Reflection\Atomic\Private\VectorReflectionFactory.cpp" />
     <ClCompile Include="Reflection\Element\Private\ElementReflection.cpp" />
     <ClCompile Include="Reflection\Element\Private\ElementReflectionProvider.cpp" />
     <ClCompile Include="Reflection\Element\Private\Element_ID.cpp" />

@@ -10,7 +10,7 @@ namespace Environment
 	class DLLIMPEXP PropertyTagFactory
 	{
 	public:
-		PropertyTagFactory(AtomReflectionProvider* InReflectionProvider);
+		PropertyTagFactory();
 
 		PropertyTag FromStream(std::istream& InStream);
 		PropertyTag FromObject(const FileObject& InObject);
@@ -24,7 +24,6 @@ namespace Environment
 		inline std::string RemoveStartEndChar(const std::string& InString);
 
 	private:
-		AtomReflectionProvider* ReflectionProvider;
 		PropertyTag* ErrorResult;
 	};
 }

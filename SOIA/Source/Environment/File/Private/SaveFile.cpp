@@ -9,8 +9,7 @@ using namespace Environment;
 SaveFile::SaveFile(const std::string &InName, bool bWriteFile)
 	: 
 	File(InName, bWriteFile),
-	ReflectionProvider(AtomReflectionProvider()),
-	TagFactory(&ReflectionProvider)
+	TagFactory()
 {}
 
 void SaveFile::WriteObject(const VoidPointer& InObject)

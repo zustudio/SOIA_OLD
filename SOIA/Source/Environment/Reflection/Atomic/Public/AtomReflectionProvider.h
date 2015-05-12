@@ -1,7 +1,8 @@
 
 #pragma once
 
-#include "AtomReflectionInterface.h"
+#include "AtomReflection.h"
+#include "VectorReflectionFactory.h"
 
 #include <vector>
 
@@ -11,9 +12,19 @@ namespace Environment
 	{
 	public:
 		AtomReflectionProvider();
-		AtomReflectionInterface* GetReflection(const std::string& InTypeName);
+		AtomReflection* GetReflection(const std::string& InTypeName);
+
+		template<typename Type> void Reflect()
+		{
+			std::string TypeID = typeid(Type).name();
+			if (!GetReflection(TypeID))
+			{
+				if (VectorReflectionFactory::IsTypeAvailable(TypeID))
+					Reflections.push_back(VectorReflectionFactory::Create<Type>());
+			}
+		}
 
 	private:
-		std::vector<AtomReflectionInterface*> Reflections;
+		std::vector<AtomReflection*> Reflections;
 	};
 }

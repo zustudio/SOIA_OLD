@@ -17,7 +17,6 @@ namespace Environment
 		virtual VoidPointer* ReadObject() override;
 
 	private:
-		AtomReflectionProvider ReflectionProvider;
 		PropertyTagFactory TagFactory;
 		FileObjectFactory ObjectFactory;
 	};

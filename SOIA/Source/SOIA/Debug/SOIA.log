@@ -1,28 +1,12 @@
-﻿Build started 08.05.2015 23:25:46.
+﻿Build started 12.05.2015 12:04:50.
      1>Project "C:\Users\User\Git\IntelligenceProject\SOIA\Source\SOIA\SOIA.vcxproj" on node 2 (Build target(s)).
      1>Build:
          make -s --eval=def_IDE_VisualStudio:=1 -C ../ all
-         GenericMathFunction.cpp
-         Operation.cpp
-         OP_Add.cpp
-         EquationTokens.cpp
-         OP_Select.cpp
-         EquationToken.cpp
-         MathContainer.cpp
-         OP_GreaterThan.cpp
-     1>c:\users\user\git\intelligenceproject\soia\source\environment\mathematics\runtime\private\equationtoken.cpp(220): warning C4715: 'Environment::EquationToken::rec_RegisterToken' : not all control paths return a value
-         OP_Divide.cpp
-         OP_If.cpp
-         EquationString.cpp
-         OP_CalculateFunction.cpp
-         OP_Multiply.cpp
-         OP_Substract.cpp
-         Environment > Linking...
-         SchroedingerApplication.cpp
+         ServiceProvider.cpp
          Supervisor > Linking...
             Creating library ../../Binaries/Supervisor.lib and object ../../Binaries/Supervisor.exp
      1>Done Building Project "C:\Users\User\Git\IntelligenceProject\SOIA\Source\SOIA\SOIA.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:06.74
+Time Elapsed 00:00:02.10

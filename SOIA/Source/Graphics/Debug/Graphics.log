@@ -1,5 +1,5 @@
-﻿Build started 08.05.2015 17:42:23.
-     1>Project "C:\Users\User\Git\IntelligenceProject\SOIA\Source\Graphics\Graphics.vcxproj" on node 4 (Rebuild target(s)).
+﻿Build started 12.05.2015 11:49:31.
+     1>Project "C:\Users\User\Git\IntelligenceProject\SOIA\Source\Graphics\Graphics.vcxproj" on node 3 (Rebuild target(s)).
      1>Rebuild:
          make --eval=def_IDE_VisualStudio:=1 -C ../ rebuild
          make: Entering directory '/c/Users/User/Git/IntelligenceProject/SOIA/Source'
@@ -23,8 +23,8 @@
          make[1]: Leaving directory '/c/Users/User/Git/IntelligenceProject/SOIA/Source/Programs/UnitTest'
          make[1]: Entering directory '/c/Users/User/Git/IntelligenceProject/SOIA/Source/Environment'
          Globals.cpp
-         FileObject.cpp
          PropertyTagFactory.cpp
+         FileObject.cpp
          SaveFile.cpp
          TextFile.cpp
          File.cpp
@@ -34,11 +34,11 @@
          LinearFunction.cpp
          GenericMathFunction.cpp
          ExponentialFunction.cpp
-         EquationTokens.cpp
          Random.cpp
+         EquationTokens.cpp
          Operation.cpp
-         Value_ID.cpp
      1>c:\users\user\git\intelligenceproject\soia\source\environment\mathematics\random\private\random.cpp(55): warning C4700: uninitialized local variable 'sum' used
+         Value_ID.cpp
          OP_Add.cpp
          FunctionCache.cpp
          EquationToken.cpp
@@ -55,8 +55,8 @@
          OP_CalculateFunction.cpp
          OP_Multiply.cpp
          OP_Substract.cpp
-         Value.cpp
          VoidPointer.cpp
+         Value.cpp
          RFunction.cpp
          RAbstractClass.cpp
          RApplication.cpp
@@ -67,31 +67,16 @@
          RService.cpp
          ElementReflectionProvider.cpp
          RElement.cpp
-         Thread.cpp
+         VectorAtomReflection.cpp
          AtomReflectionProvider.cpp
          Event.cpp
-         Environment > Linking...
-            Creating library ../../Binaries/Environment.lib and object ../../Binaries/Environment.exp
-     1>Value.obj : error LNK2001: unresolved external symbol "public: __thiscall Environment::RAbstractClass::RAbstractClass(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (??0RAbstractClass@Environment@@QAE@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@0@Z)
-     1>EquationString.obj : error LNK2001: unresolved external symbol "public: __thiscall Environment::RAbstractClass::RAbstractClass(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (??0RAbstractClass@Environment@@QAE@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@0@Z)
-     1>OP_CalculateFunction.obj : error LNK2001: unresolved external symbol "public: __thiscall Environment::RAbstractClass::RAbstractClass(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (??0RAbstractClass@Environment@@QAE@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@0@Z)
-     1>OP_Multiply.obj : error LNK2001: unresolved external symbol "public: __thiscall Environment::RAbstractClass::RAbstractClass(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (??0RAbstractClass@Environment@@QAE@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@0@Z)
-     1>OP_Substract.obj : error LNK2001: unresolved external symbol "public: __thiscall Environment::RAbstractClass::RAbstractClass(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (??0RAbstractClass@Environment@@QAE@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@0@Z)
-     1>MathContainer.obj : error LNK2001: unresolved external symbol "public: __thiscall Environment::RAbstractClass::RAbstractClass(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (??0RAbstractClass@Environment@@QAE@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@0@Z)
-     1>OP_GreaterThan.obj : error LNK2001: unresolved external symbol "public: __thiscall Environment::RAbstractClass::RAbstractClass(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (??0RAbstractClass@Environment@@QAE@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@0@Z)
-     1>OP_Divide.obj : error LNK2001: unresolved external symbol "public: __thiscall Environment::RAbstractClass::RAbstractClass(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (??0RAbstractClass@Environment@@QAE@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@0@Z)
-     1>OP_If.obj : error LNK2001: unresolved external symbol "public: __thiscall Environment::RAbstractClass::RAbstractClass(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (??0RAbstractClass@Environment@@QAE@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@0@Z)
-     1>EquationToken.obj : error LNK2001: unresolved external symbol "public: __thiscall Environment::RAbstractClass::RAbstractClass(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (??0RAbstractClass@Environment@@QAE@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@0@Z)
-     1>Constant.obj : error LNK2001: unresolved external symbol "public: __thiscall Environment::RAbstractClass::RAbstractClass(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (??0RAbstractClass@Environment@@QAE@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@0@Z)
-     1>OP_Select.obj : error LNK2001: unresolved external symbol "public: __thiscall Environment::RAbstractClass::RAbstractClass(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (??0RAbstractClass@Environment@@QAE@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@0@Z)
-     1>Variable.obj : error LNK2001: unresolved external symbol "public: __thiscall Environment::RAbstractClass::RAbstractClass(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (??0RAbstractClass@Environment@@QAE@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@0@Z)
-     1>GenericMathFunction.obj : error LNK2001: unresolved external symbol "public: __thiscall Environment::RAbstractClass::RAbstractClass(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (??0RAbstractClass@Environment@@QAE@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@0@Z)
-     1>EquationTokens.obj : error LNK2001: unresolved external symbol "public: __thiscall Environment::RAbstractClass::RAbstractClass(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (??0RAbstractClass@Environment@@QAE@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@0@Z)
-     1>Operation.obj : error LNK2001: unresolved external symbol "public: __thiscall Environment::RAbstractClass::RAbstractClass(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (??0RAbstractClass@Environment@@QAE@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@0@Z)
-     1>OP_Add.obj : error LNK2001: unresolved external symbol "public: __thiscall Environment::RAbstractClass::RAbstractClass(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (??0RAbstractClass@Environment@@QAE@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@0@Z)
-     1>../../Binaries/Environment.dll : fatal error LNK1120: 1 unresolved externals
-         Makefile.generated.mk:19: recipe for target '../../Binaries/Environment.dll' failed
-         make[1]: *** [../../Binaries/Environment.dll] Error 2
+         Thread.cpp
+     1>../../Source/Environment/Reflection/Atomic/Private/AtomReflectionProvider.cpp(26): error C2955: 'Environment::VectorAtomReflectionTemplate' : use of class template requires template argument list
+                 C:\Users\User\Git\IntelligenceProject\SOIA\Source\Environment/Reflection/Atomic/Classes/VectorAtomReflectionTemplate.h(9) : see declaration of 'Environment::VectorAtomReflectionTemplate'
+     1>../../Source/Environment/Reflection/Atomic/Private/AtomReflectionProvider.cpp(26): error C2512: 'Environment::VectorAtomReflectionTemplate' : no appropriate default constructor available
+         Makefile.generated.mk:53: recipe for target '../../Intermediate/Environment/Reflection/Atomic/AtomReflectionProvider.obj' failed
+         make[1]: *** [../../Intermediate/Environment/Reflection/Atomic/AtomReflectionProvider.obj] Error 2
+         make[1]: *** Waiting for unfinished jobs....
          make[1]: Leaving directory '/c/Users/User/Git/IntelligenceProject/SOIA/Source/Environment'
          Makefile:32: recipe for target 'Environment' failed
          make: *** [Environment] Error 2
@@ -101,4 +86,4 @@
 
 Build FAILED.
 
-Time Elapsed 00:00:10.79
+Time Elapsed 00:00:13.20

@@ -1,12 +1,12 @@
 
 #pragma once
 
-#include "Environment/Reflection/Atomic/Public/AtomReflectionInterface.h"
+#include "Environment/Reflection/Atomic/Public/AtomReflection.h"
 
 namespace Environment
 {
 	template<typename SimpleType>
-	class SimpleAtomReflection : public AtomReflectionInterface
+	class SimpleAtomReflection : public AtomReflection
 	{
 	public:
 		typedef std::string(*ToStringConverter_FunctionType)(const SimpleType&);

@@ -1,5 +1,5 @@
-﻿Build started 08.05.2015 17:42:07.
-     1>Project "C:\Users\User\Git\IntelligenceProject\SOIA\Source\Programs\UnitTest\UnitTest.vcxproj" on node 5 (Rebuild target(s)).
+﻿Build started 12.05.2015 11:49:25.
+     1>Project "C:\Users\User\Git\IntelligenceProject\SOIA\Source\Programs\UnitTest\UnitTest.vcxproj" on node 4 (Rebuild target(s)).
      1>Rebuild:
          make rebuild
          make: *** No rule to make target 'rebuild'.  Stop.
@@ -8,4 +8,4 @@
 
 Build FAILED.
 
-Time Elapsed 00:00:00.22
+Time Elapsed 00:00:00.27

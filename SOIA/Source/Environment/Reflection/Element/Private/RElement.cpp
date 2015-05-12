@@ -23,7 +23,7 @@ RClass* RElement::GetClass()
 
 RClass* RElement::GetClassByType(const std::string& InTypeID)
 {
-	return GetGlobalReflectionProvider()->GetClass(InTypeID);
+	return GetElementReflectionProvider()->GetClass(InTypeID);
 }
 
 ElementReflection RElement::CreateReflection()

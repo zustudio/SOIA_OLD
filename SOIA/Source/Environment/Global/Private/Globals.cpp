@@ -8,9 +8,14 @@ using namespace Environment;
 // Global element and atom reflection provider
 namespace Environment
 {
-	ElementReflectionProvider GlobalReflectionProvider;
-	DLLIMPEXP ElementReflectionProvider* GetGlobalReflectionProvider()
+	AtomReflectionProvider GlobalAtomReflectionProvider;
+	ElementReflectionProvider GlobalElementReflectionProvider;
+	DLLIMPEXP AtomReflectionProvider* GetAtomReflectionProvider()
 	{
-		return &GlobalReflectionProvider;
+		return &GlobalAtomReflectionProvider;
+	}
+	DLLIMPEXP ElementReflectionProvider* GetElementReflectionProvider()
+	{
+		return &GlobalElementReflectionProvider;
 	}
 }

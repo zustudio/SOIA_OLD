@@ -8,9 +8,8 @@ using namespace Environment;
 
 ////////////////////////////////////////////////////////////////
 // Initializing
-PropertyTagFactory::PropertyTagFactory(AtomReflectionProvider* InReflectionProvider)
+PropertyTagFactory::PropertyTagFactory()
 {
-	ReflectionProvider = InReflectionProvider;
 	ErrorResult = new PropertyTag(new VoidPointer(*new int(35535)), "ERROR", "ERROR");
 }
 
@@ -62,13 +61,13 @@ PropertyTag PropertyTagFactory::FromStream(std::istream& InStream)
 // Helper Functions
 std::string PropertyTagFactory::ObjectToString(const VoidPointer& InPointer)
 {
-	AtomReflectionInterface* converter = ReflectionProvider->GetReflection(InPointer.GetTypeID());
+	AtomReflection* converter = GetAtomReflectionProvider()->GetReflection(InPointer.GetTypeID());
 	return converter->ObjectToString(InPointer);
 }
 
 VoidPointer* PropertyTagFactory::StringToObject(const std::string& InType, const std::string& InContent)
 {
-	AtomReflectionInterface* converter = ReflectionProvider->GetReflection(InType);
+	AtomReflection* converter = GetAtomReflectionProvider()->GetReflection(InType);
 	if (converter)
 		return converter->StringToObject(InContent);
 	else

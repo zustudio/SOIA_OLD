@@ -23,8 +23,13 @@ ServiceProvider::ServiceProvider()
 	Services(RContainer(Range<int>(0, 1000000)))
 {
 
-
+	std::vector<double> v_double = { 1,2,3 };
+	VoidPointer p_v_double = v_double;
 	
+	GetAtomReflectionProvider()->Reflect<std::vector<double> >();
+	auto refl = GetAtomReflectionProvider()->GetReflection(p_v_double.GetTypeID());
+	std::string s_vec = refl->ObjectToString(p_v_double);
+
 
 	Constant c = Constant(123.4);
 

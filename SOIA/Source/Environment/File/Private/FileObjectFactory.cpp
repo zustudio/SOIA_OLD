@@ -14,7 +14,7 @@ FileObject FileObjectFactory::FromTags(const std::vector<PropertyTag>& InTags)
 	if (InTags.size())
 	{
 		// 1st: try to find type of first tag in global element reflection provider
-		ContentClass =GetGlobalReflectionProvider()->GetClass(InTags[0].TypeString);
+		ContentClass =GetElementReflectionProvider()->GetClass(InTags[0].TypeString);
 		if (ContentClass)
 		{
 			// if tags indeed belong to element, than load other tags into attributes

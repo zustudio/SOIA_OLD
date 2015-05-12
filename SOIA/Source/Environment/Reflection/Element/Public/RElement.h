@@ -79,17 +79,17 @@ namespace Environment
 		template<typename RType>
 		void RegisterClass()
 		{
-			if (!GetGlobalReflectionProvider()->GetClass(typeid(typename RType::BaseType).name()))
+			if (!GetElementReflectionProvider()->GetClass(typeid(typename RType::BaseType).name()))
 			{
-				GetGlobalReflectionProvider()->Register(new RClassTemplate<RType>(typeid(typename RType::BaseType).name(), typeid(typename RType::Super::BaseType).name()));
+				GetElementReflectionProvider()->Register(new RClassTemplate<RType>(typeid(typename RType::BaseType).name(), typeid(typename RType::Super::BaseType).name()));
 			}
 		}
 		template<typename RType>
 		void RegisterAbstractClass()
 		{
-			if (!GetGlobalReflectionProvider()->GetClass(typeid(typename RType::BaseType).name()))
+			if (!GetElementReflectionProvider()->GetClass(typeid(typename RType::BaseType).name()))
 			{
-				GetGlobalReflectionProvider()->Register(new RAbstractClass(typeid(typename RType::BaseType).name(), typeid(typename RType::Super::BaseType).name()));
+				GetElementReflectionProvider()->Register(new RAbstractClass(typeid(typename RType::BaseType).name(), typeid(typename RType::Super::BaseType).name()));
 			}
 		}
 

@@ -5,6 +5,7 @@
 using namespace Environment;
 
 #include "Environment/Reflection/Atomic/Classes/SimpleAtomReflection.h"
+#include "Environment/Reflection/Atomic/Public/VectorReflectionFactory.h"
 #include <sstream>
 #include <iomanip>
 
@@ -23,7 +24,7 @@ AtomReflectionProvider::AtomReflectionProvider()
 		[](const std::string& string) { return std::atof(string.c_str()); }));
 }
 
-AtomReflectionInterface* AtomReflectionProvider::GetReflection(const std::string& InTypeName)
+AtomReflection* AtomReflectionProvider::GetReflection(const std::string& InTypeName)
 {
 	for (auto reflection : Reflections)
 	{
