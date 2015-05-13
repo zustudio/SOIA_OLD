@@ -44,6 +44,7 @@ void File::Write()
 	{
 		WriteObject(p_Obj);
 	}
+	PreWrite();
 }
 
 void File::Read()
@@ -59,4 +60,6 @@ void File::Read()
 		}
 
 	} while (readObject);
+
+	PostRead();
 }

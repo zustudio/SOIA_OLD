@@ -54,6 +54,11 @@ namespace Environment
 			return ID;
 		}
 
+		void OverrideType(const std::string& InNewTypeID)
+		{
+			ID = InNewTypeID;
+		}
+
 		//----- type checking -----
 	private:
 		template<typename T>

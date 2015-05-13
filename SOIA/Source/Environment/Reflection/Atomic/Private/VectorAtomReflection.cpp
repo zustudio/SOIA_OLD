@@ -4,7 +4,6 @@
 #include "Environment/Reflection/Atomic/Classes/VectorAtomReflection.h"
 using namespace Environment;
 
-#include "Environment/Global/Public/Globals.h"
 
 
 bool VectorAtomReflection::IsType(const std::string& InType)
@@ -23,7 +22,3 @@ bool VectorAtomReflection::IsType(const std::string& InType)
 		return success;
 }
 
-std::string VectorAtomReflection::GetAtomString(VoidPointer& InObject)
-{
-	return GetAtomReflectionProvider()->GetReflection(InObject.GetTypeID())->ObjectToString(InObject);
-}

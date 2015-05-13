@@ -17,7 +17,7 @@ namespace Environment
 		PropertyTag FromSimpleObject(VoidPointer& InObject);
 
 	private:
-		std::string ObjectToString(const VoidPointer& InPointer);
+		std::string ObjectToString(VoidPointer& InPointer);
 		VoidPointer* StringToObject(const std::string& InType, const std::string& InContent);
 		std::string StreamToString(std::istream& InStream, const char& InStringStart, const char& InStringEnd);
 		std::vector<std::string> StringToList(const std::string& InString, const char& InSeperator);

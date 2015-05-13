@@ -7,7 +7,7 @@
 #include "RClassTemplate.h"
 #include "RAbstractClass.h"
 #include "Environment/Reflection/TypeAttribute/Public/ObjectMirrorTemplate.h"
-#include "Environment/Global/Public/Globals.h"
+#include "Environment/Global/Public/GlobalsImport.h"
 
 
 #define RBASECLASS_DEFINITION(ClassType,SuperClassType,CONTENT) \
@@ -62,14 +62,14 @@ namespace Environment
 		using Super = RElement;
 		using BaseType = RElement;
 	public:
-		RElement() {};
+		RElement();
 		virtual ~RElement() {};
 
 		virtual void SetID(Element_ID InID);
 		Element_ID& GetID();
 
 		ElementReflection CreateReflection();
-		bool LoadReflection(const ElementReflection& InReflection);
+		bool LoadReflection(const ElementReflection& InReflection, bool bIsPartial);
 
 		virtual RClass* GetClass();
 	protected:

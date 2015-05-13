@@ -23,3 +23,13 @@ VoidPointer* TextFile::ReadObject()
 	std::getline(*InStream, text);
 	return new VoidPointer(text);
 }
+
+void TextFile::PreWrite()
+{
+
+}
+
+void TextFile::PostRead()
+{
+
+}

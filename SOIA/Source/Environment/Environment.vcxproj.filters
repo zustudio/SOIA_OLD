@@ -151,13 +151,15 @@
     <ClInclude Include="Reflection\Element\Public\RClassTemplate.h" />
     <ClInclude Include="Reflection\Element\Public\RClass.h" />
     <ClInclude Include="Reflection\Element\Public\RAbstractClass.h" />
-    <ClInclude Include="Global\Public\Globals.h" />
     <ClInclude Include="Reflection\Atomic\Classes\VectorAtomReflection.h" />
     <ClInclude Include="Reflection\Atomic\Classes\VectorAtomReflectionTemplate.h" />
-    <ClInclude Include="Reflection\Atomic\Public\VectorReflectionFactory.h" />
-    <ClInclude Include="Reflection\Atomic\Public\ReflectionFactory.h" />
     <ClInclude Include="Reflection\Atomic\Public\AtomReflection.h" />
     <ClInclude Include="Reflection\TypeAttribute\Public\ObjectMirrorTemplate.h" />
+    <ClInclude Include="Reflection\Atomic\Public\ReflectionFactory.h" />
+    <ClInclude Include="Reflection\Atomic\Classes\PointerReflectionTemplate.h" />
+    <ClInclude Include="Reflection\Element\Public\RPointer.h" />
+    <ClInclude Include="Reflection\Atomic\Classes\RPointerReflection.h" />
+    <ClInclude Include="Global\Public\GlobalsImport.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mathematics\Functions\Private\ExponentialFunction.cpp">
@@ -219,7 +221,10 @@
     <ClCompile Include="Reflection\Element\Private\RClass.cpp" />
     <ClCompile Include="Reflection\Element\Private\RAbstractClass.cpp" />
     <ClCompile Include="Reflection\Atomic\Private\VectorAtomReflection.cpp" />
-    <ClCompile Include="Reflection\Atomic\Private\VectorReflectionFactory.cpp" />
+    <ClCompile Include="Reflection\Atomic\Private\AtomReflection.cpp" />
+    <ClCompile Include="Reflection\Element\Private\RPointer.cpp" />
+    <ClCompile Include="Reflection\Atomic\Private\RPointerReflection.cpp" />
+    <ClCompile Include="Reflection\Atomic\Private\ReflectionFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Makefile.generated.mk" />

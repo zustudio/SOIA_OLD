@@ -2,7 +2,7 @@
 #pragma once
 
 #include "AtomReflection.h"
-#include "VectorReflectionFactory.h"
+#include "ReflectionFactory.h"
 
 #include <vector>
 
@@ -19,8 +19,7 @@ namespace Environment
 			std::string TypeID = typeid(Type).name();
 			if (!GetReflection(TypeID))
 			{
-				if (VectorReflectionFactory::IsTypeAvailable(TypeID))
-					Reflections.push_back(VectorReflectionFactory::Create<Type>());
+				Reflections.push_back(ReflectionFactory::Create<Type>());
 			}
 		}
 

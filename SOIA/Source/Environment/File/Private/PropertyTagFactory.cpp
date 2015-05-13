@@ -31,10 +31,9 @@ PropertyTag PropertyTagFactory::FromObject(const FileObject& InObject)
 }
 PropertyTag PropertyTagFactory::FromSimpleObject(VoidPointer& InObject)
 {
-	std::string TypeString = InObject.GetTypeID();
 	std::string ContentString = ObjectToString(InObject);
 	VoidPointer* Object = new VoidPointer(InObject);
-	return PropertyTag(Object, TypeString, ContentString);
+	return PropertyTag(Object, Object->GetTypeID(), ContentString);
 }
 
 PropertyTag PropertyTagFactory::FromStream(std::istream& InStream)
@@ -59,7 +58,7 @@ PropertyTag PropertyTagFactory::FromStream(std::istream& InStream)
 
 ////////////////////////////////////////////////////////////////
 // Helper Functions
-std::string PropertyTagFactory::ObjectToString(const VoidPointer& InPointer)
+std::string PropertyTagFactory::ObjectToString(VoidPointer& InPointer)
 {
 	AtomReflection* converter = GetAtomReflectionProvider()->GetReflection(InPointer.GetTypeID());
 	return converter->ObjectToString(InPointer);

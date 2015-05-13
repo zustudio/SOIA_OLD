@@ -13,6 +13,6 @@ namespace Environment
 	public:
 		virtual bool IsType(const std::string& InTypeName) override;
 		
-		std::string GetAtomString(VoidPointer& InAtom);
+		
 	};
 }

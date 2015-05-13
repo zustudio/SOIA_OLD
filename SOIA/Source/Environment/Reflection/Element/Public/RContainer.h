@@ -17,7 +17,7 @@ namespace Environment
 
 		//----- Initializing -----
 		/// Constructor
-		RContainer(const Range<int>& InAllowedIDs);
+		RContainer(const Range<int>& InAllowedIDs, const std::vector<RElement*>& InElements = {});
 
 		//----- Public Object Access -----
 		/// Registers new Object.

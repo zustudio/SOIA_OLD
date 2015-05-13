@@ -1,4 +1,4 @@
-﻿Build started 12.05.2015 12:04:50.
+﻿Build started 14.05.2015 00:00:42.
      1>Project "C:\Users\User\Git\IntelligenceProject\SOIA\Source\SOIA\SOIA.vcxproj" on node 2 (Build target(s)).
      1>Build:
          make -s --eval=def_IDE_VisualStudio:=1 -C ../ all
@@ -9,4 +9,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:02.10
+Time Elapsed 00:00:06.05

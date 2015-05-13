@@ -9,8 +9,39 @@ using namespace Environment;
 SaveFile::SaveFile(const std::string &InName, bool bWriteFile)
 	: 
 	File(InName, bWriteFile),
-	TagFactory()
+	TagFactory(),
+	LoadedRElements(Range<int>(0,10000))
 {}
+
+void SaveFile::PreWrite()
+{
+
+}
+
+void SaveFile::PostRead()
+{
+	// save all loaded relements into new container
+	std::vector<RElement*> RElements;
+	for (VoidPointer p_Object : Content)
+	{
+		RElement** p_Element = p_Object.CastTo<RElement*>();
+		if (p_Element)
+		{
+			RElements.push_back(*p_Element);
+		}
+	}
+	LoadedRElements = RContainer(Range<int>(0, 100000), RElements);
+
+	//resolve pointers of relements with container
+	int n = Content.size();
+	for (int i = 0; i < n; i++)
+	{
+		FileObject fileObject = FileObjects[i];
+		VoidPointer* updatedElement = fileObject.ResolvePointers(&LoadedRElements);
+		if (updatedElement)
+			Content[i] = *updatedElement;
+	}
+}
 
 void SaveFile::WriteObject(const VoidPointer& InObject)
 {
@@ -28,12 +59,15 @@ VoidPointer* SaveFile::ReadObject()
 	while (!InStream->eof())
 	{
 		std::vector<PropertyTag> tags;
-		while (InStream->peek() != ',' && !InStream->eof())
+		while (!InStream->eof() && InStream->peek() != ',')
 		{
 			tags.push_back(TagFactory.FromStream(*InStream));
 		}
+		InStream->get();
 		FileObject object = ObjectFactory.FromTags(tags);
-		return object.CreateObject();
+		result = object.CreateObject();
+		FileObjects.push_back(object);
+		return result;
 	}
 	return nullptr;
 }

@@ -12,7 +12,7 @@ namespace Environment
 		{
 			return nullptr;
 		}
-		virtual std::string ObjectToString(const VoidPointer& InObject) override
+		virtual std::string ObjectToString(VoidPointer& InObject) override
 		{
 			std::string result;
 			VectorClass* p_Object = InObject.CastTo<VectorClass>();

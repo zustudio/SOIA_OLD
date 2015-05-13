@@ -25,7 +25,7 @@ namespace Environment
 		{
 			return (InTypeName == typeid(SimpleType).name());
 		}
-		virtual std::string ObjectToString(const VoidPointer& InObject) override
+		virtual std::string ObjectToString(VoidPointer& InObject) override
 		{
 			SimpleType object = *InObject.CastTo<SimpleType>();
 			return (*ToStringConverter)(object);

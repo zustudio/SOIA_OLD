@@ -26,6 +26,11 @@ namespace Environment
 		virtual void WriteObject(const VoidPointer &InObject) = 0;
 		virtual VoidPointer* ReadObject() = 0;
 
+	protected:
+		virtual void PreWrite() = 0;
+		virtual void PostRead() = 0;
+
+	public:
 		/////////////////////////////////////////////////////////
 		// Variables
 		//---- streams ----

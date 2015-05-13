@@ -18,5 +18,7 @@ namespace Environment
 		virtual double Calculate(const std::vector<Value*> &InDefinedValues) override;
 
 		double myValue;
+
+		Constant* Next;
 	};
 }

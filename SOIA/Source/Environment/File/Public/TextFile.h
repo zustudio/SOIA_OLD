@@ -9,6 +9,8 @@ namespace Environment
 	{
 	public:
 		TextFile(const std::string &InName, bool bWriteFile);
+		virtual void PreWrite() override;
+		virtual void PostRead() override;
 		virtual void WriteObject(const VoidPointer& InObject) override;
 		virtual VoidPointer* ReadObject() override;
 	};

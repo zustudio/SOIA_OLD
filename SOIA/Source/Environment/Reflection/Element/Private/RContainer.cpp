@@ -8,9 +8,10 @@ using namespace Environment;
 
 ////////////////////////////////////////////////////////////////
 // Init
-RContainer::RContainer(const Range<int>& InAllowedIDs)
+RContainer::RContainer(const Range<int>& InAllowedIDs, const std::vector<RElement*>& InElements)
 {
 	AllowedIDs = InAllowedIDs;
+	Objects = InElements;
 }
 
 ////////////////////////////////////////////////////////////////

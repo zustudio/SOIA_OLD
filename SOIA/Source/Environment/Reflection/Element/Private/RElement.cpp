@@ -5,6 +5,10 @@
 #include "Environment/Reflection/Element/Public/RElement.h"
 using namespace Environment;
 
+RElement::RElement()
+{
+	Reflect(ID);
+}
 
 void RElement::SetID(Element_ID InID)
 {
@@ -36,14 +40,25 @@ ElementReflection RElement::CreateReflection()
 	return ElementReflection(attributes);
 }
 
-bool RElement::LoadReflection(const ElementReflection& InReflection)
+bool RElement::LoadReflection(const ElementReflection& InReflection, bool bIsPartial)
 {
 	int i;
 	for (i = 0; i < InReflection.Attributes.size(); i++)
 	{
 		auto attribute = InReflection.Attributes[i];
+
+		// check if attribute is a pointer
+		//@ToDo: extract check into VoidPointer
+		//@ToDo: maybe add checking for which attributes must be loaded at all
+		//std::string id = attribute.GetTypeID();
+		//if (id[id.length() - 1] == '*')
+		//{
+		//	// check if attribute is already loaded
+		//	AttributeMirrors[i]->Get()
+		//}
+
 		bool success = AttributeMirrors[i]->SetIfTypesMatch(attribute);
-		if (!success)
+		if (!success && !bIsPartial)
 		{
 			break;
 		}
