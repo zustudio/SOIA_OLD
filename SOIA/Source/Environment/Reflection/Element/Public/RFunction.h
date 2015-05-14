@@ -5,7 +5,7 @@
 #include "RFunctionInterface.h"
 
 // include SOIA
-#include "Environment/Reflection/TypeAttribute/Public/VoidPointer.h"
+#include "Environment/Reflection/Type/Public/VoidPointer.h"
 
 // include std
 #include <vector>

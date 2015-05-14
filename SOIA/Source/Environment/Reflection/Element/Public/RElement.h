@@ -6,7 +6,7 @@
 #include "ElementReflectionProvider.h"
 #include "RClassTemplate.h"
 #include "RAbstractClass.h"
-#include "Environment/Reflection/TypeAttribute/Public/ObjectMirrorTemplate.h"
+#include "Environment/Reflection/Type/Public/ObjectMirrorTemplate.h"
 #include "Environment/Global/Public/GlobalsImport.h"
 
 
@@ -79,17 +79,17 @@ namespace Environment
 		template<typename RType>
 		void RegisterClass()
 		{
-			if (!GetElementReflectionProvider()->GetClass(typeid(typename RType::BaseType).name()))
+			if (!GetElementReflectionProvider()->GetClass(TypeID::FromType<typename RType::BaseType>()))
 			{
-				GetElementReflectionProvider()->Register(new RClassTemplate<RType>(typeid(typename RType::BaseType).name(), typeid(typename RType::Super::BaseType).name()));
+				GetElementReflectionProvider()->Register(new RClassTemplate<RType>(TypeID::FromType<typename RType::BaseType>(), TypeID::FromType<typename RType::Super::BaseType>()));
 			}
 		}
 		template<typename RType>
 		void RegisterAbstractClass()
 		{
-			if (!GetElementReflectionProvider()->GetClass(typeid(typename RType::BaseType).name()))
+			if (!GetElementReflectionProvider()->GetClass(TypeID::FromType<typename RType::BaseType>()))
 			{
-				GetElementReflectionProvider()->Register(new RAbstractClass(typeid(typename RType::BaseType).name(), typeid(typename RType::Super::BaseType).name()));
+				GetElementReflectionProvider()->Register(new RAbstractClass(TypeID::FromType<typename RType::BaseType>(), TypeID::FromType<typename RType::Super::BaseType>()));
 			}
 		}
 
@@ -102,6 +102,7 @@ namespace Environment
 		template<typename ReflectedObjectType, typename... ReflectedObjectTypes>
 		void rec_Reflect(ReflectedObjectType& InReflectedObject, ReflectedObjectTypes&... TailReflectedObjects)
 		{
+			GetAtomReflectionProvider()->Reflect<ReflectedObjectType>();
 			AttributeMirrors.push_back(new ObjectMirrorTemplate<ReflectedObjectType>(InReflectedObject));
 			rec_Reflect(TailReflectedObjects...);
 		}

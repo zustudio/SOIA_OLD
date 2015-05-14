@@ -25,9 +25,9 @@ RClass* RElement::GetClass()
 	return GetClassByType(typeid(RElement).name());
 }
 
-RClass* RElement::GetClassByType(const std::string& InTypeID)
+RClass* RElement::GetClassByType(const std::string& InType)
 {
-	return GetElementReflectionProvider()->GetClass(InTypeID);
+	return GetElementReflectionProvider()->GetClass(TypeID(InType));
 }
 
 ElementReflection RElement::CreateReflection()

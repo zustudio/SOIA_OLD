@@ -14,7 +14,7 @@ namespace Environment
 	public:
 		void Register(RClass* InClass);
 
-		RClass* GetClass(const std::string& TypeID);
+		RClass* GetClass(const TypeID& InType);
 
 	private:
 		std::vector<RClass*> Classes;

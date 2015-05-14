@@ -6,7 +6,7 @@
 #include <iostream>
 #include <fstream>
 
-#include "Environment/Reflection/TypeAttribute/Public/VoidPointer.h"
+#include "Environment/Reflection/Type/Public/VoidPointer.h"
 
 namespace Environment
 {

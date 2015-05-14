@@ -1,16 +1,21 @@
 
 #pragma once
 
+#include "Environment/Reflection/Atomic/Public/Atom.h"
+
+#include "Environment/Reflection/Type/Public/VoidPointer.h"
 #include <string>
 
 namespace Environment
 {
-	class DLLIMPEXP Element_ID
+	class DLLIMPEXP Element_ID : Atom
 	{
 	public:
 		//////////////////////////////////////////////////////////////////
 		// Init
 		Element_ID();
+		static std::string ToString(const Element_ID& InID);
+		static Element_ID FromString(const std::string& InString);
 
 		//////////////////////////////////////////////////////////////////
 		// Access

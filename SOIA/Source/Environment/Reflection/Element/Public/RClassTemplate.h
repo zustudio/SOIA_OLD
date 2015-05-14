@@ -13,7 +13,7 @@ namespace Environment
 	class RClassTemplate : public RClass
 	{
 	public:
-		RClassTemplate(const std::string& InTypeID, const std::string& InBaseTypeID) : RClass(InTypeID, InBaseTypeID)
+		RClassTemplate(const TypeID& InTypeID, const TypeID& InBaseTypeID) : RClass(InTypeID, InBaseTypeID)
 		{}
 
 		virtual RElement* GetDefaultObject() override

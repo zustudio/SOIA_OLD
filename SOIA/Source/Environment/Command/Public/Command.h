@@ -6,7 +6,7 @@
 
 #include "CommandExecutor.h"
 
-#include "Reflection/TypeAttribute/Public/VoidPointer.h"
+#include "Reflection/Type/Public/VoidPointer.h"
 using namespace SO::Base;
 
 namespace Environment

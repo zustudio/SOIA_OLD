@@ -11,6 +11,21 @@ Element_ID::Element_ID()
 {
 	UniqueIdentifier = 35505;
 }
+std::string Element_ID::ToString(const Element_ID& InID)
+{
+	return std::to_string(InID.UniqueIdentifier) + "," + InID.Name;
+}
+Element_ID Element_ID::FromString(const std::string& InString)
+{
+	Element_ID id;
+	auto result = MatchPattern(InString, "([0-9]+),(\\w+)");
+	if (result.size() == 3)
+	{
+		id.UniqueIdentifier = std::atoi(std::string(result[1]).c_str());
+		id.Name = result[2];
+	}
+	return id;
+}
 
 ////////////////////////////////////////////////////////////////
 // Access
@@ -25,3 +40,4 @@ bool Element_ID::operator== (const Element_ID &InOther) const
 
 	return result;
 }
+

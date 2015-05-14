@@ -93,9 +93,6 @@
     <ClInclude Include="Reflection\NameAttribute\Public\Handle.h">
       <Filter>Reflection\NameAttribute\Public</Filter>
     </ClInclude>
-    <ClInclude Include="Reflection\TypeAttribute\Public\VoidPointer.h">
-      <Filter>Reflection\TypeAttribute\Public</Filter>
-    </ClInclude>
     <ClInclude Include="Command\Public\Command.h" />
     <ClInclude Include="Command\Public\CommandExecutor.h" />
     <ClInclude Include="Event\Public\Event.h" />
@@ -145,7 +142,6 @@
     <ClInclude Include="Reflection\Element\Public\RFunctionInterface.h" />
     <ClInclude Include="Reflection\Element\Public\RService.h" />
     <ClInclude Include="Reflection\Element\Public\ElementReflection.h" />
-    <ClInclude Include="Reflection\TypeAttribute\Public\ObjectMirror.h" />
     <ClInclude Include="Reflection\TypeAttribute\Public\ObjectMirrorInterface.h" />
     <ClInclude Include="Reflection\Element\Public\ElementReflectionProvider.h" />
     <ClInclude Include="Reflection\Element\Public\RClassTemplate.h" />
@@ -154,12 +150,18 @@
     <ClInclude Include="Reflection\Atomic\Classes\VectorAtomReflection.h" />
     <ClInclude Include="Reflection\Atomic\Classes\VectorAtomReflectionTemplate.h" />
     <ClInclude Include="Reflection\Atomic\Public\AtomReflection.h" />
-    <ClInclude Include="Reflection\TypeAttribute\Public\ObjectMirrorTemplate.h" />
     <ClInclude Include="Reflection\Atomic\Public\ReflectionFactory.h" />
     <ClInclude Include="Reflection\Atomic\Classes\PointerReflectionTemplate.h" />
     <ClInclude Include="Reflection\Element\Public\RPointer.h" />
     <ClInclude Include="Reflection\Atomic\Classes\RPointerReflection.h" />
     <ClInclude Include="Global\Public\GlobalsImport.h" />
+    <ClInclude Include="Reflection\Atomic\Public\Atom.h" />
+    <ClInclude Include="Reflection\Type\Public\ObjectMirror.h" />
+    <ClInclude Include="Reflection\Type\Public\ObjectMirrorTemplate.h" />
+    <ClInclude Include="Reflection\Type\Public\TypeID.h" />
+    <ClInclude Include="Reflection\Type\Public\VoidPointer.h">
+      <Filter>Reflection\TypeAttribute\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mathematics\Functions\Private\ExponentialFunction.cpp">
@@ -173,9 +175,6 @@
     </ClCompile>
     <ClCompile Include="Mathematics\Random\Private\Random.cpp">
       <Filter>Mathematics\Random\Private</Filter>
-    </ClCompile>
-    <ClCompile Include="Reflection\TypeAttribute\Private\VoidPointer.cpp">
-      <Filter>Reflection\TypeAttribute\Private</Filter>
     </ClCompile>
     <ClCompile Include="Command\Private\Command.cpp" />
     <ClCompile Include="Mathematics\Runtime\Private\MathContainer.cpp" />
@@ -225,6 +224,11 @@
     <ClCompile Include="Reflection\Element\Private\RPointer.cpp" />
     <ClCompile Include="Reflection\Atomic\Private\RPointerReflection.cpp" />
     <ClCompile Include="Reflection\Atomic\Private\ReflectionFactory.cpp" />
+    <ClCompile Include="Reflection\Atomic\Private\Atom.cpp" />
+    <ClCompile Include="Reflection\Type\Private\TypeID.cpp" />
+    <ClCompile Include="Reflection\Type\Private\VoidPointer.cpp">
+      <Filter>Reflection\TypeAttribute\Private</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Makefile.generated.mk" />

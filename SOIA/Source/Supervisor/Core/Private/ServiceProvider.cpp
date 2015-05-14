@@ -34,7 +34,6 @@ ServiceProvider::ServiceProvider()
 	auto refl = GetAtomReflectionProvider()->GetReflection(p_v_double.GetTypeID());
 	std::string s_vec = refl->ObjectToString(p_v_double);*/
 
-	GetAtomReflectionProvider()->Reflect<Constant*>();
 
 	Constant* c = new Constant(123.4);
 	Constant* next = new Constant(5);
@@ -48,7 +47,6 @@ ServiceProvider::ServiceProvider()
 	//write
 	SaveFile* of = new SaveFile("TEST.txt", true);
 	of->Content.push_back((RElement*)c);
-	of->Content.push_back((RElement*)next);
 	of->Write();
 	delete of;
 

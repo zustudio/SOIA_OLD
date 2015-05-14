@@ -4,23 +4,22 @@
 #include "Environment/Reflection/Element/Public/RClass.h"
 using namespace Environment;
 
-RClass::RClass(const std::string &InTypeID, const std::string &InBaseTypeID)
-{
-	TypeID = InTypeID;
-	BaseTypeID = InBaseTypeID;
-}
+RClass::RClass(const TypeID &InType, const TypeID& InBaseType) :
+	Type(InType.RemoveSuffix_Base()),
+	BaseType(InBaseType.RemoveSuffix_Base())
+{}
 
 RClass::~RClass()
 {
 
 }
 
-std::string RClass::GetType()
+TypeID RClass::GetType()
 {
-	return TypeID;
+	return Type;
 }
 
-bool RClass::IsType(const std::string& InTypeID)
+bool RClass::IsType(const TypeID& InType)
 {
-	return (InTypeID == TypeID);
+	return (InType == Type);
 }

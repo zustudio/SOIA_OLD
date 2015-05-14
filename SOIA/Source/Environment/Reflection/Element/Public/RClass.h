@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include "Environment/Reflection/Type/Public/TypeID.h"
 #include <string>
 
 namespace Environment
@@ -13,7 +14,7 @@ namespace Environment
 		// Functions
 		//----- Initializing -----
 
-		RClass(const std::string& InTypeID, const std::string& InBaseTypeID);
+		RClass(const TypeID& InType, const TypeID& InSuperType);
 		virtual ~RClass();
 
 		//----- Definitions for child classes -----
@@ -23,14 +24,14 @@ namespace Environment
 
 		//----- Type Access -----
 
-		std::string GetType();
-		bool IsType(const std::string& InTypeID);
+		TypeID GetType();
+		bool IsType(const TypeID& InType);
 
 
 	private:
 		////////////////////////////////////////////////////////////////
 		// Variables
-		std::string TypeID;
-		std::string BaseTypeID;
+		TypeID Type;
+		TypeID BaseType;
 	};
 }

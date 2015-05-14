@@ -8,7 +8,7 @@ namespace Environment
 	class DLLIMPEXP RAbstractClass : public RClass
 	{
 	public:
-		RAbstractClass(const std::string& InTypeID, const std::string& InSuperTypeID);
+		RAbstractClass(const TypeID& InTypeID, const TypeID& InSuperTypeID);
 		virtual RElement* GetDefaultObject() override;
 		virtual bool IsAbstract() override;
 	};

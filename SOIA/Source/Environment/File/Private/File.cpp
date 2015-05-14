@@ -40,11 +40,11 @@ File::~File()
 // write to file
 void File::Write()
 {
+	PreWrite();
 	for (VoidPointer p_Obj : Content)
 	{
 		WriteObject(p_Obj);
 	}
-	PreWrite();
 }
 
 void File::Read()

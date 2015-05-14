@@ -60,6 +60,7 @@
     <ClInclude Include="Reflection\Atomic\Classes\RPointerReflection.h" />
     <ClInclude Include="Reflection\Atomic\Classes\VectorAtomReflection.h" />
     <ClInclude Include="Reflection\Atomic\Classes\VectorAtomReflectionTemplate.h" />
+    <ClInclude Include="Reflection\Atomic\Public\Atom.h" />
     <ClInclude Include="Reflection\Atomic\Public\AtomReflection.h" />
     <ClInclude Include="Reflection\Atomic\Classes\SimpleAtomReflection.h" />
     <ClInclude Include="Reflection\Atomic\Public\AtomReflectionProvider.h" />
@@ -70,7 +71,7 @@
     <ClInclude Include="Reflection\Element\Public\RAbstractClass.h" />
     <ClInclude Include="Reflection\Element\Public\RClass.h" />
     <ClInclude Include="Reflection\Element\Public\RPointer.h" />
-    <ClInclude Include="Reflection\TypeAttribute\Public\ObjectMirror.h" />
+    <ClInclude Include="Reflection\Type\Public\ObjectMirror.h" />
     <ClInclude Include="Reflection\TypeAttribute\Public\ObjectMirrorInterface.h" />
     <ClInclude Include="Reflection\Element\Public\RApplication.h" />
     <ClInclude Include="Reflection\Element\Public\RClassTemplate.h" />
@@ -80,8 +81,9 @@
     <ClInclude Include="Reflection\Element\Public\RFunctionInterface.h" />
     <ClInclude Include="Reflection\Element\Public\RService.h" />
     <ClInclude Include="Reflection\NameAttribute\Public\Handle.h" />
-    <ClInclude Include="Reflection\TypeAttribute\Public\ObjectMirrorTemplate.h" />
-    <ClInclude Include="Reflection\TypeAttribute\Public\VoidPointer.h" />
+    <ClInclude Include="Reflection\Type\Public\ObjectMirrorTemplate.h" />
+    <ClInclude Include="Reflection\Type\Public\TypeID.h" />
+    <ClInclude Include="Reflection\Type\Public\VoidPointer.h" />
     <ClInclude Include="Thread\Public\Thread.h" />
   </ItemGroup>
   <ItemGroup>
@@ -118,6 +120,7 @@
     <ClCompile Include="Mathematics\Runtime\Private\Value.cpp" />
     <ClCompile Include="Mathematics\Runtime\Private\Value_ID.cpp" />
     <ClCompile Include="Mathematics\Runtime\Private\Variable.cpp" />
+    <ClCompile Include="Reflection\Atomic\Private\Atom.cpp" />
     <ClCompile Include="Reflection\Atomic\Private\AtomReflectionProvider.cpp" />
     <ClCompile Include="Reflection\Atomic\Private\AtomReflection.cpp" />
     <ClCompile Include="Reflection\Atomic\Private\RPointerReflection.cpp" />
@@ -134,7 +137,8 @@
     <ClCompile Include="Reflection\Element\Private\RFunction.cpp" />
     <ClCompile Include="Reflection\Element\Private\RPointer.cpp" />
     <ClCompile Include="Reflection\Element\Private\RService.cpp" />
-    <ClCompile Include="Reflection\TypeAttribute\Private\VoidPointer.cpp" />
+    <ClCompile Include="Reflection\Type\Private\TypeID.cpp" />
+    <ClCompile Include="Reflection\Type\Private\VoidPointer.cpp" />
     <ClCompile Include="Thread\Private\Thread.cpp" />
   </ItemGroup>
   <ItemGroup>

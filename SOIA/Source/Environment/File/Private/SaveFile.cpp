@@ -15,7 +15,29 @@ SaveFile::SaveFile(const std::string &InName, bool bWriteFile)
 
 void SaveFile::PreWrite()
 {
+	// add all objects that are pointed to inside object to content
+	for (int i = 0; i < Content.size(); i++)
+	{
+		auto p_Object = Content[i];
+		RElement** pp_Element = p_Object.CastTo<RElement*>();
+		if (pp_Element)
+		{
+			auto attributes = (*pp_Element)->CreateReflection().Attributes;
+			for (auto attribute : attributes)
+			{
+				auto type = attribute.GetTypeID();
+				if (type.IsPointer() && !attribute.IsNullPointer())
+				{
+					if (GetElementReflectionProvider()->GetClass(type.Dereference()))
+					{
+						attribute.OverrideType(TypeID::FromType<RElement*>());
+					}
+					Content.push_back(attribute);
+				}
+			}
+		}
 
+	}
 }
 
 void SaveFile::PostRead()

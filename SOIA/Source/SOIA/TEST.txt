@@ -1,2 +1,2 @@
-<<class Environment::Constant_Base>[]><<class Environment::Element_ID>[0,constant]><<double>[123.40000000000001]><<class Environment::RPointer>[1,class Environment::Constant *]>,
-<<class Environment::Constant_Base>[]><<class Environment::Element_ID>[1,next]><<double>[5]><<class Environment::RPointer>[-1,class Environment::Constant *]>,
+<<class Environment::Constant>[]><<class Environment::Element_ID>[0,constant]><<double>[123.40000000000001]><<class Environment::RPointer>[1,class Environment::Constant *]>,
+<<class Environment::Constant>[]><<class Environment::Element_ID>[1,next]><<double>[5]><<class Environment::RPointer>[-1,class Environment::Constant *]>,
