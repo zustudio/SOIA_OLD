@@ -12,14 +12,15 @@ namespace Environment
 	{
 		virtual bool IsType(const std::string& InTypeID) override
 		{
-			std::regex pattern("class (\\w+)::(\\w+) \\*");
+			/*std::regex pattern("class (\\w+)::(\\w+) \\*");
 			auto result = std::smatch();
 			bool success = std::regex_match(InTypeID, result, pattern);
-			return success;
+			return success;*/
+			return (TypeID(InTypeID) == TypeID::FromType<RType>());
 		}
 		virtual VoidPointer* StringToObject(const std::string& InString) override
 		{
-			return nullptr;
+			return GetAtomObject(InString, TypeID::FromType<RPointer>());
 		}
 		virtual std::string ObjectToString(VoidPointer& InObject) override
 		{
@@ -30,6 +31,19 @@ namespace Environment
 			result = GetAtomString(InObject);
 
 			return result;
+		}
+		virtual std::vector<RElement*> ObjectToRElements(VoidPointer& InObject) override
+		{
+			if (GetElementReflectionProvider()->GetClass(InObject.GetTypeID().Dereference()))
+			{
+				InObject.OverrideType(TypeID::FromType<RElement*>());
+				RElement** pp_RElement = InObject.CastTo<RElement*>();
+				if (pp_RElement)
+				{
+					return { *pp_RElement };
+				}
+			}
+			return {};
 		}
 	};
 }

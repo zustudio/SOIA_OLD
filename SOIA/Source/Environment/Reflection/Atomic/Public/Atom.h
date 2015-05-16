@@ -5,6 +5,10 @@
 #include <vector>
 #include <string>
 
+#define ATOM_REFLECTION_FUNCTIONS(Class) \
+	static std::string ToString(const Class& InObject); \
+	static Class FromString(const std::string& InString);
+
 namespace Environment
 {
 	class Atom

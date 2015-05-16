@@ -4,6 +4,7 @@
 #include "TypeID.h"
 #include <typeinfo>
 #include <string>
+#include <assert.h>
 
 namespace Environment
 {
@@ -29,6 +30,13 @@ namespace Environment
 				return (T*)Object;
 			else
 				return nullptr;
+		}
+		template<typename T>
+		T& CastAndDereference() const
+		{
+			T* pointer = CastTo<T>();
+			assert(pointer);
+			return *pointer;
 		}
 		template<typename NewType>
 		NewType* ConvertTo() const

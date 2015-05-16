@@ -9,7 +9,8 @@
 
 namespace Environment
 {
-	class DLLIMPEXP RContainer : public RElement
+	RCLASS(RContainer,RElement)
+	class DLLIMPEXP RContainer : public RContainer_Base
 	{
 	public:
 		//////////////////////////////////////////////////////////////////
@@ -17,7 +18,7 @@ namespace Environment
 
 		//----- Initializing -----
 		/// Constructor
-		RContainer(const Range<int>& InAllowedIDs, const std::vector<RElement*>& InElements = {});
+		RContainer(const Range<int>& InAllowedIDs = Range<int>(0,0), const std::vector<RElement*>& InElements = {});
 
 		//----- Public Object Access -----
 		/// Registers new Object.

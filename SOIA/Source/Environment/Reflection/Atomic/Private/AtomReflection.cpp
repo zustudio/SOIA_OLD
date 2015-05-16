@@ -10,3 +10,13 @@ std::string AtomReflection::GetAtomString(VoidPointer& InObject)
 {
 	return GetAtomReflectionProvider()->GetReflection(InObject.GetTypeID())->ObjectToString(InObject);
 }
+
+VoidPointer* AtomReflection::GetAtomObject(const std::string& InString, const TypeID& InType)
+{
+	return GetAtomReflectionProvider()->GetReflection(InType)->StringToObject(InString);
+}
+
+std::vector<RElement*> AtomReflection::ObjectToRElements(VoidPointer& InObject)
+{
+	return {};
+}

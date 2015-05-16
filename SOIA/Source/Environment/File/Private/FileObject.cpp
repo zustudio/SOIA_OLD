@@ -54,6 +54,17 @@ VoidPointer* FileObject::ResolvePointers(RContainer* InContainer)
 			p_PointerAttribute->Container = InContainer;
 			Attributes[i] = p_PointerAttribute->ToVoidPointer();
 		}
+		std::vector<RPointer>* p_v_PointerAttributes = p_Attribute.CastTo<std::vector<RPointer> >();
+		std::vector<RElement*>* v_p_Elements = new std::vector<RElement*>();
+		if (p_v_PointerAttributes)
+		{
+			for (auto pointerAttribute : *p_v_PointerAttributes)
+			{
+				pointerAttribute.Container = InContainer;
+				v_p_Elements->push_back(pointerAttribute.Resolve());
+			}
+			Attributes[i] = VoidPointer(*v_p_Elements);
+		}
 	}
 	(*Object->CastTo<RElement*>())->LoadReflection(ElementReflection(Attributes), true);
 	return Object;

@@ -22,17 +22,28 @@ ServiceProvider::ServiceProvider()
 	: 
 	Services(RContainer(Range<int>(0, 1000000)))
 {
+	////////////////////////////////////////////////////////////////////////////////////
+
+	auto conv = TypeConversion<std::string, int>([](const std::string& InString) {return std::atoi(InString.c_str()); });
+	int inew = conv.Execute("1234");
+
+	auto multconv = MultipleConversion<std::vector<std::string>, std::vector<int>, TypeConversion<std::string, int> >(
+		[](const std::vector<std::string>& InVector) {return std::vector<std::string>(InVector); },
+		[](const std::vector<int>& InVector) {return std::vector<int>(InVector); });
+
+	auto i_vector = multconv.Execute({ "1235", "456" }, conv);
+
+
+
+
+
+
+	////////////////////////////////////////////////////////////////////////////////////
+
 
 	std::regex pattern("class (\\w+) \\*");
 	auto result = std::smatch();
 	bool success = std::regex_match(std::string("class test *"), result, pattern);
-
-	/*std::vector<double> v_double = { 1,2,3 };
-	VoidPointer p_v_double = v_double;
-	
-	GetAtomReflectionProvider()->Reflect<std::vector<double> >();
-	auto refl = GetAtomReflectionProvider()->GetReflection(p_v_double.GetTypeID());
-	std::string s_vec = refl->ObjectToString(p_v_double);*/
 
 
 	Constant* c = new Constant(123.4);
@@ -46,7 +57,7 @@ ServiceProvider::ServiceProvider()
 
 	//write
 	SaveFile* of = new SaveFile("TEST.txt", true);
-	of->Content.push_back((RElement*)c);
+	of->Content.push_back((RElement*)this);
 	of->Write();
 	delete of;
 

@@ -14,11 +14,12 @@ namespace Environment
 	class DLLIMPEXP RPointer : Atom
 	{
 	public:
+		RPointer(RElement*,const TypeID& InTypeID);
+		RPointer(int InID,const TypeID& InTypeID);
+
 		static std::string ToString(const RPointer& InObject);
 		static RPointer FromString(const std::string& InString);
 
-		RPointer(RElement*,const TypeID& InTypeID);
-		RPointer(int InID,const TypeID& InTypeID);
 		RElement* Resolve();
 		VoidPointer ToVoidPointer();
 		

@@ -20,23 +20,22 @@ void SaveFile::PreWrite()
 	{
 		auto p_Object = Content[i];
 		RElement** pp_Element = p_Object.CastTo<RElement*>();
-		if (pp_Element)
+		if (*pp_Element)
 		{
 			auto attributes = (*pp_Element)->CreateReflection().Attributes;
 			for (auto attribute : attributes)
 			{
-				auto type = attribute.GetTypeID();
-				if (type.IsPointer() && !attribute.IsNullPointer())
+				std::vector<RElement*> p_AttributeElements = GetAtomReflectionProvider()->GetReflection(attribute.GetTypeID())->ObjectToRElements(attribute);
+				for (RElement* p_AttributeElement : p_AttributeElements)
 				{
-					if (GetElementReflectionProvider()->GetClass(type.Dereference()))
+					if (p_AttributeElement && Content.end() == Find(Content, p_AttributeElement,
+						[](const VoidPointer& InVP) -> RElement*& {return InVP.CastAndDereference<RElement*>(); }))
 					{
-						attribute.OverrideType(TypeID::FromType<RElement*>());
+						Content.push_back(VoidPointer(*new RElement*(p_AttributeElement)));
 					}
-					Content.push_back(attribute);
 				}
 			}
 		}
-
 	}
 }
 

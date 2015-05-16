@@ -28,7 +28,7 @@ RPointer::RPointer(int InID, const TypeID& InType) :
 }
 VoidPointer RPointer::ToVoidPointer()
 {
-	VoidPointer result = VoidPointer(Resolve());
+	VoidPointer result = VoidPointer(*new RElement*(Resolve()));
 	result.OverrideType(Type);
 	return result;
 }
@@ -44,7 +44,7 @@ RElement* RPointer::Resolve()
 
 RPointer RPointer::FromString(const std::string& InString)
 {
-	auto result = MatchPattern(InString, "-?([0-9]+),class (\\w+)::(\\w+) \\*");
+	auto result = MatchPattern(InString, "(-?[0-9]+),class (\\w+)::(\\w+) \\*");
 	if (result.size() == 4)
 	{
 		std::string ID = result[1];

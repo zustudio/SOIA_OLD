@@ -8,7 +8,7 @@ using namespace Environment;
 
 bool VectorAtomReflection::IsType(const std::string& InType)
 {
-		std::regex pattern("class std::(\\w+)<(\\w+),class std::allocator<(\\2)> >");
+		std::regex pattern("class std::(\\w+)<(.+),class std::allocator<(\\2)> >");
 		auto result = std::smatch();
 		bool success = std::regex_match(InType, result, pattern);
 

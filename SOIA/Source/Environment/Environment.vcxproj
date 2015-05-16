@@ -120,6 +120,7 @@
     <ClCompile Include="Mathematics\Runtime\Private\Value.cpp" />
     <ClCompile Include="Mathematics\Runtime\Private\Value_ID.cpp" />
     <ClCompile Include="Mathematics\Runtime\Private\Variable.cpp" />
+    <ClCompile Include="PreProcessor\Private\CPPExtensions.cpp" />
     <ClCompile Include="Reflection\Atomic\Private\Atom.cpp" />
     <ClCompile Include="Reflection\Atomic\Private\AtomReflectionProvider.cpp" />
     <ClCompile Include="Reflection\Atomic\Private\AtomReflection.cpp" />

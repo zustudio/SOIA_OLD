@@ -12,6 +12,7 @@ RContainer::RContainer(const Range<int>& InAllowedIDs, const std::vector<RElemen
 {
 	AllowedIDs = InAllowedIDs;
 	Objects = InElements;
+	Reflect(AllowedIDs, Objects);
 }
 
 ////////////////////////////////////////////////////////////////

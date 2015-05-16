@@ -6,6 +6,8 @@ using namespace Environment;
 
 std::vector<std::string> Atom::MatchPattern(const std::string& InInput, const std::string& InPattern)
 {
+	
+	
 	std::regex pattern(InPattern);
 	auto result = std::smatch();
 	bool success = std::regex_match(InInput, result, pattern);
