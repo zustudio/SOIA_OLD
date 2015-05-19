@@ -57,6 +57,10 @@ void RContainer::Unregister(RElement* Object)
 		Objects.erase(foundObject);
 	}
 }
+void RContainer::Clear()
+{
+	Objects.clear();
+}
 RElement** RContainer::GetElementPointer(const Element_ID &InID)
 {
 	RElement** result = nullptr;
@@ -117,13 +121,16 @@ Element_ID RContainer::NextFreeID()
 }
 void RContainer::NextFreeName(std::string &InOutName)
 {
-	for (RElement* element : Objects)
+	if (InOutName != "")
 	{
-		if (element->GetID().Name == InOutName)
+		for (RElement* element : Objects)
 		{
-			InOutName += "+";
-			NextFreeName(InOutName);
-			break;
+			if (element->GetID().Name == InOutName)
+			{
+				InOutName += "+";
+				NextFreeName(InOutName);
+				break;
+			}
 		}
 	}
 	return;

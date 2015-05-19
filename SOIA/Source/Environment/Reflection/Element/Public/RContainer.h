@@ -29,6 +29,7 @@ namespace Environment
 
 		/// Unregisters object.
 		void Unregister(RElement* InObject);
+		void Clear();
 
 		/// Returns pointer to pointer to registered Object.
 		RElement** GetElementPointer(const Element_ID &InID);
@@ -77,7 +78,7 @@ namespace Environment
 		Element_ID NextFreeID();
 		void NextFreeName(std::string &InOutName);
 
-	private:
+	protected:
 		//////////////////////////////////////////////////////////////////
 		// Variables
 

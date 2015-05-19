@@ -24,6 +24,6 @@ namespace Environment
 
 		//Element_ID FreeID;
 		//std::vector<Value*> DefinedValues;
-		FunctionCache FuncCache;
+		FunctionCache* FuncCache;
 	};
 }

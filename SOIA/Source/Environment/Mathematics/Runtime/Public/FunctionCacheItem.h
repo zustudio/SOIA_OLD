@@ -1,14 +1,15 @@
 
 #pragma once
 
-#include "Environment/Reflection/Element/Public/Element_ID.h"
+#include "Environment/Reflection/Element/Public/RElement.h"
 
 namespace Environment
 {
-	class FunctionCacheItem
+	RCLASS(FunctionCacheItem,RElement)
+	class FunctionCacheItem : public FunctionCacheItem_Base
 	{
 	public:
-		FunctionCacheItem(const Element_ID &InID, const double &Inoperand0, const double &InResult);
+		FunctionCacheItem(const Element_ID &InID = Element_ID(), const double &Inoperand0 = 0, const double &InResult = 0);
 		Element_ID CalledFunction;
 		double Operand0;
 		double Result;

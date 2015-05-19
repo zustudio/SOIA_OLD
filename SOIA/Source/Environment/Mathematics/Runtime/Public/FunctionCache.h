@@ -1,13 +1,15 @@
 
 #pragma once
 
-#include "FunctionCacheItem.h"
+#include "Environment/Reflection/Element/Public/RContainer.h"
 
+#include "FunctionCacheItem.h"
 #include <vector>
 
 namespace Environment
 {
-	class DLLIMPEXP FunctionCache
+	RCLASS(FunctionCache,RContainer)
+	class DLLIMPEXP FunctionCache : public FunctionCache_Base
 	{
 	public:
 		FunctionCache();
@@ -16,7 +18,5 @@ namespace Environment
 		void Clear();
 
 		bool DoublesEqual(const double& InA, const double& InB);
-	private:
-		std::vector<FunctionCacheItem> CachedFunctions;
 	};
 }

@@ -194,7 +194,7 @@ Element_ID EquationToken::rec_RegisterToken(MathContainer* InRuntime)
 			std::vector<Element_ID> arguments;
 			arguments.push_back(foundFunction->GetID());
 			arguments.push_back(operandIDs[0]);
-			return InRuntime->Register(new OP_CalculateFunction(&InRuntime->FuncCache, arguments));
+			return InRuntime->Register(new OP_CalculateFunction(InRuntime->FuncCache, arguments));
 		}
 		else
 		{

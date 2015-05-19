@@ -9,6 +9,8 @@ using namespace Environment;
 // init
 File::File(const std::string &InName, bool bWriteFile)
 {
+	OutStream = nullptr;
+	InStream = nullptr;
 	Name = InName;
 	bWriting = bWriteFile;
 	if (bWriteFile)
@@ -33,14 +35,17 @@ File::File(const std::string &InName, bool bWriteFile)
 
 File::~File()
 {
-	OutStream->close();
+	if (OutStream) OutStream->close();
+	if (InStream) InStream->close();
 }
 
 //////////////////////////////////////////////////
 // write to file
 void File::Write()
 {
+	std::cout << "Preparing writing to file..." << std::endl;
 	PreWrite();
+	std::cout << "Writing to file..." << std::endl;
 	for (VoidPointer p_Obj : Content)
 	{
 		WriteObject(p_Obj);
@@ -49,6 +54,7 @@ void File::Write()
 
 void File::Read()
 {
+	std::cout << "Reading from file..." << std::endl;
 	VoidPointer* readObject;
 	do
 	{
@@ -60,6 +66,6 @@ void File::Read()
 		}
 
 	} while (readObject);
-
+	std::cout << "Processing file..." << std::endl;
 	PostRead();
 }

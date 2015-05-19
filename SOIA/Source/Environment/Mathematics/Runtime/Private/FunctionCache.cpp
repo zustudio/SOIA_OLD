@@ -7,36 +7,31 @@ using namespace Environment;
 #include <cmath>
 #include <limits>
 
-FunctionCache::FunctionCache()
+FunctionCache::FunctionCache() : BaseType(Range<int>(0,100000))
 {
-	CachedFunctions = std::vector<FunctionCacheItem>();
 }
 
 void FunctionCache::CacheFunctionCall(const Element_ID &InFunction, double InOperand0, double InResult)
 {
-	CachedFunctions.push_back(FunctionCacheItem(InFunction, InOperand0, InResult));
+	Register(new FunctionCacheItem(InFunction, InOperand0, InResult));
 }
 
 bool FunctionCache::GetCachedFunctionCall(const Element_ID &InFunction, double InOperand0, double &OutResult)
 {
 	bool result = false;
-	for (FunctionCacheItem functionCall : CachedFunctions)
+	for (RElement* element : Objects)
 	{
-		if (InFunction == functionCall.CalledFunction)
+		FunctionCacheItem* functionCall = (FunctionCacheItem*)element;
+		if (InFunction == functionCall->CalledFunction)
 		{
-			if (DoublesEqual(InOperand0, functionCall.Operand0))
+			if (DoublesEqual(InOperand0, functionCall->Operand0))
 			{
-				OutResult = functionCall.Result;
+				OutResult = functionCall->Result;
 				result = true;
 			}
 		}
 	}
 	return result;
-}
-
-void FunctionCache::Clear()
-{
-	CachedFunctions.clear();
 }
 
 bool FunctionCache::DoublesEqual(const double& InA, const double& InB)

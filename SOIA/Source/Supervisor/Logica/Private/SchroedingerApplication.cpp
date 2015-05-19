@@ -4,6 +4,8 @@
 #include "Supervisor/Logica/Public/SchroedingerApplication.h"
 using namespace Supervisor;
 
+#include "Environment/File/Public/SaveFile.h"
+
 #include "Environment/Mathematics/Runtime/Public/MathContainer.h"
 #include "Environment/Mathematics/Runtime/Public/OP_Add.h"
 #include "Environment/Mathematics/Runtime/Public/OP_Substract.h"
@@ -86,6 +88,17 @@ void SchroedingerApplication::Main()
 	double CumP_XMax = runtime.CalculateValue("CumP_XMax");
 	double Scale = 1 / CumP_XMax;
 	runtime.Register(new Constant(Scale), "Scale");
+
+	//SAVETEST
+	SaveFile* sv = new SaveFile("Cache.txt", true);
+	sv->Content.push_back((RElement*)runtime.FuncCache);
+	sv->Write();
+	delete sv;
+
+	SaveFile* rf = new SaveFile("Cache.txt", false);
+	rf->Read();
+	runtime.FuncCache = (FunctionCache*)rf->Content[0].CastAndDereference<RElement*>();
+	delete rf;
 
 	es("SLD_Psi(x)=Scale*Psi(x)");
 	es("SLD_P(x)=Scale*P(x)");

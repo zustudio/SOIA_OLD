@@ -14,10 +14,10 @@ bool VectorAtomReflection::IsType(const std::string& InType)
 
 		if (success)
 		{
-			for (int i = 0; i < result.size(); i++)
+			/*for (int i = 0; i < result.size(); i++)
 			{
 				std::cout << result[i] << std::endl;
-			}
+			}*/
 		}
 		return success;
 }

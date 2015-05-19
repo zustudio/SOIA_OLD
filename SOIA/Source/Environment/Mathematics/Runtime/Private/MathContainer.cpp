@@ -9,9 +9,10 @@ using namespace Environment;
 
 MathContainer::MathContainer() : RContainer(Range<int>(1000,10000000))
 {
-	FuncCache = FunctionCache();
+	FuncCache = new FunctionCache();
 	Register(new Constant(0.1), "MathRuntimeVersion");
 	Register(new Variable(0, 0));
+	Register(FuncCache);
 }
 
 //Element_ID& MathContainer::DefineValue(Value* InValue)

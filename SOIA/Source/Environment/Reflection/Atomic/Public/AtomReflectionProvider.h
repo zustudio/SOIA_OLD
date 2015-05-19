@@ -19,7 +19,7 @@ namespace Environment
 		template<typename Type> void Reflect()
 		{/*
 			decltype(std::declval<decltype(Atom::IsAtomType)>()) t = &b;*/
-			std::cout  << factory.Add<Type>(Reflections, 0);
+			factory.Add<Type>(Reflections, 0);
 
 			/*std::string TypeID = typeid(Type).name();
 			if (!GetReflection(TypeID))

@@ -18,11 +18,11 @@ std::string Element_ID::ToString(const Element_ID& InID)
 Element_ID Element_ID::FromString(const std::string& InString)
 {
 	Element_ID id;
-	auto result = MatchPattern(InString, "([0-9]+),(\\w+)");
+	auto result = MatchPattern(InString, "([0-9]+),(\\w+)?");
 	if (result.size() == 3)
 	{
-		id.UniqueIdentifier = std::atoi(std::string(result[1]).c_str());
 		id.Name = result[2];
+		id.UniqueIdentifier = std::atoi(std::string(result[1]).c_str());
 	}
 	return id;
 }
