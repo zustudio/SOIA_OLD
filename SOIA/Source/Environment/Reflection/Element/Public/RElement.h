@@ -25,7 +25,7 @@
 	template<typename... CtorArgTypes> ClassType##_Base(CtorArgTypes... CtorArgs) : SuperClassType(CtorArgs...) {ConstructorOperations}
 
 #define RBASECLASS_BODY(ClassType,SuperClassType) \
-	virtual RClass* GetClass() override {return GetClassByType(typeid(ClassType##_Base).name());}
+	virtual RClass* GetClass() override {return GetClassByType(TypeID::FromType<ClassType##_Base>());}
 
 #define RBASECLASS(ClassType,SuperClassType,ConstOperations) \
 	RBASECLASS_DEFINITION( \

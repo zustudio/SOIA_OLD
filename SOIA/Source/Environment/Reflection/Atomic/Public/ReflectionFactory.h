@@ -6,6 +6,7 @@
 #include "Environment/Reflection/Atomic/Classes/PointerReflectionTemplate.h"
 #include "Atom.h"
 #include <string>
+#include <type_traits>
 
 namespace Environment
 {
@@ -95,14 +96,20 @@ namespace Environment
 			return false;
 		}
 
+//		template<typename Type>
+//		bool Add(std::vector<AtomReflection*>& Reflections, ...)
+//		{
+//			return false;
+//		}
+
 		template<typename Type>
-		bool Add(std::vector<AtomReflection*>& Reflections, ...)
+		typename std::enable_if<std::is_floating_point<Type>::value, bool>::type Add(std::vector<AtomReflection*>& Reflections, int)
 		{
-			return false;
+			return true;
 		}
 
 		template<typename Type>
-		bool Add(std::vector<AtomReflection*>& Reflections, int, typename Type::IsAtomType* p = nullptr)
+		bool Add(std::vector<AtomReflection*>& Reflections, int, typename Type::IsAtomType p = nullptr)
 		{
 			if (!IsAdded(TypeID::FromType<Type>(), Reflections))
 				Reflections.push_back(new SimpleAtomReflection<Type>(&Type::ToString, &Type::FromString));
@@ -110,7 +117,7 @@ namespace Environment
 		}
 
 		template<typename Type>
-		std::enable_if_t<std::is_pointer<Type>::value, bool> Add(std::vector<AtomReflection*>& Reflections, int)
+		typename std::enable_if<std::is_pointer<Type>::value, bool>::type Add(std::vector<AtomReflection*>& Reflections, int)
 		{
 			if (!IsAdded(TypeID::FromType<Type>(), Reflections))
 				Reflections.push_back(new PointerReflectionTemplate<Type>());
@@ -123,7 +130,7 @@ namespace Environment
 			if (!IsAdded(TypeID::FromType<Type>(), Reflections))
 			{
 				Reflections.push_back(new VectorAtomReflectionTemplate<Type>());
-				Add<Type::value_type>(Reflections, 0);
+				Add<typename Type::value_type>(Reflections, 0);
 			}
 			return true;
 		}

@@ -12,6 +12,7 @@ using namespace Environment;
 using namespace Apprentice;
 
 // TEST
+#include "Supervisor/Logica/Public/SchroedingerApplication.h"
 #include "Environment/Mathematics/Runtime/Public/Constant.h"
 #include "Environment/File/Public/SaveFile.h"
 #include <iostream>
@@ -34,6 +35,9 @@ ServiceProvider::ServiceProvider()
 	auto i_vector = multconv.Execute({ "1235", "456" }, conv);
 
 
+
+	const int id = StaticType();
+	std::cout << id;
 
 
 
@@ -79,7 +83,7 @@ ServiceProvider::ServiceProvider()
 
 	double i = 789.1;
 	VoidPointer p = VoidPointer(i);
-	ElementReflection r = ElementReflection({ Element_ID(), p });
+	ElementReflection r = ElementReflection({ *new Element_ID(), p });
 	def_c->LoadReflection(r, false);
 
 	std::cout << "new value" << def_c->myValue << std::endl;

@@ -11,7 +11,7 @@ namespace Environment
 {
 	class RElement;
 	class RContainer;
-	class DLLIMPEXP RPointer : Atom
+	class DLLIMPEXP RPointer : public Atom
 	{
 	public:
 		RPointer(RElement*,const TypeID& InTypeID);

@@ -12,7 +12,7 @@ using namespace Environment;
 
 bool RPointerReflection::IsType(const std::string& InTypeID)
 {
-	return (InTypeID == typeid(RPointer).name());
+	return (InTypeID == std::string(TypeID::FromType<RPointer>()));
 }
 
 VoidPointer* RPointerReflection::StringToObject(const std::string& InContent)

@@ -15,7 +15,7 @@ namespace Environment
 	{
 	public:
 		// definition for SFINAE
-		typedef bool IsAtomType;
+		using IsAtomType = bool*;
 
 	protected:
 		static std::vector<std::string> MatchPattern(const std::string& InInput, const std::string& InPattern);

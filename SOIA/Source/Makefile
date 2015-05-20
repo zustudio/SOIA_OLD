@@ -5,7 +5,7 @@
 PROJECT_DIRS := Environment/ Graphics/ Apprentice/ Supervisor/ SOIA/ Programs/UnitTest/ 
 
 define make-project
-@$(MAKE) -s -C $1 -j 4 -f Makefile.generated.mk
+@$(MAKE) -s -C $1 -j 8 -f Makefile.generated.mk
 endef
 
 ##################################################################

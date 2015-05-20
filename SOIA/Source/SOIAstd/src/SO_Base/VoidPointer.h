@@ -1,6 +1,8 @@
 
 #pragma once
 
+NICHT COMPILEN!
+
 #include <typeinfo>
 #include <string>
 
@@ -21,13 +23,13 @@ namespace SO
 			{
 				T* temp/* = new T*/;
 				Object = (void*) &NewObject;
-				ID = std::string(typeid(temp).name());
+				ID = std::string(TypeID::FromType<T>());
 			}
 			template<typename T>
 			T* CastTo() const
 			{
 				T* temp/* = new T*/;
-				std::string ID2 = std::string(typeid(temp).name());
+				std::string ID2 = std::string(TypeID::FromType<T>());
 
 				if (ID2 == ID)
 					return (T*)Object;

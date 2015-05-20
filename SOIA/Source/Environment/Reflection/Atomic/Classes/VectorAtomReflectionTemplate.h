@@ -3,6 +3,8 @@
 
 #include "VectorAtomReflection.h"
 
+#include "Environment/Reflection/Element/Public/RPointer.h"
+
 namespace Environment
 {
 	template<class VectorClass>
@@ -24,14 +26,14 @@ namespace Environment
 			
 			std::vector<RPointer>* pointerVector = new std::vector<RPointer>();
 			VectorClass* vector = new VectorClass;
-			auto itemType = TypeID::FromType<VectorClass::value_type>();
+			auto itemType = TypeID::FromType<typename VectorClass::value_type>();
 			for (auto string : singleStrings)
 			{
 				VoidPointer* vp_object = GetAtomObject(string, itemType);
 				if (itemType.IsPointer())
 					pointerVector->push_back(vp_object->CastAndDereference<RPointer>());
 				else
-					vector->push_back(vp_object->CastAndDereference<VectorClass::value_type>());
+					vector->push_back(vp_object->CastAndDereference<typename VectorClass::value_type>());
 			}
 
 			if (itemType.IsPointer())
@@ -46,13 +48,14 @@ namespace Environment
 
 			for (auto p_SubObject : *p_Object)
 			{
-				result += GetAtomString(VoidPointer(p_SubObject)) + "|";
+				VoidPointer vp_p_SubObject = VoidPointer(p_SubObject);
+				result += GetAtomString(vp_p_SubObject) + "|";
 			}
 			return result;
 		}
 		virtual std::vector<RElement*> ObjectToRElements(VoidPointer& InObject) override
 		{
-			if (GetElementReflectionProvider()->GetClass(TypeID::FromType<VectorClass::value_type>().Dereference()))
+			if (GetElementReflectionProvider()->GetClass(TypeID::FromType<typename VectorClass::value_type>().Dereference()))
 			{
 				std::vector<RElement*> result;
 				VectorClass* p_Vector = InObject.CastTo<VectorClass>();

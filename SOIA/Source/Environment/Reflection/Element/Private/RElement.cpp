@@ -23,7 +23,7 @@ Element_ID& RElement::GetID()
 
 RClass* RElement::GetClass()
 {
-	return GetClassByType(typeid(RElement).name());
+	return GetClassByType(TypeID::FromType<RElement>());
 }
 
 RClass* RElement::GetClassByType(const std::string& InType)

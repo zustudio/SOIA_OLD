@@ -8,7 +8,7 @@
 
 namespace Environment
 {
-	class DLLIMPEXP Element_ID : Atom
+	class DLLIMPEXP Element_ID : public Atom
 	{
 	public:
 		//////////////////////////////////////////////////////////////////

@@ -23,7 +23,7 @@ namespace Environment
 		// reflection functionality
 		virtual bool IsType(const std::string& InTypeName) override
 		{
-			return (InTypeName == typeid(SimpleType).name());
+			return (InTypeName == std::string(TypeID::FromType<SimpleType>()));
 		}
 		virtual std::string ObjectToString(VoidPointer& InObject) override
 		{

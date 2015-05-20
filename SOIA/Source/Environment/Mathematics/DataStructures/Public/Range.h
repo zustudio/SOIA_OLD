@@ -7,7 +7,7 @@
 namespace Environment
 {
 	template<typename T>
-	class Range : Atom
+	class Range : public Atom
 	{
 	public:
 		//////////////////////////////////////////////////////////////////

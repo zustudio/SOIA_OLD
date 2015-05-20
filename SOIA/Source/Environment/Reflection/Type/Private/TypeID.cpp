@@ -8,7 +8,7 @@ using namespace Environment;
 
 TypeID::TypeID(const std::string& InString)
 {
-	TypeString = InString;
+	TypeString = InString.c_str();
 }
 bool TypeID::operator ==(const TypeID& InOther) const
 {
@@ -29,15 +29,15 @@ bool TypeID::IsPointer() const
 TypeID TypeID::Dereference() const
 {
 	if (IsPointer())
-		return TypeID(std::string(TypeString.begin(), TypeString.end() - 2));
+		return TypeID(std::string(TypeString.begin(), TypeString.end() - 1));
 	else
 		return TypeID(TypeString);
 }
 TypeID TypeID::RemoveSuffix_Base() const
 {
-	auto result = MatchPattern(TypeString, "class (\\w+)::(\\w+)_Base");
+	auto result = MatchPattern(TypeString, "(\\w+)::(\\w+)_Base");
 	if (result.size() == 3)
-		return TypeID("class " + result[1] + "::" + result[2]);
+		return TypeID(result[1] + "::" + result[2]);
 	else
 		return TypeID(TypeString);
 }
@@ -58,3 +58,33 @@ std::vector<std::string> TypeID::MatchPattern(const std::string& InInput, const 
 		return std::vector<std::string>();
 	}
 }
+
+std::string TypeID::ParseName(const std::string& InName)
+{
+	std::string r1 = std::regex_replace(InName, std::regex(" \\*"), "*");
+	std::string r2 = std::regex_replace(r1, std::regex("class "), "");
+	std::string r3 = std::regex_replace(r2, std::regex(", "), ",");
+	return r2;
+}
+
+#ifdef __GNUG__ // GCC
+#include <cxxabi.h>
+#include <cstdlib>
+std::string TypeID::ParseGCCName( const char* mangled_name )
+{
+    int status ;
+    char* temp = __cxxabiv1::__cxa_demangle( mangled_name, nullptr, nullptr, &status ) ;
+    if(temp)
+    {
+        std::string result(temp) ;
+        std::free(temp);
+        return result ;
+    }
+    else return mangled_name ;
+}
+
+#else // not GCC
+
+inline std::string TypeID::ParseGCCName( const char* mangled_name ) { return mangled_name ; }
+
+#endif // __GNUG__
