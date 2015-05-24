@@ -1,3 +1,3 @@
 <<Environment::RContainer>[]><<Environment::Element_ID>[35505,]><<Environment::Range<int>>[0,1000000]><<std::vector<Environment::RElement*,std::allocator<Environment::RElement*> >>[0,Environment::RElement*|1,Environment::RElement*|]>,
-<<Environment::Constant>[]><<Environment::Element_ID>[0,constant]><<double>[123.40000000000001]><<Environment::RPointer>[1,Environment::Constant*]>,
+<<Environment::Constant>[]><<Environment::Element_ID>[0,constant]><<double>[123.40000000000000568]><<Environment::RPointer>[1,Environment::Constant*]>,
 <<Environment::Constant>[]><<Environment::Element_ID>[1,next]><<double>[5]><<Environment::RPointer>[-1,Environment::Constant*]>,

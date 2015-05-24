@@ -15,18 +15,21 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <Text Include="readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="Main\Private\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Project.mkcfg" />
-    <None Include="Makefile.generated.mk" />
-    <None Include="Makefile.generated.mkcfg" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="Core\Classes\PrivateDefinitions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Makefile.generated.mk" />
+    <None Include="Makefile.generated.mkcfg" />
+    <None Include="Project.mkcfg" />
   </ItemGroup>
 </Project>

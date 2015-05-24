@@ -10,19 +10,8 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Main\Private\main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Makefile.generated.mk" />
-    <None Include="Makefile.generated.mkcfg" />
-    <None Include="Project.mkcfg" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Core\Classes\PrivateDefinitions.h" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{606667AF-ADEC-42D0-9515-8B802F39ED41}</ProjectGuid>
+    <ProjectGuid>{D4155A9D-8DC3-48D3-A328-E314B4FB4229}</ProjectGuid>
     <Keyword>MakeFileProj</Keyword>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -39,6 +28,8 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -51,18 +42,34 @@
     <NMakeOutput>../../Binaries/SOIA.exe</NMakeOutput>
     <NMakeCleanCommandLine>make -s --eval=def_IDE_VisualStudio:=1 -C ../ clean</NMakeCleanCommandLine>
     <NMakeReBuildCommandLine>make -s --eval=def_IDE_VisualStudio:=1 -C ../ rebuild</NMakeReBuildCommandLine>
-    <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)SOIA/Source/</IncludePath>
+    <NMakePreprocessorDefinitions>def_IDE_VS13;WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <IncludePath>$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)\SOIA\Binaries</OutDir>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <NMakeBuildCommandLine>make</NMakeBuildCommandLine>
     <NMakeOutput>SOIA.exe</NMakeOutput>
     <NMakeCleanCommandLine>make clean</NMakeCleanCommandLine>
     <NMakeReBuildCommandLine>make rebuild</NMakeReBuildCommandLine>
-    <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <NMakePreprocessorDefinitions>def_IDE_VS13;WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
   </PropertyGroup>
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <Text Include="readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main\Private\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Core\Classes\PrivateDefinitions.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Makefile.generated.mk" />
+    <None Include="Makefile.generated.mkcfg" />
+    <None Include="Project.mkcfg" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -1,45 +1,11 @@
-﻿Build started 20.05.2015 14:53:16.
+﻿Build started 24.05.2015 11:10:57.
      1>Project "C:\Users\User\Git\IntelligenceProject\SOIA\Source\SOIA\SOIA.vcxproj" on node 2 (Build target(s)).
      1>Build:
          make -s --eval=def_IDE_VisualStudio:=1 -C ../ all
-         CPPExtensions.cpp
-         TextFile.cpp
-         PropertyTag.cpp
-         File.cpp
-     1>C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\crtdefs.h(10): fatal error C1083: Cannot open include file: 'corecrt.h': No such file or directory
-         make[1]: *** [../../Intermediate/Environment/PreProcessor/CPPExtensions.obj] Error 2
-         Makefile.generated.mk:53: recipe for target '../../Intermediate/Environment/PreProcessor/CPPExtensions.obj' failed
-         make[1]: *** Waiting for unfinished jobs....
-     1>C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\crtdefs.h(10): fatal error C1083: Cannot open include file: 'corecrt.h': No such file or directory
-         Globals.cpp
-     1>C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\crtdefs.h(10): fatal error C1083: Cannot open include file: 'corecrt.h': No such file or directory
-         Makefile.generated.mk:53: recipe for target '../../Intermediate/Environment/File/TextFile.obj' failed
-         make[1]: *** [../../Intermediate/Environment/File/TextFile.obj] Error 2
-     1>C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\crtdefs.h(10): fatal error C1083: Cannot open include file: 'corecrt.h': No such file or directory
-         Makefile.generated.mk:53: recipe for target '../../Intermediate/Environment/File/File.obj' failed
-         make[1]: *** [../../Intermediate/Environment/File/File.obj] Error 2
-         make[1]: *** [../../Intermediate/Environment/File/PropertyTag.obj] Error 2
-         Makefile.generated.mk:53: recipe for target '../../Intermediate/Environment/File/PropertyTag.obj' failed
-         SaveFile.cpp
-         PropertyTagFactory.cpp
-         FileObject.cpp
-     1>C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\crtdefs.h(10): fatal error C1083: Cannot open include file: 'corecrt.h': No such file or directory
-         Makefile.generated.mk:53: recipe for target '../../Intermediate/Environment/Global/Globals.obj' failed
-         make[1]: *** [../../Intermediate/Environment/Global/Globals.obj] Error 2
-     1>C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\crtdefs.h(10): fatal error C1083: Cannot open include file: 'corecrt.h': No such file or directory
-     1>C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\crtdefs.h(10): fatal error C1083: Cannot open include file: 'corecrt.h': No such file or directory
-     1>C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\crtdefs.h(10): fatal error C1083: Cannot open include file: 'corecrt.h': No such file or directory
-         make[1]: *** [../../Intermediate/Environment/File/PropertyTagFactory.obj] Error 2
-         Makefile.generated.mk:53: recipe for target '../../Intermediate/Environment/File/PropertyTagFactory.obj' failed
-         make[1]: *** [../../Intermediate/Environment/File/SaveFile.obj] Error 2
-         Makefile.generated.mk:53: recipe for target '../../Intermediate/Environment/File/SaveFile.obj' failed
-         Makefile.generated.mk:53: recipe for target '../../Intermediate/Environment/File/FileObject.obj' failed
-         make[1]: *** [../../Intermediate/Environment/File/FileObject.obj] Error 2
-         Makefile:32: recipe for target 'Environment' failed
-         make: *** [Environment] Error 2
-     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.MakeFile.Targets(42,5): error MSB3073: The command "make -s --eval=def_IDE_VisualStudio:=1 -C ../ all" exited with code 2.
-     1>Done Building Project "C:\Users\User\Git\IntelligenceProject\SOIA\Source\SOIA\SOIA.vcxproj" (Build target(s)) -- FAILED.
+         ServiceProvider.cpp
+         Supervisor > Linking...
+     1>Done Building Project "C:\Users\User\Git\IntelligenceProject\SOIA\Source\SOIA\SOIA.vcxproj" (Build target(s)).
 
-Build FAILED.
+Build succeeded.
 
-Time Elapsed 00:00:00.75
+Time Elapsed 00:00:02.98

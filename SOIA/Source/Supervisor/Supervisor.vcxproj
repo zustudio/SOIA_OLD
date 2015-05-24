@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -10,43 +10,25 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Makefile.generated.mk" />
-    <None Include="Makefile.generated.mkcfg" />
-    <None Include="Project.mkcfg" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Console\Private\ConsoleService.cpp" />
-    <ClCompile Include="Core\Private\Application.cpp" />
-    <ClCompile Include="Core\Private\ServiceProvider.cpp" />
-    <ClCompile Include="Logica\Private\LogicService.cpp" />
-    <ClCompile Include="Logica\Private\SchroedingerApplication.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Console\Public\ConsoleService.h" />
-    <ClInclude Include="Core\Classes\PrivateDefinitions.h" />
-    <ClInclude Include="Core\Public\Application.h" />
-    <ClInclude Include="Core\Public\ServiceProvider.h" />
-    <ClInclude Include="Logica\Public\LogicService.h" />
-    <ClInclude Include="Logica\Public\SchroedingerApplication.h" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{12C1FB1A-E0BD-4067-8A85-5A89D6E45F4B}</ProjectGuid>
+    <ProjectGuid>{87617A49-36FC-47F5-A7F8-DE068D8A63C9}</ProjectGuid>
     <Keyword>MakeFileProj</Keyword>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Makefile</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Makefile</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -56,22 +38,80 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <NMakeBuildCommandLine>make</NMakeBuildCommandLine>
     <NMakeOutput>Supervisor.dll</NMakeOutput>
-    <NMakeCleanCommandLine>make clean</NMakeCleanCommandLine>
-    <NMakeReBuildCommandLine>make rebuild</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)SOIA/Source/</IncludePath>
+    <NMakeIncludeSearchPath>$(SolutionDir)/SOIA/Source;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <NMakeBuildCommandLine>make</NMakeBuildCommandLine>
     <NMakeOutput>Supervisor.dll</NMakeOutput>
-    <NMakeCleanCommandLine>make clean</NMakeCleanCommandLine>
-    <NMakeReBuildCommandLine>make rebuild</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <NMakeIncludeSearchPath>$(SolutionDir)/SOIA/Source;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
   </PropertyGroup>
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <Text Include="readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Console\Private\ConsoleService.cpp" />
+    <ClCompile Include="Core\Private\ServiceProvider.cpp" />
+    <ClCompile Include="DataExplorer\Private\DataExplorer.cpp" />
+    <ClCompile Include="DataInterpretation\Private\Draw_2D.cpp" />
+    <ClCompile Include="DataInterpretation\Private\ExData.cpp" />
+    <ClCompile Include="DataInterpretation\Private\ExDSet.cpp" />
+    <ClCompile Include="DataInterpretation\Private\ExGroup.cpp" />
+    <ClCompile Include="DataInterpretation\Private\GroupCrit_Equal.cpp" />
+    <ClCompile Include="DataInterpretation\Private\GroupCrit_Parentage.cpp" />
+    <ClCompile Include="DataInterpretation\Private\GroupFunc_DataPoints.cpp" />
+    <ClCompile Include="DataInterpretation\Private\GroupFunc_List.cpp" />
+    <ClCompile Include="DataInterpretation\Private\MeaningService.cpp" />
+    <ClCompile Include="DataStatistics\Private\DebugVisual.cpp" />
+    <ClCompile Include="DataStatistics\Private\Statistics.cpp" />
+    <ClCompile Include="InternalCommunication\Private\ComService.cpp" />
+    <ClCompile Include="InternalCommunication\Private\IIComIn.cpp" />
+    <ClCompile Include="InternalCommunication\Private\IIComIO.cpp" />
+    <ClCompile Include="InternalCommunication\Private\IIComOut.cpp" />
+    <ClCompile Include="Logging\Private\DebugService.cpp" />
+    <ClCompile Include="Logging\Private\IIDebuggable.cpp" />
+    <ClCompile Include="Logica\Private\LogicService.cpp" />
+    <ClCompile Include="Logica\Private\SchroedingerApplication.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Console\Public\ConsoleService.h" />
+    <ClInclude Include="Core\Classes\PrivateDefinitions.h" />
+    <ClInclude Include="Core\Public\ServiceProvider.h" />
+    <ClInclude Include="DataExplorer\Public\DataExplorer.h" />
+    <ClInclude Include="DataInterpretation\Public\Draw_2D.h" />
+    <ClInclude Include="DataInterpretation\Public\ExData.h" />
+    <ClInclude Include="DataInterpretation\Public\ExDSet.h" />
+    <ClInclude Include="DataInterpretation\Public\ExGroup.h" />
+    <ClInclude Include="DataInterpretation\Public\GroupCrit_Equal.h" />
+    <ClInclude Include="DataInterpretation\Public\GroupCrit_Parentage.h" />
+    <ClInclude Include="DataInterpretation\Public\GroupFunc_DataPoints.h" />
+    <ClInclude Include="DataInterpretation\Public\GroupFunc_List.h" />
+    <ClInclude Include="DataInterpretation\Public\IDraw.h" />
+    <ClInclude Include="DataInterpretation\Public\IGroupFunction.h" />
+    <ClInclude Include="DataInterpretation\Public\IGroupingCriteria.h" />
+    <ClInclude Include="DataInterpretation\Public\MeaningService.h" />
+    <ClInclude Include="DataStatistics\Public\DebugVisual.h" />
+    <ClInclude Include="DataStatistics\Public\Statistics.h" />
+    <ClInclude Include="InternalCommunication\Public\ComService.h" />
+    <ClInclude Include="InternalCommunication\Public\Com_Cmd.h" />
+    <ClInclude Include="InternalCommunication\Public\ICmd.h" />
+    <ClInclude Include="InternalCommunication\Public\ICom.h" />
+    <ClInclude Include="InternalCommunication\Public\IIComIn.h" />
+    <ClInclude Include="InternalCommunication\Public\IIComIO.h" />
+    <ClInclude Include="InternalCommunication\Public\IIComOut.h" />
+    <ClInclude Include="Logging\Public\DebugService.h" />
+    <ClInclude Include="Logging\Public\IIDebuggable.h" />
+    <ClInclude Include="Logica\Public\LogicService.h" />
+    <ClInclude Include="Logica\Public\SchroedingerApplication.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Makefile.generated.mk" />
+    <None Include="Makefile.generated.mkcfg" />
+    <None Include="Project.mkcfg" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -1,131 +1,109 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="DataStructures">
-      <UniqueIdentifier>{9312bfe8-b159-425f-aa7d-1df2d302157a}</UniqueIdentifier>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="DataStructures\Public">
-      <UniqueIdentifier>{c1beb05f-5789-4e74-9ee6-a768492785d4}</UniqueIdentifier>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="DataStructures\Private">
-      <UniqueIdentifier>{1088be58-cdbf-4933-a801-7c3430f14572}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ControlElements">
-      <UniqueIdentifier>{a500bec7-80db-4ab1-afdd-cedfbf27ce5f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ControlElements\Public">
-      <UniqueIdentifier>{773f8ac9-f5f0-4ad1-ab16-657932f2c026}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ControlElements\Private">
-      <UniqueIdentifier>{d8a210c6-7eb7-4ea3-9e83-65a78f6bcce4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core">
-      <UniqueIdentifier>{166813f1-ac48-4d05-8872-514560bb70bd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\Public">
-      <UniqueIdentifier>{0a2bf13a-2abe-4fc2-8337-c2a33b93a97f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\Private">
-      <UniqueIdentifier>{8a2f637e-cb5b-4bee-9f9f-ca54732261c1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\Classes">
-      <UniqueIdentifier>{a499139b-747a-4a12-a9f6-69d16e1b3d08}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="PlatformLinux">
-      <UniqueIdentifier>{da1288fa-654b-423f-ac4e-2e2fc7b3ac29}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="PlatformWindows">
-      <UniqueIdentifier>{66d71709-f18a-4401-acb2-4a10f5d0567c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="PlatformWindows\Private">
-      <UniqueIdentifier>{e1c348b3-e07e-4627-9c8f-755e97c5b437}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="PlatformWindows\Public">
-      <UniqueIdentifier>{1410e86c-3895-4a84-a527-2554802e10bc}</UniqueIdentifier>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DataStructures\Private\cPoint.cpp">
-      <Filter>DataStructures\Private</Filter>
+    <ClCompile Include="PlatformWindows\Private\Window_Win.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DataStructures\Private\fCanvasObject.cpp">
-      <Filter>DataStructures\Private</Filter>
+    <ClCompile Include="ControlElements\Private\CCanvas.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DataStructures\Private\fColor.cpp">
-      <Filter>DataStructures\Private</Filter>
+    <ClCompile Include="ControlElements\Private\CGraph.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DataStructures\Private\fPoint.cpp">
-      <Filter>DataStructures\Private</Filter>
+    <ClCompile Include="ControlElements\Private\Control.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DataStructures\Private\pxPoint.cpp">
-      <Filter>DataStructures\Private</Filter>
+    <ClCompile Include="ControlElements\Private\CTable.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="WindowUserInterface\ControlElements\Private\CCanvas.cpp">
-      <Filter>ControlElements\Private</Filter>
-    </ClCompile>
-    <ClCompile Include="WindowUserInterface\ControlElements\Private\CGraph.cpp">
-      <Filter>ControlElements\Private</Filter>
-    </ClCompile>
-    <ClCompile Include="WindowUserInterface\ControlElements\Private\Control.cpp">
-      <Filter>ControlElements\Private</Filter>
-    </ClCompile>
-    <ClCompile Include="WindowUserInterface\ControlElements\Private\CTextBox.cpp">
-      <Filter>ControlElements\Private</Filter>
+    <ClCompile Include="ControlElements\Private\CTextBox.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Core\Private\Window.cpp">
-      <Filter>Core\Private</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PlatformWindows\Private\Window_Win.cpp">
-      <Filter>PlatformWindows\Private</Filter>
+    <ClCompile Include="Core\Private\Window_Base.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ControlElements\Private\CCanvas.cpp" />
-    <ClCompile Include="ControlElements\Private\CGraph.cpp" />
-    <ClCompile Include="ControlElements\Private\Control.cpp" />
-    <ClCompile Include="ControlElements\Private\CTextBox.cpp" />
-    <ClCompile Include="Core\Private\Window_Base.cpp" />
-    <ClCompile Include="ControlElements\Private\CTable.cpp" />
+    <ClCompile Include="DataStructures\Private\cPoint.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DataStructures\Private\fCanvasObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DataStructures\Private\fColor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DataStructures\Private\fPoint.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DataStructures\Private\pxPoint.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PlatformLinux\Private\Window_Ubu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DataStructures\Public\cPoint.h">
-      <Filter>DataStructures\Public</Filter>
+    <ClInclude Include="PlatformWindows\Public\Window_Win.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DataStructures\Public\fCanvasObject.h">
-      <Filter>DataStructures\Public</Filter>
+    <ClInclude Include="ControlElements\Public\CCanvas.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DataStructures\Public\fColor.h">
-      <Filter>DataStructures\Public</Filter>
+    <ClInclude Include="ControlElements\Public\CGraph.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DataStructures\Public\fPoint.h">
-      <Filter>DataStructures\Public</Filter>
+    <ClInclude Include="ControlElements\Public\Control.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DataStructures\Public\pxPoint.h">
-      <Filter>DataStructures\Public</Filter>
+    <ClInclude Include="ControlElements\Public\CTable.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="WindowUserInterface\ControlElements\Public\CCanvas.h">
-      <Filter>ControlElements\Public</Filter>
+    <ClInclude Include="ControlElements\Public\CTextBox.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="WindowUserInterface\ControlElements\Public\CGraph.h">
-      <Filter>ControlElements\Public</Filter>
-    </ClInclude>
-    <ClInclude Include="WindowUserInterface\ControlElements\Public\Control.h">
-      <Filter>ControlElements\Public</Filter>
-    </ClInclude>
-    <ClInclude Include="WindowUserInterface\ControlElements\Public\CTextBox.h">
-      <Filter>ControlElements\Public</Filter>
+    <ClInclude Include="Core\Classes\PrivateDefinitions.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Core\Public\Window.h">
-      <Filter>Core\Public</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PlatformWindows\Public\Window_Win.h">
-      <Filter>PlatformWindows\Public</Filter>
+    <ClInclude Include="Core\Public\Window_Base.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ControlElements\Public\CCanvas.h" />
-    <ClInclude Include="ControlElements\Public\CGraph.h" />
-    <ClInclude Include="ControlElements\Public\Control.h" />
-    <ClInclude Include="ControlElements\Public\CTextBox.h" />
-    <ClInclude Include="Core\Public\Window_Base.h" />
-    <ClInclude Include="Core\Classes\PrivateDefinitions.h" />
-    <ClInclude Include="ControlElements\Public\CTable.h" />
+    <ClInclude Include="DataStructures\Public\cPoint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\Public\fCanvasObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\Public\fColor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\Public\fPoint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\Public\pxPoint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PlatformLinux\Public\Window_Ubu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Makefile.generated.mk" />

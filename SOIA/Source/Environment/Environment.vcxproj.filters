@@ -1,241 +1,413 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Mathematics">
-      <UniqueIdentifier>{cef44a50-353d-4809-a5c4-83e7b9b06a42}</UniqueIdentifier>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Reflection">
-      <UniqueIdentifier>{a58abd7d-73b5-4afa-adbb-d73604d619b7}</UniqueIdentifier>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Reflection\NameAttribute">
-      <UniqueIdentifier>{2515807c-65cd-43a4-b13b-5276a6fc0e64}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Reflection\TypeAttribute">
-      <UniqueIdentifier>{0e24f388-09b9-4d38-85ad-e6fb8fef8762}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Reflection\NameAttribute\Public">
-      <UniqueIdentifier>{5fcf5130-f4de-4590-b510-13c0e5e823d7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Reflection\TypeAttribute\Public">
-      <UniqueIdentifier>{6dbd56fb-6a5f-4f77-b147-9261d2943c16}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Reflection\TypeAttribute\Private">
-      <UniqueIdentifier>{e9b0008d-3a00-4780-9e04-5953cec5cdc2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Thread">
-      <UniqueIdentifier>{6cbd7f40-45cc-4515-a1ab-b64d1aa40dae}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Thread\Public">
-      <UniqueIdentifier>{5e9e18d6-76a4-4b34-8d28-0b02e28bd9c8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Thread\Private">
-      <UniqueIdentifier>{60ad3665-e0a1-449e-9abe-53f68b879667}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Mathematics\Random">
-      <UniqueIdentifier>{a6badd28-a78a-4bda-82e2-2537ac340d82}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Mathematics\DataStructures">
-      <UniqueIdentifier>{6c1b24a3-2382-46c8-928f-b2b258942bfe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Mathematics\Functions">
-      <UniqueIdentifier>{915ea8fa-30f0-4bd7-baf6-6715fe3cb81e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Mathematics\DataStructures\Public">
-      <UniqueIdentifier>{fd0cb6a5-9135-4f24-a191-85db1d178e08}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Mathematics\Functions\Public">
-      <UniqueIdentifier>{6f98681c-f202-4ce8-b70e-5674d13c2452}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Mathematics\Functions\Private">
-      <UniqueIdentifier>{8c5c52d2-6800-4ea7-af80-15fb707b0698}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Mathematics\Random\Public">
-      <UniqueIdentifier>{eff5aa81-2af8-407a-b514-e7b6a8572fbc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Mathematics\Random\Private">
-      <UniqueIdentifier>{677e27e5-191a-4040-8493-a2929b937534}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="File">
-      <UniqueIdentifier>{6d9e4b24-5aca-41c7-b3d8-c7a51e9596f3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="File\Public">
-      <UniqueIdentifier>{0a74b893-e3bc-4ea9-baa0-03ad03de0cad}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="File\Private">
-      <UniqueIdentifier>{9e51e3e4-0c2f-4d6d-899a-b665e3d2c877}</UniqueIdentifier>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Mathematics\DataStructures\Public\Matrix2D.h">
-      <Filter>Mathematics\DataStructures\Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Mathematics\DataStructures\Public\Vector2D.h">
-      <Filter>Mathematics\DataStructures\Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Mathematics\DataStructures\Public\VectorND.h">
-      <Filter>Mathematics\DataStructures\Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Mathematics\Functions\Public\ExponentialFunction.h">
-      <Filter>Mathematics\Functions\Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Mathematics\Functions\Public\IFunction.h">
-      <Filter>Mathematics\Functions\Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Mathematics\Functions\Public\LinearFunction.h">
-      <Filter>Mathematics\Functions\Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Mathematics\Functions\Public\ReversedExponentialFunction.h">
-      <Filter>Mathematics\Functions\Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Mathematics\Random\Public\Random.h">
-      <Filter>Mathematics\Random\Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Reflection\NameAttribute\Public\Handle.h">
-      <Filter>Reflection\NameAttribute\Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Command\Public\Command.h" />
-    <ClInclude Include="Command\Public\CommandExecutor.h" />
-    <ClInclude Include="Event\Public\Event.h" />
-    <ClInclude Include="Mathematics\Runtime\Public\MathContainer.h" />
-    <ClInclude Include="Mathematics\Runtime\Public\Operation.h" />
-    <ClInclude Include="Mathematics\Runtime\Public\OP_Add.h" />
-    <ClInclude Include="Mathematics\Runtime\Public\Constant.h" />
-    <ClInclude Include="Mathematics\Runtime\Public\OP_Multiply.h" />
-    <ClInclude Include="Mathematics\Runtime\Public\OP_CalculateFunction.h" />
-    <ClInclude Include="Mathematics\Runtime\Public\Variable.h" />
-    <ClInclude Include="Mathematics\Runtime\Public\Value.h" />
-    <ClInclude Include="Mathematics\Runtime\Public\Value_id.h" />
-    <ClInclude Include="Mathematics\Runtime\Public\OP_Substract.h" />
-    <ClInclude Include="Mathematics\Runtime\Public\OP_If.h" />
-    <ClInclude Include="PreProcessor\Classes\PrivateDefinitions.h" />
-    <ClInclude Include="Mathematics\Runtime\Public\FunctionCacheItem.h" />
-    <ClInclude Include="Mathematics\Runtime\Public\FunctionCache.h" />
-    <ClInclude Include="Thread\Public\Thread.h" />
-    <ClInclude Include="Mathematics\DataStructures\Public\Range.h" />
-    <ClInclude Include="Mathematics\Functions\Public\GenericMathFunction.h" />
-    <ClInclude Include="PreProcessor\Public\Definitions.h" />
-    <ClInclude Include="PreProcessor\Public\CPPExtensions.h" />
-    <ClInclude Include="PreProcessor\Public\BuildMacros.h" />
-    <ClInclude Include="Event\Public\EventDetails.h" />
-    <ClInclude Include="Mathematics\Runtime\Public\EquationString.h" />
-    <ClInclude Include="Mathematics\Runtime\Public\EquationTokens.h" />
-    <ClInclude Include="Mathematics\Runtime\Public\EquationToken.h" />
-    <ClInclude Include="Mathematics\Runtime\Public\OP_GreaterThan.h" />
-    <ClInclude Include="Mathematics\Runtime\Public\OP_Select.h" />
-    <ClInclude Include="Mathematics\Runtime\Public\OP_Divide.h" />
-    <ClInclude Include="File\Public\FileObject.h" />
-    <ClInclude Include="File\Public\PropertyTag.h" />
-    <ClInclude Include="Reflection\Atomic\Classes\SimpleAtomReflection.h" />
-    <ClInclude Include="Reflection\Atomic\Public\AtomReflectionProvider.h" />
-    <ClInclude Include="File\Public\PropertyTagFactory.h" />
-    <ClInclude Include="File\Public\File.h">
-      <Filter>File\Public</Filter>
-    </ClInclude>
-    <ClInclude Include="File\Public\TextFile.h" />
-    <ClInclude Include="File\Public\SaveFile.h" />
-    <ClInclude Include="File\Public\FileObjectFactory.h" />
-    <ClInclude Include="Reflection\Element\Public\Element_ID.h" />
-    <ClInclude Include="Reflection\Element\Public\RApplication.h" />
-    <ClInclude Include="Reflection\Element\Public\RContainer.h" />
-    <ClInclude Include="Reflection\Element\Public\RElement.h" />
-    <ClInclude Include="Reflection\Element\Public\RFunction.h" />
-    <ClInclude Include="Reflection\Element\Public\RFunctionInterface.h" />
-    <ClInclude Include="Reflection\Element\Public\RService.h" />
-    <ClInclude Include="Reflection\Element\Public\ElementReflection.h" />
-    <ClInclude Include="Reflection\TypeAttribute\Public\ObjectMirrorInterface.h" />
-    <ClInclude Include="Reflection\Element\Public\ElementReflectionProvider.h" />
-    <ClInclude Include="Reflection\Element\Public\RClassTemplate.h" />
-    <ClInclude Include="Reflection\Element\Public\RClass.h" />
-    <ClInclude Include="Reflection\Element\Public\RAbstractClass.h" />
-    <ClInclude Include="Reflection\Atomic\Classes\VectorAtomReflection.h" />
-    <ClInclude Include="Reflection\Atomic\Classes\VectorAtomReflectionTemplate.h" />
-    <ClInclude Include="Reflection\Atomic\Public\AtomReflection.h" />
-    <ClInclude Include="Reflection\Atomic\Public\ReflectionFactory.h" />
-    <ClInclude Include="Reflection\Atomic\Classes\PointerReflectionTemplate.h" />
-    <ClInclude Include="Reflection\Element\Public\RPointer.h" />
-    <ClInclude Include="Reflection\Atomic\Classes\RPointerReflection.h" />
-    <ClInclude Include="Global\Public\GlobalsImport.h" />
-    <ClInclude Include="Reflection\Atomic\Public\Atom.h" />
-    <ClInclude Include="Reflection\Type\Public\ObjectMirror.h" />
-    <ClInclude Include="Reflection\Type\Public\ObjectMirrorTemplate.h" />
-    <ClInclude Include="Reflection\Type\Public\TypeID.h" />
-    <ClInclude Include="Reflection\Type\Public\VoidPointer.h">
-      <Filter>Reflection\TypeAttribute\Public</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
+    <ClCompile Include="Thread\Private\Thread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Command\Private\Command.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Event\Private\Event.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="File\Private\File.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="File\Private\FileObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="File\Private\FileObjectFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="File\Private\PropertyTag.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="File\Private\PropertyTagFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="File\Private\SaveFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="File\Private\TextFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Global\Private\Globals.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Mathematics\Functions\Private\ExponentialFunction.cpp">
-      <Filter>Mathematics\Functions\Private</Filter>
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mathematics\Functions\Private\GenericMathFunction.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Mathematics\Functions\Private\LinearFunction.cpp">
-      <Filter>Mathematics\Functions\Private</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Mathematics\Functions\Private\ReversedExponentialFunction.cpp">
-      <Filter>Mathematics\Functions\Private</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Mathematics\Random\Private\Random.cpp">
-      <Filter>Mathematics\Random\Private</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Command\Private\Command.cpp" />
-    <ClCompile Include="Mathematics\Runtime\Private\MathContainer.cpp" />
-    <ClCompile Include="Mathematics\Runtime\Private\Operation.cpp" />
-    <ClCompile Include="Mathematics\Runtime\Private\Value.cpp" />
-    <ClCompile Include="Mathematics\Runtime\Private\OP_Add.cpp" />
-    <ClCompile Include="Mathematics\Runtime\Private\Constant.cpp" />
-    <ClCompile Include="Mathematics\Runtime\Private\OP_Multiply.cpp" />
-    <ClCompile Include="Mathematics\Runtime\Private\OP_CalculateFunction.cpp" />
-    <ClCompile Include="Mathematics\Runtime\Private\Variable.cpp" />
-    <ClCompile Include="Mathematics\Runtime\Private\Value_ID.cpp" />
-    <ClCompile Include="Mathematics\Runtime\Private\OP_Substract.cpp" />
-    <ClCompile Include="Mathematics\Runtime\Private\OP_If.cpp" />
-    <ClCompile Include="Mathematics\Runtime\Private\FunctionCacheItem.cpp" />
-    <ClCompile Include="Mathematics\Runtime\Private\FunctionCache.cpp" />
-    <ClCompile Include="Thread\Private\Thread.cpp" />
-    <ClCompile Include="Mathematics\Functions\Private\GenericMathFunction.cpp" />
-    <ClCompile Include="Event\Private\Event.cpp" />
-    <ClCompile Include="Mathematics\Runtime\Private\EquationString.cpp" />
-    <ClCompile Include="Mathematics\Runtime\Private\EquationTokens.cpp" />
-    <ClCompile Include="Mathematics\Runtime\Private\OP_GreaterThan.cpp" />
-    <ClCompile Include="Mathematics\Runtime\Private\OP_Select.cpp" />
-    <ClCompile Include="Mathematics\Runtime\Private\OP_Divide.cpp" />
-    <ClCompile Include="File\Private\FileObject.cpp" />
-    <ClCompile Include="File\Private\PropertyTag.cpp" />
-    <ClCompile Include="Reflection\Atomic\Private\AtomReflectionProvider.cpp" />
-    <ClCompile Include="File\Private\PropertyTagFactory.cpp" />
-    <ClCompile Include="File\Private\File.cpp">
-      <Filter>File\Private</Filter>
+    <ClCompile Include="Mathematics\Runtime\Private\Constant.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="File\Private\TextFile.cpp" />
-    <ClCompile Include="File\Private\SaveFile.cpp" />
-    <ClCompile Include="File\Private\FileObjectFactory.cpp" />
-    <ClCompile Include="Reflection\Element\Private\Element_ID.cpp" />
-    <ClCompile Include="Reflection\Element\Private\RApplication.cpp" />
-    <ClCompile Include="Reflection\Element\Private\RContainer.cpp" />
-    <ClCompile Include="Reflection\Element\Private\RElement.cpp" />
-    <ClCompile Include="Reflection\Element\Private\RFunction.cpp" />
-    <ClCompile Include="Reflection\Element\Private\RService.cpp" />
-    <ClCompile Include="Reflection\Element\Private\ElementReflection.cpp" />
-    <ClCompile Include="Global\Private\Globals.cpp" />
-    <ClCompile Include="Reflection\Element\Private\ElementReflectionProvider.cpp" />
-    <ClCompile Include="Reflection\Element\Private\RClass.cpp" />
-    <ClCompile Include="Reflection\Element\Private\RAbstractClass.cpp" />
-    <ClCompile Include="Reflection\Atomic\Private\VectorAtomReflection.cpp" />
-    <ClCompile Include="Reflection\Atomic\Private\AtomReflection.cpp" />
-    <ClCompile Include="Reflection\Element\Private\RPointer.cpp" />
-    <ClCompile Include="Reflection\Atomic\Private\RPointerReflection.cpp" />
-    <ClCompile Include="Reflection\Atomic\Private\ReflectionFactory.cpp" />
-    <ClCompile Include="Reflection\Atomic\Private\Atom.cpp" />
-    <ClCompile Include="Reflection\Type\Private\TypeID.cpp" />
+    <ClCompile Include="Mathematics\Runtime\Private\EquationString.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mathematics\Runtime\Private\EquationToken.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mathematics\Runtime\Private\EquationTokens.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mathematics\Runtime\Private\FunctionCache.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mathematics\Runtime\Private\FunctionCacheItem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mathematics\Runtime\Private\MathContainer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mathematics\Runtime\Private\OP_Add.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mathematics\Runtime\Private\OP_CalculateFunction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mathematics\Runtime\Private\OP_Divide.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mathematics\Runtime\Private\OP_GreaterThan.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mathematics\Runtime\Private\OP_If.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mathematics\Runtime\Private\OP_Multiply.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mathematics\Runtime\Private\OP_Select.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mathematics\Runtime\Private\OP_Substract.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mathematics\Runtime\Private\Operation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mathematics\Runtime\Private\Value.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mathematics\Runtime\Private\Value_ID.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mathematics\Runtime\Private\Variable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PreProcessor\Private\CPPExtensions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reflection\Atomic\Private\Atom.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reflection\Atomic\Private\AtomReflection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reflection\Atomic\Private\AtomReflectionProvider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reflection\Atomic\Private\ReflectionFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reflection\Atomic\Private\RPointerReflection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reflection\Atomic\Private\VectorAtomReflection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reflection\Element\Private\Element_ID.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reflection\Element\Private\ElementReflection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reflection\Element\Private\ElementReflectionProvider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reflection\Element\Private\RAbstractClass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reflection\Element\Private\RApplication.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reflection\Element\Private\RClass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reflection\Element\Private\RContainer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reflection\Element\Private\RElement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reflection\Element\Private\RFunction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reflection\Element\Private\RPointer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reflection\Element\Private\RService.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reflection\Type\Private\TypeID.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Reflection\Type\Private\VoidPointer.cpp">
-      <Filter>Reflection\TypeAttribute\Private</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PreProcessor\Private\CPPExtensions.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Thread\Public\Thread.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Command\Public\Command.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Command\Public\CommandExecutor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Event\Public\Event.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Event\Public\EventDetails.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="File\Public\File.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="File\Public\FileObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="File\Public\FileObjectFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="File\Public\PropertyTag.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="File\Public\PropertyTagFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="File\Public\SaveFile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="File\Public\TextFile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Global\Public\GlobalsImport.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematics\DataStructures\Public\Matrix2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematics\DataStructures\Public\Range.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematics\DataStructures\Public\Vector2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematics\DataStructures\Public\VectorND.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematics\Functions\Public\ExponentialFunction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematics\Functions\Public\GenericMathFunction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematics\Functions\Public\IFunction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematics\Functions\Public\LinearFunction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematics\Functions\Public\ReversedExponentialFunction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematics\Random\Public\Random.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematics\Runtime\Public\Constant.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematics\Runtime\Public\EquationString.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematics\Runtime\Public\EquationToken.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematics\Runtime\Public\EquationTokens.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematics\Runtime\Public\FunctionCache.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematics\Runtime\Public\FunctionCacheItem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematics\Runtime\Public\MathContainer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematics\Runtime\Public\OP_Add.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematics\Runtime\Public\OP_CalculateFunction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematics\Runtime\Public\OP_Divide.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematics\Runtime\Public\OP_GreaterThan.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematics\Runtime\Public\OP_If.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematics\Runtime\Public\OP_Multiply.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematics\Runtime\Public\OP_Select.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematics\Runtime\Public\OP_Substract.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematics\Runtime\Public\Operation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematics\Runtime\Public\Value.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematics\Runtime\Public\Value_id.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematics\Runtime\Public\Variable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PreProcessor\Classes\PrivateDefinitions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PreProcessor\Public\BuildMacros.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PreProcessor\Public\CPPExtensions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PreProcessor\Public\Definitions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\Atomic\Classes\PointerReflectionTemplate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\Atomic\Classes\RPointerReflection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\Atomic\Classes\SimpleAtomReflection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\Atomic\Classes\VectorAtomReflection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\Atomic\Classes\VectorAtomReflectionTemplate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\Atomic\Public\Atom.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\Atomic\Public\AtomReflection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\Atomic\Public\AtomReflectionProvider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\Atomic\Public\ReflectionFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\Element\Public\Element_ID.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\Element\Public\ElementReflection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\Element\Public\ElementReflectionProvider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\Element\Public\RAbstractClass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\Element\Public\RApplication.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\Element\Public\RClass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\Element\Public\RClassTemplate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\Element\Public\RContainer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\Element\Public\RElement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\Element\Public\RFunction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\Element\Public\RFunctionInterface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\Element\Public\RPointer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\Element\Public\RService.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\NameAttribute\Public\Handle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\Type\Public\ObjectMirror.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\Type\Public\ObjectMirrorTemplate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\Type\Public\TypeID.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection\Type\Public\VoidPointer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Meta\Public\StringParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Project.mkcfg" />
     <None Include="Makefile.generated.mk" />
     <None Include="Makefile.generated.mkcfg" />
-    <None Include="Project.mkcfg" />
-    <None Include="Mathematics\Runtime\Private\EquationToken.cpp" />
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

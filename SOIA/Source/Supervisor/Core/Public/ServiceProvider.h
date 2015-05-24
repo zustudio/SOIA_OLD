@@ -3,6 +3,7 @@
 
 #include "Environment/Reflection/Element/Public/RContainer.h"
 
+
 namespace Supervisor
 {
 
@@ -69,7 +70,6 @@ namespace Supervisor
 		// Variables
 
 		Environment::RContainer Services;
-
 
 	};
 }

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -9,6 +9,102 @@
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{2C2F86E8-87AF-4B6A-B9D0-308625AD714B}</ProjectGuid>
+    <Keyword>MakeFileProj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <NMakeOutput>Environment.dll</NMakeOutput>
+    <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <NMakeIncludeSearchPath>$(SolutionDir)/SOIA/Source/;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <NMakeOutput>Environment.dll</NMakeOutput>
+    <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <NMakeIncludeSearchPath>$(SolutionDir)/SOIA/Source/;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Command\Private\Command.cpp" />
+    <ClCompile Include="Event\Private\Event.cpp" />
+    <ClCompile Include="File\Private\File.cpp" />
+    <ClCompile Include="File\Private\FileObject.cpp" />
+    <ClCompile Include="File\Private\FileObjectFactory.cpp" />
+    <ClCompile Include="File\Private\PropertyTag.cpp" />
+    <ClCompile Include="File\Private\PropertyTagFactory.cpp" />
+    <ClCompile Include="File\Private\SaveFile.cpp" />
+    <ClCompile Include="File\Private\TextFile.cpp" />
+    <ClCompile Include="Global\Private\Globals.cpp" />
+    <ClCompile Include="Mathematics\Functions\Private\ExponentialFunction.cpp" />
+    <ClCompile Include="Mathematics\Functions\Private\GenericMathFunction.cpp" />
+    <ClCompile Include="Mathematics\Functions\Private\LinearFunction.cpp" />
+    <ClCompile Include="Mathematics\Functions\Private\ReversedExponentialFunction.cpp" />
+    <ClCompile Include="Mathematics\Random\Private\Random.cpp" />
+    <ClCompile Include="Mathematics\Runtime\Private\Constant.cpp" />
+    <ClCompile Include="Mathematics\Runtime\Private\EquationString.cpp" />
+    <ClCompile Include="Mathematics\Runtime\Private\EquationToken.cpp" />
+    <ClCompile Include="Mathematics\Runtime\Private\EquationTokens.cpp" />
+    <ClCompile Include="Mathematics\Runtime\Private\FunctionCache.cpp" />
+    <ClCompile Include="Mathematics\Runtime\Private\FunctionCacheItem.cpp" />
+    <ClCompile Include="Mathematics\Runtime\Private\MathContainer.cpp" />
+    <ClCompile Include="Mathematics\Runtime\Private\Operation.cpp" />
+    <ClCompile Include="Mathematics\Runtime\Private\OP_Add.cpp" />
+    <ClCompile Include="Mathematics\Runtime\Private\OP_CalculateFunction.cpp" />
+    <ClCompile Include="Mathematics\Runtime\Private\OP_Divide.cpp" />
+    <ClCompile Include="Mathematics\Runtime\Private\OP_GreaterThan.cpp" />
+    <ClCompile Include="Mathematics\Runtime\Private\OP_If.cpp" />
+    <ClCompile Include="Mathematics\Runtime\Private\OP_Multiply.cpp" />
+    <ClCompile Include="Mathematics\Runtime\Private\OP_Select.cpp" />
+    <ClCompile Include="Mathematics\Runtime\Private\OP_Substract.cpp" />
+    <ClCompile Include="Mathematics\Runtime\Private\Value.cpp" />
+    <ClCompile Include="Mathematics\Runtime\Private\Value_ID.cpp" />
+    <ClCompile Include="Mathematics\Runtime\Private\Variable.cpp" />
+    <ClCompile Include="PreProcessor\Private\CPPExtensions.cpp" />
+    <ClCompile Include="Reflection\Atomic\Private\Atom.cpp" />
+    <ClCompile Include="Reflection\Atomic\Private\AtomReflection.cpp" />
+    <ClCompile Include="Reflection\Atomic\Private\AtomReflectionProvider.cpp" />
+    <ClCompile Include="Reflection\Atomic\Private\ReflectionFactory.cpp" />
+    <ClCompile Include="Reflection\Atomic\Private\RPointerReflection.cpp" />
+    <ClCompile Include="Reflection\Atomic\Private\VectorAtomReflection.cpp" />
+    <ClCompile Include="Reflection\Element\Private\ElementReflection.cpp" />
+    <ClCompile Include="Reflection\Element\Private\ElementReflectionProvider.cpp" />
+    <ClCompile Include="Reflection\Element\Private\Element_ID.cpp" />
+    <ClCompile Include="Reflection\Element\Private\RAbstractClass.cpp" />
+    <ClCompile Include="Reflection\Element\Private\RApplication.cpp" />
+    <ClCompile Include="Reflection\Element\Private\RClass.cpp" />
+    <ClCompile Include="Reflection\Element\Private\RContainer.cpp" />
+    <ClCompile Include="Reflection\Element\Private\RElement.cpp" />
+    <ClCompile Include="Reflection\Element\Private\RFunction.cpp" />
+    <ClCompile Include="Reflection\Element\Private\RPointer.cpp" />
+    <ClCompile Include="Reflection\Element\Private\RService.cpp" />
+    <ClCompile Include="Reflection\Type\Private\TypeID.cpp" />
+    <ClCompile Include="Reflection\Type\Private\VoidPointer.cpp" />
+    <ClCompile Include="Thread\Private\Thread.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Command\Public\Command.h" />
@@ -52,147 +148,45 @@
     <ClInclude Include="Mathematics\Runtime\Public\Value.h" />
     <ClInclude Include="Mathematics\Runtime\Public\Value_id.h" />
     <ClInclude Include="Mathematics\Runtime\Public\Variable.h" />
+    <ClInclude Include="Meta\Public\StringParser.h" />
     <ClInclude Include="PreProcessor\Classes\PrivateDefinitions.h" />
     <ClInclude Include="PreProcessor\Public\BuildMacros.h" />
     <ClInclude Include="PreProcessor\Public\CPPExtensions.h" />
     <ClInclude Include="PreProcessor\Public\Definitions.h" />
     <ClInclude Include="Reflection\Atomic\Classes\PointerReflectionTemplate.h" />
     <ClInclude Include="Reflection\Atomic\Classes\RPointerReflection.h" />
+    <ClInclude Include="Reflection\Atomic\Classes\SimpleAtomReflection.h" />
     <ClInclude Include="Reflection\Atomic\Classes\VectorAtomReflection.h" />
     <ClInclude Include="Reflection\Atomic\Classes\VectorAtomReflectionTemplate.h" />
     <ClInclude Include="Reflection\Atomic\Public\Atom.h" />
     <ClInclude Include="Reflection\Atomic\Public\AtomReflection.h" />
-    <ClInclude Include="Reflection\Atomic\Classes\SimpleAtomReflection.h" />
     <ClInclude Include="Reflection\Atomic\Public\AtomReflectionProvider.h" />
     <ClInclude Include="Reflection\Atomic\Public\ReflectionFactory.h" />
     <ClInclude Include="Reflection\Element\Public\ElementReflection.h" />
     <ClInclude Include="Reflection\Element\Public\ElementReflectionProvider.h" />
     <ClInclude Include="Reflection\Element\Public\Element_ID.h" />
     <ClInclude Include="Reflection\Element\Public\RAbstractClass.h" />
-    <ClInclude Include="Reflection\Element\Public\RClass.h" />
-    <ClInclude Include="Reflection\Element\Public\RPointer.h" />
-    <ClInclude Include="Reflection\Type\Public\ObjectMirror.h" />
-    <ClInclude Include="Reflection\TypeAttribute\Public\ObjectMirrorInterface.h" />
     <ClInclude Include="Reflection\Element\Public\RApplication.h" />
+    <ClInclude Include="Reflection\Element\Public\RClass.h" />
     <ClInclude Include="Reflection\Element\Public\RClassTemplate.h" />
     <ClInclude Include="Reflection\Element\Public\RContainer.h" />
     <ClInclude Include="Reflection\Element\Public\RElement.h" />
     <ClInclude Include="Reflection\Element\Public\RFunction.h" />
     <ClInclude Include="Reflection\Element\Public\RFunctionInterface.h" />
+    <ClInclude Include="Reflection\Element\Public\RPointer.h" />
     <ClInclude Include="Reflection\Element\Public\RService.h" />
     <ClInclude Include="Reflection\NameAttribute\Public\Handle.h" />
+    <ClInclude Include="Reflection\Type\Public\ObjectMirror.h" />
     <ClInclude Include="Reflection\Type\Public\ObjectMirrorTemplate.h" />
     <ClInclude Include="Reflection\Type\Public\TypeID.h" />
     <ClInclude Include="Reflection\Type\Public\VoidPointer.h" />
     <ClInclude Include="Thread\Public\Thread.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Command\Private\Command.cpp" />
-    <ClCompile Include="Event\Private\Event.cpp" />
-    <ClCompile Include="File\Private\File.cpp" />
-    <ClCompile Include="File\Private\FileObject.cpp" />
-    <ClCompile Include="File\Private\FileObjectFactory.cpp" />
-    <ClCompile Include="File\Private\PropertyTag.cpp" />
-    <ClCompile Include="File\Private\PropertyTagFactory.cpp" />
-    <ClCompile Include="File\Private\SaveFile.cpp" />
-    <ClCompile Include="File\Private\TextFile.cpp" />
-    <ClCompile Include="Global\Private\Globals.cpp" />
-    <ClCompile Include="Mathematics\Functions\Private\ExponentialFunction.cpp" />
-    <ClCompile Include="Mathematics\Functions\Private\GenericMathFunction.cpp" />
-    <ClCompile Include="Mathematics\Functions\Private\LinearFunction.cpp" />
-    <ClCompile Include="Mathematics\Functions\Private\ReversedExponentialFunction.cpp" />
-    <ClCompile Include="Mathematics\Random\Private\Random.cpp" />
-    <ClCompile Include="Mathematics\Runtime\Private\Constant.cpp" />
-    <ClCompile Include="Mathematics\Runtime\Private\EquationString.cpp" />
-    <ClCompile Include="Mathematics\Runtime\Private\EquationTokens.cpp" />
-    <ClCompile Include="Mathematics\Runtime\Private\FunctionCache.cpp" />
-    <ClCompile Include="Mathematics\Runtime\Private\FunctionCacheItem.cpp" />
-    <ClCompile Include="Mathematics\Runtime\Private\MathContainer.cpp" />
-    <ClCompile Include="Mathematics\Runtime\Private\Operation.cpp" />
-    <ClCompile Include="Mathematics\Runtime\Private\OP_Add.cpp" />
-    <ClCompile Include="Mathematics\Runtime\Private\OP_CalculateFunction.cpp" />
-    <ClCompile Include="Mathematics\Runtime\Private\OP_Divide.cpp" />
-    <ClCompile Include="Mathematics\Runtime\Private\OP_GreaterThan.cpp" />
-    <ClCompile Include="Mathematics\Runtime\Private\OP_If.cpp" />
-    <ClCompile Include="Mathematics\Runtime\Private\OP_Multiply.cpp" />
-    <ClCompile Include="Mathematics\Runtime\Private\OP_Select.cpp" />
-    <ClCompile Include="Mathematics\Runtime\Private\OP_Substract.cpp" />
-    <ClCompile Include="Mathematics\Runtime\Private\Value.cpp" />
-    <ClCompile Include="Mathematics\Runtime\Private\Value_ID.cpp" />
-    <ClCompile Include="Mathematics\Runtime\Private\Variable.cpp" />
-    <ClCompile Include="PreProcessor\Private\CPPExtensions.cpp" />
-    <ClCompile Include="Reflection\Atomic\Private\Atom.cpp" />
-    <ClCompile Include="Reflection\Atomic\Private\AtomReflectionProvider.cpp" />
-    <ClCompile Include="Reflection\Atomic\Private\AtomReflection.cpp" />
-    <ClCompile Include="Reflection\Atomic\Private\RPointerReflection.cpp" />
-    <ClCompile Include="Reflection\Atomic\Private\VectorAtomReflection.cpp" />
-    <ClCompile Include="Reflection\Atomic\Private\ReflectionFactory.cpp" />
-    <ClCompile Include="Reflection\Element\Private\ElementReflection.cpp" />
-    <ClCompile Include="Reflection\Element\Private\ElementReflectionProvider.cpp" />
-    <ClCompile Include="Reflection\Element\Private\Element_ID.cpp" />
-    <ClCompile Include="Reflection\Element\Private\RApplication.cpp" />
-    <ClCompile Include="Reflection\Element\Private\RClass.cpp" />
-    <ClCompile Include="Reflection\Element\Private\RAbstractClass.cpp" />
-    <ClCompile Include="Reflection\Element\Private\RContainer.cpp" />
-    <ClCompile Include="Reflection\Element\Private\RElement.cpp" />
-    <ClCompile Include="Reflection\Element\Private\RFunction.cpp" />
-    <ClCompile Include="Reflection\Element\Private\RPointer.cpp" />
-    <ClCompile Include="Reflection\Element\Private\RService.cpp" />
-    <ClCompile Include="Reflection\Type\Private\TypeID.cpp" />
-    <ClCompile Include="Reflection\Type\Private\VoidPointer.cpp" />
-    <ClCompile Include="Thread\Private\Thread.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
     <None Include="Makefile.generated.mk" />
     <None Include="Makefile.generated.mkcfg" />
-    <None Include="Mathematics\Runtime\Private\EquationToken.cpp" />
     <None Include="Project.mkcfg" />
   </ItemGroup>
-  <PropertyGroup Label="Globals">
-    <ProjectGuid>{92E27BA5-3CE9-4E8F-89CF-D0096E895C62}</ProjectGuid>
-    <Keyword>MakeFileProj</Keyword>
-  </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Makefile</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Makefile</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
-  </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-  <ImportGroup Label="ExtensionSettings">
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <NMakeBuildCommandLine>make --eval=def_IDE_VisualStudio:=1 -C ../ Environment</NMakeBuildCommandLine>
-    <NMakeOutput>../Binaries/Environment.dll</NMakeOutput>
-    <NMakeCleanCommandLine>make -C ../ clean</NMakeCleanCommandLine>
-    <NMakeReBuildCommandLine>make --eval=def_IDE_VisualStudio:=1 -C ../ rebuild</NMakeReBuildCommandLine>
-    <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-    <OutDir>$(SolutionDir)SOIA\Binaries\</OutDir>
-    <IntDir>$(SolutionDir)SOIA\Intermediate\</IntDir>
-    <IncludePath>$(SolutionDir)SOIA/Source/;$(IncludePath)</IncludePath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <NMakeBuildCommandLine>make</NMakeBuildCommandLine>
-    <NMakeOutput>Environment.dll</NMakeOutput>
-    <NMakeCleanCommandLine>make clean</NMakeCleanCommandLine>
-    <NMakeReBuildCommandLine>make rebuild</NMakeReBuildCommandLine>
-    <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-  </PropertyGroup>
-  <ItemDefinitionGroup>
-  </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

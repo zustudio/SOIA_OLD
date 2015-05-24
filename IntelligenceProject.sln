@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.22823.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SOIA", "SOIA\Source\SOIA\SOIA.vcxproj", "{D4155A9D-8DC3-48D3-A328-E314B4FB4229}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Environment", "SOIA\Source\Environment\Environment.vcxproj", "{2C2F86E8-87AF-4B6A-B9D0-308625AD714B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Supervisor", "SOIA\Source\Supervisor\Supervisor.vcxproj", "{87617A49-36FC-47F5-A7F8-DE068D8A63C9}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Graphics", "SOIA\Source\Graphics\Graphics.vcxproj", "{79DBE9D6-F327-411C-8889-4E8928506326}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Apprentice", "SOIA\Source\Apprentice\Apprentice.vcxproj", "{5ABE35F0-499D-4A3F-A2C4-691783356383}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Makefiles", "Makefiles", "{69BC1C66-8120-4733-8E68-9A44EB96F2A3}"
+	ProjectSection(SolutionItems) = preProject
+		SOIA\Source\Makefile = SOIA\Source\Makefile
+		SOIA\Source\Makefile.template.mk = SOIA\Source\Makefile.template.mk
+		SOIA\Source\Makefile.template.mkcfg = SOIA\Source\Makefile.template.mkcfg
+		SOIA\Source\Project.mkcfg = SOIA\Source\Project.mkcfg
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D4155A9D-8DC3-48D3-A328-E314B4FB4229}.Debug|x86.ActiveCfg = Debug|Win32
+		{D4155A9D-8DC3-48D3-A328-E314B4FB4229}.Debug|x86.Build.0 = Debug|Win32
+		{D4155A9D-8DC3-48D3-A328-E314B4FB4229}.Release|x86.ActiveCfg = Release|Win32
+		{D4155A9D-8DC3-48D3-A328-E314B4FB4229}.Release|x86.Build.0 = Release|Win32
+		{2C2F86E8-87AF-4B6A-B9D0-308625AD714B}.Debug|x86.ActiveCfg = Debug|Win32
+		{2C2F86E8-87AF-4B6A-B9D0-308625AD714B}.Debug|x86.Build.0 = Debug|Win32
+		{2C2F86E8-87AF-4B6A-B9D0-308625AD714B}.Release|x86.ActiveCfg = Release|Win32
+		{2C2F86E8-87AF-4B6A-B9D0-308625AD714B}.Release|x86.Build.0 = Release|Win32
+		{87617A49-36FC-47F5-A7F8-DE068D8A63C9}.Debug|x86.ActiveCfg = Debug|Win32
+		{87617A49-36FC-47F5-A7F8-DE068D8A63C9}.Debug|x86.Build.0 = Debug|Win32
+		{87617A49-36FC-47F5-A7F8-DE068D8A63C9}.Release|x86.ActiveCfg = Release|Win32
+		{87617A49-36FC-47F5-A7F8-DE068D8A63C9}.Release|x86.Build.0 = Release|Win32
+		{79DBE9D6-F327-411C-8889-4E8928506326}.Debug|x86.ActiveCfg = Debug|Win32
+		{79DBE9D6-F327-411C-8889-4E8928506326}.Debug|x86.Build.0 = Debug|Win32
+		{79DBE9D6-F327-411C-8889-4E8928506326}.Release|x86.ActiveCfg = Release|Win32
+		{79DBE9D6-F327-411C-8889-4E8928506326}.Release|x86.Build.0 = Release|Win32
+		{5ABE35F0-499D-4A3F-A2C4-691783356383}.Debug|x86.ActiveCfg = Debug|Win32
+		{5ABE35F0-499D-4A3F-A2C4-691783356383}.Debug|x86.Build.0 = Debug|Win32
+		{5ABE35F0-499D-4A3F-A2C4-691783356383}.Release|x86.ActiveCfg = Release|Win32
+		{5ABE35F0-499D-4A3F-A2C4-691783356383}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

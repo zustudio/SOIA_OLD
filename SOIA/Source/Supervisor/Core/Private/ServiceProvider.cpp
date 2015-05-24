@@ -15,9 +15,14 @@ using namespace Apprentice;
 #include "Supervisor/Logica/Public/SchroedingerApplication.h"
 #include "Environment/Mathematics/Runtime/Public/Constant.h"
 #include "Environment/File/Public/SaveFile.h"
+#include "Environment\Meta\Public\StringParser.h"
+using namespace Environment::Meta;
 #include <iostream>
+#include <array>
 
 #include "Environment/Global/Public/GlobalsImport.h"
+
+
 
 ServiceProvider::ServiceProvider() 
 	: 
@@ -35,19 +40,73 @@ ServiceProvider::ServiceProvider()
 	auto i_vector = multconv.Execute({ "1235", "456" }, conv);
 
 
+	constexpr const char* name = TypeName<Element_ID>::Get();
+	constexpr const char c1 = *name;
+	constexpr const char c2 = *(name + 1);
+	constexpr const char c3 = *(name + 2);
+	static_assert(c3 == 'v', "ERROR: c3 did not const evaluate to v");
 
-	const int id = StaticType();
-	std::cout << id;
+	
+	constexpr const auto c5 = NthChar<TypeString<int>::FunctionName, 4>::value;
+
+	static_assert(c5 == 'r', "c5 is not r!");
+
+	//constexpr const auto list = CreateTypeCharListObject<int, 0, 1, 2, 3, 4, 5, 6>();
+	//constexpr const auto c6 = list.Get(5);
+	//static_assert(c6 == 'o', "c6 is not o");
+
+	//constexpr const auto test = TEST<int>::file::arg;
+	//constexpr const auto c4 = NthChar<TEST<int>::file::arg , 1>::value;
+
+	//constexpr CreateList<int, Plus<int, 3>, 1, 2, 3, 4>::value addList;
+	//static_assert(addList.Get(1) == 5, "");
+
+	using listType = ConstExprList<int, 1, 2, 3, 4>;
+
+	//using listType2 =  Insert<1, listType, 5, 6>;
+
+	//const auto i1 = CreateArray<ConstExprList<char, 'a', 'b', 'c'>, 3, 3>().values;
+
+	//const std::string s_i1 = std::string(i1);
+
+	//using list = CreateTestList<20>::value;
+	/*using list2 = CreateTestList<400>::value;
+	constexpr const auto el = list2::Get<list2::Size - 1>();*/
+	//static_assert(Array<4>::value[0]== 0, "1 is not 1");
+
+	//static_assert(v2 == 6, "");
+
+	using list = ConstExprList<int, 1, 2, 3, 4, 5, 6, 7, 8, 4, 5, 6, 4, 5, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20>;
+	using quest = ConstExprList<int, 4, 5>;
+	using replacement = ConstExprList<int, 42>;
+
+	const auto intArray = UsingEveryIndex<list::Size, Action<CreateArray, ActionArgs<list> > >::Result().values;
+
+	using typelist = UsingEveryIndex<40, Action<CreateTypeCharList, ActionArgs<int> > >::Result::value;
+	const auto charArray = UsingEveryIndex<typelist::Size, Action<CreateArray, ActionArgs<typelist> > >::Result().values;
+	const std::string charString = charArray;
+
+	//constexpr const auto beginOfRes = UsingEveryIndex<list::Size, Action<PatternMatch, ActionArgs<list, ConstExprList<int, 4, 5, 6> > > >::Result::FindNthWord(1);
+	using matchFunc = list::PatternMatch<quest>;
+	constexpr const auto beginOfRes = matchFunc::FindNthWord(1);
+	using matchList = UsingEveryIndex<matchFunc::Count()*2, Action<ListFromIndices, ActionArgs<int, matchFunc::NthWordToList> > >::Result::Value;
+	using replacedList = UsingEveryIndex<list::Size + matchList::Size / 2 * (replacement::Size - quest::Size), Action<Replace, ActionArgs<list, replacement, matchList> > >::Result::Result::Type;
+	const auto replacedArray = UsingEveryIndex<replacedList::Size, Action<CreateArray, ActionArgs<replacedList> > >::Result().values;
+	std::vector<int> v_replaced;
+	v_replaced.assign(replacedArray, replacedArray + replacedList::Size);
 
 
+	//static_assert(beginOfRes == 9, "res does not begin at 9!");
 
+	constexpr auto r1 = list::Get(9);
 
 	////////////////////////////////////////////////////////////////////////////////////
 
 
 	std::regex pattern("class (\\w+) \\*");
 	auto result = std::smatch();
-	bool success = std::regex_match(std::string("class test *"), result, pattern);
+	std::string test = "class test *";
+	bool success = std::regex_match(test, result, pattern);
 
 
 	Constant* c = new Constant(123.4);

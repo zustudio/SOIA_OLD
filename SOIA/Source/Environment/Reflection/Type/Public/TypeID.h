@@ -7,10 +7,14 @@
 
 namespace Environment
 {
-	constexpr int StaticType()
+	template<class T>
+	struct TypeName
 	{
-		return 4;
-	}
+		static constexpr const char* Get()
+		{
+			return __FUNCTION__;
+		}
+	};
 
 	class DLLIMPEXP TypeID
 	{
@@ -18,11 +22,14 @@ namespace Environment
 		explicit TypeID(const std::string& InString);
 		template<typename T> static TypeID FromType()
 		{
-
 			return TypeID(ParseName(ParseGCCName((typeid(T).name()))));
 		}
 
-		
+		template<typename T>
+		constexpr static const char* StaticType()
+		{
+			return "ABC";
+		}
 		
 		
 		bool operator ==(const TypeID& InOther) const;
