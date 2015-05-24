@@ -47,7 +47,7 @@ ServiceProvider::ServiceProvider()
 	static_assert(c3 == 'v', "ERROR: c3 did not const evaluate to v");
 
 	
-	constexpr const auto c5 = NthChar<TypeString<int>::FunctionName, 4>::value;
+	constexpr const auto c5 = NthChar<CharArray_FUNCTION_<int>::Pointer>::Do(4);
 
 	static_assert(c5 == 'r', "c5 is not r!");
 
@@ -80,18 +80,34 @@ ServiceProvider::ServiceProvider()
 	using quest = ConstExprList<int, 4, 5>;
 	using replacement = ConstExprList<int, 42>;
 
-	const auto intArray = UsingEveryIndex<list::Size, Action<CreateArray, ActionArgs<list> > >::Result().values;
 
-	using typelist = UsingEveryIndex<40, Action<CreateTypeCharList, ActionArgs<int> > >::Result::value;
-	const auto charArray = UsingEveryIndex<typelist::Size, Action<CreateArray, ActionArgs<typelist> > >::Result().values;
-	const std::string charString = charArray;
+
+	//const auto intArray = ListToArrayObject<list>::Result().Value;
+		//UsingEveryIndex<list::Size, Action<CreateArray, ActionArgs<list> > >::Result().values;
+
+	constexpr const int typeStringSize = CharArray_FUNCTION_<int>::Size();
+	using typelist = CharArrayToList<CharArray_FUNCTION_<int> >;
+
+	//using typelist = UsingEveryIndex<CharArray_FUNCTION_<int>::Size(), Action<ListFromIndices, ActionArgs<char, NthChar<TypeString<int>::FunctionName> > > >::Result::Value;
+	const auto charArray = ListToArrayObject<typelist>().Value;
+	//const std::string charString = charArray;
+
+	using charList = CharArrayToList<CharArray_1>;
+	using repList = CharArrayToList<CharArray_2>;
+	const std::string charString2 = ListToArrayObject<charList>().Value;
+
+	const std::string replacedType = ListToArrayObject<Replace<typelist, charList, repList> >().Value;
+
+	using partList = MatchingSublist<typelist, charList, 0>;
+	const auto partArray = ListToArrayObject<partList>().Value;
 
 	//constexpr const auto beginOfRes = UsingEveryIndex<list::Size, Action<PatternMatch, ActionArgs<list, ConstExprList<int, 4, 5, 6> > > >::Result::FindNthWord(1);
-	using matchFunc = list::PatternMatch<quest>;
+	using matchFunc = list::MatchPattern<quest>;
 	constexpr const auto beginOfRes = matchFunc::FindNthWord(1);
-	using matchList = UsingEveryIndex<matchFunc::Count()*2, Action<ListFromIndices, ActionArgs<int, matchFunc::NthWordToList> > >::Result::Value;
-	using replacedList = UsingEveryIndex<list::Size + matchList::Size / 2 * (replacement::Size - quest::Size), Action<Replace, ActionArgs<list, replacement, matchList> > >::Result::Result::Type;
-	const auto replacedArray = UsingEveryIndex<replacedList::Size, Action<CreateArray, ActionArgs<replacedList> > >::Result().values;
+	//using matchList = UsingEveryIndex<matchFunc::Count() * 2, Action<ListFromIndices, ActionArgs<int, matchFunc::NthWordToList> > >::Result::Value;
+	//using matchList = Replace_Helper<list, quest, replacement>::PatternMatches;
+	using replacedList = Replace<list, quest, replacement>; //UsingEveryIndex<list::Size + matchList::Size / 2 * (replacement::Size - quest::Size), Action<ReplaceAction, ActionArgs<list, replacement, matchList> > >::Result::Result;
+	const auto replacedArray = ListToArrayObject<replacedList>().Value;
 	std::vector<int> v_replaced;
 	v_replaced.assign(replacedArray, replacedArray + replacedList::Size);
 

@@ -404,6 +404,9 @@
     <ClInclude Include="Meta\Public\StringParser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Meta\Public\ConstExprList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Project.mkcfg" />

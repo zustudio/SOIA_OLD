@@ -148,6 +148,7 @@
     <ClInclude Include="Mathematics\Runtime\Public\Value.h" />
     <ClInclude Include="Mathematics\Runtime\Public\Value_id.h" />
     <ClInclude Include="Mathematics\Runtime\Public\Variable.h" />
+    <ClInclude Include="Meta\Public\ConstExprList.h" />
     <ClInclude Include="Meta\Public\StringParser.h" />
     <ClInclude Include="PreProcessor\Classes\PrivateDefinitions.h" />
     <ClInclude Include="PreProcessor\Public\BuildMacros.h" />
