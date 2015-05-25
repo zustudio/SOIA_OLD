@@ -11,7 +11,7 @@ namespace Environment
 	class DLLIMPEXP VectorAtomReflection : public AtomReflection
 	{
 	public:
-		virtual bool IsType(const std::string& InTypeName) override;
+		//virtual bool IsType(const std::string& InTypeName) override;
 		
 		
 	};

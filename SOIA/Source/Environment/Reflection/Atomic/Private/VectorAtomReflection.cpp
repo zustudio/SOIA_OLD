@@ -5,20 +5,20 @@
 using namespace Environment;
 
 
-
-bool VectorAtomReflection::IsType(const std::string& InType)
-{
-		std::regex pattern("std::(\\w+)<(.+),std::allocator<(\\2)> >");
-		auto result = std::smatch();
-		bool success = std::regex_match(InType, result, pattern);
-
-		if (success)
-		{
-			/*for (int i = 0; i < result.size(); i++)
-			{
-				std::cout << result[i] << std::endl;
-			}*/
-		}
-		return success;
-}
+//
+//bool VectorAtomReflection::IsType(const std::string& InType)
+//{
+//		std::regex pattern("std::(\\w+)<(.+),std::allocator<(\\2)> >");
+//		auto result = std::smatch();
+//		bool success = std::regex_match(InType, result, pattern);
+//
+//		if (success)
+//		{
+//			/*for (int i = 0; i < result.size(); i++)
+//			{
+//				std::cout << result[i] << std::endl;
+//			}*/
+//		}
+//		return success;
+//}
 

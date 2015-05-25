@@ -44,11 +44,11 @@ RElement* RPointer::Resolve()
 
 RPointer RPointer::FromString(const std::string& InString)
 {
-	auto result = MatchPattern(InString, "(-?[0-9]+),class (\\w+)::(\\w+) \\*");
+	auto result = MatchPattern(InString, "(-?[0-9]+),(\\w+)::(\\w+)\\*");
 	if (result.size() == 4)
 	{
 		std::string ID = result[1];
-		std::string Type = "class " + result[2] + "::" + result[3] + " *";
+		std::string Type = result[2] + "::" + result[3] + "*";
 		return RPointer(std::atoi(ID.c_str()), TypeID(Type));
 	}
 	return RPointer(-1, TypeID(""));

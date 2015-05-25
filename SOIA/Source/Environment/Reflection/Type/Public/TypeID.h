@@ -1,28 +1,36 @@
 
 #pragma once
 
+#include "Environment\Meta\Public\StringParser.h"
+using namespace Environment::Meta;
 #include <string>
 #include <vector>
 #include <typeinfo>
 
 namespace Environment
 {
-	template<class T>
-	struct TypeName
-	{
-		static constexpr const char* Get()
-		{
-			return __FUNCTION__;
-		}
-	};
 
 	class DLLIMPEXP TypeID
 	{
 	public:
+
+		CHAR_ARRAY_LITERAL(BracketPattern,_FUNCTION_<#>::RawPointer);
+		CHAR_ARRAY_LITERAL(ClassPattern,class )
+
 		explicit TypeID(const std::string& InString);
 		template<typename T> static TypeID FromType()
 		{
-			return TypeID(ParseName(ParseGCCName((typeid(T).name()))));
+			using BracketPattern = CharArrayToList< CharArray_BracketPattern>;
+			using ClassPattern = ConstExprList<char, 'c', 'l', 'a', 's', 's', ' '>;
+
+			using RawList = CharArrayToList<CharArray_FUNCTION_<T> >;
+			using Type1 = Replace<RawList, ClassPattern, ConstExprList<char> >;
+
+			using Type2 = Replace<Type1, ConstExprList<char, ' ', '*'>, ConstExprList<char, '*'>, '?', '?' >;
+			//using Type3 = Replace<RawList, ConstExprList<char, ' ', ','>, ConstExprList<char, ','> >;
+
+			return TypeID(ListToArrayObject<Type2>().Value);
+			//return TypeID(ParseName(ParseGCCName((typeid(T).name()))));
 		}
 
 		template<typename T>

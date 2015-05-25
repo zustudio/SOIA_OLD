@@ -29,7 +29,7 @@ MSVC = cl.exe
 CFLAGS = -Ddef_BUILD_PROJECTNAME=$(PROJECT_NAME) 
 GCC_CFLAGS = -Ddef_BUILD_COMPILER_GCC $(EXTRA_GCC_FLAGS) -m64 -g -std=c++11 -pthread -fpermissive -w
 #-Lc:/MinGW/lib -isystemC:\MinGW\include\c++\4.8.2 -isystemC:\MinGW\include\c++\4.8.2\backward -isystemC:\MinGW\include\c++\4.8.2\x86_64-w64-mingw32 -isystemC:\MinGW\mingw\include -isystemC:\MinGW\lib64\gcc\x86_64-w64-mingw32\4.8.2\include -isystemC:\MinGW\lib64\gcc\x86_64-w64-mingw32\4.8.2\include-fixed
-MSVC_CFLAGS = -Ddef_BUILD_COMPILER_MSVC $(EXTRA_MSVC_FLAGS) -Zi -nologo -EHsc  -Od -FS
+MSVC_CFLAGS = -Ddef_BUILD_COMPILER_MSVC $(EXTRA_MSVC_FLAGS) -Zi -nologo -EHsc  -Od -FS -bigobj -constexpr:depth50000 -constexpr:steps3000000
 
 # \/ Prepare linking command (decide whether to build a shared library, 
 #    a static library, or an executable)

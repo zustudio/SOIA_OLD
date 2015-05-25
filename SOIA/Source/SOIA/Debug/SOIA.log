@@ -1,12 +1,9 @@
-﻿Build started 24.05.2015 17:07:27.
+﻿Build started 25.05.2015 12:27:17.
      1>Project "C:\Users\User\Git\IntelligenceProject\SOIA\Source\SOIA\SOIA.vcxproj" on node 2 (Build target(s)).
      1>Build:
          make -s --eval=def_IDE_VisualStudio:=1 -C ../ all
-         ServiceProvider.cpp
-         Supervisor > Linking...
-            Creating library ../../Binaries/Supervisor.lib and object ../../Binaries/Supervisor.exp
      1>Done Building Project "C:\Users\User\Git\IntelligenceProject\SOIA\Source\SOIA\SOIA.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:04.45
+Time Elapsed 00:00:00.54

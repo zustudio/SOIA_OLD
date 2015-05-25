@@ -40,16 +40,19 @@ ServiceProvider::ServiceProvider()
 	auto i_vector = multconv.Execute({ "1235", "456" }, conv);
 
 
-	constexpr const char* name = TypeName<Element_ID>::Get();
+	/*constexpr const char* name = TypeName<Element_ID>::Get();
 	constexpr const char c1 = *name;
 	constexpr const char c2 = *(name + 1);
 	constexpr const char c3 = *(name + 2);
-	static_assert(c3 == 'v', "ERROR: c3 did not const evaluate to v");
+	static_assert(c3 == 'v', "ERROR: c3 did not const evaluate to v");*/
 
 	
-	constexpr const auto c5 = NthChar<CharArray_FUNCTION_<int>::Pointer>::Do(4);
+	//using testList = CharArrayToList< CharArray_FUNCTION_<double> >;
+	//constexpr const auto cx = testList::Get(0);
 
-	static_assert(c5 == 'r', "c5 is not r!");
+	//constexpr const auto c5 = NthChar<CharArray_FUNCTION_<double>::Pointer>::Do(40);
+
+	//static_assert(c5 == 'o', "c5 is not d!");
 
 	//constexpr const auto list = CreateTypeCharListObject<int, 0, 1, 2, 3, 4, 5, 6>();
 	//constexpr const auto c6 = list.Get(5);
@@ -85,8 +88,8 @@ ServiceProvider::ServiceProvider()
 	//const auto intArray = ListToArrayObject<list>::Result().Value;
 		//UsingEveryIndex<list::Size, Action<CreateArray, ActionArgs<list> > >::Result().values;
 
-	constexpr const int typeStringSize = CharArray_FUNCTION_<int>::Size();
-	using typelist = CharArrayToList<CharArray_FUNCTION_<int> >;
+	using typelist = CharArrayToList<CharArray_FUNCTION_<RPointer> >;
+	const std::string typeString = ListToArrayObject< Replace<typelist, ConstExprList<char, 'c', 'l', 'a', 's', 's', ' '>, ConstExprList<char> > >().Value;
 
 	//using typelist = UsingEveryIndex<CharArray_FUNCTION_<int>::Size(), Action<ListFromIndices, ActionArgs<char, NthChar<TypeString<int>::FunctionName> > > >::Result::Value;
 	const auto charArray = ListToArrayObject<typelist>().Value;

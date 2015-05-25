@@ -33,6 +33,7 @@ namespace Environment
 		CHAR_ARRAY_LITERAL(1,<#>);
 		CHAR_ARRAY_LITERAL(2,<FOUND>);
 
+//Environment::CharArray_FUNCTION_<d
 
 		template<class T>
 		struct CharArray_FUNCTION_
@@ -40,11 +41,11 @@ namespace Environment
 		private:
 			static constexpr const char* RawPointer()
 			{
-				return __FUNCTION__;
+				return __FUNCTION__ + 39;
 			}
 		public:
 			static constexpr const auto Pointer = Environment::Meta::CharPointer(RawPointer());
-			static constexpr const int Size(int Index = 0) { return *(RawPointer() + Index) == 0 ? Index : Size(Index + 1); }
+			static constexpr const int Size(int Index = 0) { return *(RawPointer() + Index) == 0 ? Index - 13 : Size(Index + 1); }
 		};
 
 

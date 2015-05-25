@@ -26,6 +26,7 @@ namespace Environment
 		template<typename Type>
 		struct ConstExprListItem<Type>
 		{
+			static constexpr const Type Item = 0;
 			static const constexpr Type Get(int InIndex)
 			{
 				return (Type)0;
@@ -36,6 +37,12 @@ namespace Environment
 			{
 				return (Type)0;
 			}
+
+			template<int InIndex>
+			struct GetLeaf
+			{
+				using Result = ConstExprListItem<Type>;
+			};
 		};
 
 		template<typename Type, Type InItem, Type...TailItems>
@@ -61,6 +68,16 @@ namespace Environment
 			{
 				return Item;
 			}
+
+			template<int InIndex>
+			struct GetLeaf : Next::template GetLeaf<InIndex - 1>
+			{};
+
+			template<>
+			struct GetLeaf<0>
+			{
+				using Result = ConstExprListItem<Type, InItem, TailItems...>;
+			};
 		};
 
 		template<typename Type, Type... Items>
@@ -77,7 +94,7 @@ namespace Environment
 			template<int InIndex>
 			static const constexpr Type Get()
 			{
-				return RawList::Get<InIndex>();
+				return RawList::GetLeaf<InIndex>::Result::Item;
 			}
 
 			static const constexpr Type Get(int InIndex)
@@ -95,7 +112,7 @@ namespace Environment
 			};
 
 
-			template<typename InQuest>
+			template<typename InQuest, ValueType InWildCard = '*', ValueType InContWildCard = '#'>
 			struct MatchPattern
 			{
 				////////////////////////////////////////////////////
@@ -168,8 +185,8 @@ namespace Environment
 				}
 
 
-				static constexpr const ValueType WildCardItem = '*';
-				static constexpr const ValueType ContWildCardItem = '#';
+				static constexpr const ValueType WildCardItem = InWildCard;
+				static constexpr const ValueType ContWildCardItem = InContWildCard;
 
 				//returns (index of last element + 1) if matched, -1 otherwise
 				static const constexpr int FullMatch(int ListIndex, int QuestIndex)
@@ -239,13 +256,16 @@ namespace Environment
 
 					return ItemIterator == ItemNum ?			// have we arived at our target item?
 						(i_CurrentReplacementItem < 0 ?		// are we outside of a replacement?
-							List::Get(i_CurrentListItem) :					// if yes, than get current main-list item
-							ReplacementList::Get(i_CurrentReplacementItem)) :		// else pick item from replacement list
+							List::Get(i_CurrentListItem) :					// yes: than get current main-list item
+							ReplacementList::Get(i_CurrentReplacementItem) ) :		// no: pick item from replacement list
+								
 
 						i_CurrentReplacementItem < 0 ?				// we did not arive at target item: are we inside a replacement?
 							(i_CurrentListItem + 1 < i_PatternStart ?		// no, is the next item a replacement?
 								FindNthItem(ItemNum, ItemIterator + 1, i_CurrentListItem + 1, -1, i_i_PatternStart) :	// no: increase simple list
-								FindNthItem(ItemNum, ItemIterator + 1, i_CurrentListItem + 1, 0, i_i_PatternStart)) :		// yes: set replacement list
+								( ReplacementList::Size > 0 ?
+									FindNthItem(ItemNum, ItemIterator + 1, i_CurrentListItem + 1, 0, i_i_PatternStart) :		// yes: set replacement list
+									FindNthItem(ItemNum, ItemIterator, i_CurrentListItem + 1, 0, i_i_PatternStart) ) ) :
 							(i_CurrentReplacementItem + 1 < ReplacementList::Size ?	// yes, is the next item our current replacement as well?
 								FindNthItem(ItemNum, ItemIterator + 1, i_CurrentListItem, i_CurrentReplacementItem + 1, i_i_PatternStart) :	//yes: increase replacement list
 								FindNthItem(ItemNum, ItemIterator + 1, i_CurrentListItem + di_PatternSize, (i_CurrentListItem + di_PatternSize) - i_NextPatternStart, i_i_PatternStart + 2)); //no: calculate values for next round
@@ -338,23 +358,23 @@ namespace Environment
 		template<typename MatchResult>
 		using MatchResultToList = typename typename UsingEveryIndex<MatchResult::Count() * 2, Action<ListFromIndices, ActionArgs<int, typename MatchResult::NthWordToList> > >::Result::Value;
 
-		template<typename List, typename Pattern>
+		template<typename List, typename Pattern, typename List::ValueType WildCard = '*', typename List::ValueType ContWildCard = '#'>
 		struct Match_Helper
 		{
 		private:
-			using MatchResult = typename List::template MatchPattern<Pattern>;
+			using MatchResult = typename List::template MatchPattern<Pattern, WildCard, ContWildCard>;
 		public:
 			using PatternMatches = MatchResultToList<MatchResult>;
 		};
 
-		template<typename List, typename Pattern, typename Replacement>
-		struct Replace_Helper : Match_Helper<List, Pattern>
+		template<typename List, typename Pattern, typename Replacement, typename List::ValueType WildCard, typename List::ValueType ContWildCard>
+		struct Replace_Helper : Match_Helper<List, Pattern, WildCard, ContWildCard>
 		{
 			using Result = typename typename UsingEveryIndex<List::Size - MatchResult::CommulatedPatternSize() + PatternMatches::Size / 2 * (Replacement::Size), Action<ReplaceAction, ActionArgs<List, Replacement, PatternMatches> > >::Result::Result;
 		};
 
-		template<typename List, typename Pattern, typename Replacement>
-		using Replace = typename Replace_Helper<List, Pattern, Replacement>::Result;
+		template<typename List, typename Pattern, typename Replacement, typename List::ValueType WildCard = '*', typename List::ValueType ContWildCard = '#'>
+		using Replace = typename Replace_Helper<List, Pattern, Replacement, WildCard, ContWildCard>::Result;
 
 		template<typename List, int Start, int Size>
 		using Sublist = typename typename UsingEveryIndex<Size, Action<ListFromIndices, ActionArgs<typename List::ValueType, typename List::template GetOperation<Start> > > >::Result::Value;

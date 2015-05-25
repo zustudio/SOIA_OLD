@@ -10,6 +10,11 @@ namespace Environment
 	template<class VectorClass>
 	class DLLIMPEXP VectorAtomReflectionTemplate : public VectorAtomReflection
 	{
+		virtual bool IsType(const std::string& InTypeString)
+		{
+			return InTypeString == std::string(TypeID::FromType<VectorClass>());
+		}
+
 		virtual VoidPointer* StringToObject(const std::string& InString) override
 		{
 			std::vector<std::string> singleStrings;
