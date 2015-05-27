@@ -38,30 +38,46 @@ namespace Environment
 		template<class T>
 		struct CharArray_FUNCTION_
 		{
+#ifdef __GNUG__
+	#define ACCESSOR_FUNC static constexpr const char* AccessorFunc(const char* InPointer) {return InPointer;}
+	#define GET_FULL_NAME AccessorFunc(__PRETTY_FUNCTION__)
+	#define START_TO_TYPE 0
+	#define TYPE_TO_END 0
+#elif _MSC_VER
+	#define ACCESSOR_FUNC static constexpr const char* AccessorFunc() {return __FUNCTION__;}
+	#define GET_FULL_NAME AccessorFunc()
+	#define START_TO_TYPE 0
+	#define TYPE_TO_END 0
+#endif
+
 		private:
-			static constexpr const char* RawPointer()
-			{
-				return __FUNCTION__ + 39;
-			}
+			ACCESSOR_FUNC
+
 		public:
-			static constexpr const auto Pointer = Environment::Meta::CharPointer(RawPointer());
-			static constexpr const int Size(int Index = 0) { return *(RawPointer() + Index) == 0 ? Index - 13 : Size(Index + 1); }
+			static constexpr const Environment::Meta::CharPointer Pointer = Environment::Meta::CharPointer(GET_FULL_NAME + START_TO_TYPE);
+			static constexpr const int Size(int Index = 0) { return *(Pointer.Pointer + Index) == 0 ? Index - TYPE_TO_END : Size(Index + 1); }
 		};
 
 
 		template<const CharPointer& p_Chars>
 		struct NthChar
 		{
-			static constexpr const char Do(int index)
+//			static constexpr const char Do(int index)
+//			{
+//				return *(p_Chars.Pointer + index);
+//			}
+
+			template<int InIndex>
+			struct Do
 			{
-				return *(p_Chars.Pointer + index);
-			}
+				static constexpr const char Value = *(p_Chars.Pointer + InIndex);
+			};
 		};
 
 		/////////////////////////////////////////////////////
 		// create lists
 		template<typename CharArray>
-		using CharArrayToList = typename typename UsingEveryIndex<CharArray::Size(), Action<ListFromIndices, ActionArgs<char, NthChar<CharArray::Pointer> > > >::Result::Value;
+		using CharArrayToList = typename UsingEveryIndex<CharArray::Size(), Action<ListFromIndices, ActionArgs<char, NthChar<CharArray::Pointer> > > >::Value;
 
 		/////////////////////////////////////////////////////
 		// testing automatic indexing

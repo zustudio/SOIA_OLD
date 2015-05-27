@@ -1,14 +1,14 @@
 
 #pragma once
 
-#include "VectorAtomReflection.h"
+#include "AtomReflection.h"
 
 #include "Environment/Reflection/Element/Public/RPointer.h"
 
 namespace Environment
 {
 	template<class VectorClass>
-	class DLLIMPEXP VectorAtomReflectionTemplate : public VectorAtomReflection
+	class DLLIMPEXP VectorAtomReflectionTemplate : public AtomReflection
 	{
 		virtual bool IsType(const std::string& InTypeString)
 		{
@@ -60,7 +60,7 @@ namespace Environment
 		}
 		virtual std::vector<RElement*> ObjectToRElements(VoidPointer& InObject) override
 		{
-			if (GetElementReflectionProvider()->GetClass(TypeID::FromType<typename VectorClass::value_type>().Dereference()))
+			if (GetReflectedClass(TypeID::FromType<typename VectorClass::value_type>().Dereference()))
 			{
 				std::vector<RElement*> result;
 				VectorClass* p_Vector = InObject.CastTo<VectorClass>();

@@ -8,11 +8,6 @@ using namespace Environment;
 // Global element and atom reflection provider
 namespace Environment
 {
-	//TEST
-	IsTrue<true>::Yes Bool;
-	IsTrue<std::is_integral<int>::value>::Yes Bool2;
-	//ENDTEST
-
 
 	AtomReflectionProvider GlobalAtomReflectionProvider;
 	ElementReflectionProvider GlobalElementReflectionProvider;

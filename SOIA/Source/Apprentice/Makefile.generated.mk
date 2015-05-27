@@ -17,14 +17,14 @@ endif
 
 $(TARGET): $(OBJS)
 	echo $(PROJECT_SUBDIR)$(PROJECT_NAME) \> Linking...
-	$(LINKER) $(LINKER_ARG_FLAGS) $(LINKER_ARG_OUT) $^ $(LINKER_ARG_LIBS)
+	cl.exe -v $(LINKER_ARG_FLAGS) $(LINKER_ARG_OUT) $^ $(LINKER_ARG_LIBS)
 	@rm -rf /obj /Debug
 
 
 define make-goal
 $(1)%.obj: %.cpp
 	$(ECHOCMD) $(PROJECT_SUBDIR)$(PROJECT_NAME) \> Compiling... $$(notdir $$<)
-	gcc $(INCLUDES) $(GCC_CFLAGS) -MM -MF"$$(@:.obj=.d)" -MT$$(@) "$$<"
+#	g++ $(INCLUDES) $(GCC_CFLAGS) -v -MM -MF"$$(@:.obj=.d)" -MT$$(@) "$$<"
 	$(CC) $(INCLUDES) $(CFLAGS) -c $(COMPILER_INFILE) $(COMPILER_OUTFILE)
 endef
 

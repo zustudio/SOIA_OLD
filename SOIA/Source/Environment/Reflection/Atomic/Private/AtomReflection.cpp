@@ -16,6 +16,11 @@ VoidPointer* AtomReflection::GetAtomObject(const std::string& InString, const Ty
 	return GetAtomReflectionProvider()->GetReflection(InType)->StringToObject(InString);
 }
 
+RClass* AtomReflection::GetReflectedClass(const TypeID& InID)
+{
+	return GetElementReflectionProvider()->GetClass(InID);
+}
+
 std::vector<RElement*> AtomReflection::ObjectToRElements(VoidPointer& InObject)
 {
 	return {};

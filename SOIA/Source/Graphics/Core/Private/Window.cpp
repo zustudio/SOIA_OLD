@@ -8,8 +8,8 @@
 #include "Graphics/Core/Classes/PrivateDefinitions.h"
 
 
-#include "Graphics/ControlElements/Public/Control.h"		//full path needed for cl.exe vs13 compiler (includes same named file)
 #include "Graphics/Core/Public/Window.h"
+#include "Graphics/ControlElements/Public/Control.h"		//full path needed for cl.exe vs13 compiler (includes same named file)
 
 #include <deque>
 
@@ -32,6 +32,11 @@ void SO::Window::Draw()
 		if (curControl)
 			curControl->Draw();
 	}
+}
+
+void SO::Window::SetControlTransformation(int ControlNum, const fPoint& InLoc, const fPoint& InSize)
+{
+	myControls[ControlNum]->SetTrans(InLoc, InSize);
 }
 
 void SO::Window::ForwardMouseButtonPressedEvent(const pxPoint &InCoordinates)

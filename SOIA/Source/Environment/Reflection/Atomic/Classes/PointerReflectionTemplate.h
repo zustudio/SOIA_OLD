@@ -34,7 +34,7 @@ namespace Environment
 		}
 		virtual std::vector<RElement*> ObjectToRElements(VoidPointer& InObject) override
 		{
-			if (GetElementReflectionProvider()->GetClass(InObject.GetTypeID().Dereference()))
+			if (GetReflectedClass(InObject.GetTypeID().Dereference()))
 			{
 				InObject.OverrideType(TypeID::FromType<RElement*>());
 				RElement** pp_RElement = InObject.CastTo<RElement*>();

@@ -1,9 +1,97 @@
-﻿Build started 25.05.2015 12:27:17.
+﻿Build started 25.05.2015 14:48:08.
      1>Project "C:\Users\User\Git\IntelligenceProject\SOIA\Source\SOIA\SOIA.vcxproj" on node 2 (Build target(s)).
      1>Build:
          make -s --eval=def_IDE_VisualStudio:=1 -C ../ all
+         Globals.cpp
+         CPPExtensions.cpp
+         FileObject.cpp
+         PropertyTagFactory.cpp
+         SaveFile.cpp
+         TextFile.cpp
+         File.cpp
+         PropertyTag.cpp
+         FileObjectFactory.cpp
+         ReversedExponentialFunction.cpp
+         LinearFunction.cpp
+         GenericMathFunction.cpp
+         ExponentialFunction.cpp
+         Random.cpp
+     1>c:\users\user\git\intelligenceproject\soia\source\environment\mathematics\random\private\random.cpp(55): warning C4700: uninitialized local variable 'sum' used
+         EquationTokens.cpp
+         Operation.cpp
+         Value_ID.cpp
+         OP_Add.cpp
+         FunctionCache.cpp
+         EquationToken.cpp
+     1>c:\users\user\git\intelligenceproject\soia\source\environment\mathematics\runtime\private\equationtoken.cpp(220): warning C4715: 'Environment::EquationToken::rec_RegisterToken': not all control paths return a value
+         Constant.cpp
+         FunctionCacheItem.cpp
+         OP_Select.cpp
+         Variable.cpp
+         MathContainer.cpp
+         OP_GreaterThan.cpp
+         OP_Divide.cpp
+         OP_If.cpp
+         EquationString.cpp
+         OP_CalculateFunction.cpp
+         OP_Multiply.cpp
+         OP_Substract.cpp
+         Value.cpp
+         VoidPointer.cpp
+         TypeID.cpp
+         RFunction.cpp
+         RAbstractClass.cpp
+         RApplication.cpp
+         RClass.cpp
+         Element_ID.cpp
+         ElementReflection.cpp
+         RContainer.cpp
+         RService.cpp
+         ElementReflectionProvider.cpp
+         RElement.cpp
+         RPointer.cpp
+         VectorAtomReflection.cpp
+         ReflectionFactory.cpp
+         RPointerReflection.cpp
+         Atom.cpp
+         AtomReflection.cpp
+         AtomReflectionProvider.cpp
+         Thread.cpp
+         Event.cpp
+         Environment > Linking...
+            Creating library ../../Binaries/Environment.lib and object ../../Binaries/Environment.exp
+         pxPoint.cpp
+         fColor.cpp
+         fCanvasObject.cpp
+         cPoint.cpp
+         fPoint.cpp
+         Window.cpp
+         Window_Base.cpp
+         CTable.cpp
+         CGraph.cpp
+         CTextBox.cpp
+         CCanvas.cpp
+         Control.cpp
+         Window_Win.cpp
+         Graphics > Linking...
+            Creating library ../../Binaries/Graphics.lib and object ../../Binaries/Graphics.exp
+         Engine.cpp
+         Engine_SSt.cpp
+         SStModuleConfiguration.cpp
+         ActivationModule.cpp
+         Apprentice > Linking...
+            Creating library ../../Binaries/Apprentice.lib and object ../../Binaries/Apprentice.exp
+         ServiceProvider.cpp
+         LogicService.cpp
+         SchroedingerApplication.cpp
+         ConsoleService.cpp
+         Supervisor > Linking...
+            Creating library ../../Binaries/Supervisor.lib and object ../../Binaries/Supervisor.exp
+         main.cpp
+         SOIA > Linking...
+            Creating library ../../Binaries/SOIA.lib and object ../../Binaries/SOIA.exp
      1>Done Building Project "C:\Users\User\Git\IntelligenceProject\SOIA\Source\SOIA\SOIA.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.54
+Time Elapsed 00:02:32.56

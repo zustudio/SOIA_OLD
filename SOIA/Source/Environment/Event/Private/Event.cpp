@@ -4,6 +4,7 @@
 #include "Environment/Event/Public/Event.h"
 using namespace Environment;
 
+#include "Environment/Reflection/Element/Public/RFunctionInterface.h"
 #include <assert.h>
 
 void Event::Raise(EventDetails* InDetails)

@@ -1,9 +1,14 @@
-
-#include "Environment/PreProcessor/Classes/PrivateDefinitions.h"
-
-#include "Environment/Reflection/Atomic/Classes/VectorAtomReflection.h"
-using namespace Environment;
-
+//
+//#include "Environment/PreProcessor/Classes/PrivateDefinitions.h"
+//
+//#include "Environment/Reflection/Atomic/Classes/VectorAtomReflection.h"
+//using namespace Environment;
+//
+//
+//void VectorAtomReflection::NOP()
+//{
+//	std::cout << "here I am";
+//}
 
 //
 //bool VectorAtomReflection::IsType(const std::string& InType)

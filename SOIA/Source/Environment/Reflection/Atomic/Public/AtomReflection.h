@@ -6,6 +6,7 @@
 namespace Environment
 {
 	class RElement;
+	class RClass;
 	class DLLIMPEXP AtomReflection
 	{
 	public:
@@ -15,5 +16,6 @@ namespace Environment
 		virtual std::vector<RElement*> ObjectToRElements(VoidPointer& InObject);
 		std::string GetAtomString(VoidPointer& InAtom);
 		VoidPointer* GetAtomObject(const std::string& InString, const TypeID& InType);
+		RClass* GetReflectedClass(const TypeID& InID);
 	};
 }

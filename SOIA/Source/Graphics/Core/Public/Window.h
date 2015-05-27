@@ -7,9 +7,6 @@
 
 #pragma once
 
-#include "Control.h"
-using namespace Graphics;
-
 //////////////////////////////////////////////////////////////////////////////////
 // os dependencies
 //--- setting windows class based on running os ---
@@ -23,6 +20,11 @@ using namespace Graphics;
 	#include "Window_Base.h"
 	#define Window_OS Window_Base
 #endif
+
+namespace Graphics
+{
+class Control;
+}
 
 namespace SO
 {
@@ -51,6 +53,7 @@ namespace SO
 		virtual void ForwardMouseButtonPressedEvent(const pxPoint &InCoordinates) override;
 
 		//---- control-functions ----
+		void SetControlTransformation(int ControlNum, const fPoint& InLoc, const fPoint& InSize);
 		template <class CClass> CClass* AddControl()
 		{
 			//create new control
@@ -64,7 +67,7 @@ namespace SO
 
 			for (int iC = 0; iC < myControls.size(); iC++)
 			{
-				myControls[iC]->SetTrans(cur, fPoint(1, d.Y));
+				SetControlTransformation(iC, cur, fPoint(1, d.Y));
 				cur += d;
 			}
 

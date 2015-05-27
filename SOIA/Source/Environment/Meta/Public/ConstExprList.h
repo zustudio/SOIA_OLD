@@ -5,6 +5,16 @@ namespace Environment
 	namespace Meta
 	{
 
+		static const constexpr bool OverZero(int InNum)
+		{
+			return InNum > 0;
+		}
+
+		static const constexpr int decrease(int InNum)
+		{
+			return InNum - 1;
+		}
+
 		struct PatternPosition
 		{
 			constexpr PatternPosition(int InBegin, int InSize) :
@@ -57,27 +67,37 @@ namespace Environment
 				return InIndex == 0 ? Item : Next::Get(InIndex - 1);
 			}
 
-			template<int InIndex>
-			static const constexpr Type Get()
-			{
-				return Next::Get<InIndex - 1>();
-			}
 
-			template<>
-			static const constexpr Type Get<0>()
+
+
+			template<int InIndex>
+			static const constexpr typename std::enable_if<!OverZero(InIndex), Type>::type Get()
 			{
 				return Item;
 			}
 
 			template<int InIndex>
-			struct GetLeaf : Next::template GetLeaf<InIndex - 1>
+			static const constexpr typename std::enable_if<OverZero(InIndex), Type>::type Get()
+			{
+				return Next::template Get<decrease(InIndex)>();
+			}
+
+
+			template<int InIndex, typename = void>
+			struct GetLeaf
 			{};
 
-			template<>
-			struct GetLeaf<0>
+			template<int InIndex>
+			struct GetLeaf<InIndex, typename std::enable_if<!OverZero(InIndex)>::type>
 			{
 				using Result = ConstExprListItem<Type, InItem, TailItems...>;
 			};
+
+			template<int InIndex >
+			struct GetLeaf<InIndex, typename std::enable_if<OverZero(InIndex)>::type> : Next::template GetLeaf<InIndex - 1>
+			{};
+
+
 		};
 
 		template<typename Type, Type... Items>
@@ -94,7 +114,7 @@ namespace Environment
 			template<int InIndex>
 			static const constexpr Type Get()
 			{
-				return RawList::GetLeaf<InIndex>::Result::Item;
+				return RawList::template GetLeaf<InIndex>::Result::Item;
 			}
 
 			static const constexpr Type Get(int InIndex)
@@ -117,7 +137,7 @@ namespace Environment
 			{
 				////////////////////////////////////////////////////
 				// Parameter
-				using Quest = typename InQuest;
+				using Quest = InQuest;
 
 				// check whether types of lists match
 				static_assert(std::is_same<typename List::ValueType, typename Quest::ValueType>::value, "ERROR: FindMatch is being instantiated with lists with different value types!");
@@ -234,9 +254,13 @@ namespace Environment
 			template<typename Args, int... InIndices>
 			struct Inner
 			{
-				using List = typename Args::Get;
-				using ReplacementList = typename typename Args::Next::Get;
-				using PatternList = typename typename typename Args::Next::Next::Get;
+				using Arg1 = Args;
+				using Arg2 = typename Arg1::Next;
+				using Arg3 = typename Arg2::Next;
+
+				using List = typename Arg1::Get;
+				using ReplacementList = typename Arg2::Get;
+				using PatternList =  typename Arg3::Get;
 
 				using Type = typename List::ValueType;
 
@@ -306,18 +330,17 @@ namespace Environment
 		};
 
 		template<typename InAction, int InCurrentIndex, int... InTailIndices>
-		struct UsingEveryIndex_Inner : UsingEveryIndex_Inner<InAction, InCurrentIndex - 1, InCurrentIndex - 1, InTailIndices...>
+		struct UsingEveryIndex_Helper : UsingEveryIndex_Helper<InAction, InCurrentIndex - 1, InCurrentIndex - 1, InTailIndices...>
 		{};
 
 		template<typename InAction, int... InTailIndices>
-		struct UsingEveryIndex_Inner<InAction, 0, InTailIndices...>
+		struct UsingEveryIndex_Helper<InAction, 0, InTailIndices...>
 		{
 			using Result = typename InAction::Struct::template Inner<typename InAction::Args, InTailIndices...>;
 		};
 
 		template<int MaxIndex, typename InAction>
-		struct UsingEveryIndex : UsingEveryIndex_Inner<InAction, MaxIndex>
-		{};
+		using UsingEveryIndex = typename UsingEveryIndex_Helper<InAction, MaxIndex>::Result;
 
 
 
@@ -329,10 +352,13 @@ namespace Environment
 			template<typename Args, int... Indices>
 			struct Inner
 			{
-				using Type = typename Args::Get;
-				using Operation = typename typename Args::Next::Get;
+				using Arg1 = Args;
+				using Arg2 = typename Arg1::Next;
 
-				using Value = ConstExprList<Type, (Operation::Do(Indices))...>;
+				using Type = typename Arg1::Get;
+				using Operation = typename Arg2::Get;
+
+				using Value = ConstExprList<Type, (Operation::template Do<Indices>::Value)...>;
 			};
 		};
 
@@ -342,7 +368,7 @@ namespace Environment
 			struct Inner
 			{
 				using List = typename Args::Get;
-				const typename List::ValueType Value[List::Size + 1] = { (List::Get<indices>())..., 0 };
+				const typename List::ValueType Value[List::Size + 1] = { (List::template Get<indices>())..., 0 };
 			};
 		};
 
@@ -350,39 +376,36 @@ namespace Environment
 		// Access helpers
 
 		template<typename List>
-		struct ListToArrayObject_Helper : UsingEveryIndex<List::Size, Action<CreateArray, ActionArgs<List> > > {};
-
-		template<typename List>
-		using ListToArrayObject = typename ListToArrayObject_Helper<List>::Result;
+		using ListToArrayObject = UsingEveryIndex<List::Size, Action<CreateArray, ActionArgs<List> > >;
 
 		template<typename MatchResult>
-		using MatchResultToList = typename typename UsingEveryIndex<MatchResult::Count() * 2, Action<ListFromIndices, ActionArgs<int, typename MatchResult::NthWordToList> > >::Result::Value;
+		using MatchResultToList = typename UsingEveryIndex<MatchResult::Count() * 2, Action<ListFromIndices, ActionArgs<int, typename MatchResult::NthWordToList> > >::Value;
 
 		template<typename List, typename Pattern, typename List::ValueType WildCard = '*', typename List::ValueType ContWildCard = '#'>
 		struct Match_Helper
 		{
-		private:
 			using MatchResult = typename List::template MatchPattern<Pattern, WildCard, ContWildCard>;
-		public:
 			using PatternMatches = MatchResultToList<MatchResult>;
 		};
 
 		template<typename List, typename Pattern, typename Replacement, typename List::ValueType WildCard, typename List::ValueType ContWildCard>
-		struct Replace_Helper : Match_Helper<List, Pattern, WildCard, ContWildCard>
+		struct Replace_Helper
 		{
-			using Result = typename typename UsingEveryIndex<List::Size - MatchResult::CommulatedPatternSize() + PatternMatches::Size / 2 * (Replacement::Size), Action<ReplaceAction, ActionArgs<List, Replacement, PatternMatches> > >::Result::Result;
+			using Match_Helper = Match_Helper<List, Pattern, WildCard, ContWildCard>;
+			using Result = typename UsingEveryIndex<List::Size - Match_Helper::MatchResult::CommulatedPatternSize() + Match_Helper::PatternMatches::Size / 2 * (Replacement::Size), Action<ReplaceAction, ActionArgs<List, Replacement, typename Match_Helper::PatternMatches> > >::Result;
 		};
 
 		template<typename List, typename Pattern, typename Replacement, typename List::ValueType WildCard = '*', typename List::ValueType ContWildCard = '#'>
 		using Replace = typename Replace_Helper<List, Pattern, Replacement, WildCard, ContWildCard>::Result;
 
 		template<typename List, int Start, int Size>
-		using Sublist = typename typename UsingEveryIndex<Size, Action<ListFromIndices, ActionArgs<typename List::ValueType, typename List::template GetOperation<Start> > > >::Result::Value;
+		using Sublist = typename UsingEveryIndex<Size, Action<ListFromIndices, ActionArgs<typename List::ValueType, typename List::template GetOperation<Start> > > >::Value;
 
 		template<typename List, typename Pattern, int Index>
-		struct MatchingSublist_Helper : Match_Helper<List, Pattern>
+		struct MatchingSublist_Helper
 		{
-			using Result = Sublist<List, PatternMatches::Get(Index * 2), PatternMatches::Get(Index * 2 + 1)>;
+			using Match_Helper = Match_Helper<List, Pattern>;
+			using Result = Sublist<List, Match_Helper::PatternMatches::Get(Index * 2), Match_Helper::PatternMatches::Get(Index * 2 + 1)>;
 		};
 
 		template<typename List, typename Pattern, int Index>

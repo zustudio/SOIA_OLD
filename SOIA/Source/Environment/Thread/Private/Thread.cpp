@@ -7,6 +7,9 @@
 
 #include "Environment/PreProcessor/Classes/PrivateDefinitions.h"
 
+#if defined _WIN32 && defined __clang__
+#define __uncaught_exception std::uncaught_exception
+#endif
 #include <thread>
 #include <mutex>
 #include <condition_variable>
