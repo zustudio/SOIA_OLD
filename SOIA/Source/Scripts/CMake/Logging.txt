@@ -1,0 +1,11 @@
+cmake_minimum_required(VERSION 3.1)
+
+function( dmessage L_severity L_message )
+	if( bCMAKE_DEBUG_MESSAGES )
+		message(${L_severity} ${L_message} )
+	endif()
+endfunction( dmessage L_message )
+
+function( enable_dmessage )
+	set( bCMAKE_DEBUG_MESSAGES TRUE PARENT_SCOPE )
+endfunction( enable_dmessage )

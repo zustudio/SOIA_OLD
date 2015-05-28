@@ -1,0 +1,147 @@
+cmake_minimum_required(VERSION 3.1)
+
+#########################################################################
+#####################        Project Helpers        #####################
+# Use this cmake macros to easily create sub projects for the 		#
+# IntelligenceProject solution.						#
+#########################################################################
+
+#----------------------- Public Macros to be used -----------------------
+
+function( project_folder L_folder_name )
+	set(PROJECT_FOLDER ${L_folder_name} PARENT_SCOPE)
+endfunction( project_folder L_folder_name )
+
+function( depends_on_projects L_folder_name L_project_names )
+	set(DEPENDENCY_PROJECT_NAMES ${L_project_names} PARENT_SCOPE)
+	foreach( L_project_name ${L_project_names} )
+		set( L_full_name ${L_folder_name}_${L_project_name} )
+		list(APPEND DEPENDENCY_INCLUDE_DIRS ${${L_full_name}_INCLUDE_DIRS} )
+		#list(APPEND DEPENDENCY_H_FILES ${${L_full_name}_INCLUDE_H_FILES} )
+	endforeach()
+	set( DEPENDENCY_INCLUDE_DIRS ${DEPENDENCY_INCLUDE_DIRS} PARENT_SCOPE )
+	#set( DEPENDENCY_INCLUDE_H_FILES ${DEPENDENCY_INCLUDE_H_FILES} PARENT_SCOPE )
+endfunction( depends_on_projects L_folder_name L_project_names )
+
+function( auto_include_directories )
+	set(L_auto_include_dirs "${DEPENDENCY_INCLUDE_DIRS} ${PROJECT_Public_DIRS} ${PROJECT_Classes_DIRS}" )
+	dmessage(STATUS "auto-including following directories: ${L_auto_include_dirs}" )
+	include_directories( ${L_auto_include_dirs} )
+endfunction( auto_include_directories )
+
+macro( auto_add_executable )
+	add_executable( ${PROJECT_NAME} ${CPP_FILES} ${PUBLIC_H_FILES} ${PRIVATE_H_FILES} )
+	target_link_libraries( ${PROJECT_NAME} ${DEPENDENCY_PROJECT_NAMES} )
+endmacro( auto_add_executable )
+
+macro( auto_add_shared_library )
+	add_library(${PROJECT_NAME} SHARED ${CPP_FILES} ${PUBLIC_H_FILES} ${PRIVATE_H_FILES} )
+	target_link_libraries( ${PROJECT_NAME} ${DEPENDENCY_PROJECT_NAMES} )
+endmacro( auto_add_shared_library)
+
+macro( auto_export_directories )
+	dmessage(STATUS "auto-exporting following directories: ${PROJECT_Public_DIRS}" )
+	set(${PROJECT_FOLDER}_${PROJECT_NAME}_INCLUDE_DIRS ${PROJECT_Public_DIRS}
+	CACHE INTERNAL "${PROJECT_FOLDER}/${PROJECT_NAME}: Include Directories" FORCE )
+endmacro( auto_export_directories )
+		
+
+# in_sub()
+#    sets variable CURRENT_SUB_NAME, if 'Environment/Reflection/Private/Atomic/' #    is meant, call with in_sub("Atomic")
+macro( in_sub L_sub_name )
+	end_sub()
+	
+	SET( SUB_CPP_FILES "")
+	SET( SUB_PUBLIC_H_FILES "")
+	SET( CURRENT_SUB_NAME ${L_sub_name} )
+endmacro( in_sub )
+
+# end_sub()
+#    Applies setting of current sub, adds sub files to project files and creates
+#    source group for sub
+macro( end_sub )
+	list( APPEND CPP_FILES ${SUB_CPP_FILES} )
+	list( APPEND PUBLIC_H_FILES ${SUB_PUBLIC_H_FILES} )
+	list( APPEND PRIVATE_H_FILES ${SUB_PRIVATE_H_FILES} )
+	sub_source_group( Private "${SUB_CPP_FILES}" )
+	sub_source_group( Public "${SUB_PUBLIC_H_FILES}" )
+	sub_source_group( Classes "${SUB_PRIVATE_H_FILES}" )
+	SET(bSUB_Public_DIR_ADDED FALSE)
+	SET(bSUB_Private_DIR_ADDED FALSE)
+	SET(bSUB_Classes_DIR_ADDED FALSE)
+endmacro( end_sub )
+
+# add_PrivatePublic()
+#    Call with list of names. Every name is treated as a pair of .h & .cpp files, these are added into
+#    the current 'Public' & 'Private' directories
+macro( add_PrivatePublic L_file_names )
+	dmessage(STATUS "ARGV is: ${ARGV0}" )
+	foreach( L_file_name ${ARGV} )
+		add_Private(${L_file_name})
+		add_Public(${L_file_name})
+	endforeach()
+endmacro( add_PrivatePublic L_file_names )
+
+# add_PrivateClasses()
+#    Same as 'add_PrivatePublic()' but .h-files are added to 'Classes' folder
+macro( add_PrivateClasses L_file_names )
+	foreach( L_file_name ${ARGV} )
+		add_Private(${L_file_name})
+		add_Classes(${L_file_name})
+	endforeach()
+endmacro( add_PrivateClasses L_file_names )
+
+#------------------------------ Local helper macros ---------------------------------
+
+macro( add_Private L_file_name )
+	set_sub_dir("Private" "${CURRENT_SUB_NAME}" )
+	list( APPEND SUB_CPP_FILES "${CURRENT_SUB_DIR}${L_file_name}.cpp" )
+endmacro( add_Private L_file_name )
+
+macro( add_Public L_file_name )
+	set_sub_dir("Public" "${CURRENT_SUB_NAME}" )
+	list( APPEND SUB_PUBLIC_H_FILES "${CURRENT_SUB_DIR}${L_file_name}.h" )
+endmacro( add_Public L_file_name )
+
+macro( add_Classes L_file_name )
+	set_sub_dir("Classes" "${CURRENT_SUB_NAME}" )
+	list( APPEND SUB_PRIVATE_H_FILES "${CURRENT_SUB_DIR}${L_file_name}.h" )
+endmacro( add_Classes L_file_name )
+
+
+#    Creates source group. The name contains the role (Private | Public | Classes), 
+#    and if available the sub name.
+macro( sub_source_group L_role L_files )
+	if( "${CURRENT_SUB_NAME}" STREQUAL "" )
+		SET( L_name "${L_role}" )
+	else()
+		SET( L_name "${L_role}\\${CURRENT_SUB_NAME}")
+	endif()
+
+	if( NOT "${L_files}" STREQUAL "" )
+		source_group("${L_name}" FILES ${L_files})
+		dmessage(STATUS "Creating source group: ${L_name}, with files: ${L_files}")
+	else()
+		dmessage(STATUS "Source group: not doing anything (L_role=${L_role} | L_files=${L_files}")
+	endif()
+endmacro( sub_source_group L_role L_files )
+
+
+macro( set_sub_dir L_role L_sub_name)
+	if ( "${L_sub_name}" STREQUAL "")
+		dmessage(STATUS "no sub found")
+		SET( CURRENT_SUB_DIR "${PROJECT_SOURCE_DIR}/${L_role}/" )
+	else()
+		dmessage(STATUS "sub found: ${L_sub_name}")
+		SET(CURRENT_SUB_DIR "${L_sub_name}")
+		PREFIXSUFFIX(CURRENT_SUB_DIR "${PROJECT_SOURCE_DIR}/${L_role}/" "/")
+	endif()
+	dmessage(STATUS "CURRENT_SUB_DIR is: ${CURRENT_SUB_DIR}" )
+	
+	if( NOT bSUB_${L_role}_DIR_ADDED )
+		list( APPEND PROJECT_${L_role}_DIRS ${CURRENT_SUB_DIR} )
+		SET( bSUB_${L_role}_DIR_ADDED TRUE )
+	endif( NOT bSUB_${L_role}_DIR_ADDED )
+endmacro( set_sub_dir )
+
+

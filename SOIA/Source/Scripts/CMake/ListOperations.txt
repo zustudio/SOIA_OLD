@@ -1,0 +1,20 @@
+cmake_minimum_required(VERSION 3.1)
+
+
+function(PREFIXSUFFIX list_name prefix suffix)
+    # create empty list - necessary?
+    SET(${list_name}_TMP)
+
+	dmessage(STATUS "PS Input: ${${list_name}}")
+ 
+    # prefix and suffix elements
+    foreach(l ${${list_name}})
+      list(APPEND ${list_name}_TMP ${prefix}${l}${suffix} )
+    endforeach()
+	
+	dmessage(STATUS "PS Output: ${${list_name}_TMP}" )
+ 
+    # replace list by tmp list
+    SET(${list_name} "${${list_name}_TMP}" PARENT_SCOPE)
+    UNSET(${list_name}_TMP)
+endfunction(PREFIXSUFFIX)
