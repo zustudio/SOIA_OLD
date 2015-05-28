@@ -1,5 +1,5 @@
 
 #pragma once
 
-#include "BuildMacros.h"
+#include "LibImpExpMacros.generated.h"
 #include "CPPExtensions.h"

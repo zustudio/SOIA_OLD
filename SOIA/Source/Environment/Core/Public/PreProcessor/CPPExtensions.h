@@ -1,6 +1,7 @@
 // Here come typedefs and macros used for easier code writing
 
 #pragma once
+#include "Definitions.h"
 
 #include <vector>
 #include <string>
@@ -30,7 +31,10 @@ namespace Environment
 		return Find<ListType, TargetObjectType>(InList, InTargetObject, AccessorFunction, true);
 	}
 
+	class LIBIMPEXP NOP
+	{
 
+	};
 	
 }
 

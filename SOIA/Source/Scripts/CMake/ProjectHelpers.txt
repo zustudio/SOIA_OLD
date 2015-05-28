@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 2.8)
 
 #########################################################################
 #####################        Project Helpers        #####################
@@ -23,26 +23,33 @@ function( depends_on_projects L_folder_name L_project_names )
 	#set( DEPENDENCY_INCLUDE_H_FILES ${DEPENDENCY_INCLUDE_H_FILES} PARENT_SCOPE )
 endfunction( depends_on_projects L_folder_name L_project_names )
 
-function( auto_include_directories )
-	set(L_auto_include_dirs "${DEPENDENCY_INCLUDE_DIRS} ${PROJECT_Public_DIRS} ${PROJECT_Classes_DIRS}" )
-	dmessage(STATUS "auto-including following directories: ${L_auto_include_dirs}" )
-	include_directories( ${L_auto_include_dirs} )
-endfunction( auto_include_directories )
-
 macro( auto_add_executable )
 	add_executable( ${PROJECT_NAME} ${CPP_FILES} ${PUBLIC_H_FILES} ${PRIVATE_H_FILES} )
 	target_link_libraries( ${PROJECT_NAME} ${DEPENDENCY_PROJECT_NAMES} )
+	FILE(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/Generated")
+	FILE(WRITE "${CMAKE_CURRENT_BINARY_DIR}/Generated/LibImpExpMacros.generated.h" "\#define LIBIMPEXP")
+	SET_TARGET_PROPERTIES( ${PROJECT_NAME} PROPERTIES COMPILE_DEFINITIONS "def_BUILD_TARGETTYPE=EXE;def_BUILD_PROJECTNAME=${PROJECT_NAME}")
 endmacro( auto_add_executable )
 
 macro( auto_add_shared_library )
 	add_library(${PROJECT_NAME} SHARED ${CPP_FILES} ${PUBLIC_H_FILES} ${PRIVATE_H_FILES} )
 	target_link_libraries( ${PROJECT_NAME} ${DEPENDENCY_PROJECT_NAMES} )
+	FILE(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/Generated")
+	GENERATE_EXPORT_HEADER(${PROJECT_NAME} EXPORT_MACRO_NAME LIBIMPEXP EXPORT_FILE_NAME "Generated/LibImpExpMacros.generated.h")
+	SET_TARGET_PROPERTIES( ${PROJECT_NAME} PROPERTIES COMPILE_DEFINITIONS "def_BUILD_TARGETTYPE=SHARED;def_BUILD_PROJECTNAME=${PROJECT_NAME}")
 endmacro( auto_add_shared_library)
+
+function( auto_include_directories )
+	set(L_auto_include_dirs "${DEPENDENCY_INCLUDE_DIRS}" )
+	list(APPEND L_auto_include_dirs ${PROJECT_Public_DIRS} ${PROJECT_Classes_DIRS} ${CMAKE_CURRENT_BINARY_DIR}/Generated)
+	dmessage(STATUS "auto-including following directories: ${L_auto_include_dirs}" )
+	include_directories( ${L_auto_include_dirs} )
+endfunction( auto_include_directories )
 
 macro( auto_export_directories )
 	dmessage(STATUS "auto-exporting following directories: ${PROJECT_Public_DIRS}" )
-	set(${PROJECT_FOLDER}_${PROJECT_NAME}_INCLUDE_DIRS ${PROJECT_Public_DIRS}
-	CACHE INTERNAL "${PROJECT_FOLDER}/${PROJECT_NAME}: Include Directories" FORCE )
+	list(APPEND L_export_dirs ${PROJECT_Public_DIRS} ${DEPENDENCY_INCLUDE_DIRS} )
+	set(${PROJECT_FOLDER}_${PROJECT_NAME}_INCLUDE_DIRS ${L_export_dirs} CACHE INTERNAL "${PROJECT_FOLDER}/${PROJECT_NAME}: Include Directories" FORCE )
 endmacro( auto_export_directories )
 		
 
@@ -94,18 +101,24 @@ endmacro( add_PrivateClasses L_file_names )
 #------------------------------ Local helper macros ---------------------------------
 
 macro( add_Private L_file_name )
-	set_sub_dir("Private" "${CURRENT_SUB_NAME}" )
-	list( APPEND SUB_CPP_FILES "${CURRENT_SUB_DIR}${L_file_name}.cpp" )
+	foreach( L_file_name ${ARGV} )
+		set_sub_dir("Private" "${CURRENT_SUB_NAME}" )
+		list( APPEND SUB_CPP_FILES "${CURRENT_SUB_DIR}${L_file_name}.cpp" )
+	endforeach()
 endmacro( add_Private L_file_name )
 
-macro( add_Public L_file_name )
-	set_sub_dir("Public" "${CURRENT_SUB_NAME}" )
-	list( APPEND SUB_PUBLIC_H_FILES "${CURRENT_SUB_DIR}${L_file_name}.h" )
+macro( add_Public L_file_names )
+	foreach( L_file_name ${ARGV} )
+		set_sub_dir("Public" "${CURRENT_SUB_NAME}" )
+		list( APPEND SUB_PUBLIC_H_FILES "${CURRENT_SUB_DIR}${L_file_name}.h" )
+	endforeach()
 endmacro( add_Public L_file_name )
 
-macro( add_Classes L_file_name )
-	set_sub_dir("Classes" "${CURRENT_SUB_NAME}" )
-	list( APPEND SUB_PRIVATE_H_FILES "${CURRENT_SUB_DIR}${L_file_name}.h" )
+macro( add_Classes L_file_names )
+	foreach( L_file_name ${ARGV} )
+		set_sub_dir("Classes" "${CURRENT_SUB_NAME}" )
+		list( APPEND SUB_PRIVATE_H_FILES "${CURRENT_SUB_DIR}${L_file_name}.h" )
+	endforeach()
 endmacro( add_Classes L_file_name )
 
 

@@ -1,7 +1,7 @@
 
 #pragma once
 
-class __declspec(dllexport) Add
+class LIBIMPEXP Add
 {
 	public:
 	static double Execute(double a, double b);

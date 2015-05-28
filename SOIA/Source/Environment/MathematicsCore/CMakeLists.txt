@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.1)
 
 project(MathematicsCore)
+	depends_on_projects(Environment Core)
 
 in_sub(TEST)
 	add_PrivatePublic(add)
