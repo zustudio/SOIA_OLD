@@ -28,7 +28,7 @@ namespace Environment
 
 	};
 
-	class DLLIMPEXP EquationToken
+	class LIBIMPEXP EquationToken
 	{
 	public:
 		EquationToken(const std::string& InString);

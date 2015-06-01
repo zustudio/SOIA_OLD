@@ -1,11 +1,11 @@
 
-#include "Environment/PreProcessor/Classes/PrivateDefinitions.h"
+#include "Definitions.h"
 
-#include "Environment/Mathematics/Runtime/Public/MathContainer.h"
+#include "MathContainer.h"
 using namespace Environment;
 
-#include "Environment/Mathematics/Runtime/Public/Constant.h"
-#include "Environment/Mathematics/Runtime/Public/Variable.h"
+#include "Constant.h"
+#include "Variable.h"
 
 MathContainer::MathContainer() : RContainer(Range<int>(1000,10000000))
 {

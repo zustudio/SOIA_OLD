@@ -1,7 +1,7 @@
 
-#include "Environment/PreProcessor/Classes/PrivateDefinitions.h"
+#include "Definitions.h"
 
-#include "Environment/Mathematics/Runtime/Public/Operation.h"
+#include "Operation.h"
 using namespace Environment;
 
 Operation::Operation(const std::vector<Element_ID> &InOperands)

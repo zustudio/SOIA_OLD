@@ -9,7 +9,7 @@
 
 namespace Environment
 {
-	class DLLIMPEXP EquationString
+	class LIBIMPEXP EquationString
 	{
 		////////////////////////////////////////////////////////////////
 		// Enumerations

@@ -1,7 +1,7 @@
 
-#include "Environment/PreProcessor/Classes/PrivateDefinitions.h"
+#include "Definitions.h"
 
-#include "Environment/Mathematics/Runtime/Public/FunctionCache.h"
+#include "FunctionCache.h"
 using namespace Environment;
 
 #include <cmath>

@@ -6,7 +6,7 @@
 namespace Environment
 {
 	RCLASS(OP_If,Operation)
-	class DLLIMPEXP OP_If : public OP_If_Base
+	class LIBIMPEXP OP_If : public OP_If_Base
 	{
 	public:
 		OP_If(const std::vector<Element_ID> &InOperands = {});

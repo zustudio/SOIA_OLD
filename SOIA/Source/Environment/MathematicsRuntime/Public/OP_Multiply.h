@@ -6,7 +6,7 @@
 namespace Environment
 {
 	RCLASS(OP_Multiply,Operation);
-	class DLLIMPEXP OP_Multiply : public OP_Multiply_Base
+	class LIBIMPEXP OP_Multiply : public OP_Multiply_Base
 	{
 	public:
 		OP_Multiply(const std::vector<Element_ID> &InOperands = {});

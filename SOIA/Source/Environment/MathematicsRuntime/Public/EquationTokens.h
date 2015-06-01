@@ -10,7 +10,7 @@
 
 namespace Environment
 {
-	class DLLIMPEXP EquationTokens
+	class LIBIMPEXP EquationTokens
 	{
 	public:
 		EquationTokens(const std::vector<std::string> &InFormalParts);

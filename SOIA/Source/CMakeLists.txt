@@ -1,9 +1,16 @@
 cmake_minimum_required (VERSION 2.6)
 include(GenerateExportHeader)
-include(${CMAKE_SOURCE_DIR}/Scripts/CMake/IncludeScripts.txt)
+set (CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/Scripts/CMake/")
+include(IncludeScripts)
+
+project(SOIA)
 
 # set cflags
-set( CMAKE_CXX_FLAGS -std=c++11)
+if(CMAKE_COMPILER_IS_GNUCXX)
+	set( CMAKE_CXX_FLAGS -std=c++11)
+elseif(MSVC14)
+	set( CMAKE_CXX_FLAGS "/EHsc /constexpr:steps4000000" )
+endif()
 
 # set default directories
 set( CMAKE_INSTALL_PREFIX ../Install/)
@@ -24,5 +31,5 @@ endif ()
 
 add_subdirectory(Environment)
 add_subdirectory(Supervisor)
+add_subdirectory(Programs)
 #add_subdirectory(Apprentice)
-#add_subdirectory(Programs)

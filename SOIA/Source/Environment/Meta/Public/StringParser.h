@@ -30,7 +30,7 @@ namespace Environment
 			static constexpr const int Size(int Index = 0) { return *(RawPointer + Index) == 0 ? Index : Size(Index + 1); } \
 		};
 
-		CHAR_ARRAY_LITERAL(1,<#>);
+		//CHAR_ARRAY_LITERAL(Message,HALLO WIE GEHT ES DIR);
 		CHAR_ARRAY_LITERAL(2,<FOUND>);
 
 //Environment::CharArray_FUNCTION_<d

@@ -1,12 +1,12 @@
 
-#include "Environment/PreProcessor/Classes/PrivateDefinitions.h"
+#include "Definitions.h"
 
-#include "Environment/Mathematics/Functions/Public/GenericMathFunction.h"
+#include "GenericMathFunction.h"
 using namespace Environment;
 
-#include "Environment/Mathematics/Runtime/Public/MathContainer.h"
-#include "Environment/Mathematics/Runtime/Public/OP_CalculateFunction.h"
-#include "Environment/Mathematics/Runtime/Public/Constant.h"
+#include "MathContainer.h"
+#include "OP_CalculateFunction.h"
+#include "Constant.h"
 
 #include <iostream>
 

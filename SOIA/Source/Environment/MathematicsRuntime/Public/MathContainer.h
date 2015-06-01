@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "Environment/Reflection/Element/Public/RContainer.h"
+#include "RContainer.h"
 
 #include "Operation.h"
 #include "Value.h"
@@ -9,7 +9,7 @@
 
 namespace Environment
 {
-	class DLLIMPEXP MathContainer : public RContainer
+	class LIBIMPEXP MathContainer : public RContainer
 	{
 	public:
 		MathContainer();

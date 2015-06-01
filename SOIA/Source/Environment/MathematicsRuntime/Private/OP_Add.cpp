@@ -1,7 +1,7 @@
 
-#include "Environment/PreProcessor/Classes/PrivateDefinitions.h"
+#include "Definitions.h"
 
-#include "Environment/Mathematics/Runtime/Public/OP_Add.h"
+#include "OP_Add.h"
 using namespace Environment;
 
 #include <assert.h>

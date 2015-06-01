@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "Environment/Reflection/Element/Public/RContainer.h"
+#include "RContainer.h"
 
 #include "FunctionCacheItem.h"
 #include <vector>
@@ -9,7 +9,7 @@
 namespace Environment
 {
 	RCLASS(FunctionCache,RContainer)
-	class DLLIMPEXP FunctionCache : public FunctionCache_Base
+	class LIBIMPEXP FunctionCache : public FunctionCache_Base
 	{
 	public:
 		FunctionCache();

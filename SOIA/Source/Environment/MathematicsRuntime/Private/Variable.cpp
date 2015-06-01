@@ -1,7 +1,7 @@
 
-#include "Environment/PreProcessor/Classes/PrivateDefinitions.h"
+#include "Definitions.h"
 
-#include "Environment/Mathematics/Runtime/Public/Variable.h"
+#include "Variable.h"
 using namespace Environment;
 
 Variable::Variable(int InCustomID, double InContent)

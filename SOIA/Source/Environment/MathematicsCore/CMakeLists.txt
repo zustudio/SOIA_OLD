@@ -3,10 +3,23 @@ cmake_minimum_required(VERSION 3.1)
 project(MathematicsCore)
 	depends_on_projects(Environment Core)
 
-in_sub(TEST)
-	add_PrivatePublic(add)
+
+in_sub(Functions)
+	add_PrivatePublic(
+		ExponentialFunction
+		LinearFunction
+		ReversedExponentialFunction)
+	add_Public(
+		IFunction)
 in_sub(Random)
-	add_PrivatePublic(Random)
+	add_PrivatePublic(
+		Random)
+in_sub(DataStructures)
+	add_Public(
+		Matrix2D
+		Range
+		Vector2D
+		VectorND)
 end_sub()
 
 auto_include_directories()

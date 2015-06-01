@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "Environment/Reflection/Element/Public/RElement.h"
+#include "RElement.h"
 
 #include <vector>
 
@@ -9,7 +9,7 @@
 namespace Environment
 {
 	RABSTRACTCLASS(Value,RElement);
-	class DLLIMPEXP Value: public Value_Base
+	class LIBIMPEXP Value: public Value_Base
 	{
 	public:
 		virtual double Calculate(const std::vector<Value*> &DefinedValues) = 0;

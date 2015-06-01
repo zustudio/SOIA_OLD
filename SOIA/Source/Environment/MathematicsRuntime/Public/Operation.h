@@ -12,7 +12,7 @@
 namespace Environment
 {
 	RABSTRACTCLASS(Operation,Value)
-	class DLLIMPEXP Operation : public Operation_Base
+	class LIBIMPEXP Operation : public Operation_Base
 	{
 	public:
 		Operation(const std::vector<Element_ID> &InOperands = {});

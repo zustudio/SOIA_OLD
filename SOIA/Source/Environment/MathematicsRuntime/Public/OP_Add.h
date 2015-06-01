@@ -6,7 +6,7 @@
 namespace Environment
 {
 	RCLASS(OP_Add,Operation);
-	class DLLIMPEXP OP_Add : public OP_Add_Base
+	class LIBIMPEXP OP_Add : public OP_Add_Base
 	{
 	public:
 		OP_Add(const std::vector<Element_ID> &InOperands = {});

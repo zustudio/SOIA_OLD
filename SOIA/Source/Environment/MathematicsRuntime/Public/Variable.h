@@ -5,7 +5,7 @@
 
 namespace Environment
 {
-	class DLLIMPEXP Variable : public Value
+	class LIBIMPEXP Variable : public Value
 	{
 	public:
 		Variable(int InVariableNumber, double InContent);

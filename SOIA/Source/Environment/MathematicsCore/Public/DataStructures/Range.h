@@ -1,13 +1,12 @@
 
 #pragma once
 
-#include "Environment/Reflection/Atomic/Public/Atom.h"
 #include <assert.h>
 
 namespace Environment
 {
 	template<typename T>
-	class Range : public Atom
+	class Range
 	{
 	public:
 		//////////////////////////////////////////////////////////////////
@@ -26,22 +25,6 @@ namespace Environment
 
 			Lower = InLower;
 			Upper = InUpper;
-		}
-
-		/// Serializing
-		static std::string ToString(const Range<T>& InObject)
-		{
-			return std::to_string(InObject.Lower) + "," + std::to_string(InObject.Upper);
-		}
-		static Range<T> FromString(const std::string& InString)
-		{
-			auto result = MatchPattern(InString, "(-?[0-9]+),(-?[0-9]+)");
-			if (result.size() == 3)
-			{
-				return Range<T>(std::atoi(result[1].c_str()), std::atoi(result[2].c_str()));
-			}
-			else
-				return Range<T>();
 		}
 
 		//----- usage -----

@@ -1,9 +1,10 @@
 cmake_minimum_required(VERSION 3.1)
 
 project(SOIAvisor)
-	depends_on_projects(Environment MathematicsCore)
+	depends_on_projects(Environment MathematicsCore Meta)
 
 add_Private(main)
+add_PrivatePublic(Testing)
 end_sub()
 
 auto_include_directories()

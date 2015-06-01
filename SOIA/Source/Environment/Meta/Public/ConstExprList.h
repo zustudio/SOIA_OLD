@@ -125,14 +125,21 @@ namespace Environment
 			template<int Offset>
 			struct GetOperation
 			{
+				
 				static constexpr const Type Do(int InIndex)
 				{
 					return Get(InIndex + Offset);
 				}
+
+				/*template<int InIndex>
+				struct Do
+				{
+					static constexpr const Type Value = Get<InIndex>();
+				};*/
 			};
 
 
-			template<typename InQuest, ValueType InWildCard = '*', ValueType InContWildCard = '#'>
+			template<typename InQuest/*, ValueType InWildCard = '*', ValueType InContWildCard = '#'*/>
 			struct MatchPattern
 			{
 				////////////////////////////////////////////////////
@@ -168,12 +175,20 @@ namespace Environment
 
 				struct NthWordToList
 				{
-					static const constexpr int Do(int WordNum)
+					/*static const constexpr int Do(int WordNum)
 					{
 						return WordNum % 2 == 0 ?
 							FindNthWord(WordNum / 2).Begin :
 							FindNthWord((WordNum - 1) / 2).Size;
-					}
+					}*/
+
+					template<int WordNum>
+					struct Do
+					{
+						static const constexpr int Value = (WordNum % 2 == 0) ?
+							FindNthWord(WordNum / 2).Begin :
+							FindNthWord((WordNum - 1) / 2).Size;
+					};
 				};
 
 				static const constexpr PatternPosition FindNthWord(int WordNum, int Index = 0)
@@ -205,8 +220,8 @@ namespace Environment
 				}
 
 
-				static constexpr const ValueType WildCardItem = InWildCard;
-				static constexpr const ValueType ContWildCardItem = InContWildCard;
+				/*static constexpr const ValueType WildCardItem = InWildCard;
+				static constexpr const ValueType ContWildCardItem = InContWildCard;*/
 
 				//returns (index of last element + 1) if matched, -1 otherwise
 				static const constexpr int FullMatch(int ListIndex, int QuestIndex)
@@ -214,6 +229,12 @@ namespace Environment
 #define QuestItem Quest::Get(QuestIndex)
 
 					return QuestIndex == Quest::Size ?
+						ListIndex :
+						ItemsEqual(ListIndex, QuestIndex) ?
+							FullMatch(ListIndex + 1, QuestIndex + 1) :
+							- 1;
+
+					/*return QuestIndex == Quest::Size ?
 						ListIndex :
 						QuestItem == WildCardItem?
 							FullMatch(ListIndex + 1, QuestIndex + 1) :
@@ -223,7 +244,7 @@ namespace Environment
 									FullMatch(ListIndex + 1, QuestIndex)) :
 								ItemsEqual(ListIndex, QuestIndex) ?
 									FullMatch(ListIndex + 1, QuestIndex + 1) :
-									-1;
+									-1;*/
 
 #undef QuestItem
 				}
@@ -232,7 +253,7 @@ namespace Environment
 				{
 					return Index == List::Size ?
 						Index :
-						ItemsEqual(Index, 0) || Quest::Get(0)==WildCardItem || Quest::Get(0)==ContWildCardItem?
+						ItemsEqual(Index, 0)?
 							Index :
 							FindStart(Index + 1);
 				}
@@ -381,22 +402,22 @@ namespace Environment
 		template<typename MatchResult>
 		using MatchResultToList = typename UsingEveryIndex<MatchResult::Count() * 2, Action<ListFromIndices, ActionArgs<int, typename MatchResult::NthWordToList> > >::Value;
 
-		template<typename List, typename Pattern, typename List::ValueType WildCard = '*', typename List::ValueType ContWildCard = '#'>
+		template<typename List, typename Pattern>
 		struct Match_Helper
 		{
-			using MatchResult = typename List::template MatchPattern<Pattern, WildCard, ContWildCard>;
+			using MatchResult = typename List::template MatchPattern<Pattern>;
 			using PatternMatches = MatchResultToList<MatchResult>;
 		};
 
-		template<typename List, typename Pattern, typename Replacement, typename List::ValueType WildCard, typename List::ValueType ContWildCard>
+		template<typename List, typename Pattern, typename Replacement>
 		struct Replace_Helper
 		{
-			using Match_Helper = Match_Helper<List, Pattern, WildCard, ContWildCard>;
+			using Match_Helper = Match_Helper<List, Pattern>;
 			using Result = typename UsingEveryIndex<List::Size - Match_Helper::MatchResult::CommulatedPatternSize() + Match_Helper::PatternMatches::Size / 2 * (Replacement::Size), Action<ReplaceAction, ActionArgs<List, Replacement, typename Match_Helper::PatternMatches> > >::Result;
 		};
 
-		template<typename List, typename Pattern, typename Replacement, typename List::ValueType WildCard = '*', typename List::ValueType ContWildCard = '#'>
-		using Replace = typename Replace_Helper<List, Pattern, Replacement, WildCard, ContWildCard>::Result;
+		template<typename List, typename Pattern, typename Replacement>
+		using Replace = typename Replace_Helper<List, Pattern, Replacement>::Result;
 
 		template<typename List, int Start, int Size>
 		using Sublist = typename UsingEveryIndex<Size, Action<ListFromIndices, ActionArgs<typename List::ValueType, typename List::template GetOperation<Start> > > >::Value;

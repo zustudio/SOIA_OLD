@@ -9,7 +9,7 @@
 namespace Environment
 {
 	RCLASS(Constant,Value);
-	class DLLIMPEXP Constant : public Constant_Base
+	class LIBIMPEXP Constant : public Constant_Base
 	{
 	public:
 

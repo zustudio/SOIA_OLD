@@ -1,5 +1,5 @@
 
-#include "PrivateDefinitions.h"
+#include "Definitions.h"
 
 #include "LinearFunction.h"
 

@@ -1,7 +1,7 @@
 
-#include "Environment/PreProcessor/Classes/PrivateDefinitions.h"
+#include "Definitions.h"
 
-#include "Environment/Mathematics/Runtime/Public/EquationTokens.h"
+#include "EquationTokens.h"
 using namespace Environment;
 
 #include <iostream>

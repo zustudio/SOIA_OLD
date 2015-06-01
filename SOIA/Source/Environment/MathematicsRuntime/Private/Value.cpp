@@ -1,5 +1,5 @@
 
-#include "Environment/PreProcessor/Classes/PrivateDefinitions.h"
+#include "Definitions.h"
 
-#include "Environment/Mathematics/Runtime/Public/Value.h"
+#include "Value.h"
 using namespace Environment;

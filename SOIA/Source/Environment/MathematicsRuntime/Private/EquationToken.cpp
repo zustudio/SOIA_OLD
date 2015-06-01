@@ -1,18 +1,18 @@
 
-#include "Environment/PreProcessor/Classes/PrivateDefinitions.h"
+#include "Definitions.h"
 
-#include "Environment/Mathematics/Runtime/Public/EquationToken.h"
+#include "EquationToken.h"
 using namespace Environment;
 
-#include "Environment/Mathematics/Runtime/Public/OP_Add.h"
-#include "Environment/Mathematics/Runtime/Public/OP_Substract.h"
-#include "Environment/Mathematics/Runtime/Public/OP_Multiply.h"
-#include "Environment/Mathematics/Runtime/Public/OP_Divide.h"
-#include "Environment/Mathematics/Runtime/Public/OP_Select.h"
-#include "Environment/Mathematics/Runtime/Public/OP_GreaterThan.h"
-#include "Environment/Mathematics/Runtime/Public/OP_CalculateFunction.h"
-#include "Environment/Mathematics/Runtime/Public/Constant.h"
-#include "Environment/Mathematics/Runtime/Public/Variable.h"
+#include "OP_Add.h"
+#include "OP_Substract.h"
+#include "OP_Multiply.h"
+#include "OP_Divide.h"
+#include "OP_Select.h"
+#include "OP_GreaterThan.h"
+#include "OP_CalculateFunction.h"
+#include "Constant.h"
+#include "Variable.h"
 
 #include <iostream>
 

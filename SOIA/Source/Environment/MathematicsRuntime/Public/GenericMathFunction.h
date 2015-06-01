@@ -1,13 +1,13 @@
 
 #pragma once
 
-#include "Environment/Reflection/Element/Public/Element_ID.h"
+#include "Element_ID.h"
 
 namespace Environment
 {
 	class MathContainer;
 	class Constant;
-	class DLLIMPEXP GenericMathFunction
+	class LIBIMPEXP GenericMathFunction
 	{
 	public:
 		GenericMathFunction(MathContainer* InRuntime, const Element_ID &InFunction);

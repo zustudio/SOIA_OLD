@@ -7,7 +7,7 @@ namespace Environment
 {
 	class FunctionCache;
 	RCLASS(OP_CalculateFunction,Operation)
-	class DLLIMPEXP OP_CalculateFunction : public OP_CalculateFunction_Base
+	class LIBIMPEXP OP_CalculateFunction : public OP_CalculateFunction_Base
 	{
 	public:
 		OP_CalculateFunction(FunctionCache* InFuncCache = nullptr, const std::vector<Element_ID> &InOperands = {});
