@@ -2,7 +2,8 @@
 #pragma once
 
 //#include "StringParser.h"
-using namespace Environment::Meta;
+//using namespace Environment::Meta;
+#include "ConstExprByteParser.h"
 #include <string>
 #include <vector>
 #include <typeinfo>
@@ -14,23 +15,28 @@ namespace Environment
 	{
 	public:
 
-		CHAR_ARRAY_LITERAL(BracketPattern,_FUNCTION_<#>::RawPointer);
-		CHAR_ARRAY_LITERAL(ClassPattern,class )
+		template<typename T>
+		struct FromType_Helper
+		{
+			using typeT = CharArray_FUNCTION_<T>;
+			static constexpr const auto input = literal_str(typeT::Pointer, typeT::Size());
+			static constexpr const auto pattern = literal_str("class ");
+			static constexpr const auto replacement = literal_str("");
+			static constexpr const auto replacer = CharReplacer<void*, nullptr>(pattern, replacement, input);
+
+			
+			TypeID Create()
+			{
+				const auto carr = SetReplacer<decltype(replacer), replacer>::ArrayFromReplacer::get();
+				const std::string text = carr.data();
+				return TypeID(text);
+			}
+		};
 
 		explicit TypeID(const std::string& InString);
 		template<typename T> static TypeID FromType()
 		{
-			using BracketPattern = CharArrayToList< CharArray_BracketPattern>;
-			using ClassPattern = ConstExprList<char, 'c', 'l', 'a', 's', 's', ' '>;
-
-			using RawList = CharArrayToList<CharArray_FUNCTION_<T> >;
-			using Type1 = Replace<RawList, ClassPattern, ConstExprList<char> >;
-
-			using Type2 = Replace<Type1, ConstExprList<char, ' ', '*'>, ConstExprList<char, '*'>>;
-			//using Type3 = Replace<RawList, ConstExprList<char, ' ', ','>, ConstExprList<char, ','> >;
-
-			return TypeID(ListToArrayObject<Type2>().Value);
-			//return TypeID(ParseName(ParseGCCName((typeid(T).name()))));
+			return FromType_Helper<T>().Create();
 		}
 
 		template<typename T>

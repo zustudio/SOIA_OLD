@@ -15,6 +15,7 @@ add_PrivatePublic(
 	OP_GreaterThan
 	OP_if
 	OP_Select
+	OP_CalculateFunction
 	EquationString
 	EquationToken
 	EquationTokens

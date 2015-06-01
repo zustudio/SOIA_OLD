@@ -73,13 +73,6 @@ namespace Environment
 
 
 
-	template<class T> struct id { typedef T type; };
-	template<int...> struct int_pack {};
-	template<int N, int...Tail> struct make_int_range
-		: make_int_range<N - 1, N - 1, Tail...> {};
-	template<int...Tail> struct make_int_range<0, Tail...>
-		: id<int_pack<Tail...>>{};
-
 	class literal_str
 	{
 	public:
@@ -125,19 +118,19 @@ namespace Environment
 		static constexpr const int Size(int Index = 0) { return *(Pointer + Index) == 0 ? Index - TYPE_TO_END : Size(Index + 1); }
 	};
 
-	template<class Indices = typename make_int_range<10>::type>
-	struct lookup_table;
-	template<int...Indices>
-	struct lookup_table<int_pack<Indices...>>
-	{
-		static const int size = sizeof...(Indices);
-		typedef std::array<char, size> array_type;
-		static const array_type& get(const char* InText)
-		{
-			static const array_type arr = { { (*(InText + Indices))... } };
-			return arr;
-		}
-	};
+	//template<class Indices = typename make_int_range<10>::type>
+	//struct lookup_table;
+	//template<int...Indices>
+	//struct lookup_table<int_pack<Indices...>>
+	//{
+	//	static const int size = sizeof...(Indices);
+	//	typedef std::array<char, size> array_type;
+	//	static const array_type& get(const char* InText)
+	//	{
+	//		static const array_type arr = { { (*(InText + Indices))... } };
+	//		return arr;
+	//	}
+	//};
 
 	////////////////////////////////////////////////////////////////////////////////
 	// Byte funcs
@@ -157,17 +150,12 @@ namespace Environment
 	//////////////////////////////////////////////////////////////////////////////////
 	// Replacement
 	
-	struct CharReplacer_Base
+	constexpr const int NotZero(int Value)
 	{
-		constexpr const char GetNthChar(int Index)
-		{
-			return '#';
-		}
-		constexpr const int GetSize()
-		{
-			return 0;
-		}
-	};
+		return Value < 1 ?
+			1 :
+			Value;
+	}
 
 	template<typename NextReplacerType, NextReplacerType NextReplacer>
 	struct CharReplacer
@@ -178,7 +166,7 @@ namespace Environment
 			Pattern(InPattern),
 			Replacement(InReplacement),
 			Input(InText),
-			CheckPointDelta(GetSize_Input() / 4),
+			CheckPointDelta(NotZero(GetSize_Input() / 4)),
 			Check1(FindNthItem_Worker(CheckPointDelta, -1, -1, -1)),
 			Check2(FindNthItemSet_FromCheckPoint(CheckPointDelta * 2, Check1)),
 			Check3(FindNthItemSet_FromCheckPoint(CheckPointDelta * 3, Check2)),
@@ -372,6 +360,13 @@ namespace Environment
 
 
 
+	/*template<class T> struct id { typedef T type; };
+	template<int... SomeI> struct int_pack {};
+	template<int N, int...Tail> struct make_int_range
+		: make_int_range<N - 1, N - 1, Tail...> {};
+	template<int...Tail> struct make_int_range<0, Tail...>
+		: id<int_pack<Tail...>>{};
+
 	template<typename CharReplacerType, CharReplacerType& replacer>
 	struct SetReplacer
 	{
@@ -390,5 +385,47 @@ namespace Environment
 				return arr;
 			}
 		};
+	};*/
+
+
+	template<typename InAction, int InCurrentIndex, int... InTailIndices>
+	struct UsingEveryIndex_Helper : UsingEveryIndex_Helper<InAction, InCurrentIndex - 1, InCurrentIndex - 1, InTailIndices...>
+	{};
+
+	template<typename InAction, int... InTailIndices>
+	struct UsingEveryIndex_Helper<InAction, 0, InTailIndices...>
+	{
+		using Result = typename InAction::template Inner<InTailIndices...>;
 	};
+
+	template<int MaxIndex, typename InAction>
+	using UsingEveryIndex = typename UsingEveryIndex_Helper<InAction, MaxIndex>::Result;
+
+
+	template<typename CharReplacerType, CharReplacerType& replacer>
+	struct SetReplacer
+	{
+		static constexpr const int ReplacerSize = replacer.Size;
+
+		
+
+		struct FromReplacerHelper
+		{
+			template<int...Indices>
+			struct Inner
+			{
+				static const int size = sizeof...(Indices);
+				typedef std::array<char, size + 1> array_type;
+				static const array_type& get()
+				{
+
+					static const array_type arr = { { (ConstExprChar<replacer.GetNthChar(Indices)>::Value)..., 0 } };
+					return arr;
+				}
+			};
+		};
+
+		using ArrayFromReplacer = typename UsingEveryIndex<ReplacerSize, FromReplacerHelper>;
+	};
+
 }

@@ -1,11 +1,11 @@
 
-#include "Environment/PreProcessor/Classes/PrivateDefinitions.h"
+#include "Definitions.h"
 
-#include "Environment/Mathematics/Runtime/Public/OP_CalculateFunction.h"
+#include "OP_CalculateFunction.h"
 using namespace Environment;
 
-#include "Environment/Mathematics/Runtime/Public/Variable.h"
-#include "Environment/Mathematics/Runtime/Public/FunctionCache.h"
+#include "Variable.h"
+#include "FunctionCache.h"
 
 #include <assert.h>
 #include <iostream>

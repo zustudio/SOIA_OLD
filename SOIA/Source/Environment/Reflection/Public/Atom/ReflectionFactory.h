@@ -43,6 +43,17 @@ namespace Environment
 		{
 			return true;
 		}*/
+		template <typename T, typename _ = void>
+		struct is_vector
+		{
+			static const bool value = false;
+		};
+
+		template<class T>
+		struct is_vector<std::vector<T> >
+		{
+			static bool const value = true;
+		};
 
 		template<typename Type>
 		auto Add(std::vector<AtomReflection*>& Reflections, int) -> typename std::enable_if<std::is_base_of<Atom, Type>::value, bool>::type
@@ -61,7 +72,7 @@ namespace Environment
 		}
 
 		template<typename Type>
-		auto Add(std::vector<AtomReflection*>& Reflections, int) -> typename decltype( (std::declval(Type::const_pointer), false) )
+		auto Add(std::vector<AtomReflection*>& Reflections, int) -> typename std::enable_if<is_vector<Type>::value, bool>::type
 		{
 			if (!IsAdded(TypeID::FromType<Type>(), Reflections))
 			{
