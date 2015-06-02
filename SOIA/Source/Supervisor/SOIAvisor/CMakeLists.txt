@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.1)
 
 project(SOIAvisor)
-	depends_on_projects(Environment Reflection MathematicsCore Meta)
+	depends_on_projects(Environment Reflection MathematicsCore CompileTime)
 
 add_Private(main)
 add_PrivatePublic(Testing)

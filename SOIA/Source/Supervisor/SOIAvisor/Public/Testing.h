@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "ConstExprByteParser.h"
+#include "CharReplacer.h"
 //#include "StringParser.h"
 #include <iostream>
 #include <string>

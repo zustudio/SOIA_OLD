@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.1)
 
 project(Reflection)
-	depends_on_projects(Environment Core Meta MathematicsCore)
+	depends_on_projects(Environment Core CompileTime MathematicsCore)
 
 in_sub(Element)
 	add_PrivatePublic(

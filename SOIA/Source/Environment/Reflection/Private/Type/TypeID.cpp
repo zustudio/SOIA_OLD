@@ -6,10 +6,14 @@ using namespace Environment;
 
 #include <regex>
 
+TypeID::TypeID(const char* InString)
+	:
+	TypeString(InString)
+{}
 TypeID::TypeID(const std::string& InString)
-{
-	TypeString = InString.c_str();
-}
+	:
+	TypeString(InString)
+{}
 bool TypeID::operator ==(const TypeID& InOther) const
 {
 	return TypeString == InOther.TypeString;

@@ -3,7 +3,7 @@
 
 //#include "StringParser.h"
 //using namespace Environment::Meta;
-#include "ConstExprByteParser.h"
+#include "CharReplacer.h"
 #include <string>
 #include <vector>
 #include <typeinfo>
@@ -18,21 +18,23 @@ namespace Environment
 		template<typename T>
 		struct FromType_Helper
 		{
-			using typeT = CharArray_FUNCTION_<T>;
-			static constexpr const auto input = literal_str(typeT::Pointer, typeT::Size());
-			static constexpr const auto pattern = literal_str("class ");
-			static constexpr const auto replacement = literal_str("");
+			static constexpr const auto input = TypeCharArrayLiteral<T>::Create();
+			static constexpr const auto pattern = CharArrayLiteral("class ");
+			static constexpr const auto replacement = CharArrayLiteral("");
 			static constexpr const auto replacer = CharReplacer<void*, nullptr>(pattern, replacement, input);
 
+			static constexpr const auto input2 = CharArrayLiteral("");
+			static constexpr const auto pattern2 = CharArrayLiteral(" ");
+			static constexpr const auto replacement2 = CharArrayLiteral("");
+			static constexpr const auto replacer2 = CharReplacer<const CharReplacer<void*, nullptr>&, replacer>(pattern2, replacement2, input2);
 			
 			TypeID Create()
 			{
-				const auto carr = SetReplacer<decltype(replacer), replacer>::ArrayFromReplacer::get();
-				const std::string text = carr.data();
-				return TypeID(text);
+				return TypeID(ReplacerToArray<decltype(replacer2), replacer2>::Get().data());
 			}
 		};
 
+		explicit TypeID(const char* InString);
 		explicit TypeID(const std::string& InString);
 		template<typename T> static TypeID FromType()
 		{
