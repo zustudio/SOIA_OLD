@@ -1,9 +1,13 @@
+/////////////////////////////////////////////////////////////////////////////////////////////
+///	Project:	SOIA
+///	Author:		Maxim Urschumzew
+/// Year:		2015
+///
 
 #pragma once
 
 #include "ConstExprChar.h"
 #include "CharArrayLiteral.h"
-#include "TypeCharArrayLiteral.h"
 #include "IndexPack.h"
 #include "Vector4Int.h"
 #include "IntExpressions.h"
@@ -67,19 +71,19 @@ namespace Environment
 
 		constexpr const int FindNthItem_Worker(int ItemNum, int ItemIterator, int i_CurrentListItem, int i_CurrentReplacementItem/*, int i_i_PatternStart*/)
 		{
-			return ItemIterator == ItemNum ?			// have we arived at our target item?
-				(i_CurrentReplacementItem < 0 ?		// are we outside of a replacement?
+			return ItemIterator == ItemNum ?						// have we arived at our target item?
+				(i_CurrentReplacementItem < 0 ?						// are we outside of a replacement?
 					Encode4Bytes(GetNthChar_Input(i_CurrentListItem), ItemNum, i_CurrentListItem, i_CurrentReplacementItem) :					// yes: than get current main-list item
 					Encode4Bytes(GetNthChar_Replacement(i_CurrentReplacementItem), ItemNum, i_CurrentListItem, i_CurrentReplacementItem)) :		// no: pick item from replacement list
 
 
-				i_CurrentReplacementItem < 0 ?				// we did not arive at target item: are we inside a replacement?
-				(GetMatchLength(i_CurrentListItem + 1) < 0 ?		// no, is the next item a replacement?
-					FindNthItem_Worker(ItemNum, ItemIterator + 1, i_CurrentListItem + 1, -1) :	// no: increase simple list
+				i_CurrentReplacementItem < 0 ?						// we did not arive at target item: are we inside a replacement?
+				(GetMatchLength(i_CurrentListItem + 1) < 0 ?											// no, is the next item a replacement?
+					FindNthItem_Worker(ItemNum, ItemIterator + 1, i_CurrentListItem + 1, -1) :				// no: increase simple list
 					(Replacement.text_size > 0 ?
-						FindNthItem_Worker(ItemNum, ItemIterator + 1, i_CurrentListItem + 1, 0) :		// yes: set replacement list
+						FindNthItem_Worker(ItemNum, ItemIterator + 1, i_CurrentListItem + 1, 0) :			// yes: set replacement list
 						FindNthItem_Worker(ItemNum, ItemIterator, i_CurrentListItem + 1, 0))) :
-				(i_CurrentReplacementItem + 1 < Replacement.text_size ?	// yes, is the next item our current replacement as well?
+				(i_CurrentReplacementItem + 1 < Replacement.text_size ?									// yes, is the next item our current replacement as well?
 					FindNthItem_Worker(ItemNum, ItemIterator + 1, i_CurrentListItem, i_CurrentReplacementItem + 1) :	//yes: increase replacement list
 					FindNthItem_Worker(ItemNum, ItemIterator + 1, i_CurrentListItem + GetMatchLength(i_CurrentListItem), (i_CurrentListItem + GetMatchLength(i_CurrentListItem)) - GetNextMatchStart(i_CurrentListItem + GetMatchLength(i_CurrentListItem)))); //no: calculate values for next round
 
@@ -90,7 +94,11 @@ namespace Environment
 		constexpr const int GetNextMatchStart(int InInputIndex)
 		{
 			return InInputIndex >= GetSize_Input()?
-				GetSize_Input() :
+				GetSize_Input() + 1:		// +1 needed here, for last line of FindNthItem_Worker (without it 
+											// the expression '(i_CurrentListItem + GetMatchLength(i_CurrentListItem))
+											//   - GetNextMatchStart(i_CurrentListItem + GetMatchLength(i_CurrentListItem))'
+											// if applied to Input[Size] returns zero, which implies that the next item (which does not exist really)
+											// is a new replacement and in turn leads to an infinite compile time loop.
 				GetMatchLength(InInputIndex, 0) < 0 ?
 					GetNextMatchStart(InInputIndex + 1) :
 					InInputIndex;
@@ -109,15 +117,14 @@ namespace Environment
 
 		constexpr const char GetNthChar_Input(int InNum)
 		{
-			return GetNthChar_Input<NextReplacerType>(InNum);
+			return GetNthChar_Input(InNum, NextReplacer);
 		}
-		template<typename...>
-		constexpr const char GetNthChar_Input(int InNum)
+		template<typename ReplacerT>
+		constexpr const char GetNthChar_Input(int InNum, ReplacerT NOP)
 		{
 			return NextReplacer.GetNthChar(InNum);
 		}
-		template<>
-		constexpr const char GetNthChar_Input<void*>(int InNum)
+		constexpr const char GetNthChar_Input(int InNum, void* NOP)
 		{
 			return InNum >= Input.text_size?
 				0 :
@@ -140,15 +147,14 @@ namespace Environment
 
 		constexpr const int GetSize_Input()
 		{
-			return GetSize_Input<NextReplacerType>();
+			return GetSize_Input(NextReplacer);
 		}
-		template<typename...>
-		constexpr const int GetSize_Input()
+		template<typename ReplacerT>
+		constexpr const int GetSize_Input(ReplacerT NOP)
 		{
 			return NextReplacer.Size;
 		}
-		template<>
-		constexpr const int GetSize_Input<void*>()
+		constexpr const int GetSize_Input(void* NOP)
 		{
 			return Input.text_size;
 		}
@@ -196,7 +202,7 @@ namespace Environment
 			};
 		};
 
-		using Result = typename UsingEveryIndex<ReplacerSize, IndexPackReceiver>;
+		using Result = UsingEveryIndex<ReplacerSize, IndexPackReceiver>;
 	};
 
 	template<typename CharReplacerType, CharReplacerType& replacer>

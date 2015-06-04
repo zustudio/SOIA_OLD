@@ -7,9 +7,9 @@ project(SOIA)
 
 # set cflags
 if(CMAKE_COMPILER_IS_GNUCXX)
-	set( CMAKE_CXX_FLAGS -std=c++11)
+	set( CMAKE_CXX_FLAGS -std=c++14)
 elseif(MSVC14)
-	set( CMAKE_CXX_FLAGS "/EHsc /constexpr:steps4000000" )
+	set( CMAKE_CXX_FLAGS "/EHsc /constexpr:steps4000000 /constexpr:depth10000" )
 endif()
 
 # set default directories

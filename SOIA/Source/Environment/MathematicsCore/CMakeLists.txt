@@ -23,5 +23,5 @@ in_sub(DataStructures)
 end_sub()
 
 auto_include_directories()
-auto_add_shared_library()
 auto_export_directories()
+auto_add_shared_library()

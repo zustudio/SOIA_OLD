@@ -3,10 +3,10 @@
 
 //#include "StringParser.h"
 //using namespace Environment::Meta;
-#include "CharReplacer.h"
 #include <string>
 #include <vector>
-#include <typeinfo>
+
+#include "TypeName.h"
 
 namespace Environment
 {
@@ -14,31 +14,11 @@ namespace Environment
 	class LIBIMPEXP TypeID
 	{
 	public:
-
-		template<typename T>
-		struct FromType_Helper
-		{
-			static constexpr const auto input = TypeCharArrayLiteral<T>::Create();
-			static constexpr const auto pattern = CharArrayLiteral("class ");
-			static constexpr const auto replacement = CharArrayLiteral("");
-			static constexpr const auto replacer = CharReplacer<void*, nullptr>(pattern, replacement, input);
-
-			static constexpr const auto input2 = CharArrayLiteral("");
-			static constexpr const auto pattern2 = CharArrayLiteral(" ");
-			static constexpr const auto replacement2 = CharArrayLiteral("");
-			static constexpr const auto replacer2 = CharReplacer<const CharReplacer<void*, nullptr>&, replacer>(pattern2, replacement2, input2);
-			
-			TypeID Create()
-			{
-				return TypeID(ReplacerToArray<decltype(replacer2), replacer2>::Get().data());
-			}
-		};
-
 		explicit TypeID(const char* InString);
 		explicit TypeID(const std::string& InString);
 		template<typename T> static TypeID FromType()
 		{
-			return FromType_Helper<T>().Create();
+			return TypeID(TYPENAME(T));
 		}
 
 		template<typename T>
