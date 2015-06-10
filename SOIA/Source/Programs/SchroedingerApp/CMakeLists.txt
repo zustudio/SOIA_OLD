@@ -1,7 +1,10 @@
 cmake_minimum_required(VERSION 3.1)
 
 project(SchroedingerApp)
-	depends_on_projects(Environment Reflection MathematicsRuntime)
+	depends_on_projects(Environment Reflection File MathematicsRuntime Graphics Log)
 
+add_PrivatePublic(Main)
+end_sub()
 
-# MathematicsRuntime
+auto_include_directories()
+auto_add_executable()

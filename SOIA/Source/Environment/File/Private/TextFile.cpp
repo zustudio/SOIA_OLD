@@ -1,7 +1,7 @@
 
-#include "Environment/PreProcessor/Classes/PrivateDefinitions.h"
+#include "Definitions.h"
 
-#include "Environment/File/Public/TextFile.h"
+#include "TextFile.h"
 using namespace Environment;
 
 TextFile::TextFile(const std::string &InName, bool bWriteFile)

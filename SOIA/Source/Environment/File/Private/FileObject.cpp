@@ -1,10 +1,10 @@
 
-#include "Environment/PreProcessor/Classes/PrivateDefinitions.h"
+#include "Definitions.h"
 
-#include "Environment/File/Public/FileObject.h"
+#include "FileObject.h"
 using namespace Environment;
 
-#include "Environment/Reflection/Element/Public/RPointer.h"
+#include "RPointer.h"
 
 FileObject::FileObject(RClass* InClass, const std::vector<VoidPointer>& InAttributes)
 {

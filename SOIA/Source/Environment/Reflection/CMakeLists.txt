@@ -46,24 +46,24 @@ auto_include_directories()
 auto_export_directories()
 auto_add_shared_library()
 
-dmessage(STATUS "/////////////// EXTRA ///////////////")
-dmessage(STATUS "// Adding new executable")
-set(THIRD_PARTY_DIRECTORY "${CMAKE_SOURCE_DIR}/../ThirdParty/")
-set(LIB_INCLUDE_DIRECTORY "${THIRD_PARTY_DIRECTORY}UnitTestPP/include/")
-set(LIB_IMPORT_DIR "${THIRD_PARTY_DIRECTORY}UnitTestPP/lib/libUnitTest++.a")
-dmessage(STATUS "Lib is in: ${LIB_IMPORT_DIR}")
-include_directories(${LIB_INCLUDE_DIRECTORY})
+#dmessage(STATUS "/////////////// EXTRA ///////////////")
+#dmessage(STATUS "// Adding new executable")
+#set(THIRD_PARTY_DIRECTORY "${CMAKE_SOURCE_DIR}/../ThirdParty/")
+#set(LIB_INCLUDE_DIRECTORY "${THIRD_PARTY_DIRECTORY}UnitTestPP/include/")
+#set(LIB_IMPORT_DIR "${THIRD_PARTY_DIRECTORY}UnitTestPP/lib/libUnitTest++.a")
+#dmessage(STATUS "Lib is in: ${LIB_IMPORT_DIR}")
+#include_directories(${LIB_INCLUDE_DIRECTORY})
 
 
-add_library(UnitTest++ STATIC IMPORTED)
-set_target_properties(UnitTest++ PROPERTIES IMPORTED_LOCATION "${LIB_IMPORT_DIR}")
+#add_library(UnitTest++ STATIC IMPORTED)
+#set_target_properties(UnitTest++ PROPERTIES IMPORTED_LOCATION "${LIB_IMPORT_DIR}")
 
-add_executable(TestReflection ${CMAKE_CURRENT_SOURCE_DIR}/Tests/Main.cpp)
+#add_executable(TestReflection ${CMAKE_CURRENT_SOURCE_DIR}/Tests/Main.cpp)
 
-target_link_libraries(TestReflection UnitTest++)
+#target_link_libraries(TestReflection UnitTest++)
 
-add_custom_command(TARGET TestReflection
-	POST_BUILD COMMAND TestReflection
-	COMMENT "Running tests...")
+#add_custom_command(TARGET TestReflection
+#	POST_BUILD COMMAND TestReflection
+#	COMMENT "Running tests...")
 
 

@@ -1,10 +1,10 @@
 
-#include "Environment/PreProcessor/Classes/PrivateDefinitions.h"
+#include "Definitions.h"
 
-#include "Environment/File/Public/FileObjectFactory.h"
+#include "FileObjectFactory.h"
 using namespace Environment;
 
-#include "Environment/Reflection/Element/Public/RElement.h"
+#include "RElement.h"
 
 FileObject FileObjectFactory::FromTags(const std::vector<PropertyTag>& InTags)
 {

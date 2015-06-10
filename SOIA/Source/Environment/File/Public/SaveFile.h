@@ -5,12 +5,12 @@
 
 #include "PropertyTagFactory.h"
 #include "FileObjectFactory.h"
-#include "Environment/Reflection/Atomic/Public/AtomReflectionProvider.h"
-#include "Environment/Reflection/Element/Public/RContainer.h"
+#include "AtomReflectionProvider.h"
+#include "RContainer.h"
 
 namespace Environment
 {
-	class DLLIMPEXP SaveFile : public File
+	class LIBIMPEXP SaveFile : public File
 	{
 	public:
 		SaveFile(const std::string &InName, bool bWriteFile);

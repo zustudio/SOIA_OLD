@@ -23,7 +23,7 @@ EquationToken* EquationTokens::GenerateOperandDependency()
 	{
 		if ((*iter)->Type == TokenType::WhiteSpace)
 		{
-			UnsortedTokens.erase(iter);
+			iter = UnsortedTokens.erase(iter);
 		}
 	}
 
@@ -56,7 +56,7 @@ EquationToken* EquationTokens::GenerateOperandDependency()
 			&& (nextToken->Type == TokenType::Number))
 		{
 			nextToken->String = minusToken->String + nextToken->String;
-			UnsortedTokens.erase(iter + 1);
+			iter = UnsortedTokens.erase(iter + 1);
 		}
 	}
 
@@ -71,14 +71,16 @@ EquationToken* EquationTokens::GenerateOperandDependency()
 			if (nextNextToken->Type == TokenType::Number)
 			{
 				token->String += nextToken->String + nextNextToken->String;
-				UnsortedTokens.erase(iter + 1, iter + 3);
+				iter = UnsortedTokens.erase(iter + 1, iter + 3);
 			}
 			else if (nextNextToken->String == "-" && iter < UnsortedTokens.end() - 3 && (*(iter+3))->Type == TokenType::Number)
 			{
 				token->String += nextToken->String + nextNextToken->String + (*(iter + 3))->String;
-				UnsortedTokens.erase(iter + 1, iter + 4);
+				iter = UnsortedTokens.erase(iter + 1, iter + 4);
 			}
 		}
+		if (iter == UnsortedTokens.end())
+			break;
 	}
 
 	// combine variable/function names and assignments

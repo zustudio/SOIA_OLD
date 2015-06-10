@@ -1,9 +1,10 @@
 
-#include "Environment/PreProcessor/Classes/PrivateDefinitions.h"
+#include "Definitions.h"
 
-#include "Environment/File/Public/File.h"
-
+#include "File.h"
 using namespace Environment;
+
+#include "LogProvider.h"
 
 /////////////////////////////////////////////////////////////////
 // init
@@ -19,7 +20,8 @@ File::File(const std::string &InName, bool bWriteFile)
 		OutStream->open(Name);
 		if (OutStream->is_open())
 		{
-			std::cout << "Opened file " << Name << std::endl;
+			LOGSTATUS("Opened file " + Name);
+			//std::cout << "Opened file " << Name << std::endl;
 		}
 	}
 	else
@@ -28,7 +30,8 @@ File::File(const std::string &InName, bool bWriteFile)
 		InStream->open(Name);
 		if (InStream->is_open())
 		{
-			std::cout << "Opened file " << Name << std::endl;
+			LOGSTATUS("Opened file " + Name);
+			//std::cout << "Opened file " << Name << std::endl;
 		}
 	}
 }
@@ -43,9 +46,9 @@ File::~File()
 // write to file
 void File::Write()
 {
-	std::cout << "Preparing writing to file..." << std::endl;
+	LOGSTATUS("Preparing writing to file...");
 	PreWrite();
-	std::cout << "Writing to file..." << std::endl;
+	LOGSTATUS("Writing to file...");
 	for (VoidPointer p_Obj : Content)
 	{
 		WriteObject(p_Obj);
@@ -54,7 +57,7 @@ void File::Write()
 
 void File::Read()
 {
-	std::cout << "Reading from file..." << std::endl;
+	LOGSTATUS("Reading from file...");
 	VoidPointer* readObject;
 	do
 	{
@@ -66,6 +69,6 @@ void File::Read()
 		}
 
 	} while (readObject);
-	std::cout << "Processing file..." << std::endl;
+	LOGSTATUS("Processing file...");
 	PostRead();
 }

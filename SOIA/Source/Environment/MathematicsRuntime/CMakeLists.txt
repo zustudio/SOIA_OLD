@@ -21,8 +21,8 @@ add_PrivatePublic(
 	EquationTokens
 	FunctionCache
 	FunctionCacheItem
-	GenericMathFunction
-	MathContainer)
+	MathContainer
+	D1D1GenericFunction)
 end_sub()
 
 auto_include_directories()

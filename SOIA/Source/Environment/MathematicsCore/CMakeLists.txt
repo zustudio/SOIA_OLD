@@ -10,7 +10,7 @@ in_sub(Functions)
 		LinearFunction
 		ReversedExponentialFunction)
 	add_Public(
-		IFunction)
+		D1D1FunctionInterface)
 in_sub(Random)
 	add_PrivatePublic(
 		Random)

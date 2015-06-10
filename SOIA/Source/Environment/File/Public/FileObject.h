@@ -2,14 +2,14 @@
 #pragma once
 
 #include "PropertyTag.h"
-#include "Environment/Reflection/Element/Public/RElement.h"
-#include "Environment/Reflection/Element/Public/RContainer.h"
+#include "RElement.h"
+#include "RContainer.h"
 
 #include <vector>
 
 namespace Environment
 {
-	class DLLIMPEXP FileObject
+	class LIBIMPEXP FileObject
 	{
 	public:
 		////////////////////////////////////////////////////////////////

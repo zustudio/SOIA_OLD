@@ -19,7 +19,7 @@ namespace Environment
 		Stopping
 	};
 
-	class DLLIMPEXP Thread
+	class LIBIMPEXP Thread
 	{
 	public:
 		///////////////////////////////////////////

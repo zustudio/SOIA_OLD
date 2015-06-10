@@ -1,10 +1,10 @@
 
-#include "Environment/PreProcessor/Classes/PrivateDefinitions.h"
+#include "Definitions.h"
 
-#include "Environment/File/Public/SaveFile.h"
+#include "SaveFile.h"
 using namespace Environment;
 
-#include "Environment/File/Public/FileObject.h"
+#include "FileObject.h"
 
 SaveFile::SaveFile(const std::string &InName, bool bWriteFile)
 	: 

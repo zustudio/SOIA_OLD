@@ -5,14 +5,14 @@
  *      Author: mxu
  */
 
-#include "Supervisor/Core/Classes/PrivateDefinitions.h"
+#include "PrivateDefinitions.h"
 
 // include class
-#include "Supervisor/Console/Public/ConsoleService.h"
+#include "ConsoleService.h"
 using namespace Supervisor;
 
 // include SOIA
-#include "Supervisor/Logica/Public/SchroedingerApplication.h"
+#include "SchroedingerApplication.h"
 
 // include std
 #include <iostream>

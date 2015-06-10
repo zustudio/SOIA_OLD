@@ -2,10 +2,10 @@
 #pragma once
 
 // include super class
-#include "Environment/Reflection/Element/Public/RApplication.h"
+#include "RApplication.h"
 
 // include SOIA
-#include "Environment/Reflection/Element/Public/RFunction.h"
+#include "RFunction.h"
 using namespace Environment;
 
 // include std
@@ -29,7 +29,7 @@ namespace std
 
 namespace Supervisor
 {
-	class DLLIMPEXP ConsoleService : public RApplication
+	class LIBIMPEXP ConsoleService : public RApplication
 	{
 	public:
 		///////////////////////////////////////////////////////////////

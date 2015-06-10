@@ -5,16 +5,16 @@
  *      Author: mxu
  */
 
-#include "Environment/PreProcessor/Classes/PrivateDefinitions.h"
+#include "Definitions.h"
 
-#if defined _WIN32 && defined __clang__
-#define __uncaught_exception std::uncaught_exception
-#endif
+//#if defined _WIN32 && defined __clang__
+//#define __uncaught_exception std::uncaught_exception
+//#endif
 #include <thread>
 #include <mutex>
 #include <condition_variable>
 
-#include "Environment/Thread/Public/Thread.h"
+#include "Thread.h"
 using namespace Environment;
 
 

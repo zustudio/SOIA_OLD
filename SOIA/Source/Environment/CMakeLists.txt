@@ -1,9 +1,15 @@
 cmake_minimum_required(VERSION 3.1)
 
-project_folder(Environment)
+solution_folder(Environment)
 
 add_subdirectory(Core)
+add_subdirectory(Thread)
+add_subdirectory(Text)
+add_subdirectory(Time)
+add_subdirectory(Log)
 add_subdirectory(MathematicsCore)
+add_subdirectory(Graphics)
 add_subdirectory(CompileTime)
 add_subdirectory(Reflection)
 add_subdirectory(MathematicsRuntime)
+add_subdirectory(File)

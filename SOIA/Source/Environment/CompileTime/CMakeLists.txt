@@ -20,6 +20,8 @@ end_sub()
 
 auto_include_directories()
 auto_export_directories()
+auto_add_headeronly_library()
 
-add_custom_target(${PROJECT_NAME} SOURCES ${PUBLIC_H_FILES})
+
+#add_custom_target(${PROJECT_NAME} SOURCES ${PUBLIC_H_FILES})
 #set_target_properties(${PROJECT_NAME} PROPERTIES SOURCES )

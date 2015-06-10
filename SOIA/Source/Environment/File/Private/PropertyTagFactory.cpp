@@ -1,7 +1,7 @@
 
-#include "Environment/PreProcessor/Classes/PrivateDefinitions.h"
+#include "Definitions.h"
 
-#include "Environment/File/Public/PropertyTagFactory.h"
+#include "PropertyTagFactory.h"
 using namespace Environment;
 
 #include <sstream>

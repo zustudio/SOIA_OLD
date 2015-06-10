@@ -3,11 +3,11 @@
 
 #include "PropertyTag.h"
 #include "FileObject.h"
-#include "Environment/Reflection/Atomic/Public/AtomReflectionProvider.h"
+#include "AtomReflectionProvider.h"
 
 namespace Environment
 {
-	class DLLIMPEXP PropertyTagFactory
+	class LIBIMPEXP PropertyTagFactory
 	{
 	public:
 		PropertyTagFactory();

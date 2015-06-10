@@ -5,7 +5,7 @@
 
 namespace Environment
 {
-	class DLLIMPEXP TextFile : public File
+	class LIBIMPEXP TextFile : public File
 	{
 	public:
 		TextFile(const std::string &InName, bool bWriteFile);

@@ -6,11 +6,11 @@
 #include <iostream>
 #include <fstream>
 
-#include "Environment/Reflection/Type/Public/VoidPointer.h"
+#include "VoidPointer.h"
 
 namespace Environment
 {
-	class DLLIMPEXP File
+	class LIBIMPEXP File
 	{
 	public:
 		//////////////////////////////////////////////////////////

@@ -1,7 +1,7 @@
 
-#include "Environment/PreProcessor/Classes/PrivateDefinitions.h"
+#include "Definitions.h"
 
-#include "Environment/File/Public/PropertyTag.h"
+#include "PropertyTag.h"
 using namespace Environment;
 
 PropertyTag::PropertyTag(VoidPointer* InObject, const std::string& InTypeString, const std::string& InContentString)
