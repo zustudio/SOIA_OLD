@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.1)
 
 project(ToolsCore)
-	depends_on_projects(Environment Core Thread Reflection)
+	depends_on_projects(Environment Core Text Thread Reflection)
 
 add_PrivatePublic(
-	Application
-	Service)
+	RTool
+	RToolContainer)
 end_sub()
 
 auto_include_directories()

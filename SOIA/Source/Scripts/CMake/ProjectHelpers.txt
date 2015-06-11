@@ -149,24 +149,28 @@ endmacro( handle_sub_arg L_args )
 
 macro( add_Role L_role_dir L_role_fileending L_role_filelist )
 	if( NOT "${bSUB_DISABLED}" STREQUAL "TRUE" )
+		set_sub_dir("${L_role_dir}" "${CURRENT_SUB_NAME}" )
 		foreach( L_file_name ${ARGN} )
-			set_sub_dir("${L_role_dir}" "${CURRENT_SUB_NAME}" )
-			list(APPEND ${L_role_filelist} "${CURRENT_SUB_DIR}${L_file_name}.${L_role_fileending}" )
+			set( L_file "${CURRENT_SUB_DIR}${L_file_name}.${L_role_fileending}" )
+			list(APPEND ${L_role_filelist}  "${L_file}")
+			if( NOT EXISTS "${L_file}" )
+				file(WRITE "${L_file}" "")
+			endif()
 		endforeach()
 	endif()
 endmacro( add_Role L_role_dir L_role_fileending L_role_filelist )
 
 macro( add_Private L_file_names )
-	add_Role( Private cpp SUB_CPP_FILES ${L_file_names} )
-endmacro( add_Private L_file_name )
+	add_Role( Private cpp SUB_CPP_FILES ${ARGV} )
+endmacro( add_Private L_file_names )
 
 macro( add_Public L_file_names )
-	add_Role( Public h SUB_PUBLIC_H_FILES ${L_file_names} )
-endmacro( add_Public L_file_name )
+	add_Role( Public h SUB_PUBLIC_H_FILES ${ARGV} )
+endmacro( add_Public L_file_names )
 
 macro( add_Classes L_file_names )
-	add_Role( Classes h SUB_PRIVATE_H_FILES ${L_file_names} )
-endmacro( add_Classes L_file_name )
+	add_Role( Classes h SUB_PRIVATE_H_FILES ${ARGV} )
+endmacro( add_Classes L_file_names )
 
 
 #    Creates source group. The name contains the role (Private | Public | Classes), 
@@ -193,8 +197,7 @@ macro( set_sub_dir L_role L_sub_name)
 		SET( CURRENT_SUB_DIR "${PROJECT_SOURCE_DIR}/${L_role}/" )
 	else()
 		dmessage(STATUS "sub found: ${L_sub_name}")
-		SET(CURRENT_SUB_DIR "${L_sub_name}")
-		PREFIXSUFFIX(CURRENT_SUB_DIR "${PROJECT_SOURCE_DIR}/${L_role}/" "/")
+		SET(CURRENT_SUB_DIR "${PROJECT_SOURCE_DIR}/${L_role}/${L_sub_name}/")
 	endif()
 	dmessage(STATUS "CURRENT_SUB_DIR is: ${CURRENT_SUB_DIR}" )
 	
@@ -202,6 +205,10 @@ macro( set_sub_dir L_role L_sub_name)
 		list( APPEND PROJECT_${L_role}_DIRS ${CURRENT_SUB_DIR} )
 		SET( bSUB_${L_role}_DIR_ADDED TRUE )
 	endif( NOT bSUB_${L_role}_DIR_ADDED )
+
+	if( NOT EXISTS "${CURRENT_SUB_DIR}" )
+		file( MAKE_DIRECTORY "${CURRENT_SUB_DIR}" )
+	endif()
 endmacro( set_sub_dir )
 
 

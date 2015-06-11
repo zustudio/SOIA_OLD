@@ -12,11 +12,9 @@ in_sub(Element)
 		RClass
 		RContainer
 		RElement
-		RFunction
 		RPointer)
 	add_Public(
-		RClassTemplate
-		RFunctionInterface)
+		RClassTemplate)
 in_sub(Atom)
 	add_PrivatePublic(
 		Atom
@@ -30,6 +28,10 @@ in_sub(Atom)
 		SimpleAtomReflection
 		PointerReflectionTemplate
 		VectorAtomReflectionTemplate)
+in_sub(Function)
+	add_Public(
+		FunctionInterface
+		Function)
 in_sub(Type)
 	add_PrivatePublic(
 		TypeID

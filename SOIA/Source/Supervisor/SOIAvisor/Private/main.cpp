@@ -1,13 +1,16 @@
 
 #include "Definitions.h"
 
+#include "StdDialogue.h"
 #include "Testing.h"
 #include "LinearFunction.h"
-#include <iostream>
+#include "Window.h"
 using namespace Environment;
 
-#include "Window.h"
+#include "RTool.h"
+using namespace Supervisor;
 
+#include <iostream>
 
 constexpr static const char TEST[] = "ABD";
 
@@ -16,6 +19,13 @@ constexpr static const char TEST[] = "ABD";
 
 int main()
 {
+	RTool tool = RTool(new StdDialogue());
+
+	tool.CreateReflection();
+
+	tool.cmd_Help_Interface->Execute({});
+
+
 	X a;
 	a.Go<1>();
 
