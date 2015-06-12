@@ -14,7 +14,8 @@ in_sub(Element)
 		RElement
 		RPointer)
 	add_Public(
-		RClassTemplate)
+		RClassTemplate
+		ReflectionMacros)
 in_sub(Atom)
 	add_PrivatePublic(
 		Atom

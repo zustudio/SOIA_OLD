@@ -10,7 +10,7 @@ ConsoleWorker::ConsoleWorker(DialogueInterface* InDialogue)
 	: BaseType(InDialogue),
 	bExit(false)
 {
-
+	ReflectAttributes();
 }
 
 void ConsoleWorker::Main()
@@ -36,14 +36,16 @@ void ConsoleWorker::Main()
 		}
 
 		RTool* target = nullptr;
+		std::string functionName;
 		std::vector<VoidPointer> targetArgs;
 		if (args[0][0] == '@')
 		{
-			std::string targetName = args[0].substr(1, args[0].size() - 2);
+			functionName = "cmd_" + args[1];
+			std::string targetName = args[0].substr(1, args[0].size() - 1);
 			target = Container->GetElement<RTool>(targetName);
 			if (target)
 			{
-				auto p_attribute = target->GetAttribute(args[1]);
+				auto p_attribute = target->GetAttribute(functionName);
 				if (!p_attribute.IsNullPointer() && p_attribute.CastTo<FunctionInterface*>())
 				{
 					targetArgs = std::vector<VoidPointer>(args.begin() + 2, args.end());
@@ -60,12 +62,13 @@ void ConsoleWorker::Main()
 		}
 		else
 		{
-			std::vector<RTool*> targets = Container->GetElementsWithAttribute<RTool, FunctionInterface*>(args[0]);
+			functionName = "cmd_" + args[0];
+			std::vector<RTool*> targets = Container->GetElementsWithAttribute<RTool, FunctionInterface*>(functionName);
 			if (targets.size() == 0)
-				Dialogue->WriteLine("Could not find tool with function :" + args[0]);
+				Dialogue->WriteLine("Could not find tool with function :" + functionName);
 			else if (targets.size() > 1)
 			{
-				Dialogue->WriteLine("Function name is ambigious. Try to specify your target via: @target " + args[0] + '\n'
+				Dialogue->WriteLine("Function name is ambigious. Try to specify your target via: @target " + functionName + '\n'
 					+ "Following target are available: ");
 				for (auto target : targets)
 				{
@@ -81,11 +84,11 @@ void ConsoleWorker::Main()
 
 		if (target == nullptr)
 		{
-			Dialogue->WriteLine("Could not find tool: " + args[0]);
+			Dialogue->WriteLine("Could not find tool");
 		}
 		else
 		{
-			target->GetAttribute(args[0]).CastAndDereference<FunctionInterface*>()->Execute(targetArgs);
+			target->GetAttribute(functionName).CastAndDereference<FunctionInterface*>()->Execute(targetArgs);
 		}
 
 		/*bool result;
@@ -104,4 +107,16 @@ void ConsoleWorker::Main()
 		if (input == "exit")
 			bExit = true;
 	}
+}
+
+bool ConsoleWorker::cmd_exit()
+{
+	bExit = true;
+	return true;
+}
+
+bool ConsoleWorker::cmd_echo(const std::string& InText)
+{
+	Dialogue->WriteLine(InText);
+	return true;
 }

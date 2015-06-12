@@ -40,14 +40,14 @@ int main()
 		LOGSTATUS("Attribute is: " + string);
 	}
 	
-	Console->GetAttribute("cmd_Help_Interface").CastAndDereference<FunctionInterface*>()->Execute({});
+	//Console->GetAttribute("cmd_Help").CastAndDereference<FunctionInterface*>()->Execute({});
 
 	using T = std::vector<std::string>;
 
 
 	Console->CreateReflection();
 
-	Console->cmd_Help_Interface->Execute({});
+	Console->GetAttribute("cmd_Help").CastAndDereference<FunctionInterface*>()->Execute({});
 
 
 	X a;

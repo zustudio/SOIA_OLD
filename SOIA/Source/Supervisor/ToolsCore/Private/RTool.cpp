@@ -9,7 +9,7 @@ RTool::RTool(DialogueInterface* InDialogue)
 	: BaseType(),
 	Dialogue(InDialogue)
 {
-	RegisterAllObjects();
+	ReflectAttributes();
 }
 
 bool RTool::cmd_Help()

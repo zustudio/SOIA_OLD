@@ -8,6 +8,12 @@
 
 namespace Environment
 {
+	template <class TargetObjectType, typename... ArgumentTypes>
+	decltype(auto) CreateFunction(TargetObjectType* InTargetObject, bool(TargetObjectType::* TargetFunctionPointer)(ArgumentTypes...))
+	{
+		return new Function<TargetObjectType, ArgumentTypes...>(InTargetObject, TargetFunctionPointer);
+	}
+
 	template <class TargetObjectType, typename ...ArgumentTypes>
 	class LIBIMPEXP Function : public FunctionInterface
 	{

@@ -13,35 +13,10 @@
 #include "RAbstractClass.h"
 #include "ObjectMirrorTemplate.h"
 #include "ReflectionProviders.h"
+#include "ReflectionMacros.h"
 
 
-#define RBASECLASS_DEFINITION(ClassType,SuperClassType,CONTENT) \
-	class ClassType; \
-	class ClassType##_Base: public SuperClassType \
-	{ \
-		public: \
-		using Super = SuperClassType; \
-		using Type = ClassType; \
-		using BaseType = ClassType##_Base; \
-		CONTENT \
-	};
 
-#define RBASECLASS_CONSTRUCTOR(ClassType,SuperClassType,ConstructorOperations) \
-	template<typename... CtorArgTypes> ClassType##_Base(CtorArgTypes... CtorArgs) : SuperClassType(CtorArgs...) {ConstructorOperations}
-
-#define RBASECLASS_BODY(ClassType,SuperClassType) \
-	virtual RClass* GetClass() override {return GetClassByType(TypeID::FromType<ClassType##_Base>());}
-
-#define RBASECLASS(ClassType,SuperClassType,ConstOperations) \
-	RBASECLASS_DEFINITION( \
-		ClassType, \
-		SuperClassType, \
-		RBASECLASS_CONSTRUCTOR(ClassType,SuperClassType,ConstOperations) \
-		RBASECLASS_BODY(ClassType,SuperClassType))
-
-#define RCLASS(ClassType,SuperClassType) RBASECLASS(ClassType,SuperClassType,RegisterClass<ClassType>();)
-
-#define RABSTRACTCLASS(ClassType,SuperClassType) RBASECLASS(ClassType,SuperClassType,RegisterAbstractClass<ClassType>();)
 
 //
 //#define RCLASS(ClassType,SuperClassType) \
