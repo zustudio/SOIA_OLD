@@ -27,6 +27,7 @@ Element_ID& RContainer::Register(RElement* InObject, const std::string &InName)
 	freeID.Name = name;
 
 	InObject->SetID(freeID);
+	InObject->Container = this;
 
 	Objects.push_back(InObject);
 

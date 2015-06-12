@@ -19,11 +19,12 @@ void RegisterObject<__COUNTER__>() \
 
 namespace Supervisor
 {
-	RCLASS(RTool,Environment::RElement)
+
+	RABSTRACTCLASS(RTool,Environment::RElement)
 	class LIBIMPEXP RTool : public RTool_Base
 	{
 	public:
-		RTool(DialogueInterface* InDialogue = nullptr);
+		RTool(DialogueInterface* InDialogue);
 
 		template<int n>
 		void RegisterObject()
@@ -41,22 +42,22 @@ namespace Supervisor
 		ATTRIBUTE(SomeInt);
 		
 
-		std::vector<float> FloatingOn;
 		ATTRIBUTE(FloatingOn);
+		std::vector<float> FloatingOn;
 
 		
 
 
-		bool cmd_Help();
-		Environment::FunctionInterface* cmd_Help_Interface = new Function<RTool>(this, &RTool::cmd_Help);
 		ATTRIBUTE(cmd_Help_Interface);
+		Environment::FunctionInterface* cmd_Help_Interface = new Function<RTool>(this, &RTool::cmd_Help);
+		bool cmd_Help();
 
 		void RegisterAllObjects()
 		{
 			RegisterObject<__COUNTER__ - 2>();
 		}
 
-	private:
+	protected:
 		DialogueInterface* Dialogue;
 	};
 }

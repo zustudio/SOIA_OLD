@@ -5,7 +5,7 @@ project(ToolsCore)
 
 add_PrivatePublic(
 	RTool
-	RToolContainer)
+	RWorkerTool)
 end_sub()
 
 auto_include_directories()

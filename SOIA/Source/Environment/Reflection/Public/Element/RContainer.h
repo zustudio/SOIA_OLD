@@ -72,6 +72,27 @@ namespace Environment
 			return result;
 		}
 
+		/// Returns elements with named attribute
+		template<class RCastClass, typename AttributeType>
+		std::vector<RCastClass*> GetElementsWithAttribute(const std::string InAttributeName)
+		{
+			std::vector<RCastClass*> allElements = GetAllElements<RCastClass>();
+			std::vector<RCastClass*> result;
+			for (auto element : allElements)
+			{
+				auto p_foundAttribute = element->GetAttribute(InAttributeName);
+				if (!p_foundAttribute.IsNullPointer())
+				{
+					auto foundAttribute = p_foundAttribute.CastTo<AttributeType>();
+					if (foundAttribute)
+					{
+						result.push_back(element);
+					}
+				}
+			}
+			return result;
+		}
+
 	private:
 		//----- Private ID Management -----
 		/// Tries to create a new ID in AllowedIDs range.

@@ -7,6 +7,7 @@ using namespace Environment;
 
 RElement::RElement()
 {
+	Container = nullptr;
 	RegisterClass<RElement::BaseType>();
 	Reflect(ID);
 }

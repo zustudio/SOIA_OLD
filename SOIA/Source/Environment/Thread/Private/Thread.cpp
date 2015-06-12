@@ -27,6 +27,7 @@ Thread::Thread()
 
 	InternalMutex = new std::mutex();
 	InternalConditionVariable = new std::condition_variable();
+	InternalThread = nullptr;
 }
 Thread::~Thread()
 {
@@ -43,6 +44,10 @@ void Thread::Start()
 void Thread::Stop()
 {
 	
+}
+void Thread::Join()
+{
+	InternalThread->join();
 }
 
 //////////////////////////////////////////////////////////////////////////

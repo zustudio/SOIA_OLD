@@ -30,6 +30,7 @@ namespace Environment
 		//--- to be called from thread creator ---
 		void Start();
 		void Stop();
+		void Join();
 
 	protected:
 		///////////////////////////////////////////

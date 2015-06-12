@@ -10,6 +10,8 @@
 using namespace Environment;
 
 #include "RTool.h"
+#include "RContainer.h"
+#include "ConsoleWorker.h"
 using namespace Supervisor;
 
 #include <iostream>
@@ -21,25 +23,31 @@ constexpr static const char TEST[] = "ABD";
 
 int main()
 {
-	RTool tool = RTool(new StdDialogue());
+	RContainer container = RContainer(Range<int>(0,1000));
+	RWorkerTool* Console = new ConsoleWorker(new StdDialogue());
+	container.Register(Console, "console");
+
+	Console->Start();
+	Console->Join();
 
 	SaveFile sf = SaveFile("RTool", true);
-	sf.Content.push_back((RElement*)&tool);
+	sf.Content.push_back((RElement*)Console);
 	sf.Write();
 
-	auto strings = tool.GetAttributeNames();
+	auto strings = Console->GetAttributeNames();
 	for (auto string : strings)
 	{
 		LOGSTATUS("Attribute is: " + string);
 	}
 	
-	tool.GetAttribute("cmd_Help_Interface").CastAndDereference<FunctionInterface*>()->Execute({});
+	Console->GetAttribute("cmd_Help_Interface").CastAndDereference<FunctionInterface*>()->Execute({});
 
 	using T = std::vector<std::string>;
 
-	tool.CreateReflection();
 
-	tool.cmd_Help_Interface->Execute({});
+	Console->CreateReflection();
+
+	Console->cmd_Help_Interface->Execute({});
 
 
 	X a;

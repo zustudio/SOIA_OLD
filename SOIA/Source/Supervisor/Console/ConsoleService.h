@@ -5,7 +5,7 @@
 #include "RApplication.h"
 
 // include SOIA
-#include "RFunction.h"
+
 using namespace Environment;
 
 // include std
@@ -29,7 +29,7 @@ namespace std
 
 namespace Supervisor
 {
-	class LIBIMPEXP ConsoleService : public RApplication
+	class LIBIMPEXP ConsoleThread : public RApplication
 	{
 	public:
 		///////////////////////////////////////////////////////////////

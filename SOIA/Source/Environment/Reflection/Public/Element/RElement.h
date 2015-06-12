@@ -62,8 +62,10 @@ class LIBIMPEXP ClassType : public ClassType##_Base
 
 namespace Environment
 {
+	class RContainer;
 	class LIBIMPEXP RElement
 	{
+		friend RContainer;
 	private:
 		using Super = RElement;
 		using BaseType = RElement;
@@ -120,6 +122,7 @@ namespace Environment
 		void rec_Reflect()	{}
 
 	protected:
+		RContainer* Container;
 		Element_ID ID;
 		std::vector<ObjectMirror*> AttributeMirrors;
 	};

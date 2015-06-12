@@ -3,6 +3,8 @@
 using namespace Supervisor;
 using namespace Environment;
 
+#include "RContainer.h"
+
 RTool::RTool(DialogueInterface* InDialogue)
 	: BaseType(),
 	Dialogue(InDialogue)

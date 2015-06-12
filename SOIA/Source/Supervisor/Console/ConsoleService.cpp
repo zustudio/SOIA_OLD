@@ -5,10 +5,10 @@
  *      Author: mxu
  */
 
-#include "PrivateDefinitions.h"
+#include "Definitions.h"
 
 // include class
-#include "ConsoleTool.h"
+#include "ConsoleService.h"
 using namespace Supervisor;
 
 // include SOIA
