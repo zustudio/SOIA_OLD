@@ -9,10 +9,10 @@ namespace Environment
 	class ObjectMirrorTemplate : public ObjectMirror
 	{
 	public:
-		ObjectMirrorTemplate(Type& InObjectToMirror)
-		{
-			ObjectToMirror = &InObjectToMirror;
-		}
+		constexpr ObjectMirrorTemplate(Type& InObjectToMirror, const std::string& InName)
+			: ObjectMirror(InName),
+			ObjectToMirror(&InObjectToMirror)
+		{}
 		virtual VoidPointer Get() override
 		{
 			VoidPointer pointer = VoidPointer(*ObjectToMirror);

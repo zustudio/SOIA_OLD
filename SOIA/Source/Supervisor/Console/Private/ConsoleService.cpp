@@ -1,5 +1,5 @@
 /*
- * ConsoleService.cpp
+ * ConsoleTool.cpp
  *
  *  Created on: Nov 22, 2014
  *      Author: mxu
@@ -8,7 +8,7 @@
 #include "PrivateDefinitions.h"
 
 // include class
-#include "ConsoleService.h"
+#include "ConsoleTool.h"
 using namespace Supervisor;
 
 // include SOIA
@@ -22,24 +22,24 @@ using namespace Supervisor;
 //////////////////////////////////////////////////////////////////////////////
 // init
 
-ConsoleService::ConsoleService(RContainer &InServices) : RApplication(InServices)
+ConsoleTool::ConsoleTool(RContainer &InTools) : RApplication(InTools)
 {
 	// initialize variables
 	bLoop = true;
 	LastTalker = "";
 
-	auto exit = Register(new RFunction<ConsoleService>(this, &ConsoleService::cmd_exit), "exit");
-	Register(new RFunction<ConsoleService, const std::string&>(this, &ConsoleService::cmd_create), "create");
+	auto exit = Register(new RFunction<ConsoleTool>(this, &ConsoleTool::cmd_exit), "exit");
+	Register(new RFunction<ConsoleTool, const std::string&>(this, &ConsoleTool::cmd_create), "create");
 
-	// initialize services
-	//- communication service
+	// initialize Tools
+	//- communication Tool
 	//Srvc_Com = Up;
 	//Srvc_Com->Register(cGetHandle());
-	////- meaning stream service
-	//Srvc_MeanStrm = new MeaningService(Up);
+	////- meaning stream Tool
+	//Srvc_MeanStrm = new MeaningTool(Up);
 	//Srvc_Com->Register(Srvc_MeanStrm->cGetHandle());
-	////- debug service
-	//Srvc_Debug = new DebugService(Up);
+	////- debug Tool
+	//Srvc_Debug = new DebugTool(Up);
 	//Srvc_Com->Register(Srvc_Debug->cGetHandle());
 
 	//// initialize system via Com
@@ -53,7 +53,7 @@ ConsoleService::ConsoleService(RContainer &InServices) : RApplication(InServices
 
 }
 
-void ConsoleService::Main()
+void ConsoleTool::Main()
 {
 	std::string input = std::string("");
 	std::string currentTarget = std::string("");
@@ -91,11 +91,11 @@ void ConsoleService::Main()
 		}
 
 		bool result;
-		std::vector<RService*> OutServices;
+		std::vector<RTool*> OutTools;
 		std::vector<RFunctionInterface*> OutFunctions;
 		std::vector<Environment::VoidPointer> OutArgs;
 
-		result = InterpretInput(args, OutServices, OutFunctions, OutArgs);
+		result = InterpretInput(args, OutTools, OutFunctions, OutArgs);
 
 		if (result)
 		{
@@ -153,17 +153,17 @@ void ConsoleService::Main()
 	}
 }
 
-bool ConsoleService::cmd_exit()
+bool ConsoleTool::cmd_exit()
 {
 	std::cout << "exiting!!" << std::endl;
 	return true;
 }
-bool ConsoleService::cmd_create(const std::string& InName)
+bool ConsoleTool::cmd_create(const std::string& InName)
 {
 	if (InName == "schroe")
 	{
-		auto app = Services->Register(new SchroedingerApplication(*Services), "schroe");
-		Services->GetElement<RApplication>(app)->Start();
+		auto app = Tools->Register(new SchroedingerApplication(*Tools), "schroe");
+		Tools->GetElement<RApplication>(app)->Start();
 	}
 	else
 	{
@@ -172,24 +172,24 @@ bool ConsoleService::cmd_create(const std::string& InName)
 	return true;
 }
 
-bool ConsoleService::InterpretInput(const std::vector<std::string> &InInput, std::vector<RService*> &OutServices, std::vector<RFunctionInterface*> &OutFunctions, std::vector<Environment::VoidPointer> &OutArgs)
+bool ConsoleTool::InterpretInput(const std::vector<std::string> &InInput, std::vector<RTool*> &OutTools, std::vector<RFunctionInterface*> &OutFunctions, std::vector<Environment::VoidPointer> &OutArgs)
 {
 	bool result = false;
 	int ArgsStart = 0;
 
-	/// Check whether target service name is included in input.
+	/// Check whether target Tool name is included in input.
 	if (InInput[0][0] == '@')
 	{
-		std::string targetServiceName = InInput[0].substr(1, InInput[0].size() - 1);
-		RService* targetService = Services->GetElement<RService>(targetServiceName);
-		if (targetService)
+		std::string targetToolName = InInput[0].substr(1, InInput[0].size() - 1);
+		RTool* targetTool = Tools->GetElement<RTool>(targetToolName);
+		if (targetTool)
 		{
-			OutServices.push_back(targetService);
+			OutTools.push_back(targetTool);
 
 			if (InInput.size() > 1)
 			{
 				std::string targetFunctionName = InInput[1];
-				RFunctionInterface* targetFunction = targetService->GetElement<RFunctionInterface>(targetFunctionName);
+				RFunctionInterface* targetFunction = targetTool->GetElement<RFunctionInterface>(targetFunctionName);
 				if (targetFunction)
 				{
 					OutFunctions.push_back(targetFunction);
@@ -202,13 +202,13 @@ bool ConsoleService::InterpretInput(const std::vector<std::string> &InInput, std
 	else
 	{
 		int foundFunctionsNum = 0;
-		std::vector<RService*> services = Services->GetAllElements<RService>();
-		for (RService* service : services)
+		std::vector<RTool*> Tools = Tools->GetAllElements<RTool>();
+		for (RTool* Tool : Tools)
 		{
-			RFunctionInterface* function = service->GetElement<RFunctionInterface>(InInput[0]);
+			RFunctionInterface* function = Tool->GetElement<RFunctionInterface>(InInput[0]);
 			if (function)
 			{
-				OutServices.push_back(service);
+				OutTools.push_back(Tool);
 				OutFunctions.push_back(function);
 				foundFunctionsNum++;
 				ArgsStart = 1;
@@ -230,7 +230,7 @@ bool ConsoleService::InterpretInput(const std::vector<std::string> &InInput, std
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // Console Output
-//bool ConsoleService::cmd_reply(const Handle<ICom> &Caller, const std::vector<VoidPointer> &Args)
+//bool ConsoleTool::cmd_reply(const Handle<ICom> &Caller, const std::vector<VoidPointer> &Args)
 //{
 //	//decide whether to write arrow, or blank space
 //	if (Caller.getName() != LastTalker)
@@ -245,7 +245,7 @@ bool ConsoleService::InterpretInput(const std::vector<std::string> &InInput, std
 //	return cmd_echo(Caller, Args);
 //}
 //
-//bool ConsoleService::cmd_echo(const Handle<ICom> &Caller, const std::vector<VoidPointer> &Args)
+//bool ConsoleTool::cmd_echo(const Handle<ICom> &Caller, const std::vector<VoidPointer> &Args)
 //{
 //	bool result = true;
 //
@@ -284,7 +284,7 @@ bool ConsoleService::InterpretInput(const std::vector<std::string> &InInput, std
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 //// Thread managment
-//bool ConsoleService::cmd_create(const Handle<ICom> &Caller, const std::vector<VoidPointer> &Args)
+//bool ConsoleTool::cmd_create(const Handle<ICom> &Caller, const std::vector<VoidPointer> &Args)
 //{
 //	bool result = true;
 //	std::string* arg = Args[0].CastTo<std::string>();
@@ -329,7 +329,7 @@ bool ConsoleService::InterpretInput(const std::vector<std::string> &InInput, std
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //// exiting
-//bool ConsoleService::cmd_exit(const Handle<ICom> &Caller, const std::vector<VoidPointer> &Args)
+//bool ConsoleTool::cmd_exit(const Handle<ICom> &Caller, const std::vector<VoidPointer> &Args)
 //{
 //	for (auto thread : Threads)
 //	{

@@ -64,8 +64,11 @@ namespace Environment
 {
 	class LIBIMPEXP RElement
 	{
+	private:
 		using Super = RElement;
 		using BaseType = RElement;
+	public:
+		using IsRElementType = std::true_type;		// sfinae definition
 	public:
 		RElement();
 		virtual ~RElement() {};
@@ -75,6 +78,9 @@ namespace Environment
 
 		ElementReflection CreateReflection();
 		bool LoadReflection(const ElementReflection& InReflection, bool bIsPartial);
+
+		std::vector<std::string> GetAttributeNames();
+		VoidPointer GetAttribute(const std::string& InName);
 
 		virtual RClass* GetClass();
 	protected:
@@ -108,12 +114,12 @@ namespace Environment
 		void rec_Reflect(ReflectedObjectType& InReflectedObject, ReflectedObjectTypes&... TailReflectedObjects)
 		{
 			GetAtomReflectionProvider()->Reflect<ReflectedObjectType>();
-			AttributeMirrors.push_back(new ObjectMirrorTemplate<ReflectedObjectType>(InReflectedObject));
+			AttributeMirrors.push_back(new ObjectMirrorTemplate<ReflectedObjectType>(InReflectedObject, ""));
 			rec_Reflect(TailReflectedObjects...);
 		}
 		void rec_Reflect()	{}
 
-	private:
+	protected:
 		Element_ID ID;
 		std::vector<ObjectMirror*> AttributeMirrors;
 	};

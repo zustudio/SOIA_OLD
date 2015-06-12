@@ -21,6 +21,28 @@ Element_ID& RElement::GetID()
 	return ID;
 }
 
+std::vector<std::string> RElement::GetAttributeNames()
+{
+	std::vector<std::string> result;
+	for (auto mirror : AttributeMirrors)
+	{
+		result.push_back(mirror->GetName());
+	}
+	return result;
+}
+
+VoidPointer RElement::GetAttribute(const std::string& InName)
+{
+	for (auto mirror : AttributeMirrors)
+	{
+		if (mirror->GetName() == InName)
+		{
+			return mirror->Get();
+		}
+	}
+	return VoidPointer::Nullpointer();
+}
+
 RClass* RElement::GetClass()
 {
 	return GetClassByType(TypeID::FromType<RElement>());

@@ -22,11 +22,25 @@ namespace Environment
 		{
 			return GetAtomObject(InString, TypeID::FromType<RPointer>());
 		}
+
+		template<typename Type, typename = typename decltype(*std::declval<RType>())::IsRElementType>
+		VoidPointer NewPointer(int, Type& InObject)
+		{
+			return VoidPointer(*new RPointer(InObject, TypeID::FromType<Type>()));
+		}
+
+		template<typename Type>
+		VoidPointer NewPointer(float, Type& InObject)
+		{
+			return VoidPointer(*InObject);
+		}
+
 		virtual std::string ObjectToString(VoidPointer& InObject) override
 		{
 			std::string result;
 			RType* p_Object = InObject.CastTo<RType>();
-			InObject = VoidPointer(*new RPointer(*p_Object, InObject.GetTypeID()));
+			//InObject = VoidPointer(*new RPointer(*p_Object, InObject.GetTypeID()));
+			InObject = NewPointer(0, *p_Object);
 
 			result = GetAtomString(InObject);
 

@@ -1,10 +1,12 @@
 
 #include "Definitions.h"
 
+#include "SaveFile.h"
 #include "StdDialogue.h"
 #include "Testing.h"
 #include "LinearFunction.h"
 #include "Window.h"
+#include "LogProvider.h"
 using namespace Environment;
 
 #include "RTool.h"
@@ -20,6 +22,20 @@ constexpr static const char TEST[] = "ABD";
 int main()
 {
 	RTool tool = RTool(new StdDialogue());
+
+	SaveFile sf = SaveFile("RTool", true);
+	sf.Content.push_back((RElement*)&tool);
+	sf.Write();
+
+	auto strings = tool.GetAttributeNames();
+	for (auto string : strings)
+	{
+		LOGSTATUS("Attribute is: " + string);
+	}
+	
+	tool.GetAttribute("cmd_Help_Interface").CastAndDereference<FunctionInterface*>()->Execute({});
+
+	using T = std::vector<std::string>;
 
 	tool.CreateReflection();
 

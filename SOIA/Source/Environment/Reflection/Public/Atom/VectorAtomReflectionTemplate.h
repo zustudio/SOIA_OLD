@@ -58,6 +58,19 @@ namespace Environment
 			}
 			return result;
 		}
+
+
+		template<typename Type, typename = typename Type::IsRElementType>
+		void Push_RElement(int, Type& InObject, std::vector<RElement*>& OutResult)
+		{
+			OutResult.push_back((RElement*)InObject);
+		}
+
+		template<typename Type>
+		void Push_RElement(float, Type& InObject, std::vector<RElement*>& OutResult)
+		{}
+
+
 		virtual std::vector<RElement*> ObjectToRElements(VoidPointer& InObject) override
 		{
 			if (GetReflectedClass(TypeID::FromType<typename VectorClass::value_type>().Dereference()))
@@ -67,7 +80,7 @@ namespace Environment
 				
 				for (auto object : *p_Vector)
 				{
-					result.push_back((RElement*)object);
+					Push_RElement<typename VectorClass::value_type>(0, object, result);
 				}
 
 				return result;

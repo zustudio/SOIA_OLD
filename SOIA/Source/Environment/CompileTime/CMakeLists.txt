@@ -4,7 +4,8 @@ project(CompileTime)
 
 in_sub(Generic)
 	add_Public(
-		IndexPack)
+		IndexPack
+		ConstExprDynamicList)
 in_sub(Number)
 	add_Public(
 		Vector4Int

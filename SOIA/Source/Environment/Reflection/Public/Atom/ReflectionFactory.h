@@ -67,7 +67,10 @@ namespace Environment
 		auto Add(std::vector<AtomReflection*>& Reflections, int) -> typename std::enable_if<std::is_pointer<Type>::value, bool>::type
 		{
 			if (!IsAdded(TypeID::FromType<Type>(), Reflections))
+			{
 				Reflections.push_back(new PointerReflectionTemplate<Type>());
+				Add<typename std::decay<decltype(*std::declval<Type>())>::type>(Reflections, 0);
+			}
 			return true;
 		}
 

@@ -35,9 +35,11 @@ in_sub(Function)
 in_sub(Type)
 	add_PrivatePublic(
 		TypeID
-		VoidPointer)
+		VoidPointer
+		ObjectMirror)
 	add_Public(
-		TypeName)
+		TypeName
+		ObjectMirrorTemplate)
 in_sub(Global)
 	add_PrivatePublic(
 		ReflectionProviders)

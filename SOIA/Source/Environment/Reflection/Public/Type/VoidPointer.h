@@ -10,6 +10,12 @@ namespace Environment
 {
 	class LIBIMPEXP VoidPointer
 	{
+	protected:
+		VoidPointer(void* InObject, TypeID InID)
+			:
+			Object(InObject),
+			ID(InID)
+		{}
 	public:
 		//----- init -----
 		VoidPointer(const VoidPointer &ObjToCopy, bool NOP = false) : 
@@ -21,6 +27,11 @@ namespace Environment
 			Object((void*)&NewObject),
 			ID(TypeID::FromType<T>())
 		{}
+
+		static VoidPointer Nullpointer()
+		{
+			return VoidPointer(nullptr, TypeID::FromType<std::nullptr_t>());
+		}
 
 		//----- public cast functionality -----
 		template<typename T>

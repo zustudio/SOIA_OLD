@@ -17,7 +17,11 @@ void VoidPointer::OverrideType(const TypeID& InNewTypeID)
 bool VoidPointer::IsNullPointer()
 {
 	bool result = false;
-	if (ID.IsPointer())
+	if (!Object)
+	{
+		result = true;
+	}
+	else if (ID.IsPointer())
 	{
 		result = *((void**)Object) == nullptr;
 	}
