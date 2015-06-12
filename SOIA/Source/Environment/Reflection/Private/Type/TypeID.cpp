@@ -22,6 +22,10 @@ TypeID::operator std::string() const
 {
 	return TypeString;
 }
+std::string TypeID::ToString()
+{
+	return *this;
+}
 
 bool TypeID::IsPointer() const
 {

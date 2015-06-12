@@ -6,6 +6,11 @@ using namespace Environment;
 
 #include <iostream>
 
+void StdDialogue::Write(const std::string& InText)
+{
+	std::cout << InText;
+}
+
 void StdDialogue::WriteLine(const std::string& InText)
 {
 	std::cout << InText << std::endl;

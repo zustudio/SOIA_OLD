@@ -8,7 +8,7 @@ namespace Supervisor
 	RCLASS(ConsoleWorker,RWorkerTool)
 	class LIBIMPEXP ConsoleWorker : public ConsoleWorker_Base
 	{
-		RCLASS_START();
+		RCLASS_BEGIN();
 
 		ConsoleWorker(DialogueInterface* InDialogue = nullptr);
 
@@ -19,6 +19,7 @@ namespace Supervisor
 
 		RFUNCTION(cmd_echo);
 		bool cmd_echo(const std::string& InText);
+
 
 	private:
 		bool bExit;

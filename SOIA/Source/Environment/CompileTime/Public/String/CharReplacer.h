@@ -9,7 +9,7 @@
 #include "ConstExprChar.h"
 #include "CharArrayLiteral.h"
 #include "IndexPack.h"
-#include "Vector4Int.h"
+#include "Vector8Int.h"
 #include "IntExpressions.h"
 
 
@@ -32,7 +32,11 @@ namespace Environment
 		const int Check1;
 		const int Check2;
 		const int Check3;
-		const Vector4Int CheckPoints;
+		const int Check4;
+		const int Check5;
+		const int Check6;
+		const int Check7;
+		const Vector8Int CheckPoints;
 	public:
 		const int Size;
 
@@ -42,12 +46,16 @@ namespace Environment
 			Pattern(InPattern),
 			Replacement(InReplacement),
 			Input(InText),
-			CheckPointDelta(NotZero(GetSize_Input() / 4)),
+			CheckPointDelta(NotZero(GetSize_Input() / 8)),
 			Check0(FindNthItem_Worker(0, -1, -1, -1)),
 			Check1(FindNthItemSet_FromCheckPoint(CheckPointDelta * 1, Check0)),
 			Check2(FindNthItemSet_FromCheckPoint(CheckPointDelta * 2, Check1)),
 			Check3(FindNthItemSet_FromCheckPoint(CheckPointDelta * 3, Check2)),
-			CheckPoints(Vector4Int(Check0, Check1, Check2, Check3)),
+			Check4(FindNthItemSet_FromCheckPoint(CheckPointDelta * 4, Check3)),
+			Check5(FindNthItemSet_FromCheckPoint(CheckPointDelta * 5, Check4)),
+			Check6(FindNthItemSet_FromCheckPoint(CheckPointDelta * 6, Check5)),
+			Check7(FindNthItemSet_FromCheckPoint(CheckPointDelta * 7, Check6)),
+			CheckPoints(Vector8Int(Check0, Check1, Check2, Check3, Check4, Check5, Check6, Check7)),
 			Size(GuessSize())
 		{}
 

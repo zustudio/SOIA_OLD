@@ -12,6 +12,7 @@ using namespace Environment;
 #include "RTool.h"
 #include "RContainer.h"
 #include "ConsoleWorker.h"
+#include "ElementExplorerTool.h"
 using namespace Supervisor;
 
 #include <iostream>
@@ -23,9 +24,13 @@ constexpr static const char TEST[] = "ABD";
 
 int main()
 {
+	DialogueInterface* dialogue = new StdDialogue();
+	RContainer topCont = RContainer(Range<int>(0, 10000000));
 	RContainer container = RContainer(Range<int>(0,1000));
-	RWorkerTool* Console = new ConsoleWorker(new StdDialogue());
+	topCont.Register(&container, "toolcontainer");
+	RWorkerTool* Console = new ConsoleWorker(dialogue);
 	container.Register(Console, "console");
+	container.Register(new ElementExplorerTool(dialogue), "elementexplorer");
 
 	Console->Start();
 	Console->Join();
@@ -47,8 +52,11 @@ int main()
 
 	Console->CreateReflection();
 
-	Console->GetAttribute("cmd_Help").CastAndDereference<FunctionInterface*>()->Execute({});
 
+	Console->GetAttribute("cmd_Help").CastAndDereference<FunctionInterface*>()->Execute({});
+	std::string input = "Hello!";
+	Console->GetAttribute("test").CastAndDereference<FunctionInterface*>()->Execute({ input });
+	LOG(input, Logger::Severity::Warning);
 
 	X a;
 	a.Go<1>();

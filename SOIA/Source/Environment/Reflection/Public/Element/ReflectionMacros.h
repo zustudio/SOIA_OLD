@@ -19,7 +19,8 @@
 	template<typename... CtorArgTypes> ClassType##_Base(CtorArgTypes... CtorArgs) : SuperClassType(CtorArgs...) {ConstructorOperations}
 
 #define RBASECLASS_BODY(ClassType,SuperClassType) \
-	virtual RClass* GetClass() override {return GetClassByType(TypeID::FromType<ClassType##_Base>());}
+	virtual RClass* GetClass() override {return GetClassByType(TypeID::FromType<ClassType##_Base>());} \
+	static RClass* StaticClass() {return GetClassByType(TypeID::FromType<ClassType##_Base>());}
 
 #define RBASECLASS(ClassType,SuperClassType,ConstOperations) \
 	RBASECLASS_DEFINITION( \
@@ -37,7 +38,7 @@
 
 #define REFLECT_FUNC_NAME _Internal_ReflectObject
 
-#define RCLASS_START() \
+#define RCLASS_BEGIN() \
 private: \
 template<int n> \
 void REFLECT_FUNC_NAME() \

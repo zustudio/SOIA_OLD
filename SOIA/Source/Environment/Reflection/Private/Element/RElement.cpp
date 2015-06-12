@@ -22,6 +22,11 @@ Element_ID& RElement::GetID()
 	return ID;
 }
 
+RContainer* RElement::GetContainer()
+{
+	return Container;
+}
+
 std::vector<std::string> RElement::GetAttributeNames()
 {
 	std::vector<std::string> result;

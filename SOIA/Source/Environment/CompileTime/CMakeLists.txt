@@ -9,6 +9,7 @@ in_sub(Generic)
 in_sub(Number)
 	add_Public(
 		Vector4Int
+		Vector8Int
 		IntExpressions)
 in_sub(String)
 	add_Public(

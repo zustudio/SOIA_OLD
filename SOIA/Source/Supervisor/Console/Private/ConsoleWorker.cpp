@@ -19,6 +19,8 @@ void ConsoleWorker::Main()
 	while (!bExit)
 	{
 		std::string input;
+		Dialogue->WriteLine("");
+		Dialogue->Write("> ");
 		Dialogue->GetNextLine(input);
 
 		input.push_back(' ');

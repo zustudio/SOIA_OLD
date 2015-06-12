@@ -3,6 +3,7 @@
 #include "Definitions.h"
 
 #include "RElement.h"
+#include "RContainer.h"
 #include "Function.h"
 #include "DialogueInterface.h"
 #include "ConstExprDynamicList.h"
@@ -15,7 +16,7 @@ namespace Supervisor
 	RABSTRACTCLASS(RTool,Environment::RElement)
 	class LIBIMPEXP RTool : public RTool_Base
 	{
-		RCLASS_START();
+		RCLASS_BEGIN();
 		RTool(DialogueInterface* InDialogue);
 
 		RPROPERTY(SomeInt);

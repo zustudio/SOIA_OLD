@@ -52,6 +52,7 @@ namespace Environment
 
 		virtual void SetID(Element_ID InID);
 		Element_ID& GetID();
+		RContainer* GetContainer();
 
 		ElementReflection CreateReflection();
 		bool LoadReflection(const ElementReflection& InReflection, bool bIsPartial);
@@ -61,7 +62,7 @@ namespace Environment
 
 		virtual RClass* GetClass();
 	protected:
-		RClass* GetClassByType(const std::string& InTypeID);
+		static RClass* GetClassByType(const std::string& InTypeID);
 
 	protected:
 		template<typename RType>
