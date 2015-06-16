@@ -10,6 +10,6 @@ namespace Supervisor
 	class LIBIMPEXP RWorkerTool : public RWorkerTool_Base, public Environment::Thread
 	{
 	public:
-		RWorkerTool(DialogueInterface* InDialogue);
+		RWorkerTool(Environment::DialogueInterface* InDialogue);
 	};
 }

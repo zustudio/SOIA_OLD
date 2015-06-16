@@ -16,7 +16,7 @@ namespace Supervisor
 	class LIBIMPEXP RTool : public RTool_Base
 	{
 		RCLASS_BEGIN();
-		RTool(DialogueInterface* InDialogue);
+		RTool(Environment::DialogueInterface* InDialogue);
 
 		RPROPERTY(SomeInt);
 		int SomeInt;
@@ -28,7 +28,7 @@ namespace Supervisor
 		bool cmd_Help();
 
 	protected:
-		DialogueInterface* Dialogue;
+		Environment::DialogueInterface* Dialogue;
 
 		RCLASS_END();
 	};

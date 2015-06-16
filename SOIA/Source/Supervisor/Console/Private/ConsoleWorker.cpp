@@ -3,6 +3,7 @@
 
 #include "ConsoleWorker.h"
 using namespace Supervisor;
+using namespace Environment;
 
 #include "RContainer.h"
 

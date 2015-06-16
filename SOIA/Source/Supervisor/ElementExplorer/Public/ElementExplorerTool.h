@@ -10,7 +10,7 @@ namespace Supervisor
 	{
 		RCLASS_BEGIN();
 
-		ElementExplorerTool(DialogueInterface* InDialogue = nullptr);
+		ElementExplorerTool(Environment::DialogueInterface* InDialogue = nullptr);
 
 		RFUNCTION(cmd_ls);
 		bool cmd_ls();
@@ -24,7 +24,7 @@ namespace Supervisor
 		std::string GetCurrentPath();
 
 		RPROPERTY(CurrentContainer);
-		RContainer* CurrentContainer;
+		Environment::RContainer* CurrentContainer;
 
 		RCLASS_END();
 	};

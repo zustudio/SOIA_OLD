@@ -2,6 +2,7 @@
 #pragma once
 
 #include "RClass.h"
+#include <type_traits>
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 // RCLASS
@@ -31,9 +32,9 @@
 		RBASECLASS_CONSTRUCTOR(ClassType,SuperClassType,ConstOperations) \
 		RBASECLASS_BODY(ClassType,SuperClassType))
 
-#define RCLASS(ClassType,SuperClassType) RBASECLASS(ClassType,SuperClassType,RegisterClass<ClassType>();)
+#define RCLASS(ClassType,SuperClassType) RBASECLASS(ClassType,SuperClassType,this->template RegisterClass<ClassType>();)
 
-#define RABSTRACTCLASS(ClassType,SuperClassType) RBASECLASS(ClassType,SuperClassType,RegisterAbstractClass<ClassType>();)
+#define RABSTRACTCLASS(ClassType,SuperClassType) RBASECLASS(ClassType,SuperClassType,this->template RegisterAbstractClass<ClassType>();)
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 // RATTRIBUTE & RFUNCTION
@@ -43,21 +44,18 @@
 #define RCLASS_BEGIN() \
 private: \
 template<int n> \
-void REFLECT_FUNC_NAME() \
-{}; \
-template<> \
-void REFLECT_FUNC_NAME<__COUNTER__>() \
+typename std::enable_if<n==__COUNTER__,void>::type REFLECT_FUNC_NAME() \
 { static constexpr const int myCount = __COUNTER__; } \
 public: 
 
 #define RATTRIBUTE_BASE(object,name) \
 private: \
-template<> \
-void REFLECT_FUNC_NAME<__COUNTER__>() \
+template<int n> \
+typename std::enable_if<n==__COUNTER__,void>::type REFLECT_FUNC_NAME() \
 { \
 	static constexpr const int myCount = __COUNTER__; \
-	AttributeMirrors.push_back(new ObjectMirrorTemplate<decltype(object)>(object, name )); \
-	GetAtomReflectionProvider()->Reflect<decltype(object)>(); \
+	AttributeMirrors.push_back(new Environment::ObjectMirrorTemplate<decltype(object)>(object, name )); \
+	Environment::GetAtomReflectionProvider()->Reflect<decltype(object)>(); \
 	REFLECT_FUNC_NAME<myCount - 3>(); \
 }; \
 public: 
@@ -66,7 +64,7 @@ public:
 
 #define RFUNCTION(object) \
 private: \
-Environment::FunctionInterface* object##_Generated = CreateFunction<Type>(this, &Type::object); \
+Environment::FunctionInterface* object##_Generated = Environment::CreateFunction<Type>(this, &Type::object); \
 RATTRIBUTE_BASE(object##_Generated,#object) \
 public:
 

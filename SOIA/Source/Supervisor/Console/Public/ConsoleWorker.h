@@ -10,7 +10,7 @@ namespace Supervisor
 	{
 		RCLASS_BEGIN();
 
-		ConsoleWorker(DialogueInterface* InDialogue = nullptr);
+		ConsoleWorker(Environment::DialogueInterface* InDialogue = nullptr);
 
 		virtual void Main() override;
 

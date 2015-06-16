@@ -23,13 +23,15 @@ namespace Environment
 			return GetAtomObject(InString, TypeID::FromType<RPointer>());
 		}
 
-		template<typename = typename std::decay<decltype(*std::declval<RType>())>::type::IsRElementType>
-		VoidPointer NewPointer(int, RType& InObject)
+		//template<typename = typename std::decay<decltype(*std::declval<RType>())>::type::IsRElementType>
+		template<typename Type>
+		static auto NewPointer(int, Type& InObject) -> typename std::enable_if<std::is_base_of<RElement,Type>::value, VoidPointer>::type
 		{
-			return VoidPointer(*new RPointer(InObject, TypeID::FromType<RType>()));
+			return VoidPointer(*new RPointer(InObject, TypeID::FromType<Type>()));
 		}
 
-		VoidPointer NewPointer(float, RType& InObject)
+		template<typename Type>
+		static auto NewPointer(float, Type& InObject) -> typename std::enable_if<!std::is_base_of<RElement,Type>::value, VoidPointer>::type
 		{
 			return VoidPointer(*InObject);
 		}
@@ -39,7 +41,7 @@ namespace Environment
 			std::string result;
 			RType* p_Object = InObject.CastTo<RType>();
 			//InObject = VoidPointer(*new RPointer(*p_Object, InObject.GetTypeID()));
-			InObject = NewPointer(0, *p_Object);
+			InObject = NewPointer<RType>(0, *p_Object);
 
 			result = GetAtomString(InObject);
 

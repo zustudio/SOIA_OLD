@@ -3,6 +3,7 @@
 
 #include "ElementExplorerTool.h"
 using namespace Supervisor;
+using namespace Environment;
 
 ElementExplorerTool::ElementExplorerTool(DialogueInterface* InDialogue)
 	: BaseType(InDialogue),
