@@ -22,7 +22,7 @@ TypeID::operator std::string() const
 {
 	return TypeString;
 }
-std::string TypeID::ToString()
+std::string TypeID::ToString() const
 {
 	return *this;
 }

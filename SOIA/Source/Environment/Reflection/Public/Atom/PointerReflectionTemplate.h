@@ -23,14 +23,13 @@ namespace Environment
 			return GetAtomObject(InString, TypeID::FromType<RPointer>());
 		}
 
-		template<typename Type, typename = typename decltype(*std::declval<RType>())::IsRElementType>
-		VoidPointer NewPointer(int, Type& InObject)
+		template<typename = typename std::decay<decltype(*std::declval<RType>())>::type::IsRElementType>
+		VoidPointer NewPointer(int, RType& InObject)
 		{
-			return VoidPointer(*new RPointer(InObject, TypeID::FromType<Type>()));
+			return VoidPointer(*new RPointer(InObject, TypeID::FromType<RType>()));
 		}
 
-		template<typename Type>
-		VoidPointer NewPointer(float, Type& InObject)
+		VoidPointer NewPointer(float, RType& InObject)
 		{
 			return VoidPointer(*InObject);
 		}

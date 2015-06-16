@@ -8,12 +8,6 @@
 
 namespace Environment
 {
-	template <class TargetObjectType, typename... ArgumentTypes>
-	decltype(auto) CreateFunction(TargetObjectType* InTargetObject, bool(TargetObjectType::* TargetFunctionPointer)(ArgumentTypes...))
-	{
-		return new Function<TargetObjectType, ArgumentTypes...>(InTargetObject, TargetFunctionPointer);
-	}
-
 	template <class TargetObjectType, typename ...ArgumentTypes>
 	class LIBIMPEXP Function : public FunctionInterface
 	{
@@ -53,6 +47,12 @@ namespace Environment
 		virtual bool Execute(const std::vector<Environment::VoidPointer> &InArgs) override
 		{
 			return MatchArgumentsAndExecute(InArgs, (CleanTypePointer<ArgumentTypes>().Pointer)...);
+		}
+
+		//----- Information -----
+		virtual std::vector<TypeID> GetArgumentTypes() override
+		{
+			return{ (TypeID::FromType<ArgumentTypes>())... };
 		}
 
 	private:
@@ -101,4 +101,11 @@ namespace Environment
 		TargetObjectType* TargetObject;
 		TargetFunctionPointerType TargetFunction;
 	};
+
+
+	template <class TargetObjectType, typename... ArgumentTypes>
+	decltype(auto) CreateFunction(TargetObjectType* InTargetObject, bool(TargetObjectType::* TargetFunctionPointer)(ArgumentTypes...))
+	{
+		return new Function<TargetObjectType, ArgumentTypes...>(InTargetObject, TargetFunctionPointer);
+	}
 }

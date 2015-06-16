@@ -17,7 +17,6 @@
 
 
 
-
 //
 //#define RCLASS(ClassType,SuperClassType) \
 //class ClassType; \

@@ -58,6 +58,27 @@ bool ElementExplorerTool::cmd_cc(const std::string& InContainerName)
 	return result;
 }
 
+bool ElementExplorerTool::cmd_attributes(const std::string& InElementName)
+{
+	bool result = false;
+	auto element = CurrentContainer->GetElement<RElement>(InElementName);
+	if (element)
+	{
+		auto attributeNames = element->GetAttributeNames();
+		for (auto attributeName : attributeNames)
+		{
+			auto attribute = element->GetAttribute(attributeName);
+			Dialogue->WriteLine(attribute.GetTypeID().ToString() + "\t" + attributeName);
+		}
+		result = true;
+	}
+	else
+	{
+		Dialogue->WriteLine("Could not find element.");
+	}
+	return result;
+}
+
 std::string ElementExplorerTool::GetCurrentPath()
 {
 	RContainer* current = nullptr;

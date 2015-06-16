@@ -83,7 +83,7 @@ namespace Environment
 				auto p_foundAttribute = element->GetAttribute(InAttributeName);
 				if (!p_foundAttribute.IsNullPointer())
 				{
-					auto foundAttribute = p_foundAttribute.CastTo<AttributeType>();
+					auto foundAttribute = p_foundAttribute.template CastTo<AttributeType>();
 					if (foundAttribute)
 					{
 						result.push_back(element);

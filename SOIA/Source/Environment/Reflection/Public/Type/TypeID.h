@@ -30,7 +30,7 @@ namespace Environment
 		
 		bool operator ==(const TypeID& InOther) const;
 		operator std::string() const;
-		std::string ToString();
+		std::string ToString() const;
 
 		//checks:
 		bool IsPointer() const;

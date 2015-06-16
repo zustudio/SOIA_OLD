@@ -5,6 +5,7 @@
 using namespace Environment;
 
 #include "CurrentTime.h"
+#include <algorithm>
 
 Logger::Logger(DialogueInterface* InTarget, Severity InMinimalSeverity)
 	:

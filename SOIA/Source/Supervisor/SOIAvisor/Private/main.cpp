@@ -13,6 +13,7 @@ using namespace Environment;
 #include "RContainer.h"
 #include "ConsoleWorker.h"
 #include "ElementExplorerTool.h"
+#include "BackupTool.h"
 using namespace Supervisor;
 
 #include <iostream>
@@ -31,6 +32,7 @@ int main()
 	RWorkerTool* Console = new ConsoleWorker(dialogue);
 	container.Register(Console, "console");
 	container.Register(new ElementExplorerTool(dialogue), "elementexplorer");
+	container.Register(new BackupTool(dialogue), "backup");
 
 	Console->Start();
 	Console->Join();
@@ -52,7 +54,11 @@ int main()
 
 	Console->CreateReflection();
 
-
+	auto argTypes = Console->GetAttribute("cmd_echo").CastAndDereference<FunctionInterface*>()->GetArgumentTypes();
+	for (auto argType : argTypes)
+	{
+		dialogue->WriteLine("ArgType: " + argType.ToString());
+	}
 	Console->GetAttribute("cmd_Help").CastAndDereference<FunctionInterface*>()->Execute({});
 	std::string input = "Hello!";
 	Console->GetAttribute("test").CastAndDereference<FunctionInterface*>()->Execute({ input });
