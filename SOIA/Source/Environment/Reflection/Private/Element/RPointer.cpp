@@ -8,7 +8,8 @@ using namespace Environment;
 #include "RContainer.h"
 
 RPointer::RPointer(RElement* NewTarget, const TypeID& InType) :
-	Type(InType)
+	Type(InType),
+	Container(nullptr)
 {
 	if (NewTarget)
 	{
@@ -22,7 +23,8 @@ RPointer::RPointer(RElement* NewTarget, const TypeID& InType) :
 }
 RPointer::RPointer(int InID, const TypeID& InType) : 
 	Target(Element_ID()),
-	Type(InType)
+	Type(InType),
+	Container(nullptr)
 {
 	Target.UniqueIdentifier = InID;
 }

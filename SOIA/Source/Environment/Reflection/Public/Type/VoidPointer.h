@@ -52,17 +52,10 @@ namespace Environment
 		template<typename NewType>
 		NewType* ConvertTo() const
 		{
-			if (IsType<NewType>())
+			if (IsType<NewType>() || IsChildOf(TypeID::FromType<NewType>()))
 				return (NewType*)Object;
 			else
-			{
-				if (IsType<std::string>() && typeid(NewType) == typeid(int))
-				{
-					return (NewType*) new int(std::atoi(((std::string*)Object)->c_str()));
-				}
 				return nullptr;
-			}
-
 		}
 
 		//----- public type checking -----
@@ -71,7 +64,14 @@ namespace Environment
 
 		bool IsNullPointer();
 
+		//----- operators -----
+		bool operator==(const VoidPointer& InOther) const
+		{
+			return (Object == InOther.Object && ID == InOther.ID);
+		}
+
 		//----- type checking -----
+		bool IsChildOf(const TypeID& Other) const;
 	private:
 		template<typename T>
 		bool IsType() const

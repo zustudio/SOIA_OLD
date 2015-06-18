@@ -18,7 +18,10 @@ namespace Environment
 		explicit TypeID(const std::string& InString);
 		template<typename T> static TypeID FromType()
 		{
-			return TypeID(TYPENAME(T));
+			auto result = TypeID(TYPENAME(T));
+			result.bConst = std::is_const<typename std::template remove_reference<T>::type>::value;
+			result.bReference = std::is_reference<T>::value;
+			return result;
 		}
 
 		template<typename T>
@@ -31,11 +34,15 @@ namespace Environment
 		bool operator ==(const TypeID& InOther) const;
 		operator std::string() const;
 		std::string ToString() const;
+		std::string ToEasyString() const;
 
 		//checks:
 		bool IsPointer() const;
+		bool IsConst() const;
+		bool IsReference() const;
 
 		//operations:
+		TypeID Decay() const;
 		TypeID Dereference() const;
 		TypeID RemoveSuffix_Base() const;
 
@@ -48,5 +55,7 @@ namespace Environment
 	private:
 		static std::vector<std::pair<std::string, std::string> > IDNameCache;
 		std::string TypeString;
+		bool bConst;
+		bool bReference;
 	};
 }

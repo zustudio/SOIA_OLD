@@ -21,18 +21,44 @@ using namespace Supervisor;
 constexpr static const char TEST[] = "ABD";
 
 
-
-
 int main()
 {
+	
+
 	DialogueInterface* dialogue = new StdDialogue();
-	RContainer topCont = RContainer(Range<int>(0, 10000000));
-	RContainer container = RContainer(Range<int>(0,1000));
-	topCont.Register(&container, "toolcontainer");
+	RContainer* topCont = new RContainer(Range<int>(0, 999));
+	RContainer* container = new RContainer(Range<int>(1000,1999));
+	topCont->Register(container, "toolcontainer");
 	RWorkerTool* Console = new ConsoleWorker(dialogue);
-	container.Register(Console, "console");
-	container.Register(new ElementExplorerTool(dialogue), "elementexplorer");
-	container.Register(new BackupTool(dialogue), "backup");
+	container->Register(Console, "console");
+	auto elementexplorer = new ElementExplorerTool(dialogue);
+	container->Register(elementexplorer, "elementexplorer");
+	container->Register(new BackupTool(dialogue), "backup");
+
+	//std::string arg = "console";
+	//std::vector<VoidPointer> InArgs = {};
+
+	//{
+	//	std::vector<VoidPointer>& ref_args = InArgs;
+	//	std::vector<VoidPointer> args = { arg };
+
+	//	{
+	//		VoidPointer defaultAtom = *GetAtomReflectionProvider()->GetReflection(TypeID::FromType<RElement*>())->StringToObject("");
+	//		if (defaultAtom.GetTypeID() == TypeID::FromType<RPointer>())
+	//		{
+	//			defaultAtom = defaultAtom.CastAndDereference<RPointer>().Resolve();
+	//		}
+	//		//args.push_back(defaultAtom);
+	//	}
+	//	ref_args = args;
+	//}
+
+
+	/*elementexplorer->GetAttribute("cmd_element").CastAndDereference<FunctionInterface*>()->CorrectArgsAndExecute(InArgs);
+	auto names = InArgs[1].CastAndDereference<RElement*>()->GetAttributeNames();
+	dialogue->WriteLine(names[0]);*/
+
+
 
 	Console->Start();
 	Console->Join();

@@ -5,8 +5,8 @@
 using namespace Supervisor;
 using namespace Environment;
 
-OutPort::OutPort()
-	: Port(PortConfiguration::Output),
+OutPort::OutPort(TypeID InType)
+	: Port(PortConfiguration::Output, InType),
 	CurrentOutput(VoidPointer::Nullpointer)
 {
 }

@@ -60,6 +60,7 @@ namespace Environment
 		VoidPointer GetAttribute(const std::string& InName);
 
 		virtual RClass* GetClass();
+		static RClass* StaticClass();
 	protected:
 		static RClass* GetClassByType(const std::string& InTypeID);
 

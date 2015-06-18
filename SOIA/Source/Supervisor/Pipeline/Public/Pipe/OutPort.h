@@ -3,18 +3,17 @@
 
 #include "Port.h"
 
-#include <deque>
-
 namespace Supervisor
 {
-	class InPort : public Port
+	class OutPort : public Port
 	{
-		InPort();
+	public:
+		OutPort(TypeID InType);
 
 		virtual bool Write(const Environment::VoidPointer& InData) override;
 		virtual bool Read(Environment::VoidPointer& InData) override;
 
 	protected:
-		std::deque<Environment::VoidPointer> InputBuffer;
+		VoidPointer CurrentOutput;
 	};
 }

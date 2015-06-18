@@ -5,11 +5,9 @@
 using namespace Supervisor;
 using namespace Environment;
 
-InPort::InPort()
-	: Port(PortConfiguration::Input)
-{
-
-}
+InPort::InPort(TypeID InType)
+	: Port(PortConfiguration::Input, InType)
+{}
 
 bool InPort::Write(const VoidPointer& InData)
 {

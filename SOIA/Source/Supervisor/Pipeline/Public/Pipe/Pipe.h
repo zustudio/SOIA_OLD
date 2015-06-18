@@ -9,15 +9,15 @@
 
 namespace Supervisor
 {
-	RCLASS(AAnalyzer, Environment::RElement)
-	class AAnalyzer : public AAnalyzer_Base
+	RCLASS(Pipe, Environment::RElement)
+	class Pipe : public Pipe_Base
 	{
 		RCLASS_BEGIN();
 
-		AAnalyzer();
+		Pipe();
 
 	protected:
-		void SetAnalyzerFunction(Environment::FunctionInterface*);
+		bool SetAnalyzerFunction(Environment::FunctionInterface*);
 
 		std::vector<InPort> Input;
 		std::vector<OutPort> Output;

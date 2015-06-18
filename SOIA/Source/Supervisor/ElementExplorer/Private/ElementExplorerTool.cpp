@@ -12,24 +12,43 @@ ElementExplorerTool::ElementExplorerTool(DialogueInterface* InDialogue)
 	ReflectAttributes();
 }
 
+bool ElementExplorerTool::cmd_elem(RElement*& OutElement, const std::string& InName)
+{
+	if (!CurrentContainer)
+		CurrentContainer = Container;
+
+	OutElement = CurrentContainer->GetElement<RElement>(InName);
+	if (OutElement)
+		return true;
+	else
+		return false;
+}
+
+bool ElementExplorerTool::cmd_pwd(Environment::RContainer*& OutContainer)
+{
+	if (!CurrentContainer)
+		CurrentContainer = Container;
+
+	Dialogue->WriteLine(GetCurrentPath());
+	OutContainer = CurrentContainer;
+	return true;
+}
+
 bool ElementExplorerTool::cmd_ls()
 {
 	if (!CurrentContainer)
 		CurrentContainer = Container;
 
-	Dialogue->WriteLine("Current path:");
-	Dialogue->WriteLine("\t" + GetCurrentPath());
-	Dialogue->WriteLine("Current elements:");
-
 	std::vector<RElement*> allElements = CurrentContainer->GetAllElements<RElement>();
 	for (auto element : allElements)
 	{
-		std::string prefix;
+		std::string postfix;
 		if (element->GetClass() == RContainer::StaticClass())
-			prefix = "/";
+			postfix = "/";
 
-		Dialogue->WriteLine("\t" + element->GetClass()->GetType().ToString() + '\t' + prefix + element->GetID().Name);
+		Dialogue->Write(element->GetID().Name + postfix + "  ");
 	}
+	Dialogue->WriteLine("");
 	return true;
 }
 
@@ -51,27 +70,69 @@ bool ElementExplorerTool::cmd_cc(const std::string& InContainerName)
 		}
 	}
 
-	if (result)
-		Dialogue->WriteLine("New path: " + GetCurrentPath());
-	else
+	
+	if (!result)
 		Dialogue->WriteLine("Could not find path.");
 
 	return result;
 }
 
-bool ElementExplorerTool::cmd_attributes(const std::string& InElementName)
+bool ElementExplorerTool::cmd_attr(RElement* const & InElementName, std::string const & InAttributeName)
 {
 	bool result = false;
-	auto element = CurrentContainer->GetElement<RElement>(InElementName);
-	if (element)
+	if (InElementName)
 	{
-		auto attributeNames = element->GetAttributeNames();
-		for (auto attributeName : attributeNames)
+		if (InAttributeName == "")
 		{
-			auto attribute = element->GetAttribute(attributeName);
-			Dialogue->WriteLine(attribute.GetTypeID().ToString() + "\t" + attributeName);
+			auto attributeNames = InElementName->GetAttributeNames();
+			for (auto attributeName : attributeNames)
+			{
+				auto attribute = InElementName->GetAttribute(attributeName);
+				Dialogue->WriteLine(attributeName + " \t(" + attribute.GetTypeID().ToEasyString() + ")");
+			}
+			result = true;
 		}
-		result = true;
+		else
+		{
+			auto attribute = InElementName->GetAttribute(InAttributeName);
+			if (!attribute.IsNullPointer())
+			{
+				// try to convert 
+				auto converter = GetAtomReflectionProvider()->GetReflection(attribute.GetTypeID());
+				std::string value;
+				if (converter)
+				{
+					value = converter->ObjectToString(attribute);
+				}
+				else
+				{
+					value = "<No Reflection.>";
+				}
+
+				// get arguments if functioninterface
+				std::string argumentTypes;
+				if (attribute.GetTypeID().Decay() == TypeID::FromType<FunctionInterface*>())
+				{
+					FunctionInterface* function = attribute.CastAndDereference<FunctionInterface*>();
+					auto v_argumentTypes = function->GetArgumentTypes();
+					for (auto argumentType : v_argumentTypes)
+					{
+						argumentTypes += std::string("\n\t") + (argumentType.IsConst() ? "IN" : "OUT") + "\t" + argumentType.ToEasyString();
+					}
+				}
+
+				// write it out
+				Dialogue->WriteLine("Type: \n\t\t" + attribute.GetTypeID().ToEasyString());
+				if (argumentTypes == "")
+					Dialogue->WriteLine("Value: \t" + value);
+				else
+					Dialogue->WriteLine("Args: \t" + argumentTypes);
+			}
+			else
+			{
+				Dialogue->WriteLine("Could not find attribute named '" + InAttributeName + "'.");
+			}
+		}
 	}
 	else
 	{

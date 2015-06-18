@@ -17,7 +17,9 @@
 #include "TypeCharArrayLiteral.h"
 using namespace Environment;
 
-template<typename T>
+// general definition for all types, converts MSVC-style __FUNCTION__ output into 
+// gcc (typeid) compatible strings
+template<typename T, typename...>
 struct FromType_Helper
 {
 	static constexpr const auto input = TypeCharArrayLiteral<T>::Create();
@@ -61,7 +63,35 @@ struct ParseHelper
 		}
 		else return mangled_name;
 	}
+
+	template<typename Type>
+	using is_const = typename std::is_const<typename std::template remove_reference<Type>::type>;
+	template<typename Type>
+	static inline auto AddConst(const std::string& InString) -> typename std::enable_if<is_const<Type>::value, std::string>::type
+	{
+		return InString + " const";
+	}
+
+	template<typename Type>
+	static inline auto AddConst(const std::string& InString) -> typename std::enable_if<!is_const<Type>::value, std::string>::type
+	{
+		return InString;
+	}
+
+	template<typename Type>
+	static inline auto AddReference(const std::string& InString) -> typename std::enable_if<std::is_reference<Type>::value, std::string>::type
+	{
+		return InString + " &";
+	}
+
+	template<typename Type>
+	static inline auto AddReference(const std::string& InString) -> typename std::enable_if<!std::is_reference<Type>::value, std::string>::type
+	{
+		return InString;
+	}
 };
-#define TYPENAME(Type) ParseHelper::ParseGCCName(typeid(Type).name())
+
+
+#define TYPENAME(Type) ParseHelper::AddReference<Type>(ParseHelper::AddConst<Type>(ParseHelper::ParseGCCName(typeid(Type).name())))
 
 #endif

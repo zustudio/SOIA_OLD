@@ -27,7 +27,6 @@ namespace Supervisor
 		RFUNCTION(cmd_Help);
 		bool cmd_Help();
 
-	protected:
 		Environment::DialogueInterface* Dialogue;
 
 		RCLASS_END();

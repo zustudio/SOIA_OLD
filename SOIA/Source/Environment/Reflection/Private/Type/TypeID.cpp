@@ -8,11 +8,15 @@ using namespace Environment;
 
 TypeID::TypeID(const char* InString)
 	:
-	TypeString(InString)
+	TypeString(InString),
+	bConst(false),
+	bReference(false)
 {}
 TypeID::TypeID(const std::string& InString)
 	:
-	TypeString(InString)
+	TypeString(InString),
+	bConst(false),
+	bReference(false)
 {}
 bool TypeID::operator ==(const TypeID& InOther) const
 {
@@ -26,10 +30,33 @@ std::string TypeID::ToString() const
 {
 	return *this;
 }
+std::string TypeID::ToEasyString() const
+{
+	std::string input = Decay().ToString();
+	std::regex namespaceRemover("\\w+::(.+)");
+	std::smatch match;
+	bool result = std::regex_match(input, match, namespaceRemover);
+	if (result)
+	{
+		return match[1].str();
+	}
+	else
+	{
+		return input;
+	}
+}
 
 bool TypeID::IsPointer() const
 {
 	return (TypeString[TypeString.size() - 1] == '*');
+}
+bool TypeID::IsConst() const
+{
+	return bConst;
+}
+bool TypeID::IsReference() const
+{
+	return bReference;
 }
 
 ////////////////////////////////////////////////////////////////
@@ -48,6 +75,10 @@ TypeID TypeID::RemoveSuffix_Base() const
 		return TypeID(result[1] + "::" + result[2]);
 	else
 		return TypeID(TypeString);
+}
+TypeID TypeID::Decay() const
+{
+	return TypeID(std::string(TypeString.begin(), TypeString.end() - (IsReference() ? 2 : 0) - (IsConst() ? 6 : 0)));
 }
 
 ////////////////////////////////////////////////////////////////

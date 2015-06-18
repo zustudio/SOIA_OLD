@@ -13,10 +13,10 @@ BackupTool::BackupTool(DialogueInterface* InDialogue)
 	ReflectAttributes();
 }
 
-bool BackupTool::cmd_save(const std::string& InElementName, const std::string& InFileName)
+bool BackupTool::cmd_save(RElement* const & InElement, const std::string& InFileName)
 {
 	bool result = false;
-	RElement* element = Container->GetElement<RElement>(InElementName);
+	RElement* element = InElement;
 	if (element)
 	{
 		auto file = new SaveFile(InFileName, true);
@@ -25,6 +25,31 @@ bool BackupTool::cmd_save(const std::string& InElementName, const std::string& I
 		delete file;
 		Dialogue->WriteLine("Saved to file.");
 		result = true;
+	}
+	else
+	{
+		Dialogue->WriteLine("Could not find element.");
+	}
+	return result;
+}
+
+bool BackupTool::cmd_load(RElement* const & InElement, const std::string& InFileName)
+{
+	bool result = false;
+	RElement* element = InElement;
+	if (element)
+	{
+		RContainer* Parent = InElement->GetContainer();
+		Parent->Unregister(InElement);
+		auto file = new SaveFile(InFileName, false);
+		file->Read();
+		delete InElement;
+		const_cast<RElement*&>(InElement) = *file->Content[0].ConvertTo<RElement*>();
+		dynamic_cast<RTool*>(InElement)->Dialogue = Dialogue;
+		Parent->Register(InElement, InElement->GetID().Name);
+		Dialogue->WriteLine("Saved to file.");
+		result = true;
+		delete file;
 	}
 	else
 	{

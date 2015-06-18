@@ -3,6 +3,7 @@
 
 // include class
 #include "RElement.h"
+#include "RContainer.h"
 using namespace Environment;
 
 RElement::RElement()
@@ -50,6 +51,11 @@ VoidPointer RElement::GetAttribute(const std::string& InName)
 }
 
 RClass* RElement::GetClass()
+{
+	return GetClassByType(TypeID::FromType<RElement>());
+}
+
+RClass* RElement::StaticClass()
 {
 	return GetClassByType(TypeID::FromType<RElement>());
 }

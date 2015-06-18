@@ -3,6 +3,7 @@
 
 #include "VoidPointer.h"
 using namespace Environment;
+#include "ReflectionProviders.h"
 
 const TypeID& VoidPointer::GetTypeID() const
 {
@@ -26,4 +27,13 @@ bool VoidPointer::IsNullPointer()
 		result = *((void**)Object) == nullptr;
 	}
 	return result;
+}
+
+bool VoidPointer::IsChildOf(const TypeID& InOther) const
+{
+	auto reflectionProv = GetElementReflectionProvider();
+	RClass* thisClass = reflectionProv->GetClass(ID.Dereference());
+	RClass* otherClass = reflectionProv->GetClass(InOther.Dereference());
+	return (thisClass && otherClass
+			&& thisClass->IsChildOf(otherClass));
 }

@@ -13,6 +13,8 @@ namespace Supervisor
 		ConsoleWorker(Environment::DialogueInterface* InDialogue = nullptr);
 
 		virtual void Main() override;
+		bool ExecuteCommands(const std::string& InInput, std::vector<Environment::VoidPointer>& OutArguments);
+		bool ExecuteCommand(const std::string& InTarget, std::string& InCommand, std::vector<Environment::VoidPointer>& InOutArguments);
 
 		RFUNCTION(cmd_exit);
 		bool cmd_exit();

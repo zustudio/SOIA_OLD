@@ -13,7 +13,10 @@ namespace Supervisor
 		BackupTool(Environment::DialogueInterface* InDialogue = nullptr);
 
 		RFUNCTION(cmd_save)
-		bool cmd_save(const std::string& InElementName, const std::string& InFileName);
+		bool cmd_save(RElement* const & InElementName, const std::string& InFileName);
+
+		RFUNCTION(cmd_load)
+			bool cmd_load(RElement* const & InElementName, const std::string& InFileName);
 
 		RCLASS_END();
 	};

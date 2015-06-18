@@ -60,14 +60,14 @@ namespace Environment
 		}
 
 
-		template<typename Type, typename = typename Type::IsRElementType>
-		void Push_RElement(int, Type& InObject, std::vector<RElement*>& OutResult)
+		template<typename Type>
+		auto Push_RElement(int, Type& InObject, std::vector<RElement*>& OutResult) -> typename std::enable_if<std::is_base_of<RElement, typename std::remove_pointer<Type>::type>::value, void>::type
 		{
 			OutResult.push_back((RElement*)InObject);
 		}
 
 		template<typename Type>
-		void Push_RElement(float, Type& InObject, std::vector<RElement*>& OutResult)
+		auto Push_RElement(float, Type& InObject, std::vector<RElement*>& OutResult) -> typename std::enable_if<!std::is_base_of<RElement, typename std::remove_pointer<Type>::type>::value, void>::type
 		{}
 
 

@@ -23,27 +23,14 @@ namespace Environment
 			return GetAtomObject(InString, TypeID::FromType<RPointer>());
 		}
 
-		//template<typename = typename std::decay<decltype(*std::declval<RType>())>::type::IsRElementType>
-		template<typename Type>
-		static auto NewPointer(int, Type& InObject) -> typename std::enable_if<std::is_base_of<RElement,Type>::value, VoidPointer>::type
-		{
-			return VoidPointer(*new RPointer(InObject, TypeID::FromType<Type>()));
-		}
-
-		template<typename Type>
-		static auto NewPointer(float, Type& InObject) -> typename std::enable_if<!std::is_base_of<RElement,Type>::value, VoidPointer>::type
-		{
-			return VoidPointer(*InObject);
-		}
-
 		virtual std::string ObjectToString(VoidPointer& InObject) override
 		{
 			std::string result;
 			RType* p_Object = InObject.CastTo<RType>();
 			//InObject = VoidPointer(*new RPointer(*p_Object, InObject.GetTypeID()));
-			InObject = NewPointer<RType>(0, *p_Object);
-
-			result = GetAtomString(InObject);
+			
+			
+			result = GetAtomString(Dereference<RType>(0, *p_Object));
 
 			return result;
 		}
@@ -59,6 +46,19 @@ namespace Environment
 				}
 			}
 			return {};
+		}
+
+		//template<typename = typename std::decay<decltype(*std::declval<RType>())>::type::IsRElementType>
+		template<typename Type>
+		static auto Dereference(int, Type& InObject) -> typename std::enable_if<std::is_base_of<RElement, typename std::remove_pointer<Type>::type>::value, VoidPointer>::type
+		{
+			return VoidPointer(*new RPointer(InObject, TypeID::FromType<Type>()));
+		}
+
+		template<typename Type>
+		static auto Dereference(float, Type& InObject) -> typename std::enable_if<!std::is_base_of<RElement, typename std::remove_pointer<Type>::type >::value, VoidPointer>::type
+		{
+			return VoidPointer(*InObject);
 		}
 	};
 }

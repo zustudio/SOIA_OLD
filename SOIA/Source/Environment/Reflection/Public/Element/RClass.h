@@ -26,6 +26,7 @@ namespace Environment
 
 		TypeID GetType();
 		bool IsType(const TypeID& InType);
+		bool IsChildOf(RClass* InType) const;
 
 
 	private:
