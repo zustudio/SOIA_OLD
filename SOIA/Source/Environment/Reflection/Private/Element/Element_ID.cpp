@@ -9,7 +9,7 @@ using namespace Environment;
 // Init
 Element_ID::Element_ID()
 {
-	UniqueIdentifier = 35505;
+	UniqueIdentifier = -1;
 }
 std::string Element_ID::ToString(const Element_ID& InID)
 {

@@ -8,7 +8,7 @@ using namespace Environment;
 #include "RContainer.h"
 #include <regex>
 
-ConsoleWorker::ConsoleWorker(DialogueInterface* InDialogue)
+ConsoleWorker::ConsoleWorker(const RPointer<RDialogue>& InDialogue)
 	: BaseType(InDialogue),
 	bExit(false)
 {

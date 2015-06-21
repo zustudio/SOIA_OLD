@@ -6,7 +6,7 @@ using namespace Supervisor;
 using namespace Environment;
 
 	
-RWorkerTool::RWorkerTool(DialogueInterface* InDialogue)
+RWorkerTool::RWorkerTool(const RPointer<RDialogue>& InDialogue)
 	: BaseType(InDialogue)
 {
 

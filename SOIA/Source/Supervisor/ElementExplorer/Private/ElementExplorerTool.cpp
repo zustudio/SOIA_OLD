@@ -5,7 +5,7 @@
 using namespace Supervisor;
 using namespace Environment;
 
-ElementExplorerTool::ElementExplorerTool(DialogueInterface* InDialogue)
+ElementExplorerTool::ElementExplorerTool(const RPointer<RDialogue>& InDialogue)
 	: BaseType(InDialogue),
 	CurrentContainer(nullptr)
 {

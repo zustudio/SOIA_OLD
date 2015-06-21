@@ -8,7 +8,7 @@
 namespace Supervisor
 {
 	RCLASS(RDialogue, Environment::RElement);
-	class LIBIMPEXP RDialogue : public RDialogue_Base
+	class LIBIMPEXP RDialogue : public RDialogue_Base, public DialogueInterface
 	{
 		RCLASS_BEGIN();
 
@@ -22,8 +22,9 @@ namespace Supervisor
 
 		//----- access forwarding -----
 
-		/// Returns the dialogue interface this object points to.
-		Environment::DialogueInterface* operator->();
+		virtual void Write(const std::string& InText) override;
+		virtual void WriteLine(const std::string& InText) override;
+		virtual void GetNextLine(std::string& OutText) override;
 	
 		/// Returns the dialogue interface this object points to.
 		Environment::DialogueInterface* GetDialogueInterface();

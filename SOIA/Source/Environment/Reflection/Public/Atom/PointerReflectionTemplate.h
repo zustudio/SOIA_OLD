@@ -57,8 +57,10 @@ namespace Environment
 
 		template<typename Type>
 		static auto ToObject_Internal(float, const std::string& InString) -> typename std::enable_if<!std::is_base_of<RElement, typename std::remove_pointer<Type>::type >::value, VoidPointer*>::type
-		{
-			return nullptr;
+		{/*
+			using InnerType = typename std::remove_pointer<Type>::type;
+			return new VoidPointer(*new Type(&GetAtomObject(InString, TypeID::FromType<InnerType>())->CastAndDereference<InnerType>()));*/
+			return new VoidPointer(VoidPointer::Nullpointer());
 		}
 
 		//----- ToString -----

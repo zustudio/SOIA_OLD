@@ -6,8 +6,6 @@
 
 #include <vector>
 
-#include "RPointer.h"
-
 namespace Environment
 {
 	class LIBIMPEXP AtomReflectionProvider

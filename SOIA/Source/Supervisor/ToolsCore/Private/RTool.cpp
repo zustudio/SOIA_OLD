@@ -5,7 +5,7 @@ using namespace Environment;
 
 #include "RContainer.h"
 
-RTool::RTool(const RTypedPointer<RDialogue>& InDialogue)
+RTool::RTool(const RPointer<RDialogue>& InDialogue)
 	: BaseType(),
 	Dialogue(InDialogue)
 {

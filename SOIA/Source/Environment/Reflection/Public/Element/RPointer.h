@@ -3,29 +3,63 @@
 
 #include "Atom.h"
 
-#include "Element_ID.h"
-#include "TypeID.h"
-#include "VoidPointer.h"
+#include "RElement.h"
+#include "RContainer.h"
 
 namespace Environment
 {
-	class RElement;
-	class RContainer;
-
+	template<class RElementClass = RElement>
 	class LIBIMPEXP RPointer : public Atom
 	{
 	public:
-		RPointer(RElement*,const TypeID& InTypeID);
-		RPointer(int InID,const TypeID& InTypeID);
+		RPointer(RElementClass* InElement)
+			:
+			TargetElement(InElement),
+			TargetID(InElement ? InElement->GetID() : Element_ID()),
+			TargetContainer(InElement ? InElement->GetContainer() : nullptr)
+		{}
 
-		static std::string ToString(const RPointer& InObject);
-		static RPointer FromString(const std::string& InString);
+		RPointer(Element_ID InID, RContainer* InContainer = nullptr)
+			:
+			TargetElement(nullptr),
+			TargetContainer(InContainer),
+			TargetID(InID)
+		{}
 
-		RElement* Resolve();
-		VoidPointer ToVoidPointer();
-		
-		RContainer* Container;
-		Element_ID Target;
-		TypeID Type;
+		RElementClass* Resolve()
+		{
+			RElementClass* result = nullptr;
+			if (TargetElement)
+			{
+				result = TargetElement;
+			}
+			else if (TargetContainer)
+			{
+				result = TargetContainer->GetElement<RElementClass>(TargetID);
+				TargetElement = result;
+			}
+			return result;
+		}
+
+		RElementClass* operator-> ()
+		{
+			return Resolve();
+		}
+
+		RElementClass* TargetElement;
+		Element_ID TargetID;
+		RContainer* TargetContainer;
+
+
+		static RPointer FromString(const std::string& InString)
+		{
+			Element_ID id;
+			id.UniqueIdentifier = std::atoi(InString.c_str());
+			return RPointer(id);
+		}
+		static std::string ToString(const RPointer& InObject)
+		{
+			return std::to_string(InObject.TargetID.UniqueIdentifier);
+		}
 	};
 }

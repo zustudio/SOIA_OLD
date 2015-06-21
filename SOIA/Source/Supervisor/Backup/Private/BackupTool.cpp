@@ -7,7 +7,7 @@ using namespace Environment;
 
 #include "SaveFile.h"
 
-BackupTool::BackupTool(DialogueInterface* InDialogue)
+BackupTool::BackupTool(const RPointer<RDialogue>& InDialogue)
 	: BaseType(InDialogue)
 {
 	ReflectAttributes();
@@ -45,7 +45,6 @@ bool BackupTool::cmd_load(RElement* const & InElement, const std::string& InFile
 		file->Read();
 		delete InElement;
 		const_cast<RElement*&>(InElement) = *file->Content[0].ConvertTo<RElement*>();
-		dynamic_cast<RTool*>(InElement)->Dialogue = Dialogue;
 		Parent->Register(InElement, InElement->GetID().Name);
 		Dialogue->WriteLine("Saved to file.");
 		result = true;

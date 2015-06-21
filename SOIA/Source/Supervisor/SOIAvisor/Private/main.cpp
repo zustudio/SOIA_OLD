@@ -26,14 +26,16 @@ int main()
 	
 
 	DialogueInterface* dialogue = new StdDialogue();
+	RDialogue* rdialogue = new RDialogue(dialogue);
 	RContainer* topCont = new RContainer(Range<int>(0, 999));
 	RContainer* container = new RContainer(Range<int>(1000,1999));
-	topCont->Register(container, "toolcontainer");
-	RWorkerTool* Console = new ConsoleWorker(dialogue);
+	topCont->Register(container, "tools");
+	container->Register(rdialogue, "consoledialogue");
+	RWorkerTool* Console = new ConsoleWorker(rdialogue);
 	container->Register(Console, "console");
-	auto elementexplorer = new ElementExplorerTool(dialogue);
+	auto elementexplorer = new ElementExplorerTool(rdialogue);
 	container->Register(elementexplorer, "elementexplorer");
-	container->Register(new BackupTool(dialogue), "backup");
+	container->Register(new BackupTool(rdialogue), "backup");
 
 	//std::string arg = "console";
 	//std::vector<VoidPointer> InArgs = {};

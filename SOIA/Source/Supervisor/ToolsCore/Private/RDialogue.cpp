@@ -10,9 +10,17 @@ RDialogue::RDialogue(DialogueInterface* InDialogue)
 	Dialogue(InDialogue)
 { }
 
-DialogueInterface* RDialogue::operator->()
+void RDialogue::Write(const std::string& InText)
 {
-	return Dialogue;
+	Dialogue->Write(InText);
+}
+void RDialogue::WriteLine(const std::string& InText)
+{
+	Dialogue->WriteLine(InText);
+}
+void RDialogue::GetNextLine(std::string& OutText)
+{
+	Dialogue->GetNextLine(OutText);
 }
 
 DialogueInterface* RDialogue::GetDialogueInterface()

@@ -28,16 +28,16 @@ bool FunctionInterface::CorrectArgsAndExecute(std::vector<VoidPointer> &Correcte
 		if (!bfound)
 		{
 			VoidPointer defaultAtom = *GetAtomReflectionProvider()->GetReflection(wantedType.Decay())->StringToObject("");
-			if (defaultAtom.GetTypeID() == TypeID::FromType<RPointer>())
-			{
-				//RElement* p_element = defaultAtom.CastAndDereference<RPointer>().Resolve();
-				CorrectedArgs.push_back(*new RElement*(nullptr));
-				CorrectedArgs[CorrectedArgs.size() - 1].OverrideType(wantedType.Decay());
-			}
-			else
-			{
+			//if (defaultAtom.GetTypeID() == TypeID::FromType<RPointer>())
+			//{
+			//	//RElement* p_element = defaultAtom.CastAndDereference<RPointer>().Resolve();
+			//	CorrectedArgs.push_back(*new RElement*(nullptr));
+			//	CorrectedArgs[CorrectedArgs.size() - 1].OverrideType(wantedType.Decay());
+			//}
+			//else
+			//{
 				CorrectedArgs.push_back(defaultAtom);
-			}
+			//}
 		}
 	}
 	if (CorrectedArgs.size() != wantedTypes.size())

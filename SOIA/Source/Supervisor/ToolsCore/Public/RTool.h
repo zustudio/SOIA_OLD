@@ -6,7 +6,7 @@
 #include "RContainer.h"
 #include "Function.h"
 #include "RDialogue.h"
-#include "RTypedPointer.h"
+#include "RPointer.h"
 
 
 namespace Supervisor
@@ -16,13 +16,13 @@ namespace Supervisor
 	class LIBIMPEXP RTool : public RTool_Base
 	{
 		RCLASS_BEGIN();
-			RTool(const RTypedPointer<RDialogue>& InDialogue);
+			RTool(const RPointer<RDialogue>& InDialogue);
 
 		RFUNCTION(cmd_help);
 			bool cmd_help();
 
 		RPROPERTY(Dialogue)
-			RTypedPointer<RDialogue> Dialogue;
+			RPointer<RDialogue> Dialogue;
 
 		RCLASS_END();
 	};

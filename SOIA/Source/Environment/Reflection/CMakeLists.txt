@@ -12,8 +12,7 @@ in_sub(Element)
 		RClass
 		RContainer
 		RElement
-		RPointer
-		RTypedPointer)
+		RPointer)
 	add_Public(
 		RClassTemplate
 		ReflectionMacros)
@@ -45,7 +44,7 @@ in_sub(Unresolved)
 		ResolveInfoInterface)
 	add_PrivatePublic(
 		ResolvePointerInfo
-		ResolveVectorOfPointersInfo
+		ResolveVectorInfo
 		VoidPointerToUnresolvedRObject)
 in_sub(Global)
 	add_PrivatePublic(
