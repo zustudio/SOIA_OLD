@@ -8,3 +8,13 @@ ElementReflection::ElementReflection(const std::vector<VoidPointer>& InAttribute
 {
 	Attributes = InAttributes;
 }
+
+ElementReflection::ElementReflection(const std::vector<VoidPointer*>& InAttributes)
+{
+	Attributes.clear();
+
+	for (auto attribute : InAttributes)
+	{
+		Attributes.push_back(*attribute);
+	}
+}

@@ -11,6 +11,7 @@ namespace Environment
 	{
 	public:
 		ElementReflection(const std::vector<VoidPointer>& InAttributes);
+		ElementReflection(const std::vector<VoidPointer*>& InAttributes);
 
 		std::vector<VoidPointer> Attributes;
 	};

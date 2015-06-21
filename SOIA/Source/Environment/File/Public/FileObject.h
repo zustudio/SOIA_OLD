@@ -17,13 +17,13 @@ namespace Environment
 		//----- Initializing -----
 		
 		/// Constructor
-		FileObject(RClass* InClass, const std::vector<VoidPointer>& InAttributes);
+		FileObject(RClass* InClass, const std::vector<VoidPointer*>& InAttributes);
 
 		VoidPointer* CreateObject();
 		VoidPointer* ResolvePointers(RContainer* InContainer);
 
 		RClass* Class;
-		std::vector<VoidPointer> Attributes;
+		std::vector<VoidPointer*> Attributes;
 
 	private:
 		VoidPointer* Object;

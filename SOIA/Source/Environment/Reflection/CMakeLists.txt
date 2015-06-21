@@ -12,7 +12,8 @@ in_sub(Element)
 		RClass
 		RContainer
 		RElement
-		RPointer)
+		RPointer
+		RTypedPointer)
 	add_Public(
 		RClassTemplate
 		ReflectionMacros)
@@ -22,9 +23,6 @@ in_sub(Atom)
 		AtomReflection
 		AtomReflectionProvider
 		ReflectionFactory)
-	add_PrivateClasses(
-		RPointerReflection
-		VectorAtomReflection)
 	add_Public(
 		SimpleAtomReflection
 		PointerReflectionTemplate
@@ -42,6 +40,13 @@ in_sub(Type)
 	add_Public(
 		TypeName
 		ObjectMirrorTemplate)
+in_sub(Unresolved)
+	add_Public(
+		ResolveInfoInterface)
+	add_PrivatePublic(
+		ResolvePointerInfo
+		ResolveVectorOfPointersInfo
+		VoidPointerToUnresolvedRObject)
 in_sub(Global)
 	add_PrivatePublic(
 		ReflectionProviders)

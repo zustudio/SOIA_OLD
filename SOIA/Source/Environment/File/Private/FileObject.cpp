@@ -4,15 +4,14 @@
 #include "FileObject.h"
 using namespace Environment;
 
-#include "RPointer.h"
-
-FileObject::FileObject(RClass* InClass, const std::vector<VoidPointer>& InAttributes)
+FileObject::FileObject(RClass* InClass, const std::vector<VoidPointer*>& InAttributes)
 {
 	Class = InClass;
 	Attributes = InAttributes;
 	Object = nullptr;
 	bIsReflected = false;
 }
+
 
 VoidPointer* FileObject::CreateObject()
 {
@@ -44,17 +43,20 @@ VoidPointer* FileObject::ResolvePointers(RContainer* InContainer)
 		return nullptr;
 	}
 
+	std::vector<VoidPointer> ResolvedAttributes;
 	int n = Attributes.size();
 	for (int i = 0; i < n; i++)
 	{
-		VoidPointer p_Attribute = Attributes[i];
-		RPointer* p_PointerAttribute = p_Attribute.CastTo<RPointer>();
-		if (p_PointerAttribute)
+		VoidPointer* p_Attribute = Attributes[i];
+		auto p_UnresolvedAttribute = dynamic_cast<VoidPointerToUnresolvedRObject*>(p_Attribute);
+		if (p_UnresolvedAttribute)
 		{
-			p_PointerAttribute->Container = InContainer;
-			Attributes[i] = p_PointerAttribute->ToVoidPointer();
+			p_UnresolvedAttribute->Resolve(InContainer);
 		}
-		std::vector<RPointer>* p_v_PointerAttributes = p_Attribute.CastTo<std::vector<RPointer> >();
+
+		ResolvedAttributes.push_back(*Attributes[i]);
+
+		/*std::vector<RPointer>* p_v_PointerAttributes = p_Attribute.CastTo<std::vector<RPointer> >();
 		std::vector<RElement*>* v_p_Elements = new std::vector<RElement*>();
 		if (p_v_PointerAttributes)
 		{
@@ -64,7 +66,7 @@ VoidPointer* FileObject::ResolvePointers(RContainer* InContainer)
 				v_p_Elements->push_back(pointerAttribute.Resolve());
 			}
 			Attributes[i] = VoidPointer(*v_p_Elements);
-		}
+		}*/
 	}
 	(*Object->CastTo<RElement*>())->LoadReflection(ElementReflection(Attributes), true);
 	return Object;

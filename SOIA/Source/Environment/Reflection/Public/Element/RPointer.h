@@ -11,6 +11,7 @@ namespace Environment
 {
 	class RElement;
 	class RContainer;
+
 	class LIBIMPEXP RPointer : public Atom
 	{
 	public:

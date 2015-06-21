@@ -9,25 +9,25 @@ using namespace Environment;
 FileObject FileObjectFactory::FromTags(const std::vector<PropertyTag>& InTags)
 {
 	RClass* ContentClass = nullptr;
-	std::vector<VoidPointer> attributes;
+	std::vector<VoidPointer*> attributes;
 
 	if (InTags.size())
 	{
 		// 1st: try to find type of first tag in global element reflection provider
-		ContentClass =GetElementReflectionProvider()->GetClass(TypeID(InTags[0].TypeString));
+		ContentClass = GetElementReflectionProvider()->GetClass(TypeID(InTags[0].TypeString));
 		if (ContentClass)
 		{
 			// if tags indeed belong to element, than load other tags into attributes
 			for (auto iter = InTags.begin() + 1; iter < InTags.end(); iter++)
 			{
-				attributes.push_back(*(*iter).Object);
+				attributes.push_back((*iter).Object);
 			}
 		}
 		else
 		{
 			// if no element class was found, than load first Tag into Object
 			if (InTags.size())
-				attributes.push_back(*InTags[0].Object);
+				attributes.push_back(InTags[0].Object);
 		}
 	}
 
@@ -35,5 +35,9 @@ FileObject FileObjectFactory::FromTags(const std::vector<PropertyTag>& InTags)
 }
 FileObject FileObjectFactory::FromObject(RElement* InObject)
 {
-	return FileObject(InObject->GetClass(), InObject->CreateReflection().Attributes);
+	auto reflection = InObject->CreateReflection();
+	std::vector<VoidPointer*> attributePointers;
+	for (auto attribute : reflection.Attributes) { attributePointers.push_back(new VoidPointer(attribute)); }
+
+	return FileObject(InObject->GetClass(), attributePointers);
 }

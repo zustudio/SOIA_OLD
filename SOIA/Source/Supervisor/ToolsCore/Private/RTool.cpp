@@ -5,15 +5,15 @@ using namespace Environment;
 
 #include "RContainer.h"
 
-RTool::RTool(DialogueInterface* InDialogue)
+RTool::RTool(const RTypedPointer<RDialogue>& InDialogue)
 	: BaseType(),
 	Dialogue(InDialogue)
 {
 	ReflectAttributes();
 }
 
-bool RTool::cmd_Help()
+bool RTool::cmd_help()
 {
-	Dialogue->WriteLine("Help for Tool: in case you need help, please type help followed by command.");
+	Dialogue.Resolve()->GetDialogueInterface()->WriteLine("Help for Tool: in case you need help, please type help followed by command.");
 	return true;
 }

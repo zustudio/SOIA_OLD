@@ -3,7 +3,7 @@
 
 #include "AtomReflection.h"
 
-#include "RPointer.h"
+#include "ResolveVectorInfo.h"
 
 namespace Environment
 {
@@ -28,24 +28,62 @@ namespace Environment
 				}
 			}
 
-			
-			std::vector<RPointer>* pointerVector = new std::vector<RPointer>();
+			return ToObject_Internal<VectorClass>(0, singleStrings);
+		}
+
+		/////////////////////////////////////////////////////////////////////
+		// Internal Helpers
+
+		//----- ToObject -----
+		template<typename Type>
+		static auto ToObject_Internal(int, const std::vector<std::string>& InStrings) -> typename std::enable_if<std::is_base_of<RElement, typename std::remove_pointer<typename Type::value_type>::type>::value, VoidPointer*>::type
+		{
+			auto firstResult = new VectorClass;
+			auto Objects = std::vector<VoidPointerToUnresolvedRObject>();
+			for (auto string : InStrings)
+			{
+				auto unresolvedVPointer = dynamic_cast<VoidPointerToUnresolvedRObject*>(GetAtomObject(string, TypeID::FromType<typename Type::value_type>()));
+				firstResult->push_back(unresolvedVPointer->CastAndDereference<typename VectorClass::value_type>());
+				Objects.push_back(*unresolvedVPointer);
+			}
+			ResolveInfoInterface* ResolveInfo = new ResolveVectorInfo(Objects, nullptr);
+
+
+			auto resolveFunc =
+				[](VoidPointerToUnresolvedRObject* InThis)
+			{
+				ResolveVectorInfo* VectorInfo = dynamic_cast<ResolveVectorInfo*>(InThis->GetResolveInfo());
+
+				VectorClass& result = InThis->CastAndDereference<VectorClass>();
+
+				int n = VectorInfo->Objects.size();
+				for (int i = 0; i < n; i++)
+				{
+					auto& object = VectorInfo->Objects[i];
+					object.Resolve(VectorInfo->TargetElementContainer);
+					result[i] = object.CastAndDereference<typename VectorClass::value_type>();
+				}
+			};
+
+			return new VoidPointerToUnresolvedRObject(*firstResult, resolveFunc, ResolveInfo);
+		}
+
+		template<typename Type>
+		static auto ToObject_Internal(float, const std::vector<std::string>& InStrings) -> typename std::enable_if<!std::is_base_of<RElement, typename std::remove_pointer<typename Type::value_type>::type >::value, VoidPointer*>::type
+		{
 			VectorClass* vector = new VectorClass;
 			auto itemType = TypeID::FromType<typename VectorClass::value_type>();
-			for (auto string : singleStrings)
+			for (auto string : InStrings)
 			{
 				VoidPointer* vp_object = GetAtomObject(string, itemType);
-				if (itemType.IsPointer())
-					pointerVector->push_back(vp_object->CastAndDereference<RPointer>());
-				else
-					vector->push_back(vp_object->CastAndDereference<typename VectorClass::value_type>());
+				vector->push_back(vp_object->CastAndDereference<typename VectorClass::value_type>());
 			}
 
-			if (itemType.IsPointer())
-				return new VoidPointer(*pointerVector);
-			else
-				return new VoidPointer(*vector);
+			return new VoidPointer(*vector);
 		}
+
+
+
 		virtual std::string ObjectToString(VoidPointer& InObject) override
 		{
 			std::string result;

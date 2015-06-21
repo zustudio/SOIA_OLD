@@ -27,6 +27,8 @@ namespace Environment
 			Object((void*)&NewObject),
 			ID(TypeID::FromType<T>())
 		{}
+		virtual ~VoidPointer()
+		{}
 
 		static VoidPointer Nullpointer()
 		{

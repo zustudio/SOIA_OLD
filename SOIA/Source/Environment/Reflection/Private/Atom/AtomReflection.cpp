@@ -5,6 +5,7 @@
 using namespace Environment;
 
 #include "ReflectionProviders.h"
+#include "RContainer.h"
 
 std::string AtomReflection::GetAtomString(VoidPointer& InObject)
 {
@@ -24,4 +25,9 @@ RClass* AtomReflection::GetReflectedClass(const TypeID& InID)
 std::vector<RElement*> AtomReflection::ObjectToRElements(VoidPointer& InObject)
 {
 	return {};
+}
+
+RElement* AtomReflection::GetElementByID(const Element_ID& InID, RContainer* InContainer)
+{
+	return InContainer->GetElement<RElement>(InID);
 }

@@ -22,7 +22,7 @@ PropertyTag PropertyTagFactory::FromObject(const FileObject& InObject)
 
 	for (auto attribute : InObject.Attributes)
 	{
-		tags += (FromSimpleObject(attribute).CompleteString);
+		tags += (FromSimpleObject(*attribute).CompleteString);
 	}
 
 	PropertyTag result = PropertyTag(nullptr, "", "");

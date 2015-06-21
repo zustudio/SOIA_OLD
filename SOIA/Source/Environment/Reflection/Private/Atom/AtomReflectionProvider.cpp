@@ -6,7 +6,6 @@ using namespace Environment;
 
 #include "SimpleAtomReflection.h"
 #include "ReflectionFactory.h"
-#include "RPointer.h"
 #include "Range.h"
 #include <sstream>
 #include <iomanip>
@@ -14,8 +13,6 @@ using namespace Environment;
 
 AtomReflectionProvider::AtomReflectionProvider()
 {
-	// reflect basic types
-	Reflect<RPointer>();
 
 	Reflections.push_back(new SimpleAtomReflection<std::string>(
 		[](const std::string& object){return std::string(object); },

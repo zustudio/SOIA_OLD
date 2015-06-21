@@ -3,7 +3,8 @@
 
 #include "AtomReflection.h"
 
-#include "RPointer.h"
+#include "ResolvePointerInfo.h"
+#include "VoidPointerToUnresolvedRObject.h"
 
 namespace Environment
 {
@@ -12,44 +13,68 @@ namespace Environment
 	{
 		virtual bool IsType(const std::string& InTypeID) override
 		{
-			/*std::regex pattern("class (\\w+)::(\\w+) \\*");
-			auto result = std::smatch();
-			bool success = std::regex_match(InTypeID, result, pattern);
-			return success;*/
 			return (TypeID(InTypeID) == TypeID::FromType<RType>());
 		}
+
+
 		virtual VoidPointer* StringToObject(const std::string& InString) override
 		{
-			return GetAtomObject(InString, TypeID::FromType<RPointer>());
+			return ToObject_Internal<RType>(0, InString);
 		}
 
 		virtual std::string ObjectToString(VoidPointer& InObject) override
 		{
 			std::string result;
 			RType* p_Object = InObject.CastTo<RType>();
-			//InObject = VoidPointer(*new RPointer(*p_Object, InObject.GetTypeID()));
 			
-			
-			result = GetAtomString(Dereference<RType>(0, *p_Object));
+			result = ToString_Internal<RType>(0, *p_Object);
 
 			return result;
 		}
-		virtual std::vector<RElement*> ObjectToRElements(VoidPointer& InObject) override
+		
+		/////////////////////////////////////////////////////////////////////
+		// Internal Helpers
+
+		//----- ToObject -----
+		template<typename Type>
+		static auto ToObject_Internal(int, const std::string& InString) -> typename std::enable_if<std::is_base_of<RElement, typename std::remove_pointer<Type>::type>::value, VoidPointer*>::type
 		{
-			if (GetReflectedClass(InObject.GetTypeID().Dereference()))
-			{
-				InObject.OverrideType(TypeID::FromType<RElement*>());
-				RElement** pp_RElement = InObject.CastTo<RElement*>();
-				if (pp_RElement)
+			Element_ID TargetElementID;
+			TargetElementID.UniqueIdentifier = std::atoi(InString.c_str());
+
+			ResolveInfoInterface* ResolveInfo = new ResolvePointerInfo(TargetElementID, nullptr);
+
+			auto resolveFunc =
+				[](VoidPointerToUnresolvedRObject* InThis) -> void
 				{
-					return { *pp_RElement };
-				}
-			}
-			return {};
+					ResolvePointerInfo* PointerInfo = dynamic_cast<ResolvePointerInfo*>(InThis->GetResolveInfo());
+					InThis->CastAndDereference<Type>() = dynamic_cast<Type>(
+						GetElementByID(PointerInfo->TargetElementID, PointerInfo->TargetElementContainer));
+				};
+
+			return new VoidPointerToUnresolvedRObject(*new Type(nullptr), resolveFunc, ResolveInfo);
 		}
 
-		//template<typename = typename std::decay<decltype(*std::declval<RType>())>::type::IsRElementType>
 		template<typename Type>
+		static auto ToObject_Internal(float, const std::string& InString) -> typename std::enable_if<!std::is_base_of<RElement, typename std::remove_pointer<Type>::type >::value, VoidPointer*>::type
+		{
+			return nullptr;
+		}
+
+		//----- ToString -----
+		template<typename Type>
+		static auto ToString_Internal(int, Type& InObject) -> typename std::enable_if<std::is_base_of<RElement, typename std::remove_pointer<Type>::type>::value, std::string>::type
+		{
+			return std::to_string(InObject->GetID().UniqueIdentifier);
+		}
+
+		template<typename Type>
+		static auto ToString_Internal(float, Type& InObject) -> typename std::enable_if<!std::is_base_of<RElement, typename std::remove_pointer<Type>::type >::value, std::string>::type
+		{
+			return GetAtomString(VoidPointer(*InObject));
+		}
+
+		/*template<typename Type>
 		static auto Dereference(int, Type& InObject) -> typename std::enable_if<std::is_base_of<RElement, typename std::remove_pointer<Type>::type>::value, VoidPointer>::type
 		{
 			return VoidPointer(*new RPointer(InObject, TypeID::FromType<Type>()));
@@ -59,6 +84,20 @@ namespace Environment
 		static auto Dereference(float, Type& InObject) -> typename std::enable_if<!std::is_base_of<RElement, typename std::remove_pointer<Type>::type >::value, VoidPointer>::type
 		{
 			return VoidPointer(*InObject);
+		}*/
+
+		virtual std::vector<RElement*> ObjectToRElements(VoidPointer& InObject) override
+		{
+			if (GetReflectedClass(InObject.GetTypeID().Dereference()))
+			{
+				InObject.OverrideType(TypeID::FromType<RElement*>());
+				RElement** pp_RElement = InObject.CastTo<RElement*>();
+				if (pp_RElement)
+				{
+					return{ *pp_RElement };
+				}
+			}
+			return{};
 		}
 	};
 }
