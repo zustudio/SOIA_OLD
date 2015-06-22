@@ -5,6 +5,7 @@
 
 #include "RElement.h"
 #include "RContainer.h"
+#include "ContainerProvider.h"
 
 namespace Environment
 {
@@ -33,7 +34,7 @@ namespace Environment
 			{
 				result = TargetElement;
 			}
-			else if (TargetContainer)
+			else if (TargetContainer || (TargetContainer = GetTopContainer()))
 			{
 				result = TargetContainer->GetElement<RElementClass>(TargetID);
 				TargetElement = result;

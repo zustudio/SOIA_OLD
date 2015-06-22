@@ -18,7 +18,7 @@ ConsoleWorker::ConsoleWorker(const RPointer<RDialogue>& InDialogue)
 void ConsoleWorker::Main()
 {
 	std::string currentTarget;
-	while (!bExit)
+	while (!bExit && !IsStopping())
 	{
 		std::string input;
 		Dialogue->WriteLine("");

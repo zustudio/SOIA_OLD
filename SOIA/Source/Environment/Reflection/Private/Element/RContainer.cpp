@@ -42,13 +42,16 @@ Element_ID& RContainer::ReRegister(const Element_ID& InID, RElement* InObject)
 	if (ObjectToReplace)
 	{
 		InObject->SetID(InID);
+		InObject->Container = this;
 
 		*ObjectToReplace = InObject;
 
 		return InObject->GetID();
 	}
-
-	return Register(InObject);
+	else
+	{
+		return Register(InObject);
+	}
 }
 void RContainer::Unregister(RElement* Object)
 {
@@ -64,6 +67,7 @@ void RContainer::Clear()
 }
 RElement** RContainer::GetElementPointer(const Element_ID &InID)
 {
+	std::vector<RContainer*> subContainers;
 	RElement** result = nullptr;
 	int n = Objects.size();
 
@@ -74,7 +78,22 @@ RElement** RContainer::GetElementPointer(const Element_ID &InID)
 			result = &Objects[i];
 			break;
 		}
+		else if (Objects[i]->GetClass()->IsChildOf(RContainer::StaticClass()))
+		{
+			subContainers.push_back((RContainer*)Objects[i]);
+		}
 	}
+
+	if (!result)
+	{
+		for (auto container : subContainers)
+		{
+			result = container->GetElementPointer(InID);
+			if (result)
+				break;
+		}
+	}
+
 	return result;
 }
 RElement** RContainer::GetElementPointer(const std::string &InName)

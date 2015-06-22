@@ -31,9 +31,9 @@ Thread::Thread()
 }
 Thread::~Thread()
 {
+	if (InternalThread) delete InternalThread;
 	if (InternalMutex) delete InternalMutex;
 	if (InternalConditionVariable) delete InternalConditionVariable;
-	if (InternalThread) delete InternalThread;
 }
 
 void Thread::Start()
@@ -43,11 +43,16 @@ void Thread::Start()
 }
 void Thread::Stop()
 {
-	
+	ThreadStatus = EThreadStatus::Stopping;
 }
 void Thread::Join()
 {
 	InternalThread->join();
+}
+
+bool Thread::IsStopping()
+{
+	return ThreadStatus == EThreadStatus::Stopping;
 }
 
 //////////////////////////////////////////////////////////////////////////

@@ -44,6 +44,9 @@ namespace Environment
 		/// Wakes Thread.
 		void WakeUp();
 
+		/// returns true, if thread ought to be stopped.
+		bool IsStopping();
+
 		///////////////////////////////////////////
 		// variables
 	private:

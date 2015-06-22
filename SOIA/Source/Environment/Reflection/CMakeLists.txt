@@ -48,6 +48,7 @@ in_sub(Unresolved)
 		VoidPointerToUnresolvedRObject)
 in_sub(Global)
 	add_PrivatePublic(
+		ContainerProvider
 		ReflectionProviders)
 end_sub()
 

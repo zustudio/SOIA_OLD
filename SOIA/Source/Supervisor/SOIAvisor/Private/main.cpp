@@ -28,6 +28,7 @@ int main()
 	DialogueInterface* dialogue = new StdDialogue();
 	RDialogue* rdialogue = new RDialogue(dialogue);
 	RContainer* topCont = new RContainer(Range<int>(0, 999));
+	SetTopContainer(topCont);
 	RContainer* container = new RContainer(Range<int>(1000,1999));
 	topCont->Register(container, "tools");
 	container->Register(rdialogue, "consoledialogue");

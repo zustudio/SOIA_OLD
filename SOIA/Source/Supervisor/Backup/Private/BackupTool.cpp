@@ -6,6 +6,7 @@ using namespace Supervisor;
 using namespace Environment;
 
 #include "SaveFile.h"
+#include "Thread.h"
 
 BackupTool::BackupTool(const RPointer<RDialogue>& InDialogue)
 	: BaseType(InDialogue)
@@ -40,12 +41,15 @@ bool BackupTool::cmd_load(RElement* const & InElement, const std::string& InFile
 	if (element)
 	{
 		RContainer* Parent = InElement->GetContainer();
-		Parent->Unregister(InElement);
 		auto file = new SaveFile(InFileName, false);
 		file->Read();
-		delete InElement;
 		const_cast<RElement*&>(InElement) = *file->Content[0].ConvertTo<RElement*>();
-		Parent->Register(InElement, InElement->GetID().Name);
+		Parent->ReRegister(InElement->GetID(), InElement);
+		auto newthread = dynamic_cast<Environment::Thread*>(InElement);
+		if (newthread) newthread->Start();
+		auto oldthread = dynamic_cast<Environment::Thread*>(element);
+		if (oldthread) oldthread->Stop();
+		//delete element;
 		Dialogue->WriteLine("Saved to file.");
 		result = true;
 		delete file;

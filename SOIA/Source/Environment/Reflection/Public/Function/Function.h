@@ -3,6 +3,7 @@
 
 // include super class
 #include "FunctionInterface.h"
+#include "ReflectionProviders.h"
 
 #define FUNCTION 
 
@@ -33,7 +34,29 @@ namespace Environment
 		{
 			TargetObject = InTargetObject;
 			TargetFunction = InTargetFunction;
+			ReflectArgumentTypes<ArgumentTypes...>::Do();
 		}
+
+		/// Reflect all argument types.
+		template<typename...>
+		struct ReflectArgumentTypes;
+
+		template<>
+		struct ReflectArgumentTypes<>
+		{
+			static void Do()
+			{}
+		};
+
+		template<typename ArgumentType, typename... TailArgumentTypes>
+		struct ReflectArgumentTypes<ArgumentType, TailArgumentTypes...>
+		{
+			static void Do()
+			{
+				GetAtomReflectionProvider()->Reflect<typename std::decay<ArgumentType>::type>();
+				ReflectArgumentTypes<TailArgumentTypes...>::Do();
+			}
+		};
 
 		//----- Executing -----
 
