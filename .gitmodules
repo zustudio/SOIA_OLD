@@ -1,12 +1,9 @@
 [submodule "SOIA/ThirdParty/unittest-cpp"]
 	path = SOIA/ThirdParty/unittest-cpp
 	url = https://github.com/unittest-cpp/unittest-cpp.git
-[submodule "SOIA/ThirdParty/drmemory"]
-	path = SOIA/ThirdParty/drmemory
-	url = https://github.com/DynamoRIO/drmemory.git
 [submodule "SOIA/ThirdParty/cppcheck"]
 	path = SOIA/ThirdParty/cppcheck
 	url = https://github.com/danmar/cppcheck.git
-[submodule "SOIA/ThirdParty/cppcheck-target-cmake"]
-	path = SOIA/ThirdParty/cppcheck-target-cmake
-	url = https://github.com/polysquare/cppcheck-target-cmake.git
+[submodule "SOIA/ThirdParty/soia-cppcheck-target-cmake"]
+	path = SOIA/ThirdParty/soia-cppcheck-target-cmake
+	url = https://MxmUrw@bitbucket.org/zustudio/soia-cppcheck-target-cmake.git

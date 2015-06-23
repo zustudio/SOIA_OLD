@@ -2,6 +2,7 @@
 /SOIA/Intermediate/*
 /SOIA/Documentation/GeneratedDocumentation/*
 /SOIA/ThirdParty_DEPRECATED/*
+/SOIA/ThirdParty/Build_*/
 /**/*.d
 /**/*.obj
 /**/*.exe
