@@ -21,7 +21,7 @@ bool BackupTool::cmd_save(RElement* const & InElement, const std::string& InFile
 	if (element)
 	{
 		auto file = new SaveFile(InFileName, true);
-		file->Content.push_back(element);
+		file->Content.push_back(VoidPointer(element));
 		file->Write();
 		delete file;
 		Dialogue->WriteLine("Saved to file.");

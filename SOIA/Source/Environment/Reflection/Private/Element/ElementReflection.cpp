@@ -5,9 +5,9 @@
 using namespace Environment;
 
 ElementReflection::ElementReflection(const std::vector<VoidPointer>& InAttributes)
-{
-	Attributes = InAttributes;
-}
+	:
+	Attributes(InAttributes)
+{}
 
 ElementReflection::ElementReflection(const std::vector<VoidPointer*>& InAttributes)
 {

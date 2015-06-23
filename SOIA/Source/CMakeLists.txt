@@ -2,6 +2,11 @@ cmake_minimum_required (VERSION 2.6)
 include(GenerateExportHeader)
 set (CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/Scripts/CMake/")
 include(IncludeScripts)
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/Scripts/CMake/cppcheck-target-cmake/")
+set(CPPCHECK_SEARCH_PATHS "${CMAKE_SOURCE_DIR}/../ThirdParty/cppcheck-1.69")
+message(STATUS "cppcheck path: ${CPPCHECK_SEARCH_PATHS}")
+find_package(CPPCheck)
+include(CPPCheck)
 
 project(SOIA)
 
@@ -10,6 +15,10 @@ if(CMAKE_COMPILER_IS_GNUCXX)
 	set( CMAKE_CXX_FLAGS -std=c++14)
 elseif(MSVC14)
 	set( CMAKE_CXX_FLAGS "/EHsc /constexpr:steps4000000 /constexpr:depth50000" )
+endif()
+if(CMAKE_CXX_FLAGS_DEBUG MATCHES "/RTC1")
+   string(REPLACE "/RTC1" " " CMAKE_CXX_FLAGS_DEBUG 
+	"${CMAKE_CXX_FLAGS_DEBUG}")
 endif()
 
 # set default directories

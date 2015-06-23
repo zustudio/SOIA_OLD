@@ -10,7 +10,7 @@ namespace Supervisor
 	{
 		RCLASS_BEGIN();
 
-		ElementExplorerTool(const RPointer<RDialogue>& InDialogue = nullptr);
+		ElementExplorerTool(const RPointer<RDialogue>& InDialogue = RPointer<RDialogue>(nullptr));
 
 		RFUNCTION(cmd_ls);
 		bool cmd_ls();

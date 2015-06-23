@@ -32,11 +32,11 @@ int main()
 	RContainer* container = new RContainer(Range<int>(1000,1999));
 	topCont->Register(container, "tools");
 	container->Register(rdialogue, "consoledialogue");
-	RWorkerTool* Console = new ConsoleWorker(rdialogue);
+	RWorkerTool* Console = new ConsoleWorker(RPointer<RDialogue>(rdialogue));
 	container->Register(Console, "console");
-	auto elementexplorer = new ElementExplorerTool(rdialogue);
+	auto elementexplorer = new ElementExplorerTool(RPointer<RDialogue>(rdialogue));
 	container->Register(elementexplorer, "elementexplorer");
-	container->Register(new BackupTool(rdialogue), "backup");
+	container->Register(new BackupTool(RPointer<RDialogue>(rdialogue)), "backup");
 
 	//std::string arg = "console";
 	//std::vector<VoidPointer> InArgs = {};
@@ -67,7 +67,7 @@ int main()
 	Console->Join();
 
 	SaveFile sf = SaveFile("RTool", true);
-	sf.Content.push_back((RElement*)Console);
+	sf.Content.push_back(VoidPointer(static_cast<RElement*>(Console)));
 	sf.Write();
 
 	auto strings = Console->GetAttributeNames();
@@ -90,7 +90,7 @@ int main()
 	}
 	Console->GetAttribute("cmd_Help").CastAndDereference<FunctionInterface*>()->Execute({});
 	std::string input = "Hello!";
-	Console->GetAttribute("test").CastAndDereference<FunctionInterface*>()->Execute({ input });
+	Console->GetAttribute("test").CastAndDereference<FunctionInterface*>()->Execute({ VoidPointer(input) });
 	LOG(input, Logger::Severity::Warning);
 
 	X a;

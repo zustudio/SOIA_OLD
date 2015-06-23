@@ -104,7 +104,7 @@ bool ConsoleWorker::ExecuteCommands(const std::string& InInput, std::vector<Envi
 				singleInputString = std::string(singleInputString.begin(), singleInputString.end() - 1);
 
 			inputs.push_back(singleInputString);
-			inputPointers.push_back(*new std::string(singleInputString));
+			inputPointers.push_back(VoidPointer(*new std::string(singleInputString)));
 		}
 	}
 

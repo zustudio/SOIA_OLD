@@ -80,7 +80,7 @@ RElement** RContainer::GetElementPointer(const Element_ID &InID)
 		}
 		else if (Objects[i]->GetClass()->IsChildOf(RContainer::StaticClass()))
 		{
-			subContainers.push_back((RContainer*)Objects[i]);
+			subContainers.push_back(dynamic_cast<RContainer*>(Objects[i]));
 		}
 	}
 

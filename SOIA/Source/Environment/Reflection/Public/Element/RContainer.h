@@ -18,7 +18,7 @@ namespace Environment
 
 		//----- Initializing -----
 		/// Constructor
-		RContainer(const Range<int>& InAllowedIDs = Range<int>(0,0), const std::vector<RElement*>& InElements = {});
+		explicit RContainer(const Range<int>& InAllowedIDs = Range<int>(0,0), const std::vector<RElement*>& InElements = {});
 
 		//----- Public Object Access -----
 		/// Registers new Object.
@@ -74,7 +74,7 @@ namespace Environment
 
 		/// Returns elements with named attribute
 		template<class RCastClass, typename AttributeType>
-		std::vector<RCastClass*> GetElementsWithAttribute(const std::string InAttributeName)
+		std::vector<RCastClass*> GetElementsWithAttribute(const std::string& InAttributeName)
 		{
 			std::vector<RCastClass*> allElements = GetAllElements<RCastClass>();
 			std::vector<RCastClass*> result;

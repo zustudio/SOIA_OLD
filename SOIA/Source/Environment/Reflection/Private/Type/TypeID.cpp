@@ -100,10 +100,7 @@ std::vector<std::string> TypeID::MatchPattern(const std::string& InInput, const 
 
 std::string TypeID::ParseName(const std::string& InName)
 {
-	std::string r1 = std::regex_replace(InName, std::regex(" \\*"), "*");
-	std::string r2 = std::regex_replace(r1, std::regex("class "), "");
-	std::string r3 = std::regex_replace(r2, std::regex(", "), ",");
-	return r2;
+	return "";
 }
 
 #ifdef __GNUG__ // GCC

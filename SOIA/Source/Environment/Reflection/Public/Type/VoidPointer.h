@@ -23,7 +23,7 @@ namespace Environment
 			ID(ObjToCopy.ID)
 		{}
 		template<typename T>
-		VoidPointer(const T &NewObject) :
+		explicit VoidPointer(const T &NewObject) :
 			Object((void*)&NewObject),
 			ID(TypeID::FromType<T>())
 		{}

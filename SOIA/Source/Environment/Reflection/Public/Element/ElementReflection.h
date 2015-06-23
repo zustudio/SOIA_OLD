@@ -10,8 +10,8 @@ namespace Environment
 	class LIBIMPEXP ElementReflection
 	{
 	public:
-		ElementReflection(const std::vector<VoidPointer>& InAttributes);
-		ElementReflection(const std::vector<VoidPointer*>& InAttributes);
+		explicit ElementReflection(const std::vector<VoidPointer>& InAttributes);
+		explicit ElementReflection(const std::vector<VoidPointer*>& InAttributes);
 
 		std::vector<VoidPointer> Attributes;
 	};

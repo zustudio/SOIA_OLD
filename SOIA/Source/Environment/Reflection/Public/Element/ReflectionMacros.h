@@ -19,7 +19,7 @@
 	};
 
 #define RBASECLASS_CONSTRUCTOR(ClassType,SuperClassType,ConstructorOperations) \
-	template<typename... CtorArgTypes> ClassType##_Base(CtorArgTypes... CtorArgs) : SuperClassType(CtorArgs...) {ConstructorOperations}
+	template<typename... CtorArgTypes> explicit ClassType##_Base(CtorArgTypes... CtorArgs) : SuperClassType(CtorArgs...) {ConstructorOperations}
 
 #define RBASECLASS_BODY(ClassType,SuperClassType) \
 	virtual Environment::RClass* GetClass() override {return GetClassByType(Environment::TypeID::FromType<ClassType##_Base>());} \

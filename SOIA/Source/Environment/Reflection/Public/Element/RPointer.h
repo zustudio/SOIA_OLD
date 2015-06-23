@@ -13,14 +13,14 @@ namespace Environment
 	class LIBIMPEXP RPointer : public Atom
 	{
 	public:
-		RPointer(RElementClass* InElement)
+		explicit RPointer(RElementClass* InElement)
 			:
 			TargetElement(InElement),
 			TargetID(InElement ? InElement->GetID() : Element_ID()),
 			TargetContainer(InElement ? InElement->GetContainer() : nullptr)
 		{}
 
-		RPointer(Element_ID InID, RContainer* InContainer = nullptr)
+		explicit RPointer(Element_ID InID, RContainer* InContainer = nullptr)
 			:
 			TargetElement(nullptr),
 			TargetContainer(InContainer),

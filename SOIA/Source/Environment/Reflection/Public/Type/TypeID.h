@@ -10,7 +10,6 @@
 
 namespace Environment
 {
-
 	class LIBIMPEXP TypeID
 	{
 	public:

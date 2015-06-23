@@ -12,7 +12,7 @@ namespace Environment
 		unsigned int text_size;
 	public:
 		template <unsigned int N>
-		constexpr CharArrayLiteral(const char(&aStr)[N]) :
+		explicit constexpr CharArrayLiteral(const char(&aStr)[N]) :
 			text_ptr(aStr), text_size(N - 1)
 		{
 			static_assert(N >= 1, "Invalid string literal! Length is zero!");
