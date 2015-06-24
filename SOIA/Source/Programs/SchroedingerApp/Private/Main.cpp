@@ -94,7 +94,7 @@ int main()
 
 	//SAVETEST
 	SaveFile* sv = new SaveFile("Cache.txt", true);
-	sv->Content.push_back((RElement*)runtime.FuncCache);
+	sv->Content.push_back(VoidPointer((RElement*)runtime.FuncCache));
 	sv->Write();
 	delete sv;
 

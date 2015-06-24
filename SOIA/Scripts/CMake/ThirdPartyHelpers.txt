@@ -13,6 +13,7 @@ macro( make_thirdparty_directories )
 	file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/Install/ThirdParty/bin" )
 	file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/Install/ThirdParty/lib" )
 	file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/Install/ThirdParty/include" )
+	file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/Install/ThirdParty/script" )
 endmacro( make_thirdparty_directories )
 
 

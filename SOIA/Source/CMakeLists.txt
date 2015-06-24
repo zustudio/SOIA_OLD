@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 3.0)
 
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/ThirdParty/soia-cppcheck-target-cmake/")
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_BINARY_DIR}/Install/ThirdParty/script/soia-cppcheck-target-cmake/")
 
 include(GenerateExportHeader)
 message(STATUS "module paths: ${CMAKE_MODULE_PATH}")
