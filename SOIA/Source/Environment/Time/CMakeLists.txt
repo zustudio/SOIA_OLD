@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1)
 
-project(Time)
+subproject(Time)
 	depends_on_projects(Environment Core)
 
 add_PrivatePublic(CurrentTime)

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1)
 
-project(Pipeline)
+subproject(Pipeline)
 	depends_on_projects(Environment Core Log Reflection)
 	depends_on_projects(Supervisor ToolsCore AnalyzerCore)
 

@@ -13,7 +13,7 @@ namespace Environment
 	{
 	public:
 
-		Constant(double InConstant = 0);
+		explicit Constant(double InConstant = 0);
 
 		virtual double Calculate(const std::vector<Value*> &InDefinedValues) override;
 

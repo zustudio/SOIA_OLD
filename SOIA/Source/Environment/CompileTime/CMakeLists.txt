@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1)
 
-project(CompileTime)
+subproject(CompileTime)
 
 in_sub(Generic)
 	add_Public(

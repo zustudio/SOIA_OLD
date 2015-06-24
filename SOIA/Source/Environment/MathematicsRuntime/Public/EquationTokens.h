@@ -13,7 +13,7 @@ namespace Environment
 	class LIBIMPEXP EquationTokens
 	{
 	public:
-		EquationTokens(const std::vector<std::string> &InFormalParts);
+		explicit EquationTokens(const std::vector<std::string> &InFormalParts);
 
 		EquationToken* GenerateOperandDependency();
 		EquationToken* MultDivAddSubstDependency(std::deque<EquationToken*>& TokenList);

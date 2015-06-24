@@ -8,9 +8,9 @@ using namespace Environment;
 #include <iostream>
 
 EquationString::EquationString(const std::string& InString)
-{
-	String = InString + ' ';
-}
+	:
+	String(InString + ' ')
+{}
 
 void EquationString::Parse(MathContainer& InRuntime)
 {

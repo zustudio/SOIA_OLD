@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1)
 
-project(MathematicsRuntime)
+subproject(MathematicsRuntime)
 	depends_on_projects(Environment Reflection)
 
 add_PrivatePublic(
@@ -28,3 +28,4 @@ end_sub()
 auto_include_directories()
 auto_export_directories()
 auto_add_shared_library()
+auto_static_check()

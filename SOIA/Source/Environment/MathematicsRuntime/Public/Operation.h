@@ -15,7 +15,7 @@ namespace Environment
 	class LIBIMPEXP Operation : public Operation_Base
 	{
 	public:
-		Operation(const std::vector<Element_ID> &InOperands = {});
+		explicit Operation(const std::vector<Element_ID> &InOperands = {});
 
 		bool FindOperands(const std::vector<Value*> &InDefinedValues, Value* &OutOperand1, Value* &OutOperand2, Value* &OutOperand3);
 

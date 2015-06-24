@@ -21,7 +21,7 @@ bool FunctionCache::GetCachedFunctionCall(const Element_ID &InFunction, double I
 	bool result = false;
 	for (RElement* element : Objects)
 	{
-		FunctionCacheItem* functionCall = (FunctionCacheItem*)element;
+		FunctionCacheItem* functionCall = static_cast<FunctionCacheItem*>(element);
 		if (InFunction == functionCall->CalledFunction)
 		{
 			if (DoublesEqual(InOperand0, functionCall->Operand0))

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1)
 
-project(ElementExplorer)
+subproject(ElementExplorer)
 	depends_on_projects(Environment Core Reflection)
 	depends_on_projects(Supervisor ToolsCore)
 

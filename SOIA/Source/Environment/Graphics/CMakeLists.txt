@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1)
 
-project(Graphics)
+subproject(Graphics)
 	depends_on_projects(Environment Core MathematicsCore)
 
 in_sub(Core)

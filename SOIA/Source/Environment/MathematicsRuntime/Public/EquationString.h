@@ -27,7 +27,7 @@ namespace Environment
 		////////////////////////////////////////////////////////////////
 		// Functions
 	public:
-		EquationString(const std::string& InString);
+		explicit EquationString(const std::string& InString);
 
 		void Parse(MathContainer&);
 

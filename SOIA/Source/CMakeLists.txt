@@ -1,14 +1,11 @@
-cmake_minimum_required (VERSION 2.6)
+cmake_minimum_required (VERSION 3.0)
+
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/ThirdParty/soia-cppcheck-target-cmake/")
+
 include(GenerateExportHeader)
-set (CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/Scripts/CMake/")
-include(IncludeScripts)
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/Scripts/CMake/cppcheck-target-cmake/")
-set(CPPCHECK_SEARCH_PATHS "${CMAKE_SOURCE_DIR}/../ThirdParty/cppcheck-1.69")
-message(STATUS "cppcheck path: ${CPPCHECK_SEARCH_PATHS}")
+message(STATUS "module paths: ${CMAKE_MODULE_PATH}")
 find_package(CPPCheck)
 include(CPPCheck)
-
-project(SOIA)
 
 # set cflags
 if(CMAKE_COMPILER_IS_GNUCXX)
@@ -28,8 +25,6 @@ set( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/Libraries )
 
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
-
-set_property( GLOBAL PROPERTY USE_FOLDERS ON)
 
 enable_dmessage()
 

@@ -17,8 +17,9 @@ using namespace Environment;
 #include <iostream>
 
 EquationToken::EquationToken(const std::string& InString)
+	:
+	String(InString)
 {
-	String = InString;
 
 	if (InString[0] == ' ')
 		Type = TokenType::WhiteSpace;
@@ -215,6 +216,10 @@ Element_ID EquationToken::rec_RegisterToken(MathContainer* InRuntime)
 		id.UniqueIdentifier = 0;
 		return id;
 	}
-
+	default:
+	{
+		Element_ID id;
+		return id;
+	}
 	}
 }

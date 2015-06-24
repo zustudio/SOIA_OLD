@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1)
 
-project(Equation)
+subproject(Equation)
 	depends_on_projects(Environment Core MathematicsRuntime)
 	depends_on_projects(Supervisor ToolsCore)
 

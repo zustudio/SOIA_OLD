@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1)
 
-project(Reflection)
+subproject(Reflection)
 	depends_on_projects(Environment Core Log CompileTime MathematicsCore)
 
 in_sub(Element)
@@ -55,13 +55,7 @@ end_sub()
 auto_include_directories()
 auto_export_directories()
 auto_add_shared_library()
-
-
-#------------------------- ADD CPP STATIC CODE TEST----------------------------
-
-set(L_auto_include_dirs "${DEPENDENCY_INCLUDE_DIRS}" )
-list(APPEND L_auto_include_dirs ${PROJECT_Public_DIRS} ${PROJECT_Classes_DIRS})
-cppcheck_target_sources( ${PROJECT_NAME} INCLUDES ${L_auto_include_dirs} )
+auto_static_check()
 
 
 #------------------------- ADD CPP UNIT TEST ----------------------------------

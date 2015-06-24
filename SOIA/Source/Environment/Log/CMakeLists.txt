@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1)
 
-project(Log)
+subproject(Log)
 	depends_on_projects(Environment Core Text Time)
 
 in_sub(Logger)

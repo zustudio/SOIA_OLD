@@ -9,7 +9,7 @@ namespace Environment
 	class LIBIMPEXP OP_If : public OP_If_Base
 	{
 	public:
-		OP_If(const std::vector<Element_ID> &InOperands = {});
+		explicit OP_If(const std::vector<Element_ID> &InOperands = {});
 		virtual double Calculate(const std::vector<Value*> &DefinedValues) override;
 	};
 }

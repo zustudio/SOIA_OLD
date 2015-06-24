@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1)
 
-project(Backup)
+subproject(Backup)
 	depends_on_projects(Environment Core Thread File)
 	depends_on_projects(Supervisor ToolsCore)
 

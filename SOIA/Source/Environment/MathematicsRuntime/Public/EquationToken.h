@@ -31,7 +31,7 @@ namespace Environment
 	class LIBIMPEXP EquationToken
 	{
 	public:
-		EquationToken(const std::string& InString);
+		explicit EquationToken(const std::string& InString);
 		void CollapseOperands(int& InMyPosition, std::deque<EquationToken*>& InAllTokens);
 
 		Element_ID rec_RegisterToken(MathContainer* InRuntime);

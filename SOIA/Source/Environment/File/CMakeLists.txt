@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1)
 
-project(File)
+subproject(File)
 	depends_on_projects(Environment Reflection Log)
 
 add_PrivatePublic(
