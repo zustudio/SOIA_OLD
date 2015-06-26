@@ -14,11 +14,14 @@ function echo_header
 
 function echo_help
 {
-	echo "= Help:"
-	for line in "$@"
-	do
-	    echo "=   $line"
-	done
+	if [ "$bhelp" == "true" ];then
+		echo "= Help:"
+		for line in "$@"
+		do
+		    echo "=   $line"
+		done
+		exit
+	fi
 }
 
 function echo_success

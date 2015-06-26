@@ -5,8 +5,9 @@ include(IncludeScripts)
 
 project(SOIA)
 
-add_subdirectory(ThirdParty)
-
-if ("${THIRDPARTY_SUCCESS}" STREQUAL "TRUE")
+option( BUILD_SOIA "OFF => Builds thirdparty dependencies. ON => Builds SOIA." OFF)
+if ("${BUILD_SOIA}" STREQUAL "ON")
 	add_subdirectory(Source)
+else()
+	add_subdirectory(ThirdParty)
 endif()

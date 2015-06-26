@@ -1,7 +1,6 @@
 #!/bin/bash
 
 base_dir="$(dirname "$0")"
-
 source "$base_dir/Common/echo.sh"
 
 #####################################

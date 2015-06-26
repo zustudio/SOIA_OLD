@@ -14,6 +14,9 @@ function set_project_vars
 		build_suffix="CUSTOM"
 		cmake_generator="$1"
 	fi
-	build_folder="../../Build_$build_suffix"
-	mkdir -p "$build_folder"
+	build_dir="../../Build_$build_suffix"
+	build_folder="Build_$build_suffix"
+	mkdir -p "$build_dir"
+	
+	soia_echo "Build folder is: $build_folder."
 }
