@@ -6,11 +6,11 @@ source "$base_dir/Common/common.sh"
 ###################################################
 # main
 
-echo_header "Build"
+echo_header "Configure"
 
 bhelp_1args "$@"
 echo_help \
-		"Usecase: Builds CMake project in specified folder." \
+		"Usecase: Configures CMake project in specified folder." \
 		"Arg0:    Name of cmake generator to use for build." \
 		"         This defines the build folder name."
 
@@ -18,5 +18,5 @@ set_project_vars "$1"
 
 # invoke cmake
 cd "$build_dir"
-cmake --build ./ \
+cmake-gui ./ \
 	&& echo_success

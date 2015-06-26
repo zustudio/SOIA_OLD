@@ -17,6 +17,6 @@ echo_help \
 set_project_vars "$1"
 
 # invoke cmake
-cd "$build_dir"
-cmake --build ./ \
+cd "$build_dir/.."
+rm -rf "$build_folder" \
 	&& echo_success
