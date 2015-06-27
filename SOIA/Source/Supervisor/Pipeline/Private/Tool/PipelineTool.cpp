@@ -5,8 +5,13 @@
 using namespace Supervisor;
 using namespace Environment;
 
-PipeTool::PipeTool(DialogueInterface* InDialogue)
+PipelineTool::PipelineTool(const RPointer<RDialogue>& InDialogue)
 	: BaseType(InDialogue)
 {
 
+}
+
+bool PipelineTool::cmd_add()
+{
+	return true;
 }

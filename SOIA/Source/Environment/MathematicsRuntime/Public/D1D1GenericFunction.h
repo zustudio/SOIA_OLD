@@ -14,6 +14,7 @@ namespace Environment
 	public:
 		D1D1GenericFunction(MathContainer* InRuntime, const Element_ID &InFunction);
 		virtual double Calculate(double x) override;
+		Element_ID GetFunctionID();
 
 	private:
 		MathContainer* MathRuntime;

@@ -3,6 +3,7 @@
 
 #include "EquationTokens.h"
 #include "MathContainer.h"
+#include "D1D1GenericFunction.h"
 
 #include <string>
 #include <vector>
@@ -29,7 +30,7 @@ namespace Environment
 	public:
 		explicit EquationString(const std::string& InString);
 
-		void Parse(MathContainer&);
+		D1D1GenericFunction Parse(MathContainer&);
 
 		EquationTokens Tokenize();
 

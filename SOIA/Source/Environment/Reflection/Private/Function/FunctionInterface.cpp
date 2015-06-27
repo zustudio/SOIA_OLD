@@ -11,35 +11,45 @@ bool FunctionInterface::CorrectArgsAndExecute(std::vector<VoidPointer> &Correcte
 {
 	std::vector<TypeID> wantedTypes = GetArgumentTypes();
 	std::vector<VoidPointer> inArgs = CorrectedArgs;
+	std::vector<int> defaultCreatedArgs;
 	CorrectedArgs.clear();
 
 	for (auto wantedType : wantedTypes)
 	{
 		bool bfound = false;
-		for (auto arg : inArgs)
+		for (auto iter_arg = inArgs.begin(); iter_arg != inArgs.end(); iter_arg++)
 		{
-			if ((arg.IsChildOf(wantedType.Decay()) || arg.GetTypeID().Decay() == wantedType.Decay()) && std::find(CorrectedArgs.begin(), CorrectedArgs.end(), arg/*, [&arg](const VoidPointer& p) {return p == arg; }*/) == CorrectedArgs.end())
+			if (((*iter_arg).IsChildOf(wantedType.Decay()) || (*iter_arg).GetTypeID().Decay() == wantedType.Decay()) && std::find(CorrectedArgs.begin(), CorrectedArgs.end(), (*iter_arg)) == CorrectedArgs.end())
 			{
-				CorrectedArgs.push_back(arg);
+				CorrectedArgs.push_back(*iter_arg);
+				iter_arg = inArgs.erase(iter_arg);
 				bfound = true;
 				break;
 			}
 		}
 		if (!bfound)
 		{
-			VoidPointer defaultAtom = *GetAtomReflectionProvider()->GetReflection(wantedType.Decay())->StringToObject("");
-			//if (defaultAtom.GetTypeID() == TypeID::FromType<RPointer>())
-			//{
-			//	//RElement* p_element = defaultAtom.CastAndDereference<RPointer>().Resolve();
-			//	CorrectedArgs.push_back(*new RElement*(nullptr));
-			//	CorrectedArgs[CorrectedArgs.size() - 1].OverrideType(wantedType.Decay());
-			//}
-			//else
-			//{
-				CorrectedArgs.push_back(defaultAtom);
-			//}
+			VoidPointer defaultAtom = VoidPointer::Nullpointer();
+			defaultAtom.OverrideType(wantedType);
+			CorrectedArgs.push_back(defaultAtom);
+			defaultCreatedArgs.push_back(CorrectedArgs.size() - 1);
 		}
 	}
+
+	int n = defaultCreatedArgs.size();
+	for (int i = 0; i < n; i++)
+	{
+		std::string translation = "";
+		if (inArgs.size())
+		{
+			translation = GetAtomReflectionProvider()->GetReflection(inArgs[i].GetTypeID().Decay())->ObjectToString(inArgs[i]);
+		}
+
+		VoidPointer createdAtom = *GetAtomReflectionProvider()->GetReflection(CorrectedArgs[defaultCreatedArgs[i]].GetTypeID().Decay())->StringToObject(translation);
+
+		CorrectedArgs[defaultCreatedArgs[i]] = createdAtom;
+	}
+
 	if (CorrectedArgs.size() != wantedTypes.size())
 	{
 		LOG("Arguments for calling function interface did not match and could not be corrected.", Logger::Severity::Warning);

@@ -11,7 +11,7 @@ in_sub(Element)
 		RAbstractClass
 		RClass
 		RContainer
-		RElement
+		TEST RElement
 		RPointer)
 	add_Public(
 		RClassTemplate
@@ -52,10 +52,11 @@ in_sub(Global)
 end_sub()
 
 
+auto_add_shared_library()
+auto_add_unittests()
+auto_static_check()
 auto_include_directories()
 auto_export_directories()
-auto_add_shared_library()
-auto_static_check()
 
 
 #------------------------- ADD CPP UNIT TEST ----------------------------------

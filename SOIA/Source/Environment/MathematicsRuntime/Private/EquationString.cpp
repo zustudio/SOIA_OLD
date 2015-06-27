@@ -12,13 +12,15 @@ EquationString::EquationString(const std::string& InString)
 	String(InString + ' ')
 {}
 
-void EquationString::Parse(MathContainer& InRuntime)
+D1D1GenericFunction EquationString::Parse(MathContainer& InRuntime)
 {
 	EquationTokens tokens = Tokenize();
 	EquationToken* mainToken = tokens.GenerateOperandDependency();
 	if (mainToken)
 	{
-		mainToken->rec_RegisterToken(&InRuntime);
+		Element_ID topValue;
+		topValue = mainToken->rec_RegisterToken(&InRuntime);
+		return D1D1GenericFunction(&InRuntime, topValue);
 	}
 	else
 	{

@@ -31,3 +31,8 @@ double D1D1GenericFunction::Calculate(double x)
 	result = MathRuntime->CalculateValue(FunctionCall);
 	return result;
 }
+
+Element_ID D1D1GenericFunction::GetFunctionID()
+{
+	return Function;
+}

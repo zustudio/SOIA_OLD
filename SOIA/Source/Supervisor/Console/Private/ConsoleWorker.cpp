@@ -70,7 +70,7 @@ bool ConsoleWorker::ExecuteCommands(const std::string& InInput, std::vector<Envi
 	//pattern ([a-zA-Z]+[ |:]?)
 	//pattern |\\d+\\(.+\\)
 	std::string input = InInput;
-	std::regex pattern("([a-zA-Z.\"_]+:?|\\d*\\(.+\\))");
+	std::regex pattern("(\"(.*?)\"|[a-zA-Z0-9_]+:?|\\d*\\(.+\\))");
 	auto result = std::smatch();
 	
 	std::vector<std::string> inputs;
@@ -102,6 +102,9 @@ bool ConsoleWorker::ExecuteCommands(const std::string& InInput, std::vector<Envi
 			// remove trailing whitespace
 			if (singleInputString[singleInputString.size() - 1] == ' ')
 				singleInputString = std::string(singleInputString.begin(), singleInputString.end() - 1);
+			// remove quotes
+			if (singleInputString[singleInputString.size() - 1] == '\"')
+				singleInputString = std::string(singleInputString.begin() + 1, singleInputString.end() - 1);
 
 			inputs.push_back(singleInputString);
 			inputPointers.push_back(VoidPointer(*new std::string(singleInputString)));

@@ -6,5 +6,5 @@ subproject(SchroedingerApp)
 add_PrivatePublic(Main)
 end_sub()
 
-auto_include_directories()
 auto_add_executable()
+auto_include_directories()

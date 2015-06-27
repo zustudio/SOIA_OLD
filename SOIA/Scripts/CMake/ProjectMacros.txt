@@ -64,11 +64,37 @@ macro( auto_add_interface_library )
 	add_custom_target(${SUBPROJECT_NAME} SOURCES ${PUBLIC_H_FILES} ${PRIVATE_H_FILES} )
 endmacro( auto_add_interface_library )
 
+macro( auto_add_unittests )
+	set(TESTNAME Test${SUBPROJECT_NAME} )
+	dmessage(STATUS "= Adding unittests =")
+	dmessage(STATUS "  following unittest files were registered: ")
+	dmessage(STATUS "${UNITTEST_FILES}")
+	
+	find_library(UNITTEST_LIBRARY
+		NAMES UnitTest++ libUnitTest++
+		HINTS "${THIRDPARTY_DIRECTORY}/lib")
+	dmessage(STATUS "  Found unittest lib: ${UNITTEST_LIBRARY}" )
+	
+	add_library(UnitTest++ STATIC IMPORTED)
+	set_target_properties(UnitTest++ PROPERTIES IMPORTED_LOCATION "${UNITTEST_LIBRARY}")
+	
+	add_executable(${TESTNAME} ${CMAKE_CURRENT_SOURCE_DIR}/Tests/Main.cpp ${UNITTEST_FILES})
+	target_include_directories(${TESTNAME} PRIVATE ${DEPENDENCY_INCLUDE_DIRS} ${THIRDPARTY_DIRECTORY}/include ${PROJECT_Public_DIRS} ${PROJECT_Classes_DIRS} ${CMAKE_CURRENT_BINARY_DIR}/Generated)
+	set_property(TARGET ${TESTNAME} PROPERTY FOLDER "Tests")
+	
+	target_link_libraries(${TESTNAME} ${SUBPROJECT_NAME} UnitTest++)
+	
+	add_custom_command(TARGET ${TESTNAME}
+		POST_BUILD COMMAND ${TESTNAME}
+		COMMENT "Running tests...")
+
+endmacro( auto_add_unittests )
+
 function( auto_include_directories )
 	set(L_auto_include_dirs "${DEPENDENCY_INCLUDE_DIRS}" )
 	list(APPEND L_auto_include_dirs ${PROJECT_Public_DIRS} ${PROJECT_Classes_DIRS} ${CMAKE_CURRENT_BINARY_DIR}/Generated)
 	dmessage(STATUS "auto-including following directories: ${L_auto_include_dirs}" )
-	include_directories( ${L_auto_include_dirs} )
+	target_include_directories(${SUBPROJECT_NAME} PRIVATE ${L_auto_include_dirs} )
 endfunction( auto_include_directories )
 
 macro( auto_export_directories )
@@ -115,19 +141,15 @@ endmacro( end_sub )
 #    the current 'Public' & 'Private' directories
 macro( add_PrivatePublic L_file_names )
 	dmessage(STATUS "ARGV is: ${ARGV0}" )
-	foreach( L_file_name ${ARGV} )
-		add_Private(${L_file_name})
-		add_Public(${L_file_name})
-	endforeach()
+	add_Private(${ARGV})
+	add_Public(${ARGV})
 endmacro( add_PrivatePublic L_file_names )
 
 # add_PrivateClasses()
 #    Same as 'add_PrivatePublic()' but .h-files are added to 'Classes' folder
 macro( add_PrivateClasses L_file_names )
-	foreach( L_file_name ${ARGV} )
-		add_Private(${L_file_name})
-		add_Classes(${L_file_name})
-	endforeach()
+	add_Private(${ARGV})
+	add_Classes(${ARGV})
 endmacro( add_PrivateClasses L_file_names )
 
 #------------------------------ Local helper macros ----------------------------
@@ -156,6 +178,20 @@ macro( handle_sub_arg L_arg )
 	endif()
 endmacro( handle_sub_arg L_args )
 
+macro( add_Private L_file_names )
+	parse_argument_options(ADD_PRIVATE "TEST" ${ARGV})
+	add_Role( Private cpp SUB_CPP_FILES ${ADD_PRIVATE_NOOPTION} ${ADD_PRIVATE_TEST} )
+	add_unittest( ${ADD_PRIVATE_TEST} )
+endmacro( add_Private L_file_names )
+
+macro( add_Public L_file_names )
+	add_Role( Public h SUB_PUBLIC_H_FILES ${ARGV} )
+endmacro( add_Public L_file_names )
+
+macro( add_Classes L_file_names )
+	add_Role( Classes h SUB_PRIVATE_H_FILES ${ARGV} )
+endmacro( add_Classes L_file_names )
+
 
 macro( add_Role L_role_dir L_role_fileending L_role_filelist )
 	if( NOT "${bSUB_DISABLED}" STREQUAL "TRUE" )
@@ -170,17 +206,20 @@ macro( add_Role L_role_dir L_role_fileending L_role_filelist )
 	endif()
 endmacro( add_Role L_role_dir L_role_fileending L_role_filelist )
 
-macro( add_Private L_file_names )
-	add_Role( Private cpp SUB_CPP_FILES ${ARGV} )
-endmacro( add_Private L_file_names )
-
-macro( add_Public L_file_names )
-	add_Role( Public h SUB_PUBLIC_H_FILES ${ARGV} )
-endmacro( add_Public L_file_names )
-
-macro( add_Classes L_file_names )
-	add_Role( Classes h SUB_PRIVATE_H_FILES ${ARGV} )
-endmacro( add_Classes L_file_names )
+macro( add_unittest )
+	file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Tests )
+	foreach( L_filename ${ARGN} )
+		if( "${CURRENT_SUB_NAME}" STREQUAL "" )
+			set( L_testfile "${CMAKE_CURRENT_SOURCE_DIR}/Tests/Test_${L_filename}.cpp" )
+		else()
+			set( L_testfile "${CMAKE_CURRENT_SOURCE_DIR}/Tests/Test_${CURRENT_SUB_NAME}_${L_filename}.cpp" )
+		endif()
+		list(APPEND UNITTEST_FILES ${L_testfile} )
+		if( NOT EXISTS "${L_testfile}" )
+			file(WRITE "${L_testfile}" "")
+		endif()
+	endforeach()
+endmacro()
 
 
 #    Creates source group. The name contains the role (Private | Public | Classes), 

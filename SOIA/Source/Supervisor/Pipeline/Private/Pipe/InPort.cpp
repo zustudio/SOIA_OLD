@@ -12,6 +12,7 @@ InPort::InPort(TypeID InType)
 bool InPort::Write(const VoidPointer& InData)
 {
 	InputBuffer.push_back(InData);
+	return true;
 }
 
 bool InPort::Read(VoidPointer &OutData)

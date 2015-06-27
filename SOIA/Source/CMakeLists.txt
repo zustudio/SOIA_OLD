@@ -31,6 +31,9 @@ if (WIN32)
   set(CMAKE_SHARED_LIBRARY_PREFIX "")
 endif ()
 
+# set directory settings for helper macros
+set(THIRDPARTY_DIRECTORY ${CMAKE_BINARY_DIR}/Install/Thirdparty)
+
 add_subdirectory(Environment)
 add_subdirectory(Supervisor)
 add_subdirectory(Programs)

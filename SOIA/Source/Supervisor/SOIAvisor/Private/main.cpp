@@ -14,6 +14,7 @@ using namespace Environment;
 #include "ConsoleWorker.h"
 #include "ElementExplorerTool.h"
 #include "BackupTool.h"
+#include "EquationTool.h"
 using namespace Supervisor;
 
 #include <iostream>
@@ -36,6 +37,11 @@ int main()
 	container->Register(Console, "console");
 	auto elementexplorer = new ElementExplorerTool(RPointer<RDialogue>(rdialogue));
 	container->Register(elementexplorer, "elementexplorer");
+	MathContainer* mathContainer = new MathContainer();
+	container->Register(mathContainer, "mathContainer");
+	auto equationTool = new REquationTool(RPointer<RDialogue>(rdialogue));
+	equationTool->cmd_setmathcontainer(mathContainer);
+	container->Register(equationTool, "equation");
 	container->Register(new BackupTool(RPointer<RDialogue>(rdialogue)), "backup");
 
 	//std::string arg = "console";

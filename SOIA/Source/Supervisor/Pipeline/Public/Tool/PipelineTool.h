@@ -5,12 +5,12 @@
 
 namespace Supervisor
 {
-	RCLASS(PipeTool,RTool)
-	class PipeTool : PipeTool_Base
+	RCLASS(PipelineTool,RTool)
+	class PipelineTool : public PipelineTool_Base
 	{
 		RCLASS_BEGIN();
 
-		PipeTool(DialogueInterface* InDialogue = nullptr);
+		PipelineTool(const Environment::RPointer<RDialogue>& InDialogue = RPointer<RDialogue>(nullptr));
 
 		RFUNCTION(cmd_add)
 			bool cmd_add();

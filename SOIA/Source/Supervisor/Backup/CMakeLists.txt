@@ -7,6 +7,6 @@ subproject(Backup)
 add_PrivatePublic(BackupTool)
 end_sub()
 
+auto_add_shared_library()
 auto_include_directories()
 auto_export_directories()
-auto_add_shared_library()
