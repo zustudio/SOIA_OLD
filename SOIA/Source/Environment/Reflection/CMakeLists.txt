@@ -28,14 +28,17 @@ in_sub(Atom)
 		VectorAtomReflectionTemplate)
 in_sub(Function)
 	add_PrivatePublic(
-		Function
-		FunctionInterface)
+		RFunctionTemplate
+		RFunction
+		Function)
 in_sub(Type)
 	add_PrivatePublic(
 		TypeID
-		VoidPointer
+		PointerCounter
+		TEST VoidPointer
 		ObjectMirror)
 	add_Public(
+		DestructorFunctionTemplate
 		TypeName
 		ObjectMirrorTemplate)
 in_sub(Unresolved)

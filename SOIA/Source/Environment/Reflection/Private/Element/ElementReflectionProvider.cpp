@@ -5,6 +5,18 @@
 using namespace Environment;
 
 #include "RElement.h"
+#include <iostream>
+
+ElementReflectionProvider::ElementReflectionProvider()
+{}
+
+ElementReflectionProvider::~ElementReflectionProvider()
+{
+	for (RClass* rclass : Classes)
+	{
+		delete rclass;
+	}
+}
 
 void ElementReflectionProvider::Register(RClass* InClass)
 {

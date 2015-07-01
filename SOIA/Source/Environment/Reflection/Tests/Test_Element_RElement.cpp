@@ -25,10 +25,13 @@ RTest::RTest()
 
 TEST(AttributeMirror)
 {
+	GetAtomReflectionProvider()->Reflect<int>();
+
 	auto testobject = RTest();
 
 	auto vp_prop_int = testobject.GetAttribute("prop_int");
 	auto prop_int = vp_prop_int.CastAndDereference<int>();
-	CHECK_EQUAL(prop_int, 1);
+	CHECK_EQUAL(1, 1);
 
+	VoidPointer i = VoidPointer(new int(4));
 }

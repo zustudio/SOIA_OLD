@@ -52,14 +52,14 @@ namespace Environment
 						GetElementByID(PointerInfo->TargetElementID, PointerInfo->TargetElementContainer));
 				};
 
-			return new VoidPointerToUnresolvedRObject(*new Type(nullptr), resolveFunc, ResolveInfo);
+			return new VoidPointerToUnresolvedRObject(new Type(nullptr), resolveFunc, ResolveInfo);
 		}
 
 		template<typename Type>
 		static auto ToObject_Internal(float, const std::string& InString) -> typename std::enable_if<!std::is_base_of<RElement, typename std::remove_pointer<Type>::type >::value, VoidPointer*>::type
 		{/*
 			using InnerType = typename std::remove_pointer<Type>::type;
-			return new VoidPointer(*new Type(&GetAtomObject(InString, TypeID::FromType<InnerType>())->CastAndDereference<InnerType>()));*/
+			return new VoidPointer(new Type(&GetAtomObject(InString, TypeID::FromType<InnerType>())->CastAndDereference<InnerType>()));*/
 			return new VoidPointer(VoidPointer::Nullpointer());
 		}
 
@@ -73,13 +73,13 @@ namespace Environment
 		template<typename Type>
 		static auto ToString_Internal(float, Type& InObject) -> typename std::enable_if<!std::is_base_of<RElement, typename std::remove_pointer<Type>::type >::value, std::string>::type
 		{
-			return GetAtomString(VoidPointer(*InObject));
+			return GetAtomString(VoidPointer(InObject));
 		}
 
 		/*template<typename Type>
 		static auto Dereference(int, Type& InObject) -> typename std::enable_if<std::is_base_of<RElement, typename std::remove_pointer<Type>::type>::value, VoidPointer>::type
 		{
-			return VoidPointer(*new RPointer(InObject, TypeID::FromType<Type>()));
+			return VoidPointer(new RPointer(InObject, TypeID::FromType<Type>()));
 		}
 
 		template<typename Type>

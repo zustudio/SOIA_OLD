@@ -46,7 +46,7 @@ macro( generate_build_script_zip L_project_name )
 	list(APPEND L_all_commands
 		"unzip -oq \${L_project_dir}/${L_project_name}.zip"
 		"mkdir -p ${L_bin_dir}"
-		"cp -r -T */bin/ ${L_bin_dir}/")
+		"cp -r -T */ ${L_bin_dir}/")
 		generate_build_script( ${L_project_name} ${L_all_commands} )
 endmacro()
 

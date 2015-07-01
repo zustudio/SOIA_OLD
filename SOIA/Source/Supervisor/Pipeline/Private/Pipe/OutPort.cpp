@@ -7,7 +7,7 @@ using namespace Environment;
 
 OutPort::OutPort(TypeID InType)
 	: Port(PortConfiguration::Output, InType),
-	CurrentOutput(VoidPointer::Nullpointer)
+	CurrentOutput(VoidPointer::Nullpointer())
 {
 }
 

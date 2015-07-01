@@ -49,8 +49,7 @@ namespace Environment
 			ResolveInfoInterface* ResolveInfo = new ResolveVectorInfo(Objects, nullptr);
 
 
-			auto resolveFunc =
-				[](VoidPointerToUnresolvedRObject* InThis)
+			auto resolveFunc = [](VoidPointerToUnresolvedRObject* InThis)
 			{
 				ResolveVectorInfo* VectorInfo = dynamic_cast<ResolveVectorInfo*>(InThis->GetResolveInfo());
 
@@ -65,7 +64,7 @@ namespace Environment
 				}
 			};
 
-			return new VoidPointerToUnresolvedRObject(*firstResult, resolveFunc, ResolveInfo);
+			return new VoidPointerToUnresolvedRObject(firstResult, resolveFunc, ResolveInfo);
 		}
 
 		template<typename Type>
@@ -79,7 +78,7 @@ namespace Environment
 				vector->push_back(vp_object->CastAndDereference<typename VectorClass::value_type>());
 			}
 
-			return new VoidPointer(*vector);
+			return new VoidPointer(vector);
 		}
 
 
@@ -91,7 +90,7 @@ namespace Environment
 
 			for (auto p_SubObject : *p_Object)
 			{
-				VoidPointer vp_p_SubObject = VoidPointer(p_SubObject);
+				VoidPointer vp_p_SubObject = VoidPointer(&p_SubObject, EMemoryType::Stack);
 				result += GetAtomString(vp_p_SubObject) + "|";
 			}
 			return result;

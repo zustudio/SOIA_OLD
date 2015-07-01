@@ -4,6 +4,8 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_BINARY_DIR}/Install/ThirdParty/script/soi
 
 include(GenerateExportHeader)
 message(STATUS "module paths: ${CMAKE_MODULE_PATH}")
+
+cmake_policy(VERSION 3.1)
 find_package(CPPCheck)
 include(CPPCheck)
 
@@ -33,6 +35,7 @@ endif ()
 
 # set directory settings for helper macros
 set(THIRDPARTY_DIRECTORY ${CMAKE_BINARY_DIR}/Install/Thirdparty)
+set(WORKFLOW_DIRECTORY ${CMAKE_SOURCE_DIR}/Scripts/Workflow)
 
 add_subdirectory(Environment)
 add_subdirectory(Supervisor)

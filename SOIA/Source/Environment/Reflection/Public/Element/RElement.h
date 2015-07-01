@@ -47,7 +47,7 @@ namespace Environment
 		using IsRElementType = std::true_type;		// sfinae definition
 	public:
 		RElement();
-		virtual ~RElement() {};
+		virtual ~RElement();
 
 		virtual void SetID(Element_ID InID);
 		Element_ID& GetID();

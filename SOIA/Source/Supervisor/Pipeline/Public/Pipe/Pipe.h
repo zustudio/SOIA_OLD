@@ -3,7 +3,7 @@
 
 #include "RElement.h"
 
-#include "FunctionInterface.h"
+#include "RFunction.h"
 #include "InPort.h"
 #include "OutPort.h"
 
@@ -17,7 +17,7 @@ namespace Supervisor
 		Pipe();
 
 	protected:
-		bool SetAnalyzerFunction(Environment::FunctionInterface*);
+		bool SetAnalyzerFunction(Environment::RFunction*);
 
 		std::vector<InPort> Input;
 		std::vector<OutPort> Output;

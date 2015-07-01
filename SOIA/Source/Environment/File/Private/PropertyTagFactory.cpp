@@ -10,7 +10,7 @@ using namespace Environment;
 // Initializing
 PropertyTagFactory::PropertyTagFactory()
 {
-	ErrorResult = new PropertyTag(new VoidPointer(*new int(35535)), "ERROR", "ERROR");
+	ErrorResult = new PropertyTag(new VoidPointer(new int(35535)), "ERROR", "ERROR");
 }
 
 ////////////////////////////////////////////////////////////////

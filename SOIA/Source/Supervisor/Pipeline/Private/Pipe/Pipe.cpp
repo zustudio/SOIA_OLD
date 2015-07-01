@@ -13,7 +13,7 @@ Pipe::Pipe()
 
 }
 
-bool Pipe::SetAnalyzerFunction(FunctionInterface* InFunction)
+bool Pipe::SetAnalyzerFunction(RFunction* InFunction)
 {
 	bool result = true;
 	auto argumentTypes = InFunction->GetArgumentTypes();

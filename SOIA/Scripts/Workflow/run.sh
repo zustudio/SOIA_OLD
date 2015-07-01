@@ -6,17 +6,19 @@ source "$base_dir/Common/common.sh"
 ###################################################
 # main
 
-echo_header "Generate"
+echo_header "Build"
 
-bhelp_args 1 "$@"
+bhelp_args 2 "$@"
 echo_help \
-		"Usecase: Generates CMake project in specified folder." \
+		"Usecase: Runs executabe in cmake folder." \
 		"Arg0:    Name of cmake generator to use for build." \
 		"         This defines the build folder name."
 
 set_project_vars "$1"
 
-# invoke cmake
-cd "$build_dir"
-cmake -G "$cmake_generator" .. \
+find_exec="/usr/bin/find"
+run_exec=$($find_exec "$build_dir/Binaries" -executable -name "$2.exe" -type f)
+
+soia_echo "Starting $2"
+$run_exec \
 	&& echo_success

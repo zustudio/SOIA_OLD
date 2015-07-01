@@ -15,6 +15,6 @@ ElementReflection::ElementReflection(const std::vector<VoidPointer*>& InAttribut
 
 	for (auto attribute : InAttributes)
 	{
-		Attributes.push_back(*attribute);
+		Attributes.push_back(VoidPointer(*attribute));
 	}
 }

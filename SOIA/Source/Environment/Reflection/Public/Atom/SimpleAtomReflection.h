@@ -14,10 +14,13 @@ namespace Environment
 		////////////////////////////////////////////////////////////////
 		// initialize reflection with constructor
 		SimpleAtomReflection(ToStringConverter_FunctionType InToStringConverter, ToObjectConverter_FunctionType InToObjectConverter)
+			: AtomReflection()
 		{
 			ToStringConverter = InToStringConverter;
 			ToObjectConverter = InToObjectConverter;
 		}
+		virtual ~SimpleAtomReflection()
+		{}
 
 		////////////////////////////////////////////////////////////////
 		// reflection functionality
@@ -33,7 +36,7 @@ namespace Environment
 		virtual VoidPointer* StringToObject(const std::string& InString) override
 		{
 			SimpleType object = (*ToObjectConverter)(InString);
-			return new VoidPointer(*new SimpleType(object));
+			return new VoidPointer(new SimpleType(object));
 		}
 
 		////////////////////////////////////////////////////////////////

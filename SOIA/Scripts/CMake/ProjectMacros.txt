@@ -64,7 +64,12 @@ macro( auto_add_interface_library )
 	add_custom_target(${SUBPROJECT_NAME} SOURCES ${PUBLIC_H_FILES} ${PRIVATE_H_FILES} )
 endmacro( auto_add_interface_library )
 
+OPTION( BUILD_UNITTESTS "If enabled, then unittests are being build and executed at each full build" ON )
+OPTION( CHECK_MEMORY "If enabled, then the unittests are run a second time with drmemory" ON )
 macro( auto_add_unittests )
+
+if( "${BUILD_UNITTESTS}" STREQUAL "ON")
+
 	set(TESTNAME Test${SUBPROJECT_NAME} )
 	dmessage(STATUS "= Adding unittests =")
 	dmessage(STATUS "  following unittest files were registered: ")
@@ -79,7 +84,8 @@ macro( auto_add_unittests )
 	set_target_properties(UnitTest++ PROPERTIES IMPORTED_LOCATION "${UNITTEST_LIBRARY}")
 	
 	add_executable(${TESTNAME} ${CMAKE_CURRENT_SOURCE_DIR}/Tests/Main.cpp ${UNITTEST_FILES})
-	target_include_directories(${TESTNAME} PRIVATE ${DEPENDENCY_INCLUDE_DIRS} ${THIRDPARTY_DIRECTORY}/include ${PROJECT_Public_DIRS} ${PROJECT_Classes_DIRS} ${CMAKE_CURRENT_BINARY_DIR}/Generated)
+	target_include_directories(${TESTNAME} PRIVATE ${THIRDPARTY_DIRECTORY}/include ${CMAKE_CURRENT_BINARY_DIR}/Generated)
+#^there ${DEPENDENCY_INCLUDE_DIRS}  ${PROJECT_Public_DIRS} ${PROJECT_Classes_DIRS}
 	set_property(TARGET ${TESTNAME} PROPERTY FOLDER "Tests")
 	
 	target_link_libraries(${TESTNAME} ${SUBPROJECT_NAME} UnitTest++)
@@ -87,14 +93,22 @@ macro( auto_add_unittests )
 	add_custom_command(TARGET ${TESTNAME}
 		POST_BUILD COMMAND ${TESTNAME}
 		COMMENT "Running tests...")
-
+	
+if("${CHECK_MEMORY}" STREQUAL "ON")
+	set(L_memory_command "${WORKFLOW_DIRECTORY}/memory.sh \"${CMAKE_GENERATOR}\"")
+	dmessage(STATUS "= Memory Command is: ${L_memory_command}")
+	add_custom_command(TARGET ${TESTNAME}
+		POST_BUILD COMMAND bash "${L_memory_command}"
+		COMMENT "Checking memory for tests...")
+endif()
+endif()
 endmacro( auto_add_unittests )
 
 function( auto_include_directories )
-	set(L_auto_include_dirs "${DEPENDENCY_INCLUDE_DIRS}" )
-	list(APPEND L_auto_include_dirs ${PROJECT_Public_DIRS} ${PROJECT_Classes_DIRS} ${CMAKE_CURRENT_BINARY_DIR}/Generated)
+	set(L_auto_include_dirs PUBLIC ${DEPENDENCY_INCLUDE_DIRS} ${PROJECT_Public_DIRS} PRIVATE ${PROJECT_Classes_DIRS} ${CMAKE_CURRENT_BINARY_DIR}/Generated)
+	list(APPEND L_auto_include_dirs )
 	dmessage(STATUS "auto-including following directories: ${L_auto_include_dirs}" )
-	target_include_directories(${SUBPROJECT_NAME} PRIVATE ${L_auto_include_dirs} )
+	target_include_directories(${SUBPROJECT_NAME} ${L_auto_include_dirs} )
 endfunction( auto_include_directories )
 
 macro( auto_export_directories )
@@ -106,7 +120,10 @@ endmacro( auto_export_directories )
 option( STATIC_CODE_CHECK "Executes static code checks on all projects that enabled it" ON )
 macro( auto_static_check )
 	if( "${STATIC_CODE_CHECK}" STREQUAL "ON" )
-		cppcheck_target_sources( ${SUBPROJECT_NAME} SOURCES ${CPP_FILES} INCLUDES ${PROJECT_Public_DIRS};${PROJECT_Classes_DIRS} )
+		dmessage(STATUS "= Adding static code check =")
+		dmessage(STATUS "  cppfiles are: ${CPP_FILES}")
+		cppcheck_target_sources( ${SUBPROJECT_NAME} SOURCES ${CPP_FILES} INCLUDES ${PROJECT_Classes_DIRS} ${CMAKE_CURRENT_BINARY_DIR}/Generated)
+		# INCLUDES ${PROJECT_Public_DIRS} ${PROJECT_Classes_DIRS} 
 	endif()
 endmacro( auto_static_check )
 

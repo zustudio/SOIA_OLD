@@ -12,6 +12,9 @@ namespace Environment
 	class LIBIMPEXP ElementReflectionProvider
 	{
 	public:
+		ElementReflectionProvider();
+		~ElementReflectionProvider();
+
 		void Register(RClass* InClass);
 
 		RClass* GetClass(const TypeID& InType);

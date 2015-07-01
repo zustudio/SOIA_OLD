@@ -1,13 +1,13 @@
 
 #include "Definitions.h"
 
-#include "FunctionInterface.h"
+#include "RFunction.h"
 using namespace Environment;
 
 #include "ReflectionProviders.h"
 #include "LogProvider.h"
 
-bool FunctionInterface::CorrectArgsAndExecute(std::vector<VoidPointer> &CorrectedArgs)
+bool RFunction::CorrectArgsAndExecute(std::vector<VoidPointer> &CorrectedArgs)
 {
 	std::vector<TypeID> wantedTypes = GetArgumentTypes();
 	std::vector<VoidPointer> inArgs = CorrectedArgs;

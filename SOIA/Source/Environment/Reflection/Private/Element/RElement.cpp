@@ -12,6 +12,13 @@ RElement::RElement()
 	RegisterClass<RElement::BaseType>();
 	Reflect(ID);
 }
+RElement::~RElement()
+{
+	for (ObjectMirror* attribute: AttributeMirrors)
+	{
+		delete attribute;
+	}
+}
 
 void RElement::SetID(Element_ID InID)
 {

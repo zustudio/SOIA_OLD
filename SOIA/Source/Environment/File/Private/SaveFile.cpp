@@ -31,7 +31,7 @@ void SaveFile::PreWrite()
 					if (p_AttributeElement && Content.end() == Find(Content, p_AttributeElement,
 						[](const VoidPointer& InVP) -> RElement*& {return InVP.CastAndDereference<RElement*>(); }))
 					{
-						Content.push_back(VoidPointer(*new RElement*(p_AttributeElement)));
+						Content.push_back(VoidPointer(new RElement*(p_AttributeElement)));
 					}
 				}
 			}

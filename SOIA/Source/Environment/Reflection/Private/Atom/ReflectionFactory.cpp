@@ -4,18 +4,14 @@
 #include "ReflectionFactory.h"
 using namespace Environment;
 
-bool ReflectionFactory::IsTypeAvailable(const std::string& InTypeID)
+bool ReflectionFactory::IsAdded(TypeID InType, const std::vector<AtomReflection*>& Reflections)
 {
-	/*std::regex pattern("class std::(\\w+)<(\\w+),class std::allocator<(\\2)> >");
-	auto result = std::smatch();
-	bool success = std::regex_match(InTypeID, result, pattern);
-
-	if (success)
+	for (auto reflection : Reflections)
 	{
-		for (int i = 0; i < result.size(); i++)
+		if (reflection->IsType(InType))
 		{
-			std::cout << result[i] << std::endl;
+			return true;
 		}
-	}*/
-	return true;
+	}
+	return false;
 }

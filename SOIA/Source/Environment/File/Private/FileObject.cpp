@@ -23,7 +23,7 @@ VoidPointer* FileObject::CreateObject()
 		if (result->LoadReflection(reflection, true))
 		{
 			bIsReflected = true;
-			Object = new VoidPointer(*new RElement*(result));
+			Object = new VoidPointer(new RElement*(result));
 		}
 		return Object;
 	}

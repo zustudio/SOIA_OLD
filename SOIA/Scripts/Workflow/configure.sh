@@ -8,7 +8,7 @@ source "$base_dir/Common/common.sh"
 
 echo_header "Configure"
 
-bhelp_1args "$@"
+bhelp_args 1 "$@"
 echo_help \
 		"Usecase: Configures CMake project in specified folder." \
 		"Arg0:    Name of cmake generator to use for build." \

@@ -111,9 +111,9 @@ bool ElementExplorerTool::cmd_attr(RElement* const & InElementName, std::string 
 
 				// get arguments if functioninterface
 				std::string argumentTypes;
-				if (attribute.GetTypeID().Decay() == TypeID::FromType<FunctionInterface*>())
+				if (attribute.GetTypeID().Decay() == TypeID::FromType<RFunction*>())
 				{
-					FunctionInterface* function = attribute.CastAndDereference<FunctionInterface*>();
+					RFunction* function = attribute.CastAndDereference<RFunction*>();
 					auto v_argumentTypes = function->GetArgumentTypes();
 					for (auto argumentType : v_argumentTypes)
 					{

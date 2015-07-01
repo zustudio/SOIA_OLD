@@ -29,4 +29,10 @@ function echo_success
 	echo "="
 	echo "=="
 	echo "====== Success ======"
+	return 0
+}
+
+function echo_important
+{
+	echo "====== $1 ======"
 }

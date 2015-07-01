@@ -63,7 +63,7 @@ int main()
 	//}
 
 
-	/*elementexplorer->GetAttribute("cmd_element").CastAndDereference<FunctionInterface*>()->CorrectArgsAndExecute(InArgs);
+	/*elementexplorer->GetAttribute("cmd_element").CastAndDereference<RFunction*>()->CorrectArgsAndExecute(InArgs);
 	auto names = InArgs[1].CastAndDereference<RElement*>()->GetAttributeNames();
 	dialogue->WriteLine(names[0]);*/
 
@@ -82,21 +82,21 @@ int main()
 		LOGSTATUS("Attribute is: " + string);
 	}
 	
-	//Console->GetAttribute("cmd_Help").CastAndDereference<FunctionInterface*>()->Execute({});
+	//Console->GetAttribute("cmd_Help").CastAndDereference<RFunction*>()->Execute({});
 
 	using T = std::vector<std::string>;
 
 
 	Console->CreateReflection();
 
-	auto argTypes = Console->GetAttribute("cmd_echo").CastAndDereference<FunctionInterface*>()->GetArgumentTypes();
+	auto argTypes = Console->GetAttribute("cmd_echo").CastAndDereference<RFunction*>()->GetArgumentTypes();
 	for (auto argType : argTypes)
 	{
 		dialogue->WriteLine("ArgType: " + argType.ToString());
 	}
-	Console->GetAttribute("cmd_Help").CastAndDereference<FunctionInterface*>()->Execute({});
+	Console->GetAttribute("cmd_Help").CastAndDereference<RFunction*>()->Execute({});
 	std::string input = "Hello!";
-	Console->GetAttribute("test").CastAndDereference<FunctionInterface*>()->Execute({ VoidPointer(input) });
+	Console->GetAttribute("test").CastAndDereference<RFunction*>()->Execute({ VoidPointer(&input, EMemoryType::Stack) });
 	LOG(input, Logger::Severity::Warning);
 
 	X a;

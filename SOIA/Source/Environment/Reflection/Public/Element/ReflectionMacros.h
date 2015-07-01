@@ -2,6 +2,7 @@
 #pragma once
 
 #include "RClass.h"
+#include "RFunctionTemplate.h"
 #include <type_traits>
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -64,7 +65,7 @@ public:
 
 #define RFUNCTION(object) \
 private: \
-Environment::FunctionInterface* object##_Generated = Environment::CreateFunction<Type>(this, &Type::object); \
+Environment::RFunction* object##_Generated = Environment::CreateFunction<Type>(this, &Type::object); \
 RATTRIBUTE_BASE(object##_Generated,#object) \
 public:
 

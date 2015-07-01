@@ -10,7 +10,7 @@
 
 namespace Environment
 {
-	class LIBIMPEXP FunctionInterface : public Atom
+	class LIBIMPEXP RFunction : public Atom
 	{
 	public:
 		virtual bool Execute(const std::vector<VoidPointer> &InArgs) {return false;}
@@ -18,13 +18,13 @@ namespace Environment
 
 		bool CorrectArgsAndExecute(std::vector<VoidPointer> &InArgs);
 
-		static std::string ToString(const FunctionInterface& InID)
+		static std::string ToString(const RFunction& InID)
 		{
 			return "";
 		}
-		static FunctionInterface FromString(const std::string& InString)
+		static RFunction FromString(const std::string& InString)
 		{
-			return FunctionInterface();
+			return RFunction();
 		}
 	};
 }

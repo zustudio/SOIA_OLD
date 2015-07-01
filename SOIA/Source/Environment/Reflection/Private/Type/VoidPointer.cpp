@@ -7,24 +7,30 @@ using namespace Environment;
 
 const TypeID& VoidPointer::GetTypeID() const
 {
-	return ID;
+	return Type;
 }
 
 void VoidPointer::OverrideType(const TypeID& InNewTypeID)
 {
-	ID = InNewTypeID;
+	Type = InNewTypeID;
+}
+
+VoidPointer::operator bool() const
+{
+	return IsValid();
+}
+
+bool VoidPointer::IsValid() const
+{
+	return Target;
 }
 
 bool VoidPointer::IsNullPointer()
 {
 	bool result = false;
-	if (!Object)
+	if (IsValid() && Type.IsPointer())
 	{
-		result = true;
-	}
-	else if (ID.IsPointer())
-	{
-		result = *((void**)Object) == nullptr;
+		result = *((void**)Target) == nullptr;
 	}
 	return result;
 }
@@ -32,7 +38,7 @@ bool VoidPointer::IsNullPointer()
 bool VoidPointer::IsChildOf(const TypeID& InOther) const
 {
 	auto reflectionProv = GetElementReflectionProvider();
-	RClass* thisClass = reflectionProv->GetClass(ID.Dereference());
+	RClass* thisClass = reflectionProv->GetClass(Type.Dereference());
 	RClass* otherClass = reflectionProv->GetClass(InOther.Dereference());
 	return (thisClass && otherClass
 			&& thisClass->IsChildOf(otherClass));

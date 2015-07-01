@@ -1,8 +1,9 @@
 #!/bin/bash
 
-function bhelp_1args
+function bhelp_args
 {
-	if [ "$#" -ne 1 ] || [ "$1" == "-h" ];then
+	expected_count=$(expr $1 + 1)
+	if [ "$#" -ne "$expected_count" ] || [ "$1" == "-h" ];then
 		bhelp=true
 	fi
 }

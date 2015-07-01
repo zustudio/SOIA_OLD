@@ -19,8 +19,8 @@ void TextFile::WriteObject(const VoidPointer& InObject)
 
 VoidPointer* TextFile::ReadObject()
 {
-	std::string text;
-	std::getline(*InStream, text);
+	std::string* text = new std::string();
+	std::getline(*InStream, *text);
 	return new VoidPointer(text);
 }
 

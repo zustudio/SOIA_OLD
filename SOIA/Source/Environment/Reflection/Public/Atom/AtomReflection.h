@@ -12,6 +12,9 @@ namespace Environment
 	class LIBIMPEXP AtomReflection
 	{
 	public:
+		AtomReflection() {};
+		virtual ~AtomReflection() {};
+
 		virtual bool IsType(const std::string& InTypeName) = 0;
 		virtual VoidPointer* StringToObject(const std::string& InString) = 0;
 		virtual std::string ObjectToString(VoidPointer& InObject) = 0;

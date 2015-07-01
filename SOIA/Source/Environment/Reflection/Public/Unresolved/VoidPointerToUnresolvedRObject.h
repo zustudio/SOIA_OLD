@@ -18,7 +18,7 @@ namespace Environment
 
 
 		template<typename T>
-		VoidPointerToUnresolvedRObject(const T &NewObject, ToVoidPointerFunction InResolveFunction, ResolveInfoInterface* InResolveInfo)
+		VoidPointerToUnresolvedRObject(T* NewObject, ToVoidPointerFunction InResolveFunction, ResolveInfoInterface* InResolveInfo)
 			: VoidPointer(NewObject),
 			ResolveFunction(InResolveFunction),
 			ResolveInfo(InResolveInfo)

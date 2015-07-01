@@ -2,18 +2,15 @@
 #pragma once
 
 // include super class
-#include "RFunctionInterface.h"
+#include "RFunction.h"
+#include "ReflectionProviders.h"
 
-// include SOIA
-#include "VoidPointer.h"
-
-// include std
-#include <vector>
+#define FUNCTION 
 
 namespace Environment
 {
 	template <class TargetObjectType, typename ...ArgumentTypes>
-	class LIBIMPEXP RFunction : public RFunctionInterface
+	class LIBIMPEXP RFunctionTemplate : public RFunction
 	{
 	public:
 
@@ -33,11 +30,33 @@ namespace Environment
 		//----- Initializing -----
 
 		/// Constructor.
-		RFunction(TargetObjectType* InTargetObject, TargetFunctionPointerType InTargetFunction)
+		RFunctionTemplate(TargetObjectType* InTargetObject, TargetFunctionPointerType InTargetFunction)
 		{
 			TargetObject = InTargetObject;
 			TargetFunction = InTargetFunction;
+			ReflectArgumentTypes<ArgumentTypes...>::Do();
 		}
+
+		/// Reflect all argument types.
+		template<typename...>
+		struct ReflectArgumentTypes;
+
+		template<>
+		struct ReflectArgumentTypes<>
+		{
+			static void Do()
+			{}
+		};
+
+		template<typename ArgumentType, typename... TailArgumentTypes>
+		struct ReflectArgumentTypes<ArgumentType, TailArgumentTypes...>
+		{
+			static void Do()
+			{
+				GetAtomReflectionProvider()->Reflect<typename std::decay<ArgumentType>::type>();
+				ReflectArgumentTypes<TailArgumentTypes...>::Do();
+			}
+		};
 
 		//----- Executing -----
 
@@ -51,6 +70,12 @@ namespace Environment
 		virtual bool Execute(const std::vector<Environment::VoidPointer> &InArgs) override
 		{
 			return MatchArgumentsAndExecute(InArgs, (CleanTypePointer<ArgumentTypes>().Pointer)...);
+		}
+
+		//----- Information -----
+		virtual std::vector<TypeID> GetArgumentTypes() override
+		{
+			return{ (TypeID::FromType<ArgumentTypes>())... };
 		}
 
 	private:
@@ -99,4 +124,11 @@ namespace Environment
 		TargetObjectType* TargetObject;
 		TargetFunctionPointerType TargetFunction;
 	};
+
+
+	template <class TargetObjectType, typename... ArgumentTypes>
+	decltype(auto) CreateFunction(TargetObjectType* InTargetObject, bool(TargetObjectType::* TargetFunctionPointer)(ArgumentTypes...))
+	{
+		return new RFunctionTemplate<TargetObjectType, ArgumentTypes...>(InTargetObject, TargetFunctionPointer);
+	}
 }

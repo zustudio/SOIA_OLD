@@ -15,12 +15,12 @@ namespace Environment
 		{}
 		virtual VoidPointer Get() override
 		{
-			VoidPointer pointer = VoidPointer(*ObjectToMirror);
+			VoidPointer pointer = VoidPointer(ObjectToMirror, EMemoryType::Stack);
 			return pointer;
 		}
 		virtual bool SetIfTypesMatch(const VoidPointer& InPointer) override
 		{
-			Type* object = InPointer.CastTo<Type>();
+			auto object = InPointer.CastTo<Type>();
 			if (object)
 			{
 				*ObjectToMirror = *object;

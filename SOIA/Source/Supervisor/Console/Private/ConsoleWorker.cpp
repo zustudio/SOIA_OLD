@@ -107,7 +107,7 @@ bool ConsoleWorker::ExecuteCommands(const std::string& InInput, std::vector<Envi
 				singleInputString = std::string(singleInputString.begin() + 1, singleInputString.end() - 1);
 
 			inputs.push_back(singleInputString);
-			inputPointers.push_back(VoidPointer(*new std::string(singleInputString)));
+			inputPointers.push_back(VoidPointer(new std::string(singleInputString)));
 		}
 	}
 
@@ -140,7 +140,7 @@ bool ConsoleWorker::ExecuteCommand(const std::string& InTarget, std::string& InC
 		if (target)
 		{
 			auto p_attribute = target->GetAttribute(functionName);
-			if (!p_attribute.IsNullPointer() && p_attribute.CastTo<FunctionInterface*>())
+			if (!p_attribute.IsNullPointer() && p_attribute.CastTo<RFunction*>())
 			{
 				//targetArgs = std::vector<VoidPointer>(args.begin() + 2, args.end());
 			}
@@ -157,7 +157,7 @@ bool ConsoleWorker::ExecuteCommand(const std::string& InTarget, std::string& InC
 	else
 	{
 		functionName = "cmd_" + InCommand;
-		std::vector<RTool*> targets = Container->GetElementsWithAttribute<RTool, FunctionInterface*>(functionName);
+		std::vector<RTool*> targets = Container->GetElementsWithAttribute<RTool, RFunction*>(functionName);
 		if (targets.size() == 0)
 			Dialogue->WriteLine("Could not find tool with function :" + functionName);
 		else if (targets.size() > 1)
@@ -183,7 +183,7 @@ bool ConsoleWorker::ExecuteCommand(const std::string& InTarget, std::string& InC
 	}
 	else
 	{
-		target->GetAttribute(functionName).CastAndDereference<FunctionInterface*>()->CorrectArgsAndExecute(InOutArguments);
+		target->GetAttribute(functionName).CastAndDereference<RFunction*>()->CorrectArgsAndExecute(InOutArguments);
 		return true;
 	}
 }

@@ -32,23 +32,14 @@ AtomReflectionProvider::AtomReflectionProvider()
 	{
 		if (*iter_Middle == ',') return Range<int>(std::atoi(std::string(InString.begin(), iter_Middle).c_str()), std::atoi(std::string(iter_Middle + 1, InString.end()).c_str()));
 	} }));
+}
 
-	/// Serializing
-	/*static std::string ToString(const Range<T>& InObject)
+AtomReflectionProvider::~AtomReflectionProvider()
+{
+	for (AtomReflection* reflection : Reflections)
 	{
-		
+		delete reflection;
 	}
-	static Range<T> FromString(const std::string& InString)
-	{
-		auto result = MatchPattern(InString, "(-?[0-9]+),(-?[0-9]+)");
-		if (result.size() == 3)
-		{
-			return Range<T>(std::atoi(result[1].c_str()), std::atoi(result[2].c_str()));
-		}
-		else
-			return Range<T>();
-	}*/
-
 }
 
 AtomReflection* AtomReflectionProvider::GetReflection(const std::string& InTypeName)
