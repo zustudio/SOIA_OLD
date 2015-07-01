@@ -196,17 +196,20 @@ macro( handle_sub_arg L_arg )
 endmacro( handle_sub_arg L_args )
 
 macro( add_Private L_file_names )
-	parse_argument_options(ADD_PRIVATE "TEST" ${ARGV})
-	add_Role( Private cpp SUB_CPP_FILES ${ADD_PRIVATE_NOOPTION} ${ADD_PRIVATE_TEST} )
-	add_unittest( ${ADD_PRIVATE_TEST} )
+	parse_argument_options(ADD_ROLE "TEST" ${ARGV})
+	add_Role( Private cpp SUB_CPP_FILES ${ADD_ROLE_NOOPTION} ${ADD_ROLE_TEST} )
 endmacro( add_Private L_file_names )
 
 macro( add_Public L_file_names )
-	add_Role( Public h SUB_PUBLIC_H_FILES ${ARGV} )
+	parse_argument_options(ADD_ROLE "TEST" ${ARGV})
+	add_Role( Public h SUB_PUBLIC_H_FILES ${ADD_ROLE_NOOPTION} ${ADD_ROLE_TEST})
+	add_unittest( ${ADD_ROLE_TEST} )
 endmacro( add_Public L_file_names )
 
 macro( add_Classes L_file_names )
-	add_Role( Classes h SUB_PRIVATE_H_FILES ${ARGV} )
+	parse_argument_options(ADD_ROLE "TEST" ${ARGV})
+	add_Role( Classes h SUB_PRIVATE_H_FILES ${ADD_ROLE_NOOPTION} ${ADD_ROLE_TEST})
+	add_unittest( ${ADD_ROLE_TEST} )
 endmacro( add_Classes L_file_names )
 
 

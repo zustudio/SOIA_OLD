@@ -31,7 +31,7 @@ TEST(AttributeMirror)
 
 	auto vp_prop_int = testobject.GetAttribute("prop_int");
 	auto prop_int = vp_prop_int.CastAndDereference<int>();
-	CHECK_EQUAL(1, 1);
+	CHECK_EQUAL(1, prop_int);
 
 	VoidPointer i = VoidPointer(new int(4));
 }
