@@ -1,0 +1,10 @@
+
+[submodule "SOIA/ThirdParty/cppcheck"]
+	path = SOIA/ThirdParty/cppcheck
+	url = https://github.com/danmar/cppcheck.git
+[submodule "SOIA/ThirdParty/soia-unittest-cpp"]
+	path = SOIA/ThirdParty/soia-unittest-cpp
+	url = https://MxmUrw@bitbucket.org/zustudio/soia-unittest-cpp.git
+[submodule "SOIA/ThirdParty/soia-cppcheck-target-cmake"]
+	path = SOIA/ThirdParty/soia-cppcheck-target-cmake
+	url = https://MxmUrw@bitbucket.org/zustudio/soia-cppcheck-target-cmake.git

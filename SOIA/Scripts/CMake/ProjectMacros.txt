@@ -1,0 +1,281 @@
+cmake_minimum_required(VERSION 2.8)
+
+#########################################################################
+#####################        Project Helpers        #####################
+# Use this cmake macros to easily create sub projects for the 		#
+# IntelligenceProject solution.						#
+#########################################################################
+
+#----------------------- Public Macros to be used -----------------------
+
+macro( solution_folder L_folder_name )
+	set(CURRENT_SOLUTION_FOLDER ${L_folder_name} )
+endmacro( solution_folder L_folder_name )
+
+macro( subproject L_project_name )
+	set(SUBPROJECT_NAME ${L_project_name} )
+endmacro()
+
+function( depends_on_projects L_folder_name )
+	#set(DEPENDENCY_PROJECT_NAMES ${ARGN} PARENT_SCOPE)
+	dmessage(STATUS "===========================" )
+	dmessage(STATUS "Checking dependency projects for project: ${SUBPROJECT_NAME}" )
+	foreach( L_project_name ${ARGN} )
+		set( L_full_name ${L_folder_name}_${L_project_name} )
+		dmessage(STATUS "Considering ${L_full_name}" )
+		dmessage(STATUS "=> bCPPLIBRARY = ${${L_full_name}_bCPPLIBRARY}" )
+		if( "${${L_full_name}_bCPPLIBRARY}" STREQUAL "TRUE")
+			list(APPEND DEPENDENCY_PROJECT_NAMES ${L_project_name} )
+			dmessage(STATUS "Added ${L_project_name}" )
+		endif()
+		list(APPEND DEPENDENCY_INCLUDE_DIRS ${${L_full_name}_INCLUDE_DIRS} )
+	endforeach()
+	dmessage(STATUS "Dependency code-libraries are: ${DEPENDENCY_PROJECT_NAMES}" )
+	set( DEPENDENCY_PROJECT_NAMES ${DEPENDENCY_PROJECT_NAMES} PARENT_SCOPE )
+	set( DEPENDENCY_INCLUDE_DIRS ${DEPENDENCY_INCLUDE_DIRS} PARENT_SCOPE )
+endfunction( depends_on_projects L_folder_name L_project_names )
+
+macro( auto_add_executable )
+	add_executable( ${SUBPROJECT_NAME} ${CPP_FILES} ${PUBLIC_H_FILES} ${PRIVATE_H_FILES} )
+	target_link_libraries( ${SUBPROJECT_NAME} ${DEPENDENCY_PROJECT_NAMES} )
+	FILE(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/Generated")
+	FILE(WRITE "${CMAKE_CURRENT_BINARY_DIR}/Generated/LibImpExpMacros.generated.h" "\#define LIBIMPEXP")
+	set_target_properties( ${SUBPROJECT_NAME} PROPERTIES FOLDER "${CURRENT_SOLUTION_FOLDER}" )
+	set_target_compile_definitions(EXE)
+endmacro( auto_add_executable )
+
+macro( auto_add_shared_library )
+	add_library(${SUBPROJECT_NAME} SHARED ${CPP_FILES} ${PUBLIC_H_FILES} ${PRIVATE_H_FILES} )
+	target_link_libraries( ${SUBPROJECT_NAME} ${DEPENDENCY_PROJECT_NAMES} )
+	FILE(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/Generated")
+	GENERATE_EXPORT_HEADER(${SUBPROJECT_NAME} EXPORT_MACRO_NAME LIBIMPEXP EXPORT_FILE_NAME "Generated/LibImpExpMacros.generated.h")
+	set_target_compile_definitions(SHARED)
+	set_target_properties( ${SUBPROJECT_NAME} PROPERTIES FOLDER "${CURRENT_SOLUTION_FOLDER}" )
+	set(${CURRENT_SOLUTION_FOLDER}_${SUBPROJECT_NAME}_bCPPLIBRARY TRUE CACHE INTERNAL "${PROJECT_FOLDER}/${SUBPROJECT_NAME}: Is a library with cpp code - thus must be linked against." FORCE )
+endmacro( auto_add_shared_library)
+
+macro( auto_add_headeronly_library )
+	add_custom_target(${SUBPROJECT_NAME} SOURCES ${PUBLIC_H_FILES})
+	set_target_properties( ${SUBPROJECT_NAME} PROPERTIES FOLDER "${CURRENT_SOLUTION_FOLDER}" )
+endmacro( auto_add_headeronly_library)
+
+macro( auto_add_interface_library )
+	# add_library(${SUBPROJECT_NAME} INTERFACE ${CPP_FILES} ${PUBLIC_H_FILES} ${PRIVATE_H_FILES} )
+	add_custom_target(${SUBPROJECT_NAME} SOURCES ${PUBLIC_H_FILES} ${PRIVATE_H_FILES} )
+endmacro( auto_add_interface_library )
+
+OPTION( BUILD_UNITTESTS "If enabled, then unittests are being build and executed at each full build" ON )
+OPTION( CHECK_MEMORY "If enabled, then the unittests are run a second time with drmemory" ON )
+macro( auto_add_unittests )
+
+if( "${BUILD_UNITTESTS}" STREQUAL "ON")
+
+	set(TESTNAME Test${SUBPROJECT_NAME} )
+	dmessage(STATUS "= Adding unittests =")
+	dmessage(STATUS "  following unittest files were registered: ")
+	dmessage(STATUS "${UNITTEST_FILES}")
+	
+	find_library(UNITTEST_LIBRARY
+		NAMES UnitTest++ libUnitTest++
+		HINTS "${THIRDPARTY_DIRECTORY}/lib")
+	dmessage(STATUS "  Found unittest lib: ${UNITTEST_LIBRARY}" )
+	
+	add_library(UnitTest++ STATIC IMPORTED)
+	set_target_properties(UnitTest++ PROPERTIES IMPORTED_LOCATION "${UNITTEST_LIBRARY}")
+	
+	add_executable(${TESTNAME} ${CMAKE_CURRENT_SOURCE_DIR}/Tests/Main.cpp ${UNITTEST_FILES})
+	target_include_directories(${TESTNAME} PRIVATE ${THIRDPARTY_DIRECTORY}/include ${CMAKE_CURRENT_BINARY_DIR}/Generated)
+#^there ${DEPENDENCY_INCLUDE_DIRS}  ${PROJECT_Public_DIRS} ${PROJECT_Classes_DIRS}
+	set_property(TARGET ${TESTNAME} PROPERTY FOLDER "Tests")
+	
+	target_link_libraries(${TESTNAME} ${SUBPROJECT_NAME} UnitTest++)
+	
+	add_custom_command(TARGET ${TESTNAME}
+		POST_BUILD COMMAND ${TESTNAME}
+		COMMENT "Running tests...")
+	
+if("${CHECK_MEMORY}" STREQUAL "ON")
+	set(L_memory_command "${WORKFLOW_DIRECTORY}/memory.sh \"${CMAKE_GENERATOR}\"")
+	dmessage(STATUS "= Memory Command is: ${L_memory_command}")
+	add_custom_command(TARGET ${TESTNAME}
+		POST_BUILD COMMAND bash "${L_memory_command}"
+		COMMENT "Checking memory for tests...")
+endif()
+endif()
+endmacro( auto_add_unittests )
+
+function( auto_include_directories )
+	set(L_auto_include_dirs PUBLIC ${DEPENDENCY_INCLUDE_DIRS} ${PROJECT_Public_DIRS} PRIVATE ${PROJECT_Classes_DIRS} ${CMAKE_CURRENT_BINARY_DIR}/Generated)
+	list(APPEND L_auto_include_dirs )
+	dmessage(STATUS "auto-including following directories: ${L_auto_include_dirs}" )
+	target_include_directories(${SUBPROJECT_NAME} ${L_auto_include_dirs} )
+endfunction( auto_include_directories )
+
+macro( auto_export_directories )
+	dmessage(STATUS "auto-exporting following directories: ${PROJECT_Public_DIRS}" )
+	list(APPEND L_export_dirs ${PROJECT_Public_DIRS} ${DEPENDENCY_INCLUDE_DIRS} )
+	set(${CURRENT_SOLUTION_FOLDER}_${SUBPROJECT_NAME}_INCLUDE_DIRS ${L_export_dirs} CACHE INTERNAL "${PROJECT_FOLDER}/${SUBPROJECT_NAME}: Include Directories" FORCE )
+endmacro( auto_export_directories )
+
+option( STATIC_CODE_CHECK "Executes static code checks on all projects that enabled it" ON )
+macro( auto_static_check )
+	if( "${STATIC_CODE_CHECK}" STREQUAL "ON" )
+		dmessage(STATUS "= Adding static code check =")
+		dmessage(STATUS "  cppfiles are: ${CPP_FILES}")
+		cppcheck_target_sources( ${SUBPROJECT_NAME} SOURCES ${CPP_FILES} INCLUDES ${PROJECT_Classes_DIRS} ${CMAKE_CURRENT_BINARY_DIR}/Generated)
+		# INCLUDES ${PROJECT_Public_DIRS} ${PROJECT_Classes_DIRS} 
+	endif()
+endmacro( auto_static_check )
+
+# in_sub()
+#    sets variable CURRENT_SUB_NAME, if 'Environment/Reflection/Private/Atomic/' #    is meant, call with in_sub("Atomic")
+macro( in_sub L_sub_name )
+	end_sub()
+
+	handle_sub_arg( "${ARGN}" )
+	SET( SUB_CPP_FILES "")
+	SET( SUB_PUBLIC_H_FILES "")
+	SET( CURRENT_SUB_NAME ${L_sub_name} )
+endmacro( in_sub )
+
+# end_sub()
+#    Applies setting of current sub, adds sub files to project files and creates
+#    source group for sub
+macro( end_sub )
+	list( APPEND CPP_FILES ${SUB_CPP_FILES} )
+	list( APPEND PUBLIC_H_FILES ${SUB_PUBLIC_H_FILES} )
+	list( APPEND PRIVATE_H_FILES ${SUB_PRIVATE_H_FILES} )
+	sub_source_group( Private "${SUB_CPP_FILES}" )
+	sub_source_group( Public "${SUB_PUBLIC_H_FILES}" )
+	sub_source_group( Classes "${SUB_PRIVATE_H_FILES}" )
+	SET(bSUB_Public_DIR_ADDED FALSE)
+	SET(bSUB_Private_DIR_ADDED FALSE)
+	SET(bSUB_Classes_DIR_ADDED FALSE)
+endmacro( end_sub )
+
+# add_PrivatePublic()
+#    Call with list of names. Every name is treated as a pair of .h & .cpp files, these are added into
+#    the current 'Public' & 'Private' directories
+macro( add_PrivatePublic L_file_names )
+	dmessage(STATUS "ARGV is: ${ARGV0}" )
+	add_Private(${ARGV})
+	add_Public(${ARGV})
+endmacro( add_PrivatePublic L_file_names )
+
+# add_PrivateClasses()
+#    Same as 'add_PrivatePublic()' but .h-files are added to 'Classes' folder
+macro( add_PrivateClasses L_file_names )
+	add_Private(${ARGV})
+	add_Classes(${ARGV})
+endmacro( add_PrivateClasses L_file_names )
+
+#------------------------------ Local helper macros ----------------------------
+
+function( set_target_compile_definitions L_targettype )
+	if(${WIN32})
+		set(L_OS Windows)
+	else()
+		set(L_OS Linux)
+	endif()
+
+	set(L_compile_definitions "def_BUILD_TARGETTYPE=${L_targettype};def_BUILD_PROJECTNAME=${SUBPROJECT_NAME};def_BUILD_OS=${L_OS}" )
+	SET_TARGET_PROPERTIES( ${SUBPROJECT_NAME} PROPERTIES COMPILE_DEFINITIONS "${L_compile_definitions}")
+
+endfunction( set_target_compile_definitions L_binary_type )
+
+macro( handle_sub_arg L_arg )
+	if(NOT "${L_arg}" STREQUAL "")
+		if(NOT "${L_arg}" STREQUAL "Windows" AND ${WIN32} )
+			set(bSUB_DISABLED TRUE)
+		elseif(NOT "${L_arg}" STREQUAL "Linux" AND "${CMAKE_SYSTEM_NAME}" STREQUAL "Linux" )
+			set(bSUB_DISABLED TRUE)
+		else()
+			set(bSUB_DISABLED FALSE)
+		endif()
+	endif()
+endmacro( handle_sub_arg L_args )
+
+macro( add_Private L_file_names )
+	parse_argument_options(ADD_ROLE "TEST" ${ARGV})
+	add_Role( Private cpp SUB_CPP_FILES ${ADD_ROLE_NOOPTION} ${ADD_ROLE_TEST} )
+endmacro( add_Private L_file_names )
+
+macro( add_Public L_file_names )
+	parse_argument_options(ADD_ROLE "TEST" ${ARGV})
+	add_Role( Public h SUB_PUBLIC_H_FILES ${ADD_ROLE_NOOPTION} ${ADD_ROLE_TEST})
+	add_unittest( ${ADD_ROLE_TEST} )
+endmacro( add_Public L_file_names )
+
+macro( add_Classes L_file_names )
+	parse_argument_options(ADD_ROLE "TEST" ${ARGV})
+	add_Role( Classes h SUB_PRIVATE_H_FILES ${ADD_ROLE_NOOPTION} ${ADD_ROLE_TEST})
+	add_unittest( ${ADD_ROLE_TEST} )
+endmacro( add_Classes L_file_names )
+
+
+macro( add_Role L_role_dir L_role_fileending L_role_filelist )
+	if( NOT "${bSUB_DISABLED}" STREQUAL "TRUE" )
+		set_sub_dir("${L_role_dir}" "${CURRENT_SUB_NAME}" )
+		foreach( L_file_name ${ARGN} )
+			set( L_file "${CURRENT_SUB_DIR}${L_file_name}.${L_role_fileending}" )
+			list(APPEND ${L_role_filelist}  "${L_file}")
+			if( NOT EXISTS "${L_file}" )
+				file(WRITE "${L_file}" "")
+			endif()
+		endforeach()
+	endif()
+endmacro( add_Role L_role_dir L_role_fileending L_role_filelist )
+
+macro( add_unittest )
+	file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Tests )
+	foreach( L_filename ${ARGN} )
+		if( "${CURRENT_SUB_NAME}" STREQUAL "" )
+			set( L_testfile "${CMAKE_CURRENT_SOURCE_DIR}/Tests/Test_${L_filename}.cpp" )
+		else()
+			set( L_testfile "${CMAKE_CURRENT_SOURCE_DIR}/Tests/Test_${CURRENT_SUB_NAME}_${L_filename}.cpp" )
+		endif()
+		list(APPEND UNITTEST_FILES ${L_testfile} )
+		if( NOT EXISTS "${L_testfile}" )
+			file(WRITE "${L_testfile}" "")
+		endif()
+	endforeach()
+endmacro()
+
+
+#    Creates source group. The name contains the role (Private | Public | Classes), 
+#    and if available the sub name.
+macro( sub_source_group L_role L_files )
+	if( "${CURRENT_SUB_NAME}" STREQUAL "" )
+		SET( L_name "${L_role}" )
+	else()
+		SET( L_name "${L_role}\\${CURRENT_SUB_NAME}")
+	endif()
+
+	if( NOT "${L_files}" STREQUAL "" )
+		source_group("${L_name}" FILES ${L_files})
+		dmessage(STATUS "Creating source group: ${L_name}, with files: ${L_files}")
+	else()
+		dmessage(STATUS "Source group: not doing anything (L_role=${L_role} | L_files=${L_files}")
+	endif()
+endmacro( sub_source_group L_role L_files )
+
+
+macro( set_sub_dir L_role L_sub_name)
+	if ( "${L_sub_name}" STREQUAL "")
+		dmessage(STATUS "no sub found")
+		SET( CURRENT_SUB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/${L_role}/" )
+	else()
+		dmessage(STATUS "sub found: ${L_sub_name}")
+		SET(CURRENT_SUB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/${L_role}/${L_sub_name}/")
+	endif()
+	dmessage(STATUS "CURRENT_SUB_DIR is: ${CURRENT_SUB_DIR}" )
+	
+	if( NOT bSUB_${L_role}_DIR_ADDED )
+		list( APPEND PROJECT_${L_role}_DIRS ${CURRENT_SUB_DIR} )
+		SET( bSUB_${L_role}_DIR_ADDED TRUE )
+	endif( NOT bSUB_${L_role}_DIR_ADDED )
+
+	if( NOT EXISTS "${CURRENT_SUB_DIR}" )
+		file( MAKE_DIRECTORY "${CURRENT_SUB_DIR}" )
+	endif()
+endmacro( set_sub_dir )

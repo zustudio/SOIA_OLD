@@ -1,0 +1,30 @@
+
+#pragma once
+
+#include "Definitions.h"
+
+#include "Atom.h"
+#include "VoidPointer.h"
+
+#include <vector>
+
+namespace Environment
+{
+	class LIBIMPEXP RFunction : public Atom
+	{
+	public:
+		virtual bool Execute(const std::vector<VoidPointer> &InArgs) {return false;}
+		virtual std::vector<TypeID> GetArgumentTypes() { return{}; }
+
+		bool CorrectArgsAndExecute(std::vector<VoidPointer> &InArgs);
+
+		static std::string ToString(const RFunction& InID)
+		{
+			return "";
+		}
+		static RFunction FromString(const std::string& InString)
+		{
+			return RFunction();
+		}
+	};
+}

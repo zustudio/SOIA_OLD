@@ -1,0 +1,21 @@
+########################################################################
+# Make configuration file: Every project directory has to contain it.
+########################################################################
+
+# \/ top level solution directory as seen from this file
+SOLUTION_DIR = ../../
+
+# \/ name of executable
+PROJECT_NAME := Apprentice
+
+# \/ if this project is in path 'SOLUTION_DIR/Source/PROJECT-SUBDIR/PROJECT_NAME/'
+PROJECT_SUBDIR := 
+
+# \/ directories of possible dependencies - beware of devilish circlular dependencies ;)
+PROJECT_DEPENDENCY := Environment
+
+# \/ how this project is to be compiled - i.e. (Executable | SharedLibrary | StaticLibrary)
+TARGET_ROLE := SharedLibrary
+
+# \/ what subfolders do exist in this project?
+MODULES := Core SSt Modules

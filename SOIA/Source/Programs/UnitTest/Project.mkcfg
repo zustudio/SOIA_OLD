@@ -1,0 +1,14 @@
+########################################################################
+# global rules for UNITTEST.dll
+########################################################################
+
+SOLUTION_DIR = ../../../
+
+# \/ name of executable
+PROJECT_NAME := UnitTest
+PROJECT_SUBDIR := Programs/
+PROJECT_DEPENDENCY := Environment Graphics Supervisor
+
+TARGET_ROLE := Executable
+
+MODULES := Core Tests/Graphics Tests/Supervisor

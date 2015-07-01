@@ -1,0 +1,24 @@
+﻿Build started 12.05.2015 11:49:25.
+     1>Project "C:\Users\User\Git\IntelligenceProject\SOIA\Source\SOIAstd\SOIAstd.vcxproj" on node 5 (Rebuild target(s)).
+     1>Rebuild:
+         make rebuild IDE=vs13
+         make clean
+         make[1]: Entering directory '/c/Users/User/Git/IntelligenceProject/SOIA/Source/SOIAstd'
+         rm -rf Debug/main.obj Debug/ConsoleService.obj Debug/MeaningService.obj Debug/ComService.obj Debug/DebugService.obj Debug/VoidPointer.obj Debug/IIDebuggable.obj Debug/IIComIn.obj Debug/IIComOut.obj Debug/IIComIO.obj Debug/File.obj Debug/Game.obj Debug/Thread.obj Debug/Window_Base.obj Debug/Engine.obj Debug/IA_SSt.obj Debug/Game_SSt.obj Debug/Vector2D.obj Debug/VectorND.obj Debug/Random.obj Debug/LinearFunction.obj Debug/ExponentialFunction.obj Debug/ReversedExponentialFunction.obj Debug/pxPoint.obj Debug/fPoint.obj Debug/cPoint.obj Debug/fColor.obj Debug/fCanvasObject.obj Debug/Control.obj Debug/CCanvas.obj Debug/CGraph.obj Debug/CTextBox.obj Debug/DebugVisual.obj Debug/Statistics.obj Debug/ExData.obj Debug/GroupCrit_Parentage.obj Debug/GroupCrit_Equal.obj Debug/GroupFunc_DataPoints.obj Debug/GroupFunc_List.obj Debug/ExGroup.obj Debug/Draw_2D.obj Debug/ExDSet.obj Debug/DEGraph.obj Debug/DataExplorer.obj Debug/Window.obj Debug/Window_Win.obj Debug/SOIA.exe
+         rm -rf Debug/SOIA.pdb Debug/SOIA.ilk
+         make[1]: Leaving directory '/c/Users/User/Git/IntelligenceProject/SOIA/Source/SOIAstd'
+         make all
+         make[1]: Entering directory '/c/Users/User/Git/IntelligenceProject/SOIA/Source/SOIAstd'
+         main.cpp
+     1>C:\Users\User\Git\IntelligenceProject\SOIA\Source\SOIAstd\src\Definitions\stdafx.h(21): fatal error C1083: Cannot open include file: 'Definitions.h': No such file or directory
+         Makefile:18: recipe for target 'Debug/main.obj' failed
+         make[1]: *** [Debug/main.obj] Error 2
+         make[1]: Leaving directory '/c/Users/User/Git/IntelligenceProject/SOIA/Source/SOIAstd'
+         Makefile:27: recipe for target 'rebuild' failed
+         make: *** [rebuild] Error 2
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.MakeFile.Targets(43,5): error MSB3073: The command "make rebuild IDE=vs13" exited with code 2.
+     1>Done Building Project "C:\Users\User\Git\IntelligenceProject\SOIA\Source\SOIAstd\SOIAstd.vcxproj" (Rebuild target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:02.15
