@@ -8,7 +8,7 @@
 namespace Supervisor
 {
 	RCLASS(RDialogue, Environment::RElement);
-	class LIBIMPEXP RDialogue : public RDialogue_Base, public DialogueInterface
+	class LIBIMPEXP RDialogue : public RDialogue_Base, public Environment::DialogueInterface
 	{
 		RCLASS_BEGIN();
 

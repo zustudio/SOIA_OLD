@@ -16,7 +16,7 @@ namespace Supervisor
 		// Functions
 
 		//----- ctor -----
-		REquationTool(const RPointer<RDialogue>& InDialogue = RPointer<RDialogue>(nullptr));
+		REquationTool(const Environment::RPointer<RDialogue>& InDialogue = Environment::RPointer<RDialogue>(nullptr));
 
 		//----- commands -----
 		RFUNCTION(cmd_calc)
@@ -32,7 +32,7 @@ namespace Supervisor
 		// Variables
 
 		RPROPERTY(CurrentMathContainer)
-			MathContainer* CurrentMathContainer;
+			Environment::MathContainer* CurrentMathContainer;
 
 		RPROPERTY(Equations)
 			std::vector<Environment::D1D1GenericFunction> Equations;

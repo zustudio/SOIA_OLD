@@ -10,7 +10,7 @@ namespace Supervisor
 	{
 		RCLASS_BEGIN();
 
-		ConsoleWorker(const RPointer<RDialogue>& InDialogue = RPointer<RDialogue>(nullptr));
+		ConsoleWorker(const Environment::RPointer<RDialogue>& InDialogue = Environment::RPointer<RDialogue>(nullptr));
 
 		virtual void Main() override;
 		bool ExecuteCommands(const std::string& InInput, std::vector<Environment::VoidPointer>& OutArguments);

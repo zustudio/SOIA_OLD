@@ -9,6 +9,28 @@
 
 namespace Environment
 {
+
+	/// Reflect all argument types.
+	template<typename...>
+	struct ReflectArgumentTypes;
+
+	template<>
+	struct ReflectArgumentTypes<>
+	{
+		static void Do()
+		{}
+	};
+
+	template<typename ArgumentType, typename... TailArgumentTypes>
+	struct ReflectArgumentTypes<ArgumentType, TailArgumentTypes...>
+	{
+		static void Do()
+		{
+			GetAtomReflectionProvider()->Reflect<typename std::decay<ArgumentType>::type>();
+			ReflectArgumentTypes<TailArgumentTypes...>::Do();
+		}
+	};
+
 	template <class TargetObjectType, typename ...ArgumentTypes>
 	class LIBIMPEXP RFunctionTemplate : public RFunction
 	{
@@ -36,27 +58,6 @@ namespace Environment
 			TargetFunction = InTargetFunction;
 			ReflectArgumentTypes<ArgumentTypes...>::Do();
 		}
-
-		/// Reflect all argument types.
-		template<typename...>
-		struct ReflectArgumentTypes;
-
-		template<>
-		struct ReflectArgumentTypes<>
-		{
-			static void Do()
-			{}
-		};
-
-		template<typename ArgumentType, typename... TailArgumentTypes>
-		struct ReflectArgumentTypes<ArgumentType, TailArgumentTypes...>
-		{
-			static void Do()
-			{
-				GetAtomReflectionProvider()->Reflect<typename std::decay<ArgumentType>::type>();
-				ReflectArgumentTypes<TailArgumentTypes...>::Do();
-			}
-		};
 
 		//----- Executing -----
 

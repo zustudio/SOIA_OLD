@@ -11,6 +11,9 @@ function set_project_vars
 	elif [ "$1" == "MSYS Makefiles" ] || [ "$1" == "MSYS" ];then 
 		build_suffix="MSYS"
 		cmake_generator="MSYS Makefiles"
+	elif [ "$1" == "Eclipse CDT4 - Unix Makefiles" ] || [ "$1" == "EC" ];then
+		build_suffix="EC"
+		cmake_generator="Eclipse CDT4 - Unix Makefiles"
 	else
 		build_suffix="CUSTOM"
 		cmake_generator="$1"

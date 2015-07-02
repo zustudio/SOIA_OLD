@@ -10,7 +10,7 @@ namespace Supervisor
 	{
 		RCLASS_BEGIN();
 
-		BackupTool(const RPointer<RDialogue>& InDialogue = RPointer<RDialogue>(nullptr));
+		BackupTool(const Environment::RPointer<RDialogue>& InDialogue = Environment::RPointer<RDialogue>(nullptr));
 
 		RFUNCTION(cmd_save)
 		bool cmd_save(RElement* const & InElementName, const std::string& InFileName);

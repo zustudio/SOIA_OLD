@@ -7,7 +7,7 @@ using namespace Environment;
 #include "ReflectionProviders.h"
 #include "RContainer.h"
 
-std::string AtomReflection::GetAtomString(VoidPointer& InObject)
+std::string AtomReflection::GetAtomString(const VoidPointer& InObject)
 {
 	return GetAtomReflectionProvider()->GetReflection(InObject.GetTypeID())->ObjectToString(InObject);
 }

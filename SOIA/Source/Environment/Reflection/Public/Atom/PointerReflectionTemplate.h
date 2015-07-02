@@ -22,7 +22,7 @@ namespace Environment
 			return ToObject_Internal<RType>(0, InString);
 		}
 
-		virtual std::string ObjectToString(VoidPointer& InObject) override
+		virtual std::string ObjectToString(const VoidPointer& InObject) override
 		{
 			std::string result;
 			RType* p_Object = InObject.CastTo<RType>();
@@ -73,7 +73,7 @@ namespace Environment
 		template<typename Type>
 		static auto ToString_Internal(float, Type& InObject) -> typename std::enable_if<!std::is_base_of<RElement, typename std::remove_pointer<Type>::type >::value, std::string>::type
 		{
-			return GetAtomString(VoidPointer(InObject));
+			return GetAtomString(VoidPointer(InObject, EMemoryType::NotOwned));
 		}
 
 		/*template<typename Type>

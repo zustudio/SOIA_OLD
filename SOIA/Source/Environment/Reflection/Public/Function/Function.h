@@ -3,9 +3,10 @@
 
 namespace Environment
 {
+	template<typename ReturnType, typename... ArgumentTypes>
 	class Function
 	{
 	public:
-		virtual void Execute() = 0;
+		virtual ReturnType Execute(ArgumentTypes...) = 0;
 	};
 }

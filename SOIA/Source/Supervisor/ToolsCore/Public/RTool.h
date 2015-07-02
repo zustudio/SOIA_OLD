@@ -16,13 +16,13 @@ namespace Supervisor
 	class LIBIMPEXP RTool : public RTool_Base
 	{
 		RCLASS_BEGIN();
-			RTool(const RPointer<RDialogue>& InDialogue);
+			RTool(const Environment::RPointer<RDialogue>& InDialogue);
 
 		RFUNCTION(cmd_help);
 			bool cmd_help();
 
 		RPROPERTY(Dialogue)
-			RPointer<RDialogue> Dialogue;
+			Environment::RPointer<RDialogue> Dialogue;
 
 		RCLASS_END();
 	};

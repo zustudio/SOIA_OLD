@@ -3,7 +3,7 @@
 
 #include "TypeID.h"
 #include "PointerCounter.h"
-#include "DestructorFunctionTemplate.h"
+#include "DeleterFunctionTemplate.h"
 #include <typeinfo>
 #include <string>
 #include <assert.h>
@@ -13,6 +13,7 @@ namespace Environment
 	enum class EMemoryType
 	{
 		Unknown,
+		NotOwned,
 		Stack,
 		Heap
 	};
@@ -23,7 +24,7 @@ namespace Environment
 		VoidPointer()
 			:
 			Target(nullptr),
-			DestructorFunction(nullptr),
+			DeleterFunction(nullptr),
 			Counter(nullptr),
 			Type(""),
 			MemoryType(EMemoryType::Unknown)
@@ -33,7 +34,7 @@ namespace Environment
 		VoidPointer(const VoidPointer &ObjToCopy)
 			:
 			Target(ObjToCopy.Target),
-			DestructorFunction(ObjToCopy.DestructorFunction),
+			DeleterFunction(ObjToCopy.DeleterFunction),
 			Counter(ObjToCopy.Counter),
 			Type(ObjToCopy.Type),
 			MemoryType(ObjToCopy.MemoryType)
@@ -44,7 +45,7 @@ namespace Environment
 		VoidPointer& operator=(const VoidPointer& InOther)
 		{
 			Target = InOther.Target;
-			DestructorFunction = InOther.DestructorFunction;
+			DeleterFunction = InOther.DeleterFunction;
 			Counter = InOther.Counter;
 			Type = InOther.Type;
 			MemoryType = InOther.MemoryType;
@@ -57,7 +58,7 @@ namespace Environment
 		VoidPointer(VoidPointer&& InOther)
 			:
 			Target(InOther.Target),
-			DestructorFunction(InOther.DestructorFunction),
+			DeleterFunction(InOther.DeleterFunction),
 			Counter(InOther.Counter),
 			Type(InOther.Type),
 			MemoryType(InOther.MemoryType)
@@ -68,7 +69,7 @@ namespace Environment
 		VoidPointer& operator=(VoidPointer&& InOther)
 		{
 			Target = InOther.Target;
-			DestructorFunction = InOther.DestructorFunction;
+			DeleterFunction = InOther.DeleterFunction;
 			Counter = InOther.Counter;
 			Type = InOther.Type;
 			MemoryType = InOther.MemoryType;
@@ -82,7 +83,7 @@ namespace Environment
 		explicit VoidPointer(T* NewObject, EMemoryType InMemoryType = EMemoryType::Heap)
 			:
 			Target((void*)NewObject),
-			DestructorFunction(new DestructorFunctionTemplate<T>(NewObject)),
+			DeleterFunction(new DeleterFunctionTemplate<T>()),
 			Type(TypeID::FromType<T>()),
 			MemoryType(InMemoryType),
 			Counter(new PointerCounter())
@@ -97,14 +98,12 @@ namespace Environment
 			{
 				if (!Counter->Decrease())
 				{
-					DestructorFunction->Execute();
-					delete DestructorFunction;
-					delete Counter;
-
 					if (MemoryType == EMemoryType::Heap)
 					{
-						delete Target;
+						DeleterFunction->Execute(Target);
 					}
+					delete DeleterFunction;
+					delete Counter;
 				}
 			}
 		}
@@ -169,7 +168,7 @@ namespace Environment
 		// Variables
 	private:
 		void* Target;
-		Function* DestructorFunction;
+		Function<void, void*>* DeleterFunction;
 		PointerCounter* Counter;
 		TypeID Type;
 		EMemoryType MemoryType;

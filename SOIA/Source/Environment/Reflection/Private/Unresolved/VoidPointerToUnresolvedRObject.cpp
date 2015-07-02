@@ -2,6 +2,7 @@
 #include "Definitions.h"
 
 #include "VoidPointerToUnresolvedRObject.h"
+using namespace Environment;
 
 #include "RContainer.h"
 
