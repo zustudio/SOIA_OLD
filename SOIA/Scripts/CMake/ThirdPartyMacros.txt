@@ -34,8 +34,9 @@ macro( generate_build_script_cmake L_project_name )
 	prepare_thirdparty_project( ${L_project_name} )
 	unset(L_all_commands)
 	list(APPEND L_all_commands
-		"cmake -DCMAKE_INSTALL_PREFIX:PATH=${L_install_dir} -G \"${CMAKE_GENERATOR}\" ${L_project_dir}"
-		"cmake --build ./ --target install" )
+		"cmake -DCMAKE_INSTALL_PREFIX:PATH=${L_install_dir} ${ARGN} -G \"${CMAKE_GENERATOR}\" ${L_project_dir}"
+		"cmake --build ./ --target install"
+		"(mv -t ${BINARY_DIRECTORY} ${L_install_dir}/lib/*.dll || true)")
 	generate_build_script( ${L_project_name} ${L_all_commands} )
 endmacro()
 
