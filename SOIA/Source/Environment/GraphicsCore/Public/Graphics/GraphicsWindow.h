@@ -1,15 +1,9 @@
 
 #pragma once
 
+#include "OpenGL.h"
+
 #include <string>
-
-//struct GLEWContext;
-
-#define GLEW_MX
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
-GLEWContext* glewGetContext();
 
 namespace Environment
 {
@@ -21,7 +15,7 @@ namespace Environment
 
 		//----- ctor ------
 	public:
-		GraphicsWindow(float InRed);
+		GraphicsWindow(const std::vector<GraphicsLayer*>& InLayers);
 		virtual ~GraphicsWindow();
 		void Initialize(const std::string& InTitle = "No Title", int InSizeX = 500, int InSizeY = 500);
 
@@ -31,22 +25,19 @@ namespace Environment
 		//----- main loop -----
 		void Draw();
 
-		//----- internal helper -----
-		void CheckGLError();
-
 		////////////////////////////////////////////////////////////////
 		// Variables
 
 		float red;
 
 		//----- test -----
-		const static float vertices[];
-		const static GLuint elements[];
+		//const static float vertices[];
+		//const static GLuint elements[];
 		//----- shaders
-		static GLchar const* vertexShaderString;
-		static GLchar const* fragmentShaderString;
+		//static GLchar const* vertexShaderString;
+		//static GLchar const* fragmentShaderString;
 
-		GLuint vertexBuffer = 0;
+		/*GLuint vertexBuffer = 0;
 
 		GLuint vertexArrays;
 		GLuint elementBuffer;
@@ -55,7 +46,7 @@ namespace Environment
 		GLuint shaderProgram;
 		GLint posAttrib;
 		GLint colAttrib;
-		GLint uniColor;
+		GLint uniColor;*/
 
 		//----- opengl variables -----
 		GLFWwindow* GLWindow;

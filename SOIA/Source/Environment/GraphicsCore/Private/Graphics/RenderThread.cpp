@@ -3,11 +3,9 @@
 
 #include "RenderThread.h"
 using namespace Environment;
+#include "RenderThreadProvider.h"
 #include "LogProvider.h"
 
-#define GLEW_MX
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 
 RenderThread::RenderThread()
 {

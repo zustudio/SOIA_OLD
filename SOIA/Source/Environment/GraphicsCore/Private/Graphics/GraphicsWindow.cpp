@@ -13,49 +13,45 @@ using namespace Environment;
 #include <iostream>
 
 
-const float GraphicsWindow::vertices[] =
-{
-	-0.5f, -0.5f, 1, 0, 0,
-	0.5f, -0.5f,  0, 1, 0,
-	-0.5f, 0.5f,  0, 0, 1,
-	0.5f, 0.5f,   1, 0, 1
-};
-const GLuint GraphicsWindow::elements[] =
-{
-	0, 1, 2,
-	0, 1, 3
-};
+//const float GraphicsWindow::vertices[] =
+//{
+//	-0.5f, -0.5f, 1, 0, 0,
+//	0.5f, -0.5f,  0, 1, 0,
+//	-0.5f, 0.5f,  0, 0, 1,
+//	0.5f, 0.5f,   1, 0, 1
+//};
+//const GLuint GraphicsWindow::elements[] =
+//{
+//	0, 1, 2,
+//	0, 1, 3
+//};
 //----- shaders
-GLchar const* GraphicsWindow::vertexShaderString =
-"#version 400\n"
-"in vec3 vertexColor;"
-"in vec2 position;"
-"out vec3 VertexColor;"
-"void main()"
-"{"
-"	VertexColor = vertexColor;"
-"	gl_Position = vec4(position,0.0,1.0);"
-"}";
+//GLchar const* GraphicsWindow::vertexShaderString =
+//"#version 400\n"
+//"in vec3 vertexColor;"
+//"in vec2 position;"
+//"out vec3 VertexColor;"
+//"void main()"
+//"{"
+//"	VertexColor = vertexColor;"
+//"	gl_Position = vec4(position,0.0,1.0);"
+//"}";
 
-GLchar const* GraphicsWindow::fragmentShaderString =
-"#version 400\n"
-"in vec3 VertexColor;"
-"uniform vec3 extraColor;"
-"out vec4 outColor;"
-"void main()"
-"{"
-"	outColor = vec4(VertexColor, 1.0) + vec4(extraColor,1.0);"
-"}";
+//GLchar const* GraphicsWindow::fragmentShaderString =
+//"#version 400\n"
+//"in vec3 VertexColor;"
+//"uniform vec3 extraColor;"
+//"out vec4 outColor;"
+//"void main()"
+//"{"
+//"	outColor = vec4(VertexColor, 1.0) + vec4(extraColor,1.0);"
+//"}";
 
 
 
-GLEWContext* glewGetContext()
-{
-	return GetRenderThread()->CurrentWindow->GlewContext;
-}
-
-GraphicsWindow::GraphicsWindow(float InRed)
-	: red(InRed)
+GraphicsWindow::GraphicsWindow(const std::vector<GraphicsLayer*>& InLayers)
+	:
+	Layers(InLayers)
 {}
 
 void GraphicsWindow::Initialize(const std::string& InTitle, int InSizeX, int InSizeY)
@@ -86,24 +82,24 @@ void GraphicsWindow::Initialize(const std::string& InTitle, int InSizeX, int InS
 
 	CheckGLError();
 
-	//----- vertices
+	//////////////////////////
+	// TEST CREATING
 	
-	//----- simple vertex buffer
-	glGenBuffers(1, &vertexBuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	for (auto layer : Layers)
+	{
+		layer->Initialize();
+	}
+	
+	
 
-	//----- vertex array object
-	glGenVertexArrays(1, &vertexArrays);
-	glBindVertexArray(vertexArrays);
-
+	
 	//----- element buffer
-	glGenBuffers(1, &elementBuffer);
+	/*glGenBuffers(1, &elementBuffer);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(elements), elements, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(elements), elements, GL_STATIC_DRAW);*/
 
 	//----- compile shaders
-	vertexShader = glCreateShader(GL_VERTEX_SHADER);
+	/*vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(vertexShader, 1, &vertexShaderString, NULL);
 	glCompileShader(vertexShader);
 
@@ -119,29 +115,29 @@ void GraphicsWindow::Initialize(const std::string& InTitle, int InSizeX, int InS
 
 	glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &status);
 	char buffer2[512];
-	glGetShaderInfoLog(fragmentShader, 512, NULL, buffer2);
+	glGetShaderInfoLog(fragmentShader, 512, NULL, buffer2);*/
 
 	//----- creating program out of shadersGLuint vertexArrays;
-	shaderProgram = glCreateProgram();
+	/*shaderProgram = glCreateProgram();
 	glAttachShader(shaderProgram, vertexShader);
 	glAttachShader(shaderProgram, fragmentShader);
 
 	glBindFragDataLocation(shaderProgram, 0, "outColor");
 
 	glLinkProgram(shaderProgram);
-	glUseProgram(shaderProgram);
+	glUseProgram(shaderProgram);*/
 
 	CheckGLError();
 	//----- linking vertex data to shader
-	posAttrib = glGetAttribLocation(shaderProgram, "position");
+	/*posAttrib = glGetAttribLocation(shaderProgram, "position");
 	glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), 0);
 	glEnableVertexAttribArray(posAttrib);
 
 	colAttrib = glGetAttribLocation(shaderProgram, "vertexColor");
 	glVertexAttribPointer(colAttrib, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(2 * sizeof(float)));
-	glEnableVertexAttribArray(colAttrib);
+	glEnableVertexAttribArray(colAttrib);*/
 
-	uniColor = glGetUniformLocation(shaderProgram, "extraColor");
+	//uniColor = glGetUniformLocation(shaderProgram, "extraColor");
 }
 
 GraphicsWindow::~GraphicsWindow()
@@ -149,37 +145,16 @@ GraphicsWindow::~GraphicsWindow()
 
 }
 
-void GraphicsWindow::AddLayer(GraphicsLayer* InLayer)
-{
-	//InLayer->Initialize();
-	Layers.push_back(InLayer);
-}
-
 void GraphicsWindow::Draw()
 {
 	glfwMakeContextCurrent(GLWindow);
 
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glUseProgram(shaderProgram);
 
-	glBindVertexArray(vertexArrays);
-	glUniform3f(uniColor, red, 0, 0);
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-
-	//for (GraphicsLayer* layer : Layers)
-	//{
-	//	layer->Draw();
-	//	//glDrawElements(GL_LINES, 6, GL_UNSIGNED_INT, 0);
-	//}
+	for (GraphicsLayer* layer : Layers)
+	{
+		layer->Draw();
+		//glDrawElements(GL_LINES, 6, GL_UNSIGNED_INT, 0);
+	}
 	glfwSwapBuffers(GLWindow);
 }
 
-void GraphicsWindow::CheckGLError()
-{
-	// check OpenGL error
-	GLenum err;
-	while ((err = glGetError()) != GL_NO_ERROR)
-	{
-		LOG("OpenGL error: " + std::to_string(err), Logger::Severity::Error);
-	}
-}

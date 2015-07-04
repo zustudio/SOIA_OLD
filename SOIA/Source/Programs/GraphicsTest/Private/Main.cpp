@@ -5,11 +5,82 @@
 #include "RenderThreadProvider.h"
 using namespace Environment;
 
+#include "VertexBufferTemplate.h"
+#include "DataUnravelerTemplate.h"
+#include "GraphicsLayer.h"
+
+struct Point
+{
+	Point(float InX, float InY)
+		:
+		X(InX),
+		Y(InY)
+	{}
+	float X;
+	float Y;
+};
+
+struct Color
+{
+	Color(float InR, float InG, float InB)
+		:
+		R(InR),
+		G(InG),
+		B(InB)
+	{}
+	float R;
+	float G;
+	float B;
+};
+
 void main()
 {
+	//---- test ----
+	using PointUnraveler = DataUnravelerTemplate<Point, float, &Point::X, &Point::Y>;
+	using ColorUnraveler = DataUnravelerTemplate<Color, float, &Color::R, &Color::G, &Color::B>;
+	Point pointA(-0.5, -0.5), pointB(0.5,-0.5), pointC(0, 0.5);
+	Color colorA(1, 0, 0), colorB(0, 1, 0), colorC(0, 0, 1);
+	
+
+	auto vertexBuffer = new VertexBufferTemplate<PointUnraveler, ColorUnraveler>();
+	vertexBuffer->Add(pointA, colorA);
+	vertexBuffer->Add(pointB, colorB);
+	vertexBuffer->Add(pointC, colorC);
+	vertexBuffer->RequestBufferUpdate();
+
+	auto pointVar = vertexBuffer->CreateVariable(0, "position");
+	auto colorVar = vertexBuffer->CreateVariable(1, "vertexColor");
+
+	auto vertexShader = new Shader(ShaderType::Vertex,
+		"#version 400\n"
+		"in vec3 vertexColor;"
+		"in vec2 position;"
+		"out vec3 VertexColor;"
+		"void main()"
+		"{"
+		"	VertexColor = vertexColor;"
+		"	gl_Position = vec4(position,0.0,1.0);"
+		"}");
+
+	auto fragmentShader = new Shader(ShaderType::Fragment,
+		"#version 400\n"
+		"in vec3 VertexColor;"
+		"out vec4 outColor;"
+		"void main()"
+		"{"
+		"	outColor = vec4(VertexColor, 1.0);"
+		"}");
+
+	auto layer = new GraphicsLayer(
+		{ vertexShader, fragmentShader },
+		{ vertexBuffer },
+		"outColor",
+		{ pointVar, colorVar });
+
+	auto window = new GraphicsWindow({ layer });
+
 	GetRenderThread()->Start();
-	GetRenderThread()->AddWindow(new GraphicsWindow(0));
-	GetRenderThread()->AddWindow(new GraphicsWindow(1));
+	GetRenderThread()->AddWindow(window);
 	GetRenderThread()->Join();
 }
 

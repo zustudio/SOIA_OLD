@@ -1,6 +1,8 @@
 
 #include "Definitions.h"
 #include "RenderThread.h"
+#include "LogProvider.h"
+#include <string>
 
 namespace Environment
 {
@@ -11,5 +13,19 @@ namespace Environment
 			return GlobalRenderThread;
 		else
 			return GlobalRenderThread = new RenderThread();
+	}
+}
+GLEWContext* glewGetContext()
+{
+	return Environment::GetRenderThread()->CurrentWindow->GlewContext;
+}
+
+void CheckGLError()
+{
+	// check OpenGL error
+	GLenum err;
+	while ((err = glGetError()) != GL_NO_ERROR)
+	{
+		Environment::GetLogger()->Log("OpenGL error: " + std::to_string(err), Environment::Logger::Severity::Error);
 	}
 }
