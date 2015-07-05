@@ -14,3 +14,6 @@
 [submodule "SOIA/ThirdParty/glew-cmake"]
 	path = SOIA/ThirdParty/glew-cmake
 	url = https://github.com/Perlmint/glew-cmake.git
+[submodule "SOIA/ThirdParty/Simple-OpenGL-Image-Library"]
+	path = SOIA/ThirdParty/Simple-OpenGL-Image-Library
+	url = https://github.com/kbranigan/Simple-OpenGL-Image-Library.git

@@ -15,7 +15,7 @@ namespace Environment
 			return GlobalRenderThread = new RenderThread();
 	}
 }
-GLEWContext* glewGetContext()
+LIBIMPEXP GLEWContext* glewGetContext()
 {
 	return Environment::GetRenderThread()->CurrentWindow->GlewContext;
 }

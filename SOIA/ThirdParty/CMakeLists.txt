@@ -10,8 +10,10 @@ generate_build_script_custom(cppcheck "make -j8 SRCDIR=build CFGDIR=${CMAKE_BINA
 generate_build_script_cmake(soia-unittest-cpp)
 generate_build_script_cmake(glfw -DGLFW_USE_HYBRID_HPG=ON)
 generate_build_script_cmake(glew-cmake)
+generate_build_script_cmake(Simple-OpenGL-Image-Library)
 
 # register scripts
+add_thirdparty_script_build(Simple-OpenGL-Image-Library)
 add_thirdparty_script_build(glew-cmake)
 add_thirdparty_script_build(glfw)
 add_thirdparty_script_build(drmemory)

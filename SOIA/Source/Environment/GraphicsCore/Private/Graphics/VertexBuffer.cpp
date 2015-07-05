@@ -7,16 +7,18 @@ using namespace Environment;
 #include "RenderThread.h"
 
 
-VertexBuffer::VertexBuffer()
+VertexBuffer::VertexBuffer(VertexBufferType InBufferType)
 	:
 	Status(BufferStatus::AwaitingBufferUpdate),
-	FrontBuffer()
+	GLBufferType(InBufferType==VertexBufferType::Vertices?
+		GL_ARRAY_BUFFER :
+		GL_ELEMENT_ARRAY_BUFFER)
 {
 }
 void VertexBuffer::Initialize()
 {
 	glGenBuffers(1, &GLBuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, GLBuffer);
+	glBindBuffer(GLBufferType, GLBuffer);
 }
 
 void VertexBuffer::RequestBufferUpdate()
@@ -33,6 +35,7 @@ bool VertexBuffer::Update()
 
 	if (Status == BufferStatus::AwaitingBufferUpdate)
 	{
+		BindBuffer();
 		ResizeFrontBuffer();
 		SwitchBuffers();
 		LoadGLBuffer();
@@ -44,16 +47,7 @@ bool VertexBuffer::Update()
 	return success;
 }
 
-bool VertexBuffer::ResizeFrontBuffer()
+bool VertexBuffer::IsElementBuffer()
 {
-	FrontBuffer.resize(GetRawSize());
-	return true;
+	return GLBufferType == GL_ELEMENT_ARRAY_BUFFER;
 }
-
-bool VertexBuffer::LoadGLBuffer()
-{
-	glBindBuffer(GL_ARRAY_BUFFER, GLBuffer);
-	glBufferData(GL_ARRAY_BUFFER, FrontBuffer.size() * sizeof(float), FrontBuffer.data(), GL_STATIC_DRAW);
-	return true;
-}
-

@@ -9,6 +9,11 @@
 
 namespace Environment
 {
+	enum class VertexBufferType : int
+	{
+		Vertices,
+		Elements
+	};
 	enum class BufferStatus : int
 	{
 		Idle,
@@ -17,7 +22,7 @@ namespace Environment
 	class LIBIMPEXP VertexBuffer
 	{
 	public:
-		VertexBuffer();
+		VertexBuffer(VertexBufferType InBufferType);
 		void Initialize();
 
 		/// to be called from an thread - signaling draw request
@@ -30,18 +35,20 @@ namespace Environment
 		virtual VertexBufferVariable CreateVariable(int Index, const std::string& InName) = 0;
 
 		// helpers
+		bool IsElementBuffer();
 		virtual size_t GetRawSize() = 0;
 		virtual size_t GetEntrySize() = 0;
 
 	protected:
-		bool ResizeFrontBuffer();
+		virtual void BindBuffer() = 0;
+		virtual bool ResizeFrontBuffer() = 0;
 		virtual bool SwitchBuffers() = 0;
-		bool LoadGLBuffer();
+		virtual bool LoadGLBuffer() = 0;
 
 
 	protected:
 		BufferStatus Status;
-		std::vector<float> FrontBuffer;
 		GLuint GLBuffer;
+		GLenum GLBufferType;
 	};
 }

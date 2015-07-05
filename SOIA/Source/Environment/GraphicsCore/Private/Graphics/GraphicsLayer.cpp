@@ -7,9 +7,10 @@ using namespace Environment;
 
 
 
-GraphicsLayer::GraphicsLayer(const std::vector<Shader*>& InShaders, const std::vector<VertexBuffer*>& InBuffers, const std::string& InColorOutputVariable, const std::vector<VertexBufferVariable>& InInputVariables)
+GraphicsLayer::GraphicsLayer(const std::vector<Shader*>& InShaders, const std::vector<VertexBuffer*>& InBuffers, const std::vector<Texture2D*>& InTextures, const std::string& InColorOutputVariable, const std::vector<VertexBufferVariable>& InInputVariables)
 	:
 	Buffers(InBuffers),
+	Textures(InTextures),
 	Program(InShaders, InColorOutputVariable, InInputVariables)
 {}
 
@@ -26,6 +27,12 @@ void GraphicsLayer::Initialize()
 	}
 	CheckGLError();
 
+	for (auto texture : Textures)
+	{
+		texture->Initialize();
+	}
+	CheckGLError();
+
 	Program.Initialize();
 	CheckGLError();
 }
@@ -38,12 +45,18 @@ void GraphicsLayer::Draw()
 
 	glBindVertexArray(VertexArrayObject);
 
+	int ElementCount = 0;
 	for (auto buffer : Buffers)
 	{
 		if (buffer->Update())
+		{
 			Program.LinkAttributes();
-		glDrawArrays(GL_TRIANGLES, 0, buffer->GetRawSize());
+		}
+		if (buffer->IsElementBuffer())
+			ElementCount += buffer->GetRawSize();
+		//glDrawArrays(GL_TRIANGLES, 0, buffer->GetRawSize());
 	}
+	glDrawElements(GL_TRIANGLES, ElementCount, GL_UNSIGNED_INT, 0);
 	
-	//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	//
 }

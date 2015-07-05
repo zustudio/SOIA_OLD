@@ -3,6 +3,7 @@
 
 #include "VertexBuffer.h"
 #include "ShaderProgram.h"
+#include "Texture2D.h"
 
 namespace Environment
 {
@@ -14,7 +15,7 @@ namespace Environment
 		////////////////////////////////////////////////////////////////
 		// Functions
 	public:
-		GraphicsLayer(const std::vector<Shader*>& InShaders, const std::vector<VertexBuffer*>& InBuffers,
+		GraphicsLayer(const std::vector<Shader*>& InShaders, const std::vector<VertexBuffer*>& InBuffers, const std::vector<Texture2D*>& InTextures,
 			const std::string& InColorOutputVariable, const std::vector<VertexBufferVariable>& InInputVariables);
 
 	protected:
@@ -28,6 +29,7 @@ namespace Environment
 		// Variables
 		ShaderProgram Program;
 		std::vector<VertexBuffer*> Buffers;
+		std::vector<Texture2D*> Textures;
 		GLuint VertexArrayObject;
 	};
 }

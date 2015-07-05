@@ -11,8 +11,7 @@
 namespace Environment
 {
 	
-
-	template<typename... DataUnravelerTypes>
+	template<typename RawType, typename... DataUnravelerTypes>
 	class VertexBufferTemplate : public VertexBuffer
 	{
 		using TupleType = std::tuple<typename DataUnravelerTypes::CompoundDataType...>;
@@ -22,7 +21,7 @@ namespace Environment
 			template<int... Indices>
 			struct Inner
 			{
-				static void Execute(typename std::vector<float>::iterator& InFrontIterator, typename std::vector<TupleType>::iterator& InBackIterator)
+				static void Execute(typename std::vector<RawType>::iterator& InFrontIterator, typename std::vector<TupleType>::iterator& InBackIterator)
 				{
 					bool result[] = { DataUnravelerTypes::UnravelToVector(std::get<Indices>(*InBackIterator), InFrontIterator)... };
 				}
@@ -34,8 +33,9 @@ namespace Environment
 		// Functions
 
 		//----- ctor -----
-		VertexBufferTemplate()
-			:
+		VertexBufferTemplate(VertexBufferType InBufferType)
+			: VertexBuffer(InBufferType),
+			FrontBuffer(),
 			BackBuffer()
 		{
 		}
@@ -46,6 +46,17 @@ namespace Environment
 			BackBuffer.push_back(TupleType(InCompounds...));
 		}
 
+		bool VertexBuffer::ResizeFrontBuffer()
+		{
+			FrontBuffer.resize(GetRawSize());
+			return true;
+		}
+
+		virtual void VertexBufferTemplate::BindBuffer() override
+		{
+			glBindBuffer(GLBufferType, GLBuffer);
+		}
+
 		virtual bool VertexBufferTemplate::SwitchBuffers() override
 		{
 			auto frontIter = FrontBuffer.begin();
@@ -53,6 +64,12 @@ namespace Environment
 			{
 				UsingEveryIndex<sizeof...(DataUnravelerTypes), CopyCompoundTypes>::Execute(frontIter, backIter);
 			}
+			return true;
+		}
+
+		bool VertexBuffer::LoadGLBuffer()
+		{
+			glBufferData(GLBufferType, FrontBuffer.size() * sizeof(RawType), FrontBuffer.data(), GL_STATIC_DRAW);
 			return true;
 		}
 
@@ -90,7 +107,8 @@ namespace Environment
 		//----- constants -----
 		static constexpr const size_t EntrySize = CompileTime::Add(DataUnravelerTypes::RawDataSize...);
 
-		//----- backbuffer -----
+		//----- buffer -----
+		std::vector<RawType> FrontBuffer;
 		std::vector<TupleType> BackBuffer;
 	};
 }

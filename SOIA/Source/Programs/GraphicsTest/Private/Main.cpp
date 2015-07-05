@@ -32,50 +32,74 @@ struct Color
 	float G;
 	float B;
 };
+struct Tri
+{
+	Tri(int ina, int inb, int inc)
+		:
+		a(ina),
+		b(inb),
+		c(inc)
+	{}
+	int a;
+	int b;
+	int c;
+};
 
 void main()
 {
 	//---- test ----
 	using PointUnraveler = DataUnravelerTemplate<Point, float, &Point::X, &Point::Y>;
 	using ColorUnraveler = DataUnravelerTemplate<Color, float, &Color::R, &Color::G, &Color::B>;
-	Point pointA(-0.5, -0.5), pointB(0.5,-0.5), pointC(0, 0.5);
+	using TriUnraveler = DataUnravelerTemplate<Tri, int, &Tri::a, &Tri::b, &Tri::c>;
+	Point pointA(-0.5, -0.5), pointB(0.5,-0.5), pointC(-0.5, 0.5), pointD(0.5, 0.5);
 	Color colorA(1, 0, 0), colorB(0, 1, 0), colorC(0, 0, 1);
+	Point coordA(0, 1), coordB(1, 1), coordC(0, 0), coordD(1,0);
+	Tri triA(0, 1, 2), triB(1, 2, 3);
 	
+	auto texture = new Texture2D("SOIA-Text.png", 200, 200);
 
-	auto vertexBuffer = new VertexBufferTemplate<PointUnraveler, ColorUnraveler>();
-	vertexBuffer->Add(pointA, colorA);
-	vertexBuffer->Add(pointB, colorB);
-	vertexBuffer->Add(pointC, colorC);
+	auto vertexBuffer = new VertexBufferTemplate<float, PointUnraveler, PointUnraveler>(VertexBufferType::Vertices);
+	vertexBuffer->Add(pointA, coordA);
+	vertexBuffer->Add(pointB, coordB);
+	vertexBuffer->Add(pointC, coordC);
+	vertexBuffer->Add(pointD, coordD);
+	vertexBuffer->RequestBufferUpdate();
+
+	auto elementBuffer = new VertexBufferTemplate<int, TriUnraveler>(VertexBufferType::Elements);
+	elementBuffer->Add(triA);
+	elementBuffer->Add(triB);
 	vertexBuffer->RequestBufferUpdate();
 
 	auto pointVar = vertexBuffer->CreateVariable(0, "position");
-	auto colorVar = vertexBuffer->CreateVariable(1, "vertexColor");
+	auto coordVar = vertexBuffer->CreateVariable(1, "texCoords");
 
 	auto vertexShader = new Shader(ShaderType::Vertex,
 		"#version 400\n"
-		"in vec3 vertexColor;"
 		"in vec2 position;"
-		"out vec3 VertexColor;"
+		"in vec2 texCoords;"
+		"out vec2 TexCoords;"
 		"void main()"
 		"{"
-		"	VertexColor = vertexColor;"
+		"	TexCoords = texCoords;"
 		"	gl_Position = vec4(position,0.0,1.0);"
 		"}");
 
 	auto fragmentShader = new Shader(ShaderType::Fragment,
 		"#version 400\n"
-		"in vec3 VertexColor;"
+		"in vec2 TexCoords;"
+		"uniform sampler2D sampler;"
 		"out vec4 outColor;"
 		"void main()"
 		"{"
-		"	outColor = vec4(VertexColor, 1.0);"
+		"	outColor = texture(sampler, TexCoords) + vec4(0, 0.1, 0, 1);"
 		"}");
 
 	auto layer = new GraphicsLayer(
 		{ vertexShader, fragmentShader },
-		{ vertexBuffer },
+		{ vertexBuffer, elementBuffer},
+		{ texture },
 		"outColor",
-		{ pointVar, colorVar });
+		{ pointVar, coordVar });
 
 	auto window = new GraphicsWindow({ layer });
 
