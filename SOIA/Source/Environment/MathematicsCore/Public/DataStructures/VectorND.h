@@ -7,139 +7,136 @@
 #include <deque>
 #include <string>
 
-namespace ZABS
+namespace Environment
 {
-	namespace Math
+	template<class T> class VectorND
 	{
-		template<class T> class VectorND
+	private:
+		/////////////////////////////////////////////////////////
+		// data
+		std::vector<T> val;
+		std::string text;
+	public:
+		/////////////////////////////////////////////////////////
+		// constructors
+		VectorND(const std::vector<T> &NewVal)
 		{
-		private:
-			/////////////////////////////////////////////////////////
-			// data
-			std::vector<T> val;
-			std::string text;
-		public:
-			/////////////////////////////////////////////////////////
-			// constructors
-			VectorND(const std::vector<T> &NewVal)
+			val = NewVal;
+		}
+		VectorND(const std::deque<T> &NewDeque)
+		{
+			val = std::vector<T>();
+			for (T element : NewDeque)
 			{
-				val = NewVal;
+				val.push_back(element);
 			}
-			VectorND(const std::deque<T> &NewDeque)
+		}
+		VectorND(int dim, T defaultValue = 0)
+		{
+			val = std::vector<T>();
+			for (int i = 0; i < dim; i++)
 			{
-				val = std::vector<T>();
-				for (T element : NewDeque)
-				{
-					val.push_back(element);
-				}
+				val.push_back(defaultValue);
 			}
-			VectorND(int dim, T defaultValue = 0)
-			{
-				val = std::vector<T>();
-				for (int i = 0; i < dim; i++)
-				{
-					val.push_back(defaultValue);
-				}
-			}
-			~VectorND()
-			{
+		}
+		~VectorND()
+		{
 
-			}
-			/////////////////////////////////////////////////////////
-			// math
-			//---- helpers ----
-			int dim() const
+		}
+		/////////////////////////////////////////////////////////
+		// math
+		//---- helpers ----
+		int dim() const
+		{
+			return val.size();
+		}
+		//---- access operation ----
+		T& operator [](T i)
+		{
+			if (i >= 0 && i < dim())
+				return val[i];
+			else
 			{
-				return val.size();
-			}
-			//---- access operation ----
-			T& operator [](T i)
-			{
-				if (i >= 0 && i < dim())
-					return val[i];
-				else
+				for (int delta = i + 1 - dim(); delta > 0; delta--)
 				{
-					for (int delta = i + 1 - dim(); delta > 0; delta--)
-					{
-						val.push_back(0);
-					}
-					return val[i];
+					val.push_back(0);
 				}
+				return val[i];
 			}
-			//---- list operation ----
-			void intern_OpAdd(VectorND<T> &a, VectorND<T> &b, VectorND<T> &r)
+		}
+		//---- list operation ----
+		void intern_OpAdd(VectorND<T> &a, VectorND<T> &b, VectorND<T> &r)
+		{
+			int n = std::fmax(a.dim(), b.dim());
+			for (int i_single = 0; i_single < n; i_single++)
 			{
-				int n = std::fmax(a.dim(), b.dim());
-				for (int i_single = 0; i_single < n; i_single++)
-				{
-					r[i_single] = a[i_single] + b[i_single];
-				}
+				r[i_single] = a[i_single] + b[i_single];
 			}
-			VectorND<T> operator +(VectorND<T> a)
+		}
+		VectorND<T> operator +(VectorND<T> a)
+		{
+			VectorND<T> result = VectorND<T>(1);
+			intern_OpAdd((*this), a, result);
+			return result;
+		}
+		VectorND<T> operator +=(VectorND<T> a)
+		{
+			VectorND<T> tmp(*this);
+			intern_OpAdd(*this, a, *this);
+			return tmp;
+		}
+		T Sum()
+		{
+			T result = 0;
+			for (T element : val)
 			{
-				VectorND<T> result = VectorND<T>(1);
-				intern_OpAdd((*this), a, result);
-				return result;
+				result += element;
 			}
-			VectorND<T> operator +=(VectorND<T> a)
+			return result;
+		}
+		//---- scalar operation ----
+		void intern_OpMult(VectorND<T> &a, VectorND<T> &b, VectorND<T> &r)
+		{
+			int n = std::fmax(a.dim(), b.dim());
+			for (int i_single = 0; i_single < n; i_single++)
 			{
-				VectorND<T> tmp(*this);
-				intern_OpAdd(*this, a, *this);
-				return tmp;
+				r[i_single] = a[i_single] * b[i_single];
 			}
-			T Sum()
+		}
+		VectorND<T> operator *(float a)
+		{
+			VectorND<T> result = VectorND<T>(1);
+			VectorND<T> other = VectorND<T>(dim());
+			for (int i = 0; i < dim(); i++)
 			{
-				T result = 0;
-				for (T element : val)
-				{
-					result += element;
-				}
-				return result;
+				other[i] = a;
 			}
-			//---- scalar operation ----
-			void intern_OpMult(VectorND<T> &a, VectorND<T> &b, VectorND<T> &r)
+			intern_OpMult((*this), other, result);
+			return result;
+		}
+		/////////////////////////////////////////////////////////
+		// conversions
+		std::string to_intstring()
+		{
+			text = std::string("(");
+			int n = dim();
+			for (int i = 0; i < n; i++)
 			{
-				int n = std::fmax(a.dim(), b.dim());
-				for (int i_single = 0; i_single < n; i_single++)
-				{
-					r[i_single] = a[i_single] * b[i_single];
-				}
+				text += (std::to_string((int)std::round((*this)[i])) + "|");
 			}
-			VectorND<T> operator *(float a)
+			text += ")";
+			return text;
+		}
+		operator std::string& ()
+		{
+			text = std::string("(");
+			int n = dim();
+			for (int i = 0; i < n; i++)
 			{
-				VectorND<T> result = VectorND<T>(1);
-				VectorND<T> other = VectorND<T>(dim());
-				for (int i = 0; i < dim(); i++)
-				{
-					other[i] = a;
-				}
-				intern_OpMult((*this), other, result);
-				return result;
+				text += (std::to_string((*this)[i]) + "|");
 			}
-			/////////////////////////////////////////////////////////
-			// conversions
-			std::string to_intstring()
-			{
-				text = std::string("(");
-				int n = dim();
-				for (int i = 0; i < n; i++)
-				{
-					text += (std::to_string((int)std::round((*this)[i])) + "|");
-				}
-				text += ")";
-				return text;
-			}
-			operator std::string& ()
-			{
-				text = std::string("(");
-				int n = dim();
-				for (int i = 0; i < n; i++)
-				{
-					text += (std::to_string((*this)[i]) + "|");
-				}
-				text += ")";
-				return text;
-			}
-		};
-	}
+			text += ")";
+			return text;
+		}
+	};
 }

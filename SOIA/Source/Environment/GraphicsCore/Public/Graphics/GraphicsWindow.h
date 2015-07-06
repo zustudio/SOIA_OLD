@@ -3,6 +3,8 @@
 
 #include "OpenGL.h"
 
+#include "Vector2D.h"
+
 #include <string>
 
 namespace Environment
@@ -17,13 +19,13 @@ namespace Environment
 	public:
 		GraphicsWindow(const std::vector<GraphicsLayer*>& InLayers);
 		virtual ~GraphicsWindow();
-		void Initialize(const std::string& InTitle = "No Title", int InSizeX = 500, int InSizeY = 500);
+		void Initialize(const std::string& InTitle = "No Title", Vector2D<int> InSize = Vector2D<int>(500, 500));
 
 		//----- public usage -----
 		void AddLayer(GraphicsLayer* InLayer);
 
 		//----- main loop -----
-		void Draw();
+		virtual void Draw();
 
 		////////////////////////////////////////////////////////////////
 		// Variables
@@ -54,5 +56,6 @@ namespace Environment
 
 		//----- soia variables;
 		std::vector<GraphicsLayer*> Layers;
+		Vector2D<int> Size;
 	};
 }

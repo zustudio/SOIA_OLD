@@ -8,6 +8,8 @@ using namespace Environment;
 #include "VertexBufferTemplate.h"
 #include "DataUnravelerTemplate.h"
 #include "GraphicsLayer.h"
+#include "GraphicsTextLayer.h"
+#include "FreeTypeProvider.h"
 
 struct Point
 {
@@ -56,16 +58,16 @@ void main()
 	Point coordA(0, 1), coordB(1, 1), coordC(0, 0), coordD(1,0);
 	Tri triA(0, 1, 2), triB(1, 2, 3);
 	
-	auto texture = new Texture2D("SOIA-Text.png", 200, 200);
+	auto texture = new Texture2D("SOIA-Text.png", 200, 200, TextureChannels::RGBA);
 
-	auto vertexBuffer = new VertexBufferTemplate<float, PointUnraveler, PointUnraveler>(VertexBufferType::Vertices);
+	auto vertexBuffer = new VertexBufferTemplate<float, PointUnraveler, PointUnraveler>(VertexBufferType::Vertices, BufferContentType::Triangles);
 	vertexBuffer->Add(pointA, coordA);
 	vertexBuffer->Add(pointB, coordB);
 	vertexBuffer->Add(pointC, coordC);
 	vertexBuffer->Add(pointD, coordD);
 	vertexBuffer->RequestBufferUpdate();
 
-	auto elementBuffer = new VertexBufferTemplate<int, TriUnraveler>(VertexBufferType::Elements);
+	auto elementBuffer = new VertexBufferTemplate<int, TriUnraveler>(VertexBufferType::Elements, BufferContentType::Triangles);
 	elementBuffer->Add(triA);
 	elementBuffer->Add(triB);
 	vertexBuffer->RequestBufferUpdate();
@@ -94,14 +96,22 @@ void main()
 		"	outColor = texture(sampler, TexCoords) + vec4(0, 0.1, 0, 1);"
 		"}");
 
-	auto layer = new GraphicsLayer(
+	auto layer = new GraphicsLayer();
+	layer->Configure(
 		{ vertexShader, fragmentShader },
 		{ vertexBuffer, elementBuffer},
+		VertexBufferType::Elements,
 		{ texture },
 		"outColor",
 		{ pointVar, coordVar });
 
-	auto window = new GraphicsWindow({ layer });
+	auto textObj = new TextObject(GetFont("DengXian.ttf"), 15, Vector2D<float>(-0.45, -0.26), "Self-reflected");
+	auto text2 = new TextObject(GetFont("DengXian.ttf"), 15, Vector2D<float>(-0.45, -0.33), "Object");
+	auto text3 = new TextObject(GetFont("DengXian.ttf"), 15, Vector2D<float>(-0.45, -0.40), "Interaction");
+	auto text4 = new TextObject(GetFont("DengXian.ttf"), 15, Vector2D<float>(-0.45, -0.47), "Analyzer");
+	auto layer2 = new GraphicsTextLayer({ textObj, text2, text3, text4 });
+
+	auto window = new GraphicsWindow({ layer, layer2});
 
 	GetRenderThread()->Start();
 	GetRenderThread()->AddWindow(window);

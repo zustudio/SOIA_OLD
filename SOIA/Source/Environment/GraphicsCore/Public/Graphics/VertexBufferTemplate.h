@@ -14,8 +14,10 @@ namespace Environment
 	template<typename RawType, typename... DataUnravelerTypes>
 	class VertexBufferTemplate : public VertexBuffer
 	{
+	public:
 		using TupleType = std::tuple<typename DataUnravelerTypes::CompoundDataType...>;
 
+	protected:
 		struct CopyCompoundTypes
 		{
 			template<int... Indices>
@@ -33,8 +35,8 @@ namespace Environment
 		// Functions
 
 		//----- ctor -----
-		VertexBufferTemplate(VertexBufferType InBufferType)
-			: VertexBuffer(InBufferType),
+		VertexBufferTemplate(VertexBufferType InBufferType, BufferContentType InContentType)
+			: VertexBuffer(InBufferType, InContentType),
 			FrontBuffer(),
 			BackBuffer()
 		{
@@ -90,6 +92,10 @@ namespace Environment
 		}
 
 		//----- helpers -----
+		virtual size_t GetEntryNum() override
+		{
+			return BackBuffer.size();
+		}
 		virtual size_t GetRawSize() override
 		{
 			return BackBuffer.size() * EntrySize;

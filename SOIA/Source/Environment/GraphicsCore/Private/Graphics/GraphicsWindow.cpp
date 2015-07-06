@@ -54,8 +54,9 @@ GraphicsWindow::GraphicsWindow(const std::vector<GraphicsLayer*>& InLayers)
 	Layers(InLayers)
 {}
 
-void GraphicsWindow::Initialize(const std::string& InTitle, int InSizeX, int InSizeY)
+void GraphicsWindow::Initialize(const std::string& InTitle, Vector2D<int> InSize)
 {
+	Size = InSize;
 	// get last window
 	GraphicsWindow* lastWindow = GetRenderThread()->GetLastWindow();
 	GLFWwindow* lastGLWindow = lastWindow ? lastWindow->GLWindow : nullptr;
@@ -70,7 +71,7 @@ void GraphicsWindow::Initialize(const std::string& InTitle, int InSizeX, int InS
 
 	GlewContext = new GLEWContext();
 
-	GLWindow = glfwCreateWindow(InSizeX, InSizeY, InTitle.c_str(), nullptr, lastGLWindow);
+	GLWindow = glfwCreateWindow(Size.X, Size.Y, InTitle.c_str(), nullptr, lastGLWindow);
 	glfwMakeContextCurrent(GLWindow);
 	GetRenderThread()->CurrentWindow = this;
 
@@ -87,7 +88,7 @@ void GraphicsWindow::Initialize(const std::string& InTitle, int InSizeX, int InS
 	
 	for (auto layer : Layers)
 	{
-		layer->Initialize();
+		layer->Initialize(&Size);
 	}
 	
 	
@@ -149,11 +150,12 @@ void GraphicsWindow::Draw()
 {
 	glfwMakeContextCurrent(GLWindow);
 
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClearColor(0.5, 0, 0, 1);
 
 	for (GraphicsLayer* layer : Layers)
 	{
-		layer->Draw();
-		//glDrawElements(GL_LINES, 6, GL_UNSIGNED_INT, 0);
+		layer->BeginDraw();
 	}
 	glfwSwapBuffers(GLWindow);
 }

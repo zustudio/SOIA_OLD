@@ -7,16 +7,20 @@ using namespace Environment;
 
 
 
-GraphicsLayer::GraphicsLayer(const std::vector<Shader*>& InShaders, const std::vector<VertexBuffer*>& InBuffers, const std::vector<Texture2D*>& InTextures, const std::string& InColorOutputVariable, const std::vector<VertexBufferVariable>& InInputVariables)
-	:
-	Buffers(InBuffers),
-	Textures(InTextures),
-	Program(InShaders, InColorOutputVariable, InInputVariables)
+GraphicsLayer::GraphicsLayer()
 {}
 
-
-void GraphicsLayer::Initialize()
+void GraphicsLayer::Configure(const std::vector<Shader*>& InShaders, const std::vector<VertexBuffer*>& InBuffers, const VertexBufferType& InTargetBufferType, const std::vector<Texture2D*>& InTextures, const std::string& InColorOutputVariable, const std::vector<VertexBufferVariable>& InInputVariables)
 {
+	Buffers = InBuffers;
+	TargetBufferType = InTargetBufferType;
+	Textures = InTextures;
+	Program = new ShaderProgram(InShaders, InColorOutputVariable, InInputVariables);
+}
+
+void GraphicsLayer::Initialize(Vector2D<int>* InSize)
+{
+	PixelSize = InSize;
 	//----- vertex array object
 	glGenVertexArrays(1, &VertexArrayObject);
 	CheckGLError();
@@ -33,30 +37,47 @@ void GraphicsLayer::Initialize()
 	}
 	CheckGLError();
 
-	Program.Initialize();
+	Program->Initialize();
 	CheckGLError();
 }
 
-void GraphicsLayer::Draw()
+void GraphicsLayer::BeginDraw()
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(0.5, 0, 0, 1);
-	Program.Use();
+	Program->Use();
 
 	glBindVertexArray(VertexArrayObject);
 
-	int ElementCount = 0;
+	Draw();
+}
+void GraphicsLayer::Draw()
+{
+	
+	for (auto texture : Textures)
+	{
+		texture->Update();
+		CheckGLError();
+	}
+	
 	for (auto buffer : Buffers)
 	{
 		if (buffer->Update())
 		{
-			Program.LinkAttributes();
+			Program->LinkAttributes();
 		}
-		if (buffer->IsElementBuffer())
-			ElementCount += buffer->GetRawSize();
-		//glDrawArrays(GL_TRIANGLES, 0, buffer->GetRawSize());
+		if (buffer->IsBufferType(TargetBufferType))
+		{
+			auto contentType = buffer->GetGLContentType();
+			switch (TargetBufferType)
+			{
+			case VertexBufferType::Elements:
+				glDrawElements(contentType, buffer->GetRawSize() , GL_UNSIGNED_INT, 0);
+				break;
+			case VertexBufferType::Vertices:
+				glDrawArrays(contentType, 0, buffer->GetEntryNum());
+				break;
+			}
+			CheckGLError();
+		}
 	}
-	glDrawElements(GL_TRIANGLES, ElementCount, GL_UNSIGNED_INT, 0);
 	
-	//
 }

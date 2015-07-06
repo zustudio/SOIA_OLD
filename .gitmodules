@@ -17,3 +17,6 @@
 [submodule "SOIA/ThirdParty/Simple-OpenGL-Image-Library"]
 	path = SOIA/ThirdParty/Simple-OpenGL-Image-Library
 	url = https://github.com/kbranigan/Simple-OpenGL-Image-Library.git
+[submodule "SOIA/ThirdParty/freetype"]
+	path = SOIA/ThirdParty/freetype
+	url = git://git.sv.nongnu.org/freetype/freetype2.git

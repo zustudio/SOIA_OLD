@@ -46,6 +46,7 @@ macro( depends_on_thirdparty_static)
 		set_target_properties(${L_library_name} PROPERTIES IMPORTED_LOCATION "${L_found_${L_library_name}}")
 		
 		list(APPEND DEPENDENCY_PROJECT_NAMES ${L_library_name} )
+		list(APPEND DEPENDENCY_INCLUDE_DIRS "${THIRDPARTY_DIRECTORY}/include/${L_library_name}")
 	endforeach()
 endmacro( depends_on_thirdparty_static )
 

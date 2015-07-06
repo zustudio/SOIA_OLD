@@ -7,12 +7,11 @@ using namespace Environment;
 #include "RenderThread.h"
 
 
-VertexBuffer::VertexBuffer(VertexBufferType InBufferType)
+VertexBuffer::VertexBuffer(VertexBufferType InBufferType, BufferContentType InContentType)
 	:
 	Status(BufferStatus::AwaitingBufferUpdate),
-	GLBufferType(InBufferType==VertexBufferType::Vertices?
-		GL_ARRAY_BUFFER :
-		GL_ELEMENT_ARRAY_BUFFER)
+	GLBufferType(GenerateGLBufferType(InBufferType)),
+	GLContentType(GenerateGLContentType(InContentType))
 {
 }
 void VertexBuffer::Initialize()
@@ -33,9 +32,9 @@ bool VertexBuffer::Update()
 {
 	bool success = false;
 
+	BindBuffer();
 	if (Status == BufferStatus::AwaitingBufferUpdate)
 	{
-		BindBuffer();
 		ResizeFrontBuffer();
 		SwitchBuffers();
 		LoadGLBuffer();
@@ -47,7 +46,36 @@ bool VertexBuffer::Update()
 	return success;
 }
 
-bool VertexBuffer::IsElementBuffer()
+
+GLenum Environment::VertexBuffer::GetGLBufferType()
 {
-	return GLBufferType == GL_ELEMENT_ARRAY_BUFFER;
+	return GLBufferType;
+}
+
+GLenum Environment::VertexBuffer::GetGLContentType()
+{
+	return GLContentType;
+}
+
+GLenum VertexBuffer::GenerateGLBufferType(const VertexBufferType& InBufferType)
+{
+	return InBufferType == VertexBufferType::Vertices ?
+		GL_ARRAY_BUFFER :
+		GL_ELEMENT_ARRAY_BUFFER;
+}
+
+GLenum Environment::VertexBuffer::GenerateGLContentType(const BufferContentType &InBufferContentType)
+{
+	return InBufferContentType == BufferContentType::Points ?
+		GL_POINTS :
+		InBufferContentType == BufferContentType::Lines ?
+			GL_LINES :
+			InBufferContentType == BufferContentType::Triangles ?
+				GL_TRIANGLES :
+				GL_TRIANGLE_STRIP;
+}
+
+bool VertexBuffer::IsBufferType(const VertexBufferType& InBufferType)
+{
+	return GLBufferType == GenerateGLBufferType(InBufferType);
 }
