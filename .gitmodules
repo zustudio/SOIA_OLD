@@ -8,3 +8,15 @@
 [submodule "SOIA/ThirdParty/soia-cppcheck-target-cmake"]
 	path = SOIA/ThirdParty/soia-cppcheck-target-cmake
 	url = https://MxmUrw@bitbucket.org/zustudio/soia-cppcheck-target-cmake.git
+[submodule "SOIA/ThirdParty/glfw"]
+	path = SOIA/ThirdParty/glfw
+	url = https://github.com/glfw/glfw.git
+[submodule "SOIA/ThirdParty/glew-cmake"]
+	path = SOIA/ThirdParty/glew-cmake
+	url = https://github.com/Perlmint/glew-cmake.git
+[submodule "SOIA/ThirdParty/Simple-OpenGL-Image-Library"]
+	path = SOIA/ThirdParty/Simple-OpenGL-Image-Library
+	url = https://github.com/kbranigan/Simple-OpenGL-Image-Library.git
+[submodule "SOIA/ThirdParty/freetype"]
+	path = SOIA/ThirdParty/freetype
+	url = git://git.sv.nongnu.org/freetype/freetype2.git

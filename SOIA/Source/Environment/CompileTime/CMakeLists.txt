@@ -10,7 +10,8 @@ in_sub(Number)
 	add_Public(
 		Vector4Int
 		Vector8Int
-		IntExpressions)
+		IntExpressions
+		MultipleOperandMathematics)
 in_sub(String)
 	add_Public(
 		CharArrayLiteral
