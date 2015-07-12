@@ -40,7 +40,7 @@ namespace Environment
 	class LIBIMPEXP RElement
 	{
 		friend RContainer;
-	private:
+	public:
 		using Super = RElement;
 		using BaseType = RElement;
 	public:
@@ -70,7 +70,7 @@ namespace Environment
 		{
 			if (!GetElementReflectionProvider()->GetClass(TypeID::FromType<typename RType::BaseType>()))
 			{
-				GetElementReflectionProvider()->Register(new RClassTemplate<RType>(TypeID::FromType<typename RType::BaseType>(), TypeID::FromType<typename RType::Super::BaseType>()));
+				GetElementReflectionProvider()->Register_DEPRECATED(new RClassTemplate<RType>(TypeID::FromType<typename RType::BaseType>(), TypeID::FromType<typename RType::Super::BaseType>()));
 			}
 		}
 		template<typename RType>
@@ -78,7 +78,7 @@ namespace Environment
 		{
 			if (!GetElementReflectionProvider()->GetClass(TypeID::FromType<typename RType::BaseType>()))
 			{
-				GetElementReflectionProvider()->Register(new RAbstractClass(TypeID::FromType<typename RType::BaseType>(), TypeID::FromType<typename RType::Super::BaseType>()));
+				GetElementReflectionProvider()->Register_DEPRECATED(new RAbstractClass(TypeID::FromType<typename RType::BaseType>(), TypeID::FromType<typename RType::Super::BaseType>()));
 			}
 		}
 

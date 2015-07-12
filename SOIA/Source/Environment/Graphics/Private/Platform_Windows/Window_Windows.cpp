@@ -3,6 +3,7 @@
 #include "Definitions.h"
 
 #include "Window_Windows.h"
+using namespace Environment;
 
 #include <iostream>
 #include "fColor.h"
@@ -11,7 +12,7 @@
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 // callback definition
-LRESULT CALLBACK SO::Window_Win::WindowProcedure(HWND window, unsigned int msg, WPARAM wp, LPARAM lp)
+LRESULT CALLBACK Window_Win::WindowProcedure(HWND window, unsigned int msg, WPARAM wp, LPARAM lp)
 {
 	Window_Win *c = (Window_Win*)GetWindowLongPtr(window, GWLP_USERDATA);
 
@@ -39,18 +40,18 @@ LRESULT CALLBACK SO::Window_Win::WindowProcedure(HWND window, unsigned int msg, 
 
 //////////////////////////////////////////////////////////////////////////////////////
 // init
-SO::Window_Win::Window_Win(const std::string &NewTitle, const pxPoint &size) : Window_Base(NewTitle, size)
+Window_Win::Window_Win(const std::string &NewTitle, const pxPoint &size) : Window_Base(NewTitle, size)
 {
 	hwnd = 0;
 }
-SO::Window_Win::~Window_Win()
+Window_Win::~Window_Win()
 {
 
 }
 
 //////////////////////////////////////////////////////////////////////////////////////
 // start
-int SO::Window_Win::Open()
+int Window_Win::Open()
 {
 	const char* const myclass = props.title->c_str();
 	WNDCLASSEX wc;
@@ -102,7 +103,7 @@ int SO::Window_Win::Open()
 
 /////////////////////////////////////////////////////////////////////////////////////
 // loop
-void SO::Window_Win::Tick()
+void Window_Win::Tick()
 {
 	MSG msg;
 	if (GetMessage(&msg, 0, 0, 0))
@@ -124,7 +125,7 @@ void SO::Window_Win::Tick()
 	}
 }
 
-void SO::Window_Win::SetVars()
+void Window_Win::SetVars()
 {
 	RECT rect;
 	::GetClientRect(hwnd, &rect);
@@ -134,18 +135,18 @@ void SO::Window_Win::SetVars()
 
 ////////////////////////////////////////////////////////////////
 // drawing functions
-void SO::Window_Win::Refresh()
+void Window_Win::Refresh()
 {
 	Draw();
 }
-void SO::Window_Win::pxDrawText(pxPoint Loc, const std::string &text)
+void Window_Win::pxDrawText(pxPoint Loc, const std::string &text)
 {
 	HDC hdc;
 	Win32_PrepText(hdc);
 	::TextOut(hdc, Loc.X, Loc.Y, const_cast<char *>(text.c_str()), strlen(text.c_str()));
 	Win32_EndDrawing(hdc);
 }
-void SO::Window_Win::pxDrawLine(pxPoint a, pxPoint b)
+void Window_Win::pxDrawLine(pxPoint a, pxPoint b)
 {
 	HDC hdc;
 	Win32_PrepDrawing(hdc);
@@ -153,7 +154,7 @@ void SO::Window_Win::pxDrawLine(pxPoint a, pxPoint b)
 	::LineTo(hdc, b.X, b.Y);
 	Win32_EndDrawing(hdc);
 }
-void SO::Window_Win::pxDrawRect(pxPoint a, pxPoint b)
+void Window_Win::pxDrawRect(pxPoint a, pxPoint b)
 {
 	HDC hdc;
 	Win32_PrepDrawing(hdc);
@@ -163,11 +164,11 @@ void SO::Window_Win::pxDrawRect(pxPoint a, pxPoint b)
 
 //////////////////////////////////////////////////////////////////////////
 // sub drawing
-COLORREF SO::Window_Win::getColor(fColor* color)
+COLORREF Window_Win::getColor(fColor* color)
 {
 	return RGB(int(color->R*255), int(color->G*255), int(color->B*255));
 }
-void SO::Window_Win::Clear()
+void Window_Win::Clear()
 {
 	fColor *oldFront = props.frontColor;
 	props.frontColor = props.backColor;

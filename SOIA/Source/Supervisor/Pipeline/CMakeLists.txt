@@ -1,11 +1,13 @@
 cmake_minimum_required(VERSION 3.1)
 
 subproject(Pipeline)
-	depends_on_projects(Environment Core Log Reflection)
-	depends_on_projects(Supervisor ToolsCore AnalyzerCore)
+	depends_on_projects(Environment Core Log Thread Reflection)
+	depends_on_projects(Supervisor ToolsCore)
 
 in_sub(Tool)
-	add_PrivatePublic(PipelineTool)
+	add_PrivatePublic(
+		PipelineTool
+		RConversionPipes)
 in_sub(Pipe)
 	add_PrivatePublic(
 		Pipe

@@ -31,6 +31,20 @@ namespace Environment
 		return Find<ListType, TargetObjectType>(InList, InTargetObject, AccessorFunction, true);
 	}
 
+	template<typename Type>
+	struct Iterators
+	{
+		Iterators(Type& InVector, typename Type::iterator& InIterator)
+			:
+			Begin(InVector.begin()),
+			Iterator(InIterator),
+			End(InVector.end())
+		{}
+		typename Type::iterator Begin;
+		typename Type::iterator Iterator;
+		typename Type::iterator End;
+	};
+
 	class LIBIMPEXP NOP
 	{
 

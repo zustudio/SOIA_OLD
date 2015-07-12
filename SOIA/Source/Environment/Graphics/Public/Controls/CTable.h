@@ -5,17 +5,17 @@
 
 #include "Matrix2D.h"
 
-namespace Graphics
+namespace Environment
 {
 	class LIBIMPEXP CTable : public Control
 	{
 	public:
-		CTable(SO::Window_Base* NewWindow = nullptr, const cPoint &NewLoc = cPoint(), const cPoint &NewSize = cPoint());
+		CTable(Window_Base* NewWindow = nullptr, const cPoint &NewLoc = cPoint(), const cPoint &NewSize = cPoint());
 
 		virtual void Draw() override;
 
 		fPoint GetCellLocation(int X, int Y);
 
-		ZABS::Math::Matrix2D<double> Matrix;
+		Matrix2D<double> Matrix;
 	};
 }

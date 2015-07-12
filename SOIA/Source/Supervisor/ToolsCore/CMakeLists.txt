@@ -6,7 +6,8 @@ subproject(ToolsCore)
 add_PrivatePublic(
 	RTool
 	RWorkerTool
-	RDialogue)
+	RDialogue
+	RGUI)
 end_sub()
 
 auto_add_shared_library()

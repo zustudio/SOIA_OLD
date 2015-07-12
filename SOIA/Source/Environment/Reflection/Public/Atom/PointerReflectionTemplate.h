@@ -15,6 +15,10 @@ namespace Environment
 		{
 			return (TypeID(InTypeID) == TypeID::FromType<RType>());
 		}
+		virtual TypeID GetType() override
+		{
+			return TypeID::FromType<RType>();
+		}
 
 
 		virtual VoidPointer* StringToObject(const std::string& InString) override
@@ -57,10 +61,10 @@ namespace Environment
 
 		template<typename Type>
 		static auto ToObject_Internal(float, const std::string& InString) -> typename std::enable_if<!std::is_base_of<RElement, typename std::remove_pointer<Type>::type >::value, VoidPointer*>::type
-		{/*
+		{
 			using InnerType = typename std::remove_pointer<Type>::type;
-			return new VoidPointer(new Type(&GetAtomObject(InString, TypeID::FromType<InnerType>())->CastAndDereference<InnerType>()));*/
-			return new VoidPointer(VoidPointer::Nullpointer());
+			return new VoidPointer(new Type(&GetAtomObject(InString, TypeID::FromType<InnerType>())->CastAndDereference<InnerType>()));
+			//return new VoidPointer(VoidPointer::Nullpointer());
 		}
 
 		//----- ToString -----

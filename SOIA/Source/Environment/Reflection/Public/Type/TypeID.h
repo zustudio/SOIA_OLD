@@ -7,10 +7,11 @@
 #include <vector>
 
 #include "TypeName.h"
+#include "Atom.h"
 
 namespace Environment
 {
-	class LIBIMPEXP TypeID
+	class LIBIMPEXP TypeID : public Atom
 	{
 	public:
 		explicit TypeID(const char* InString);
@@ -44,6 +45,16 @@ namespace Environment
 		TypeID Decay() const;
 		TypeID Dereference() const;
 		TypeID RemoveSuffix_Base() const;
+
+		//atom:
+		static TypeID FromString(const std::string& InString)
+		{
+			return TypeID(InString);
+		}
+		static std::string ToString(const TypeID& InObject)
+		{
+			return InObject.ToString();
+		}
 
 		//helper function
 	protected:

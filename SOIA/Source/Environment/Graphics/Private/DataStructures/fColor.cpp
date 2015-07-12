@@ -3,7 +3,7 @@
 
 #include "fColor.h"
 
-using namespace Graphics;
+using namespace Environment;
 
 fColor::fColor()
 {

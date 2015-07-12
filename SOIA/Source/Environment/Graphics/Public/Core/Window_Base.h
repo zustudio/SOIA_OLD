@@ -7,9 +7,7 @@
 #include "cPoint.h"
 #include "pxPoint.h"
 
-using namespace Graphics;
-
-namespace SO
+namespace Environment
 {
 	class LIBIMPEXP Window_Base
 	{

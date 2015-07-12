@@ -38,14 +38,19 @@ namespace Environment
 		//--- init ---
 		virtual void Main() = 0;
 
+	protected:
 		/// Sets thread to sleeping until WakeUp call.
 		void Sleep();
 
+	public:
 		/// Wakes Thread.
 		void WakeUp();
 
 		/// returns true, if thread ought to be stopped.
 		bool IsStopping();
+
+		/// returns sleeping status
+		bool IsSleeping();
 
 		///////////////////////////////////////////
 		// variables

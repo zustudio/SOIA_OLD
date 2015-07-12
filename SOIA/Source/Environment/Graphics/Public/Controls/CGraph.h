@@ -14,7 +14,7 @@
 
 #include "Window_Base.h"
 
-namespace Graphics
+namespace Environment
 {
 	class LIBIMPEXP CGraph : public Control
 	{
@@ -22,7 +22,7 @@ namespace Graphics
 		///////////////////////////////////////////////////
 		// functions
 		//---- init ----
-		CGraph(SO::Window_Base* newWindow = nullptr, const cPoint &newLoc = cPoint(), const cPoint &newSize = cPoint());
+		CGraph(Window_Base* newWindow = nullptr, const cPoint &newLoc = cPoint(), const cPoint &newSize = cPoint());
 
 		//---- drawing ----
 		virtual void Draw() override;

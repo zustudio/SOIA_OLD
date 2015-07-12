@@ -24,6 +24,9 @@ namespace Supervisor
 		RPROPERTY(Dialogue)
 			Environment::RPointer<RDialogue> Dialogue;
 
+		RPROPERTY(GuiClass)
+			Environment::RClass* GuiClass;
+
 		RCLASS_END();
 	};
 }

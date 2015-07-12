@@ -21,13 +21,9 @@
 	#define Window_OS Window_Base
 #endif
 
-namespace Graphics
+namespace Environment
 {
-class Control;
-}
-
-namespace SO
-{
+	class Control;
 	//forward declarations
 	class Window_Base;
 	class Window_Win;
@@ -39,7 +35,7 @@ namespace SO
 		//////////////////////////////////////////
 		// variables
 		//---- instances ----
-		std::deque<Graphics::Control*> myControls;
+		std::deque<Environment::Control*> myControls;
 
 		//////////////////////////////////////////
 		//functions

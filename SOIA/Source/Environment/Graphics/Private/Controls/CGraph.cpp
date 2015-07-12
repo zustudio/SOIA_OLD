@@ -2,8 +2,8 @@
 #include "Definitions.h"
 
 #include "CGraph.h"
-using namespace SO;
-using namespace Graphics;
+using namespace Environment;
+using namespace Environment;
 using namespace Environment;
 
 

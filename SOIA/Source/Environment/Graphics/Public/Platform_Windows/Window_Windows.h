@@ -5,14 +5,10 @@
 #undef DrawText
 #include "Window_Base.h"
 
-namespace Graphics
+namespace Environment
 {
-//forward declarations
-class fColor;
-}
-
-namespace SO
-{
+	//forward declarations
+	class fColor;
 	//class:
 	class LIBIMPEXP Window_Win : public Window_Base
 	{

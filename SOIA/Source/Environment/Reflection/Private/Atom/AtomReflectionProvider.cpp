@@ -14,6 +14,8 @@ using namespace Environment;
 AtomReflectionProvider::AtomReflectionProvider()
 {
 
+	Reflect<TypeID>();
+
 	Reflections.push_back(new SimpleAtomReflection<std::string>(
 		[](const std::string& object){return std::string(object); },
 		[](const std::string& object){return std::string(object); }));
@@ -52,4 +54,14 @@ AtomReflection* AtomReflectionProvider::GetReflection(const std::string& InTypeN
 		}
 	}
 	return nullptr;
+}
+
+std::vector<TypeID> Environment::AtomReflectionProvider::GetTypeList()
+{
+	std::vector<TypeID> result;
+	for (auto reflection : Reflections)
+	{
+		result.push_back(reflection->GetType());
+	}
+	return result;
 }

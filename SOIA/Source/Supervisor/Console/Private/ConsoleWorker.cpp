@@ -5,6 +5,7 @@
 using namespace Supervisor;
 using namespace Environment;
 
+#include "Tokenizer.h"
 #include "RContainer.h"
 #include <regex>
 
@@ -25,12 +26,20 @@ void ConsoleWorker::Main()
 		Dialogue->Write("> ");
 		Dialogue->GetNextLine(input);
 
-		std::vector<VoidPointer> arguments;
+		//--TEST-- :
+		//std::vector<VoidPointer> arguments;
+		//ExecuteCommands(input, arguments);
 
-		ExecuteCommands(input, arguments);
+		auto argumentRule = TokenRule("([a-zA-Z0-9_]+)", new TokenCollapseNone);
+		auto parenStartRule = TokenRule("(\\()", new TokenCollapseParenthesis(EParenthesisType::Start));
+		auto parenEndRule = TokenRule("(\\))", new TokenCollapseParenthesis(EParenthesisType::End));
 
-		
+		Tokenizer tokenizer = Tokenizer({ parenEndRule, parenStartRule, argumentRule });
+		tokenizer.Tokenize(input);
+		tokenizer.GetResult();
 
+
+		//-- TEST END --
 
 
 		/*std::vector<std::string> args;
@@ -186,6 +195,22 @@ bool ConsoleWorker::ExecuteCommand(const std::string& InTarget, std::string& InC
 		target->GetAttribute(functionName).CastAndDereference<RFunction*>()->CorrectArgsAndExecute(InOutArguments);
 		return true;
 	}
+}
+
+std::vector<std::string> ConsoleWorker::GetArguments(const std::string & InInput)
+{
+	std::string input = InInput;
+	std::regex pattern("(\"(.*?)\"|[a-zA-Z0-9_]+:?|\\d*\\(.+\\))");
+	auto result = std::smatch();
+
+	std::vector<std::string> inputs;
+	std::vector<VoidPointer> inputPointers;
+	while (std::regex_search(input, result, pattern))
+	{
+
+	}
+
+	return std::vector<std::string>();
 }
 
 bool ConsoleWorker::cmd_exit()

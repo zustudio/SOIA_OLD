@@ -2,6 +2,7 @@
 #pragma once
 
 #include "RElement.h"
+#include "Thread.h"
 
 #include "RFunction.h"
 #include "InPort.h"
@@ -10,14 +11,15 @@
 namespace Supervisor
 {
 	RCLASS(Pipe, Environment::RElement)
-	class Pipe : public Pipe_Base
+	class Pipe : public Pipe_Base, public Environment::Thread
 	{
 		RCLASS_BEGIN();
 
-		Pipe();
+		Pipe(Environment::RFunction* = nullptr);
 
-	protected:
-		bool SetAnalyzerFunction(Environment::RFunction*);
+		virtual void Main() override;
+
+		RFunction* TargetFunction;
 
 		std::vector<InPort> Input;
 		std::vector<OutPort> Output;

@@ -11,8 +11,7 @@
 #include "pxPoint.h"
 #include "fPoint.h"
 
-using namespace Graphics;
-using namespace ZABS::Math;
+using namespace Environment;
 
 //////////////////////////////////////////////////////////////////////////////////
 // init
@@ -20,7 +19,7 @@ fPoint::fPoint(float newX, float newY) : Vector2D<float>(newX, newY)
 {
 
 }
-fPoint::fPoint(const ZABS::Math::Vector2D<float> &equalPoint)
+fPoint::fPoint(const Vector2D<float> &equalPoint)
 {
 	X = equalPoint.X;
 	Y = equalPoint.Y;

@@ -24,8 +24,11 @@ namespace Supervisor
 		RFUNCTION(cmd_cc);
 		bool cmd_cc(const std::string& InContainerName);
 
-		RFUNCTION(cmd_attr)
-			bool cmd_attr(RElement* const & InElement, std::string const & InAttributeName);
+		RFUNCTION(cmd_listattributes)
+			bool cmd_listattributes(RElement* const & InElement, std::string const & InAttributeName);
+
+		RFUNCTION(cmd_func)
+			bool cmd_func(RFunction* & OutFunction, RElement* const& InElement, std::string const& InFuncName);
 
 		std::string GetCurrentPath();
 

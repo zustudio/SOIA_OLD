@@ -16,6 +16,8 @@ namespace Supervisor
 		bool ExecuteCommands(const std::string& InInput, std::vector<Environment::VoidPointer>& OutArguments);
 		bool ExecuteCommand(const std::string& InTarget, std::string& InCommand, std::vector<Environment::VoidPointer>& InOutArguments);
 
+		std::vector<std::string> GetArguments(const std::string& Input);
+
 		RFUNCTION(cmd_exit);
 		bool cmd_exit();
 

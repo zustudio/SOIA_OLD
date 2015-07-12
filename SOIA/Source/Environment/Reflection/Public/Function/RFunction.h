@@ -15,6 +15,7 @@ namespace Environment
 	public:
 		virtual bool Execute(const std::vector<VoidPointer> &InArgs) {return false;}
 		virtual std::vector<TypeID> GetArgumentTypes() { return{}; }
+		virtual std::string GetName() { return ""; };
 
 		bool CorrectArgsAndExecute(std::vector<VoidPointer> &InArgs);
 

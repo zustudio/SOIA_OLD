@@ -6,7 +6,7 @@
 #include <string>
 #include <sstream>
 
-using namespace SO;
+using namespace Environment;
 
 ///////////////////////////////////////////////////////////////////
 // init

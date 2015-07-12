@@ -13,18 +13,18 @@
 
 #include <deque>
 
-using namespace SO;
+using namespace Environment;
 
-SO::Window::Window(const std::string &NewTitle, const pxPoint &size) : Window_OS(NewTitle, size)
+Window::Window(const std::string &NewTitle, const pxPoint &size) : Window_OS(NewTitle, size)
 {
 
 }
-SO::Window::~Window()
+Window::~Window()
 {
 
 }
 
-void SO::Window::Draw()
+void Window::Draw()
 {
 	for (int n_Control = 0; n_Control < myControls.size(); n_Control++)
 	{
@@ -34,12 +34,12 @@ void SO::Window::Draw()
 	}
 }
 
-void SO::Window::SetControlTransformation(int ControlNum, const fPoint& InLoc, const fPoint& InSize)
+void Window::SetControlTransformation(int ControlNum, const fPoint& InLoc, const fPoint& InSize)
 {
 	myControls[ControlNum]->SetTrans(InLoc, InSize);
 }
 
-void SO::Window::ForwardMouseButtonPressedEvent(const pxPoint &InCoordinates)
+void Window::ForwardMouseButtonPressedEvent(const pxPoint &InCoordinates)
 {
 	for (auto control : myControls)
 	{

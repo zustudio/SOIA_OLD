@@ -5,7 +5,7 @@
 #include "pxPoint.h"
 #include "cPoint.h"
 
-using namespace Graphics;
+using namespace Environment;
 
 cPoint::cPoint(float fX, float fY, int pxX, int pxY)
 {

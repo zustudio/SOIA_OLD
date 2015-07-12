@@ -24,8 +24,8 @@ using namespace Environment;
 #include "CGraph.h"
 #include "CTable.h"
 #include "CTextBox.h"
-using namespace SO;
-using namespace Graphics;
+using namespace Environment;
+using namespace Environment;
 
 #define d(arguments) (runtime.Register(arguments))
 #define es(arguments) (EquationString(arguments).Parse(runtime))

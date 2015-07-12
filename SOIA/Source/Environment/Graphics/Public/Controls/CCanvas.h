@@ -10,7 +10,7 @@
 #include "Control.h"
 #include <deque>
 
-namespace Graphics
+namespace Environment
 {
 	class fCanvasObject;
 
@@ -25,7 +25,7 @@ namespace Graphics
 		/////////////////////////////////////////////////////////////////////////////////////
 		// functions
 		//---- init ----
-		CCanvas(SO::Window_Base* newWindow = nullptr, const cPoint &newLoc = cPoint(), const cPoint &newSize = cPoint());
+		CCanvas(Window_Base* newWindow = nullptr, const cPoint &newLoc = cPoint(), const cPoint &newSize = cPoint());
 		//---- loop ----
 		virtual void Draw() override;
 	private:

@@ -2,9 +2,7 @@
 
 #include "Vector2D.h"
 
-using namespace ZABS::Math;
-
-namespace Graphics
+namespace Environment
 {
 	class __declspec(dllexport) pxPoint : public Vector2D<int>
 	{

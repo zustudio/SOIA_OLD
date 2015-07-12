@@ -2,9 +2,7 @@
 #include "Definitions.h"
 
 #include "Window_Base.h"
-
-using namespace SO;
-using namespace std;
+using namespace Environment;
 
 ///////////////////////////////////////////////////
 // init
@@ -58,7 +56,7 @@ void Window_Base::Draw() {}
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 // basic drawing interface
-void Window_Base::DrawText(cPoint Loc, const string &text, fColor *frontColor, fColor *backColor)
+void Window_Base::DrawText(cPoint Loc, const std::string &text, fColor *frontColor, fColor *backColor)
 {
 	SetColors(frontColor, backColor);
 	pxPoint px = Loc.ToPxPoint(props.size);
@@ -105,7 +103,7 @@ void Window_Base::DrawRect(cPoint a, cPoint b, fColor *frontColor, fColor *backC
 }
 // functions to be implemented
 void Window_Base::Refresh() {}
-void Window_Base::pxDrawText(pxPoint Loc,const string& text){}
+void Window_Base::pxDrawText(pxPoint Loc,const std::string& text){}
 void Window_Base::pxDrawLine(pxPoint a, pxPoint b) {}
 void Window_Base::pxDrawRect(pxPoint a, pxPoint b) {}
 
