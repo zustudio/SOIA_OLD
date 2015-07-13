@@ -5,7 +5,7 @@
 #include "fColor.h"
 #include "fCanvasObject.h"
 
-using namespace Graphics;
+using namespace Environment;
 
 //////////////////////////////////////////////////
 // init

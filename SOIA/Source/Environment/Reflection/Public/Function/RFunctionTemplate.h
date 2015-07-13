@@ -52,7 +52,9 @@ namespace Environment
 		//----- Initializing -----
 
 		/// Constructor.
-		RFunctionTemplate(TargetObjectType* InTargetObject, TargetFunctionPointerType InTargetFunction)
+		RFunctionTemplate(TargetObjectType* InTargetObject, TargetFunctionPointerType InTargetFunction, const std::string& InFuncName)
+			:
+			Name(InFuncName)
 		{
 			TargetObject = InTargetObject;
 			TargetFunction = InTargetFunction;
@@ -77,6 +79,10 @@ namespace Environment
 		virtual std::vector<TypeID> GetArgumentTypes() override
 		{
 			return{ (TypeID::FromType<ArgumentTypes>())... };
+		}
+		virtual std::string GetName() override
+		{
+			return Name;
 		}
 
 	private:
@@ -124,12 +130,15 @@ namespace Environment
 		/// Function pointer to real function.
 		TargetObjectType* TargetObject;
 		TargetFunctionPointerType TargetFunction;
+
+		//name
+		const std::string Name;
 	};
 
 
 	template <class TargetObjectType, typename... ArgumentTypes>
-	decltype(auto) CreateFunction(TargetObjectType* InTargetObject, bool(TargetObjectType::* TargetFunctionPointer)(ArgumentTypes...))
+	decltype(auto) CreateFunction(TargetObjectType* InTargetObject, bool(TargetObjectType::* TargetFunctionPointer)(ArgumentTypes...), const std::string& InName)
 	{
-		return new RFunctionTemplate<TargetObjectType, ArgumentTypes...>(InTargetObject, TargetFunctionPointer);
+		return new RFunctionTemplate<TargetObjectType, ArgumentTypes...>(InTargetObject, TargetFunctionPointer, InName);
 	}
 }

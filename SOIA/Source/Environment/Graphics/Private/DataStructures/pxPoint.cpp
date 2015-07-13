@@ -8,7 +8,7 @@
 #include "fPoint.h"
 #include "pxPoint.h"
 
-using namespace Graphics;
+using namespace Environment;
 
 ////////////////////////////////////////////////////////////////////////////
 // init

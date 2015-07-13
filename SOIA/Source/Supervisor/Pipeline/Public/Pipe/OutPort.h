@@ -5,10 +5,10 @@
 
 namespace Supervisor
 {
-	class OutPort : public Port
+	class LIBIMPEXP OutPort : public Port
 	{
 	public:
-		OutPort(TypeID InType);
+		OutPort(Environment::Thread* InOwner, TypeID InType);
 
 		virtual bool Write(const Environment::VoidPointer& InData) override;
 		virtual bool Read(Environment::VoidPointer& InData) override;

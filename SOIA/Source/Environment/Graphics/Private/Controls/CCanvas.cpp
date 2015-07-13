@@ -12,7 +12,7 @@
 #include "fCanvasObject.h"
 
 
-using namespace SO;
+using namespace Environment;
 
 ///////////////////////////////////////////////////////////
 // init

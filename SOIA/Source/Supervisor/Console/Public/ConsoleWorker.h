@@ -3,6 +3,8 @@
 
 #include "RWorkerTool.h"
 
+#include "Tokenizer.h"
+
 namespace Supervisor
 {
 	RCLASS(ConsoleWorker,RWorkerTool)
@@ -13,8 +15,10 @@ namespace Supervisor
 		ConsoleWorker(const Environment::RPointer<RDialogue>& InDialogue = Environment::RPointer<RDialogue>(nullptr));
 
 		virtual void Main() override;
-		bool ExecuteCommands(const std::string& InInput, std::vector<Environment::VoidPointer>& OutArguments);
+		bool ExecuteCommands(Token*, std::vector<Environment::VoidPointer>& OutArguments);
 		bool ExecuteCommand(const std::string& InTarget, std::string& InCommand, std::vector<Environment::VoidPointer>& InOutArguments);
+
+		std::vector<std::string> GetArguments(const std::string& Input);
 
 		RFUNCTION(cmd_exit);
 		bool cmd_exit();
@@ -25,6 +29,7 @@ namespace Supervisor
 
 	private:
 		bool bExit;
+		Tokenizer InputTokenizer;
 
 		RCLASS_END();
 	};

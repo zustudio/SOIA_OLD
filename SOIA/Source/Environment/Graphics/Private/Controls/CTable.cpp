@@ -2,8 +2,8 @@
 #include "Definitions.h"
 
 #include "CTable.h"
-using namespace Graphics;
-using namespace SO;
+using namespace Environment;
+using namespace Environment;
 
 #include <string>
 #include <sstream>

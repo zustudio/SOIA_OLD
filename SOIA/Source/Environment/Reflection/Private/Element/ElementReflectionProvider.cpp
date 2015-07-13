@@ -18,9 +18,17 @@ ElementReflectionProvider::~ElementReflectionProvider()
 	}
 }
 
-void ElementReflectionProvider::Register(RClass* InClass)
+void ElementReflectionProvider::Register_DEPRECATED(RClass* InClass)
 {
 	Classes.push_back(InClass);
+}
+
+void Environment::ElementReflectionProvider::RegisterInternal(RClass * InClass)
+{
+	if (!GetClass(InClass->GetType()))
+	{
+		Classes.push_back(InClass);
+	}
 }
 
 RClass* ElementReflectionProvider::GetClass(const TypeID& InType)
@@ -34,4 +42,14 @@ RClass* ElementReflectionProvider::GetClass(const TypeID& InType)
 		}
 	}
 	return nullptr;
+}
+
+std::vector<TypeID> ElementReflectionProvider::GetTypeList()
+{
+	std::vector<TypeID> result;
+	for (auto rclass : Classes)
+	{
+		result.push_back(rclass->GetType());
+	}
+	return result;
 }

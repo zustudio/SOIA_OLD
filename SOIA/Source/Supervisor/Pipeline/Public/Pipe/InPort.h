@@ -7,10 +7,10 @@
 
 namespace Supervisor
 {
-	class InPort : public Port
+	class LIBIMPEXP InPort : public Port
 	{
 	public:
-		InPort(Environment::TypeID InType);
+		InPort(Environment::Thread* InOwner, Environment::TypeID InType);
 
 		virtual bool Write(const Environment::VoidPointer& InData) override;
 		virtual bool Read(Environment::VoidPointer& InData) override;

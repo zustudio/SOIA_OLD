@@ -14,6 +14,10 @@ namespace Environment
 		{
 			return InTypeString == std::string(TypeID::FromType<VectorClass>());
 		}
+		virtual TypeID GetType() override
+		{
+			return TypeID::FromType<VectorClass>();
+		}
 
 		virtual VoidPointer* StringToObject(const std::string& InString) override
 		{

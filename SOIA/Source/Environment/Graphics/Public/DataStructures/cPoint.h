@@ -3,7 +3,7 @@
 
 #include "fPoint.h"
 
-namespace Graphics
+namespace Environment
 {
 	class pxPoint;
 	class fPoint;

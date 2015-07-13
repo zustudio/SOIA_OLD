@@ -11,24 +11,19 @@
 #include "fPoint.h"
 #include "cPoint.h"
 #include "fColor.h"
-using namespace Graphics;
+using namespace Environment;
 
-//#include "Event.h"
 
-namespace SO
+namespace Environment
 {
 	class Window_Base;
-}
-
-namespace Graphics
-{
 	class LIBIMPEXP Control
 	{
 	public:
 		//////////////////////////////////////////////////////
 		// vars
 		//---- instances ----
-		SO::Window_Base* myWindow;
+		Window_Base* myWindow;
 		//---- properties ----
 		cPoint* Location;
 		cPoint* Size;
@@ -38,7 +33,7 @@ namespace Graphics
 		/////////////////////////////////////////////////////
 		// functions
 		//---- init ----
-		Control(SO::Window_Base* NewWindow = nullptr, const cPoint &NewLoc = cPoint(), const cPoint &NewSize = cPoint());
+		Control(Window_Base* NewWindow = nullptr, const cPoint &NewLoc = cPoint(), const cPoint &NewSize = cPoint());
 		virtual ~Control();
 		//---- visual ----
 		void SetTrans(const fPoint &NewLoc, const fPoint &NewSize);

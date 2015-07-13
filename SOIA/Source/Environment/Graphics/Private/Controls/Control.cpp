@@ -12,7 +12,7 @@
 #include "Window_Base.h"
 
 
-using namespace SO;
+using namespace Environment;
 
 /////////////////////////////////////////////////////////////////////
 // init

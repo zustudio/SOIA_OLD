@@ -15,6 +15,7 @@ using namespace Environment;
 #include "ElementExplorerTool.h"
 #include "BackupTool.h"
 #include "EquationTool.h"
+#include "RWorkspaceTool.h"
 using namespace Supervisor;
 
 #include <iostream>
@@ -24,14 +25,13 @@ constexpr static const char TEST[] = "ABD";
 
 int main()
 {
-	
-
 	DialogueInterface* dialogue = new StdDialogue();
 	RDialogue* rdialogue = new RDialogue(dialogue);
 	RContainer* topCont = new RContainer(Range<int>(0, 999));
 	SetTopContainer(topCont);
 	RContainer* container = new RContainer(Range<int>(1000,1999));
 	topCont->Register(container, "tools");
+	container->Register(new RWorkspaceTool(RPointer<RDialogue>(rdialogue)), "workspace");
 	container->Register(rdialogue, "consoledialogue");
 	RWorkerTool* Console = new ConsoleWorker(RPointer<RDialogue>(rdialogue));
 	container->Register(Console, "console");
@@ -102,7 +102,7 @@ int main()
 	X a;
 	a.Go<1>();
 
-	auto myWin = SO::Window("Hello World!! :)", pxPoint(1000, 300));
+	auto myWin = Window("Hello World!! :)", pxPoint(1000, 300));
 	myWin.Open();
 	
 	std::string Read;

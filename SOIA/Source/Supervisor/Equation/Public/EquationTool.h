@@ -28,6 +28,10 @@ namespace Supervisor
 		RFUNCTION(cmd_setmathcontainer)
 			bool cmd_setmathcontainer(Environment::MathContainer* const & InMathContainer);
 
+		//----- pipes -----
+		RFUNCTION(pipe_calculate2d)
+			bool pipe_calculate2d(double const& InX, double& OutY);
+
 		////////////////////////////////////////////////////////////////
 		// Variables
 

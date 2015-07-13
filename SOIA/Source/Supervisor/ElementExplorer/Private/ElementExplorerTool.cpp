@@ -77,7 +77,7 @@ bool ElementExplorerTool::cmd_cc(const std::string& InContainerName)
 	return result;
 }
 
-bool ElementExplorerTool::cmd_attr(RElement* const & InElementName, std::string const & InAttributeName)
+bool ElementExplorerTool::cmd_listattributes(RElement* const & InElementName, std::string const & InAttributeName)
 {
 	bool result = false;
 	if (InElementName)
@@ -139,6 +139,23 @@ bool ElementExplorerTool::cmd_attr(RElement* const & InElementName, std::string 
 		Dialogue->WriteLine("Could not find element.");
 	}
 	return result;
+}
+
+bool ElementExplorerTool::cmd_func(RFunction *& OutFunction, RElement * const & InElement, std::string const & InFuncName)
+{
+	auto p_Func = InElement->GetAttribute(InFuncName);
+	if (p_Func)
+	{
+		OutFunction = p_Func.CastAndDereference<RFunction*>();
+
+		Dialogue->WriteLine("Found function: " + InFuncName);
+		return true;
+	}
+	else
+	{
+		Dialogue->WriteLine("Could not find function: " + InFuncName);
+		return false;
+	}
 }
 
 std::string ElementExplorerTool::GetCurrentPath()

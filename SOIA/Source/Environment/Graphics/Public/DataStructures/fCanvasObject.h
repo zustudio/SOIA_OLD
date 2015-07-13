@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Graphics
+namespace Environment
 {
 	class fPoint;
 	class fColor;

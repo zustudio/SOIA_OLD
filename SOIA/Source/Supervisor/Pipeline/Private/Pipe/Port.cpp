@@ -5,8 +5,9 @@
 using namespace Supervisor;
 using namespace Environment;
 
-Port::Port(PortConfiguration InConfiguration, TypeID InType)
+Port::Port(Environment::Thread* InOwner, PortConfiguration InConfiguration, TypeID InType)
 	:
+	Owner(InOwner),
 	Configuration(InConfiguration),
 	Type(InType)
 {}
@@ -23,6 +24,11 @@ bool Port::Pair(Port* InPartner)
 	{
 		return false;
 	}
+}
+
+void Port::WakeUp()
+{
+	Owner->WakeUp();
 }
 
 TypeID Port::GetType()

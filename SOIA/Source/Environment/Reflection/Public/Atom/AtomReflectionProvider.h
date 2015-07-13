@@ -15,6 +15,7 @@ namespace Environment
 		virtual ~AtomReflectionProvider();
 
 		AtomReflection* GetReflection(const std::string& InTypeName);
+		std::vector<TypeID> GetTypeList();
 
 		template<typename Type> void Reflect()
 		{

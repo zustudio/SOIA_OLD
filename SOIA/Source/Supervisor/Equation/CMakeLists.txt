@@ -6,7 +6,7 @@ subproject(Equation)
 
 add_PrivatePublic(
 	EquationTool
-	EquationWorker)
+	REquationPipes)
 end_sub()
 
 auto_add_shared_library()

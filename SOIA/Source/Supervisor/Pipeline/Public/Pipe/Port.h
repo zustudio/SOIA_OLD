@@ -2,6 +2,7 @@
 #pragma once
 
 #include "VoidPointer.h"
+#include "Thread.h"
 #include <string>
 
 namespace Supervisor
@@ -15,10 +16,12 @@ namespace Supervisor
 	class Port
 	{
 	public:
-		Port(PortConfiguration InConfiguration, Environment::TypeID InType);
+		Port(Environment::Thread* InOwner, PortConfiguration InConfiguration, Environment::TypeID InType);
 
 		virtual bool Write(const Environment::VoidPointer& InData) = 0;
 		virtual bool Read(Environment::VoidPointer& InData) = 0;
+
+		void WakeUp();
 
 		bool Pair(Port* InPartner);
 		Environment::TypeID GetType();
@@ -26,6 +29,7 @@ namespace Supervisor
 
 	protected:
 		Port* Partner;
+		Environment::Thread* Owner;
 		PortConfiguration Configuration;
 		Environment::TypeID Type;
 		std::string Description;

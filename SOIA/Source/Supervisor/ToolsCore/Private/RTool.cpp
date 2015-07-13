@@ -7,7 +7,8 @@ using namespace Environment;
 
 RTool::RTool(const RPointer<RDialogue>& InDialogue)
 	: BaseType(),
-	Dialogue(InDialogue)
+	Dialogue(InDialogue),
+	GuiClass(nullptr)
 {
 	ReflectAttributes();
 }

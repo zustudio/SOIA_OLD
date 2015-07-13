@@ -4,7 +4,7 @@
 #include <string>
 #include <deque>
 
-namespace Graphics
+namespace Environment
 {
 	class LIBIMPEXP CTextBox : public Control
 	{
@@ -16,7 +16,7 @@ namespace Graphics
 		//////////////////////////////////////////////////////////
 		// functions
 		//---- init ----
-		CTextBox(SO::Window_Base* newWindow = nullptr, const cPoint &newLoc = cPoint(), const cPoint &newSize = cPoint());
+		CTextBox(Window_Base* newWindow = nullptr, const cPoint &newLoc = cPoint(), const cPoint &newSize = cPoint());
 		//---- draw ----
 		virtual void Draw() override;
 		//---- text ----

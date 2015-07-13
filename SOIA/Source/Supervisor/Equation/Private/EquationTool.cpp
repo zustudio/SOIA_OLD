@@ -17,17 +17,11 @@ REquationTool::REquationTool(const RPointer<RDialogue>& InDialogue)
 bool REquationTool::cmd_calc(const std::string& InEqName, const double& Argument)
 {
 	bool success = false;
-	if (CurrentMathContainer)
+	double OutResult;
+	if (pipe_calculate2d(Argument, OutResult))
 	{
-		for (auto Eq : Equations)
-		{
-			if (Eq.GetFunctionID().Name == InEqName)
-			{
-				double result = Eq.Calculate(Argument);
-				Dialogue->WriteLine(" =" + std::to_string(result));
-				success = true;
-			}
-		}
+		Dialogue->WriteLine(" =" + std::to_string(OutResult));
+		success = true;
 	}
 	return success;
 }
@@ -47,4 +41,18 @@ bool REquationTool::cmd_setmathcontainer(MathContainer* const & InMathContainer)
 {
 	CurrentMathContainer = InMathContainer;
 	return true;
+}
+
+bool REquationTool::pipe_calculate2d(double const & InX, double & OutY)
+{
+	bool success = false;
+	if (CurrentMathContainer)
+	{
+		if(Equations.size())
+		{
+			double result = Equations[0].Calculate(InX);
+			success = true;
+		}
+	}
+	return success;
 }

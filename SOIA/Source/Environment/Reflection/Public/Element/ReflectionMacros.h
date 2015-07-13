@@ -65,7 +65,7 @@ public:
 
 #define RFUNCTION(object) \
 private: \
-Environment::RFunction* object##_Generated = Environment::CreateFunction<Type>(this, &Type::object); \
+Environment::RFunction* object##_Generated = Environment::CreateFunction<Type>(this, &Type::object, #object); \
 RATTRIBUTE_BASE(object##_Generated,#object) \
 public:
 

@@ -55,6 +55,11 @@ bool Thread::IsStopping()
 	return ThreadStatus == EThreadStatus::Stopping;
 }
 
+bool Thread::IsSleeping()
+{
+	return ThreadStatus == EThreadStatus::Sleeping;
+}
+
 //////////////////////////////////////////////////////////////////////////
 // internal
 void Thread::Sleep()
@@ -71,8 +76,11 @@ void Thread::Sleep()
 }
 void Thread::WakeUp()
 {
-	ThreadStatus = EThreadStatus::WakingUp;
-	InternalConditionVariable->notify_one();
+	if (IsSleeping())
+	{
+		ThreadStatus = EThreadStatus::WakingUp;
+		InternalConditionVariable->notify_one();
+	}
 }
 
 
