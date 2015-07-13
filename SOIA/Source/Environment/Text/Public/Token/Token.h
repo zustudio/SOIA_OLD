@@ -8,7 +8,7 @@
 namespace Environment
 {
 	class TokenRule;
-	class Token
+	class LIBIMPEXP Token
 	{
 	public:
 		

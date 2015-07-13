@@ -14,6 +14,7 @@ namespace Environment
 
 		TokenRule(const std::string& InTextRegex, TokenCollapseInterface* InTokenCollapse);
 
+		void Clear();
 		bool CreateToken(Iterators<std::string>& InTextIters, Token* Parent);
 		bool CollapseSubTokens(Token* Parent);
 

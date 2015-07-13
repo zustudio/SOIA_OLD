@@ -10,12 +10,17 @@ Tokenizer::Tokenizer(const std::vector<TokenRule>& InRules)
 	Rules(InRules)
 {}
 
-bool Tokenizer::Tokenize(std::string & InText)
+bool Tokenizer::Tokenize(std::string & InText, Token*& OutResult)
 {
 	bool result = false;
 
+	for (TokenRule& rule : Rules)
+	{
+		rule.Clear();
+	}
+	GlobalToken.GetSubTokens().clear();
+
 	auto textIters = Iterators<std::string>(InText, InText.begin());
-	
 	while (textIters.Iterator != textIters.End)
 	{
 		bool tokenMatched = false;
@@ -29,15 +34,12 @@ bool Tokenizer::Tokenize(std::string & InText)
 		if (!tokenMatched)
 			textIters.Iterator++;
 	}
-	for (auto rule : Rules)
+	for (TokenRule& rule : Rules)
 	{
 		rule.CollapseSubTokens(&GlobalToken);
 	}
+	OutResult = &GlobalToken;
 
 	return result;
 }
 
-Token& Tokenizer::GetResult()
-{
-	return GlobalToken;
-}

@@ -15,6 +15,15 @@ TokenRule::TokenRule(const std::string & InTextRegex, TokenCollapseInterface * I
 	TokenCollapse(InTokenCollapse)
 {}
 
+void TokenRule::Clear()
+{
+	for (auto token : Tokens)
+	{
+		delete token;
+	}
+	Tokens.clear();
+}
+
 bool TokenRule::CreateToken(Iterators<std::string>& InTextIters, Token* InParent)
 {
 	bool result = false;

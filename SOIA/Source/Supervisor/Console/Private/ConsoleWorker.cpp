@@ -5,12 +5,17 @@
 using namespace Supervisor;
 using namespace Environment;
 
-#include "Tokenizer.h"
 #include "RContainer.h"
 #include <regex>
 
 ConsoleWorker::ConsoleWorker(const RPointer<RDialogue>& InDialogue)
 	: BaseType(InDialogue),
+	InputTokenizer(
+	{
+		TokenRule("([a-zA-Z0-9_]+)", new TokenCollapseNone),
+		TokenRule("(\\()", new TokenCollapseParenthesis(EParenthesisType::Start)),
+		TokenRule("(\\))", new TokenCollapseParenthesis(EParenthesisType::End))
+	}),
 	bExit(false)
 {
 	ReflectAttributes();
@@ -26,20 +31,10 @@ void ConsoleWorker::Main()
 		Dialogue->Write("> ");
 		Dialogue->GetNextLine(input);
 
-		//--TEST-- :
-		//std::vector<VoidPointer> arguments;
-		//ExecuteCommands(input, arguments);
-
-		auto argumentRule = TokenRule("([a-zA-Z0-9_]+)", new TokenCollapseNone);
-		auto parenStartRule = TokenRule("(\\()", new TokenCollapseParenthesis(EParenthesisType::Start));
-		auto parenEndRule = TokenRule("(\\))", new TokenCollapseParenthesis(EParenthesisType::End));
-
-		Tokenizer tokenizer = Tokenizer({ parenEndRule, parenStartRule, argumentRule });
-		tokenizer.Tokenize(input);
-		tokenizer.GetResult();
-
-
-		//-- TEST END --
+		Token* OutResult = nullptr;
+		std::vector<VoidPointer> OutArguments;
+		InputTokenizer.Tokenize(input, OutResult);
+		ExecuteCommands(OutResult, OutArguments);
 
 
 		/*std::vector<std::string> args;
@@ -74,33 +69,25 @@ void ConsoleWorker::Main()
 	}
 }
 
-bool ConsoleWorker::ExecuteCommands(const std::string& InInput, std::vector<Environment::VoidPointer>& OutArguments)
+bool ConsoleWorker::ExecuteCommands(Token* Input, std::vector<Environment::VoidPointer>& OutArguments)
 {
-	//pattern ([a-zA-Z]+[ |:]?)
-	//pattern |\\d+\\(.+\\)
-	std::string input = InInput;
-	std::regex pattern("(\"(.*?)\"|[a-zA-Z0-9_]+:?|\\d*\\(.+\\))");
-	auto result = std::smatch();
-	
+	std::vector<Token*> subTokens = Input->GetSubTokens();
 	std::vector<std::string> inputs;
 	std::vector<VoidPointer> inputPointers;
-	while(std::regex_search(input, result, pattern))
+	int n = subTokens.size();
+	for (int i = 0; i < n; i++)
 	{
-		std::string singleInputString = result[1].str();
-		input = result.suffix().str();
-		std::regex functionPattern("(\\d*)\\((.+)\\)");
-		auto functionPatternResult = std::smatch();
-		bool bisFunction = std::regex_match(singleInputString, functionPatternResult, functionPattern);
+		std::string singleInputString = subTokens[i]->Text;
+		bool bisFunction = subTokens[i]->GetSubTokens().size() > 0;
 		if (bisFunction)
 		{
-			int requestedArgument = std::atoi(functionPatternResult[1].str().c_str());
-			std::string innerCommand = functionPatternResult[2].str();
 			std::vector<VoidPointer> outArguments;
-			ExecuteCommands(innerCommand, outArguments);
+			ExecuteCommands(subTokens[i], outArguments);
 
+			int requestedArgument = 0; // TODO: parse number from input
 			if (requestedArgument >= outArguments.size())
 			{
-				Dialogue->WriteLine("Command '" + innerCommand + "' does not have an argument no. "
+				Dialogue->WriteLine("Command '" + subTokens[i]->GetSubTokens()[0]->Text + "' does not have an argument no. "
 					+ std::to_string(requestedArgument) + " to retrieve.");
 				return false;
 			}

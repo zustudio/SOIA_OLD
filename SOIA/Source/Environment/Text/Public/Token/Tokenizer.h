@@ -13,7 +13,7 @@ namespace Environment
 	public:
 		Tokenizer(const std::vector<TokenRule>& InRules);
 
-		bool Tokenize(std::string& InText);
+		bool Tokenize(std::string& InText, Token*& OutResult);
 
 		Token& GetResult();
 
