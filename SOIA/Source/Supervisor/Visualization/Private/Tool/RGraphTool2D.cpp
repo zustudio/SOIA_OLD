@@ -12,7 +12,7 @@ RGraphTool::RGraphTool(const RPointer<RDialogue>& InDialogue)
 	ReflectAttributes();
 }
 
-bool RGraphTool::cmd_listpoints()
+bool RGraphTool::cmd_pointlist()
 {
 	for (auto point : Points)
 	{
@@ -21,7 +21,7 @@ bool RGraphTool::cmd_listpoints()
 	return true;
 }
 
-bool RGraphTool::pipe_AddPoint(const double & InX, const double & InY)
+bool RGraphTool::pipe_addpoint(const double & InX, const double & InY)
 {
 	Points.push_back(Vector2D<double>(InX, InY));
 	return true;

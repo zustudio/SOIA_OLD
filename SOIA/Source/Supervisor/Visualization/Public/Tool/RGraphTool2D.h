@@ -14,11 +14,11 @@ namespace Supervisor
 
 		RGraphTool(const RPointer<RDialogue>& InDialogue = RPointer<RDialogue>(nullptr));
 
-		RFUNCTION(cmd_listpoints)
-			bool cmd_listpoints();
+		RFUNCTION(cmd_pointlist)
+			bool cmd_pointlist();
 
-		RFUNCTION(pipe_AddPoint)
-			bool pipe_AddPoint(const double& InX, const double& InY);
+		RFUNCTION(pipe_addpoint)
+			bool pipe_addpoint(const double& InX, const double& InY);
 
 		std::vector<Vector2D<double>> Points;
 

@@ -6,6 +6,7 @@ using namespace Supervisor;
 using namespace Environment;
 
 #include "RContainer.h"
+#include "LogProvider.h"
 #include <regex>
 
 ConsoleWorker::ConsoleWorker(const RPointer<RDialogue>& InDialogue)
@@ -82,7 +83,10 @@ bool ConsoleWorker::ExecuteCommands(Token* Input, std::vector<Environment::VoidP
 		if (bisFunction)
 		{
 			std::vector<VoidPointer> outArguments;
-			ExecuteCommands(subTokens[i], outArguments);
+			bool subsuccess = ExecuteCommands(subTokens[i], outArguments);
+			if (!subsuccess)
+				return subsuccess;
+				
 
 			int requestedArgument = 0; // TODO: parse number from input
 			if (requestedArgument >= outArguments.size())
@@ -179,8 +183,12 @@ bool ConsoleWorker::ExecuteCommand(const std::string& InTarget, std::string& InC
 	}
 	else
 	{
-		target->GetAttribute(functionName).CastAndDereference<RFunction*>()->CorrectArgsAndExecute(InOutArguments);
-		return true;
+		bool success = target->GetAttribute(functionName).CastAndDereference<RFunction*>()->CorrectArgsAndExecute(InOutArguments);
+		if (!success)
+		{
+			LOG("Command '" + functionName + "' returned false.", Logger::Severity::Warning);
+		}
+		return success;
 	}
 }
 
