@@ -1,0 +1,8 @@
+
+macro( add_binary_subdirectory L_name )
+	
+	if(WIN32)
+		execute_process(COMMAND mklink /D ....)
+	endif()
+	
+endmacro( add_binary_subdirectory L_name )

@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "File.h"
+#include "File_DEPRECATED.h"
 
 #include "PropertyTagFactory.h"
 #include "FileObjectFactory.h"
@@ -10,7 +10,7 @@
 
 namespace Environment
 {
-	class LIBIMPEXP SaveFile : public File
+	class LIBIMPEXP SaveFile : public File_DEPRECATED
 	{
 	public:
 		SaveFile(const std::string &InName, bool bWriteFile);

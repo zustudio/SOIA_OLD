@@ -1,11 +1,11 @@
 
 #pragma once
 
-#include "File.h"
+#include "File_DEPRECATED.h"
 
 namespace Environment
 {
-	class LIBIMPEXP TextFile : public File
+	class LIBIMPEXP TextFile : public File_DEPRECATED
 	{
 	public:
 		TextFile(const std::string &InName, bool bWriteFile);

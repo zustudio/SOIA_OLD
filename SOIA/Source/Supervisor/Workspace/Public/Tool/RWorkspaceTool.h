@@ -3,6 +3,8 @@
 
 #include "RTool.h"
 
+#include "FileSystemProvider.h"
+
 namespace Supervisor
 {
 	RCLASS(RWorkspaceTool, RTool);
@@ -12,8 +14,8 @@ namespace Supervisor
 
 		RWorkspaceTool(const RPointer<RDialogue>& InDialogue = RPointer<RDialogue>(nullptr));
 
-		RFUNCTION(cmd_listtypes)
-			bool cmd_listtypes();
+		RFUNCTION(cmd_typelist)
+			bool cmd_typelist();
 
 		RFUNCTION(cmd_type)
 			bool cmd_type(TypeID& OutType, const std::string& InTypeName);
@@ -23,6 +25,21 @@ namespace Supervisor
 
 		RFUNCTION(cmd_gui)
 			bool cmd_gui(RTool* const & InTool);
+
+		RFUNCTION(cmd_dirlist)
+			bool cmd_dirlist();
+		
+		RFUNCTION(cmd_dir)
+			bool cmd_dir(Directory& OutDir, std::string const& InName);
+
+		RFUNCTION(cmd_changedir)
+			bool cmd_changedir(const Directory& InDir);
+
+		RFUNCTION(cmd_saveproject)
+			bool cmd_saveproject(Directory const& InDir);
+
+		RPROPERTY(CurrentDirectory)
+			Directory CurrentDirectory;
 
 		RCLASS_END();
 	};

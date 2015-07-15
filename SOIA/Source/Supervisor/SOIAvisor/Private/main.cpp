@@ -1,6 +1,7 @@
 
 #include "Definitions.h"
 
+#include "FileSystemProvider.h"
 #include "SaveFile.h"
 #include "StdDialogue.h"
 #include "Testing.h"
@@ -25,9 +26,17 @@ constexpr static const char TEST[] = "ABD";
 
 int main()
 {
+
+	//TEST
+	GetFileSystem()->GetExecutableDirectory().GetSubDirectories();
+
+	//ENDTEST
+
 	DialogueInterface* dialogue = new StdDialogue();
 	RDialogue* rdialogue = new RDialogue(dialogue);
-	RContainer* topCont = new RContainer(Range<int>(0, 999));
+	RContainer* topCont = new RContainer(Range<int>(1, 999));
+	topCont->GetID().Name = "Quantum";
+	topCont->GetID().UniqueIdentifier = 0;
 	SetTopContainer(topCont);
 	RContainer* container = new RContainer(Range<int>(1000,1999));
 	topCont->Register(container, "tools");
@@ -73,7 +82,8 @@ int main()
 	Console->Join();
 
 	SaveFile sf = SaveFile("RTool", true);
-	sf.Content.push_back(VoidPointer(static_cast<RElement*>(Console)));
+	RElement* cast_console = static_cast<RElement*>(Console);
+	sf.Content.push_back(VoidPointer(&cast_console, EMemoryType::Stack));
 	sf.Write();
 
 	auto strings = Console->GetAttributeNames();
@@ -83,32 +93,4 @@ int main()
 	}
 	
 	//Console->GetAttribute("cmd_Help").CastAndDereference<RFunction*>()->Execute({});
-
-	using T = std::vector<std::string>;
-
-
-	Console->CreateReflection();
-
-	auto argTypes = Console->GetAttribute("cmd_echo").CastAndDereference<RFunction*>()->GetArgumentTypes();
-	for (auto argType : argTypes)
-	{
-		dialogue->WriteLine("ArgType: " + argType.ToString());
-	}
-	Console->GetAttribute("cmd_Help").CastAndDereference<RFunction*>()->Execute({});
-	std::string input = "Hello!";
-	Console->GetAttribute("test").CastAndDereference<RFunction*>()->Execute({ VoidPointer(&input, EMemoryType::Stack) });
-	LOG(input, Logger::Severity::Warning);
-
-	X a;
-	a.Go<1>();
-
-	auto myWin = Window("Hello World!! :)", pxPoint(1000, 300));
-	myWin.Open();
-	
-	std::string Read;
-	std::getline(std::cin, Read);
-
-	std::cout << "hello world ;)" << std::endl;
-	std::cout << "result of 1 + 3 is " << ZABS::Math::LinearFunction::get_f(3.0, { -1, 2 });
-	return 0;
 }

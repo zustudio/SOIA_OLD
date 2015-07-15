@@ -5,7 +5,7 @@
 using namespace Environment;
 
 TextFile::TextFile(const std::string &InName, bool bWriteFile)
-	: File(InName, bWriteFile)
+	: File_DEPRECATED(InName, bWriteFile)
 {}
 
 void TextFile::WriteObject(const VoidPointer& InObject)

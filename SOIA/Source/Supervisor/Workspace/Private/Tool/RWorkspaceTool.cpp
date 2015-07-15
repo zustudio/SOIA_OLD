@@ -10,9 +10,12 @@ using namespace Supervisor;
 #include "RConversionPipes.h"
 #include "RGUI.h"
 #include "StringMatch.h"
+#include "FileSystemProvider.h"
+#include "SaveFile.h"
 
 RWorkspaceTool::RWorkspaceTool(const RPointer<RDialogue>& InDialogue)
-	: BaseType(InDialogue)
+	: BaseType(InDialogue),
+	CurrentDirectory(GetFileSystem()->GetExecutableDirectory())
 {
 	GetElementReflectionProvider()->RegisterList<
 		RGraphTool,
@@ -21,7 +24,7 @@ RWorkspaceTool::RWorkspaceTool(const RPointer<RDialogue>& InDialogue)
 	ReflectAttributes();
 }
 
-bool RWorkspaceTool::cmd_listtypes()
+bool RWorkspaceTool::cmd_typelist()
 {
 	std::vector<TypeID> reflectedAtoms = GetAtomReflectionProvider()->GetTypeList();
 	std::vector<TypeID> reflectedElements = GetElementReflectionProvider()->GetTypeList();
@@ -91,6 +94,49 @@ bool RWorkspaceTool::cmd_gui(RTool * const & InTool)
 {
 	static_cast<RGUI*>(InTool->GuiClass->GetDefaultObject())->Start();
 	return true;
+}
+
+bool RWorkspaceTool::cmd_dirlist()
+{
+	auto dirs = CurrentDirectory.GetSubDirectories();
+	for (auto dir : dirs)
+	{
+		Dialogue->WriteLine(dir.GetPath().GetName());
+	}
+	return true;
+}
+
+bool RWorkspaceTool::cmd_dir(Directory & OutDir, std::string const & InName)
+{
+	OutDir = Directory(Path(CurrentDirectory.GetPath().ToString() + InName + "/"));
+	return true;
+}
+
+bool RWorkspaceTool::cmd_changedir(const Directory & InDir)
+{
+	CurrentDirectory = InDir;
+	return true;
+}
+
+bool RWorkspaceTool::cmd_saveproject(Directory const& InDir)
+{
+	bool result = false;
+	RElement* element = GetTopContainer();
+	std::string fileName = InDir.GetPath().ToString() + element->GetID().Name + ".elem";
+	if (element)
+	{
+		auto file = new SaveFile(fileName, true);
+		file->Content.push_back(VoidPointer(&element, EMemoryType::NotOwned));
+		file->Write();
+		delete file;
+		Dialogue->WriteLine("Saved to file.");
+		result = true;
+	}
+	else
+	{
+		Dialogue->WriteLine("Could not find element.");
+	}
+	return result;
 }
 
 

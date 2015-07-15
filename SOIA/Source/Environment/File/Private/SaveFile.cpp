@@ -8,7 +8,7 @@ using namespace Environment;
 
 SaveFile::SaveFile(const std::string &InName, bool bWriteFile)
 	: 
-	File(InName, bWriteFile),
+	File_DEPRECATED(InName, bWriteFile),
 	TagFactory(),
 	LoadedRElements(Range<int>(0,10000))
 {}

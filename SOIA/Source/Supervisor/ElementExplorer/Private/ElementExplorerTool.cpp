@@ -77,7 +77,7 @@ bool ElementExplorerTool::cmd_cc(const std::string& InContainerName)
 	return result;
 }
 
-bool ElementExplorerTool::cmd_listattributes(RElement* const & InElementName, std::string const & InAttributeName)
+bool ElementExplorerTool::cmd_attrlist(RElement* const & InElementName, std::string const & InAttributeName)
 {
 	bool result = false;
 	if (InElementName)

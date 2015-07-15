@@ -10,15 +10,15 @@
 
 namespace Environment
 {
-	class LIBIMPEXP File
+	class LIBIMPEXP File_DEPRECATED
 	{
 	public:
 		//////////////////////////////////////////////////////////
 		// Functions
 		//---- init ----
-		File(const std::string &InName, bool bWriteFile);
+		File_DEPRECATED(const std::string &InName, bool bWriteFile);
 		//---- deinit -----
-		~File();
+		~File_DEPRECATED();
 
 		//---- write to a file ----
 		void Write();
