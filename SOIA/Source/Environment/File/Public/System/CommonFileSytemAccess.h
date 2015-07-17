@@ -16,6 +16,8 @@ namespace Environment
 
 		virtual bool GetExecutablePath(Path& OutPath) = 0;
 
+		virtual bool CreatePathDirectory(const Path& InPath) = 0;
+
 	private:
 		bool ReadDirectory(const Path& InDir, int Type, std::vector<Path>& OutPaths);
 		//virtual bool GetExecutableDirectory(const std::string& OutDir) = 0;

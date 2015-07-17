@@ -37,6 +37,9 @@ namespace Supervisor
 
 		RFUNCTION(cmd_saveproject)
 			bool cmd_saveproject(Directory const& InDir);
+		bool SaveRecursive(Directory const& InDir, RElement* const& InElement);
+		bool SaveContainer(Directory const& InDir, RContainer* const& InContainer, Directory & OutContainerDir);
+		bool SaveElement(Directory const& InDir, RElement* const& InElement);
 
 		RPROPERTY(CurrentDirectory)
 			Directory CurrentDirectory;

@@ -15,18 +15,13 @@ namespace Environment
 	public:
 		Directory(const Path& InPath);
 
+		bool Create();
 		std::vector<Directory> GetSubDirectories();
 
 		Path const& GetPath() const;
 
-		static Directory FromString(const std::string& InString)
-		{
-			return Directory(Path(InString));
-		}
-		static std::string ToString(const Directory& InObject)
-		{
-			return InObject.GetPath().ToString();
-		}
+		static Directory FromString(const std::string& InString);
+		static std::string ToString(const Directory& InObject);
 
 	private:
 		Path PathToDir;

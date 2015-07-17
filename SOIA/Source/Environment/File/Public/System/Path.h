@@ -10,7 +10,8 @@ namespace Environment
 	public:
 		Path(const std::string& InName);
 
-		Path Append(const std::string& InName) const;
+		Path AppendFolder(const std::string& InName) const;
+		Path AppendFile(const std::string& InName) const;
 
 		Path StripDotName() const;
 

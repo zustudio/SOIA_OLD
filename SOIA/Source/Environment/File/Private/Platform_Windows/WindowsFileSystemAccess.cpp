@@ -4,6 +4,8 @@
 #include "WindowsFileSystemAccess.h"
 using namespace Environment;
 
+#include "dirent.h"
+
 bool WindowsFileSystemAccess::GetExecutablePath(Path& OutPath)
 {
 	bool success = false;
@@ -17,4 +19,9 @@ bool WindowsFileSystemAccess::GetExecutablePath(Path& OutPath)
 		success = true;
 	}
 	return success;
+}
+
+bool WindowsFileSystemAccess::CreatePathDirectory(Path const& InPath)
+{
+	return (CreateDirectory(InPath.ToString().c_str(), NULL) || ERROR_ALREADY_EXISTS);
 }

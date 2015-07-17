@@ -12,6 +12,11 @@ Directory::Directory(const Path& InPath)
 	PathToDir(InPath)
 {}
 
+bool Directory::Create()
+{
+	return GetFileSystem()->GetAccess()->CreatePathDirectory(PathToDir);
+}
+
 std::vector<Directory> Directory::GetSubDirectories()
 {
 	std::vector<Path> outPaths;
@@ -28,4 +33,14 @@ std::vector<Directory> Directory::GetSubDirectories()
 Path const& Directory::GetPath() const
 {
 	return PathToDir;
+}
+
+std::string Directory::ToString(const Directory & InObject)
+{
+	return InObject.GetPath().ToString();
+}
+
+Directory Directory::FromString(const std::string & InString)
+{
+	return Directory(Path(InString));
 }

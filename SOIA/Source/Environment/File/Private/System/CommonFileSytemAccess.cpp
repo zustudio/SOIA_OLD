@@ -30,10 +30,12 @@ bool CommonFileSystemAccess::ReadDirectory(const Path & InPath, int IntType, std
 		{
 			if (p_dirent->d_type == IntType)
 			{
-				Path foundPath = InPath.Append(p_dirent->d_name);
+				Path foundPath = Path("");
 
 				if (p_dirent->d_type == DT_DIR)
-					foundPath = foundPath.Append("/");
+					foundPath = InPath.AppendFolder(p_dirent->d_name);
+				else
+					foundPath = InPath.AppendFile(p_dirent->d_name);
 
 				OutPaths.push_back(foundPath);
 			}

@@ -17,14 +17,14 @@ Path::Path(const std::string & InName)
 	Name = std::regex_replace(InName, regex, "/");
 }
 
-Path Path::Append(const std::string & InName) const
+Path Path::AppendFolder(const std::string & InName) const
 {
-	return Path(Name + InName);
+	return Path(Name + InName + "/");
 }
 
-const std::string& Path::ToString() const
+Path Path::AppendFile(const std::string & InName) const
 {
-	return Name;
+	return Path(Name + InName);
 }
 
 Path Path::StripDotName() const
@@ -59,5 +59,10 @@ std::string Path::GetName() const
 	}
 	else
 		return "";
+}
+
+const std::string& Path::ToString() const
+{
+	return Name;
 }
 

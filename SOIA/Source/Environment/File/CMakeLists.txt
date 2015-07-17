@@ -16,6 +16,7 @@ in_sub(System)
 		FileSystem
 		CommonFileSytemAccess
 		File
+		IOFile
 		Directory
 		Path)
 in_sub(Platform_Linux Linux)

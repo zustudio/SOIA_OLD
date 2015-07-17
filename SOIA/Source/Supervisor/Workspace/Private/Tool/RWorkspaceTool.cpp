@@ -120,23 +120,52 @@ bool RWorkspaceTool::cmd_changedir(const Directory & InDir)
 
 bool RWorkspaceTool::cmd_saveproject(Directory const& InDir)
 {
-	bool result = false;
-	RElement* element = GetTopContainer();
-	std::string fileName = InDir.GetPath().ToString() + element->GetID().Name + ".elem";
-	if (element)
+	return SaveRecursive(InDir, GetTopContainer());
+}
+
+bool RWorkspaceTool::SaveRecursive(Directory const & InDir, RElement* const& InElement)
+{
+	bool success = true;
+
+	RContainer* InContainer = dynamic_cast<RContainer*>(InElement);
+	if (InContainer)
 	{
-		auto file = new SaveFile(fileName, true);
-		file->Content.push_back(VoidPointer(&element, EMemoryType::NotOwned));
-		file->Write();
-		delete file;
-		Dialogue->WriteLine("Saved to file.");
-		result = true;
+		Directory ContainerDir(Path(""));
+		success &= SaveContainer(InDir, InContainer, ContainerDir);
+		std::vector<RElement*>& children = InContainer->GetAllElements<RElement>();
+		for (RElement*& child : children)
+		{
+			success &= SaveRecursive(ContainerDir, child);
+		}
 	}
 	else
 	{
-		Dialogue->WriteLine("Could not find element.");
+		success = SaveElement(InDir, InElement);
 	}
-	return result;
+	return success;
+}
+
+bool RWorkspaceTool::SaveContainer(Directory const & InDir, RContainer * const & InContainer, Directory & OutContainerDir)
+{
+	std::string folderName = InContainer->GetID().Name + ".cont";
+	std::string fileName = InContainer->GetID().Name + ".elem";
+	
+	OutContainerDir = Directory(InDir.GetPath().AppendFolder(folderName));
+	OutContainerDir.Create();
+
+	SaveFile file = SaveFile(InDir.GetPath().AppendFile(fileName));
+	file.AddElement(InContainer, ESaveMode::Single);
+	file.Write();
+	return true;
+}
+
+bool RWorkspaceTool::SaveElement(Directory const & InDir, RElement * const & InElement)
+{
+	std::string fileName = InElement->GetID().Name + ".elem";
+	SaveFile file = SaveFile(InDir.GetPath().AppendFile(fileName));
+	file.AddElement(InElement, ESaveMode::Recursive);
+	file.Write();
+	return true;
 }
 
 

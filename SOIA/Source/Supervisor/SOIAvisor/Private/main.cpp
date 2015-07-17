@@ -81,10 +81,6 @@ int main()
 	Console->Start();
 	Console->Join();
 
-	SaveFile sf = SaveFile("RTool", true);
-	RElement* cast_console = static_cast<RElement*>(Console);
-	sf.Content.push_back(VoidPointer(&cast_console, EMemoryType::Stack));
-	sf.Write();
 
 	auto strings = Console->GetAttributeNames();
 	for (auto string : strings)
