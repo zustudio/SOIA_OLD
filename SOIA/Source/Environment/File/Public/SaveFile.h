@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "File.h"
+#include "IOFile.h"
 
 #include "PropertyTagFactory.h"
 #include "FileObjectFactory.h"
@@ -10,20 +10,32 @@
 
 namespace Environment
 {
-	class LIBIMPEXP SaveFile : public File
+	enum class ESaveMode : int
+	{
+		Single,
+		Recursive
+	};
+	class LIBIMPEXP SaveFile : public IOFile
 	{
 	public:
-		SaveFile(const std::string &InName, bool bWriteFile);
+		SaveFile(const Path &InName);
 
-		virtual void PreWrite() override;
-		virtual void PostRead() override;
+		void AddElement(RElement* const & InElement, ESaveMode InSaveMode);
+		RElement* GetElement(int InNum, const std::vector<RElement*>& InReferenced);
 
-		virtual void WriteObject(const VoidPointer& InObject) override;
-		virtual VoidPointer* ReadObject() override;
+		void Write();
+		void Read();
 
-		RContainer LoadedRElements;
+	protected:
+		void PreWrite(std::vector<VoidPointer>& InContainer);
+		void PostRead(FileObject& InFileObject, const std::vector<RElement*>& InReferenced);
+
+		void WriteObject(const VoidPointer& InObject);
+		VoidPointer* ReadObject();
+
 		std::vector<FileObject> FileObjects;
 	private:
+		std::vector<VoidPointer> Content;
 		PropertyTagFactory TagFactory;
 		FileObjectFactory ObjectFactory;
 	};

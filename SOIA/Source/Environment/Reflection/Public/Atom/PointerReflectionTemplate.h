@@ -28,10 +28,13 @@ namespace Environment
 
 		virtual std::string ObjectToString(const VoidPointer& InObject) override
 		{
-			std::string result;
+			std::string result = "";
 			RType* p_Object = InObject.CastTo<RType>();
 			
-			result = ToString_Internal<RType>(0, *p_Object);
+			if (p_Object && *p_Object)
+			{
+				result = ToString_Internal<RType>(0, *p_Object);
+			}
 
 			return result;
 		}

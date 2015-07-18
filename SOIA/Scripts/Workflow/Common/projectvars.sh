@@ -18,7 +18,7 @@ function set_project_vars
 		build_suffix="CUSTOM"
 		cmake_generator="$1"
 	fi
-	build_dir="$base_dir/../../Build_$build_suffix"
+	build_dir="$base_dir/../../../Build_$build_suffix"
 	build_folder="Build_$build_suffix"
 	mkdir -p "$build_dir"
 	

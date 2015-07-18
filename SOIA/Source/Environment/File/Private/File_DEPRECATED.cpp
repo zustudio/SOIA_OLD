@@ -1,14 +1,14 @@
 
 #include "Definitions.h"
 
-#include "File.h"
+#include "File_DEPRECATED.h"
 using namespace Environment;
 
 #include "LogProvider.h"
 
 /////////////////////////////////////////////////////////////////
 // init
-File::File(const std::string &InName, bool bWriteFile)
+File_DEPRECATED::File_DEPRECATED(const std::string &InName, bool bWriteFile)
 {
 	OutStream = nullptr;
 	InStream = nullptr;
@@ -36,7 +36,7 @@ File::File(const std::string &InName, bool bWriteFile)
 	}
 }
 
-File::~File()
+File_DEPRECATED::~File_DEPRECATED()
 {
 	if (OutStream) OutStream->close();
 	if (InStream) InStream->close();
@@ -44,7 +44,7 @@ File::~File()
 
 //////////////////////////////////////////////////
 // write to file
-void File::Write()
+void File_DEPRECATED::Write()
 {
 	LOGSTATUS("Preparing writing to file...");
 	PreWrite();
@@ -55,7 +55,7 @@ void File::Write()
 	}
 }
 
-void File::Read()
+void File_DEPRECATED::Read()
 {
 	LOGSTATUS("Reading from file...");
 	VoidPointer* readObject;

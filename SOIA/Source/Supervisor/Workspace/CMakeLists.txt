@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.1)
 
 subproject(Workspace)
-	depends_on_projects(Environment Core Text Reflection)
+	depends_on_projects(Environment Core Text Reflection File)
 	depends_on_projects(Supervisor ToolsCore Pipeline Visualization)
 
 in_sub(Tool)

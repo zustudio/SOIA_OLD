@@ -18,12 +18,13 @@ PropertyTagFactory::PropertyTagFactory()
 PropertyTag PropertyTagFactory::FromObject(const FileObject& InObject)
 {
 	std::string tags;
-	tags += (PropertyTag(nullptr, InObject.Class->GetType(), "").CompleteString);
+	tags += (PropertyTag(nullptr, InObject.Class->GetType(), "").CompleteString) + '\n';
 
 	for (auto attribute : InObject.Attributes)
 	{
-		tags += (FromSimpleObject(*attribute).CompleteString);
+		tags += '\t' + (FromSimpleObject(*attribute).CompleteString) + '\n';
 	}
+	*(--tags.end()) = ',';
 
 	PropertyTag result = PropertyTag(nullptr, "", "");
 	result.CompleteString = tags;

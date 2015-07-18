@@ -10,9 +10,12 @@ using namespace Supervisor;
 #include "RConversionPipes.h"
 #include "RGUI.h"
 #include "StringMatch.h"
+#include "FileSystemProvider.h"
+#include "SaveFile.h"
 
 RWorkspaceTool::RWorkspaceTool(const RPointer<RDialogue>& InDialogue)
-	: BaseType(InDialogue)
+	: BaseType(InDialogue),
+	CurrentDirectory(GetFileSystem()->GetExecutableDirectory())
 {
 	GetElementReflectionProvider()->RegisterList<
 		RGraphTool,
@@ -21,7 +24,7 @@ RWorkspaceTool::RWorkspaceTool(const RPointer<RDialogue>& InDialogue)
 	ReflectAttributes();
 }
 
-bool RWorkspaceTool::cmd_listtypes()
+bool RWorkspaceTool::cmd_typelist()
 {
 	std::vector<TypeID> reflectedAtoms = GetAtomReflectionProvider()->GetTypeList();
 	std::vector<TypeID> reflectedElements = GetElementReflectionProvider()->GetTypeList();
@@ -92,6 +95,136 @@ bool RWorkspaceTool::cmd_gui(RTool * const & InTool)
 	static_cast<RGUI*>(InTool->GuiClass->GetDefaultObject())->Start();
 	return true;
 }
+
+bool RWorkspaceTool::cmd_dirlist()
+{
+	auto dirs = CurrentDirectory.GetSubDirectories(EDirectoryVisibility::All);
+	for (auto dir : dirs)
+	{
+		Dialogue->WriteLine(dir.GetPath().GetName());
+	}
+	return true;
+}
+
+bool RWorkspaceTool::cmd_dir(Directory & OutDir, std::string const & InName)
+{
+	OutDir = Directory(Path(CurrentDirectory.GetPath().ToString() + InName + "/"));
+	return true;
+}
+
+bool RWorkspaceTool::cmd_changedir(const Directory & InDir)
+{
+	CurrentDirectory = InDir;
+	return true;
+}
+
+bool RWorkspaceTool::cmd_saveproject(Directory const& InDir)
+{
+	return SaveRecursive(InDir, GetTopContainer());
+}
+
+bool RWorkspaceTool::SaveRecursive(Directory const & InDir, RElement* const& InElement)
+{
+	bool success = true;
+
+	RContainer* InContainer = dynamic_cast<RContainer*>(InElement);
+	if (InContainer)
+	{
+		Directory ContainerDir(Path(""));
+		success &= SaveContainer(InDir, InContainer, ContainerDir);
+		std::vector<RElement*>& children = InContainer->GetAllElements<RElement>();
+		for (RElement*& child : children)
+		{
+			success &= SaveRecursive(ContainerDir, child);
+		}
+	}
+	else
+	{
+		success = SaveElement(InDir, InElement);
+	}
+	return success;
+}
+
+bool RWorkspaceTool::SaveContainer(Directory const & InDir, RContainer * const & InContainer, Directory & OutContainerDir)
+{
+	std::string folderName = InContainer->GetID().Name + ".cont";
+	std::string fileName = InContainer->GetID().Name + ".elem";
+	
+	OutContainerDir = Directory(InDir.GetPath().AppendFolder(folderName));
+	OutContainerDir.Create();
+
+	SaveFile file = SaveFile(InDir.GetPath().AppendFile(fileName));
+	file.AddElement(InContainer, ESaveMode::Single);
+	file.Write();
+	return true;
+}
+
+bool RWorkspaceTool::SaveElement(Directory const & InDir, RElement * const & InElement)
+{
+	std::string fileName = InElement->GetID().Name + ".elem";
+	SaveFile file = SaveFile(InDir.GetPath().AppendFile(fileName));
+	file.AddElement(InElement, ESaveMode::Recursive);
+	file.Write();
+	return true;
+}
+
+bool RWorkspaceTool::cmd_loadproject(Directory const & InDir)
+{
+	std::vector<RElement*> AllElements;
+	LoadRecursive(InDir, AllElements);
+	return false;
+}
+
+bool RWorkspaceTool::LoadRecursive(Directory const & InDir, std::vector<RElement*>& OutAllElements)
+{
+	std::vector<Directory> subDirectories = InDir.GetSubDirectories();
+	std::vector<SaveFile> files = InDir.GetFiles<SaveFile>();
+
+	for (Directory subDirectory : subDirectories)
+	{
+		RContainer* container = nullptr;
+		std::vector<RElement*> subElements;
+		std::string containerElemFileName = subDirectory.GetPath().GetBaseName();
+		auto iter_containerElemFile = Find(files, containerElemFileName, 
+		[](const SaveFile& InSaveFile) -> std::string
+		{
+			return InSaveFile.GetPath().GetBaseName();
+		});
+		
+		if (iter_containerElemFile != files.end())
+		{
+			LoadRecursive(subDirectory, subElements);
+			LoadContainer(const_cast<SaveFile&>(*iter_containerElemFile), subElements, container);
+			files.erase(iter_containerElemFile);
+			OutAllElements.push_back(container);
+		}
+	}
+
+	for (SaveFile file : files)
+	{
+		RElement* OutElement = nullptr;
+		LoadElement(file, OutElement);
+		OutAllElements.push_back(OutElement);
+	}
+
+	return true;
+}
+
+bool RWorkspaceTool::LoadContainer(SaveFile& InSaveFile, std::vector<RElement*> const & InChildren, RContainer *& OutContainer)
+{
+	InSaveFile.Read();
+	OutContainer = dynamic_cast<RContainer*>(InSaveFile.GetElement(0, InChildren));
+	return bool(OutContainer);
+}
+
+bool RWorkspaceTool::LoadElement(SaveFile& InSaveFile, RElement *& OutElement)
+{
+	InSaveFile.Read();
+	OutElement = InSaveFile.GetElement(0, {});
+	return true;
+}
+
+
 
 
 

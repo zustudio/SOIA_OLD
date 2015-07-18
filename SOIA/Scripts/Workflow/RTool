@@ -1,0 +1,7 @@
+<<Supervisor::ConsoleWorker>[]>
+	<<Environment::Element_ID>[1002,console]>
+	<<Environment::RPointer<Supervisor::RDialogue>>[1001]>
+	<<Environment::RFunction*>[]>
+	<<Environment::RFunction*>[]>
+	<<Environment::RFunction*>[]>
+,

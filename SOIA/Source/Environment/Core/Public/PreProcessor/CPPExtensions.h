@@ -14,7 +14,7 @@ namespace Environment
 {
 	/* custom depth std::find*/
 	template<typename ListType, typename TargetObjectType>
-	auto Find(const ListType& InList, const TargetObjectType& InTargetObject, TargetObjectType&(*AccessorFunction)(const typename ListType::value_type&), bool) -> decltype(std::declval<const ListType&>().begin())
+	auto Find(const ListType& InList, const TargetObjectType InTargetObject, TargetObjectType(*AccessorFunction)(const typename ListType::value_type&), bool) -> decltype(std::declval<const ListType&>().begin())
 	{
 		auto iter = InList.begin();
 		for (iter; iter != InList.end(); iter++)

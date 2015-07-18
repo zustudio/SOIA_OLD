@@ -18,5 +18,5 @@ set_project_vars "$1"
 
 # invoke cmake
 cd "$build_dir"
-cmake -G "$cmake_generator" .. \
+cmake -G "$cmake_generator" ../SOIA \
 	&& echo_success
