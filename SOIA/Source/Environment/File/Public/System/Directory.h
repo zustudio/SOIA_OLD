@@ -10,13 +10,32 @@
 
 namespace Environment
 {
+	enum class EDirectoryVisibility : int
+	{
+		All,
+		NotSystem
+	};
 	class LIBIMPEXP Directory : public Atom
 	{
 	public:
 		Directory(const Path& InPath);
 
 		bool Create();
-		std::vector<Directory> GetSubDirectories();
+		std::vector<Directory> GetSubDirectories(EDirectoryVisibility InDirVisibility = EDirectoryVisibility::NotSystem) const;
+
+		template<class FileClass>
+		std::vector<FileClass> GetFiles() const
+		{
+			std::vector<Path> outPaths;
+			std::vector<FileClass> result;
+			GetFileSystem()->GetAccess()->GetFilePaths(PathToDir, outPaths);
+
+			for (auto path : outPaths)
+			{
+				result.push_back(FileClass(path));
+			}
+			return result;
+		}
 
 		Path const& GetPath() const;
 

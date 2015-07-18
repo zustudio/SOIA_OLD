@@ -8,7 +8,7 @@
 
 namespace Environment
 {
-	class CommonFileSystemAccess
+	class LIBIMPEXP CommonFileSystemAccess
 	{
 	public:
 		bool GetSubDirectoryPaths(const Path& InDir, std::vector<Path>& OutPaths);

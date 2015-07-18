@@ -24,6 +24,7 @@ PropertyTag PropertyTagFactory::FromObject(const FileObject& InObject)
 	{
 		tags += '\t' + (FromSimpleObject(*attribute).CompleteString) + '\n';
 	}
+	*(--tags.end()) = ',';
 
 	PropertyTag result = PropertyTag(nullptr, "", "");
 	result.CompleteString = tags;

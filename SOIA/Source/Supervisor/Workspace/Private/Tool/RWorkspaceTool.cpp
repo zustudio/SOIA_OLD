@@ -98,7 +98,7 @@ bool RWorkspaceTool::cmd_gui(RTool * const & InTool)
 
 bool RWorkspaceTool::cmd_dirlist()
 {
-	auto dirs = CurrentDirectory.GetSubDirectories();
+	auto dirs = CurrentDirectory.GetSubDirectories(EDirectoryVisibility::All);
 	for (auto dir : dirs)
 	{
 		Dialogue->WriteLine(dir.GetPath().GetName());
@@ -167,6 +167,64 @@ bool RWorkspaceTool::SaveElement(Directory const & InDir, RElement * const & InE
 	file.Write();
 	return true;
 }
+
+bool RWorkspaceTool::cmd_loadproject(Directory const & InDir)
+{
+	std::vector<RElement*> AllElements;
+	LoadRecursive(InDir, AllElements);
+	return false;
+}
+
+bool RWorkspaceTool::LoadRecursive(Directory const & InDir, std::vector<RElement*>& OutAllElements)
+{
+	std::vector<Directory> subDirectories = InDir.GetSubDirectories();
+	std::vector<SaveFile> files = InDir.GetFiles<SaveFile>();
+
+	for (Directory subDirectory : subDirectories)
+	{
+		RContainer* container = nullptr;
+		std::vector<RElement*> subElements;
+		std::string containerElemFileName = subDirectory.GetPath().GetBaseName();
+		auto iter_containerElemFile = Find(files, containerElemFileName, 
+		[](const SaveFile& InSaveFile) -> std::string
+		{
+			return InSaveFile.GetPath().GetBaseName();
+		});
+		
+		if (iter_containerElemFile != files.end())
+		{
+			LoadRecursive(subDirectory, subElements);
+			LoadContainer(const_cast<SaveFile&>(*iter_containerElemFile), subElements, container);
+			files.erase(iter_containerElemFile);
+			OutAllElements.push_back(container);
+		}
+	}
+
+	for (SaveFile file : files)
+	{
+		RElement* OutElement = nullptr;
+		LoadElement(file, OutElement);
+		OutAllElements.push_back(OutElement);
+	}
+
+	return true;
+}
+
+bool RWorkspaceTool::LoadContainer(SaveFile& InSaveFile, std::vector<RElement*> const & InChildren, RContainer *& OutContainer)
+{
+	InSaveFile.Read();
+	OutContainer = dynamic_cast<RContainer*>(InSaveFile.GetElement(0, InChildren));
+	return bool(OutContainer);
+}
+
+bool RWorkspaceTool::LoadElement(SaveFile& InSaveFile, RElement *& OutElement)
+{
+	InSaveFile.Read();
+	OutElement = InSaveFile.GetElement(0, {});
+	return true;
+}
+
+
 
 
 

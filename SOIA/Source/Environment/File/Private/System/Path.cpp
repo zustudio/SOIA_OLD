@@ -61,6 +61,22 @@ std::string Path::GetName() const
 		return "";
 }
 
+std::string Path::GetBaseName() const
+{
+	std::string fullName = GetName();
+	std::regex regex = std::regex("([^\\.]*).[^\\.]+");
+	auto match = std::smatch();
+	bool result = std::regex_match(fullName, match, regex);
+	if (result)
+	{
+		return match[1];
+	}
+	else
+	{
+		return "";
+	}
+}
+
 const std::string& Path::ToString() const
 {
 	return Name;

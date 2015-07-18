@@ -3,6 +3,7 @@
 
 #include "RTool.h"
 
+#include "SaveFile.h"
 #include "FileSystemProvider.h"
 
 namespace Supervisor
@@ -40,6 +41,12 @@ namespace Supervisor
 		bool SaveRecursive(Directory const& InDir, RElement* const& InElement);
 		bool SaveContainer(Directory const& InDir, RContainer* const& InContainer, Directory & OutContainerDir);
 		bool SaveElement(Directory const& InDir, RElement* const& InElement);
+
+		RFUNCTION(cmd_loadproject)
+			bool cmd_loadproject(Directory const& InDir);
+		bool LoadRecursive(Directory const& InDir, std::vector<RElement*>& OutAllElements);
+		bool LoadContainer(SaveFile& InSaveFile, std::vector<RElement*> const& InChildren, RContainer*& OutContainer);
+		bool LoadElement(SaveFile& InSaveFile, RElement* & OutElement);
 
 		RPROPERTY(CurrentDirectory)
 			Directory CurrentDirectory;

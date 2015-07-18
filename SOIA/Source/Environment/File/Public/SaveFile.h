@@ -21,16 +21,18 @@ namespace Environment
 		SaveFile(const Path &InName);
 
 		void AddElement(RElement* const & InElement, ESaveMode InSaveMode);
+		RElement* GetElement(int InNum, const std::vector<RElement*>& InReferenced);
 
 		void Write();
 		void Read();
+
+	protected:
 		void PreWrite(std::vector<VoidPointer>& InContainer);
-		void PostRead();
+		void PostRead(FileObject& InFileObject, const std::vector<RElement*>& InReferenced);
 
 		void WriteObject(const VoidPointer& InObject);
 		VoidPointer* ReadObject();
 
-		RContainer LoadedRElements;
 		std::vector<FileObject> FileObjects;
 	private:
 		std::vector<VoidPointer> Content;

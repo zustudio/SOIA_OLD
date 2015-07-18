@@ -10,8 +10,7 @@ using namespace Environment;
 SaveFile::SaveFile(const Path &InPath)
 	: 
 	IOFile(InPath),
-	TagFactory(),
-	LoadedRElements(Range<int>(0,10000))
+	TagFactory()
 {}
 
 void SaveFile::AddElement(RElement* const& InElement, ESaveMode InSaveMode)
@@ -43,6 +42,13 @@ void SaveFile::AddElement(RElement* const& InElement, ESaveMode InSaveMode)
 	}
 }
 
+RElement* SaveFile::GetElement(int InNum, const std::vector<RElement*>& InReferenced)
+{
+	PostRead(FileObjects[InNum], InReferenced);
+	RElement* element = Content[InNum].CastAndDereference<RElement*>();
+	return element;
+}
+
 void SaveFile::Write()
 {
 	LOGSTATUS("Preparing writing to file...");
@@ -72,8 +78,6 @@ void SaveFile::Read()
 
 	} while (readObject);
 	Close();
-	LOGSTATUS("Processing file...");
-	PostRead();
 }
 
 void SaveFile::PreWrite(std::vector<VoidPointer>& InContainer)
@@ -92,7 +96,7 @@ void SaveFile::PreWrite(std::vector<VoidPointer>& InContainer)
 				for (RElement* p_AttributeElement : p_AttributeElements)
 				{
 					if (p_AttributeElement && InContainer.end() == Find(InContainer, p_AttributeElement,
-						[](const VoidPointer& InVP) -> RElement*& {return InVP.CastAndDereference<RElement*>(); }))
+						[](const VoidPointer& InVP) -> RElement* {return InVP.CastAndDereference<RElement*>(); }))
 					{
 						InContainer.push_back(VoidPointer(new RElement*(p_AttributeElement)));
 					}
@@ -102,37 +106,31 @@ void SaveFile::PreWrite(std::vector<VoidPointer>& InContainer)
 	}
 }
 
-void SaveFile::PostRead()
+void SaveFile::PostRead(FileObject& InFileObject, const std::vector<RElement*>& InReferenced)
 {
-	// save all loaded relements into new container
-	std::vector<RElement*> RElements;
-	for (VoidPointer p_Object : Content)
-	{
-		RElement** p_Element = p_Object.CastTo<RElement*>();
-		if (p_Element)
-		{
-			RElements.push_back(*p_Element);
-		}
-	}
-	LoadedRElements = RContainer(Range<int>(0, 100000), RElements);
+	// save all referenced elements into new container
+	auto LoadedRElements = RContainer(Range<int>(0, 100000), InReferenced);
 
-	//resolve pointers of relements with container
-	int n = Content.size();
-	for (int i = 0; i < n; i++)
-	{
-		FileObject fileObject = FileObjects[i];
-		VoidPointer* updatedElement = fileObject.ResolvePointers(&LoadedRElements);
-		if (updatedElement)
-			Content[i] = *updatedElement;
-	}
+	InFileObject.ResolvePointers(&LoadedRElements);
+
+	////resolve pointers of relements with container
+	//int n = Content.size();
+	//for (int i = 0; i < n; i++)
+	//{
+	//	FileObject fileObject = FileObjects[i];
+	//	VoidPointer* updatedElement = fileObject.ResolvePointers(&LoadedRElements);
+	//	if (updatedElement)
+	//		Content[i] = *updatedElement;
+	//}
 }
+
 
 void SaveFile::WriteObject(const VoidPointer& InObject)
 {
 	RElement** object = InObject.CastTo<RElement*>();
 	if (object)
 	{
-		GetOutStream() << TagFactory.FromObject(ObjectFactory.FromObject(*object)).CompleteString << ',' << std::endl;
+		GetOutStream() << TagFactory.FromObject(ObjectFactory.FromObject(*object)).CompleteString << std::endl;
 	}
 }
 

@@ -17,7 +17,7 @@ bool Directory::Create()
 	return GetFileSystem()->GetAccess()->CreatePathDirectory(PathToDir);
 }
 
-std::vector<Directory> Directory::GetSubDirectories()
+std::vector<Directory> Directory::GetSubDirectories(EDirectoryVisibility InDirVisibility) const
 {
 	std::vector<Path> outPaths;
 	std::vector<Directory> result;
@@ -25,7 +25,15 @@ std::vector<Directory> Directory::GetSubDirectories()
 
 	for (auto path : outPaths)
 	{
-		result.push_back(Directory(path));
+		if (InDirVisibility == EDirectoryVisibility::NotSystem
+			&& (path.GetName() == "." || path.GetName() == ".."))
+		{
+			continue;
+		}
+		else
+		{
+			result.push_back(Directory(path));
+		}
 	}
 	return result;
 }

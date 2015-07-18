@@ -16,6 +16,7 @@ namespace Environment
 		Path StripDotName() const;
 
 		std::string GetName() const;
+		std::string GetBaseName() const;
 
 		const std::string& ToString() const;
 

@@ -5,11 +5,13 @@
 
 namespace Environment
 {
-	class File
+	class LIBIMPEXP File
 	{
 	public:
 		File(Path const& InPathToFile);
 
+		Path GetPath() const;
+	protected:
 		Path PathToFile;
 	};
 }
