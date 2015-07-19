@@ -11,10 +11,10 @@ generate_build_script_cmake(soia-unittest-cpp)
 generate_build_script_cmake(glfw -DGLFW_USE_HYBRID_HPG=ON)
 generate_build_script_cmake(soia-glew-cmake)
 generate_build_script_cmake(Simple-OpenGL-Image-Library)
-generate_build_script_cmake(freetype2)
+generate_build_script_cmake(freetype)
 
 # register scripts
-add_thirdparty_script_build(freetype2)
+add_thirdparty_script_build(freetype)
 add_thirdparty_script_build(Simple-OpenGL-Image-Library)
 add_thirdparty_script_build(soia-glew-cmake)
 add_thirdparty_script_build(glfw)
