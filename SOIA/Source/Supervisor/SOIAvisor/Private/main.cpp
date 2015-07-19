@@ -4,7 +4,6 @@
 #include "FileSystemProvider.h"
 #include "SaveFile.h"
 #include "StdDialogue.h"
-#include "Testing.h"
 #include "LinearFunction.h"
 #include "Window.h"
 #include "LogProvider.h"
@@ -80,13 +79,4 @@ int main()
 
 	Console->Start();
 	Console->Join();
-
-
-	auto strings = Console->GetAttributeNames();
-	for (auto string : strings)
-	{
-		LOGSTATUS("Attribute is: " + string);
-	}
-	
-	//Console->GetAttribute("cmd_Help").CastAndDereference<RFunction*>()->Execute({});
 }
