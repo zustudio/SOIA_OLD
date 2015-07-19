@@ -9,14 +9,14 @@ generate_build_script_custom(soia-cppcheck-target-cmake "cp -r -T \${L_build_dir
 generate_build_script_custom(cppcheck "make -j8 SRCDIR=build CFGDIR=${CMAKE_BINARY_DIR}/Install/ThirdParty/bin/cfg" "cp \${L_build_dir}/cppcheck.exe ${CMAKE_BINARY_DIR}/Install/ThirdParty/bin/" "cp -r \${L_build_dir}/cfg ${CMAKE_BINARY_DIR}/Install/ThirdParty/bin/cfg")
 generate_build_script_cmake(soia-unittest-cpp)
 generate_build_script_cmake(glfw -DGLFW_USE_HYBRID_HPG=ON)
-generate_build_script_cmake(glew-cmake)
+generate_build_script_cmake(soia-glew-cmake)
 generate_build_script_cmake(Simple-OpenGL-Image-Library)
 generate_build_script_cmake(freetype2)
 
 # register scripts
 add_thirdparty_script_build(freetype2)
 add_thirdparty_script_build(Simple-OpenGL-Image-Library)
-add_thirdparty_script_build(glew-cmake)
+add_thirdparty_script_build(soia-glew-cmake)
 add_thirdparty_script_build(glfw)
 add_thirdparty_script_build(drmemory)
 add_thirdparty_script_build(soia-cppcheck-target-cmake)
