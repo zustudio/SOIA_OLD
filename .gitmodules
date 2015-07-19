@@ -17,3 +17,6 @@
 [submodule "SOIA/ThirdParty/freetype"]
 	path = SOIA/ThirdParty/freetype
 	url = git://git.sv.nongnu.org/freetype/freetype2.git
+[submodule "SOIA/ThirdParty/soia-glew-cmake"]
+	path = SOIA/ThirdParty/soia-glew-cmake
+	url = https://MxmUrw@bitbucket.org/zustudio/soia-glew-cmake.git
