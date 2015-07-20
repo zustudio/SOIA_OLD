@@ -32,7 +32,7 @@ void TextObject::UpdateGlyphs()
 	for (char c : Text)
 	{
 		auto iter_Glyph = Find(Glyphs, c, 
-			[](GlyphObject* const& InChar) -> char&
+			[](GlyphObject* const& InChar) -> char
 			{
 				return InChar->Char;
 			});

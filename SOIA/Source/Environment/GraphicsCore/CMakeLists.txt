@@ -5,7 +5,7 @@ subproject(GraphicsCore)
 	depends_on_thirdparty_shared(glewd libglew_sharedd liblibglew_shared)
 	depends_on_thirdparty_static(glfw3)
 	depends_on_thirdparty_static(SOIL)
-	depends_on_thirdparty_static(freetype)
+	depends_on_thirdparty_static(freetype freetype2)
 	depends_on_system(glu32 gdi32 opengl32)
 
 in_sub(Graphics)

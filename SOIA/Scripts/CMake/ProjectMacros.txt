@@ -17,7 +17,6 @@ macro( subproject L_project_name )
 endmacro()
 
 function( depends_on_projects L_folder_name )
-	#set(DEPENDENCY_PROJECT_NAMES ${ARGN} PARENT_SCOPE)
 	dmessage(STATUS "===========================" )
 	dmessage(STATUS "Checking dependency projects for project: ${SUBPROJECT_NAME}" )
 	foreach( L_project_name ${ARGN} )
@@ -35,20 +34,27 @@ function( depends_on_projects L_folder_name )
 	set( DEPENDENCY_INCLUDE_DIRS ${DEPENDENCY_INCLUDE_DIRS} PARENT_SCOPE )
 endfunction( depends_on_projects L_folder_name L_project_names )
 
-macro( depends_on_thirdparty_static)
-	foreach( L_library_name ${ARGN} )
-		dmessage(STATUS "  Searching for ${L_library_name} and saving to L_found_${L_library_name}" )   
-		find_library(L_found_${L_library_name} NAMES ${L_library_name} lib${L_library_name} HINTS "${THIRDPARTY_DIRECTORY}/lib")
-		dmessage(STATUS "  Found ${L_library_name} lib: ${L_found_${L_library_name}}" )
+macro( depends_on_thirdparty_static L_library_name)
+	#find static library
+	dmessage(STATUS "  Searching for ${L_library_name} and saving to L_found_${L_library_name}" )   
+	find_library(L_found_${L_library_name} NAMES ${L_library_name} lib${L_library_name} HINTS "${THIRDPARTY_DIRECTORY}/lib")
+	dmessage(STATUS "  Found ${L_library_name} lib: ${L_found_${L_library_name}}" )
+
+	#create library target
+	add_library(${L_library_name} STATIC IMPORTED)
+	dmessage(STATUS "command: add_library(${L_library_name} ${L_libtype} IMPORTED)")
+	set_target_properties(${L_library_name} PROPERTIES IMPORTED_LOCATION "${L_found_${L_library_name}}")
 	
-		add_library(${L_library_name} STATIC IMPORTED)
-		dmessage(STATUS "command: add_library(${L_library_name} ${L_libtype} IMPORTED)")
-		set_target_properties(${L_library_name} PROPERTIES IMPORTED_LOCATION "${L_found_${L_library_name}}")
-		
-		list(APPEND DEPENDENCY_PROJECT_NAMES ${L_library_name} )
-		list(APPEND DEPENDENCY_INCLUDE_DIRS "${THIRDPARTY_DIRECTORY}/include/${L_library_name}")
-	endforeach()
-endmacro( depends_on_thirdparty_static )
+	#set project variables for adding library to subproject
+	if( "${ARGN}" STREQUAL "")
+		set(L_include_dirname "${L_library_name}")
+	else()
+		set(L_include_dirname "${ARGN}")
+	endif() 
+	list(APPEND DEPENDENCY_PROJECT_NAMES ${L_library_name} )
+	list(APPEND DEPENDENCY_INCLUDE_DIRS "${THIRDPARTY_DIRECTORY}/include/${L_include_dirname}")
+	dmessage(STATUS "include dirname is '${L_include_dirname}'")
+endmacro( depends_on_thirdparty_static L_staticlib_name)
 
 macro( depends_on_thirdparty_shared L_shared_libname)
 
@@ -142,12 +148,12 @@ endmacro( auto_add_unittests )
 
 function( auto_include_directories )
 	set(L_auto_include_dirs PUBLIC ${DEPENDENCY_INCLUDE_DIRS} ${PROJECT_Public_DIRS} PRIVATE ${PROJECT_Classes_DIRS} ${CMAKE_CURRENT_BINARY_DIR}/Generated ${THIRDPARTY_DIRECTORY}/include)
-	dmessage(STATUS "auto-including following directories: ${L_auto_include_dirs}" )
+	#dmessage(STATUS "auto-including following directories: ${L_auto_include_dirs}" )
 	target_include_directories(${SUBPROJECT_NAME} ${L_auto_include_dirs} )
 endfunction( auto_include_directories )
 
 macro( auto_export_directories )
-	dmessage(STATUS "auto-exporting following directories: ${PROJECT_Public_DIRS}" )
+	#dmessage(STATUS "auto-exporting following directories: ${PROJECT_Public_DIRS}" )
 	list(APPEND L_export_dirs ${PROJECT_Public_DIRS} ${DEPENDENCY_INCLUDE_DIRS} )
 	set(${CURRENT_SOLUTION_FOLDER}_${SUBPROJECT_NAME}_INCLUDE_DIRS ${L_export_dirs} CACHE INTERNAL "${PROJECT_FOLDER}/${SUBPROJECT_NAME}: Include Directories" FORCE )
 endmacro( auto_export_directories )
