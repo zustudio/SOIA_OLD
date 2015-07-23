@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.1)
 
 subproject(Workspace)
 	depends_on_projects(Environment Core Text Reflection File)
-	depends_on_projects(Supervisor ToolsCore Pipeline Visualization)
+	depends_on_projects(Supervisor ToolsCore Pipeline Visualization Console ElementExplorer)
 
 in_sub(Main)
 	add_PrivatePublic(

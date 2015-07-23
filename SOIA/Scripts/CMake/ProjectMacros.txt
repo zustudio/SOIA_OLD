@@ -212,6 +212,7 @@ endmacro( add_PrivateClasses L_file_names )
 
 #------------------------------ Local helper macros ----------------------------
 
+option( NONCOMPATIBLE_MSVC_OPTIMIZATION "[TODO]" OFF )
 function( set_target_compile_definitions L_targettype )
 	if(${WIN32})
 		set(L_OS Windows)
@@ -219,7 +220,7 @@ function( set_target_compile_definitions L_targettype )
 		set(L_OS Linux)
 	endif()
 
-	set(L_compile_definitions "def_BUILD_TARGETTYPE=${L_targettype};def_BUILD_PROJECTNAME=${SUBPROJECT_NAME};def_BUILD_OS=${L_OS}" )
+	set(L_compile_definitions "def_BUILD_TARGETTYPE=${L_targettype};def_BUILD_PROJECTNAME=${SUBPROJECT_NAME};def_BUILD_OS=${L_OS};def_BUILD_NONCOMPATIBLE_MSVC_OPTIMIZATION=${NONCOMPATIBLE_MSVC_OPTIMIZATION}" )
 	SET_TARGET_PROPERTIES( ${SUBPROJECT_NAME} PROPERTIES COMPILE_DEFINITIONS "${L_compile_definitions}")
 
 endfunction( set_target_compile_definitions L_binary_type )
