@@ -13,7 +13,7 @@ ConsoleWorker::ConsoleWorker(const RPointer<RDialogue>& InDialogue)
 	: BaseType(InDialogue),
 	InputTokenizer(
 	{
-		TokenRule("([a-zA-Z0-9_]+)", new TokenCollapseNone),
+		TokenRule("([a-zA-Z0-9_\\.]+)", new TokenCollapseNone),
 		TokenRule("(\\()", new TokenCollapseParenthesis(EParenthesisType::Start)),
 		TokenRule("(\\))", new TokenCollapseParenthesis(EParenthesisType::End))
 	}),
