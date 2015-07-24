@@ -57,6 +57,7 @@
 		template<typename T, typename...>
 		struct FromType_Helper
 		{
+#pragma warning (disable: 4579)
 			static constexpr const auto input = TypeCharArrayLiteral<T>::Create();
 			static constexpr const auto pattern = CharArrayLiteral("class ");
 			static constexpr const auto replacement = CharArrayLiteral("");
@@ -71,7 +72,7 @@
 			static constexpr const auto pattern3 = CharArrayLiteral(",");
 			static constexpr const auto replacement3 = CharArrayLiteral(", ");
 			static constexpr const auto replacer3 = CharReplacer<const CharReplacer<const CharReplacer<void*, nullptr>&, replacer>&, replacer2>(pattern3, replacement3, input3);
-
+#pragma warning (default: 4579)
 			std::string Get()
 			{
 				#define OFF 0

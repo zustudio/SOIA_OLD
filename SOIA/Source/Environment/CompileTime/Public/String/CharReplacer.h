@@ -59,17 +59,17 @@ namespace Environment
 			Size(GuessSize())
 		{}
 
-		constexpr const char GetNthChar(int ItemNum)
+		constexpr const char GetNthChar(int ItemNum) const
 		{
 			return Decode4Bytes(FindNthItemSet(ItemNum), 0);
 		}
 
-		constexpr const int FindNthItemSet(int ItemNum)
+		constexpr const int FindNthItemSet(int ItemNum) const
 		{
 			return FindNthItemSet_FromCheckPoint(ItemNum, CheckPoints.Get(ItemNum / CheckPointDelta) );
 		}
 
-		constexpr const int FindNthItemSet_FromCheckPoint(int ItemNum, int CheckPoint)
+		constexpr const int FindNthItemSet_FromCheckPoint(int ItemNum, int CheckPoint) const
 		{
 #define CheckVal(n)	Decode4Bytes(CheckPoint, n)
 			return FindNthItem_Worker(ItemNum, CheckVal(1), CheckVal(2), CheckVal(3));
@@ -77,7 +77,7 @@ namespace Environment
 		}
 
 
-		constexpr const int FindNthItem_Worker(int ItemNum, int ItemIterator, int i_CurrentListItem, int i_CurrentReplacementItem/*, int i_i_PatternStart*/)
+		constexpr const int FindNthItem_Worker(int ItemNum, int ItemIterator, int i_CurrentListItem, int i_CurrentReplacementItem/*, int i_i_PatternStart*/) const
 		{
 			return ItemIterator == ItemNum ?						// have we arived at our target item?
 				(i_CurrentReplacementItem < 0 ?						// are we outside of a replacement?
@@ -99,7 +99,7 @@ namespace Environment
 
 		
 
-		constexpr const int GetNextMatchStart(int InInputIndex)
+		constexpr const int GetNextMatchStart(int InInputIndex) const
 		{
 			return InInputIndex >= GetSize_Input()?
 				GetSize_Input() + 1:		// +1 needed here, for last line of FindNthItem_Worker (without it 
@@ -112,7 +112,7 @@ namespace Environment
 					InInputIndex;
 		}
 
-		constexpr const int GetMatchLength(int InInputIndex, int PatternIndex = 0)
+		constexpr const int GetMatchLength(int InInputIndex, int PatternIndex = 0) const
 		{
 			return PatternIndex == Pattern.text_size ?
 				PatternIndex :
@@ -123,16 +123,16 @@ namespace Environment
 						-1;
 		}
 
-		constexpr const char GetNthChar_Input(int InNum)
+		constexpr const char GetNthChar_Input(int InNum) const
 		{
 			return GetNthChar_Input(InNum, NextReplacer);
 		}
 		template<typename ReplacerT>
-		constexpr const char GetNthChar_Input(int InNum, ReplacerT NOP)
+		constexpr const char GetNthChar_Input(int InNum, ReplacerT NOP) const
 		{
 			return NextReplacer.GetNthChar(InNum);
 		}
-		constexpr const char GetNthChar_Input(int InNum, void* NOP)
+		constexpr const char GetNthChar_Input(int InNum, void* NOP) const
 		{
 			return InNum >= Input.text_size?
 				0 :
@@ -141,40 +141,40 @@ namespace Environment
 
 		
 
-		constexpr const char GetNthChar_Pattern(int InNum)
+		constexpr const char GetNthChar_Pattern(int InNum) const
 		{
 			return *(Pattern.text_ptr + InNum);
 		}
 
-		constexpr const char GetNthChar_Replacement(int InNum)
+		constexpr const char GetNthChar_Replacement(int InNum) const
 		{
 			return *(Replacement.text_ptr + InNum);
 		}
 
 
 
-		constexpr const int GetSize_Input()
+		constexpr const int GetSize_Input() const
 		{
 			return GetSize_Input(NextReplacer);
 		}
 		template<typename ReplacerT>
-		constexpr const int GetSize_Input(ReplacerT NOP)
+		constexpr const int GetSize_Input(ReplacerT NOP) const
 		{
 			return NextReplacer.Size;
 		}
-		constexpr const int GetSize_Input(void* NOP)
+		constexpr const int GetSize_Input(void* NOP) const
 		{
 			return Input.text_size;
 		}
 
 
 		
-		constexpr const int GuessSize()
+		constexpr const int GuessSize() const
 		{
 			return FindZeroCharGuessing(GetSize_Input());
 		}
 
-		constexpr const int FindZeroCharGuessing(int InputIndex)
+		constexpr const int FindZeroCharGuessing(int InputIndex) const
 		{
 #define NextInputIndex InputIndex - Pattern.text_size + Replacement.text_size
 

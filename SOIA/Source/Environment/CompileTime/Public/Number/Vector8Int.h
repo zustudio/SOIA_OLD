@@ -17,7 +17,7 @@ namespace Environment
 			Value7(InValue7)
 		{}
 
-		constexpr const int Get(int InIndex)
+		constexpr const int Get(int InIndex) const
 		{
 			return InIndex == 0 ?
 				Value0 :
