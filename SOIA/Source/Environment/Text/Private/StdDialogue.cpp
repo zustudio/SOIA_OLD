@@ -28,22 +28,24 @@ void StdDialogue::GetNextLine(std::string& OutText)
 		{
 			if (prev == ch)
 			{
-				std::cout << "DoubleTab";
-				prev = 0;
+				//std::cout << "DoubleTab";
 			}
 			else
 			{
-				std::cout << "Tab";
+				//std::cout << "Tab";
 			}
 		}
 		else
 		{
 			if (ch == '\b')
 			{
-				_putch(ch);
-				_putch(' ');
-				_putch(ch);
-				OutText = OutText.substr(0, OutText.size() - 1);
+				if (OutText.size() != 0)
+				{
+					_putch(ch);
+					_putch(' ');
+					_putch(ch);
+					OutText = OutText.substr(0, OutText.size() - 1);
+				}
 			}
 			else
 			{
@@ -51,7 +53,10 @@ void StdDialogue::GetNextLine(std::string& OutText)
 				OutText += ch;
 			}
 		}
-		prev = ch;
+		if (prev == ch)
+			prev = 0;
+		else
+			prev = ch;
 	}
 	_putch('\n');
 }
