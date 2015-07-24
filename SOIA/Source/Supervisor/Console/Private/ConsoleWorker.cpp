@@ -32,41 +32,45 @@ void ConsoleWorker::Main()
 		Dialogue->Write("> ");
 		Dialogue->GetNextLine(input);
 
-		Token* OutResult = nullptr;
-		std::vector<VoidPointer> OutArguments;
-		InputTokenizer.Tokenize(input, OutResult);
-		ExecuteCommands(OutResult, OutArguments);
-
-
-		/*std::vector<std::string> args;
-
-		int p_Last = 0;
-		for (std::string::size_type p_Char = 0; p_Char < input.size(); p_Char++)
+		if (!input.empty())
 		{
-			if (input[p_Char] == ' ' || input[p_Char] == '\n')
+
+			Token* OutResult = nullptr;
+			std::vector<VoidPointer> OutArguments;
+			InputTokenizer.Tokenize(input, OutResult);
+			ExecuteCommands(OutResult, OutArguments);
+
+
+			/*std::vector<std::string> args;
+
+			int p_Last = 0;
+			for (std::string::size_type p_Char = 0; p_Char < input.size(); p_Char++)
 			{
-				args.push_back(input.substr(p_Last, p_Char - p_Last));
-				p_Last = p_Char + 1;
+				if (input[p_Char] == ' ' || input[p_Char] == '\n')
+				{
+					args.push_back(input.substr(p_Last, p_Char - p_Last));
+					p_Last = p_Char + 1;
+				}
 			}
+			*/
+
+
+			/*bool result;
+			std::vector<RTool*> OutTools;
+			std::vector<RFunctionInterface*> OutFunctions;
+			std::vector<Environment::VoidPointer> OutArgs;
+
+			result = InterpretInput(args, OutTools, OutFunctions, OutArgs);
+
+			if (result)
+			{
+				OutFunctions[0]->Execute(OutArgs);
+			}*/
+
+
+			if (input == "exit")
+				bExit = true;
 		}
-*/
-		
-
-		/*bool result;
-		std::vector<RTool*> OutTools;
-		std::vector<RFunctionInterface*> OutFunctions;
-		std::vector<Environment::VoidPointer> OutArgs;
-
-		result = InterpretInput(args, OutTools, OutFunctions, OutArgs);
-
-		if (result)
-		{
-			OutFunctions[0]->Execute(OutArgs);
-		}*/
-
-
-		if (input == "exit")
-			bExit = true;
 	}
 }
 
