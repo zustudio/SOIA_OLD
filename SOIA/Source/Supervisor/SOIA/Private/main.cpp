@@ -15,7 +15,7 @@ using namespace Environment;
 #include "ElementExplorerTool.h"
 #include "BackupTool.h"
 #include "EquationTool.h"
-#include "RWorkspaceTool.h"
+#include "TRuntime.h"
 using namespace Supervisor;
 
 #include <iostream>
@@ -39,7 +39,7 @@ int main()
 	SetTopContainer(topCont);
 	RContainer* container = new RContainer(Range<int>(1000,1999));
 	topCont->Register(container, "tools");
-	container->Register(new RWorkspaceTool(RPointer<RDialogue>(rdialogue)), "workspace");
+	container->Register(new TRuntime(RPointer<RDialogue>(rdialogue)), "workspace");
 	container->Register(rdialogue, "consoledialogue");
 	RWorkerTool* Console = new ConsoleWorker(RPointer<RDialogue>(rdialogue));
 	container->Register(Console, "console");

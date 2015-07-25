@@ -1,7 +1,7 @@
 
 #include "Definitions.h"
 
-#include "RWorkspaceTool.h"
+#include "TRuntime.h"
 using namespace Environment;
 using namespace Supervisor;
 
@@ -13,7 +13,7 @@ using namespace Supervisor;
 #include "FileSystemProvider.h"
 #include "SaveFile.h"
 
-RWorkspaceTool::RWorkspaceTool(const RPointer<RDialogue>& InDialogue)
+TRuntime::TRuntime(const RPointer<RDialogue>& InDialogue)
 	: BaseType(InDialogue),
 	CurrentDirectory(GetFileSystem()->GetExecutableDirectory())
 {
@@ -24,7 +24,7 @@ RWorkspaceTool::RWorkspaceTool(const RPointer<RDialogue>& InDialogue)
 	ReflectAttributes();
 }
 
-bool RWorkspaceTool::cmd_typelist()
+bool TRuntime::cmd_typelist()
 {
 	std::vector<TypeID> reflectedAtoms = GetAtomReflectionProvider()->GetTypeList();
 	std::vector<TypeID> reflectedElements = GetElementReflectionProvider()->GetTypeList();
@@ -41,7 +41,7 @@ bool RWorkspaceTool::cmd_typelist()
 	return true;
 }
 
-bool RWorkspaceTool::cmd_type(TypeID & OutType, const std::string & InTypeName)
+bool TRuntime::cmd_type(TypeID & OutType, const std::string & InTypeName)
 {
 	std::vector<TypeID> reflectedAtoms = GetAtomReflectionProvider()->GetTypeList();
 	std::vector<TypeID> reflectedElements = GetElementReflectionProvider()->GetTypeList();
@@ -63,7 +63,7 @@ bool RWorkspaceTool::cmd_type(TypeID & OutType, const std::string & InTypeName)
 	return true;
 }
 
-bool RWorkspaceTool::cmd_create(const TypeID & InType, const std::string& InName, RContainer* const& InContainer)
+bool TRuntime::cmd_create(const TypeID & InType, const std::string& InName, RContainer* const& InContainer)
 {
 	bool result = false;
 	RClass* objectClass = GetElementReflectionProvider()->GetClass(InType);
@@ -90,13 +90,13 @@ bool RWorkspaceTool::cmd_create(const TypeID & InType, const std::string& InName
 	return result;
 }
 
-bool RWorkspaceTool::cmd_gui(RTool * const & InTool)
+bool TRuntime::cmd_gui(RTool * const & InTool)
 {
 	static_cast<RGUI*>(InTool->GuiClass->GetDefaultObject())->Start();
 	return true;
 }
 
-bool RWorkspaceTool::cmd_dirlist()
+bool TRuntime::cmd_dirlist()
 {
 	auto dirs = CurrentDirectory.GetSubDirectories(EDirectoryVisibility::All);
 	for (auto dir : dirs)
@@ -106,24 +106,24 @@ bool RWorkspaceTool::cmd_dirlist()
 	return true;
 }
 
-bool RWorkspaceTool::cmd_dir(Directory & OutDir, std::string const & InName)
+bool TRuntime::cmd_dir(Directory & OutDir, std::string const & InName)
 {
 	OutDir = Directory(Path(CurrentDirectory.GetPath().ToString() + InName + "/"));
 	return true;
 }
 
-bool RWorkspaceTool::cmd_changedir(const Directory & InDir)
+bool TRuntime::cmd_changedir(const Directory & InDir)
 {
 	CurrentDirectory = InDir;
 	return true;
 }
 
-bool RWorkspaceTool::cmd_saveproject(Directory const& InDir)
+bool TRuntime::cmd_saveproject(Directory const& InDir)
 {
 	return SaveRecursive(InDir, GetTopContainer());
 }
 
-bool RWorkspaceTool::SaveRecursive(Directory const & InDir, RElement* const& InElement)
+bool TRuntime::SaveRecursive(Directory const & InDir, RElement* const& InElement)
 {
 	bool success = true;
 
@@ -145,7 +145,7 @@ bool RWorkspaceTool::SaveRecursive(Directory const & InDir, RElement* const& InE
 	return success;
 }
 
-bool RWorkspaceTool::SaveContainer(Directory const & InDir, RContainer * const & InContainer, Directory & OutContainerDir)
+bool TRuntime::SaveContainer(Directory const & InDir, RContainer * const & InContainer, Directory & OutContainerDir)
 {
 	std::string folderName = InContainer->GetID().Name + ".cont";
 	std::string fileName = InContainer->GetID().Name + ".elem";
@@ -159,7 +159,7 @@ bool RWorkspaceTool::SaveContainer(Directory const & InDir, RContainer * const &
 	return true;
 }
 
-bool RWorkspaceTool::SaveElement(Directory const & InDir, RElement * const & InElement)
+bool TRuntime::SaveElement(Directory const & InDir, RElement * const & InElement)
 {
 	std::string fileName = InElement->GetID().Name + ".elem";
 	SaveFile file = SaveFile(InDir.GetPath().AppendFile(fileName));
@@ -168,14 +168,14 @@ bool RWorkspaceTool::SaveElement(Directory const & InDir, RElement * const & InE
 	return true;
 }
 
-bool RWorkspaceTool::cmd_loadproject(Directory const & InDir)
+bool TRuntime::cmd_loadproject(Directory const & InDir)
 {
 	std::vector<RElement*> AllElements;
 	LoadRecursive(InDir, AllElements);
 	return false;
 }
 
-bool RWorkspaceTool::LoadRecursive(Directory const & InDir, std::vector<RElement*>& OutAllElements)
+bool TRuntime::LoadRecursive(Directory const & InDir, std::vector<RElement*>& OutAllElements)
 {
 	std::vector<Directory> subDirectories = InDir.GetSubDirectories();
 	std::vector<SaveFile> files = InDir.GetFiles<SaveFile>();
@@ -210,14 +210,14 @@ bool RWorkspaceTool::LoadRecursive(Directory const & InDir, std::vector<RElement
 	return true;
 }
 
-bool RWorkspaceTool::LoadContainer(SaveFile& InSaveFile, std::vector<RElement*> const & InChildren, RContainer *& OutContainer)
+bool TRuntime::LoadContainer(SaveFile& InSaveFile, std::vector<RElement*> const & InChildren, RContainer *& OutContainer)
 {
 	InSaveFile.Read();
 	OutContainer = dynamic_cast<RContainer*>(InSaveFile.GetElement(0, InChildren));
 	return bool(OutContainer);
 }
 
-bool RWorkspaceTool::LoadElement(SaveFile& InSaveFile, RElement *& OutElement)
+bool TRuntime::LoadElement(SaveFile& InSaveFile, RElement *& OutElement)
 {
 	InSaveFile.Read();
 	OutElement = InSaveFile.GetElement(0, {});

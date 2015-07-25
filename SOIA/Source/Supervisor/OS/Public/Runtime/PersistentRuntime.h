@@ -5,7 +5,7 @@
 
 namespace Supervisor
 {
-	class Workspace
+	class PersistentRuntime
 	{
 	public:
 		static void Initialize(RDialogue& InStandardDialogue);

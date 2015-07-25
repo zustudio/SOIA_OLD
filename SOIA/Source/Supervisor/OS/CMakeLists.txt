@@ -1,15 +1,13 @@
 cmake_minimum_required(VERSION 3.1)
 
-subproject(Workspace)
+subproject(OS)
 	depends_on_projects(Environment Core Text Reflection File)
 	depends_on_projects(Supervisor ToolsCore Pipeline Visualization Console ElementExplorer)
 
-in_sub(Main)
+in_sub(Runtime)
 	add_PrivatePublic(
-		Workspace)
-in_sub(Tool)
-	add_PrivatePublic(
-		RWorkspaceTool)
+		PersistentRuntime
+		TRuntime)
 end_sub()
 
 auto_add_shared_library()

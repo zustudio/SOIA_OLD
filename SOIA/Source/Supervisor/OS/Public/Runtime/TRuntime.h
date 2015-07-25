@@ -8,12 +8,11 @@
 
 namespace Supervisor
 {
-	RCLASS(RWorkspaceTool, RTool);
-	class LIBIMPEXP RWorkspaceTool : public RWorkspaceTool_Base
+	RCLASS(TRuntime, RTool)
+	class LIBIMPEXP TRuntime : public TRuntime_Base
 	{
-		RCLASS_BEGIN();
-
-		RWorkspaceTool(const RPointer<RDialogue>& InDialogue = RPointer<RDialogue>(nullptr));
+		RCLASS_BEGIN()
+			TRuntime(const RPointer<RDialogue>& InDialogue = RPointer<RDialogue>(nullptr));
 
 		RFUNCTION(cmd_typelist)
 			bool cmd_typelist();
@@ -51,6 +50,6 @@ namespace Supervisor
 		RPROPERTY(CurrentDirectory)
 			Directory CurrentDirectory;
 
-		RCLASS_END();
+		RCLASS_END()
 	};
 }
