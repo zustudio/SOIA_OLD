@@ -1,11 +1,11 @@
 
 #pragma once
 
-#include "RTool.h"
+#include "TTool.h"
 
 namespace Supervisor
 {
-	RCLASS(ElementExplorerTool,RTool)
+	RCLASS(ElementExplorerTool,TTool)
 	class LIBIMPEXP ElementExplorerTool : public ElementExplorerTool_Base
 	{
 		RCLASS_BEGIN();

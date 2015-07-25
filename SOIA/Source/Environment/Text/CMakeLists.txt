@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.1)
 
 subproject(Text)
-	depends_on_projects(Environment Core CompileTime MathematicsCore)
+	depends_on_projects(Environment Core_E CompileTime MathematicsCore)
 
 add_PrivatePublic(
 	CharMatch

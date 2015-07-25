@@ -71,7 +71,7 @@ bool TRuntime::cmd_create(const TypeID & InType, const std::string& InName, RCon
 	{
 		RElement* object = objectClass->GetDefaultObject();
 
-		RTool* tool = dynamic_cast<RTool*>(object);
+		TTool* tool = dynamic_cast<TTool*>(object);
 		if (tool)
 		{
 			tool->Dialogue = this->Dialogue;
@@ -90,7 +90,7 @@ bool TRuntime::cmd_create(const TypeID & InType, const std::string& InName, RCon
 	return result;
 }
 
-bool TRuntime::cmd_gui(RTool * const & InTool)
+bool TRuntime::cmd_gui(TTool * const & InTool)
 {
 	static_cast<RGUI*>(InTool->GuiClass->GetDefaultObject())->Start();
 	return true;

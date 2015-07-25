@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.1)
 
 subproject(Reflection)
-	depends_on_projects(Environment Core Log CompileTime MathematicsCore)
+	depends_on_projects(Environment Core_E Log CompileTime MathematicsCore)
 
 in_sub(Element)
 	add_PrivatePublic(
@@ -14,6 +14,8 @@ in_sub(Element)
 		TEST RElement
 		RPointer)
 	add_Public(
+		RWrapper
+		RWrapperInterface
 		RClassTemplate
 		ReflectionMacros)
 in_sub(Atom)

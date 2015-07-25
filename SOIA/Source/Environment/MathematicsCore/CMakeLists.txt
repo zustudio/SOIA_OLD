@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.1)
 
 subproject(MathematicsCore)
-	depends_on_projects(Environment Core)
+	depends_on_projects(Environment Core_E)
 
 
 in_sub(Functions)

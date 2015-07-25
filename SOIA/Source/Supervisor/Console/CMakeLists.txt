@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.1)
 
 subproject(Console)
-	depends_on_projects(Environment Core Reflection)
-	depends_on_projects(Supervisor ToolsCore)
+	depends_on_projects(Environment Core_E Reflection)
+	depends_on_projects(Supervisor Core_S)
 
 add_PrivatePublic(
-	ConsoleWorker)
+	TConsole)
 end_sub()
 
 auto_add_shared_library()

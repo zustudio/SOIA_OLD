@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.1)
 
 subproject(Pipeline)
-	depends_on_projects(Environment Core Log Thread Reflection)
-	depends_on_projects(Supervisor ToolsCore)
+	depends_on_projects(Environment Core_E Log Thread Reflection)
+	depends_on_projects(Supervisor Core_S)
 
 in_sub(Tool)
 	add_PrivatePublic(

@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.1)
 
 subproject(Thread)
-	depends_on_projects(Environment Core)
+	depends_on_projects(Environment Core_E)
 
 add_PrivatePublic(Thread)
 end_sub()

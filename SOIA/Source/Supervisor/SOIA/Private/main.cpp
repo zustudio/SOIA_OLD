@@ -1,37 +1,47 @@
 
 #include "Definitions.h"
 
-#include "FileSystemProvider.h"
-#include "SaveFile.h"
+//#include "FileSystemProvider.h"
+//#include "SaveFile.h"
 #include "StdDialogue.h"
-#include "LinearFunction.h"
-#include "Window.h"
-#include "LogProvider.h"
+//#include "LinearFunction.h"
+//#include "Window.h"
+//#include "LogProvider.h"
 using namespace Environment;
+//
+//#include "TTool.h"
+//#include "RContainer.h"
+//#include "TConsole.h"
+//#include "ElementExplorerTool.h"
+//#include "EquationTool.h"
+//#include "TRuntime.h"
+//using namespace Supervisor;
 
-#include "RTool.h"
-#include "RContainer.h"
-#include "ConsoleWorker.h"
-#include "ElementExplorerTool.h"
-#include "BackupTool.h"
-#include "EquationTool.h"
-#include "TRuntime.h"
+#include "PersistentRuntime.h"
 using namespace Supervisor;
 
-#include <iostream>
-
-constexpr static const char TEST[] = "ABD";
-
+#include "RWrapper.h"
 
 int main()
 {
+	
 
-	//TEST
-	GetFileSystem()->GetExecutableDirectory().GetSubDirectories();
+	GetElementReflectionProvider()->Register<RWrapper<StdDialogue>>();
 
-	//ENDTEST
+	auto stdDialogue = RWrapper<StdDialogue>();
+	stdDialogue->Write("direct");
 
-	DialogueInterface* dialogue = new StdDialogue();
+	RWrapper<DialogueInterface> dialogue = &stdDialogue;
+	dialogue->Write("indirect");
+
+	PersistentRuntime::Run(RWrapper<StdDialogue>::StaticClass());
+
+
+
+	//dynamic_cast<RWrapper<StdDialogue>*>(wrapper)->WrappedObject->Write("hello");
+
+
+	/*DialogueInterface* dialogue = new StdDialogue();
 	RDialogue* rdialogue = new RDialogue(dialogue);
 	RContainer* topCont = new RContainer(Range<int>(1, 999));
 	topCont->GetID().Name = "Quantum";
@@ -41,7 +51,7 @@ int main()
 	topCont->Register(container, "tools");
 	container->Register(new TRuntime(RPointer<RDialogue>(rdialogue)), "workspace");
 	container->Register(rdialogue, "consoledialogue");
-	RWorkerTool* Console = new ConsoleWorker(RPointer<RDialogue>(rdialogue));
+	RWorkerTool* Console = new TConsole(RPointer<RDialogue>(rdialogue));
 	container->Register(Console, "console");
 	auto elementexplorer = new ElementExplorerTool(RPointer<RDialogue>(rdialogue));
 	container->Register(elementexplorer, "elementexplorer");
@@ -50,7 +60,7 @@ int main()
 	auto equationTool = new REquationTool(RPointer<RDialogue>(rdialogue));
 	equationTool->cmd_setmathcontainer(mathContainer);
 	container->Register(equationTool, "equation");
-	container->Register(new BackupTool(RPointer<RDialogue>(rdialogue)), "backup");
+	container->Register(new BackupTool(RPointer<RDialogue>(rdialogue)), "backup");*/
 
 	//std::string arg = "console";
 	//std::vector<VoidPointer> InArgs = {};
@@ -74,9 +84,4 @@ int main()
 	/*elementexplorer->GetAttribute("cmd_element").CastAndDereference<RFunction*>()->CorrectArgsAndExecute(InArgs);
 	auto names = InArgs[1].CastAndDereference<RElement*>()->GetAttributeNames();
 	dialogue->WriteLine(names[0]);*/
-
-
-
-	Console->Start();
-	Console->Join();
 }

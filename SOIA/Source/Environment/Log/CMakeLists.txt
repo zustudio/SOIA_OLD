@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.1)
 
 subproject(Log)
-	depends_on_projects(Environment Core Text Time)
+	depends_on_projects(Environment Core_E Text Time)
 
 in_sub(Logger)
 	add_PrivatePublic(Logger)

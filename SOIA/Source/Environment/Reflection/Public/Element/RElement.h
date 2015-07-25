@@ -42,6 +42,7 @@ namespace Environment
 		friend RContainer;
 	public:
 		using Super = RElement;
+		using Type = RElement;
 		using BaseType = RElement;
 	public:
 		using IsRElementType = std::true_type;		// sfinae definition

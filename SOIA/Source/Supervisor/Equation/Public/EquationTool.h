@@ -1,14 +1,14 @@
 
 #pragma once
 
-#include "RTool.h"
+#include "TTool.h"
 
 #include "MathContainer.h"
 #include "D1D1GenericFunction.h"
 
 namespace Supervisor
 {
-	RCLASS(REquationTool,RTool)
+	RCLASS(REquationTool,TTool)
 	class LIBIMPEXP REquationTool : public REquationTool_Base
 	{
 		RCLASS_BEGIN();

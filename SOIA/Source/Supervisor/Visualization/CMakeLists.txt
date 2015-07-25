@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.1)
 
 subproject(Visualization)
-	depends_on_projects(Environment Core)
-	depends_on_projects(Supervisor ToolsCore)
+	depends_on_projects(Environment Core_E)
+	depends_on_projects(Supervisor Core_S)
 
 in_sub(Tool)
 	add_PrivatePublic(RGraphTool2D)

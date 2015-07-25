@@ -1,14 +1,14 @@
 
 #pragma once
 
-#include "RTool.h"
+#include "TTool.h"
 
 #include "SaveFile.h"
 #include "FileSystemProvider.h"
 
 namespace Supervisor
 {
-	RCLASS(TRuntime, RTool)
+	RCLASS(TRuntime, TTool)
 	class LIBIMPEXP TRuntime : public TRuntime_Base
 	{
 		RCLASS_BEGIN()
@@ -24,7 +24,7 @@ namespace Supervisor
 			bool cmd_create(const TypeID& InType, const std::string& InName, RContainer* const& InContainer);
 
 		RFUNCTION(cmd_gui)
-			bool cmd_gui(RTool* const & InTool);
+			bool cmd_gui(TTool* const & InTool);
 
 		RFUNCTION(cmd_dirlist)
 			bool cmd_dirlist();

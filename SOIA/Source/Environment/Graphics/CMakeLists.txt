@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.1)
 
 subproject(Graphics)
-	depends_on_projects(Environment Core MathematicsCore)
+	depends_on_projects(Environment Core_E MathematicsCore)
 
 in_sub(Core)
 	add_PrivatePublic(

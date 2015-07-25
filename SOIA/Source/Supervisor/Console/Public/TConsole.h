@@ -1,18 +1,19 @@
 
 #pragma once
 
-#include "RWorkerTool.h"
+#include "TTool.h"
+#include "Thread.h"
 
 #include "Tokenizer.h"
 
 namespace Supervisor
 {
-	RCLASS(ConsoleWorker,RWorkerTool)
-	class LIBIMPEXP ConsoleWorker : public ConsoleWorker_Base
+	RCLASS(TConsole,TTool)
+	class LIBIMPEXP TConsole : public TConsole_Base, public Thread
 	{
-		RCLASS_BEGIN();
+		RCLASS_BEGIN()
 
-		ConsoleWorker(const Environment::RPointer<RDialogue>& InDialogue = Environment::RPointer<RDialogue>(nullptr));
+		TConsole(const Environment::RPointer<RDialogue>& InDialogue = Environment::RPointer<RDialogue>(nullptr));
 
 		virtual void Main() override;
 		bool ExecuteCommands(Token*, std::vector<Environment::VoidPointer>& OutArguments);
@@ -20,17 +21,17 @@ namespace Supervisor
 
 		std::vector<std::string> GetArguments(const std::string& Input);
 
-		RFUNCTION(cmd_exit);
-		bool cmd_exit();
+		RFUNCTION(cmd_exit)
+			bool cmd_exit();
 
-		RFUNCTION(cmd_echo);
-		bool cmd_echo(const std::string& InText);
+		RFUNCTION(cmd_echo)
+			bool cmd_echo(const std::string& InText);
 
 
 	private:
 		bool bExit;
 		Tokenizer InputTokenizer;
 
-		RCLASS_END();
+		RCLASS_END()
 	};
 }

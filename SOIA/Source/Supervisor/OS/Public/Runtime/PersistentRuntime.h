@@ -1,13 +1,22 @@
 
 #pragma once
 
-#include "RDialogue.h"
+#include "DialogueInterface.h"
+using namespace Environment;
+
+#include "RClass.h"
+#include "RElement.h"
+#include "RWrapper.h"
 
 namespace Supervisor
 {
-	class PersistentRuntime
+	class LIBIMPEXP PersistentRuntime
 	{
 	public:
-		static void Initialize(RDialogue& InStandardDialogue);
+		static void Run(RClass* InStandardDialogueClass);
+	private:
+		static void InitializeElementHierarchy(RClass* InStandardDialogueClass);
+		static void RegisterReflectedClasses();
+		static void RunTool();
 	};
 }

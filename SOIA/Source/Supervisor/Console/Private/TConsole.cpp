@@ -1,7 +1,7 @@
 
 #include "Definitions.h"
 
-#include "ConsoleWorker.h"
+#include "TConsole.h"
 using namespace Supervisor;
 using namespace Environment;
 
@@ -9,7 +9,7 @@ using namespace Environment;
 #include "LogProvider.h"
 #include <regex>
 
-ConsoleWorker::ConsoleWorker(const RPointer<RDialogue>& InDialogue)
+TConsole::TConsole(const RPointer<RDialogue>& InDialogue)
 	: BaseType(InDialogue),
 	InputTokenizer(
 	{
@@ -22,7 +22,7 @@ ConsoleWorker::ConsoleWorker(const RPointer<RDialogue>& InDialogue)
 	ReflectAttributes();
 }
 
-void ConsoleWorker::Main()
+void TConsole::Main()
 {
 	std::string currentTarget;
 	while (!bExit && !IsStopping())
@@ -56,7 +56,7 @@ void ConsoleWorker::Main()
 
 
 			/*bool result;
-			std::vector<RTool*> OutTools;
+			std::vector<TTool*> OutTools;
 			std::vector<RFunctionInterface*> OutFunctions;
 			std::vector<Environment::VoidPointer> OutArgs;
 
@@ -74,7 +74,7 @@ void ConsoleWorker::Main()
 	}
 }
 
-bool ConsoleWorker::ExecuteCommands(Token* Input, std::vector<Environment::VoidPointer>& OutArguments)
+bool TConsole::ExecuteCommands(Token* Input, std::vector<Environment::VoidPointer>& OutArguments)
 {
 	std::vector<Token*> subTokens = Input->GetSubTokens();
 	std::vector<std::string> inputs;
@@ -132,15 +132,15 @@ bool ConsoleWorker::ExecuteCommands(Token* Input, std::vector<Environment::VoidP
 	return ExecuteCommand(target, command, OutArguments);
 }
 
-bool ConsoleWorker::ExecuteCommand(const std::string& InTarget, std::string& InCommand, std::vector<Environment::VoidPointer>& InOutArguments)
+bool TConsole::ExecuteCommand(const std::string& InTarget, std::string& InCommand, std::vector<Environment::VoidPointer>& InOutArguments)
 {
-	RTool* target = nullptr;
+	TTool* target = nullptr;
 	std::string functionName;
 	if (InTarget != "")
 	{
 		functionName = "cmd_" + InCommand;
 		std::string targetName = InTarget;
-		target = Container->GetElement<RTool>(targetName);
+		target = Container->GetElement<TTool>(targetName);
 		if (target)
 		{
 			auto p_attribute = target->GetAttribute(functionName);
@@ -161,7 +161,7 @@ bool ConsoleWorker::ExecuteCommand(const std::string& InTarget, std::string& InC
 	else
 	{
 		functionName = "cmd_" + InCommand;
-		std::vector<RTool*> targets = Container->GetElementsWithAttribute<RTool, RFunction*>(functionName);
+		std::vector<TTool*> targets = Container->GetElementsWithAttribute<TTool, RFunction*>(functionName);
 		if (targets.size() == 0)
 			Dialogue->WriteLine("Could not find tool with function :" + functionName);
 		else if (targets.size() > 1)
@@ -196,7 +196,7 @@ bool ConsoleWorker::ExecuteCommand(const std::string& InTarget, std::string& InC
 	}
 }
 
-std::vector<std::string> ConsoleWorker::GetArguments(const std::string & InInput)
+std::vector<std::string> TConsole::GetArguments(const std::string & InInput)
 {
 	std::string input = InInput;
 	std::regex pattern("(\"(.*?)\"|[a-zA-Z0-9_]+:?|\\d*\\(.+\\))");
@@ -212,13 +212,13 @@ std::vector<std::string> ConsoleWorker::GetArguments(const std::string & InInput
 	return std::vector<std::string>();
 }
 
-bool ConsoleWorker::cmd_exit()
+bool TConsole::cmd_exit()
 {
 	bExit = true;
 	return true;
 }
 
-bool ConsoleWorker::cmd_echo(const std::string& InText)
+bool TConsole::cmd_echo(const std::string& InText)
 {
 	Dialogue->WriteLine(InText);
 	return true;

@@ -8,8 +8,13 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 // RCLASS
 
+#define RCLASS_DECLARATION(ClassType) \
+	class ClassType;
+
+#define RTEMPLATECLASS_DECLARATION(ClassType,TemplateType) \
+	template<typename TemplateType> class ClassType;
+
 #define RBASECLASS_DEFINITION(ClassType,SuperClassType,CONTENT) \
-	class ClassType; \
 	class ClassType##_Base: public SuperClassType \
 	{ \
 		public: \
@@ -33,9 +38,28 @@
 		RBASECLASS_CONSTRUCTOR(ClassType,SuperClassType,ConstOperations) \
 		RBASECLASS_BODY(ClassType,SuperClassType))
 
-#define RCLASS(ClassType,SuperClassType) RBASECLASS(ClassType,SuperClassType,this->template RegisterClass<ClassType>();)
+#define RCLASS(ClassType,SuperClassType) \
+	RCLASS_DECLARATION(ClassType) \
+	RBASECLASS(ClassType,SuperClassType,this->template RegisterClass<ClassType>();)
 
-#define RABSTRACTCLASS(ClassType,SuperClassType) RBASECLASS(ClassType,SuperClassType,this->template RegisterAbstractClass<ClassType>();)
+#define RABSTRACTCLASS(ClassType,SuperClassType) \
+	RCLASS_DECLARATION(ClassType) \
+	RBASECLASS(ClassType,SuperClassType,this->template RegisterAbstractClass<ClassType>();)
+
+
+////////////////////////////////////////////////////////////////
+// template class
+
+
+
+
+
+
+
+
+
+
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 // RATTRIBUTE & RFUNCTION

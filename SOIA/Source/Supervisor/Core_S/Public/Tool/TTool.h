@@ -12,13 +12,13 @@
 namespace Supervisor
 {
 
-	RABSTRACTCLASS(RTool,Environment::RElement)
-	class LIBIMPEXP RTool : public RTool_Base
+	RABSTRACTCLASS(TTool,Environment::RElement)
+	class LIBIMPEXP TTool : public TTool_Base
 	{
-		RCLASS_BEGIN();
-			RTool(const Environment::RPointer<RDialogue>& InDialogue);
+		RCLASS_BEGIN()
+			TTool(const Environment::RPointer<RDialogue>& InDialogue);
 
-		RFUNCTION(cmd_help);
+		RFUNCTION(cmd_help)
 			bool cmd_help();
 
 		RPROPERTY(Dialogue)
@@ -26,6 +26,6 @@ namespace Supervisor
 
 		Environment::RClass* GuiClass;
 
-		RCLASS_END();
+		RCLASS_END()
 	};
 }

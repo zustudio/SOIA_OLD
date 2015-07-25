@@ -1,13 +1,13 @@
 
 #pragma once
 
-#include "RTool.h"
+#include "TTool.h"
 
 #include "Vector2D.h"
 
 namespace Supervisor
 {
-	RCLASS(RGraphTool, RTool);
+	RCLASS(RGraphTool, TTool);
 	class LIBIMPEXP RGraphTool : public RGraphTool_Base
 	{
 		RCLASS_BEGIN();

@@ -1,13 +1,13 @@
 
 #pragma once
 
-#include "RTool.h"
+#include "TTool.h"
 
 #include "Pipe.h"
 
 namespace Supervisor
 {
-	RCLASS(PipelineTool,RTool)
+	RCLASS(PipelineTool,TTool)
 	class LIBIMPEXP PipelineTool : public PipelineTool_Base
 	{
 		RCLASS_BEGIN();
