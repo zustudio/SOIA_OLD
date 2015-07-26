@@ -6,9 +6,13 @@
 
 namespace Environment
 {
-	Logger GlobalLogger(new StdDialogue());
-	LIBIMPEXP Logger* GetLogger()
+	Logger CurrentLogger(new StdDialogue());
+	LIBIMPEXP Logger* GlobalLogger()
 	{
-		return &GlobalLogger;
+		return &CurrentLogger;
+	}
+	LIBIMPEXP void SetGlobalLogger(Logger const& InLogger)
+	{
+		CurrentLogger = InLogger;
 	}
 }

@@ -23,7 +23,7 @@ namespace Environment
 	RTEMPLATECLASS(RWrapper,WrappedClass,RWrapperInterface)
 	
 	template<typename WrappedClass>
-	class RWrapper : public RWrapper_Base<WrappedClass>
+	class LIBIMPEXP RWrapper : public RWrapper_Base<WrappedClass>
 	{
 		RCLASS_BEGIN()
 
@@ -33,15 +33,6 @@ namespace Environment
 			OriginalWrapperType = TypeID::FromType<Type>();
 		}
 
-		/*RWrapper(void* InWrappedObject, TypeID InOriginalWrapperType)
-			: BaseType(),
-			OriginalWrapperType(InOriginalWrapperType),
-			WrappedObject(InWrappedObject)
-		{*/
-		//}
-
-	public:
-
 		RWrapper(RWrapperInterface* InWrapper)
 			: BaseType()
 		{
@@ -49,15 +40,13 @@ namespace Environment
 			WrappedObject = InWrapper->WrappedObject;
 		}
 
-		/*template<typename TargetClass>
-		RWrapper<TargetClass> Cast()
+		decltype(auto) operator*()
 		{
-			return RWrapper<TargetClass>(WrappedObject, OriginalWrapperType);
-		}*/
-
-		WrappedClass* operator->()
+			return ExposeMemberAccessOperator((WrappedClass*)Get());
+		}
+		decltype(auto) operator->()
 		{
-			return (WrappedClass*)Get();
+			return ExposeMemberAccessOperator((WrappedClass*)Get());
 		}
 
 		virtual void* Get() override
@@ -98,11 +87,4 @@ namespace Environment
 
 		RCLASS_END()
 	};
-		/*class RWrapper : public RClassWrapper_Base
-	{
-		RCLASS_BEGIN()
-			RWrapper();
-
-		RCLASS_END()
-	};*/
 }

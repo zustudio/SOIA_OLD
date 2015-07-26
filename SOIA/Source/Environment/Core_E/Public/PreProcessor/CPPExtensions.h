@@ -2,6 +2,7 @@
 
 #pragma once
 #include "Definitions.h"
+#include "TypeTraits.h"
 
 #include <vector>
 #include <string>
@@ -49,7 +50,17 @@ namespace Environment
 	{
 
 	};
-	
+
+	template<typename Type>
+	auto ExposeMemberAccessOperator(Type* InPotentialOperatorOwner) -> typename std::enable_if<HasMemberAccessOperator<Type>::value, Type&>::type
+	{
+		return *InPotentialOperatorOwner;
+	}
+	template<typename Type>
+	auto ExposeMemberAccessOperator(Type* InPotentialOperatorOwner) -> typename std::enable_if<!HasMemberAccessOperator<Type>::value, Type*>::type
+	{
+		return InPotentialOperatorOwner;
+	}
 }
 
 

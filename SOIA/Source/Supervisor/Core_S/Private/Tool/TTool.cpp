@@ -5,9 +5,9 @@ using namespace Environment;
 
 #include "RContainer.h"
 
-TTool::TTool(const RPointer<RDialogue>& InDialogue)
+TTool::TTool()
 	: BaseType(),
-	Dialogue(InDialogue),
+	Dialogue(RPointer<RWrapper<DialogueInterface>>(nullptr)),
 	GuiClass(nullptr)
 {
 	ReflectAttributes();
@@ -15,6 +15,9 @@ TTool::TTool(const RPointer<RDialogue>& InDialogue)
 
 bool TTool::cmd_help()
 {
-	Dialogue.Resolve()->GetDialogueInterface()->WriteLine("Help for Tool: in case you need help, please type help followed by command.");
+	Dialogue->WriteLine("Help for Tool: in case you need help, please type help followed by command.");
+
+	auto elementwrapper = RPointer<RElement>(nullptr);
+	
 	return true;
 }

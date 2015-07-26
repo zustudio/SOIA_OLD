@@ -3,7 +3,9 @@ cmake_minimum_required(VERSION 3.1)
 subproject(Core_E)
 
 in_sub(PreProcessor)
-	add_Public(Definitions)
+	add_Public(
+		Definitions
+		TypeTraits)
 	add_PrivatePublic(CPPExtensions)
 end_sub()
 

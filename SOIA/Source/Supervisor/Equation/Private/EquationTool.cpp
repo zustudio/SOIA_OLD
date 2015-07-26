@@ -7,8 +7,8 @@ using namespace Environment;
 
 #include "EquationString.h"
 
-REquationTool::REquationTool(const RPointer<RDialogue>& InDialogue)
-	: BaseType(InDialogue),
+REquationTool::REquationTool()
+	: BaseType(),
 	CurrentMathContainer(nullptr)
 {
 	ReflectAttributes();

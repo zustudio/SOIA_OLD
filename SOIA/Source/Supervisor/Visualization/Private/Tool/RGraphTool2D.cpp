@@ -6,8 +6,8 @@ using namespace Supervisor;
 
 #include <iostream>
 
-RGraphTool::RGraphTool(const RPointer<RDialogue>& InDialogue)
-	: BaseType(InDialogue)
+RGraphTool::RGraphTool()
+	: BaseType()
 {
 	ReflectAttributes();
 }

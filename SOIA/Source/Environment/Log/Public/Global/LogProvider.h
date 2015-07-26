@@ -7,7 +7,8 @@
 
 namespace Environment
 {
-	extern LIBIMPEXP Logger* GetLogger();
-#define LOG(message,severity) GetLogger()->Log(message,severity)
+	extern LIBIMPEXP Logger* GlobalLogger();
+	extern LIBIMPEXP void SetGlobalLogger(Logger const& InLogger);
+#define LOG(message,severity) GlobalLogger()->Log(message,severity)
 #define LOGSTATUS(message) LOG(message,Logger::Severity::Status)
 }

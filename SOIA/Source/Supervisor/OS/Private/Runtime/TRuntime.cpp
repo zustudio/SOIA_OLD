@@ -13,8 +13,8 @@ using namespace Supervisor;
 #include "FileSystemProvider.h"
 #include "SaveFile.h"
 
-TRuntime::TRuntime(const RPointer<RDialogue>& InDialogue)
-	: BaseType(InDialogue),
+TRuntime::TRuntime()
+	: BaseType(),
 	CurrentDirectory(GetFileSystem()->GetExecutableDirectory())
 {
 	GetElementReflectionProvider()->RegisterList<
@@ -22,6 +22,26 @@ TRuntime::TRuntime(const RPointer<RDialogue>& InDialogue)
 		PipelineTool,
 		RConversionPipes>();
 	ReflectAttributes();
+}
+
+void TRuntime::Run()
+{
+	for (RElement* activeThreadElement : ActiveThreads)
+	{
+		Thread* activeThread = dynamic_cast<Thread*>(activeThreadElement);
+		if (activeThread)
+		{
+			activeThread->Start();
+		}
+	}
+	for (RElement* activeThreadElement : ActiveThreads)
+	{
+		Thread* activeThread = dynamic_cast<Thread*>(activeThreadElement);
+		if (activeThread)
+		{
+			activeThread->Join();
+		}
+	}
 }
 
 bool TRuntime::cmd_typelist()
@@ -120,7 +140,7 @@ bool TRuntime::cmd_changedir(const Directory & InDir)
 
 bool TRuntime::cmd_saveproject(Directory const& InDir)
 {
-	return SaveRecursive(InDir, GetTopContainer());
+	return SaveRecursive(InDir, GlobalContainer());
 }
 
 bool TRuntime::SaveRecursive(Directory const & InDir, RElement* const& InElement)

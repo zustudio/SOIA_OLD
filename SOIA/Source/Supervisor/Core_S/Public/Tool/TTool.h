@@ -5,8 +5,9 @@
 #include "RElement.h"
 #include "RContainer.h"
 #include "Function.h"
-#include "RDialogue.h"
+#include "DialogueInterface.h"
 #include "RPointer.h"
+#include "RWrapper.h"
 
 
 namespace Supervisor
@@ -16,13 +17,13 @@ namespace Supervisor
 	class LIBIMPEXP TTool : public TTool_Base
 	{
 		RCLASS_BEGIN()
-			TTool(const Environment::RPointer<RDialogue>& InDialogue);
+			TTool();
 
 		RFUNCTION(cmd_help)
 			bool cmd_help();
 
 		RPROPERTY(Dialogue)
-			Environment::RPointer<RDialogue> Dialogue;
+			Environment::RPointer<Environment::RWrapper<Environment::DialogueInterface>> Dialogue;
 
 		Environment::RClass* GuiClass;
 

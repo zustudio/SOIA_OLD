@@ -12,7 +12,9 @@ namespace Supervisor
 	class LIBIMPEXP TRuntime : public TRuntime_Base
 	{
 		RCLASS_BEGIN()
-			TRuntime(const RPointer<RDialogue>& InDialogue = RPointer<RDialogue>(nullptr));
+			TRuntime();
+
+		void Run();
 
 		RFUNCTION(cmd_typelist)
 			bool cmd_typelist();
@@ -49,6 +51,9 @@ namespace Supervisor
 
 		RPROPERTY(CurrentDirectory)
 			Directory CurrentDirectory;
+
+		RPROPERTY(ActiveThreads)
+			std::vector<RElement*> ActiveThreads;
 
 		RCLASS_END()
 	};

@@ -13,7 +13,7 @@ namespace Environment
 	class LIBIMPEXP RPointer : public Atom
 	{
 	public:
-		explicit RPointer(RElementClass* InElement)
+		RPointer(RElementClass* InElement)
 			:
 			TargetElement(InElement),
 			TargetID(InElement ? InElement->GetID() : Element_ID()),
@@ -27,14 +27,14 @@ namespace Environment
 			TargetID(InID)
 		{}
 
-		RElementClass* Resolve()
+		RElementClass* GetTargetElement()
 		{
 			RElementClass* result = nullptr;
 			if (TargetElement)
 			{
 				result = TargetElement;
 			}
-			else if (TargetContainer || (TargetContainer = GetTopContainer()))
+			else if (TargetContainer || (TargetContainer = GlobalContainer()))
 			{
 				result = TargetContainer->GetElement<RElementClass>(TargetID);
 				TargetElement = result;
@@ -42,9 +42,9 @@ namespace Environment
 			return result;
 		}
 
-		RElementClass* operator-> ()
+		decltype(auto) operator-> ()
 		{
-			return Resolve();
+			return ExposeMemberAccessOperator(GetTargetElement());
 		}
 
 		RElementClass* TargetElement;

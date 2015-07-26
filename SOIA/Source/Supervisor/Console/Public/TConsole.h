@@ -13,7 +13,7 @@ namespace Supervisor
 	{
 		RCLASS_BEGIN()
 
-		TConsole(const Environment::RPointer<RDialogue>& InDialogue = Environment::RPointer<RDialogue>(nullptr));
+		TConsole();
 
 		virtual void Main() override;
 		bool ExecuteCommands(Token*, std::vector<Environment::VoidPointer>& OutArguments);

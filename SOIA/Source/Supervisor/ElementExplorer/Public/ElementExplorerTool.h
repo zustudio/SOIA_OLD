@@ -8,12 +8,12 @@ namespace Supervisor
 	RCLASS(ElementExplorerTool,TTool)
 	class LIBIMPEXP ElementExplorerTool : public ElementExplorerTool_Base
 	{
-		RCLASS_BEGIN();
+		RCLASS_BEGIN()
 
-		ElementExplorerTool(const Environment::RPointer<RDialogue>& InDialogue = Environment::RPointer<RDialogue>(nullptr));
+		ElementExplorerTool();
 
-		RFUNCTION(cmd_ls);
-		bool cmd_ls();
+		RFUNCTION(cmd_ls)
+			bool cmd_ls();
 
 		RFUNCTION(cmd_pwd)
 			bool cmd_pwd(Environment::RContainer*&);
@@ -21,8 +21,8 @@ namespace Supervisor
 		RFUNCTION(cmd_elem)
 			bool cmd_elem(RElement*& OutElement, const std::string& InName);
 
-		RFUNCTION(cmd_cc);
-		bool cmd_cc(const std::string& InContainerName);
+		RFUNCTION(cmd_cc)
+			bool cmd_cc(const std::string& InContainerName);
 
 		RFUNCTION(cmd_attrlist)
 			bool cmd_attrlist(RElement* const & InElement, std::string const & InAttributeName);
@@ -34,6 +34,6 @@ namespace Supervisor
 
 		Environment::RContainer* CurrentContainer;
 
-		RCLASS_END();
+		RCLASS_END()
 	};
 }

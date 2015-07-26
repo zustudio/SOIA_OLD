@@ -10,9 +10,9 @@ namespace Supervisor
 	RCLASS(RGraphTool, TTool);
 	class LIBIMPEXP RGraphTool : public RGraphTool_Base
 	{
-		RCLASS_BEGIN();
+		RCLASS_BEGIN()
 
-		RGraphTool(const RPointer<RDialogue>& InDialogue = RPointer<RDialogue>(nullptr));
+		RGraphTool();
 
 		RFUNCTION(cmd_pointlist)
 			bool cmd_pointlist();
@@ -22,6 +22,6 @@ namespace Supervisor
 
 		std::vector<Vector2D<double>> Points;
 
-		RCLASS_END();
+		RCLASS_END()
 	};
 }

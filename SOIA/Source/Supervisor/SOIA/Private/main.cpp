@@ -26,13 +26,15 @@ int main()
 {
 	
 
-	GetElementReflectionProvider()->Register<RWrapper<StdDialogue>>();
+	/*;
 
 	auto stdDialogue = RWrapper<StdDialogue>();
 	stdDialogue->Write("direct");
 
 	RWrapper<DialogueInterface> dialogue = &stdDialogue;
-	dialogue->Write("indirect");
+	dialogue->Write("indirect");*/
+
+	GetElementReflectionProvider()->Register<RWrapper<StdDialogue>>();
 
 	PersistentRuntime::Run(RWrapper<StdDialogue>::StaticClass());
 

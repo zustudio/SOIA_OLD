@@ -9,8 +9,8 @@ using namespace Environment;
 #include "LogProvider.h"
 #include <regex>
 
-TConsole::TConsole(const RPointer<RDialogue>& InDialogue)
-	: BaseType(InDialogue),
+TConsole::TConsole()
+	: BaseType(),
 	InputTokenizer(
 	{
 		TokenRule("([a-zA-Z0-9_\\.]+)", new TokenCollapseNone),

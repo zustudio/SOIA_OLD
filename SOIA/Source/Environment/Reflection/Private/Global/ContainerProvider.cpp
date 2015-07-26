@@ -5,14 +5,14 @@
 
 namespace Environment
 {
-	RContainer* TopContainer;
-	LIBIMPEXP RContainer* GetTopContainer()
+	RContainer* CurrentContainer;
+	LIBIMPEXP RContainer* GlobalContainer()
 	{
-		return TopContainer;
+		return CurrentContainer;
 	}
-	LIBIMPEXP void SetTopContainer(RContainer* InContainer)
+	LIBIMPEXP void SetGlobalContainer(RContainer* InContainer)
 	{
-		TopContainer = InContainer;
+		CurrentContainer = InContainer;
 	}
 
 }

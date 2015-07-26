@@ -12,7 +12,7 @@ namespace Supervisor
 	{
 		RCLASS_BEGIN();
 
-		PipelineTool(const Environment::RPointer<RDialogue>& InDialogue = Environment::RPointer<RDialogue>(nullptr));
+		PipelineTool();
 
 		RFUNCTION(cmd_listpipes)
 			bool cmd_listpipes();

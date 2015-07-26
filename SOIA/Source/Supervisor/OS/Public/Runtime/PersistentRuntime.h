@@ -5,8 +5,13 @@
 using namespace Environment;
 
 #include "RClass.h"
-#include "RElement.h"
 #include "RWrapper.h"
+#include "RElement.h"
+#include "RContainer.h"
+
+#include "TConsole.h"
+#include "TRuntime.h"
+#include "ElementExplorerTool.h"
 
 namespace Supervisor
 {
@@ -15,8 +20,20 @@ namespace Supervisor
 	public:
 		static void Run(RClass* InStandardDialogueClass);
 	private:
-		static void InitializeElementHierarchy(RClass* InStandardDialogueClass);
+		////////////////////////////////////////////////////////////////
+		// run chain
+		static void InitializeGlobalObjects(RClass* InStandardDialogueClass);
+		static void InitializeElementHierarchy();
 		static void RegisterReflectedClasses();
 		static void RunTool();
+
+		////////////////////////////////////////////////////////////////
+		// global objects
+		static RWrapper<DialogueInterface> GlobalDialogue;
+		static RContainer* GlobalContainer;
+
+		static TConsole* ConsoleTool;
+		static TRuntime* RuntimeTool;
+		static ElementExplorerTool* ExplorerTool;
 	};
 }

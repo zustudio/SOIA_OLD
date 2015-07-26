@@ -16,7 +16,7 @@ namespace Supervisor
 		// Functions
 
 		//----- ctor -----
-		REquationTool(const Environment::RPointer<RDialogue>& InDialogue = Environment::RPointer<RDialogue>(nullptr));
+		REquationTool();
 
 		//----- commands -----
 		RFUNCTION(cmd_calc)

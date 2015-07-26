@@ -5,6 +5,6 @@
 
 namespace Environment
 {
-	extern LIBIMPEXP RContainer* GetTopContainer();
-	extern LIBIMPEXP void SetTopContainer(RContainer*);
+	extern LIBIMPEXP RContainer* GlobalContainer();
+	extern LIBIMPEXP void SetGlobalContainer(RContainer*);
 }
