@@ -9,17 +9,17 @@ using namespace Environment;
 ////////////////////////////////////////////////////////////////
 // Init
 RContainer::RContainer(const Range<int>& InAllowedIDs, const std::vector<RElement*>& InElements)
+	:
+	AllowedIDs(InAllowedIDs),
+	Objects(InElements)
 {
-	AllowedIDs = InAllowedIDs;
-	Objects = InElements;
-	Reflect(AllowedIDs, Objects);
+	ReflectAttributes();
 }
 
 ////////////////////////////////////////////////////////////////
 // Public Object Access
 Element_ID& RContainer::Register(RElement* InObject, const std::string &InName)
 {
-
 	Element_ID freeID = NextFreeID();
 
 	std::string name = InName;

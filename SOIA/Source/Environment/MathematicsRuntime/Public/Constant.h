@@ -8,7 +8,7 @@
 
 namespace Environment
 {
-	RCLASS(Constant,Value);
+	RCLASS(Constant,Value)
 	class LIBIMPEXP Constant : public Constant_Base
 	{
 	public:
@@ -18,7 +18,5 @@ namespace Environment
 		virtual double Calculate(const std::vector<Value*> &InDefinedValues) override;
 
 		double myValue;
-
-		Constant* Next;
 	};
 }

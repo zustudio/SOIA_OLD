@@ -16,20 +16,6 @@
 #include "ReflectionMacros.h"
 
 
-
-//
-//#define RCLASS(ClassType,SuperClassType) \
-//class ClassType; \
-//class ClassType##_Base: public SuperClassType \
-//{ \
-//	public: \
-//	using Super = SuperClassType; \
-//	using Type = ClassType; \
-//	using BaseType = ClassType##_Base; \
-//	\
-//	virtual RClass* GetClass() override {return GetClassByType(typeid(BaseType).name());} \
-//};
-
 #define RCLASSDEF(ClassType,SuperClassType) \
 RCLASS(ClassType,SuperClassType) \
 class LIBIMPEXP ClassType : public ClassType##_Base
@@ -40,12 +26,12 @@ namespace Environment
 	class LIBIMPEXP RElement
 	{
 		friend RContainer;
-	public:
+
+		RCLASS_BEGIN()
 		using Super = RElement;
 		using Type = RElement;
 		using BaseType = RElement;
-	public:
-		using IsRElementType = std::true_type;		// sfinae definition
+
 	public:
 		RElement();
 		virtual ~RElement();
@@ -62,45 +48,15 @@ namespace Environment
 
 		virtual RClass* GetClass();
 		static RClass* StaticClass();
-	protected:
-		static RClass* GetClassByType(const std::string& InTypeID);
-
-	protected:
-		template<typename RType>
-		void RegisterClass()
-		{
-			if (!GetElementReflectionProvider()->GetClass(TypeID::FromType<typename RType::BaseType>()))
-			{
-				GetElementReflectionProvider()->Register_DEPRECATED(new RClassTemplate<RType>(TypeID::FromType<typename RType::BaseType>(), TypeID::FromType<typename RType::Super::BaseType>()));
-			}
-		}
-		template<typename RType>
-		void RegisterAbstractClass()
-		{
-			if (!GetElementReflectionProvider()->GetClass(TypeID::FromType<typename RType::BaseType>()))
-			{
-				GetElementReflectionProvider()->Register_DEPRECATED(new RAbstractClass(TypeID::FromType<typename RType::BaseType>(), TypeID::FromType<typename RType::Super::BaseType>()));
-			}
-		}
-
-		template<typename... ReflectedObjectTypes>
-		void Reflect(ReflectedObjectTypes&... ReflectedAttributes)
-		{
-			// reflect my attributes
-			rec_Reflect(ReflectedAttributes...);
-		}
-		template<typename ReflectedObjectType, typename... ReflectedObjectTypes>
-		void rec_Reflect(ReflectedObjectType& InReflectedObject, ReflectedObjectTypes&... TailReflectedObjects)
-		{
-			GetAtomReflectionProvider()->Reflect<ReflectedObjectType>();
-			AttributeMirrors.push_back(new ObjectMirrorTemplate<ReflectedObjectType>(InReflectedObject, ""));
-			rec_Reflect(TailReflectedObjects...);
-		}
-		void rec_Reflect()	{}
 
 	protected:
 		RContainer* Container;
-		Element_ID ID;
+
+		RPROPERTY(ID)
+			Element_ID ID;
+
 		std::vector<ObjectMirror*> AttributeMirrors;
+
+		RCLASS_END()
 	};
 }

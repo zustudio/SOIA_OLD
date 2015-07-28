@@ -18,7 +18,8 @@ namespace Supervisor
 	class LIBIMPEXP PersistentRuntime
 	{
 	public:
-		static void Run(RClass* InStandardDialogueClass);
+		static void Initialize(RClass* InStandardDialogueClass);
+		static void Run();
 	private:
 		////////////////////////////////////////////////////////////////
 		// run chain

@@ -18,11 +18,15 @@ ElementExplorerTool* PersistentRuntime::ExplorerTool = nullptr;
 
 ////////////////////////////////////////////////////////////////
 // Public Main Entry Point
-void PersistentRuntime::Run(RClass* InStandardDialogueClass)
+void PersistentRuntime::Initialize(RClass* InStandardDialogueClass)
 {
 	InitializeGlobalObjects(InStandardDialogueClass);
 	InitializeElementHierarchy();
 	RegisterReflectedClasses();
+}
+
+void PersistentRuntime::Run()
+{
 	RunTool();
 }
 

@@ -12,7 +12,7 @@ namespace Environment
 	RCLASS(RContainer,RElement)
 	class LIBIMPEXP RContainer : public RContainer_Base
 	{
-	public:
+		RCLASS_BEGIN()
 		//////////////////////////////////////////////////////////////////
 		// Functions
 
@@ -104,9 +104,13 @@ namespace Environment
 		// Variables
 
 		/// Objects that are registered in this container.
-		std::vector<RElement*> Objects;
+		RPROPERTY(Objects)
+			std::vector<RElement*> Objects;
 
 		/// Range of IDs this Container is allowed to distribute.
-		Range<int> AllowedIDs;
+		RPROPERTY(AllowedIDs)
+			Range<int> AllowedIDs;
+
+		RCLASS_END()
 	};
 }

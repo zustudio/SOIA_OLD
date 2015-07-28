@@ -7,10 +7,11 @@
 using namespace Environment;
 
 RElement::RElement()
+	:
+	Container(nullptr)
 {
-	Container = nullptr;
-	RegisterClass<RElement::BaseType>();
-	Reflect(ID);
+	GetElementReflectionProvider()->Register<RElement>();
+	ReflectAttributes();
 }
 RElement::~RElement()
 {
@@ -59,18 +60,18 @@ VoidPointer RElement::GetAttribute(const std::string& InName)
 
 RClass* RElement::GetClass()
 {
-	return GetClassByType(TypeID::FromType<RElement>());
+	return GetElementReflectionProvider()->GetClass(TypeID::FromType<RElement>());
 }
 
 RClass* RElement::StaticClass()
 {
-	return GetClassByType(TypeID::FromType<RElement>());
+	return GetElementReflectionProvider()->GetClass(TypeID::FromType<RElement>());
 }
 
-RClass* RElement::GetClassByType(const std::string& InType)
-{
-	return GetElementReflectionProvider()->GetClass(TypeID(InType));
-}
+//RClass* RElement::GetClassByType(const std::string& InType)
+//{
+//	return GetElementReflectionProvider()->GetClass(TypeID(InType));
+//}
 
 ElementReflection RElement::CreateReflection()
 {

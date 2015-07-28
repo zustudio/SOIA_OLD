@@ -33,11 +33,23 @@ namespace Environment
 		template<typename RType>
 		auto Register() -> typename std::enable_if<std::is_abstract<RType>::value>::type
 		{
-			RegisterInternal(new RAbstractClass(TypeID::FromType<RType::Type>(), TypeID::FromType<RType::Super::Type>()));
+			RegisterAbstract<RType>();
 		}
 
 		template<typename RType>
 		auto Register() -> typename std::enable_if<!std::is_abstract<RType>::value>::type
+		{
+			RegisterConcrete<RType>();
+		}
+
+		template<typename RType>
+		void RegisterAbstract()
+		{
+			RegisterInternal(new RAbstractClass(TypeID::FromType<RType::Type>(), TypeID::FromType<RType::Super::Type>()));
+		}
+
+		template<typename RType>
+		void RegisterConcrete()
 		{
 			RegisterInternal(new RClassTemplate<RType>(TypeID::FromType<RType::Type>(), TypeID::FromType<RType::Super::Type>()));
 		}

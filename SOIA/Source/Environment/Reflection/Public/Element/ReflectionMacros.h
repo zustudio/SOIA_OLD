@@ -8,61 +8,80 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 // RCLASS
 
-#define RCLASS_DECLARATION(ClassType) \
-	class ClassType;
+#define RTEMPLATECLASS(ClassType,TemplateType,SuperClassType) \
+	template<typename TemplateType> \
+	class ClassType; \
+	template<typename TemplateType> \
+	class ClassType##_Base : public SuperClassType \
+	{ \
+		public: \
+		using Super = SuperClassType; \
+		using Type = ClassType<TemplateType>; \
+		using BaseType = ClassType##_Base<TemplateType>; \
+		template<typename... CtorArgTypes> explicit ClassType##_Base(CtorArgTypes... CtorArgs) : SuperClassType(CtorArgs...) \
+		{ \
+			GetElementReflectionProvider()->Register<ClassType<TemplateType>>(); \
+		} \
+		virtual Environment::RClass* GetClass() override \
+		{ \
+			return GetElementReflectionProvider()->GetClass(Environment::TypeID::FromType<ClassType<TemplateType>>()); \
+		} \
+		static Environment::RClass* StaticClass() \
+		{ \
+			GetElementReflectionProvider()->Register<ClassType<TemplateType>>(); \
+			return GetElementReflectionProvider()->GetClass(Environment::TypeID::FromType<ClassType<TemplateType>>()); \
+		} \
+	};
 
-#define RTEMPLATECLASS_DECLARATION(ClassType,TemplateType) \
-	template<typename TemplateType> class ClassType;
-
-#define RBASECLASS_DEFINITION(ClassType,SuperClassType,CONTENT) \
-	class ClassType##_Base: public SuperClassType \
+#define RABSTRACTCLASS(ClassType,SuperClassType) \
+	class ClassType; \
+	class ClassType##_Base : public SuperClassType \
 	{ \
 		public: \
 		using Super = SuperClassType; \
 		using Type = ClassType; \
 		using BaseType = ClassType##_Base; \
-		CONTENT \
+		template<typename... CtorArgTypes> explicit ClassType##_Base(CtorArgTypes... CtorArgs) : SuperClassType(CtorArgs...) \
+		{ \
+			GetElementReflectionProvider()->RegisterAbstract<ClassType>(); \
+		} \
+		virtual Environment::RClass* GetClass() override \
+		{ \
+			return GetElementReflectionProvider()->GetClass(Environment::TypeID::FromType<ClassType>()); \
+		} \
+		static Environment::RClass* StaticClass() \
+		{ \
+			GetElementReflectionProvider()->RegisterAbstract<ClassType>(); \
+			return GetElementReflectionProvider()->GetClass(Environment::TypeID::FromType<ClassType>()); \
+		} \
 	};
 
-#define RBASECLASS_CONSTRUCTOR(ClassType,SuperClassType,ConstructorOperations) \
-	template<typename... CtorArgTypes> explicit ClassType##_Base(CtorArgTypes... CtorArgs) : SuperClassType(CtorArgs...) {ConstructorOperations}
-
-#define RBASECLASS_BODY(ClassType,SuperClassType) \
-	virtual Environment::RClass* GetClass() override {return GetClassByType(Environment::TypeID::FromType<ClassType##_Base>());} \
-	static Environment::RClass* StaticClass() {return GetClassByType(Environment::TypeID::FromType<ClassType##_Base>());}
-
-#define RBASECLASS(ClassType,SuperClassType,ConstOperations) \
-	RBASECLASS_DEFINITION( \
-		ClassType, \
-		SuperClassType, \
-		RBASECLASS_CONSTRUCTOR(ClassType,SuperClassType,ConstOperations) \
-		RBASECLASS_BODY(ClassType,SuperClassType))
-
 #define RCLASS(ClassType,SuperClassType) \
-	RCLASS_DECLARATION(ClassType) \
-	RBASECLASS(ClassType,SuperClassType,this->template RegisterClass<ClassType>();)
-
-#define RABSTRACTCLASS(ClassType,SuperClassType) \
-	RCLASS_DECLARATION(ClassType) \
-	RBASECLASS(ClassType,SuperClassType,this->template RegisterAbstractClass<ClassType>();)
-
-
-////////////////////////////////////////////////////////////////
-// template class
-
-
-
-
-
-
-
-
-
-
+	class ClassType; \
+	class ClassType##_Base : public SuperClassType \
+	{ \
+		public: \
+		using Super = SuperClassType; \
+		using Type = ClassType; \
+		using BaseType = ClassType##_Base; \
+		template<typename... CtorArgTypes> explicit ClassType##_Base(CtorArgTypes... CtorArgs) : SuperClassType(CtorArgs...) \
+		{ \
+			GetElementReflectionProvider()->RegisterConcrete<ClassType>(); \
+		} \
+		virtual Environment::RClass* GetClass() override \
+		{ \
+			return GetElementReflectionProvider()->GetClass(Environment::TypeID::FromType<ClassType>()); \
+		} \
+		static Environment::RClass* StaticClass() \
+		{ \
+			GetElementReflectionProvider()->RegisterConcrete<ClassType>(); \
+			return GetElementReflectionProvider()->GetClass(Environment::TypeID::FromType<ClassType>()); \
+		} \
+	};
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-// RATTRIBUTE & RFUNCTION
+// RPROPERTY & RFUNCTION
 
 #define REFLECT_FUNC_NAME _Internal_ReflectObject
 
