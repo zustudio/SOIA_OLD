@@ -1,8 +1,41 @@
 
-macro( add_binary_subdirectory L_name )
-	
-	if(WIN32)
-		execute_process(COMMAND mklink /D ....)
+set(FILE_DIR ${CMAKE_CURRENT_LIST_DIR})
+
+macro( uacrequest_subdirectory_link L_link_name L_target_dir)
+	set(L_link_dir "${BINARY_DIRECTORY}/${L_link_name}")
+	if(NOT EXISTS "${L_link_dir}")
+		if(WIN32)
+			file(TO_NATIVE_PATH "${L_link_dir}" L_native_link_dir)
+			file(TO_NATIVE_PATH "${L_target_dir}" L_native_target_dir)
+			list(APPEND UAC_REQUESTS "mklink /D ${L_native_link_dir} ${L_native_target_dir}")
+		endif()
 	endif()
 	
-endmacro( add_binary_subdirectory L_name )
+endmacro( uacrequest_subdirectory_link L_name L_target_dir)
+
+macro( execute_uacrequests )
+	if(NOT "${UAC_REQUESTS}" STREQUAL "")
+		if(WIN32)
+		
+			set(L_uac_sh ${CMAKE_BINARY_DIR}/uac_requests.sh)
+			set(L_uac_bat ${CMAKE_BINARY_DIR}/uac_requests.bat)
+			file(TO_NATIVE_PATH "${L_uac_bat}" L_uac_bat_native)
+			
+			# prepare content
+			file(READ ${FILE_DIR}/uac.bat.template L_uac_content)
+			foreach( L_uac_request ${UAC_REQUESTS})
+				set(L_uac_content "${L_uac_content}
+${L_uac_request}")
+			endforeach()
+			
+			# write to files
+			file(WRITE ${L_uac_bat} "${L_uac_content}")
+			file(WRITE ${L_uac_sh} "\#!/bin/bash/
+cmd //c '${L_uac_bat_native}'")
+	
+			# execute
+			execute_process(COMMAND bash ${L_uac_sh})
+			
+		endif()
+	endif()
+endmacro( execute_uacrequests )
