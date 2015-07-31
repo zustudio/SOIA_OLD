@@ -11,7 +11,7 @@ using namespace Environment;
 
 #include "TConsole.h"
 #include "TRuntime.h"
-#include "ElementExplorerTool.h"
+#include "TElementExplorer.h"
 
 namespace Supervisor
 {
@@ -35,6 +35,6 @@ namespace Supervisor
 
 		static TConsole* ConsoleTool;
 		static TRuntime* RuntimeTool;
-		static ElementExplorerTool* ExplorerTool;
+		static TElementExplorer* ExplorerTool;
 	};
 }

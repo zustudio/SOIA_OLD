@@ -14,7 +14,10 @@ namespace Supervisor
 		RCLASS_BEGIN()
 			TRuntime();
 
-		void Run();
+			void Run();
+
+		RFUNCTION(cmd_run)
+			bool cmd_run(TRuntime* const& InRuntime);
 
 		RFUNCTION(cmd_typelist)
 			bool cmd_typelist();
@@ -24,6 +27,9 @@ namespace Supervisor
 
 		RFUNCTION(cmd_create)
 			bool cmd_create(const TypeID& InType, const std::string& InName, RContainer* const& InContainer);
+
+		RFUNCTION(cmd_rename)
+			bool cmd_rename(RElement* const& InElement, std::string const& InNewName);
 
 		RFUNCTION(cmd_gui)
 			bool cmd_gui(TTool* const & InTool);

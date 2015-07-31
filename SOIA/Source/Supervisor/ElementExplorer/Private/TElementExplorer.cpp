@@ -1,18 +1,18 @@
 
 #include "Definitions.h"
 
-#include "ElementExplorerTool.h"
+#include "TElementExplorer.h"
 using namespace Supervisor;
 using namespace Environment;
 
-ElementExplorerTool::ElementExplorerTool()
+TElementExplorer::TElementExplorer()
 	: BaseType(),
 	CurrentContainer(nullptr)
 {
 	ReflectAttributes();
 }
 
-bool ElementExplorerTool::cmd_elem(RElement*& OutElement, const std::string& InName)
+bool TElementExplorer::cmd_elem(RElement*& OutElement, const std::string& InName)
 {
 	if (!CurrentContainer)
 		CurrentContainer = Container;
@@ -24,7 +24,7 @@ bool ElementExplorerTool::cmd_elem(RElement*& OutElement, const std::string& InN
 		return false;
 }
 
-bool ElementExplorerTool::cmd_pwd(Environment::RContainer*& OutContainer)
+bool TElementExplorer::cmd_pwd(Environment::RContainer*& OutContainer)
 {
 	if (!CurrentContainer)
 		CurrentContainer = Container;
@@ -34,7 +34,7 @@ bool ElementExplorerTool::cmd_pwd(Environment::RContainer*& OutContainer)
 	return true;
 }
 
-bool ElementExplorerTool::cmd_ls()
+bool TElementExplorer::cmd_ls()
 {
 	if (!CurrentContainer)
 		CurrentContainer = Container;
@@ -52,7 +52,7 @@ bool ElementExplorerTool::cmd_ls()
 	return true;
 }
 
-bool ElementExplorerTool::cmd_cc(const std::string& InContainerName)
+bool TElementExplorer::cmd_cc(const std::string& InContainerName)
 {
 	bool result = false;
 	if (InContainerName == "..")
@@ -77,7 +77,7 @@ bool ElementExplorerTool::cmd_cc(const std::string& InContainerName)
 	return result;
 }
 
-bool ElementExplorerTool::cmd_attrlist(RElement* const & InElementName, std::string const & InAttributeName)
+bool TElementExplorer::cmd_attrlist(RElement* const & InElementName, std::string const & InAttributeName)
 {
 	bool result = false;
 	if (InElementName)
@@ -141,7 +141,7 @@ bool ElementExplorerTool::cmd_attrlist(RElement* const & InElementName, std::str
 	return result;
 }
 
-bool ElementExplorerTool::cmd_func(RFunction *& OutFunction, RElement * const & InElement, std::string const & InFuncName)
+bool TElementExplorer::cmd_func(RFunction *& OutFunction, RElement * const & InElement, std::string const & InFuncName)
 {
 	auto p_Func = InElement->GetAttribute(InFuncName);
 	if (p_Func)
@@ -158,7 +158,7 @@ bool ElementExplorerTool::cmd_func(RFunction *& OutFunction, RElement * const & 
 	}
 }
 
-std::string ElementExplorerTool::GetCurrentPath()
+std::string TElementExplorer::GetCurrentPath()
 {
 	RContainer* current = nullptr;
 	RContainer* next = CurrentContainer;

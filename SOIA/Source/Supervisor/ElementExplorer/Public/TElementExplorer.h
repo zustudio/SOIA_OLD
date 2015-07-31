@@ -5,12 +5,12 @@
 
 namespace Supervisor
 {
-	RCLASS(ElementExplorerTool,TTool)
-	class LIBIMPEXP ElementExplorerTool : public ElementExplorerTool_Base
+	RCLASS(TElementExplorer,TTool)
+	class LIBIMPEXP TElementExplorer : public TElementExplorer_Base
 	{
 		RCLASS_BEGIN()
 
-		ElementExplorerTool();
+		TElementExplorer();
 
 		RFUNCTION(cmd_ls)
 			bool cmd_ls();

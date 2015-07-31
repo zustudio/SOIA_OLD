@@ -14,7 +14,7 @@ RWrapper<DialogueInterface> PersistentRuntime::GlobalDialogue = RWrapper<Dialogu
 RContainer* PersistentRuntime::GlobalContainer = nullptr;
 TConsole* PersistentRuntime::ConsoleTool = nullptr;
 TRuntime* PersistentRuntime::RuntimeTool = nullptr;
-ElementExplorerTool* PersistentRuntime::ExplorerTool = nullptr;
+TElementExplorer* PersistentRuntime::ExplorerTool = nullptr;
 
 ////////////////////////////////////////////////////////////////
 // Public Main Entry Point
@@ -54,14 +54,17 @@ void PersistentRuntime::InitializeElementHierarchy()
 	GlobalContainer->GetID().Name = "Global";
 	SetGlobalContainer(GlobalContainer);
 	
+	// add sub container
+	GlobalContainer->Register(new RContainer(Range<int>(11, 100)), "Project");
+	GlobalContainer->Register(new RContainer(Range<int>(11,100)), "Temp");
+
 	// add predefined tools
 	ConsoleTool = new TConsole();
 	RuntimeTool = new TRuntime();
-	ExplorerTool = new ElementExplorerTool();
+	ExplorerTool = new TElementExplorer();
 	ConsoleTool->Dialogue = &GlobalDialogue;
 	RuntimeTool->Dialogue = &GlobalDialogue;
 	ExplorerTool->Dialogue = &GlobalDialogue;
-	RuntimeTool->ActiveThreads.push_back(ConsoleTool);
 	GlobalContainer->Register(ConsoleTool, "console");
 	GlobalContainer->Register(RuntimeTool, "runtime");
 	GlobalContainer->Register(ExplorerTool, "explorer");

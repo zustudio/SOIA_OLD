@@ -4,7 +4,7 @@ subproject(ElementExplorer)
 	depends_on_projects(Environment Core_E Reflection)
 	depends_on_projects(Supervisor Core_S)
 
-add_PrivatePublic(ElementExplorerTool)
+add_PrivatePublic(TElementExplorer)
 end_sub()
 
 auto_add_shared_library()

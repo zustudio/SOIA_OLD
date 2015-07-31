@@ -4,6 +4,7 @@
 #include "VoidPointer.h"
 using namespace Environment;
 #include "ReflectionProviders.h"
+#include "RElement.h"
 
 const TypeID& VoidPointer::GetTypeID() const
 {
@@ -37,9 +38,14 @@ bool VoidPointer::IsNullPointer()
 
 bool VoidPointer::IsChildOf(const TypeID& InOther) const
 {
-	auto reflectionProv = GetElementReflectionProvider();
-	RClass* thisClass = reflectionProv->GetClass(Type.Dereference());
-	RClass* otherClass = reflectionProv->GetClass(InOther.Dereference());
-	return (thisClass && otherClass
+	RElement** pp_element = CastTo<RElement*>();
+	if (pp_element)
+	{
+		auto reflectionProv = GetElementReflectionProvider();
+		RClass* thisClass = (*pp_element)->GetClass();
+		RClass* otherClass = reflectionProv->GetClass(InOther.Dereference());
+		return (thisClass && otherClass
 			&& thisClass->IsChildOf(otherClass));
+	}
+	return false;
 }

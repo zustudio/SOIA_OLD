@@ -12,6 +12,8 @@ using namespace Supervisor;
 #include "StringMatch.h"
 #include "FileSystemProvider.h"
 #include "SaveFile.h"
+#include "LogProvider.h"
+#include "TConsole.h"
 
 TRuntime::TRuntime()
 	: BaseType(),
@@ -24,16 +26,57 @@ TRuntime::TRuntime()
 	ReflectAttributes();
 }
 
+bool TRuntime::cmd_run(TRuntime * const & InRuntime)
+{
+	for (auto threadElement : ActiveThreads)
+	{
+		Thread* thread = dynamic_cast<Thread*>(threadElement);
+		if (thread)
+		{
+			thread->Stop();
+		}
+	}
+	Dialogue->WriteLine("Press Enter to change console.");
+	InRuntime->Run();
+	return true;
+}
+
 void TRuntime::Run()
 {
+	LOGSTATUS("Searching for configured threads...");
+	int threadCount = 0;
 	for (RElement* activeThreadElement : ActiveThreads)
 	{
 		Thread* activeThread = dynamic_cast<Thread*>(activeThreadElement);
 		if (activeThread)
 		{
 			activeThread->Start();
+			threadCount++;
 		}
 	}
+	if (threadCount)
+	{
+		LOGSTATUS("Started " + std::to_string(threadCount) + " thread(s).");
+	}
+	else
+	{
+		LOGSTATUS("No threads were found. Searching for TConsole child classes in container '" + Container->GetID().Name + "'.");
+		auto consoles = Container->GetAllElements<TConsole>();
+		if (consoles.size())
+		{
+			auto console = consoles[0];
+			LOGSTATUS("Activating '" + console->GetID().Name + "'.");
+			ActiveThreads.push_back(console);
+			console->Start();
+			threadCount++;
+		}
+		else
+		{
+			LOG("No threads could be found, returning", Logger::Severity::Error);
+			return;
+		}
+	}
+
 	for (RElement* activeThreadElement : ActiveThreads)
 	{
 		Thread* activeThread = dynamic_cast<Thread*>(activeThreadElement);
@@ -63,11 +106,8 @@ bool TRuntime::cmd_typelist()
 
 bool TRuntime::cmd_type(TypeID & OutType, const std::string & InTypeName)
 {
-	std::vector<TypeID> reflectedAtoms = GetAtomReflectionProvider()->GetTypeList();
-	std::vector<TypeID> reflectedElements = GetElementReflectionProvider()->GetTypeList();
-	auto types = std::move(reflectedAtoms);
-	types.insert(types.end(), reflectedElements.begin(), reflectedElements.end());
-
+	std::vector<TypeID> types = GetElementReflectionProvider()->GetTypeList();
+	
 	std::vector<std::string> typeStrings;
 	for (auto type : types)
 	{
@@ -87,6 +127,7 @@ bool TRuntime::cmd_create(const TypeID & InType, const std::string& InName, RCon
 {
 	bool result = false;
 	RClass* objectClass = GetElementReflectionProvider()->GetClass(InType);
+	RContainer* targetContainer = InContainer;
 	if (objectClass)
 	{
 		RElement* object = objectClass->GetDefaultObject();
@@ -101,13 +142,25 @@ bool TRuntime::cmd_create(const TypeID & InType, const std::string& InName, RCon
 
 		if (name == "")
 			name = InType.ToEasyString();
-		if (Container == nullptr)
-			Container = GetContainer();
+		if (targetContainer == nullptr)
+			targetContainer = GetContainer();
 
-		Container->Register(object, name);
+		targetContainer->Register(object, name);
 		result = true;
 	}
 	return result;
+}
+
+bool TRuntime::cmd_rename(RElement* const& InElement, std::string const& InNewName)
+{
+	bool success = false;
+
+	if (InElement)
+	{
+		InElement->GetID().Name = InNewName;
+	}
+
+	return success;
 }
 
 bool TRuntime::cmd_gui(TTool * const & InTool)
@@ -140,7 +193,20 @@ bool TRuntime::cmd_changedir(const Directory & InDir)
 
 bool TRuntime::cmd_saveproject(Directory const& InDir)
 {
-	return SaveRecursive(InDir, GlobalContainer());
+	// get directory
+	Directory dir = InDir;
+	if (InDir.GetPath().ToString() == "")
+	{
+		dir = Directory(GetFileSystem()->GetExecutableDirectory().GetPath().AppendFolder("Pool").AppendFolder("Projects"));
+	}
+
+	// get project
+	Element_ID projectID;
+	projectID.UniqueIdentifier = 0;
+	RContainer* project = GlobalContainer()->GetElement<RContainer>(projectID);
+
+	// save
+	return SaveRecursive(dir, project);
 }
 
 bool TRuntime::SaveRecursive(Directory const & InDir, RElement* const& InElement)
@@ -167,13 +233,13 @@ bool TRuntime::SaveRecursive(Directory const & InDir, RElement* const& InElement
 
 bool TRuntime::SaveContainer(Directory const & InDir, RContainer * const & InContainer, Directory & OutContainerDir)
 {
-	std::string folderName = InContainer->GetID().Name + ".cont";
-	std::string fileName = InContainer->GetID().Name + ".elem";
+	std::string folderName = InContainer->GetID().Name;
+	std::string fileName = folderName + ".cont";
 	
 	OutContainerDir = Directory(InDir.GetPath().AppendFolder(folderName));
 	OutContainerDir.Create();
 
-	SaveFile file = SaveFile(InDir.GetPath().AppendFile(fileName));
+	SaveFile file = SaveFile(OutContainerDir.GetPath().AppendFile(fileName));
 	file.AddElement(InContainer, ESaveMode::Single);
 	file.Write();
 	return true;
