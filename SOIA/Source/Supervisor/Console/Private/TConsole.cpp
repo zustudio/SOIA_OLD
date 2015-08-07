@@ -13,9 +13,9 @@ TConsole::TConsole()
 	: BaseType(),
 	InputTokenizer(
 	{
-		TokenRule("([a-zA-Z0-9_\\.]+)", new TokenCollapseNone),
-		TokenRule("(\\()", new TokenCollapseParenthesis(EParenthesisType::Start)),
-		TokenRule("(\\))", new TokenCollapseParenthesis(EParenthesisType::End))
+		TokenRule(std::regex("([a-zA-Z0-9_\\.]+)"), std::make_shared<TokenCollapserNone>()),
+		TokenRule(std::regex("(\\()"), std::make_shared<TokenCollapserParenthesis>(EParenthesisType::Start)),
+		TokenRule(std::regex("(\\))"), std::make_shared<TokenCollapserParenthesis>(EParenthesisType::End))
 	}),
 	bExit(false)
 {
@@ -35,7 +35,7 @@ void TConsole::Main()
 		if (!input.empty())
 		{
 
-			Token* OutResult = nullptr;
+			std::list<Token*> OutResult;
 			std::vector<VoidPointer> OutArguments;
 			InputTokenizer.Tokenize(input, OutResult);
 			ExecuteCommands(OutResult, OutArguments);
@@ -74,20 +74,20 @@ void TConsole::Main()
 	}
 }
 
-bool TConsole::ExecuteCommands(Token* Input, std::vector<Environment::VoidPointer>& OutArguments)
+bool TConsole::ExecuteCommands(std::list<Token*> const & Input, std::vector<Environment::VoidPointer>& OutArguments)
 {
-	std::vector<Token*> subTokens = Input->GetSubTokens();
+	std::vector<Token*> tokens = std::vector<Token*>(Input.begin(), Input.end());
 	std::vector<std::string> inputs;
 	std::vector<VoidPointer> inputPointers;
-	int n = subTokens.size();
+	int n = tokens.size();
 	for (int i = 0; i < n; i++)
 	{
-		std::string singleInputString = subTokens[i]->Text;
-		bool bisFunction = subTokens[i]->GetSubTokens().size() > 0;
+		std::string singleInputString = tokens[i]->Text;
+		bool bisFunction = tokens[i]->GetSubTokens().size() > 0;
 		if (bisFunction)
 		{
 			std::vector<VoidPointer> outArguments;
-			bool subsuccess = ExecuteCommands(subTokens[i], outArguments);
+			bool subsuccess = ExecuteCommands(tokens[i]->GetSubTokens(), outArguments);
 			if (!subsuccess)
 				return subsuccess;
 				
@@ -95,7 +95,7 @@ bool TConsole::ExecuteCommands(Token* Input, std::vector<Environment::VoidPointe
 			int requestedArgument = 0; // TODO: parse number from input
 			if (requestedArgument >= outArguments.size())
 			{
-				Dialogue->WriteLine("Command '" + subTokens[i]->GetSubTokens()[0]->Text + "' does not have an argument no. "
+				Dialogue->WriteLine("Command '" + tokens[i]->GetSubTokenVector()[0]->Text + "' does not have an argument no. "
 					+ std::to_string(requestedArgument) + " to retrieve.");
 				return false;
 			}

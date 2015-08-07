@@ -16,7 +16,7 @@ namespace Supervisor
 		TConsole();
 
 		virtual void Main() override;
-		bool ExecuteCommands(Token*, std::vector<Environment::VoidPointer>& OutArguments);
+		bool ExecuteCommands(std::list<Token*> const & Input, std::vector<Environment::VoidPointer>& OutArguments);
 		bool ExecuteCommand(const std::string& InTarget, std::string& InCommand, std::vector<Environment::VoidPointer>& InOutArguments);
 
 		std::vector<std::string> GetArguments(const std::string& Input);

@@ -1,8 +1,10 @@
 
 #pragma once
 
+#include "TokenCollapserInterface.h"
+
 #include <string>
-#include <vector>
+#include <list>
 
 
 namespace Environment
@@ -12,18 +14,19 @@ namespace Environment
 	{
 	public:
 		
-		Token(const std::string& InText, Token* InParent, TokenRule* InRule);
+		Token(const std::string& InText, TokenCollapserInterface const * InCollapser);
 
-		void Move(Token* Target);
+		void Move(Token* InToken);
+		void Move(std::list<Token*> & InOutTargetList);
 		void Disable();
 
-		std::vector<Token*>& GetSubTokens();
+		std::list<Token*>& GetSubTokens();
+		std::vector<Token*> GetSubTokenVector();
 
-		TokenRule* Rule;
-
+		TokenCollapserInterface const * TokenCollapser;
 		std::string Text;
+		ContainerAwareIteratorSet<std::list<Token*>>* ContainerIteratorSet;
 	private:
-		Token* Parent;
-		std::vector<Token*> SubTokens;
+		std::list<Token*> SubTokens;
 	};
 }

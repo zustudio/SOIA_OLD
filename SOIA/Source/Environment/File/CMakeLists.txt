@@ -11,6 +11,8 @@ add_PrivatePublic(
 	PropertyTagFactory
 	SaveFile
 	TextFile)
+in_sub(Global)
+	add_PrivatePublic(FileSystemProvider)
 in_sub(System)
 	add_PrivatePublic(
 		FileSystem
@@ -27,8 +29,10 @@ in_sub(Platform_Windows Windows)
 		dirent)
 	add_PrivatePublic(
 		WindowsFileSystemAccess)
-in_sub(Global)
-	add_PrivatePublic(FileSystemProvider)
+in_sub(Serialization)
+	add_PrivatePublic(
+		ElementFile
+		ElementTokenizer)
 end_sub()
 
 auto_add_shared_library()

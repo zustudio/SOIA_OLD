@@ -9,63 +9,67 @@ using namespace Environment;
 #include <regex>
 #include <algorithm>
 
-TokenRule::TokenRule(const std::string & InTextRegex, TokenCollapseInterface * InTokenCollapse)
+
+
+TokenRule::TokenRule(std::regex const & InRegex, std::shared_ptr<TokenCollapserInterface> InTokenCollapser)
 	:
-	TextRegex(InTextRegex),
-	TokenCollapse(InTokenCollapse)
+	Regex(InRegex),
+	TokenCollapser(InTokenCollapser),
+	ParsedTokens()
+{}
+
+TokenRule::~TokenRule()
 {}
 
 void TokenRule::Clear()
 {
-	for (auto token : Tokens)
-	{
-		delete token;
-	}
-	Tokens.clear();
+	ParsedTokens.clear();
 }
 
-bool TokenRule::CreateToken(Iterators<std::string>& InTextIters, Token* InParent)
+bool TokenRule::ParseNextToken(ContainerAwareIteratorSet<std::string> & InTextIteratorSet, std::list<Token*> & OutTokenList)
 {
 	bool result = false;
 
-	std::regex regex(TextRegex);
-	auto match = std::smatch();
-	std::string text = std::string(InTextIters.Iterator, InTextIters.End);
+	std::string tokenText;
+	if (PeekNextToken(InTextIteratorSet, tokenText))
+	{
+		Token* token = new Token(tokenText, &*TokenCollapser);
+		ParsedTokens.push_back(token);
+		token->Move(OutTokenList);
+		InTextIteratorSet.Current += (int)tokenText.length();
+		
+		result = true;
+	}
 
-	if (std::regex_search(text, match, regex))
+	return result;
+}
+
+bool TokenRule::PeekNextToken(ContainerAwareIteratorSet<std::string> const & InTextIteratorSet, std::string & OutTokenText) const
+{
+	bool success = false;
+	OutTokenText = "";
+
+	auto match = std::smatch();
+	auto text = std::string(InTextIteratorSet.Current, InTextIteratorSet.End);
+
+	if (std::regex_search(text, match, Regex))
 	{
 		if (match.position() == 0)
 		{
-			Token* token = new Token(match[1], InParent, this);
-			Tokens.push_back(token);
-			InParent->GetSubTokens().push_back(token);
-			InTextIters.Iterator += (int)match.length();
-			result = true;
+			OutTokenText = match[1];
+			success = true;
 		}
 	}
-
-	return result;
+	return success;
 }
 
-bool TokenRule::CollapseSubTokens(Token* InParent)
+bool TokenRule::CollapseTokens()
 {
-	bool result = true;
-
-	std::vector<Token*>& globalTokens = InParent->GetSubTokens();
-
-	for (auto myToken : Tokens)
+	for (Token* token : ParsedTokens)
 	{
-		auto globalIter = std::find(globalTokens.begin(), globalTokens.end(), myToken);
-		if (globalIter == globalTokens.end()) 
-			continue;	//error?
-		Iterators<std::vector<Token*>> iterators = Iterators<std::vector<Token*>>(globalTokens, globalIter);
-		result &= TokenCollapse->Collapse(iterators);
-
-		//recursive call:
-		CollapseSubTokens(myToken);
+		TokenCollapser->Collapse(token);
 	}
 
-	return result;
+	return false;
 }
-
 

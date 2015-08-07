@@ -6,29 +6,43 @@ using namespace Environment;
 
 #include "TokenRule.h"
 
-Token::Token(const std::string & InText, Token* InParent, TokenRule* InRule)
+Token::Token(const std::string & InText, TokenCollapserInterface const * InCollapser)
 	:
-	Parent(InParent),
 	Text(InText),
-	Rule(InRule)
+	TokenCollapser(InCollapser),
+	ContainerIteratorSet(nullptr)
 {}
 
-void Token::Move(Token* Target)
+void Token::Move(Token * InToken)
 {
-	auto myIter = std::find(Parent->SubTokens.begin(), Parent->SubTokens.end(), this);
-	Parent->SubTokens.erase(myIter);
-	Target->SubTokens.push_back(this);
-	Parent = Target;
+	std::list<Token*> targetList = InToken->ContainerIteratorSet->Container;
+	Move(targetList);
+}
+
+void Token::Move(std::list<Token*> & InOutTargetList)
+{
+	if (ContainerIteratorSet)
+	{
+		std::list<Token*> oldList = ContainerIteratorSet->Container;
+		oldList.erase(ContainerIteratorSet->Current);
+		delete ContainerIteratorSet;
+	}
+
+	InOutTargetList.push_back(this);
+	ContainerIteratorSet = new ContainerAwareIteratorSet<std::list<Token*>>(InOutTargetList, --InOutTargetList.end());
 }
 
 void Token::Disable()
 {
-	auto myIter = std::find(Parent->SubTokens.begin(), Parent->SubTokens.end(), this);
-	Parent->SubTokens.erase(myIter);
-	Parent = nullptr;
+	ContainerIteratorSet->Container.erase(ContainerIteratorSet->Current);
 }
 
-std::vector<Token*>& Token::GetSubTokens()
+std::list<Token*>& Token::GetSubTokens()
 {
 	return SubTokens;
+}
+
+std::vector<Token*> Token::GetSubTokenVector()
+{
+	return std::vector<Token*>(SubTokens.begin(), SubTokens.end());
 }

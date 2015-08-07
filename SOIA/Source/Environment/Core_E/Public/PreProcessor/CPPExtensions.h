@@ -33,17 +33,27 @@ namespace Environment
 	}
 
 	template<typename Type>
-	struct Iterators
+	struct ContainerAwareIteratorSet
 	{
-		Iterators(Type& InVector, typename Type::iterator& InIterator)
+	public:
+		ContainerAwareIteratorSet(Type & InContainer, typename Type::iterator & InIterator)
 			:
-			Begin(InVector.begin()),
-			Iterator(InIterator),
-			End(InVector.end())
+			Begin(InContainer.begin()),
+			Current(InIterator),
+			End(InContainer.end()),
+			Container(InContainer)
+		{}
+		ContainerAwareIteratorSet(const ContainerAwareIteratorSet& InIteratorSet)
+			:
+			Begin(InIteratorSet.Begin),
+			Current(InIteratorSet.Current),
+			End(InIteratorSet.End),
+			Container(InIteratorSet.Container)
 		{}
 		typename Type::iterator Begin;
-		typename Type::iterator Iterator;
+		typename Type::iterator Current;
 		typename Type::iterator End;
+		Type & Container;
 	};
 
 	class LIBIMPEXP NOP

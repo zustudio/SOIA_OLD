@@ -4,13 +4,34 @@
 #include "Tokenizer.h"
 using namespace Environment;
 
+
 Tokenizer::Tokenizer(const std::vector<TokenRule>& InRules)
 	:
-	GlobalToken("GlobalToken", nullptr, nullptr),
-	Rules(InRules)
+	Rules(InRules),
+	Tokens()
 {}
 
-bool Tokenizer::Tokenize(std::string & InText, Token*& OutResult)
+bool Tokenizer::Tokenize(std::istream* InStream, TokenRule const& InStopTokenRule, std::list<Token*> & OutResult)
+{
+	std::string text;
+	
+	while (!InStream->eof())
+	{
+		/// read new character
+		char c = InStream->get();
+		text.push_back(c);
+
+		std::string peekedTokenText;
+		if (InStopTokenRule.PeekNextToken(ContainerAwareIteratorSet<std::string>(text, text.begin()), peekedTokenText))
+		{
+			break;
+		}
+	}
+
+	return Tokenize(text, OutResult);
+}
+
+bool Tokenizer::Tokenize(std::string & InText, std::list<Token*> & OutResult)
 {
 	bool result = false;
 
@@ -18,27 +39,31 @@ bool Tokenizer::Tokenize(std::string & InText, Token*& OutResult)
 	{
 		rule.Clear();
 	}
-	GlobalToken.GetSubTokens().clear();
-
-	auto textIters = Iterators<std::string>(InText, InText.begin());
-	while (textIters.Iterator != textIters.End)
+	for (Token* token : Tokens)
 	{
-		bool tokenMatched = false;
+		delete token;
+	}
+	Tokens.clear();
+
+	auto textIters = ContainerAwareIteratorSet<std::string>(InText, InText.begin());
+	while (textIters.Current != textIters.End)
+	{
+		bool tokenFound = false;
 		for (TokenRule& rule : Rules)
 		{
-			tokenMatched = rule.CreateToken(textIters, &GlobalToken);
-			if (tokenMatched)
+			tokenFound = rule.ParseNextToken(textIters, Tokens);
+			if (tokenFound)
 				break;
 		}
 
-		if (!tokenMatched)
-			textIters.Iterator++;
+		if (!tokenFound)
+			textIters.Current++;
 	}
 	for (TokenRule& rule : Rules)
 	{
-		rule.CollapseSubTokens(&GlobalToken);
+		rule.CollapseTokens();
 	}
-	OutResult = &GlobalToken;
+	OutResult = Tokens;
 
 	return result;
 }

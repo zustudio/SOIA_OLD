@@ -53,7 +53,7 @@ void SaveFile::Write()
 {
 	LOGSTATUS("Preparing writing to file...");
 	//PreWrite();
-	Open(EFileMode::Write);
+	Open(EFileMode::Append);
 	LOGSTATUS("Writing to file...");
 	for (VoidPointer p_Obj : Content)
 	{

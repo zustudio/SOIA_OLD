@@ -12,11 +12,11 @@ add_Public(
 	DialogueInterface)
 in_sub(Token)
 	add_Public(
-		TokenCollapseInterface)
+		TokenCollapserInterface)
 	add_PrivatePublic(
 		Token
-		TokenCollapseParenthesis
-		TokenCollapseNone
+		TokenCollapserParenthesis
+		TokenCollapserNone
 		TokenRule
 		Tokenizer)
 end_sub()

@@ -1,24 +1,34 @@
 
 #pragma once
 
+// include SOIA
 #include "Token.h"
 #include "TokenRule.h"
-#include "TokenCollapseNone.h"
-#include "TokenCollapseParenthesis.h"
+#include "TokenCollapserNone.h"
+#include "TokenCollapserParenthesis.h"
 
+// include std
+#include <list>
+
+// class
 namespace Environment
 {
 	class LIBIMPEXP Tokenizer
 	{
+		////////////////////////////////////////////////////////////////
+		// Functions
 	public:
+		//----- init -----
 		Tokenizer(const std::vector<TokenRule>& InRules);
 
-		bool Tokenize(std::string& InText, Token*& OutResult);
+		//----- public tokenizing -----
+		bool Tokenize(std::istream* InStream, TokenRule const& InStopTokenRule, std::list<Token*> & OutResult);
+		bool Tokenize(std::string& InText, std::list<Token*>& OutResult);
 
-		Token& GetResult();
-
+		////////////////////////////////////////////////////////////////
+		// Variables
 	private:
-		Token GlobalToken;
 		std::vector<TokenRule> Rules;
+		std::list<Token*> Tokens;
 	};
 }

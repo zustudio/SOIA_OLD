@@ -1,25 +1,40 @@
 
 #pragma once
 
-#include "TokenCollapseInterface.h"
+// include SOIA
+#include "TokenCollapserInterface.h"
 
+// include std
 #include <string>
 #include <vector>
+#include <list>
+#include <memory>
+#include <regex>
 
+// class
 namespace Environment
 {
 	class LIBIMPEXP TokenRule
 	{
+		////////////////////////////////////////////////////////////////
+		// Functions
 	public:
 
-		TokenRule(const std::string& InTextRegex, TokenCollapseInterface* InTokenCollapse);
+		//----- init -----
+		TokenRule(std::regex const & InRegex, std::shared_ptr<TokenCollapserInterface> InTokenCollapser);
+		virtual ~TokenRule();
 
+		//----- access -----
 		void Clear();
-		bool CreateToken(Iterators<std::string>& InTextIters, Token* Parent);
-		bool CollapseSubTokens(Token* Parent);
+		bool ParseNextToken(ContainerAwareIteratorSet<std::string>& InTextIterators, std::list<Token*> & OutTokenList);
+		bool PeekNextToken(ContainerAwareIteratorSet<std::string> const & InTextIterators, std::string & OutTokenText) const;
+		bool CollapseTokens();
 
-		std::vector<Token*> Tokens;
-		std::string TextRegex;
-		TokenCollapseInterface* TokenCollapse;
+		////////////////////////////////////////////////////////////////
+		// Variables
+	private:
+		std::regex Regex;
+		std::shared_ptr<TokenCollapserInterface> TokenCollapser;
+		std::vector<Token*> ParsedTokens;
 	};
 }
