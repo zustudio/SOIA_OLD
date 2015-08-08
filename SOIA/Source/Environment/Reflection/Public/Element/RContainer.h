@@ -81,9 +81,9 @@ namespace Environment
 			for (auto element : allElements)
 			{
 				auto p_foundAttribute = element->GetAttribute(InAttributeName);
-				if (!p_foundAttribute.IsNullPointer())
+				if (p_foundAttribute)
 				{
-					auto foundAttribute = p_foundAttribute.template CastTo<AttributeType>();
+					auto foundAttribute = p_foundAttribute->Get().template CastTo<AttributeType>();
 					if (foundAttribute)
 					{
 						result.push_back(element);

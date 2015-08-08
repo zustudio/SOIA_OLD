@@ -46,16 +46,21 @@ std::vector<std::string> RElement::GetAttributeNames()
 	return result;
 }
 
-VoidPointer RElement::GetAttribute(const std::string& InName)
+ObjectMirror* RElement::GetAttribute(const std::string& InName)
 {
 	for (auto mirror : AttributeMirrors)
 	{
 		if (mirror->GetName() == InName)
 		{
-			return mirror->Get();
+			return mirror;
 		}
 	}
-	return VoidPointer::Nullpointer();
+	return nullptr;
+}
+
+std::vector<ObjectMirror*> const & Environment::RElement::GetAttributes()
+{
+	return AttributeMirrors;
 }
 
 RClass* RElement::GetClass()

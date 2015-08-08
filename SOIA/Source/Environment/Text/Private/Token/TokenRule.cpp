@@ -11,7 +11,7 @@ using namespace Environment;
 
 
 
-TokenRule::TokenRule(std::regex const & InRegex, std::shared_ptr<TokenCollapserInterface> InTokenCollapser)
+TokenRule::TokenRule(std::regex const & InRegex, std::shared_ptr<TokenArityInterface> InTokenCollapser)
 	:
 	Regex(InRegex),
 	TokenCollapser(InTokenCollapser),
@@ -31,12 +31,13 @@ bool TokenRule::ParseNextToken(ContainerAwareIteratorSet<std::string> & InTextIt
 	bool result = false;
 
 	std::string tokenText;
-	if (PeekNextToken(InTextIteratorSet, tokenText))
+	int size = PeekNextToken(InTextIteratorSet, tokenText);
+	if (size)
 	{
 		Token* token = new Token(tokenText, &*TokenCollapser);
 		ParsedTokens.push_back(token);
 		token->Move(OutTokenList);
-		InTextIteratorSet.Current += (int)tokenText.length();
+		InTextIteratorSet.Current += size;
 		
 		result = true;
 	}
@@ -44,9 +45,9 @@ bool TokenRule::ParseNextToken(ContainerAwareIteratorSet<std::string> & InTextIt
 	return result;
 }
 
-bool TokenRule::PeekNextToken(ContainerAwareIteratorSet<std::string> const & InTextIteratorSet, std::string & OutTokenText) const
+int TokenRule::PeekNextToken(ContainerAwareIteratorSet<std::string> const & InTextIteratorSet, std::string & OutTokenText) const
 {
-	bool success = false;
+	int matchedCharCount = 0;
 	OutTokenText = "";
 
 	auto match = std::smatch();
@@ -57,10 +58,10 @@ bool TokenRule::PeekNextToken(ContainerAwareIteratorSet<std::string> const & InT
 		if (match.position() == 0)
 		{
 			OutTokenText = match[1];
-			success = true;
+			matchedCharCount = match[0].str().size();
 		}
 	}
-	return success;
+	return matchedCharCount;
 }
 
 bool TokenRule::CollapseTokens()

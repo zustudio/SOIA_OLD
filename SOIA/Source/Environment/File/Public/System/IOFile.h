@@ -14,7 +14,7 @@ namespace Environment
 		Append,
 		Overwrite
 	};
-	class IOFile : public File
+	class LIBIMPEXP IOFile : public File
 	{
 	public:
 		////////////////////////////////////////////////////////////////

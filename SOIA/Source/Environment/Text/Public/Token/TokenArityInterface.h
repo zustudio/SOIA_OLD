@@ -7,7 +7,7 @@ namespace Environment
 {
 	class Token;
 	
-	class TokenCollapserInterface
+	class TokenArityInterface
 	{
 	public:
 		virtual bool Collapse(Token* InToken) = 0;

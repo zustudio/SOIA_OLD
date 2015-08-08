@@ -7,15 +7,18 @@ using namespace Environment;
 
 #include "RContainer.h"
 #include "LogProvider.h"
+#include "TokenArity_Nullary.h"
+#include "TokenArity_Parenthesis.h"
+
 #include <regex>
 
 TConsole::TConsole()
 	: BaseType(),
 	InputTokenizer(
 	{
-		TokenRule(std::regex("([a-zA-Z0-9_\\.]+)"), std::make_shared<TokenCollapserNone>()),
-		TokenRule(std::regex("(\\()"), std::make_shared<TokenCollapserParenthesis>(EParenthesisType::Start)),
-		TokenRule(std::regex("(\\))"), std::make_shared<TokenCollapserParenthesis>(EParenthesisType::End))
+		TokenRule(std::regex("([a-zA-Z0-9_\\.]+)"), std::make_shared<TokenArity_Nullary>()),
+		TokenRule(std::regex("(\\()"), std::make_shared<TokenArity_Parenthesis>(EParenthesisType::Start)),
+		TokenRule(std::regex("(\\))"), std::make_shared<TokenArity_Parenthesis>(EParenthesisType::End))
 	}),
 	bExit(false)
 {
@@ -144,7 +147,7 @@ bool TConsole::ExecuteCommand(const std::string& InTarget, std::string& InComman
 		if (target)
 		{
 			auto p_attribute = target->GetAttribute(functionName);
-			if (!p_attribute.IsNullPointer() && p_attribute.CastTo<RFunction*>())
+			if (p_attribute && p_attribute->Get().CastTo<RFunction*>())
 			{
 				//targetArgs = std::vector<VoidPointer>(args.begin() + 2, args.end());
 			}
@@ -187,7 +190,7 @@ bool TConsole::ExecuteCommand(const std::string& InTarget, std::string& InComman
 	}
 	else
 	{
-		bool success = target->GetAttribute(functionName).CastAndDereference<RFunction*>()->CorrectArgsAndExecute(InOutArguments);
+		bool success = target->GetAttribute(functionName)->Get().CastAndDereference<RFunction*>()->CorrectArgsAndExecute(InOutArguments);
 		if (!success)
 		{
 			LOG("Command '" + functionName + "' returned false.", Logger::Severity::Warning);

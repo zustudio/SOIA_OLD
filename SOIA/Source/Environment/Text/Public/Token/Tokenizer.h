@@ -4,8 +4,6 @@
 // include SOIA
 #include "Token.h"
 #include "TokenRule.h"
-#include "TokenCollapserNone.h"
-#include "TokenCollapserParenthesis.h"
 
 // include std
 #include <list>

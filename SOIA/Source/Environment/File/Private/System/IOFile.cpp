@@ -16,25 +16,24 @@ IOFile::IOFile(Path const & InPath)
 bool IOFile::Open(EFileMode InMode)
 {
 	bool success = false;
-	std::fstream* stream = nullptr;
 	std::ios::fmtflags flags = 0;
 
 	switch (InMode)
 	{
 		case EFileMode::Overwrite:
-			OutStream = new std::ofstream();
-			stream = (std::fstream*)OutStream;
-			flags = std::ios::trunc;
+			flags = std::ios::trunc | std::ios::out;
+			OutStream = new std::ofstream(PathToFile.ToString(), flags);
+			success = OutStream->is_open();
 			break;
 		case EFileMode::Append:
-			OutStream = new std::ofstream();
-			stream = (std::fstream*)OutStream;
-			flags = std::ios::app;
+			flags = std::ios::app | std::ios::out;
+			OutStream = new std::ofstream(PathToFile.ToString(), flags);
+			success = OutStream->is_open();
 			break;
 		case EFileMode::Read:
-			InStream = new std::ifstream();
-			stream = (std::fstream*)InStream;
-			flags = 0;
+			flags = std::ios::in;
+			InStream = new std::ifstream(PathToFile.ToString(), flags);
+			success = InStream->is_open();
 			break;
 		case EFileMode::Closed:
 			break;
@@ -42,18 +41,13 @@ bool IOFile::Open(EFileMode InMode)
 			break;
 	}
 
-	if (stream)
+	if (success == true)
 	{
-		stream->open(PathToFile.ToString(), flags);
-		if (OutStream->is_open())
-		{
-			LOGSTATUS("Opened file '" + PathToFile.ToString() + "'.");
-			success = true;
-		}
-		else
-		{
-			LOG("Could not open file '" + PathToFile.ToString() + "'.", Logger::Severity::Error);
-		}
+		LOGSTATUS("Opened file '" + PathToFile.ToString() + "'.");
+	}
+	else
+	{
+		LOG("Could not open file '" + PathToFile.ToString() + "'.", Logger::Severity::Error);
 	}
 	return success;
 }

@@ -44,7 +44,8 @@ namespace Environment
 		bool LoadReflection(const ElementReflection& InReflection, bool bIsPartial);
 
 		std::vector<std::string> GetAttributeNames();
-		VoidPointer GetAttribute(const std::string& InName);
+		ObjectMirror* GetAttribute(const std::string& InName);
+		std::vector<ObjectMirror*> const & GetAttributes();
 
 		virtual RClass* GetClass();
 		static RClass* StaticClass();

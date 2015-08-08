@@ -33,7 +33,7 @@ bool Tokenizer::Tokenize(std::istream* InStream, TokenRule const& InStopTokenRul
 
 bool Tokenizer::Tokenize(std::string & InText, std::list<Token*> & OutResult)
 {
-	bool result = false;
+	bool result = true;
 
 	for (TokenRule& rule : Rules)
 	{

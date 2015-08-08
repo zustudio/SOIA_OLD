@@ -1,20 +1,20 @@
 
 #include "Definitions.h"
 
-#include "TokenCollapserParenthesis.h"
+#include "TokenArity_Parenthesis.h"
 using namespace Environment;
 
 #include "Token.h"
 #include "TokenRule.h"
 
-TokenCollapserParenthesis::TokenCollapserParenthesis(EParenthesisType InType, int InID)
+TokenArity_Parenthesis::TokenArity_Parenthesis(EParenthesisType InType, int InID)
 	:
 	Type(InType),
 	ID(InID)
 {
 }
 
-bool TokenCollapserParenthesis::Collapse(Token* InToken)
+bool TokenArity_Parenthesis::Collapse(Token* InToken)
 {
 	if (Type == EParenthesisType::End)
 		return true;
@@ -29,7 +29,7 @@ bool TokenCollapserParenthesis::Collapse(Token* InToken)
 	for (iter_currentToken; iter_currentToken != tokenIteratorSet.End; iter_currentToken++)
 	{
 		Token* currentToken = *iter_currentToken;
-		TokenCollapserParenthesis const * collapseParenthesis = dynamic_cast<TokenCollapserParenthesis const *>(currentToken->TokenCollapser);
+		TokenArity_Parenthesis const * collapseParenthesis = dynamic_cast<TokenArity_Parenthesis const *>(currentToken->TokenCollapser);
 		if (collapseParenthesis && collapseParenthesis->ID == ID)
 		{
 			switch (collapseParenthesis->Type)
@@ -56,11 +56,18 @@ bool TokenCollapserParenthesis::Collapse(Token* InToken)
 		auto iter_parenContentBegin = tokenIteratorSet.Current;
 		auto iter_parenContentEnd = iter_currentToken;
 		iter_parenContentBegin++;
+		std::vector<Token*> tokensToMove;
 
 		for (auto iter_subToken = iter_parenContentBegin; iter_subToken != iter_parenContentEnd; iter_subToken++)
 		{
-			(*iter_subToken)->Move(*tokenIteratorSet.Current);
+			tokensToMove.push_back(*iter_subToken);
 		}
+		for (Token* tokenToMove : tokensToMove)
+		{
+			tokenToMove->Move(*tokenIteratorSet.Current);
+		}
+		(*iter_parenContentEnd)->Disable();
+
 		result = true;
 	}
 

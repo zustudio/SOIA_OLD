@@ -88,21 +88,21 @@ bool TElementExplorer::cmd_attrlist(RElement* const & InElementName, std::string
 			for (auto attributeName : attributeNames)
 			{
 				auto attribute = InElementName->GetAttribute(attributeName);
-				Dialogue->WriteLine(attributeName + " \t(" + attribute.GetTypeID().ToEasyString() + ")");
+				Dialogue->WriteLine(attributeName + " \t(" + attribute->ObjectType().ToEasyString() + ")");
 			}
 			result = true;
 		}
 		else
 		{
-			auto attribute = InElementName->GetAttribute(InAttributeName);
-			if (!attribute.IsNullPointer())
+			ObjectMirror* attributeMirror = InElementName->GetAttribute(InAttributeName);
+			if (attributeMirror)
 			{
 				// try to convert 
-				auto converter = GetAtomReflectionProvider()->GetReflection(attribute.GetTypeID());
+				auto converter = GetAtomReflectionProvider()->GetReflection(attributeMirror->ObjectType());
 				std::string value;
 				if (converter)
 				{
-					value = converter->ObjectToString(attribute);
+					value = converter->ObjectToString(attributeMirror->Get());
 				}
 				else
 				{
@@ -111,9 +111,9 @@ bool TElementExplorer::cmd_attrlist(RElement* const & InElementName, std::string
 
 				// get arguments if functioninterface
 				std::string argumentTypes;
-				if (attribute.GetTypeID().Decay() == TypeID::FromType<RFunction*>())
+				if (attributeMirror->ObjectType().Decay() == TypeID::FromType<RFunction*>())
 				{
-					RFunction* function = attribute.CastAndDereference<RFunction*>();
+					RFunction* function = attributeMirror->Get().CastAndDereference<RFunction*>();
 					auto v_argumentTypes = function->GetArgumentTypes();
 					for (auto argumentType : v_argumentTypes)
 					{
@@ -122,7 +122,7 @@ bool TElementExplorer::cmd_attrlist(RElement* const & InElementName, std::string
 				}
 
 				// write it out
-				Dialogue->WriteLine("Type: \n\t\t" + attribute.GetTypeID().ToEasyString());
+				Dialogue->WriteLine("Type: \n\t\t" + attributeMirror->ObjectType().ToEasyString());
 				if (argumentTypes == "")
 					Dialogue->WriteLine("Value: \t" + value);
 				else
@@ -130,7 +130,7 @@ bool TElementExplorer::cmd_attrlist(RElement* const & InElementName, std::string
 			}
 			else
 			{
-				Dialogue->WriteLine("Could not find attribute named '" + InAttributeName + "'.");
+				Dialogue->WriteLine("Could not find attributeMirror named '" + InAttributeName + "'.");
 			}
 		}
 	}
@@ -146,7 +146,7 @@ bool TElementExplorer::cmd_func(RFunction *& OutFunction, RElement * const & InE
 	auto p_Func = InElement->GetAttribute(InFuncName);
 	if (p_Func)
 	{
-		OutFunction = p_Func.CastAndDereference<RFunction*>();
+		OutFunction = p_Func->Get().CastAndDereference<RFunction*>();
 
 		Dialogue->WriteLine("Found function: " + InFuncName);
 		return true;

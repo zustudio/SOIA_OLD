@@ -11,7 +11,7 @@ using namespace Supervisor;
 #include "RGUI.h"
 #include "StringMatch.h"
 #include "FileSystemProvider.h"
-#include "SaveFile.h"
+#include "ElementFile.h"
 #include "LogProvider.h"
 #include "TConsole.h"
 
@@ -239,18 +239,20 @@ bool TRuntime::SaveContainer(Directory const & InDir, RContainer * const & InCon
 	OutContainerDir = Directory(InDir.GetPath().AppendFolder(folderName));
 	OutContainerDir.Create();
 
-	SaveFile file = SaveFile(OutContainerDir.GetPath().AppendFile(fileName));
-	file.AddElement(InContainer, ESaveMode::Single);
-	file.Write();
+	ElementFile file = ElementFile(OutContainerDir.GetPath().AppendFile(fileName));
+	file.Open(EFileMode::Overwrite);
+	file.WriteSingle(InContainer, EElementSelectionMode::Single);
+	file.Close();
 	return true;
 }
 
 bool TRuntime::SaveElement(Directory const & InDir, RElement * const & InElement)
 {
 	std::string fileName = InElement->GetID().Name + ".elem";
-	SaveFile file = SaveFile(InDir.GetPath().AppendFile(fileName));
-	file.AddElement(InElement, ESaveMode::Recursive);
-	file.Write();
+	ElementFile file = ElementFile(InDir.GetPath().AppendFile(fileName));
+	file.Open(EFileMode::Overwrite);
+	file.WriteSingle(InElement, EElementSelectionMode::Single);
+	file.Close();
 	return true;
 }
 
@@ -264,7 +266,7 @@ bool TRuntime::cmd_loadproject(Directory const & InDir)
 bool TRuntime::LoadRecursive(Directory const & InDir, std::vector<RElement*>& OutAllElements)
 {
 	std::vector<Directory> subDirectories = InDir.GetSubDirectories();
-	std::vector<SaveFile> files = InDir.GetFiles<SaveFile>();
+	std::vector<ElementFile> files = InDir.GetFiles<ElementFile>();
 
 	for (Directory subDirectory : subDirectories)
 	{
@@ -272,7 +274,7 @@ bool TRuntime::LoadRecursive(Directory const & InDir, std::vector<RElement*>& Ou
 		std::vector<RElement*> subElements;
 		std::string containerElemFileName = subDirectory.GetPath().GetBaseName();
 		auto iter_containerElemFile = Find(files, containerElemFileName, 
-		[](const SaveFile& InSaveFile) -> std::string
+		[](const ElementFile& InSaveFile) -> std::string
 		{
 			return InSaveFile.GetPath().GetBaseName();
 		});
@@ -280,13 +282,13 @@ bool TRuntime::LoadRecursive(Directory const & InDir, std::vector<RElement*>& Ou
 		if (iter_containerElemFile != files.end())
 		{
 			LoadRecursive(subDirectory, subElements);
-			LoadContainer(const_cast<SaveFile&>(*iter_containerElemFile), subElements, container);
+			LoadContainer(const_cast<ElementFile&>(*iter_containerElemFile), subElements, container);
 			files.erase(iter_containerElemFile);
 			OutAllElements.push_back(container);
 		}
 	}
 
-	for (SaveFile file : files)
+	for (ElementFile file : files)
 	{
 		RElement* OutElement = nullptr;
 		LoadElement(file, OutElement);
@@ -296,17 +298,17 @@ bool TRuntime::LoadRecursive(Directory const & InDir, std::vector<RElement*>& Ou
 	return true;
 }
 
-bool TRuntime::LoadContainer(SaveFile& InSaveFile, std::vector<RElement*> const & InChildren, RContainer *& OutContainer)
+bool TRuntime::LoadContainer(ElementFile& InSaveFile, std::vector<RElement*> const & InChildren, RContainer *& OutContainer)
 {
-	InSaveFile.Read();
-	OutContainer = dynamic_cast<RContainer*>(InSaveFile.GetElement(0, InChildren));
+	InSaveFile.Open(EFileMode::Read);
+	OutContainer = dynamic_cast<RContainer*>(InSaveFile.ReadSingle());
 	return bool(OutContainer);
 }
 
-bool TRuntime::LoadElement(SaveFile& InSaveFile, RElement *& OutElement)
+bool TRuntime::LoadElement(ElementFile& InSaveFile, RElement *& OutElement)
 {
-	InSaveFile.Read();
-	OutElement = InSaveFile.GetElement(0, {});
+	InSaveFile.Open(EFileMode::Read);
+	OutElement = InSaveFile.ReadSingle();
 	return true;
 }
 

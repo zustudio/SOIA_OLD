@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "TokenCollapserInterface.h"
+#include "TokenArityInterface.h"
 
 namespace Environment
 {
@@ -10,10 +10,10 @@ namespace Environment
 		Start,
 		End
 	};
-	class LIBIMPEXP TokenCollapserParenthesis : public TokenCollapserInterface
+	class LIBIMPEXP TokenArity_Parenthesis : public TokenArityInterface
 	{
 	public:
-		TokenCollapserParenthesis(EParenthesisType InType, int InID = 0);
+		TokenArity_Parenthesis(EParenthesisType InType, int InID = 0);
 
 		virtual bool Collapse(Token* InToken) override;
 

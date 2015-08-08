@@ -6,7 +6,7 @@ using namespace Environment;
 
 #include "TokenRule.h"
 
-Token::Token(const std::string & InText, TokenCollapserInterface const * InCollapser)
+Token::Token(const std::string & InText, TokenArityInterface const * InCollapser)
 	:
 	Text(InText),
 	TokenCollapser(InCollapser),
@@ -15,16 +15,14 @@ Token::Token(const std::string & InText, TokenCollapserInterface const * InColla
 
 void Token::Move(Token * InToken)
 {
-	std::list<Token*> targetList = InToken->ContainerIteratorSet->Container;
-	Move(targetList);
+	Move(InToken->GetSubTokens());
 }
 
 void Token::Move(std::list<Token*> & InOutTargetList)
 {
 	if (ContainerIteratorSet)
 	{
-		std::list<Token*> oldList = ContainerIteratorSet->Container;
-		oldList.erase(ContainerIteratorSet->Current);
+		ContainerIteratorSet->Container.erase(ContainerIteratorSet->Current);
 		delete ContainerIteratorSet;
 	}
 

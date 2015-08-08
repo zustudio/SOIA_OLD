@@ -31,6 +31,10 @@ namespace Environment
 				return false;
 			}
 		}
+		virtual TypeID ObjectType()
+		{
+			return TypeID::FromType<Type>();
+		}
 		Type* ObjectToMirror;
 	};
 }

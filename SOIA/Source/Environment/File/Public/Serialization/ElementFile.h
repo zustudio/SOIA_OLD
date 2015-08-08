@@ -4,6 +4,7 @@
 #include "IOFile.h"
 
 #include "RElement.h"
+#include "Tokenizer.h"
 
 namespace Environment
 {
@@ -13,12 +14,11 @@ namespace Environment
 		Recursive
 	};
 
-	class ElementFile : public IOFile
+	class LIBIMPEXP ElementFile : public IOFile
 	{
-	public:
 		////////////////////////////////////////////////////////////////
 		// Functions
-
+	public:
 		//----- init -----
 		ElementFile(Path const& InPath);
 
@@ -29,5 +29,11 @@ namespace Environment
 		//----- Reading from file -----
 		RElement* ReadSingle();
 		std::vector<RElement*> ReadMultiple(int InCount);
+
+		////////////////////////////////////////////////////////////////
+		// Variables
+	private:
+		//----- tokenization -----
+		Tokenizer ElementTokenizer;
 	};
 }

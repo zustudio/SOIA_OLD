@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "TokenCollapserInterface.h"
+#include "TokenArityInterface.h"
 
 #include <string>
 #include <list>
@@ -14,7 +14,7 @@ namespace Environment
 	{
 	public:
 		
-		Token(const std::string& InText, TokenCollapserInterface const * InCollapser);
+		Token(const std::string& InText, TokenArityInterface const * InCollapser);
 
 		void Move(Token* InToken);
 		void Move(std::list<Token*> & InOutTargetList);
@@ -23,7 +23,7 @@ namespace Environment
 		std::list<Token*>& GetSubTokens();
 		std::vector<Token*> GetSubTokenVector();
 
-		TokenCollapserInterface const * TokenCollapser;
+		TokenArityInterface const * TokenCollapser;
 		std::string Text;
 		ContainerAwareIteratorSet<std::list<Token*>>* ContainerIteratorSet;
 	private:
