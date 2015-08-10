@@ -13,8 +13,8 @@ namespace Environment
 	{
 	public:
 		FunctionCache();
-		bool GetCachedFunctionCall(const Element_ID &InFunction, double InOperand0, double &OutResult);
-		void CacheFunctionCall(const Element_ID &InFunction, double InOperand0, double InResult);
+		bool GetCachedFunctionCall(const ElementID &InFunction, double InOperand0, double &OutResult);
+		void CacheFunctionCall(const ElementID &InFunction, double InOperand0, double InResult);
 		void Clear();
 
 		bool DoublesEqual(const double& InA, const double& InB);

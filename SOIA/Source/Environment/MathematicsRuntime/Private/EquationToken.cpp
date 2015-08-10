@@ -89,7 +89,7 @@ void EquationToken::CollapseOperands(int& InMyPosition, std::deque<EquationToken
 	}
 }
 
-Element_ID EquationToken::rec_RegisterToken(MathContainer* InRuntime)
+ElementID EquationToken::rec_RegisterToken(MathContainer* InRuntime)
 {
 	//special operand rule for seperators
 	for (int i = Operands.size() - 1; i >= 0; i--)
@@ -125,10 +125,10 @@ Element_ID EquationToken::rec_RegisterToken(MathContainer* InRuntime)
 	}
 
 	// get ids of my operands
-	std::vector<Element_ID> operandIDs;
+	std::vector<ElementID> operandIDs;
 	for (auto operand : Operands)
 	{
-		Element_ID operandID = operand->rec_RegisterToken(InRuntime);
+		ElementID operandID = operand->rec_RegisterToken(InRuntime);
 		operandIDs.push_back(operandID);
 	}
 
@@ -184,7 +184,7 @@ Element_ID EquationToken::rec_RegisterToken(MathContainer* InRuntime)
 		else
 		{
 			std::cout << "could not find variable " << String << std::endl;
-			return Element_ID();
+			return ElementID();
 		}
 	}
 	case TokenType::Function:
@@ -192,7 +192,7 @@ Element_ID EquationToken::rec_RegisterToken(MathContainer* InRuntime)
 		Value* foundFunction = InRuntime->GetElement<Value>(String);
 		if (foundFunction)
 		{
-			std::vector<Element_ID> arguments;
+			std::vector<ElementID> arguments;
 			arguments.push_back(foundFunction->GetID());
 			arguments.push_back(operandIDs[0]);
 			return InRuntime->Register(new OP_CalculateFunction(InRuntime->FuncCache, arguments));
@@ -206,19 +206,19 @@ Element_ID EquationToken::rec_RegisterToken(MathContainer* InRuntime)
 			else
 			{
 				std::cout << "could not find function " << String << std::endl;
-				return Element_ID();
+				return ElementID();
 			}
 		}
 	}
 	case TokenType::FunctionArgument0:
 	{
-		Element_ID id;
+		ElementID id;
 		id.UniqueIdentifier = 0;
 		return id;
 	}
 	default:
 	{
-		Element_ID id;
+		ElementID id;
 		return id;
 	}
 	}

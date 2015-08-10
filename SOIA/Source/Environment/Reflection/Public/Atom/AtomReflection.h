@@ -2,7 +2,7 @@
 #pragma once
 
 #include "VoidPointer.h"
-#include "Element_ID.h"
+#include "ElementID.h"
 
 namespace Environment
 {
@@ -22,7 +22,7 @@ namespace Environment
 		virtual std::vector<RElement*> ObjectToRElements(VoidPointer& InObject);
 		static std::string GetAtomString(const VoidPointer& InAtom);
 		static VoidPointer* GetAtomObject(const std::string& InString, const TypeID& InType);
-		static RElement* GetElementByID(const Element_ID& InID, RContainer* InContainer);
+		static RElement* GetElementByID(const ElementID& InID, RContainer* InContainer);
 		RClass* GetReflectedClass(const TypeID& InID);
 	};
 }

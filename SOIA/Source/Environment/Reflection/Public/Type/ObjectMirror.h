@@ -9,11 +9,11 @@ namespace Environment
 	{
 	public:
 		explicit ObjectMirror(const std::string& InName);
-		virtual VoidPointer Get() = 0;
-		virtual bool SetIfTypesMatch(const VoidPointer& InPointer) = 0;
+
+		virtual VoidPointer Object() = 0;
 		virtual TypeID ObjectType() = 0;
-		std::string& GetName();
-	protected:
+		virtual bool SetIfTypesMatch(const VoidPointer& InPointer) = 0;
+
 		std::string Name;
 	};
 }

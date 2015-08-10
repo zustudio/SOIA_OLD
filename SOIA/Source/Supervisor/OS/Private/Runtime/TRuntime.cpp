@@ -201,7 +201,7 @@ bool TRuntime::cmd_saveproject(Directory const& InDir)
 	}
 
 	// get project
-	Element_ID projectID;
+	ElementID projectID;
 	projectID.UniqueIdentifier = 0;
 	RContainer* project = GlobalContainer()->GetElement<RContainer>(projectID);
 

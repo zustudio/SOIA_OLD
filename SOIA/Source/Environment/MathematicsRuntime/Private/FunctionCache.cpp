@@ -11,12 +11,12 @@ FunctionCache::FunctionCache() : BaseType(Range<int>(0,100000))
 {
 }
 
-void FunctionCache::CacheFunctionCall(const Element_ID &InFunction, double InOperand0, double InResult)
+void FunctionCache::CacheFunctionCall(const ElementID &InFunction, double InOperand0, double InResult)
 {
 	Register(new FunctionCacheItem(InFunction, InOperand0, InResult));
 }
 
-bool FunctionCache::GetCachedFunctionCall(const Element_ID &InFunction, double InOperand0, double &OutResult)
+bool FunctionCache::GetCachedFunctionCall(const ElementID &InFunction, double InOperand0, double &OutResult)
 {
 	bool result = false;
 	for (RElement* element : Objects)

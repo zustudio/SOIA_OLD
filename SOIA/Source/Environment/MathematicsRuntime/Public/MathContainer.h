@@ -14,15 +14,15 @@ namespace Environment
 	public:
 		MathContainer();
 
-		/*Element_ID& DefineValue(Value*);
-		Element_ID RedefineValue(const Element_ID&, Value*);*/
-		double CalculateValue(const Element_ID &InID);
+		/*ElementID& DefineValue(Value*);
+		ElementID RedefineValue(const ElementID&, Value*);*/
+		double CalculateValue(const ElementID &InID);
 		double CalculateValue(const std::string& InName);
-		void SetValueName(const Element_ID &InID, const std::string &InName);
+		void SetValueName(const ElementID &InID, const std::string &InName);
 
-		/*double CalculateFunction(const Element_ID &InID);*/
+		/*double CalculateFunction(const ElementID &InID);*/
 
-		//Element_ID FreeID;
+		//ElementID FreeID;
 		//std::vector<Value*> DefinedValues;
 		FunctionCache* FuncCache;
 	};

@@ -34,7 +34,7 @@ namespace Environment
 		explicit EquationToken(const std::string& InString);
 		void CollapseOperands(int& InMyPosition, std::deque<EquationToken*>& InAllTokens);
 
-		Element_ID rec_RegisterToken(MathContainer* InRuntime);
+		ElementID rec_RegisterToken(MathContainer* InRuntime);
 
 
 		std::string String;

@@ -3,7 +3,7 @@
 
 #include "D1D1FunctionInterface.h"
 
-#include "Element_ID.h"
+#include "ElementID.h"
 
 namespace Environment
 {
@@ -12,14 +12,14 @@ namespace Environment
 	class LIBIMPEXP D1D1GenericFunction : public D1D1FunctionInterface
 	{
 	public:
-		D1D1GenericFunction(MathContainer* InRuntime, const Element_ID &InFunction);
+		D1D1GenericFunction(MathContainer* InRuntime, const ElementID &InFunction);
 		virtual double Calculate(double x) override;
-		Element_ID GetFunctionID();
+		ElementID GetFunctionID();
 
 	private:
 		MathContainer* MathRuntime;
-		Element_ID Function;
-		Element_ID FunctionCall;
+		ElementID Function;
+		ElementID FunctionCall;
 		Constant* FunctionArgument0;
 	};
 }

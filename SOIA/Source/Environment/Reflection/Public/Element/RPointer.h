@@ -16,11 +16,11 @@ namespace Environment
 		RPointer(RElementClass* InElement)
 			:
 			TargetElement(InElement),
-			TargetID(InElement ? InElement->GetID() : Element_ID()),
+			TargetID(InElement ? InElement->GetID() : ElementID()),
 			TargetContainer(InElement ? InElement->GetContainer() : nullptr)
 		{}
 
-		explicit RPointer(Element_ID InID, RContainer* InContainer = nullptr)
+		explicit RPointer(ElementID InID, RContainer* InContainer = nullptr)
 			:
 			TargetElement(nullptr),
 			TargetContainer(InContainer),
@@ -48,13 +48,13 @@ namespace Environment
 		}
 
 		RElementClass* TargetElement;
-		Element_ID TargetID;
+		ElementID TargetID;
 		RContainer* TargetContainer;
 
 
 		static RPointer FromString(const std::string& InString)
 		{
-			Element_ID id;
+			ElementID id;
 			id.UniqueIdentifier = std::atoi(InString.c_str());
 			return RPointer(id);
 		}

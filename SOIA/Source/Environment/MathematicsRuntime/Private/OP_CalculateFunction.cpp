@@ -10,7 +10,7 @@ using namespace Environment;
 #include <assert.h>
 #include <iostream>
 
-OP_CalculateFunction::OP_CalculateFunction(FunctionCache *InFuncCache, const std::vector<Element_ID> &InOperands) : BaseType(InOperands)
+OP_CalculateFunction::OP_CalculateFunction(FunctionCache *InFuncCache, const std::vector<ElementID> &InOperands) : BaseType(InOperands)
 {
 	FuncCache = InFuncCache;
 }

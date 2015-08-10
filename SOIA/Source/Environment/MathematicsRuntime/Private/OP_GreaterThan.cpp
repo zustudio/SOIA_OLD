@@ -6,7 +6,7 @@ using namespace Environment;
 
 #include <assert.h>
 
-OP_GreaterThan::OP_GreaterThan(const std::vector<Element_ID> &InOperands) : BaseType(InOperands)
+OP_GreaterThan::OP_GreaterThan(const std::vector<ElementID> &InOperands) : BaseType(InOperands)
 {
 
 }

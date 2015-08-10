@@ -9,8 +9,8 @@ namespace Environment
 	class FunctionCacheItem : public FunctionCacheItem_Base
 	{
 		RCLASS_BEGIN()
-		FunctionCacheItem(const Element_ID &InID = Element_ID(), const double &Inoperand0 = 0, const double &InResult = 0);
-		Element_ID CalledFunction;
+		FunctionCacheItem(const ElementID &InID = ElementID::DefaultObject(), const double &Inoperand0 = 0, const double &InResult = 0);
+		ElementID CalledFunction;
 		RPROPERTY(Operand0)
 			double Operand0;
 		RPROPERTY(Result)

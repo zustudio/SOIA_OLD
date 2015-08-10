@@ -2,7 +2,7 @@
 #pragma once
 
 #include "ResolveInfoInterface.h"
-#include "Element_ID.h"
+#include "ElementID.h"
 
 namespace Environment
 {
@@ -10,11 +10,11 @@ namespace Environment
 	class LIBIMPEXP ResolvePointerInfo : public ResolveInfoInterface
 	{
 	public:
-		ResolvePointerInfo(Element_ID InID, RContainer* InContainer);
+		ResolvePointerInfo(ElementID InID, RContainer* InContainer);
 
 		virtual void OverrideContainer(RContainer*) override;
 
-		Element_ID TargetElementID;
+		ElementID TargetElementID;
 		RContainer* TargetElementContainer;
 	};
 }

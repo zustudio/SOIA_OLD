@@ -18,7 +18,7 @@ D1D1GenericFunction EquationString::Parse(MathContainer& InRuntime)
 	EquationToken* mainToken = tokens.GenerateOperandDependency();
 	if (mainToken)
 	{
-		Element_ID topValue;
+		ElementID topValue;
 		topValue = mainToken->rec_RegisterToken(&InRuntime);
 		return D1D1GenericFunction(&InRuntime, topValue);
 	}

@@ -6,7 +6,9 @@
 
 #pragma once
 
-#include "Element_ID.h"
+#include "RElementBase.h"
+
+#include "ElementID.h"
 #include "ElementReflection.h"
 #include "ElementReflectionProvider.h"
 #include "RClassTemplate.h"
@@ -16,47 +18,67 @@
 #include "ReflectionMacros.h"
 
 
-#define RCLASSDEF(ClassType,SuperClassType) \
-RCLASS(ClassType,SuperClassType) \
-class LIBIMPEXP ClassType : public ClassType##_Base
-
 namespace Environment
 {
 	class RContainer;
-	class LIBIMPEXP RElement
+
+	struct ElementRegistrationInfo
+	{
+		ElementRegistrationInfo(RContainer* InContainer, ElementID const & InID, std::string const & InName)
+			:
+			Container(InContainer),
+			ID(InID),
+			Name(InName)
+		{}
+
+		RContainer* Container;
+		ElementID const & ID;
+		std::string const & Name;
+	};
+
+	RCLASS(RElement,RElementBase)
+	class LIBIMPEXP RElement : public RElement_Base
 	{
 		friend RContainer;
 
 		RCLASS_BEGIN()
-		using Super = RElement;
-		using Type = RElement;
-		using BaseType = RElement;
 
+		////////////////////////////////////////////////////////////////
+		// Functions
+
+		//------------------------------
+		//--- Init
 	public:
 		RElement();
 		virtual ~RElement();
 
-		virtual void SetID(Element_ID InID);
-		Element_ID& GetID();
-		RContainer* GetContainer();
+		//------------------------------
+		//--- Container interaction
+	private:
+		virtual void Registered(ElementRegistrationInfo const & InInfo);
 
-		ElementReflection CreateReflection();
-		bool LoadReflection(const ElementReflection& InReflection, bool bIsPartial);
+		//------------------------------
+		//--- Access
+	public:
+		ElementID& GetID();
+		RContainer* GetContainer();
 
 		std::vector<std::string> GetAttributeNames();
 		ObjectMirror* GetAttribute(const std::string& InName);
-		std::vector<ObjectMirror*> const & GetAttributes();
+		std::vector<ObjectMirror*> const GetAttributes();
 
-		virtual RClass* GetClass();
-		static RClass* StaticClass();
 
+		////////////////////////////////////////////////////////////////
+		// Variables
 	protected:
+
 		RContainer* Container;
 
 		RPROPERTY(ID)
-			Element_ID ID;
+			ElementID ID;
 
-		std::vector<ObjectMirror*> AttributeMirrors;
+		RPROPERTY(Name)
+			std::string Name;
 
 		RCLASS_END()
 	};

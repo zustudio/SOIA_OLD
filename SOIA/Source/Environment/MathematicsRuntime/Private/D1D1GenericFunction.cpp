@@ -10,7 +10,7 @@ using namespace Environment;
 
 #include <iostream>
 
-D1D1GenericFunction::D1D1GenericFunction(MathContainer* InRuntime, const Element_ID &InFunction)
+D1D1GenericFunction::D1D1GenericFunction(MathContainer* InRuntime, const ElementID &InFunction)
 {
 	MathRuntime = InRuntime;
 	Function = InFunction;
@@ -24,7 +24,7 @@ double D1D1GenericFunction::Calculate(double x)
 	double result;
 
 	FunctionArgument0->myValue = x;
-	MathRuntime->ReRegister(FunctionCall, new OP_CalculateFunction(MathRuntime->FuncCache, std::vector < Element_ID > {
+	MathRuntime->ReRegister(FunctionCall, new OP_CalculateFunction(MathRuntime->FuncCache, std::vector < ElementID > {
 		Function,
 		FunctionArgument0->GetID() }));
 	//std::cout << std::endl << "D1D1GenericFunction: New Calculation: X=" << x << std::endl;
@@ -32,7 +32,7 @@ double D1D1GenericFunction::Calculate(double x)
 	return result;
 }
 
-Element_ID D1D1GenericFunction::GetFunctionID()
+ElementID D1D1GenericFunction::GetFunctionID()
 {
 	return Function;
 }

@@ -9,7 +9,7 @@ namespace Environment
 	class LIBIMPEXP OP_Multiply : public OP_Multiply_Base
 	{
 	public:
-		explicit OP_Multiply(const std::vector<Element_ID> &InOperands = {});
+		explicit OP_Multiply(const std::vector<ElementID> &InOperands = {});
 		virtual double Calculate(const std::vector<Value*> &DefinedValues) override;
 	};
 }

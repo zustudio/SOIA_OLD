@@ -8,25 +8,23 @@ using namespace Environment;
 
 RElement::RElement()
 	:
-	Container(nullptr)
+	Container(nullptr),
+	ID(ElementID::DefaultObject())
 {
 	GetElementReflectionProvider()->Register<RElement>();
 	ReflectAttributes();
 }
 RElement::~RElement()
+{}
+
+void RElement::Registered(ElementRegistrationInfo const & InInfo)
 {
-	for (ObjectMirror* attribute: AttributeMirrors)
-	{
-		delete attribute;
-	}
+	Container = InInfo.Container;
+	ID = InInfo.ID;
+	Name = InInfo.Name;
 }
 
-void RElement::SetID(Element_ID InID)
-{
-	ID = InID;
-}
-
-Element_ID& RElement::GetID()
+ElementID& RElement::GetID()
 {
 	return ID;
 }
@@ -38,82 +36,38 @@ RContainer* RElement::GetContainer()
 
 std::vector<std::string> RElement::GetAttributeNames()
 {
+	std::vector<MemberMirror*> & memberMirrors = GetMemberMirrors();
+
 	std::vector<std::string> result;
-	for (auto mirror : AttributeMirrors)
+	for (auto memberMirror : memberMirrors)
 	{
-		result.push_back(mirror->GetName());
+		result.push_back(memberMirror->Name);
 	}
 	return result;
 }
 
 ObjectMirror* RElement::GetAttribute(const std::string& InName)
 {
-	for (auto mirror : AttributeMirrors)
+	std::vector<MemberMirror*> & memberMirrors = GetMemberMirrors();
+
+	for (auto memberMirror : memberMirrors)
 	{
-		if (mirror->GetName() == InName)
+		if (memberMirror->Name == InName)
 		{
-			return mirror;
+			return memberMirror->ToObjectMirror(GetVoidPointer());
 		}
 	}
 	return nullptr;
 }
 
-std::vector<ObjectMirror*> const & Environment::RElement::GetAttributes()
+std::vector<ObjectMirror*> const Environment::RElement::GetAttributes()
 {
-	return AttributeMirrors;
-}
+	std::vector<MemberMirror*> & memberMirrors = GetMemberMirrors();
+	std::vector<ObjectMirror*> objectMirrors;
 
-RClass* RElement::GetClass()
-{
-	return GetElementReflectionProvider()->GetClass(TypeID::FromType<RElement>());
-}
-
-RClass* RElement::StaticClass()
-{
-	return GetElementReflectionProvider()->GetClass(TypeID::FromType<RElement>());
-}
-
-//RClass* RElement::GetClassByType(const std::string& InType)
-//{
-//	return GetElementReflectionProvider()->GetClass(TypeID(InType));
-//}
-
-ElementReflection RElement::CreateReflection()
-{
-	std::vector<VoidPointer> attributes;
-	for (auto mirror : AttributeMirrors)
+	for (auto memberMirror : memberMirrors)
 	{
-		attributes.push_back(mirror->Get());
+		objectMirrors.push_back(memberMirror->ToObjectMirror(GetVoidPointer()));
 	}
-	return ElementReflection(attributes);
-}
-
-bool RElement::LoadReflection(const ElementReflection& InReflection, bool bIsPartial)
-{
-	int i;
-	for (i = 0; i < InReflection.Attributes.size(); i++)
-	{
-		auto attribute = InReflection.Attributes[i];
-
-		// check if attribute is a pointer
-		//@ToDo: extract check into VoidPointer
-		//@ToDo: maybe add checking for which attributes must be loaded at all
-		//std::string id = attribute.GetTypeID();
-		//if (id[id.length() - 1] == '*')
-		//{
-		//	// check if attribute is already loaded
-		//	AttributeMirrors[i]->Get()
-		//}
-
-		bool success = AttributeMirrors[i]->SetIfTypesMatch(attribute);
-		if (!success && !bIsPartial)
-		{
-			break;
-		}
-	}
-
-	if (i == InReflection.Attributes.size())
-		return true;
-	else
-		return false;
+	return objectMirrors;
 }

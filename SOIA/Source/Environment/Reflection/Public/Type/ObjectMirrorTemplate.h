@@ -13,7 +13,7 @@ namespace Environment
 			: ObjectMirror(InName),
 			ObjectToMirror(&InObjectToMirror)
 		{}
-		virtual VoidPointer Get() override
+		virtual VoidPointer Object() override
 		{
 			VoidPointer pointer = VoidPointer(ObjectToMirror, EMemoryType::Stack);
 			return pointer;
@@ -31,7 +31,7 @@ namespace Environment
 				return false;
 			}
 		}
-		virtual TypeID ObjectType()
+		virtual TypeID ObjectType() override
 		{
 			return TypeID::FromType<Type>();
 		}

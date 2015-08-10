@@ -11,7 +11,7 @@ Variable::Variable(int InCustomID, double InContent)
 	GetID().UniqueIdentifier = VariableNumber;
 }
 
-void Variable::SetID(Element_ID InID)
+void Variable::SetID(ElementID InID)
 {
 	Value::SetID(InID);
 

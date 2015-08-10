@@ -18,22 +18,20 @@ RContainer::RContainer(const Range<int>& InAllowedIDs, const std::vector<RElemen
 
 ////////////////////////////////////////////////////////////////
 // Public Object Access
-Element_ID& RContainer::Register(RElement* InObject, const std::string &InName)
+ElementID& RContainer::Register(RElement* InObject, const std::string &InName)
 {
-	Element_ID freeID = NextFreeID();
+	ElementID freeID = NextFreeID();
 
 	std::string name = InName;
 	NextFreeName(name);
-	freeID.Name = name;
 
-	InObject->SetID(freeID);
-	InObject->Container = this;
+	InObject->Registered(ElementRegistrationInfo(this, freeID, name));
 
 	Objects.push_back(InObject);
 
 	return InObject->GetID();
 }
-Element_ID& RContainer::ReRegister(const Element_ID& InID, RElement* InObject)
+ElementID& RContainer::ReRegister(const ElementID& InID, RElement* InObject)
 {
 	// if new object is already registered, unregister it
 	Unregister(InObject);
@@ -41,8 +39,7 @@ Element_ID& RContainer::ReRegister(const Element_ID& InID, RElement* InObject)
 	RElement** ObjectToReplace = GetElementPointer(InID);
 	if (ObjectToReplace)
 	{
-		InObject->SetID(InID);
-		InObject->Container = this;
+		InObject->Registered(ElementRegistrationInfo(this, InID, InObject->Name));
 
 		*ObjectToReplace = InObject;
 
@@ -65,7 +62,7 @@ void RContainer::Clear()
 {
 	Objects.clear();
 }
-RElement** RContainer::GetElementPointer(const Element_ID &InID)
+RElement** RContainer::GetElementPointer(const ElementID &InID)
 {
 	std::vector<RContainer*> subContainers;
 	RElement** result = nullptr;
@@ -103,7 +100,7 @@ RElement** RContainer::GetElementPointer(const std::string &InName)
 
 	for (int i = 0; i < n; i++)
 	{
-		if (Objects[i]->GetID().Name == InName)
+		if (Objects[i]->Name == InName)
 		{
 			result = &Objects[i];
 			break;
@@ -114,7 +111,7 @@ RElement** RContainer::GetElementPointer(const std::string &InName)
 
 ////////////////////////////////////////////////////////////////
 // Private ID Management
-Element_ID RContainer::NextFreeID()
+ElementID RContainer::NextFreeID()
 {
 	int lastUniqueIdentifier;
 	if (Objects.size() == 0)
@@ -128,14 +125,13 @@ Element_ID RContainer::NextFreeID()
 		{
 			i_Object--;
 			RElement* lastObject = *i_Object;
-			lastUniqueIdentifier = lastObject->GetID().UniqueIdentifier;
+			lastUniqueIdentifier = lastObject->GetID();
 		} while (!AllowedIDs.IsInRange(lastUniqueIdentifier));
 	}
 
 	assert(lastUniqueIdentifier < AllowedIDs.Upper - 1);
 
-	Element_ID freeID = Element_ID();
-	freeID.UniqueIdentifier = lastUniqueIdentifier + 1;
+	ElementID freeID = ElementID(lastUniqueIdentifier + 1);
 
 	return freeID;
 }
@@ -145,7 +141,7 @@ void RContainer::NextFreeName(std::string &InOutName)
 	{
 		for (RElement* element : Objects)
 		{
-			if (element->GetID().Name == InOutName)
+			if (element->Name == InOutName)
 			{
 				InOutName += "+";
 				NextFreeName(InOutName);

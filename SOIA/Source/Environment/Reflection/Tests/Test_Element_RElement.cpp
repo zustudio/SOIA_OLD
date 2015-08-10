@@ -13,25 +13,37 @@ class RTest : public RTest_Base
 	RPROPERTY(prop_int)
 		int prop_int;
 
+	RPROPERTY(prop_string)
+		std::string prop_string;
+
 	RCLASS_END()
 };
 
 RTest::RTest()
 	: RTest_Base(),
-	prop_int(1)
+	prop_int(1),
+	prop_string("test string")
 {
 	ReflectAttributes();
 }
 
-TEST(AttributeMirror)
+TEST(GetAttributeMirror)
 {
-	GetAtomReflectionProvider()->Reflect<int>();
+	RTest obj = RTest();
+	RTest obj2 = RTest();
 
-	auto testobject = RTest();
-
-	auto vp_prop_int = testobject.GetAttribute("prop_int");
-	auto prop_int = vp_prop_int.CastAndDereference<int>();
+	ObjectMirror* attributeMirror = obj.GetAttribute("prop_int");
+	auto prop_int = attributeMirror->Object().CastAndDereference<int>();
 	CHECK_EQUAL(1, prop_int);
+}
 
-	VoidPointer i = VoidPointer(new int(4));
+TEST(SetAttributeMirror)
+{
+	RTest obj = RTest();
+
+	ObjectMirror* attributeMirror = obj.GetAttribute("prop_int");
+	int& prop_int = attributeMirror->Object().CastAndDereference<int>();
+	prop_int = 2;
+
+	CHECK_EQUAL(2, obj.prop_int);
 }

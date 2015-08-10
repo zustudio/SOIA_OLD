@@ -5,13 +5,14 @@ subproject(Reflection)
 
 in_sub(Element)
 	add_PrivatePublic(
-		Element_ID
+		ElementID
 		ElementReflection
 		ElementReflectionProvider
 		RAbstractClass
 		RClass
 		RContainer
 		TEST RElement
+		RElementBase
 		RPointer)
 	add_Public(
 		RWrapper
@@ -34,15 +35,17 @@ in_sub(Function)
 		RFunction
 		Function)
 in_sub(Type)
+	add_Public(
+		DestructorFunctionTemplate
+		TypeName
+		MemberMirrorTemplate
+		ObjectMirrorTemplate)
 	add_PrivatePublic(
 		TypeID
 		PointerCounter
 		TEST VoidPointer
+		MemberMirror
 		ObjectMirror)
-	add_Public(
-		DestructorFunctionTemplate
-		TypeName
-		ObjectMirrorTemplate)
 in_sub(Unresolved)
 	add_Public(
 		ResolveInfoInterface)

@@ -15,7 +15,7 @@ MathContainer::MathContainer() : RContainer(Range<int>(1000,10000000))
 	Register(FuncCache);
 }
 
-//Element_ID& MathContainer::DefineValue(Value* InValue)
+//ElementID& MathContainer::DefineValue(Value* InValue)
 //{
 //	InValue->SetID(FreeID);
 //	FreeID.UniqueIdentifier++;
@@ -24,7 +24,7 @@ MathContainer::MathContainer() : RContainer(Range<int>(1000,10000000))
 //
 //	return InValue->ID;
 //}
-//Element_ID MathContainer::RedefineValue(const Element_ID& InChangingID, Value* InNewValue)
+//ElementID MathContainer::RedefineValue(const ElementID& InChangingID, Value* InNewValue)
 //{
 //	int n = DefinedValues.size();
 //	for (int i = 0; i < n; i++)
@@ -36,11 +36,11 @@ MathContainer::MathContainer() : RContainer(Range<int>(1000,10000000))
 //			break;
 //		}
 //	}
-//	Element_ID res = InChangingID;
+//	ElementID res = InChangingID;
 //	return res;
 //}
 
-double MathContainer::CalculateValue(const Element_ID &InID)
+double MathContainer::CalculateValue(const ElementID &InID)
 {
 	Value* element = GetElement<Value>(InID);
 	if (element)
@@ -59,7 +59,7 @@ double MathContainer::CalculateValue(const std::string& InName)
 	return 35505;
 }
 
-void MathContainer::SetValueName(const Element_ID &InID, const std::string &InName)
+void MathContainer::SetValueName(const ElementID &InID, const std::string &InName)
 {
 	RElement* element = GetElement<Value>(InID);
 	element->GetID().Name = InName;

@@ -6,7 +6,7 @@ using namespace Environment;
 
 #include <assert.h>
 
-OP_Select::OP_Select(const std::vector<Element_ID> &InOperands) : BaseType(InOperands)
+OP_Select::OP_Select(const std::vector<ElementID> &InOperands) : BaseType(InOperands)
 {
 
 }

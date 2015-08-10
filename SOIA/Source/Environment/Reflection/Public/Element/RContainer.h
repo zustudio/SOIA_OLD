@@ -2,7 +2,7 @@
 #pragma once
 
 #include "RElement.h"
-#include "Element_ID.h"
+#include "ElementID.h"
 #include "Range.h"
 
 #include <vector>
@@ -22,17 +22,17 @@ namespace Environment
 
 		//----- Public Object Access -----
 		/// Registers new Object.
-		Element_ID& Register(RElement* InObject, const std::string &InName="");
+		ElementID& Register(RElement* InObject, const std::string &InName="");
 
 		/// Overwrites old registration with a new Object.
-		Element_ID& ReRegister(const Element_ID &InID, RElement* InObject);
+		ElementID& ReRegister(const ElementID &InID, RElement* InObject);
 
 		/// Unregisters object.
 		void Unregister(RElement* InObject);
 		void Clear();
 
 		/// Returns pointer to pointer to registered Object.
-		RElement** GetElementPointer(const Element_ID &InID);
+		RElement** GetElementPointer(const ElementID &InID);
 		RElement** GetElementPointer(const std::string &InName);
 
 		/// Returns pointer to registered Object.
@@ -96,7 +96,7 @@ namespace Environment
 	private:
 		//----- Private ID Management -----
 		/// Tries to create a new ID in AllowedIDs range.
-		Element_ID NextFreeID();
+		ElementID NextFreeID();
 		void NextFreeName(std::string &InOutName);
 
 	protected:

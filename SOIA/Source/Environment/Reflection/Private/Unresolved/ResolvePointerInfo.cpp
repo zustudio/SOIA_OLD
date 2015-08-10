@@ -6,7 +6,7 @@ using namespace Environment;
 
 #include "RContainer.h"
 
-ResolvePointerInfo::ResolvePointerInfo(Element_ID InID, RContainer* InContainer)
+ResolvePointerInfo::ResolvePointerInfo(ElementID InID, RContainer* InContainer)
 	:
 	TargetElementID(InID),
 	TargetElementContainer(InContainer)

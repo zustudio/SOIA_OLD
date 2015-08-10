@@ -6,7 +6,7 @@ using namespace Environment;
 
 #include <assert.h>
 
-OP_Multiply::OP_Multiply(const std::vector<Element_ID> &InOperands) : BaseType(InOperands)
+OP_Multiply::OP_Multiply(const std::vector<ElementID> &InOperands) : BaseType(InOperands)
 {
 
 }

@@ -27,7 +27,7 @@ std::vector<RElement*> AtomReflection::ObjectToRElements(VoidPointer& InObject)
 	return {};
 }
 
-RElement* AtomReflection::GetElementByID(const Element_ID& InID, RContainer* InContainer)
+RElement* AtomReflection::GetElementByID(const ElementID& InID, RContainer* InContainer)
 {
 	return InContainer->GetElement<RElement>(InID);
 }

@@ -42,8 +42,8 @@ void ElementFile::WriteSingle(RElement * InElement, EElementSelectionMode InSele
 	std::vector<ObjectMirror*> const & attributes = InElement->GetAttributes();
 	for (auto attribute : attributes)
 	{
-		std::string attributeName = attribute->GetName();
-		VoidPointer p_attributeContent = attribute->Get();
+		std::string attributeName = attribute->Name;
+		VoidPointer p_attributeContent = attribute->Object();
 		std::string attributeContent = GetAtomReflectionProvider()->GetReflection(p_attributeContent.GetTypeID())->ObjectToString(p_attributeContent);
 		GetOutStream() << '\t' <<  attributeName << "= " << attributeContent << '\n';
 	}

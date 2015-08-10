@@ -4,7 +4,7 @@
 #include "Operation.h"
 using namespace Environment;
 
-Operation::Operation(const std::vector<Element_ID> &InOperands)
+Operation::Operation(const std::vector<ElementID> &InOperands)
 {
 	Operands = InOperands;
 }

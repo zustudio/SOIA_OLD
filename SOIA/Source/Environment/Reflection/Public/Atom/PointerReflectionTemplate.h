@@ -46,8 +46,7 @@ namespace Environment
 		template<typename Type>
 		static auto ToObject_Internal(int, const std::string& InString) -> typename std::enable_if<std::is_base_of<RElement, typename std::remove_pointer<Type>::type>::value, VoidPointer*>::type
 		{
-			Element_ID TargetElementID;
-			TargetElementID.UniqueIdentifier = std::atoi(InString.c_str());
+			ElementID TargetElementID = ElementID(std::atoi(InString.c_str()));
 
 			ResolveInfoInterface* ResolveInfo = new ResolvePointerInfo(TargetElementID, nullptr);
 
@@ -74,7 +73,7 @@ namespace Environment
 		template<typename Type>
 		static auto ToString_Internal(int, Type& InObject) -> typename std::enable_if<std::is_base_of<RElement, typename std::remove_pointer<Type>::type>::value, std::string>::type
 		{
-			return std::to_string(InObject->GetID().UniqueIdentifier);
+			return std::to_string(InObject->GetID().ToInt());
 		}
 
 		template<typename Type>
