@@ -7,7 +7,7 @@ using namespace Environment;
 #include "TokenArity_Nullary.h"
 #include "TokenArity_Binary.h"
 #include "TokenArity_Parenthesis.h"
-#include "LogProvider.h"
+#include "GlobalLogger.h"
 
 ////////////////////////////////////////////////////////////////
 // Init
@@ -44,7 +44,7 @@ void ElementFile::WriteSingle(RElement * InElement, EElementSelectionMode InSele
 	{
 		std::string attributeName = attribute->Name;
 		VoidPointer p_attributeContent = attribute->Object();
-		std::string attributeContent = GetAtomReflectionProvider()->GetReflection(p_attributeContent.GetTypeID())->ObjectToString(p_attributeContent);
+		std::string attributeContent = GlobalAtomConverterProvider()->GetConverter(p_attributeContent.GetTypeID())->ObjectToString(p_attributeContent);
 		GetOutStream() << '\t' <<  attributeName << "= " << attributeContent << '\n';
 	}
 	GetOutStream() << '\n';
@@ -80,7 +80,7 @@ RElement * ElementFile::ReadSingle()
 
 	if (success)
 	{
-		RClass* elementClass = GetElementReflectionProvider()->GetClass(TypeID(typeString->Text));
+		RClass* elementClass = GlobalRClassProvider()->GetClass(TypeID(typeString->Text));
 		result = elementClass->GetDefaultObject();
 
 		for (Token* attributeAssignment : attributeAssignments)
@@ -89,7 +89,7 @@ RElement * ElementFile::ReadSingle()
 			Token* attributeContent = attributeAssignment->GetSubTokenVector()[1];
 
 			ObjectMirror* attributeMirror = result->GetAttribute(attributeName->Text);
-			VoidPointer* p_newAttribute = GetAtomReflectionProvider()->GetReflection(attributeMirror->ObjectType())->StringToObject(attributeContent->Text);
+			VoidPointer* p_newAttribute = GlobalAtomConverterProvider()->GetConverter(attributeMirror->ObjectType())->StringToObject(attributeContent->Text);
 
 			attributeMirror->SetIfTypesMatch(*p_newAttribute);
 		}

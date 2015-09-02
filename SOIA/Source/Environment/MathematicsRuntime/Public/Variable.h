@@ -5,15 +5,26 @@
 
 namespace Environment
 {
+	enum class EVariableMode
+	{
+		FunctionParameter,
+		Constant
+	};
+
 	class LIBIMPEXP Variable : public Value
 	{
 	public:
-		Variable(int InVariableNumber, double InContent);
+		Variable();
 
-		virtual void SetID(ElementID InID) override;
-		virtual double Calculate(const std::vector<Value*> &InDefinedValues) override;
+		void MakeConstant(double InConstantValue);
+		void MakeFunctionParameter(int InParameterNumber);
+		
+		virtual double Calculate(DefinitionSet* const & ForwardedDefinitions) override;
+		virtual void PrepareCache() override {}
 
-		int VariableNumber;
-		double Content;
+		EVariableMode Mode;
+		int ParameterNumber;
+		double ConstantValue;
+
 	};
 }

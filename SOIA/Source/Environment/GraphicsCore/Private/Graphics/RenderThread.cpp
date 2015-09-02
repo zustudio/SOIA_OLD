@@ -4,7 +4,7 @@
 #include "RenderThread.h"
 using namespace Environment;
 #include "RenderThreadProvider.h"
-#include "LogProvider.h"
+#include "GlobalLogger.h"
 
 
 RenderThread::RenderThread()

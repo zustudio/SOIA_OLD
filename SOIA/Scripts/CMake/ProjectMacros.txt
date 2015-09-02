@@ -107,7 +107,8 @@ macro( auto_add_interface_library )
 	add_custom_target(${SUBPROJECT_NAME} SOURCES ${PUBLIC_H_FILES} ${PRIVATE_H_FILES} )
 endmacro( auto_add_interface_library )
 
-OPTION( BUILD_UNITTESTS "If enabled, then unittests are being build and executed at each full build" ON )
+OPTION( BUILD_UNITTESTS "If enabled, then unittests are being build" ON )
+OPTION( RUN_UNITTESTS "If enabled, then unittests are being run every build" ON )
 OPTION( CHECK_MEMORY "If enabled, then the unittests are run a second time with drmemory" ON )
 macro( auto_add_unittests )
 
@@ -132,9 +133,11 @@ if( "${BUILD_UNITTESTS}" STREQUAL "ON")
 	
 	target_link_libraries(${TESTNAME} ${SUBPROJECT_NAME} UnitTest++)
 	
-	add_custom_command(TARGET ${TESTNAME}
-		POST_BUILD COMMAND ${TESTNAME}
-		COMMENT "Running tests...")
+	if( "${RUN_UNITTESTS}" STREQUAL "ON" )
+		add_custom_command(TARGET ${TESTNAME}
+			POST_BUILD COMMAND ${TESTNAME}
+			COMMENT "Running tests...")
+	endif()
 	
 if("${CHECK_MEMORY}" STREQUAL "ON")
 	set(L_memory_command "${WORKFLOW_DIRECTORY}/memory.sh \"${CMAKE_GENERATOR}\"")

@@ -4,7 +4,7 @@
 #include "IOFile.h"
 using namespace Environment;
 
-#include "LogProvider.h"
+#include "GlobalLogger.h"
 
 IOFile::IOFile(Path const & InPath)
 	: File(InPath),

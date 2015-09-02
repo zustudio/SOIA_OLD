@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////
-///	Project:	SOIA
-///	Author:		Maxim Urschumzew
-/// Year:		2015
+/// \file		CharReplacer.h
+/// \author		Maxim Urschumzew
+/// \date		2015
 ///
 
 #pragma once

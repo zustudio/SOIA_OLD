@@ -43,12 +43,12 @@ Path const& Directory::GetPath() const
 	return PathToDir;
 }
 
-std::string Directory::ToString(const Directory & InObject)
+std::string Directory::StaticToString(const Directory & InObject)
 {
 	return InObject.GetPath().ToString();
 }
 
-Directory Directory::FromString(const std::string & InString)
+Directory Directory::StaticToObject(const std::string & InString)
 {
 	return Directory(Path(InString));
 }

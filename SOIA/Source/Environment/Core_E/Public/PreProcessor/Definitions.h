@@ -6,7 +6,6 @@
 
 // include generic cpp language extensions
 #include "CPPExtensions.h"
-#include "TypeTraits.h"
 
 // macros for generating literal strings from macros
 #define MACRO_TO_LITERAL_INTERNAL(arg)      #arg

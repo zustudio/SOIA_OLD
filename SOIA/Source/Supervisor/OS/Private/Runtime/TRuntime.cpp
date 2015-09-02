@@ -12,14 +12,14 @@ using namespace Supervisor;
 #include "StringMatch.h"
 #include "FileSystemProvider.h"
 #include "ElementFile.h"
-#include "LogProvider.h"
+#include "GlobalLogger.h"
 #include "TConsole.h"
 
 TRuntime::TRuntime()
 	: BaseType(),
 	CurrentDirectory(GetFileSystem()->GetExecutableDirectory())
 {
-	GetElementReflectionProvider()->RegisterList<
+	GlobalRClassProvider()->RegisterList<
 		RGraphTool,
 		PipelineTool,
 		RConversionPipes>();
@@ -89,8 +89,8 @@ void TRuntime::Run()
 
 bool TRuntime::cmd_typelist()
 {
-	std::vector<TypeID> reflectedAtoms = GetAtomReflectionProvider()->GetTypeList();
-	std::vector<TypeID> reflectedElements = GetElementReflectionProvider()->GetTypeList();
+	std::vector<TypeID> reflectedAtoms = GlobalAtomConverterProvider()->GetTypeList();
+	std::vector<TypeID> reflectedElements = GlobalRClassProvider()->GetTypeList();
 
 	for (auto type : reflectedAtoms)
 	{
@@ -106,7 +106,7 @@ bool TRuntime::cmd_typelist()
 
 bool TRuntime::cmd_type(TypeID & OutType, const std::string & InTypeName)
 {
-	std::vector<TypeID> types = GetElementReflectionProvider()->GetTypeList();
+	std::vector<TypeID> types = GlobalRClassProvider()->GetTypeList();
 	
 	std::vector<std::string> typeStrings;
 	for (auto type : types)
@@ -126,7 +126,7 @@ bool TRuntime::cmd_type(TypeID & OutType, const std::string & InTypeName)
 bool TRuntime::cmd_create(const TypeID & InType, const std::string& InName, RContainer* const& InContainer)
 {
 	bool result = false;
-	RClass* objectClass = GetElementReflectionProvider()->GetClass(InType);
+	RClass* objectClass = GlobalRClassProvider()->GetClass(InType);
 	RContainer* targetContainer = InContainer;
 	if (objectClass)
 	{

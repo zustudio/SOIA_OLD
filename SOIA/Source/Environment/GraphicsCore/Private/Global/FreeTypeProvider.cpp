@@ -2,7 +2,7 @@
 #include "Definitions.h"
 #include "FreeType.h"
 #include "Font.h"
-#include "LogProvider.h"
+#include "GlobalLogger.h"
 #include "CPPExtensions.h"
 
 namespace Environment

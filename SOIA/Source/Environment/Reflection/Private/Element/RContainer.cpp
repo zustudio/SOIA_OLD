@@ -4,6 +4,8 @@
 #include "RContainer.h"
 using namespace Environment;
 
+#include "GlobalLogger.h"
+
 #include <algorithm>
 
 ////////////////////////////////////////////////////////////////
@@ -20,6 +22,12 @@ RContainer::RContainer(const Range<int>& InAllowedIDs, const std::vector<RElemen
 // Public Object Access
 ElementID& RContainer::Register(RElement* InObject, const std::string &InName)
 {
+	if (InObject->GetID() != ElementID())
+	{
+		LOG("Trying to register already registered object '" + InObject->GetName() + "' (" + ElementID::StaticToString(InObject->GetID()) + ").", Logger::Severity::Warning);
+		return InObject->GetID();
+	}
+
 	ElementID freeID = NextFreeID();
 
 	std::string name = InName;

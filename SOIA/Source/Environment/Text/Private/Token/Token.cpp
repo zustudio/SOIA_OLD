@@ -6,19 +6,29 @@ using namespace Environment;
 
 #include "TokenRule.h"
 
-Token::Token(const std::string & InText, TokenArityInterface const * InCollapser)
+Token::Token(const std::string & InText, TokenArityInterface const * InCollapser, int InRuleIdentifier)
 	:
 	Text(InText),
 	TokenCollapser(InCollapser),
-	ContainerIteratorSet(nullptr)
+	ContainerIteratorSet(nullptr),
+	RuleIdentifier(InRuleIdentifier),
+	SubTokens({}),
+	ParentToken(nullptr)
 {}
 
 void Token::Move(Token * InToken)
 {
-	Move(InToken->GetSubTokens());
+	Internal_MoveToList(InToken->GetSubTokens());
+	ParentToken = InToken;
 }
 
-void Token::Move(std::list<Token*> & InOutTargetList)
+void Token::MoveToList(std::list<Token*> & InOutTargetList)
+{
+	Internal_MoveToList(InOutTargetList);
+	ParentToken = nullptr;
+}
+
+void Token::Internal_MoveToList(std::list<Token*>& InOutTargetList)
 {
 	if (ContainerIteratorSet)
 	{
@@ -33,6 +43,11 @@ void Token::Move(std::list<Token*> & InOutTargetList)
 void Token::Disable()
 {
 	ContainerIteratorSet->Container.erase(ContainerIteratorSet->Current);
+}
+
+Token * Token::GetParentToken()
+{
+	return ParentToken;
 }
 
 std::list<Token*>& Token::GetSubTokens()

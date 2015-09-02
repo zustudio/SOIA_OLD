@@ -22,7 +22,7 @@ macro( execute_uacrequests )
 			file(TO_NATIVE_PATH "${L_uac_bat}" L_uac_bat_native)
 			
 			# prepare content
-			file(READ ${FILE_DIR}/uac.bat.template L_uac_content)
+			file(READ ${FILE_DIR}/Templates/uac.bat.template L_uac_content)
 			foreach( L_uac_request ${UAC_REQUESTS})
 				set(L_uac_content "${L_uac_content}
 ${L_uac_request}")

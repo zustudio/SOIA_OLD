@@ -1,3 +1,7 @@
+/// Intelligence Project - SOIA
+/// \file
+/// \copyright
+///
 
 #pragma once
 
@@ -5,62 +9,83 @@
 
 #include "RElement.h"
 #include "RContainer.h"
-#include "ContainerProvider.h"
+#include "GlobalContainer.h"
 
 namespace Environment
 {
+	enum class ECachingMode : int
+	{
+		Custom = 0,
+		Always = 1
+	};
+
+	/// \brief		Custom pointer to RElement using it's ElementID
+	/// \details	RPointer resolves the ID when being accessed to the corresponding element.
 	template<class RElementClass = RElement>
 	class LIBIMPEXP RPointer : public Atom
 	{
 	public:
-		RPointer(RElementClass* InElement)
+		RPointer(RElementClass* InElement, ECachingMode InCachingMode = ECachingMode::Custom)
 			:
-			TargetElement(InElement),
+			Target(InCachingMode == ECachingMode::Always ? InElement : nullptr),
 			TargetID(InElement ? InElement->GetID() : ElementID()),
-			TargetContainer(InElement ? InElement->GetContainer() : nullptr)
+			TargetContainer(InElement ? InElement->GetContainer() : nullptr),
+			CachingMode(InCachingMode)
 		{}
 
-		explicit RPointer(ElementID InID, RContainer* InContainer = nullptr)
+		RPointer(ElementID InID, RContainer* InContainer, ECachingMode InCachingMode = ECachingMode::Custom)
 			:
-			TargetElement(nullptr),
+			Target(nullptr),
 			TargetContainer(InContainer),
-			TargetID(InID)
+			TargetID(InID),
+			CachingMode(InCachingMode)
 		{}
-
-		RElementClass* GetTargetElement()
-		{
-			RElementClass* result = nullptr;
-			if (TargetElement)
-			{
-				result = TargetElement;
-			}
-			else if (TargetContainer || (TargetContainer = GlobalContainer()))
-			{
-				result = TargetContainer->GetElement<RElementClass>(TargetID);
-				TargetElement = result;
-			}
-			return result;
-		}
 
 		decltype(auto) operator-> ()
 		{
-			return ExposeMemberAccessOperator(GetTargetElement());
+			return ExposeMemberAccessOperator(RawPointer());
 		}
 
-		RElementClass* TargetElement;
+		void RecacheTarget()
+		{
+			Target = nullptr;
+			Target = RawPointer();
+		}
+
+		RElementClass* RawPointer()
+		{
+			RElementClass* target = nullptr;
+			if (Target)
+			{
+				target = Target;
+			}
+			else if (TargetContainer || (TargetContainer = GlobalContainer()))
+			{
+				target = TargetContainer->GetElement<RElementClass>(TargetID);
+
+				if (CachingMode == ECachingMode::Always)
+				{
+					Target = target;
+				}
+			}
+			return target;
+		}
+
+
+
+		static RPointer StaticToObject(const std::string& InString)
+		{
+			return RPointer(ElementID::StaticToObject(InString));
+		}
+		static std::string StaticToString(const RPointer& InObject)
+		{
+			return ElementID::StaticToString(InObject.TargetID);
+		}
+
+	private:
 		ElementID TargetID;
 		RContainer* TargetContainer;
-
-
-		static RPointer FromString(const std::string& InString)
-		{
-			ElementID id;
-			id.UniqueIdentifier = std::atoi(InString.c_str());
-			return RPointer(id);
-		}
-		static std::string ToString(const RPointer& InObject)
-		{
-			return std::to_string(InObject.TargetID.UniqueIdentifier);
-		}
+		RElementClass* Target;
+		ECachingMode CachingMode;
 	};
 }

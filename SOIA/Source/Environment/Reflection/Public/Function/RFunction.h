@@ -19,11 +19,11 @@ namespace Environment
 
 		bool CorrectArgsAndExecute(std::vector<VoidPointer> &InArgs);
 
-		static std::string ToString(const RFunction& InID)
+		static std::string StaticToString(const RFunction& InID)
 		{
 			return "";
 		}
-		static RFunction FromString(const std::string& InString)
+		static RFunction StaticToObject(const std::string& InString)
 		{
 			return RFunction();
 		}

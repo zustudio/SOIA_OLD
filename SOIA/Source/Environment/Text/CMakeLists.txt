@@ -1,15 +1,21 @@
 cmake_minimum_required(VERSION 3.1)
 
 subproject(Text)
-	depends_on_projects(Environment Core_E CompileTime MathematicsCore)
+	depends_on_projects(Environment Core_E CompileTime Time MathematicsCore)
 
 add_PrivatePublic(
 	CharMatch
-	StringMatch
-	StdDialogue
-	FileDialogue)
-add_Public(
-	DialogueInterface)
+	StringMatch)
+in_sub(Dialogue)
+	add_Public(
+		DialogueInterface)
+	add_PrivatePublic(
+		StdDialogue
+		FileDialogue)
+in_sub(Log)
+	add_PrivatePublic(
+		Logger
+		GlobalLogger)
 in_sub(Token)
 	add_Public(
 		TokenArityInterface)

@@ -3,7 +3,7 @@
 
 #include "VoidPointer.h"
 using namespace Environment;
-#include "ReflectionProviders.h"
+#include "GlobalReflectionProviders.h"
 #include "RElement.h"
 
 const TypeID& VoidPointer::GetTypeID() const
@@ -41,7 +41,7 @@ bool VoidPointer::IsChildOf(const TypeID& InOther) const
 	RElement** pp_element = CastTo<RElement*>();
 	if (pp_element)
 	{
-		auto reflectionProv = GetElementReflectionProvider();
+		auto reflectionProv = GlobalRClassProvider();
 		RClass* thisClass = (*pp_element)->GetClass();
 		RClass* otherClass = reflectionProv->GetClass(InOther.Dereference());
 		return (thisClass && otherClass

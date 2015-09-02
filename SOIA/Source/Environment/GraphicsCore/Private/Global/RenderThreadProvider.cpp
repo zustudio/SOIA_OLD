@@ -1,7 +1,7 @@
 
 #include "Definitions.h"
 #include "RenderThread.h"
-#include "LogProvider.h"
+#include "GlobalLogger.h"
 #include <string>
 
 namespace Environment
@@ -26,6 +26,6 @@ void CheckGLError()
 	GLenum err;
 	while ((err = glGetError()) != GL_NO_ERROR)
 	{
-		Environment::GetLogger()->Log("OpenGL error: " + std::to_string(err), Environment::Logger::Severity::Error);
+		Environment::GlobalLogger()->Log("OpenGL error: " + std::to_string(err), Environment::Logger::Severity::Error);
 	}
 }

@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.1)
 
 subproject(File)
-	depends_on_projects(Environment Reflection Log)
+	depends_on_projects(Environment Reflection Text)
 
 in_sub(Global)
 	add_PrivatePublic(FileSystemProvider)

@@ -6,7 +6,7 @@ using namespace Environment;
 
 #include "RenderThreadProvider.h"
 #include "GraphicsLayer.h"
-#include "LogProvider.h"
+#include "GlobalLogger.h"
 
 
 

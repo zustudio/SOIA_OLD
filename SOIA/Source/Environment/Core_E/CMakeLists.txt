@@ -1,11 +1,10 @@
 cmake_minimum_required(VERSION 3.1)
 
 subproject(Core_E)
+	depends_on_projects(Environment CompileTime)
 
 in_sub(PreProcessor)
-	add_Public(
-		Definitions
-		TypeTraits)
+	add_Public(Definitions)
 	add_PrivatePublic(CPPExtensions)
 end_sub()
 

@@ -5,8 +5,8 @@
 using namespace Environment;
 using namespace Supervisor;
 
-#include "LogProvider.h"
-#include "ContainerProvider.h"
+#include "GlobalLogger.h"
+#include "GlobalContainer.h"
 
 #include <iostream>
 

@@ -2,14 +2,10 @@
 
 #pragma once
 #include "Definitions.h"
-#include "TypeTraits.h"
+#include "OperatorTraits.h"
 
 #include <vector>
 #include <string>
-
-/* custom extendable enum class */
-#define ExtendableEnum(enumname, operations) class enumname {private: int i; public: enumname(int newI = 0) { i = newI; } operator int() { return i; } operations }
-#define ExtendableEnumElement(name, var) static const int name = var
 
 namespace Environment
 {

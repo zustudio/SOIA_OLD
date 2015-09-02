@@ -9,7 +9,7 @@ namespace Environment
 	class LIBIMPEXP OP_Divide : public OP_Divide_Base
 	{
 	public:
-		explicit OP_Divide(const std::vector<ElementID> &InOperands = {});
-		virtual double Calculate(const std::vector<Value*> &DefinedValues) override;
+		explicit OP_Divide(const std::vector<RPointer<Value>> &InOperands = {});
+		virtual double Calculate(DefinitionSet* const & ForwardedDefinitions) override;
 	};
 }

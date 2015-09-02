@@ -3,7 +3,7 @@
 
 // include super class
 #include "RFunction.h"
-#include "ReflectionProviders.h"
+#include "GlobalReflectionProviders.h"
 
 #define FUNCTION 
 
@@ -26,7 +26,7 @@ namespace Environment
 	{
 		static void Do()
 		{
-			GetAtomReflectionProvider()->Reflect<typename std::decay<ArgumentType>::type>();
+			GlobalAtomConverterProvider()->Reflect<typename std::decay<ArgumentType>::type>();
 			ReflectArgumentTypes<TailArgumentTypes...>::Do();
 		}
 	};

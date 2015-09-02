@@ -3,16 +3,19 @@
 
 #include "Operation.h"
 
+#include "MR_Function.h"
+
 namespace Environment
 {
-	class FunctionCache;
 	RCLASS(OP_CalculateFunction,Operation)
 	class LIBIMPEXP OP_CalculateFunction : public OP_CalculateFunction_Base
 	{
 	public:
-		OP_CalculateFunction(FunctionCache* InFuncCache = nullptr, const std::vector<ElementID> &InOperands = {});
-		virtual double Calculate(const std::vector<Value*> &DefinedValues) override;
+		OP_CalculateFunction(RPointer<Value> InFunctionDefinition = nullptr, std::vector<RPointer<Value>> const & InParameters = {});
+		virtual double Calculate(DefinitionSet* const & ForwardedDefinitions) override;
+		virtual void PrepareCache() override;
 
-		FunctionCache* FuncCache;
+	private:
+		RPointer<Value> FunctionDefinition;
 	};
 }

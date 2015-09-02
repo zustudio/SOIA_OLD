@@ -9,7 +9,7 @@ namespace Environment
 	class LIBIMPEXP OP_Add : public OP_Add_Base
 	{
 	public:
-		explicit OP_Add(const std::vector<ElementID> &InOperands = {});
-		virtual double Calculate(const std::vector<Value*> &DefinedValues) override;
+		explicit OP_Add(const std::vector<RPointer<Value>> &InOperands = {});
+		virtual double Calculate(DefinitionSet* const & ForwardedDefinitions) override;
 	};
 }

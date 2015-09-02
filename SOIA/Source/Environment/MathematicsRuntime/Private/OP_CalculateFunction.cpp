@@ -4,48 +4,42 @@
 #include "OP_CalculateFunction.h"
 using namespace Environment;
 
+#include "Constant.h"
 #include "Variable.h"
 #include "FunctionCache.h"
+#include "DefinitionSet.h"
 
 #include <assert.h>
 #include <iostream>
 
-OP_CalculateFunction::OP_CalculateFunction(FunctionCache *InFuncCache, const std::vector<ElementID> &InOperands) : BaseType(InOperands)
-{
-	FuncCache = InFuncCache;
-}
+OP_CalculateFunction::OP_CalculateFunction(RPointer<Value> InFunctionDefinition, std::vector<RPointer<Value>> const & InParameters)
+	: BaseType(InParameters),
+	FunctionDefinition(InFunctionDefinition)
+{}
 
-double OP_CalculateFunction::Calculate(const std::vector<Value*> &DefinedValues)
+double OP_CalculateFunction::Calculate(DefinitionSet* const & ForwardedDefinitions)
 {
-	Value* op0;
-	Value* op1;
-	Value* op2;
-	FindOperands(DefinedValues, op0, op1, op2);
-	
+	// prepare new set to pass into calculation
+	DefinitionSet NewDefinitionsToForward = DefinitionSet();
 
-	// clear my values of any variables (not constantly defined or operators) and add my second operand as new variable
-	std::vector<Value*> ValuesToPassOn;
-	for (Value* value : DefinedValues)
+	// if function is a real function, calculate all function arguments and save them into new definition set
+	MR_Function* realFunction = dynamic_cast<MR_Function*>(FunctionDefinition.RawPointer());
+	if (realFunction)
 	{
-		if (! dynamic_cast<Variable*>(value))
+		for (int index_argument = 0; index_argument < Operands.size(); index_argument++)
 		{
-			ValuesToPassOn.push_back(value);
+			NewDefinitionsToForward.Register(
+				new Constant(Operands[index_argument]->Calculate(ForwardedDefinitions)),
+				realFunction->GenerateParameterName(index_argument));
 		}
 	}
-	double rVariable0 = op1->Calculate(DefinedValues);
-	Variable* Variable0 = new Variable(0, rVariable0);
-	ValuesToPassOn.push_back(Variable0);
 
-	// try get result from func cache, if not available calculate it
-	double result;
-	if (! FuncCache->GetCachedFunctionCall(op0->GetID(), rVariable0, result))
-	{
-		result = op0->Calculate(ValuesToPassOn);
-		FuncCache->CacheFunctionCall(op0->GetID(), rVariable0, result);
-	}
+	// calculate function
+	return FunctionDefinition->Calculate(&NewDefinitionsToForward);
+}
 
-	//std::cout << "OP_CalcFunc: " << op0->GetID().Name << "( " << rVariable0 << " ) = ";
-	//std::cout << result << std::endl;
-
-	return result;
+void OP_CalculateFunction::PrepareCache()
+{
+	Super::PrepareCache();
+	FunctionDefinition.RecacheTarget();
 }

@@ -1,7 +1,7 @@
 
 #include "Definitions.h"
 
-#include "LogProvider.h"
+#include "GlobalLogger.h"
 #include "SaveFile.h"
 
 #include "D1D1GenericFunction.h"

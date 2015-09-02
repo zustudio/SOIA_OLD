@@ -5,6 +5,7 @@
 #include "Value.h"
 
 // include SOIA
+#include "RPointer.h"
 
 // include std
 #include <vector>
@@ -15,10 +16,10 @@ namespace Environment
 	class LIBIMPEXP Operation : public Operation_Base
 	{
 	public:
-		explicit Operation(const std::vector<ElementID> &InOperands = {});
+		explicit Operation(const std::vector<RPointer<Value>> &InOperands = {});
 
-		bool FindOperands(const std::vector<Value*> &InDefinedValues, Value* &OutOperand1, Value* &OutOperand2, Value* &OutOperand3);
+		virtual void PrepareCache() override;
 
-		std::vector<ElementID> Operands;
+		std::vector<RPointer<Value>> Operands;
 	};
 }

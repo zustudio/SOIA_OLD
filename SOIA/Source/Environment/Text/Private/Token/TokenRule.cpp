@@ -9,13 +9,20 @@ using namespace Environment;
 #include <regex>
 #include <algorithm>
 
-
+TokenRule::TokenRule(int InIdentifier, std::regex const & InRegex, std::shared_ptr<TokenArityInterface> InTokenCollapser)
+	:
+	Regex(InRegex),
+	TokenCollapser(InTokenCollapser),
+	ParsedTokens(),
+	Identifier(InIdentifier)
+{}
 
 TokenRule::TokenRule(std::regex const & InRegex, std::shared_ptr<TokenArityInterface> InTokenCollapser)
 	:
 	Regex(InRegex),
 	TokenCollapser(InTokenCollapser),
-	ParsedTokens()
+	ParsedTokens(),
+	Identifier(0)
 {}
 
 TokenRule::~TokenRule()
@@ -34,9 +41,9 @@ bool TokenRule::ParseNextToken(ContainerAwareIteratorSet<std::string> & InTextIt
 	int size = PeekNextToken(InTextIteratorSet, tokenText);
 	if (size)
 	{
-		Token* token = new Token(tokenText, &*TokenCollapser);
+		Token* token = new Token(tokenText, &*TokenCollapser, Identifier);
 		ParsedTokens.push_back(token);
-		token->Move(OutTokenList);
+		token->MoveToList(OutTokenList);
 		InTextIteratorSet.Current += size;
 		
 		result = true;

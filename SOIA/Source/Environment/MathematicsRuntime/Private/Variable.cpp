@@ -4,21 +4,55 @@
 #include "Variable.h"
 using namespace Environment;
 
-Variable::Variable(int InCustomID, double InContent)
+#include "Constant.h"
+#include "DefinitionSet.h"
+#include "GlobalLogger.h"
+
+Variable::Variable()
+	:
+	Mode(EVariableMode::Constant),
+	ConstantValue(0.0),
+	ParameterNumber(0)
+{}
+
+void Variable::MakeConstant(double InConstantValue)
 {
-	VariableNumber = InCustomID;
-	Content = InContent;
-	GetID().UniqueIdentifier = VariableNumber;
+	Mode = EVariableMode::Constant;
+	ConstantValue = InConstantValue;
+	ParameterNumber = 0;
 }
 
-void Variable::SetID(ElementID InID)
+void Variable::MakeFunctionParameter(int InParameterNumber)
 {
-	Value::SetID(InID);
-
-	GetID().UniqueIdentifier = VariableNumber;
+	Mode = EVariableMode::FunctionParameter;
+	ParameterNumber = InParameterNumber;
+	ConstantValue = 0.0;
 }
 
-double Variable::Calculate(const std::vector<Value*> &InDefinedVariables)
+double Variable::Calculate(DefinitionSet* const & ForwardedDefinitions)
 {
-	return Content;
+	double result = 0;
+
+	switch (Mode)
+	{
+	case Environment::EVariableMode::FunctionParameter:
+	{
+		Constant* forwardDefinedConstant = ForwardedDefinitions->GetElement<Constant>(GetName());
+		if (forwardDefinedConstant)
+			result = forwardDefinedConstant->myValue;
+		else
+			LOG("Variable '" + GetName() + "' could not be calculated because it's value was not forwarded to it", Logger::Severity::Error);
+		break;
+	}
+	case Environment::EVariableMode::Constant:
+	{
+		result = ConstantValue;
+		break;
+	}
+	default:
+		break;
+	}
+
+	return result;
 }
+

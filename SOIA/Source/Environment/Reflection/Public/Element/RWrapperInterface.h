@@ -1,3 +1,7 @@
+/// Intelligence Project - SOIA
+/// \file
+/// \copyright
+///
 
 #pragma once
 
@@ -5,6 +9,8 @@
 
 namespace Environment
 {
+	/// \class RWrapperInterface
+	/// \brief This interface enables casting of wrapped classes via RWrapper objects
 	RABSTRACTCLASS(RWrapperInterface,RElement)
 	class RWrapperInterface : public RWrapperInterface_Base
 	{

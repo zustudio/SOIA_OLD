@@ -46,7 +46,7 @@ bool TElementExplorer::cmd_ls()
 		if (element->GetClass() == RContainer::StaticClass())
 			postfix = "/";
 
-		Dialogue->Write(element->GetID().Name + postfix + "  ");
+		Dialogue->Write(element->GetName() + postfix + "  ");
 	}
 	Dialogue->WriteLine("");
 	return true;
@@ -98,11 +98,11 @@ bool TElementExplorer::cmd_attrlist(RElement* const & InElementName, std::string
 			if (attributeMirror)
 			{
 				// try to convert 
-				auto converter = GetAtomReflectionProvider()->GetReflection(attributeMirror->ObjectType());
+				auto converter = GlobalAtomConverterProvider()->GetConverter(attributeMirror->ObjectType());
 				std::string value;
 				if (converter)
 				{
-					value = converter->ObjectToString(attributeMirror->Get());
+					value = converter->ObjectToString(attributeMirror->Object());
 				}
 				else
 				{
@@ -113,7 +113,7 @@ bool TElementExplorer::cmd_attrlist(RElement* const & InElementName, std::string
 				std::string argumentTypes;
 				if (attributeMirror->ObjectType().Decay() == TypeID::FromType<RFunction*>())
 				{
-					RFunction* function = attributeMirror->Get().CastAndDereference<RFunction*>();
+					RFunction* function = attributeMirror->Object().CastAndDereference<RFunction*>();
 					auto v_argumentTypes = function->GetArgumentTypes();
 					for (auto argumentType : v_argumentTypes)
 					{
@@ -146,7 +146,7 @@ bool TElementExplorer::cmd_func(RFunction *& OutFunction, RElement * const & InE
 	auto p_Func = InElement->GetAttribute(InFuncName);
 	if (p_Func)
 	{
-		OutFunction = p_Func->Get().CastAndDereference<RFunction*>();
+		OutFunction = p_Func->Object().CastAndDereference<RFunction*>();
 
 		Dialogue->WriteLine("Found function: " + InFuncName);
 		return true;
@@ -169,7 +169,7 @@ std::string TElementExplorer::GetCurrentPath()
 		current = next;
 		next = next->GetContainer();
 		if (next == current) { next = nullptr; }
-		result = current->GetID().Name + "/" + result;
+		result = current->GetName() + "/" + result;
 	} while (next);
 
 	return result;

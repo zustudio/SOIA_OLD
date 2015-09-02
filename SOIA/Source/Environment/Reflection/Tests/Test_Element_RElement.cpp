@@ -10,9 +10,11 @@ class RTest : public RTest_Base
 
 	RTest();
 
+public:
 	RPROPERTY(prop_int)
 		int prop_int;
 
+protected:
 	RPROPERTY(prop_string)
 		std::string prop_string;
 
@@ -30,11 +32,15 @@ RTest::RTest()
 TEST(GetAttributeMirror)
 {
 	RTest obj = RTest();
-	RTest obj2 = RTest();
 
 	ObjectMirror* attributeMirror = obj.GetAttribute("prop_int");
 	auto prop_int = attributeMirror->Object().CastAndDereference<int>();
 	CHECK_EQUAL(1, prop_int);
+
+	attributeMirror = obj.GetAttribute("prop_string");
+	auto prop_string = attributeMirror->Object().CastAndDereference<std::string>();
+	CHECK_EQUAL("test string", prop_string);
+
 }
 
 TEST(SetAttributeMirror)

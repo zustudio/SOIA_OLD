@@ -125,7 +125,7 @@ ElementID EquationToken::rec_RegisterToken(MathContainer* InRuntime)
 	}
 
 	// get ids of my operands
-	std::vector<ElementID> operandIDs;
+	std::vector<RPointer<Value>> operandIDs;
 	for (auto operand : Operands)
 	{
 		ElementID operandID = operand->rec_RegisterToken(InRuntime);
@@ -192,7 +192,7 @@ ElementID EquationToken::rec_RegisterToken(MathContainer* InRuntime)
 		Value* foundFunction = InRuntime->GetElement<Value>(String);
 		if (foundFunction)
 		{
-			std::vector<ElementID> arguments;
+			std::vector<RPointer<Value>> arguments;
 			arguments.push_back(foundFunction->GetID());
 			arguments.push_back(operandIDs[0]);
 			return InRuntime->Register(new OP_CalculateFunction(InRuntime->FuncCache, arguments));

@@ -6,7 +6,7 @@
 using namespace Environment;
 
 #include "FreeTypeProvider.h"
-#include "LogProvider.h"
+#include "GlobalLogger.h"
 
 Font::Font(const std::string& InFontName)
 	:

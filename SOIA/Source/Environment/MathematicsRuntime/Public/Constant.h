@@ -15,7 +15,8 @@ namespace Environment
 
 		explicit Constant(double InConstant = 0);
 
-		virtual double Calculate(const std::vector<Value*> &InDefinedValues) override;
+		virtual double Calculate(DefinitionSet* const & ForwardedDefinitions) override;
+		virtual void PrepareCache() override {}
 
 		double myValue;
 	};

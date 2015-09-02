@@ -4,20 +4,19 @@
 #include "RElementBase.h"
 using namespace Environment;
 
-#include "ReflectionProviders.h"
+#include "GlobalReflectionProviders.h"
 
-std::vector<Environment::MemberMirror*> RElementBase::Internal_MemberMirrors = {};
+std::vector<Environment::MemberMirror*> RElementBase::INTERNAL_NAME(MemberMirrors) = {};
 
-void RElementBase::Internal_GetMemberMirrors(std::vector<MemberMirror*>& InMemberMirrors)
-{
-}
+void RElementBase::INTERNAL_NAME(GetMemberMirrors)(std::vector<MemberMirror*>& InMemberMirrors)
+{}
 
 RClass* RElementBase::GetClass()
 {
-	return GetElementReflectionProvider()->GetClass(TypeID::FromType<RElement>());
+	return GlobalRClassProvider()->GetClass(TypeID::FromType<RElement>());
 }
 
 RClass* RElementBase::StaticClass()
 {
-	return GetElementReflectionProvider()->GetClass(TypeID::FromType<RElement>());
+	return GlobalRClassProvider()->GetClass(TypeID::FromType<RElement>());
 }

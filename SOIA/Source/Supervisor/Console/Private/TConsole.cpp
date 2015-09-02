@@ -6,7 +6,7 @@ using namespace Supervisor;
 using namespace Environment;
 
 #include "RContainer.h"
-#include "LogProvider.h"
+#include "GlobalLogger.h"
 #include "TokenArity_Nullary.h"
 #include "TokenArity_Parenthesis.h"
 
@@ -147,7 +147,7 @@ bool TConsole::ExecuteCommand(const std::string& InTarget, std::string& InComman
 		if (target)
 		{
 			auto p_attribute = target->GetAttribute(functionName);
-			if (p_attribute && p_attribute->Get().CastTo<RFunction*>())
+			if (p_attribute && p_attribute->Object().CastTo<RFunction*>())
 			{
 				//targetArgs = std::vector<VoidPointer>(args.begin() + 2, args.end());
 			}
@@ -173,7 +173,7 @@ bool TConsole::ExecuteCommand(const std::string& InTarget, std::string& InComman
 				+ "Following target are available: ");
 			for (auto target : targets)
 			{
-				Dialogue->WriteLine(target->GetID().Name);
+				Dialogue->WriteLine(target->GetName());
 			}
 		}
 		else
@@ -190,7 +190,7 @@ bool TConsole::ExecuteCommand(const std::string& InTarget, std::string& InComman
 	}
 	else
 	{
-		bool success = target->GetAttribute(functionName)->Get().CastAndDereference<RFunction*>()->CorrectArgsAndExecute(InOutArguments);
+		bool success = target->GetAttribute(functionName)->Object().CastAndDereference<RFunction*>()->CorrectArgsAndExecute(InOutArguments);
 		if (!success)
 		{
 			LOG("Command '" + functionName + "' returned false.", Logger::Severity::Warning);

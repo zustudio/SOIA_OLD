@@ -10,7 +10,7 @@ Constant::Constant(double InConstant)
 	myValue = InConstant;
 }
 
-double Constant::Calculate(const std::vector<Value*> &InDefinedValues)
+double Constant::Calculate(DefinitionSet* const & ForwardedDefinitions)
 {
 	return myValue;
 }

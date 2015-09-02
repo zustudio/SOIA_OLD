@@ -39,8 +39,8 @@ namespace Environment
 
 		Path const& GetPath() const;
 
-		static Directory FromString(const std::string& InString);
-		static std::string ToString(const Directory& InObject);
+		static Directory StaticToObject(const std::string& InString);
+		static std::string StaticToString(const Directory& InObject);
 
 	private:
 		Path PathToDir;

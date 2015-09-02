@@ -5,7 +5,7 @@
 using namespace Supervisor;
 using namespace Environment;
 
-#include "LogProvider.h"
+#include "GlobalLogger.h"
 
 Pipe::Pipe(Environment::RFunction* InFunction)
 	: BaseType(),

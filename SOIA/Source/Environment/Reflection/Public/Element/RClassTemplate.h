@@ -1,3 +1,7 @@
+/// Intelligence Project - SOIA
+/// \file
+/// \copyright
+///
 
 #pragma once
 
@@ -8,7 +12,11 @@
 namespace Environment
 {
 	class RElement;
+}
 
+namespace Environment
+{
+	/// RClass implementation that allows the creation of default objects of it's type.
 	template<typename RType>
 	class RClassTemplate : public RClass
 	{

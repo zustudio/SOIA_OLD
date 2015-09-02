@@ -3,7 +3,7 @@
 
 #include "RClass.h"
 using namespace Environment;
-#include "ReflectionProviders.h"
+#include "GlobalReflectionProviders.h"
 #include "RElement.h"
 
 RClass::RClass(const TypeID &InType, const TypeID& InBaseType) :
@@ -33,7 +33,7 @@ bool RClass::IsChildOf(RClass* InClass) const
 	do
 	{
 		myClass = mySuper;
-		mySuper = GetElementReflectionProvider()->GetClass(myClass->BaseType);
+		mySuper = GlobalRClassProvider()->GetClass(myClass->BaseType);
 		if (myClass == InClass)
 		{
 			return true;

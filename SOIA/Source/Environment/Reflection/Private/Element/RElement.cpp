@@ -9,9 +9,9 @@ using namespace Environment;
 RElement::RElement()
 	:
 	Container(nullptr),
-	ID(ElementID::DefaultObject())
+	ID(ElementID())
 {
-	GetElementReflectionProvider()->Register<RElement>();
+	GlobalRClassProvider()->Register<RElement>();
 	ReflectAttributes();
 }
 RElement::~RElement()
@@ -27,6 +27,11 @@ void RElement::Registered(ElementRegistrationInfo const & InInfo)
 ElementID& RElement::GetID()
 {
 	return ID;
+}
+
+std::string & RElement::GetName()
+{
+	return Name;
 }
 
 RContainer* RElement::GetContainer()

@@ -1,12 +1,14 @@
 cmake_minimum_required(VERSION 3.1)
 
 subproject(MathematicsRuntime)
-	depends_on_projects(Environment Reflection)
+	depends_on_projects(Environment Text Reflection)
 
 add_PrivatePublic(
+	DynamicMathFunction
 	Value
 	Constant
 	Variable
+	MR_Function
 	Operation
 	OP_Add
 	OP_Substract
@@ -16,16 +18,14 @@ add_PrivatePublic(
 	OP_if
 	OP_Select
 	OP_CalculateFunction
-	EquationString
-	EquationToken
-	EquationTokens
 	FunctionCache
 	FunctionCacheItem
-	MathContainer
-	D1D1GenericFunction)
+	DefinitionSet
+	TEST MathContainer)
 end_sub()
 
 auto_add_shared_library()
+auto_add_unittests()
 auto_include_directories()
 auto_export_directories()
 auto_static_check()

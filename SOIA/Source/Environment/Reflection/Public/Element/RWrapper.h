@@ -1,3 +1,7 @@
+/// Intelligence Project - SOIA
+/// \file
+/// \copyright
+///
 
 #pragma once
 
@@ -5,8 +9,10 @@
 
 namespace Environment
 {
+	/// \class		RWrapper
+	/// \brief		Wraps not reflected classes so that they can be accessed via the element hierarchy.
+	/// \details	Wrapper automatically creates an object of it's template type.
 	RTEMPLATECLASS(RWrapper,WrappedClass,RWrapperInterface)
-	
 	template<typename WrappedClass>
 	class LIBIMPEXP RWrapper : public RWrapper_Base<WrappedClass>
 	{
@@ -63,7 +69,7 @@ namespace Environment
 			}
 			else
 			{
-				auto originalWrapper = GetElementReflectionProvider()->GetClass(OriginalWrapperType)->GetDefaultObject();
+				auto originalWrapper = GlobalRClassProvider()->GetClass(OriginalWrapperType)->GetDefaultObject();
 				auto castOriginalWrapper = dynamic_cast<RWrapperInterface*>(originalWrapper);
 				WrappedObject = castOriginalWrapper->Get();
 				delete originalWrapper;

@@ -6,28 +6,23 @@ using namespace Environment;
 
 #include <assert.h>
 
-OP_If::OP_If(const std::vector<ElementID> &InOperands) : BaseType(InOperands)
+OP_If::OP_If(const std::vector<RPointer<Value>> &InOperands) : BaseType(InOperands)
 {
 
 }
 
-double OP_If::Calculate(const std::vector<Value*> &DefinedValues)
+double OP_If::Calculate(DefinitionSet* const & ForwardedDefinitions)
 {
-	Value* op1;
-	Value* op2;
-	Value* op3;
-	FindOperands(DefinedValues, op1, op2, op3);
-
-	double testResult = op1->Calculate(DefinedValues);
+	double testResult = Operands[0]->Calculate(ForwardedDefinitions);
 	double result;
 
 	if (testResult <= 0)
 	{
-		result = op2->Calculate(DefinedValues);
+		result = Operands[1]->Calculate(ForwardedDefinitions);
 	}
 	else
 	{
-		result = op3->Calculate(DefinedValues);
+		result = Operands[2]->Calculate(ForwardedDefinitions);
 	}
 
 	return result;

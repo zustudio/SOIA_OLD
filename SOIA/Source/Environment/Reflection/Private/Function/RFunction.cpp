@@ -4,8 +4,8 @@
 #include "RFunction.h"
 using namespace Environment;
 
-#include "ReflectionProviders.h"
-#include "LogProvider.h"
+#include "GlobalReflectionProviders.h"
+#include "GlobalLogger.h"
 
 bool RFunction::CorrectArgsAndExecute(std::vector<VoidPointer> &CorrectedArgs)
 {
@@ -42,10 +42,10 @@ bool RFunction::CorrectArgsAndExecute(std::vector<VoidPointer> &CorrectedArgs)
 		std::string translation = "";
 		if (inArgs.size())
 		{
-			translation = GetAtomReflectionProvider()->GetReflection(inArgs[i].GetTypeID().Decay())->ObjectToString(inArgs[i]);
+			translation = GlobalAtomConverterProvider()->GetConverter(inArgs[i].GetTypeID().Decay())->ObjectToString(inArgs[i]);
 		}
 
-		VoidPointer createdAtom = *GetAtomReflectionProvider()->GetReflection(CorrectedArgs[defaultCreatedArgs[i]].GetTypeID().Decay())->StringToObject(translation);
+		VoidPointer createdAtom = *GlobalAtomConverterProvider()->GetConverter(CorrectedArgs[defaultCreatedArgs[i]].GetTypeID().Decay())->StringToObject(translation);
 
 		CorrectedArgs[defaultCreatedArgs[i]] = createdAtom;
 	}

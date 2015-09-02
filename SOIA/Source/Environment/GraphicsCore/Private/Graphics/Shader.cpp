@@ -5,7 +5,7 @@
 #include "Shader.h"
 using namespace Environment;
 
-#include "LogProvider.h"
+#include "GlobalLogger.h"
 
 Shader::Shader(ShaderType InType, const std::string& InCode)
 	:

@@ -16,6 +16,11 @@ void FunctionCache::CacheFunctionCall(const ElementID &InFunction, double InOper
 	Register(new FunctionCacheItem(InFunction, InOperand0, InResult));
 }
 
+void FunctionCache::Clear()
+{
+	Objects.clear();
+}
+
 bool FunctionCache::GetCachedFunctionCall(const ElementID &InFunction, double InOperand0, double &OutResult)
 {
 	bool result = false;

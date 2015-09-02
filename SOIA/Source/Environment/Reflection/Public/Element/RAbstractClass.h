@@ -1,3 +1,7 @@
+/// Intelligence Project - SOIA
+/// \file
+/// \copyright
+///
 
 #pragma once
 
@@ -5,6 +9,7 @@
 
 namespace Environment
 {
+	/// RClass implementation that does not provide a default object.
 	class LIBIMPEXP RAbstractClass : public RClass
 	{
 	public:

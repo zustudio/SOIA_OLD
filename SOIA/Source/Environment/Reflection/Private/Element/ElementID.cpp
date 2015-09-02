@@ -14,22 +14,18 @@ ElementID::ElementID(int const & InIdentifier)
 	:
 	Identifier(InIdentifier)
 {}
-ElementID ElementID::DefaultObject()
-{
-	return ElementID(-1);
-}
 int const & ElementID::ToInt() const
 {
 	return Identifier;
 }
-std::string ElementID::ToString(const ElementID& InID)
+std::string ElementID::StaticToString(const ElementID& InID)
 {
 	return std::to_string(InID.Identifier);
 }
-ElementID ElementID::FromString(const std::string& InString)
+ElementID ElementID::StaticToObject(const std::string& InString)
 {
 	/// Create default element id and get its properties
-	ElementID newID = ElementID::DefaultObject();
+	ElementID newID;
 	int identifier = newID.Identifier;
 
 	/// if string is correctly formated overwrite default properties

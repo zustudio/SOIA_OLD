@@ -1,27 +1,35 @@
-/////////////////////////////////////////////////////////////////////////////////////////////
-///	Project:	SOIA
-///	Author:		Maxim Urschumzew
-/// Year:		2015
+/// Intelligence Project - SOIA
+/// \file
+/// \copyright
 ///
 
 #pragma once
 
+// include super
 #include "RElementBase.h"
 
+// include SOIA
 #include "ElementID.h"
-#include "ElementReflection.h"
-#include "ElementReflectionProvider.h"
+#include "RClassProvider.h"
 #include "RClassTemplate.h"
 #include "RAbstractClass.h"
 #include "ObjectMirrorTemplate.h"
-#include "ReflectionProviders.h"
+#include "GlobalReflectionProviders.h"
 #include "ReflectionMacros.h"
+
+// forward definitions
+namespace Environment
+{
+	class RContainer;
+}
+
 
 
 namespace Environment
 {
-	class RContainer;
-
+	//////////////////////////////////////////////////////////////////////////////////////////
+	/// \struct			ElementRegistrationInfo
+	/// \brief			Information passed from RContainer to RElement, when it is being registered.
 	struct ElementRegistrationInfo
 	{
 		ElementRegistrationInfo(RContainer* InContainer, ElementID const & InID, std::string const & InName)
@@ -36,6 +44,12 @@ namespace Environment
 		std::string const & Name;
 	};
 
+	//////////////////////////////////////////////////////////////////////////////////////////
+	/// \class		RElement
+	/// \brief		Base class for every reflected (R-)class.
+	/// \details	Provides the interface necessary to access reflected attributes of an 
+	///				object via their name. Furthermore it interacts with RContainer, in order
+	///				to be accessible inside the container hierarchy.
 	RCLASS(RElement,RElementBase)
 	class LIBIMPEXP RElement : public RElement_Base
 	{
@@ -46,39 +60,51 @@ namespace Environment
 		////////////////////////////////////////////////////////////////
 		// Functions
 
-		//------------------------------
-		//--- Init
 	public:
-		RElement();
-		virtual ~RElement();
+		///\name Init
+		///\{
+			RElement();
+			virtual ~RElement();
+		///\}
 
-		//------------------------------
-		//--- Container interaction
+		///\name Access to general element properties
+		///\{
+			ElementID& GetID();
+			std::string& GetName();
+			RContainer* GetContainer();
+		///\}
+
+		///\name Access to reflected attributes
+		///\{
+			std::vector<ObjectMirror*> const GetAttributes();
+			std::vector<std::string> GetAttributeNames();
+			ObjectMirror* GetAttribute(const std::string& InName);
+		///\}
+
 	private:
-		virtual void Registered(ElementRegistrationInfo const & InInfo);
-
-		//------------------------------
-		//--- Access
-	public:
-		ElementID& GetID();
-		RContainer* GetContainer();
-
-		std::vector<std::string> GetAttributeNames();
-		ObjectMirror* GetAttribute(const std::string& InName);
-		std::vector<ObjectMirror*> const GetAttributes();
+		///\name Container interaction
+		///\{
+			virtual void Registered(ElementRegistrationInfo const & InInfo);
+		///\}
 
 
 		////////////////////////////////////////////////////////////////
 		// Variables
+
 	protected:
+		///\name Reflected properties
+		///\{
+			RPROPERTY(ID)
+				ElementID ID;
+			RPROPERTY(Name)
+				std::string Name;
+		///\}
 
-		RContainer* Container;
+		///\name Unreflected properties
+		///\{
+			RContainer* Container;
+		///\}
 
-		RPROPERTY(ID)
-			ElementID ID;
-
-		RPROPERTY(Name)
-			std::string Name;
 
 		RCLASS_END()
 	};

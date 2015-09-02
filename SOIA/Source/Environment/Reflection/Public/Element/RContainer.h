@@ -1,3 +1,7 @@
+/// Intelligence Project - SOIA
+/// \file
+/// \copyright
+///
 
 #pragma once
 
@@ -9,6 +13,9 @@
 
 namespace Environment
 {
+	/// \class		RContainer
+	/// \brief		Basic container for RElements.
+	/// \details	Implements the element-hierarchy. Provides different access methods.
 	RCLASS(RContainer,RElement)
 	class LIBIMPEXP RContainer : public RContainer_Base
 	{
@@ -16,88 +23,99 @@ namespace Environment
 		//////////////////////////////////////////////////////////////////
 		// Functions
 
-		//----- Initializing -----
-		/// Constructor
-		explicit RContainer(const Range<int>& InAllowedIDs = Range<int>(0,0), const std::vector<RElement*>& InElements = {});
+		///\name Init
+		///\{
+			explicit RContainer(const Range<int>& InAllowedIDs = Range<int>(0,0), const std::vector<RElement*>& InElements = {});
+		///\}
 
-		//----- Public Object Access -----
-		/// Registers new Object.
-		ElementID& Register(RElement* InObject, const std::string &InName="");
+		///\name Registration
+		///\{
+			/// Registers new Object.
+			ElementID& Register(RElement* InObject, const std::string &InName="");
 
-		/// Overwrites old registration with a new Object.
-		ElementID& ReRegister(const ElementID &InID, RElement* InObject);
+			/// Overwrites old registration with a new Object.
+			ElementID& ReRegister(const ElementID &InID, RElement* InObject);
 
-		/// Unregisters object.
-		void Unregister(RElement* InObject);
-		void Clear();
+			/// Unregisters object.
+			void Unregister(RElement* InObject);
 
-		/// Returns pointer to pointer to registered Object.
-		RElement** GetElementPointer(const ElementID &InID);
-		RElement** GetElementPointer(const std::string &InName);
+			/// Clears reference to contained elements
+			/// \todo delete removed elements
+			void Clear();
+		///\}
 
-		/// Returns pointer to registered Object.
-		template<class RCastClass, class IdentifierType>
-		RCastClass* GetElement(const IdentifierType &InID)
-		{
-			RCastClass* result = nullptr;
+		///\name Object Access
+		///\{
+			/// Returns pointer to pointer to registered Object.
+			RElement** GetElementPointer(const ElementID &InID);
+			RElement** GetElementPointer(const std::string &InName);
 
-			RElement** pointerToElement = GetElementPointer(InID);
-			if (pointerToElement)
+			/// Returns pointer to registered Object.
+			template<class RCastClass, class IdentifierType>
+			RCastClass* GetElement(const IdentifierType &InID)
 			{
-				RCastClass* element = dynamic_cast<RCastClass*>(*pointerToElement);
-				if (element)
+				RCastClass* result = nullptr;
+
+				RElement** pointerToElement = GetElementPointer(InID);
+				if (pointerToElement)
 				{
-					result = element;
-				}
-			}
-
-			return result;
-		}
-
-		/// Returns vector with elements of chosen type.
-		template <class RCastClass>
-		std::vector<RCastClass*> GetAllElements()
-		{
-			std::vector<RCastClass*> result;
-			
-			for (RElement* element : Objects)
-			{
-				RCastClass* castElement = dynamic_cast<RCastClass*>(element);
-
-				if (castElement)
-				{
-					result.push_back(castElement);
-				}
-			}
-			return result;
-		}
-
-		/// Returns elements with named attribute
-		template<class RCastClass, typename AttributeType>
-		std::vector<RCastClass*> GetElementsWithAttribute(const std::string& InAttributeName)
-		{
-			std::vector<RCastClass*> allElements = GetAllElements<RCastClass>();
-			std::vector<RCastClass*> result;
-			for (auto element : allElements)
-			{
-				auto p_foundAttribute = element->GetAttribute(InAttributeName);
-				if (p_foundAttribute)
-				{
-					auto foundAttribute = p_foundAttribute->Get().template CastTo<AttributeType>();
-					if (foundAttribute)
+					RCastClass* element = dynamic_cast<RCastClass*>(*pointerToElement);
+					if (element)
 					{
-						result.push_back(element);
+						result = element;
 					}
 				}
+
+				return result;
 			}
-			return result;
-		}
+
+			/// Returns vector with elements of chosen type.
+			template <class RCastClass>
+			std::vector<RCastClass*> GetAllElements()
+			{
+				std::vector<RCastClass*> result;
+			
+				for (RElement* element : Objects)
+				{
+					RCastClass* castElement = dynamic_cast<RCastClass*>(element);
+
+					if (castElement)
+					{
+						result.push_back(castElement);
+					}
+				}
+				return result;
+			}
+
+			/// Returns elements with named attribute
+			template<class RCastClass, typename AttributeType>
+			std::vector<RCastClass*> GetElementsWithAttribute(const std::string& InAttributeName)
+			{
+				std::vector<RCastClass*> allElements = GetAllElements<RCastClass>();
+				std::vector<RCastClass*> result;
+				for (auto element : allElements)
+				{
+					auto p_foundAttribute = element->GetAttribute(InAttributeName);
+					if (p_foundAttribute)
+					{
+						auto foundAttribute = p_foundAttribute->Object().template CastTo<AttributeType>();
+						if (foundAttribute)
+						{
+							result.push_back(element);
+						}
+					}
+				}
+				return result;
+			}
+		///\}
 
 	private:
-		//----- Private ID Management -----
-		/// Tries to create a new ID in AllowedIDs range.
-		ElementID NextFreeID();
-		void NextFreeName(std::string &InOutName);
+		///\name Private ID Management
+		///\{
+			/// Tries to create a new ID in AllowedIDs range.
+			ElementID NextFreeID();
+			void NextFreeName(std::string &InOutName);
+		///\}
 
 	protected:
 		//////////////////////////////////////////////////////////////////

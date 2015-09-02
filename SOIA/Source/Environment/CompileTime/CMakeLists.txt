@@ -14,11 +14,14 @@ in_sub(Number)
 		MultipleOperandMathematics)
 in_sub(String)
 	add_Public(
+		CharReplacer
+		ConstExprChar
 		CharArrayLiteral
-		CharReplacer)
-in_sub(Type)
-	add_Public(
 		TypeCharArrayLiteral)
+in_sub(Traits)
+	add_Public(
+		TypeTraits
+		OperatorTraits)
 end_sub()
 
 auto_add_headeronly_library()

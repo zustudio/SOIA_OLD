@@ -21,6 +21,7 @@ namespace Environment
 	public:
 
 		//----- init -----
+		TokenRule(int InIdentifier, std::regex const & InRegex, std::shared_ptr<TokenArityInterface> InTokenCollapser);
 		TokenRule(std::regex const & InRegex, std::shared_ptr<TokenArityInterface> InTokenCollapser);
 		virtual ~TokenRule();
 
@@ -36,5 +37,6 @@ namespace Environment
 		std::regex Regex;
 		std::shared_ptr<TokenArityInterface> TokenCollapser;
 		std::vector<Token*> ParsedTokens;
+		int Identifier;
 	};
 }

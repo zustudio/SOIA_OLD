@@ -47,11 +47,11 @@ namespace Environment
 		TypeID RemoveSuffix_Base() const;
 
 		//atom:
-		static TypeID FromString(const std::string& InString)
+		static TypeID StaticToObject(const std::string& InString)
 		{
 			return TypeID(InString);
 		}
-		static std::string ToString(const TypeID& InObject)
+		static std::string StaticToString(const TypeID& InObject)
 		{
 			return InObject.ToString();
 		}

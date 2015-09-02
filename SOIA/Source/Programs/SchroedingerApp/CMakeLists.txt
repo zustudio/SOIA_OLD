@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.1)
 
 subproject(SchroedingerApp)
-	depends_on_projects(Environment Reflection File MathematicsRuntime Graphics Log)
+	depends_on_projects(Environment Reflection File MathematicsRuntime Graphics Text)
 
 add_PrivatePublic(Main)
 end_sub()
