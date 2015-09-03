@@ -79,7 +79,7 @@ namespace Environment
 			auto itemType = TypeID::FromType<typename VectorClass::value_type>();
 			for (auto string : InStrings)
 			{
-				VoidPointer* vp_object = GetAtomObject(string, itemType);
+				VoidPointer* vp_object = AtomConverterHelper::GetAtomObject(string, itemType);
 				vector->push_back(vp_object->CastAndDereference<typename VectorClass::value_type>());
 			}
 

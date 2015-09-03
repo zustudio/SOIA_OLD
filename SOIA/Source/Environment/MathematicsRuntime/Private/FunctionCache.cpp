@@ -7,39 +7,34 @@ using namespace Environment;
 #include <cmath>
 #include <limits>
 
-FunctionCache::FunctionCache() : BaseType(Range<int>(0,100000))
+FunctionCache::FunctionCache()
+	: BaseType()
 {
 }
 
-void FunctionCache::CacheFunctionCall(const ElementID &InFunction, double InOperand0, double InResult)
+void FunctionCache::CacheFunctionCall(std::vector<double> InOperands, double InResult)
 {
-	Register(new FunctionCacheItem(InFunction, InOperand0, InResult));
+	CachedItems.push_back(FunctionCacheItem(InOperands, InResult));
 }
 
 void FunctionCache::Clear()
 {
-	Objects.clear();
+	CachedItems.clear();
 }
 
-bool FunctionCache::GetCachedFunctionCall(const ElementID &InFunction, double InOperand0, double &OutResult)
+bool FunctionCache::GetCachedFunctionCall(std::vector<double> InOperands, double &OutResult)
 {
-	bool result = false;
-	for (RElement* element : Objects)
+	auto foundCachedItem = std::find(CachedItems.begin(), CachedItems.end(), InOperands);
+	if (foundCachedItem == CachedItems.end())
 	{
-		FunctionCacheItem* functionCall = static_cast<FunctionCacheItem*>(element);
-		if (InFunction == functionCall->CalledFunction)
-		{
-			if (DoublesEqual(InOperand0, functionCall->Operand0))
-			{
-				OutResult = functionCall->Result;
-				result = true;
-			}
-		}
+		OutResult = 0;
+		return false;
 	}
-	return result;
+	else
+	{
+		OutResult = foundCachedItem->Result;
+		return true;
+	}
 }
 
-bool FunctionCache::DoublesEqual(const double& InA, const double& InB)
-{
-	return std::abs(double(InA - InB)) < std::numeric_limits<double>::epsilon();
-}
+

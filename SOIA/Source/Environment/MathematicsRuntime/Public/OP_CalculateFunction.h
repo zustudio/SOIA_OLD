@@ -12,6 +12,7 @@ namespace Environment
 	{
 	public:
 		OP_CalculateFunction(RPointer<Value> InFunctionDefinition = nullptr, std::vector<RPointer<Value>> const & InParameters = {});
+		void ApplyAsSpecialValue(double InResult);
 		virtual double Calculate(DefinitionSet* const & ForwardedDefinitions) override;
 		virtual void PrepareCache() override;
 

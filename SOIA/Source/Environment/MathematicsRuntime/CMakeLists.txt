@@ -15,7 +15,6 @@ add_PrivatePublic(
 	OP_Multiply
 	OP_Divide
 	OP_GreaterThan
-	OP_if
 	OP_Select
 	OP_CalculateFunction
 	FunctionCache

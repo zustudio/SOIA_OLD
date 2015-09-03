@@ -17,25 +17,67 @@ OP_CalculateFunction::OP_CalculateFunction(RPointer<Value> InFunctionDefinition,
 	FunctionDefinition(InFunctionDefinition)
 {}
 
+void OP_CalculateFunction::ApplyAsSpecialValue(double InResult)
+{
+	MR_Function* realFunction = dynamic_cast<MR_Function*>(FunctionDefinition.RawPointer());
+	std::vector<double> parameterValues;
+	parameterValues.reserve(Operands.size());
+	if (realFunction)
+	{
+		DefinitionSet EmptyDefinitionSet;
+		// calculate parameters
+		for (RPointer<Value> parameter : Operands)
+		{
+			parameterValues.push_back(parameter->Calculate(&EmptyDefinitionSet));
+		}
+
+		realFunction->SetSpecialValue(parameterValues, InResult);
+	}
+}
+
 double OP_CalculateFunction::Calculate(DefinitionSet* const & ForwardedDefinitions)
 {
+	double result = 0;
+
 	// prepare new set to pass into calculation
 	DefinitionSet NewDefinitionsToForward = DefinitionSet();
 
 	// if function is a real function, calculate all function arguments and save them into new definition set
 	MR_Function* realFunction = dynamic_cast<MR_Function*>(FunctionDefinition.RawPointer());
+	std::vector<double> parameterValues;
+	parameterValues.reserve(Operands.size());
 	if (realFunction)
 	{
-		for (int index_argument = 0; index_argument < Operands.size(); index_argument++)
+		// calculate parameters
+		for (RPointer<Value> parameter : Operands)
+		{
+			parameterValues.push_back(parameter->Calculate(ForwardedDefinitions));
+		}
+
+		// try to find cached function call entry
+		if (realFunction->GetCachedFunctionCall(parameterValues, result))
+			return result;
+
+		// else prepare new definition set for calculation
+		int n = parameterValues.size();
+		for (int i = 0; i < n; i++)
 		{
 			NewDefinitionsToForward.Register(
-				new Constant(Operands[index_argument]->Calculate(ForwardedDefinitions)),
-				realFunction->GenerateParameterName(index_argument));
+				new Constant(parameterValues[i]),
+				realFunction->GenerateParameterName(i));
 		}
 	}
 
 	// calculate function
-	return FunctionDefinition->Calculate(&NewDefinitionsToForward);
+	result = FunctionDefinition->Calculate(&NewDefinitionsToForward);
+
+	// cache result if possible
+	if (realFunction)
+	{
+		realFunction->CacheFunctionCall(parameterValues, result);
+	}
+
+	return result;
 }
 
 void OP_CalculateFunction::PrepareCache()

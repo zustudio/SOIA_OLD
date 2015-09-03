@@ -25,6 +25,22 @@ void MR_Function::SetBody(RPointer<Value> InFunctionBody)
 	FunctionBody = InFunctionBody;
 }
 
+void MR_Function::SetSpecialValue(std::vector<double> InOperands, double InResult)
+{
+	SpecialValues.CacheFunctionCall(InOperands, InResult);
+}
+
+bool MR_Function::GetCachedFunctionCall(std::vector<double> InOperands, double & OutResult)
+{
+	return SpecialValues.GetCachedFunctionCall(InOperands, OutResult)
+		|| Cache.GetCachedFunctionCall(InOperands, OutResult);
+}
+
+void MR_Function::CacheFunctionCall(std::vector<double> InOperands, double InResult)
+{
+	Cache.CacheFunctionCall(InOperands, InResult);
+}
+
 double MR_Function::Calculate(DefinitionSet * const & ForwardedDefinitions)
 {
 	//// rename passed parameters to their real names

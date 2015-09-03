@@ -40,3 +40,12 @@ TEST(ParseFunctionDefinition)
 	double result = mathContainer.ParseString("f(3)")->Execute({});
 	CHECK_EQUAL(6, result);
 }
+
+TEST(ParseRecursiveFunction)
+{
+	MathContainer mathContainer;
+	mathContainer.ParseString("fact(x)=x*fact(x-1)");
+	mathContainer.ParseString("fact(0)=1");
+	double result = mathContainer.ParseString("fact(4)")->Execute({});
+	CHECK_EQUAL(24, result);
+}

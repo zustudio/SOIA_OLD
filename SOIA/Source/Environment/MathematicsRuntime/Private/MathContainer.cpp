@@ -88,23 +88,29 @@ Value* MathContainer::CreateValue(Token * InToken)
 			&& InToken->GetParentToken()->RuleIdentifier == Assignment
 			&& InToken->ContainerIteratorSet->Current == InToken->ContainerIteratorSet->Begin)
 		{
-			std::vector<RPointer<Variable>> parameters;
-			// check parameters of function and create corresponding variables
-			for (int index_subToken = 0; index_subToken < subTokens.size(); ++index_subToken)
+			// check whether the general function form is used, or a special value
+			if (subTokens[0]->RuleIdentifier == VarName)
 			{
-				if (subTokens[index_subToken]->RuleIdentifier != VarName)
-				{
-					LOG("In function assignment of '" + InToken->Text + "': '" + subTokens[index_subToken]->Text + "' is not a variable name.", Logger::Severity::Error);
-					break;
-				}
-				else
+				std::vector<RPointer<Variable>> parameters;
+				// check parameters of function and create corresponding variables
+				for (int index_subToken = 0; index_subToken < subTokens.size(); ++index_subToken)
 				{
 					Variable* parameter = dynamic_cast<Variable*>(subValues[index_subToken].RawPointer());
 					parameters.push_back(parameter);
 				}
+				value = new MR_Function(GetElement<Value>("NULL"), parameters);
+				name = InToken->Text;
 			}
-			value = new MR_Function(GetElement<Value>("NULL"), parameters);
-			name = InToken->Text;
+			else
+			{
+				// find function and create new specialised function
+				MR_Function* function = GetElement<MR_Function>(InToken->Text);
+				if (function)
+				{
+					value = new OP_CalculateFunction(function, subValues);
+				}
+			}
+
 		}
 		else
 		{
@@ -152,6 +158,14 @@ Value* MathContainer::CreateValue(Token * InToken)
 			Variable* variable = GetElement<Variable>(subTokens[0]->Text);
 			variable->MakeConstant(Calculate(subValues[1].RawPointer(), {}));
 			value = variable;
+			bDoNotRegister = true;
+		}
+		else if (subValues[0]->GetClass() == OP_CalculateFunction::StaticClass())
+		{
+			OP_CalculateFunction* specialisedFunction = static_cast<OP_CalculateFunction*>(subValues[0].RawPointer());
+			DefinitionSet EmptyDefinitionSet;
+			specialisedFunction->ApplyAsSpecialValue(subValues[1]->Calculate(&EmptyDefinitionSet));
+			value = specialisedFunction;
 			bDoNotRegister = true;
 		}
 		else if (subTokens[0]->RuleIdentifier == FunctionName)

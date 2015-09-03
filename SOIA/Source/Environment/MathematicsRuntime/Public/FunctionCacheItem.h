@@ -9,12 +9,17 @@ namespace Environment
 	class FunctionCacheItem : public FunctionCacheItem_Base
 	{
 		RCLASS_BEGIN()
-		FunctionCacheItem(const ElementID &InID = ElementID(), const double &Inoperand0 = 0, const double &InResult = 0);
-		ElementID CalledFunction;
-		RPROPERTY(Operand0)
-			double Operand0;
+			FunctionCacheItem(std::vector<double> InOperands = {}, double InResult = 0);
+	
+		bool operator==(std::vector<double> const& InOperands);
+
+		static bool DoublesEqual(const double& InA, const double& InB);
+
+		RPROPERTY(Operands)
+			std::vector<double> Operands;
 		RPROPERTY(Result)
 			double Result;
+
 		RCLASS_END()
 	};
 }
