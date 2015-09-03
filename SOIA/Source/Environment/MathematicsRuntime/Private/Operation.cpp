@@ -11,7 +11,7 @@ Operation::Operation(const std::vector<RPointer<Value>> &InOperands)
 
 void Operation::PrepareCache()
 {
-	for (RPointer<Value> operand : Operands)
+	for (RPointer<Value>& operand : Operands)
 	{
 		operand.RecacheTarget();
 	}

@@ -48,4 +48,10 @@ TEST(ParseRecursiveFunction)
 	mathContainer.ParseString("fact(0)=1");
 	double result = mathContainer.ParseString("fact(4)")->Execute({});
 	CHECK_EQUAL(24, result);
+
+	mathContainer.ParseString("fibo(n)=fibo(n-1)+fibo(n-2)");
+	mathContainer.ParseString("fibo(0)=0");
+	mathContainer.ParseString("fibo(1)=1");
+	double fibo10 = mathContainer.ParseString("fibo(10)")->Execute({});
+	CHECK_EQUAL(55, fibo10);
 }

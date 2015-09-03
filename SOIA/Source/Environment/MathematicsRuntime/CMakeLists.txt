@@ -9,6 +9,7 @@ add_PrivatePublic(
 	Constant
 	Variable
 	MR_Function
+	MR_AppliedFunction
 	Operation
 	OP_Add
 	OP_Substract
@@ -16,7 +17,6 @@ add_PrivatePublic(
 	OP_Divide
 	OP_GreaterThan
 	OP_Select
-	OP_CalculateFunction
 	FunctionCache
 	FunctionCacheItem
 	DefinitionSet

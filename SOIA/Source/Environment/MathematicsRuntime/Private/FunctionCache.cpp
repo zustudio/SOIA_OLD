@@ -24,8 +24,8 @@ void FunctionCache::Clear()
 
 bool FunctionCache::GetCachedFunctionCall(std::vector<double> InOperands, double &OutResult)
 {
-	auto foundCachedItem = std::find(CachedItems.begin(), CachedItems.end(), InOperands);
-	if (foundCachedItem == CachedItems.end())
+	auto foundCachedItem = std::find(CachedItems.rbegin(), CachedItems.rend(), InOperands);
+	if (foundCachedItem == CachedItems.rend())
 	{
 		OutResult = 0;
 		return false;

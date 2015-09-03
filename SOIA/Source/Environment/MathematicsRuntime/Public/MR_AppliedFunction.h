@@ -7,11 +7,11 @@
 
 namespace Environment
 {
-	RCLASS(OP_CalculateFunction,Operation)
-	class LIBIMPEXP OP_CalculateFunction : public OP_CalculateFunction_Base
+	RCLASS(MR_AppliedFunction,Operation)
+	class LIBIMPEXP MR_AppliedFunction : public MR_AppliedFunction_Base
 	{
 	public:
-		OP_CalculateFunction(RPointer<Value> InFunctionDefinition = nullptr, std::vector<RPointer<Value>> const & InParameters = {});
+		MR_AppliedFunction(RPointer<Value> InFunctionDefinition = nullptr, std::vector<RPointer<Value>> const & InParameters = {});
 		void ApplyAsSpecialValue(double InResult);
 		virtual double Calculate(DefinitionSet* const & ForwardedDefinitions) override;
 		virtual void PrepareCache() override;

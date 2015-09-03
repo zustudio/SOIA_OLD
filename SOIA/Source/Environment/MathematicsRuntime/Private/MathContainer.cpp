@@ -9,7 +9,7 @@ using namespace Environment;
 #include "Variable.h"
 #include "MR_Function.h"
 #include "OP_Add.h"
-#include "OP_CalculateFunction.h"
+#include "MR_AppliedFunction.h"
 #include "OP_Divide.h"
 #include "OP_GreaterThan.h"
 #include "OP_Select.h"
@@ -107,7 +107,7 @@ Value* MathContainer::CreateValue(Token * InToken)
 				MR_Function* function = GetElement<MR_Function>(InToken->Text);
 				if (function)
 				{
-					value = new OP_CalculateFunction(function, subValues);
+					value = new MR_AppliedFunction(function, subValues);
 				}
 			}
 
@@ -118,7 +118,7 @@ Value* MathContainer::CreateValue(Token * InToken)
 			MR_Function* function = GetElement<MR_Function>(InToken->Text);
 			if (function)
 			{
-				value = new OP_CalculateFunction(function, subValues);
+				value = new MR_AppliedFunction(function, subValues);
 			}
 		}
 		break;
@@ -160,9 +160,9 @@ Value* MathContainer::CreateValue(Token * InToken)
 			value = variable;
 			bDoNotRegister = true;
 		}
-		else if (subValues[0]->GetClass() == OP_CalculateFunction::StaticClass())
+		else if (subValues[0]->GetClass() == MR_AppliedFunction::StaticClass())
 		{
-			OP_CalculateFunction* specialisedFunction = static_cast<OP_CalculateFunction*>(subValues[0].RawPointer());
+			MR_AppliedFunction* specialisedFunction = static_cast<MR_AppliedFunction*>(subValues[0].RawPointer());
 			DefinitionSet EmptyDefinitionSet;
 			specialisedFunction->ApplyAsSpecialValue(subValues[1]->Calculate(&EmptyDefinitionSet));
 			value = specialisedFunction;
@@ -198,7 +198,7 @@ double MathContainer::Calculate(Value * InValue, std::vector<double> const & InA
 		tempArgumentConstants.push_back(new Constant(argument));
 	}
 	DefinitionSet emptyDefinitionSet;
-	return OP_CalculateFunction(InValue, tempArgumentConstants).Calculate(&emptyDefinitionSet);
+	return MR_AppliedFunction(InValue, tempArgumentConstants).Calculate(&emptyDefinitionSet);
 }
 
 void MathContainer::PrepareCache()

@@ -65,7 +65,7 @@ double MR_Function::Calculate(DefinitionSet * const & ForwardedDefinitions)
 void MR_Function::PrepareCache()
 {
 	FunctionBody.RecacheTarget();
-	for (auto parameter : Parameter)
+	for (RPointer<Variable>& parameter : Parameter)
 	{
 		parameter.RecacheTarget();
 	}

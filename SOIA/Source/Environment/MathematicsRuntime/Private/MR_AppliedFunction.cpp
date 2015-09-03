@@ -1,7 +1,7 @@
 
 #include "Definitions.h"
 
-#include "OP_CalculateFunction.h"
+#include "MR_AppliedFunction.h"
 using namespace Environment;
 
 #include "Constant.h"
@@ -12,12 +12,12 @@ using namespace Environment;
 #include <assert.h>
 #include <iostream>
 
-OP_CalculateFunction::OP_CalculateFunction(RPointer<Value> InFunctionDefinition, std::vector<RPointer<Value>> const & InParameters)
+MR_AppliedFunction::MR_AppliedFunction(RPointer<Value> InFunctionDefinition, std::vector<RPointer<Value>> const & InParameters)
 	: BaseType(InParameters),
 	FunctionDefinition(InFunctionDefinition)
 {}
 
-void OP_CalculateFunction::ApplyAsSpecialValue(double InResult)
+void MR_AppliedFunction::ApplyAsSpecialValue(double InResult)
 {
 	MR_Function* realFunction = dynamic_cast<MR_Function*>(FunctionDefinition.RawPointer());
 	std::vector<double> parameterValues;
@@ -35,7 +35,7 @@ void OP_CalculateFunction::ApplyAsSpecialValue(double InResult)
 	}
 }
 
-double OP_CalculateFunction::Calculate(DefinitionSet* const & ForwardedDefinitions)
+double MR_AppliedFunction::Calculate(DefinitionSet* const & ForwardedDefinitions)
 {
 	double result = 0;
 
@@ -80,7 +80,7 @@ double OP_CalculateFunction::Calculate(DefinitionSet* const & ForwardedDefinitio
 	return result;
 }
 
-void OP_CalculateFunction::PrepareCache()
+void MR_AppliedFunction::PrepareCache()
 {
 	Super::PrepareCache();
 	FunctionDefinition.RecacheTarget();
