@@ -105,10 +105,10 @@ void main()
 		"outColor",
 		{ pointVar, coordVar });
 
-	auto textObj = new TextObject(GetFont("DengXian.ttf"), 15, Vector2D<float>(-0.45, -0.26), "Self-reflected");
-	auto text2 = new TextObject(GetFont("DengXian.ttf"), 15, Vector2D<float>(-0.45, -0.33), "Object");
-	auto text3 = new TextObject(GetFont("DengXian.ttf"), 15, Vector2D<float>(-0.45, -0.40), "Interaction");
-	auto text4 = new TextObject(GetFont("DengXian.ttf"), 15, Vector2D<float>(-0.45, -0.47), "Analyzer");
+	auto textObj = new TextObject(GetFont("DengXian.ttf"), 15, Vector2D<float>(-0.45, -0.26), "Artificial");
+	auto text2 = new TextObject(GetFont("DengXian.ttf"), 15, Vector2D<float>(-0.45, -0.33), "Intelligence");
+	auto text3 = new TextObject(GetFont("DengXian.ttf"), 15, Vector2D<float>(-0.45, -0.40), "Operating");
+	auto text4 = new TextObject(GetFont("DengXian.ttf"), 15, Vector2D<float>(-0.45, -0.47), "System");
 	auto layer2 = new GraphicsTextLayer({ textObj, text2, text3, text4 });
 
 	auto window = new GraphicsWindow({ layer, layer2});

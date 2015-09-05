@@ -20,6 +20,3 @@
 [submodule "SOIA/ThirdParty/freetype2"]
 	path = SOIA/ThirdParty/freetype2
 	url = git://git.sv.nongnu.org/freetype/freetype2.git
-[submodule "SOIA/Pool"]
-	path = SOIA/Pool
-	url = https://MxmUrw@bitbucket.org/zustudio/intelligenceproject_pool.git
