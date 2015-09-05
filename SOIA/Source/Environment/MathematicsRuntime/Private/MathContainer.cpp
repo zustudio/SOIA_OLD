@@ -238,5 +238,5 @@ void MathContainer::PrepareCache()
 //void MathContainer::SetValueName(const ElementID &InID, const std::string &InName)
 //{
 //	RElement* element = GetElement<Value>(InID);
-//	element->GetID().Name = InName;
+//	element->GetName() = InName;
 //}

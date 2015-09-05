@@ -75,7 +75,7 @@ namespace Environment
 
 		static RPointer StaticToObject(const std::string& InString)
 		{
-			return RPointer(ElementID::StaticToObject(InString));
+			return RPointer<RElementClass>(ElementID::StaticToObject(InString), nullptr);
 		}
 		static std::string StaticToString(const RPointer& InObject)
 		{

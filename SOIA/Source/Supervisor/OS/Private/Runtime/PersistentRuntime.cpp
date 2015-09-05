@@ -51,12 +51,15 @@ void PersistentRuntime::InitializeElementHierarchy()
 	LOGSTATUS("Initializing element hierarchy... ");
 	// create global top container
 	GlobalContainer = new RContainer(Range<int>(0, 10));
-	GlobalContainer->GetID().Name = "Global";
+	GlobalContainer->GetName() = "Global";
 	SetGlobalContainer(GlobalContainer);
-	
+
 	// add sub container
 	GlobalContainer->Register(new RContainer(Range<int>(11, 100)), "Project");
 	GlobalContainer->Register(new RContainer(Range<int>(11,100)), "Temp");
+	
+	// register dialogue
+	GlobalContainer->Register(&GlobalDialogue, "GlobalDialogue");
 
 	// add predefined tools
 	ConsoleTool = new TConsole();

@@ -11,7 +11,9 @@ namespace Environment
 {
 	/// \class		RWrapper
 	/// \brief		Wraps not reflected classes so that they can be accessed via the element hierarchy.
-	/// \details	Wrapper automatically creates an object of it's template type.
+	/// \details	Wrapper automatically creates an object of it's template type. This object is created 
+	///				on the first Get() call, because it's type may not be known in the constructor in case 
+	///				this class is constructed via it's RClass.
 	RTEMPLATECLASS(RWrapper,WrappedClass,RWrapperInterface)
 	template<typename WrappedClass>
 	class LIBIMPEXP RWrapper : public RWrapper_Base<WrappedClass>

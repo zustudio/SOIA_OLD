@@ -60,12 +60,12 @@ void TRuntime::Run()
 	}
 	else
 	{
-		LOGSTATUS("No threads were found. Searching for TConsole child classes in container '" + Container->GetID().Name + "'.");
+		LOGSTATUS("No threads were found. Searching for TConsole child classes in container '" + Container->GetName() + "'.");
 		auto consoles = Container->GetAllElements<TConsole>();
 		if (consoles.size())
 		{
 			auto console = consoles[0];
-			LOGSTATUS("Activating '" + console->GetID().Name + "'.");
+			LOGSTATUS("Activating '" + console->GetName() + "'.");
 			ActiveThreads.push_back(console);
 			console->Start();
 			threadCount++;
@@ -157,7 +157,7 @@ bool TRuntime::cmd_rename(RElement* const& InElement, std::string const& InNewNa
 
 	if (InElement)
 	{
-		InElement->GetID().Name = InNewName;
+		InElement->GetName() = InNewName;
 	}
 
 	return success;
@@ -201,8 +201,7 @@ bool TRuntime::cmd_saveproject(Directory const& InDir)
 	}
 
 	// get project
-	ElementID projectID;
-	projectID.UniqueIdentifier = 0;
+	ElementID projectID = ElementID(0);
 	RContainer* project = GlobalContainer()->GetElement<RContainer>(projectID);
 
 	// save
@@ -233,7 +232,7 @@ bool TRuntime::SaveRecursive(Directory const & InDir, RElement* const& InElement
 
 bool TRuntime::SaveContainer(Directory const & InDir, RContainer * const & InContainer, Directory & OutContainerDir)
 {
-	std::string folderName = InContainer->GetID().Name;
+	std::string folderName = InContainer->GetName();
 	std::string fileName = folderName + ".cont";
 	
 	OutContainerDir = Directory(InDir.GetPath().AppendFolder(folderName));
@@ -248,7 +247,7 @@ bool TRuntime::SaveContainer(Directory const & InDir, RContainer * const & InCon
 
 bool TRuntime::SaveElement(Directory const & InDir, RElement * const & InElement)
 {
-	std::string fileName = InElement->GetID().Name + ".elem";
+	std::string fileName = InElement->GetName() + ".elem";
 	ElementFile file = ElementFile(InDir.GetPath().AppendFile(fileName));
 	file.Open(EFileMode::Overwrite);
 	file.WriteSingle(InElement, EElementSelectionMode::Single);

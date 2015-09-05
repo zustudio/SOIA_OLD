@@ -5,7 +5,6 @@
 using namespace Supervisor;
 using namespace Environment;
 
-#include "EquationString.h"
 
 REquationTool::REquationTool()
 	: BaseType(),
@@ -31,7 +30,7 @@ bool REquationTool::cmd_storeeq(const std::string& InString)
 	bool result = false;
 	if (CurrentMathContainer)
 	{
-		Equations.push_back(EquationString(InString).Parse(*CurrentMathContainer));
+		Equations.push_back(CurrentMathContainer->ParseString(InString));
 		result = true;
 	}
 	return result;
@@ -50,7 +49,7 @@ bool REquationTool::pipe_calculate2d(double const & InX, double & OutY)
 	{
 		if(Equations.size())
 		{
-			double result = Equations[0].Calculate(InX);
+			double result = Equations[0]->Execute({ InX });
 			success = true;
 		}
 	}

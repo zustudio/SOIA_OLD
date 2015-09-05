@@ -4,14 +4,13 @@
 #include "TTool.h"
 
 #include "MathContainer.h"
-#include "D1D1GenericFunction.h"
 
 namespace Supervisor
 {
 	RCLASS(REquationTool,TTool)
 	class LIBIMPEXP REquationTool : public REquationTool_Base
 	{
-		RCLASS_BEGIN();
+		RCLASS_BEGIN()
 		////////////////////////////////////////////////////////////////
 		// Functions
 
@@ -38,9 +37,9 @@ namespace Supervisor
 		RPROPERTY(CurrentMathContainer)
 			Environment::MathContainer* CurrentMathContainer;
 
-		RPROPERTY(Equations)
-			std::vector<Environment::D1D1GenericFunction> Equations;
+		
+		std::vector<Environment::Function<double, std::vector<double> const &>*> Equations;
 
-		RCLASS_END();
+		RCLASS_END()
 	};
 }
