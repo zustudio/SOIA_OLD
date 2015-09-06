@@ -11,6 +11,8 @@ using namespace Environment;
 #include "GraphicsTextLayer.h"
 #include "FreeTypeProvider.h"
 
+#include "FileSystemProvider.h"
+
 struct Point
 {
 	Point(float InX, float InY)
@@ -49,6 +51,9 @@ struct Tri
 
 void main()
 {
+	Directory exedir = GetFileSystem()->GetExecutableDirectory();
+	Path ressourcePath = exedir.GetPath().AppendFolder("Ressources");
+
 	//---- test ----
 	using PointUnraveler = DataUnravelerTemplate<Point, float, &Point::X, &Point::Y>;
 	using ColorUnraveler = DataUnravelerTemplate<Color, float, &Color::R, &Color::G, &Color::B>;
@@ -58,19 +63,18 @@ void main()
 	Point coordA(0, 1), coordB(1, 1), coordC(0, 0), coordD(1,0);
 	Tri triA(0, 1, 2), triB(1, 2, 3);
 	
-	auto texture = new Texture2D("SOIA-Text.png", 200, 200, TextureChannels::RGBA);
+	Path imagePath = ressourcePath.AppendFolder("Images").AppendFile("SOIA-Text.png");
+	auto texture = new Texture2D(imagePath.ToString(), 200, 200, TextureChannels::RGBA);
 
 	auto vertexBuffer = new VertexBufferTemplate<float, PointUnraveler, PointUnraveler>(VertexBufferType::Vertices, BufferContentType::Triangles);
 	vertexBuffer->Add(pointA, coordA);
 	vertexBuffer->Add(pointB, coordB);
 	vertexBuffer->Add(pointC, coordC);
 	vertexBuffer->Add(pointD, coordD);
-	vertexBuffer->RequestBufferUpdate();
 
 	auto elementBuffer = new VertexBufferTemplate<int, TriUnraveler>(VertexBufferType::Elements, BufferContentType::Triangles);
 	elementBuffer->Add(triA);
 	elementBuffer->Add(triB);
-	vertexBuffer->RequestBufferUpdate();
 
 	auto pointVar = vertexBuffer->CreateVariable(0, "position");
 	auto coordVar = vertexBuffer->CreateVariable(1, "texCoords");
@@ -105,10 +109,13 @@ void main()
 		"outColor",
 		{ pointVar, coordVar });
 
-	auto textObj = new TextObject(GetFont("DengXian.ttf"), 15, Vector2D<float>(-0.45, -0.26), "Artificial");
-	auto text2 = new TextObject(GetFont("DengXian.ttf"), 15, Vector2D<float>(-0.45, -0.33), "Intelligence");
-	auto text3 = new TextObject(GetFont("DengXian.ttf"), 15, Vector2D<float>(-0.45, -0.40), "Operating");
-	auto text4 = new TextObject(GetFont("DengXian.ttf"), 15, Vector2D<float>(-0.45, -0.47), "System");
+	Path fontPath = ressourcePath.AppendFolder("Fonts").AppendFolder("JosefinSans").AppendFile("JosefinSans-Regular.ttf");
+	int size = 17;
+
+	auto textObj = new TextObject(GetFont(fontPath.ToString()), size, Vector2D<float>(-0.45, -0.26), "Artificial");
+	auto text2 = new TextObject(GetFont(fontPath.ToString()), size, Vector2D<float>(-0.45, -0.33), "Intelligence");
+	auto text3 = new TextObject(GetFont(fontPath.ToString()), size, Vector2D<float>(-0.45, -0.40), "Operating");
+	auto text4 = new TextObject(GetFont(fontPath.ToString()), size, Vector2D<float>(-0.45, -0.47), "System");
 	auto layer2 = new GraphicsTextLayer({ textObj, text2, text3, text4 });
 
 	auto window = new GraphicsWindow({ layer, layer2});

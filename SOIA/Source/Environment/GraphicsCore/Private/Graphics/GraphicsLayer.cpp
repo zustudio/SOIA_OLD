@@ -55,7 +55,6 @@ void GraphicsLayer::Draw()
 	for (auto texture : Textures)
 	{
 		texture->Update();
-		CheckGLError();
 	}
 	
 	for (auto buffer : Buffers)

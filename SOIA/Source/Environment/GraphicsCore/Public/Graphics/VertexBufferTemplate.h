@@ -46,6 +46,7 @@ namespace Environment
 		void Add(const typename DataUnravelerTypes::CompoundDataType&... InCompounds)
 		{
 			BackBuffer.push_back(TupleType(InCompounds...));
+			RequestBufferUpdate();
 		}
 
 		bool VertexBuffer::ResizeFrontBuffer()

@@ -8,11 +8,25 @@ subproject(GraphicsCore)
 	depends_on_thirdparty_static(freetype freetype2)
 	depends_on_system(glu32 gdi32 opengl32)
 
+in_sub(Global)
+	add_PrivatePublic(
+		RenderThreadProvider
+		FreeTypeProvider)
+in_sub(Header)
+	add_Public(
+		FreeType
+		FreeTypeForwardDefinitions
+		OpenGL
+		OpenGLForwardDefinitions)
+in_sub(DataStructures)
+	add_Public(
+		DataUnravelerTemplate)
+	add_PrivatePublic(
+		fPoint
+		fColor)
 in_sub(Graphics)
 	add_Public(
-		CommonDataUnravelers
-		VertexBufferTemplate
-		DataUnravelerTemplate)
+		VertexBufferTemplate)
 	add_PrivatePublic(
 		GraphicsWindow
 		RenderThread
@@ -25,17 +39,8 @@ in_sub(Graphics)
 		ShaderProgram
 		VertexBuffer
 		VertexBufferVariable
-		Texture2D)
-in_sub(Global)
-	add_PrivatePublic(
-		RenderThreadProvider
-		FreeTypeProvider)
-in_sub(Header)
-	add_Public(
-		FreeType
-		FreeTypeForwardDefinitions
-		OpenGL
-		OpenGLForwardDefinitions)
+		Texture2D
+		FontTexture2D)
 end_sub()
 
 auto_add_shared_library()

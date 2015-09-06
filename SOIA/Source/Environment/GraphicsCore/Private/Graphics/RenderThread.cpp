@@ -37,6 +37,7 @@ void RenderThread::Main()
 		}
 		glfwPollEvents();
 	}
+	glfwTerminate();
 }
 
 void RenderThread::AddWindow(GraphicsWindow* InWindow)
