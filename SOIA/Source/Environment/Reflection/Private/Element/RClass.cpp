@@ -7,8 +7,8 @@ using namespace Environment;
 #include "RElement.h"
 
 RClass::RClass(const TypeID &InType, const TypeID& InBaseType) :
-	Type(InType.RemoveSuffix_Base()),
-	BaseType(InBaseType.RemoveSuffix_Base())
+	Type(InType),
+	BaseType(InBaseType)
 {}
 
 RClass::~RClass()

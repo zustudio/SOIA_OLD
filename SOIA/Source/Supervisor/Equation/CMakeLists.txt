@@ -5,8 +5,8 @@ subproject(Equation)
 	depends_on_projects(Supervisor Core_S)
 
 add_PrivatePublic(
-	EquationTool
-	REquationPipes)
+	TCalculator
+	CalculatorGUI)
 end_sub()
 
 auto_add_shared_library()

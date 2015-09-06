@@ -16,9 +16,10 @@ TConsole::TConsole()
 	: BaseType(),
 	InputTokenizer(
 	{
-		TokenRule(std::regex("([a-zA-Z0-9_\\.]+)"), std::make_shared<TokenArity_Nullary>()),
-		TokenRule(std::regex("(\\()"), std::make_shared<TokenArity_Parenthesis>(EParenthesisType::Start)),
-		TokenRule(std::regex("(\\))"), std::make_shared<TokenArity_Parenthesis>(EParenthesisType::End))
+		TokenRule(std::regex("\"(.*)\""),			std::make_shared<TokenArity_Nullary>()),
+		TokenRule(std::regex("([a-zA-Z0-9_\\.]+)"),	std::make_shared<TokenArity_Nullary>()),
+		TokenRule(std::regex("(\\()"),				std::make_shared<TokenArity_Parenthesis>(EParenthesisType::Start)),
+		TokenRule(std::regex("(\\))"),				std::make_shared<TokenArity_Parenthesis>(EParenthesisType::End))
 	}),
 	bExit(false)
 {

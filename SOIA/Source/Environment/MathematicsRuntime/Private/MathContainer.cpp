@@ -41,9 +41,9 @@ MathContainer::MathContainer()
 	FuncCache = new FunctionCache();
 }
 
-Function<double, std::vector<double> const &>* MathContainer::ParseString(std::string InString)
+DynamicMathFunction* MathContainer::ParseString(std::string InString)
 {
-	Function<double, std::vector<double> const &>* function = nullptr;
+	DynamicMathFunction* function = nullptr;
 
 	std::list<Token*> tokenlist;
 	bool success = MathTokenizer.Tokenize(InString, tokenlist);

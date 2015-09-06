@@ -18,9 +18,9 @@ add_thirdparty_script_build(freetype2)
 add_thirdparty_script_build(Simple-OpenGL-Image-Library)
 add_thirdparty_script_build(soia-glew-cmake)
 add_thirdparty_script_build(glfw)
-add_thirdparty_script_build(drmemory)
+#add_thirdparty_script_build(drmemory)
 add_thirdparty_script_build(soia-cppcheck-target-cmake)
-add_thirdparty_script_build(cppcheck)
+#add_thirdparty_script_build(cppcheck)
 add_thirdparty_script_build(soia-unittest-cpp)
 
 

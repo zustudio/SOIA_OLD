@@ -8,6 +8,12 @@ using namespace Supervisor;
 #include "GlobalLogger.h"
 #include "GlobalContainer.h"
 
+//classes to be registered
+#include "TCalculator.h"
+#include "RGraphTool2D.h"
+#include "PipelineTool.h"
+#include "RConversionPipes.h"
+
 #include <iostream>
 
 RWrapper<DialogueInterface> PersistentRuntime::GlobalDialogue = RWrapper<DialogueInterface>();
@@ -77,6 +83,13 @@ void PersistentRuntime::InitializeElementHierarchy()
 
 void PersistentRuntime::RegisterReflectedClasses()
 {
+	LOGSTATUS("Registering reflected classes...");
+	GlobalRClassProvider()->RegisterList<
+		TCalculator,
+		RGraphTool,
+		PipelineTool,
+		RConversionPipes>();
+	LOGSTATUS("Done.");
 }
 
 void PersistentRuntime::RunTool()

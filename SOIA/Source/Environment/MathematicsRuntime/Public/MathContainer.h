@@ -36,7 +36,7 @@ namespace Environment
 	public:
 		MathContainer();
 
-		Function<double, std::vector<double> const &>* ParseString(std::string InString);
+		DynamicMathFunction* ParseString(std::string InString);
 
 	protected:
 		double Calculate(Value* InValue, std::vector<double> const & InArguments);

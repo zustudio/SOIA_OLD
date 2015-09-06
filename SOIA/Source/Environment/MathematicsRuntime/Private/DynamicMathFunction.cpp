@@ -16,3 +16,8 @@ double DynamicMathFunction::Execute(std::vector<double> const & InArguments)
 {
 	return Container->Calculate(MathObject, InArguments);
 }
+
+std::string Environment::DynamicMathFunction::GetName()
+{
+	return MathObject->GetName();
+}

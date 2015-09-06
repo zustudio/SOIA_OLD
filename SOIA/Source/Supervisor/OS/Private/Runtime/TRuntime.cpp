@@ -5,9 +5,6 @@
 using namespace Environment;
 using namespace Supervisor;
 
-#include "RGraphTool2D.h"
-#include "PipelineTool.h"
-#include "RConversionPipes.h"
 #include "RGUI.h"
 #include "StringMatch.h"
 #include "FileSystemProvider.h"
@@ -19,10 +16,6 @@ TRuntime::TRuntime()
 	: BaseType(),
 	CurrentDirectory(GetFileSystem()->GetExecutableDirectory())
 {
-	GlobalRClassProvider()->RegisterList<
-		RGraphTool,
-		PipelineTool,
-		RConversionPipes>();
 	ReflectAttributes();
 }
 
