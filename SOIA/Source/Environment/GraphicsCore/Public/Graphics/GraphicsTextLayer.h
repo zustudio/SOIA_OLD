@@ -5,21 +5,22 @@
 
 #include "TextObject.h"
 #include "VertexBufferTemplate.h"
-#include "CommonDataUnravelers.h"
+#include "FontTexture2D.h"
+#include "fPoint.h"
 
 namespace Environment
 {
 	class LIBIMPEXP GraphicsTextLayer : public GraphicsLayer
 	{
 	public:
-		GraphicsTextLayer(const std::vector<TextObject*>& InTextObjects);
+		GraphicsTextLayer(Font const & InFont, int InSize, const std::vector<TextObject*>& InTextObjects);
 		virtual void Initialize(Vector2D<int>* InSize) override;
 		virtual void Draw() override;
 
+		FontTexture2D FontTexture;
+		using CommonBufferType = VertexBufferTemplate<float, fPoint::DataUnraveler, fPoint::DataUnraveler>;
+		CommonBufferType* VertexBuffer;
 
-		Texture2D* CommonTexture;
-		using CommonBufferType = VertexBufferTemplate<float, Vector2DFloatUnraveler, Vector2DFloatUnraveler>;
-		CommonBufferType* CommonBuffer;
 		std::vector<TextObject*> TextObjects;
 		Vector2D<float> Scale;
 	};

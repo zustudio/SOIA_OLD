@@ -10,7 +10,7 @@ namespace Environment
 	{
 	public:
 		// data unraveler definition
-		using DataUnraveler = DataUnravelerTemplate<Vector2D, float, &fPoint::X, &fPoint::Y>;
+		using DataUnraveler = DataUnravelerTemplate<Vector2D<float>, float, &Vector2D<float>::X, &Vector2D<float>::Y>;
 
 		//---- init ----
 		fPoint(float newX = 0, float newY = 0);

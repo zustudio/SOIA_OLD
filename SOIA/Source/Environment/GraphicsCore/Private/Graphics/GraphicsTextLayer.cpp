@@ -5,12 +5,12 @@
 #include "GraphicsTextLayer.h"
 using namespace Environment;
 
-#include "CommonDataUnravelers.h"
 #include "VertexBufferTemplate.h"
 
-Environment::GraphicsTextLayer::GraphicsTextLayer(const std::vector<TextObject*>& InTextObjects)
+GraphicsTextLayer::GraphicsTextLayer(Font const & InFont, int InSize, const std::vector<TextObject*>& InTextObjects)
 	:
-	TextObjects(InTextObjects)
+	TextObjects(InTextObjects),
+	FontTexture(InFont, InSize)
 {
 	auto vertexShader = new Shader(ShaderType::Vertex,
 		"#version 400\n"
@@ -30,36 +30,35 @@ Environment::GraphicsTextLayer::GraphicsTextLayer(const std::vector<TextObject*>
 		"out vec4 outColor;"
 		"void main()"
 		"{"
-		"	outColor = vec4(1, 1, 1, texture(sampler, TexCoords).r) * vec4(0.5, 0, 0, 1);"
+		"	outColor = vec4(1, 1, 1, texture(sampler, TexCoords).r) * vec4(0, 0, 0, 1);"
 		"}");
 
-	CommonBuffer = new CommonBufferType(VertexBufferType::Vertices, BufferContentType::TriangleStrip);
-	auto positionVar = CommonBuffer->CreateVariable(0, "position");
-	auto texCoordsVar = CommonBuffer->CreateVariable(1, "texCoords");
-
-	CommonTexture = new Texture2D(nullptr, 0, 0, TextureChannels::R);
+	VertexBuffer = new CommonBufferType(VertexBufferType::Vertices, BufferContentType::Triangles);
+	auto positionVar = VertexBuffer->CreateVariable(0, "position");
+	auto texCoordsVar = VertexBuffer->CreateVariable(1, "texCoords");
 
 	this->Configure
 	(
 		{ vertexShader, fragmentShader },
-		{ CommonBuffer },
+		{ VertexBuffer },
 		VertexBufferType::Vertices,
-		{ CommonTexture },
+		{ &FontTexture },
 		"outColor",
 		{positionVar, texCoordsVar}
 	);
 }
+
 
 void GraphicsTextLayer::Initialize(Vector2D<int>* InSize)
 {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	for (auto textObj : TextObjects)
-	{
-		textObj->Initialize();
-	}
-	CheckGLError();
+	//for (auto textObj : TextObjects)
+	//{
+	//	textObj->Initialize();
+	//}
+	//CheckGLError();
 
 	GraphicsLayer::Initialize(InSize);
 }
@@ -67,36 +66,52 @@ void GraphicsTextLayer::Initialize(Vector2D<int>* InSize)
 void GraphicsTextLayer::Draw()
 {
 	auto Scale = PixelSize->Convert<float>().Divide1() * 2;
+
+	VertexBuffer->BackBuffer.clear();
 	for (auto textObject : TextObjects)
 	{
 		float CurX = textObject->Position.X;
 		float CurY = textObject->Position.Y;
 
-		for (auto glyph : textObject->Glyphs)
+		for (char& character: textObject->Text)
 		{
-			*CommonTexture = glyph->Texture;
 			CheckGLError();
+			GlyphObject& glyph = FontTexture.GetGlyph(character);
 
-			float x2 = CurX + glyph->BitmapLeft * Scale.X;
-			float y2 = -CurY - glyph->BitmapTop * Scale.Y;
-			float w = glyph->Width * Scale.X;
-			float h = glyph->Rows * Scale.Y;
+
+			float x2 = CurX + glyph.BitmapLeft * Scale.X;
+			float y2 = -CurY - glyph.BitmapTop * Scale.Y;
+			float w = glyph.Width * Scale.X;
+			float h = glyph.Rows * Scale.Y;
+
+
+			fPoint leftTop, rightBottom;
+			fPoint rightTop, leftBottom;
+			FontTexture.GetCoordinates(character, leftTop, rightBottom);
+			rightTop = fPoint(rightBottom.X, leftTop.Y);
+			leftBottom = fPoint(leftTop.X, rightBottom.Y);
 
 			using TT = CommonBufferType::TupleType;
-			CommonBuffer->BackBuffer = std::vector<TT>(
-			{
-				TT(Vector2D<float>(x2, -y2), Vector2D<float>(0,0)),
-				TT(Vector2D<float>(x2 + w, -y2), Vector2D<float>(1,0)),
-				TT(Vector2D<float>(x2, -y2 -h), Vector2D<float>(0,1)),
-				TT(Vector2D<float>(x2 + w, -y2 -h), Vector2D<float>(1,1)),
-			});
-			CommonBuffer->RequestBufferUpdate();
+			TT v_leftTop = TT(fPoint(x2, -y2), leftTop);
+			TT v_rightTop = TT(fPoint(x2 + w, -y2), rightTop);
+			TT v_leftBottom = TT(fPoint(x2, -y2 -h), leftBottom);
+			TT v_rightBottom = TT(fPoint(x2 + w, -y2 -h), rightBottom);
 
-			// Main Call
-			GraphicsLayer::Draw();
+			//add tri 1
+			VertexBuffer->Add(v_leftTop);
+			VertexBuffer->Add(v_rightTop);
+			VertexBuffer->Add(v_leftBottom);
+			//add tri 2
+			VertexBuffer->Add(v_leftBottom);
+			VertexBuffer->Add(v_rightTop);
+			VertexBuffer->Add(v_rightBottom);
 
-			CurX += (glyph->AdvanceX >> 6) * Scale.X;
-			CurY += (glyph->AdvanceY >> 6) * Scale.Y;
+
+			CurX += (glyph.AdvanceX >> 6) * Scale.X;
+			CurY += (glyph.AdvanceY >> 6) * Scale.Y;
 		}
 	}
+
+	// Main Call
+	GraphicsLayer::Draw();
 }

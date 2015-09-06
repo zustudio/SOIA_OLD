@@ -45,7 +45,12 @@ namespace Environment
 		//----- public actions -----
 		void Add(const typename DataUnravelerTypes::CompoundDataType&... InCompounds)
 		{
-			BackBuffer.push_back(TupleType(InCompounds...));
+			Add(TupleType(InCompounds...));
+		}
+
+		void Add(TupleType const & InTupleObject)
+		{
+			BackBuffer.push_back(InTupleObject);
 			RequestBufferUpdate();
 		}
 

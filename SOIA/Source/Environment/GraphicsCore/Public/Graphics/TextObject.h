@@ -13,19 +13,19 @@ namespace Environment
 	class LIBIMPEXP TextObject
 	{
 	public:
-		TextObject(Font* InFont, int InPixelSize, const Vector2D<float>& InPosition, const std::string& InText);
+		TextObject(/*Font* InFont, int InPixelSize, */const Vector2D<float>& InPosition, const std::string& InText);
 
-		void Initialize();
+		//void Initialize();
 
-		void UpdateGlyphs();
+		//void UpdateGlyphs();
 
 		//----- content -----
 		std::string Text;
-		std::vector<GlyphObject*> Glyphs;
+		//std::vector<GlyphObject*> Glyphs;
 
 		//----- settings -----
 		Vector2D<float> Position;
-		Font* CurrentFont;
+		//Font* CurrentFont;
 		int PixelSize;
 	};
 }

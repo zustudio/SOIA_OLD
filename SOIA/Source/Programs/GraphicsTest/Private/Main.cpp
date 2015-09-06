@@ -64,7 +64,7 @@ void main()
 	Tri triA(0, 1, 2), triB(1, 2, 3);
 	
 	Path imagePath = ressourcePath.AppendFolder("Images").AppendFile("SOIA-Text.png");
-	auto texture = new Texture2D(imagePath.ToString(), 200, 200, TextureChannels::RGBA);
+	auto texture = new Texture2D(imagePath.ToString(), 200, 200, ETextureChannels::RGBA);
 
 	auto vertexBuffer = new VertexBufferTemplate<float, PointUnraveler, PointUnraveler>(VertexBufferType::Vertices, BufferContentType::Triangles);
 	vertexBuffer->Add(pointA, coordA);
@@ -109,16 +109,15 @@ void main()
 		"outColor",
 		{ pointVar, coordVar });
 
-	Path fontPath = ressourcePath.AppendFolder("Fonts").AppendFolder("JosefinSans").AppendFile("JosefinSans-Regular.ttf");
-	int size = 17;
+	Path fontPath = ressourcePath.AppendFolder("Fonts").AppendFolder("DengXian").AppendFile("DengXian.ttf");
+	int size = 20;
 
-	auto textObj = new TextObject(GetFont(fontPath.ToString()), size, Vector2D<float>(-0.45, -0.26), "Artificial");
-	auto text2 = new TextObject(GetFont(fontPath.ToString()), size, Vector2D<float>(-0.45, -0.33), "Intelligence");
-	auto text3 = new TextObject(GetFont(fontPath.ToString()), size, Vector2D<float>(-0.45, -0.40), "Operating");
-	auto text4 = new TextObject(GetFont(fontPath.ToString()), size, Vector2D<float>(-0.45, -0.47), "System");
-	auto layer2 = new GraphicsTextLayer({ textObj, text2, text3, text4 });
+	auto textObj = new TextObject(Vector2D<float>(-0.9, 0.5), "Artificial Intelligence Operating System");
 
-	auto window = new GraphicsWindow({ layer, layer2});
+	auto layer2 = new GraphicsTextLayer(*GetFont(fontPath.ToString()), 25, { textObj });
+	auto layer3 = new GraphicsTextLayer(*GetFont(fontPath.ToString()), 15, { new TextObject(fPoint(-0.81,0.4), "SOIA analyses different data sets as well as itself \nand is thus able to gain insights into logic, mathematics,\nphysics, and intelligence.") });
+
+	auto window = new GraphicsWindow({layer2, layer3});
 
 	GetRenderThread()->Start();
 	GetRenderThread()->AddWindow(window);
