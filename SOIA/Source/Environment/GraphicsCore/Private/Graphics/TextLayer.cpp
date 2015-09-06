@@ -2,12 +2,12 @@
 #include "Definitions.h"
 #include "OpenGL.h"
 
-#include "GraphicsTextLayer.h"
+#include "TextLayer.h"
 using namespace Environment;
 
 #include "VertexBufferTemplate.h"
 
-GraphicsTextLayer::GraphicsTextLayer(Font const & InFont, int InSize, const std::vector<TextObject*>& InTextObjects)
+TextLayer::TextLayer(Font const & InFont, int InSize, const std::vector<TextObject*>& InTextObjects)
 	:
 	TextObjects(InTextObjects),
 	FontTexture(InFont, InSize)
@@ -49,7 +49,7 @@ GraphicsTextLayer::GraphicsTextLayer(Font const & InFont, int InSize, const std:
 }
 
 
-void GraphicsTextLayer::Initialize(Vector2D<int>* InSize)
+void TextLayer::Initialize(Vector2D<int>* InSize)
 {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -63,7 +63,7 @@ void GraphicsTextLayer::Initialize(Vector2D<int>* InSize)
 	GraphicsLayer::Initialize(InSize);
 }
 
-void GraphicsTextLayer::Draw()
+void TextLayer::Draw()
 {
 	auto Scale = PixelSize->Convert<float>().Divide1() * 2;
 

@@ -10,10 +10,10 @@
 
 namespace Environment
 {
-	class LIBIMPEXP GraphicsTextLayer : public GraphicsLayer
+	class LIBIMPEXP TextLayer : public GraphicsLayer
 	{
 	public:
-		GraphicsTextLayer(Font const & InFont, int InSize, const std::vector<TextObject*>& InTextObjects);
+		TextLayer(Font const & InFont, int InSize, const std::vector<TextObject*>& InTextObjects);
 		virtual void Initialize(Vector2D<int>* InSize) override;
 		virtual void Draw() override;
 

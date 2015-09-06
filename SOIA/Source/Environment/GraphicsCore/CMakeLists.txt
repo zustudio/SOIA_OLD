@@ -24,14 +24,19 @@ in_sub(DataStructures)
 	add_PrivatePublic(
 		fPoint
 		fColor)
+in_sub(Hierarchy)
+	add_PrivatePublic(
+		MBound
+		MBoundaries)
 in_sub(Graphics)
 	add_Public(
 		VertexBufferTemplate)
 	add_PrivatePublic(
-		GraphicsWindow
 		RenderThread
+		GraphicsWindow
 		GraphicsLayer
-		GraphicsTextLayer
+		GraphicsObject
+		TextLayer
 		Font
 		TextObject
 		GlyphObject
@@ -41,6 +46,14 @@ in_sub(Graphics)
 		VertexBufferVariable
 		Texture2D
 		FontTexture2D)
+in_sub(Control)
+	add_PrivatePublic(
+		GraphicsControl
+		TextBox
+		Canvas)
+in_sub(Window)
+	add_PrivatePublic(
+		ControlWindow)
 end_sub()
 
 auto_add_shared_library()
