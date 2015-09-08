@@ -7,6 +7,8 @@ namespace Environment
 {
 	class GraphicsObject : public MBound
 	{
-		
+	public:
+		GraphicsObject(MBoundaries* InBoundaries, pxMargins InMargins);
+
 	};
 }

@@ -21,6 +21,7 @@ namespace Environment
 		FontTexture2D(Font const & InFont, int InFontSize);
 		GlyphObject& GetGlyph(char InChar);
 		void GetCoordinates(char InChar, fPoint & OutLeftTop, fPoint & OutRightBottom);
+		Vector2D<size_t> GetSpriteSize();
 
 	private:
 		size_t AlignSizeToPowerOfTwo(size_t InNotAligned);

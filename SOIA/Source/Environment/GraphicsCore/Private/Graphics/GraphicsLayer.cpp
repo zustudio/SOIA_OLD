@@ -18,9 +18,8 @@ void GraphicsLayer::Configure(const std::vector<Shader*>& InShaders, const std::
 	Program = new ShaderProgram(InShaders, InColorOutputVariable, InInputVariables);
 }
 
-void GraphicsLayer::Initialize(Vector2D<int>* InSize)
+void GraphicsLayer::Initialize()
 {
-	PixelSize = InSize;
 	//----- vertex array object
 	glGenVertexArrays(1, &VertexArrayObject);
 	CheckGLError();

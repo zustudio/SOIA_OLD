@@ -1,6 +1,8 @@
 
 #pragma once
 
+#include "MBoundaries.h"
+
 #include "GraphicsLayer.h"
 
 namespace Environment
@@ -13,13 +15,12 @@ namespace Environment
 	////////////////////////////////////////////////////////////////////
 	/// \class	GraphicsControl
 	/// \brief	Represents an user interactable element in a window.
-	class GraphicsControl
+	class GraphicsControl : public MBoundaries
 	{
+	public:
+		GraphicsControl(MBoundaries* InBoundaries, pxMargins InMargins);
 
 	protected:
-
-
-	private:
-		ControlWindow* OwningWindow;
+		ControlWindow* GetWindow();
 	};
 }

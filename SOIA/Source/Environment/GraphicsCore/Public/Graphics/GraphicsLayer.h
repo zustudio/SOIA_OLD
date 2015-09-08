@@ -25,7 +25,7 @@ namespace Environment
 
 	protected:
 		/// Compiles shaders, registers buffers, etc.
-		virtual void Initialize(Vector2D<int>* InSize);
+		virtual void Initialize();
 
 		/// Draws layer
 		virtual void BeginDraw();
@@ -40,6 +40,5 @@ namespace Environment
 
 		//------ settings ------
 		VertexBufferType TargetBufferType;
-		Vector2D<int>* PixelSize;
 	};
 }

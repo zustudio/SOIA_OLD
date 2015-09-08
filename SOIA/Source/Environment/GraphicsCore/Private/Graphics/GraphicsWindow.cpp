@@ -49,14 +49,14 @@ using namespace Environment;
 
 
 
-GraphicsWindow::GraphicsWindow(const std::vector<GraphicsLayer*>& InLayers)
-	:
-	Layers(InLayers)
+GraphicsWindow::GraphicsWindow(const std::string& InTitle, pxSize InSize)
+	: MBoundaries(nullptr, pxMargins(0,0,0,0)),
+	Size(InSize),
+	Title(InTitle)
 {}
 
-void GraphicsWindow::Initialize(const std::string& InTitle, Vector2D<int> InSize)
+void GraphicsWindow::Initialize()
 {
-	Size = InSize;
 	// get last window
 	GraphicsWindow* lastWindow = GetRenderThread()->GetLastWindow();
 	GLFWwindow* lastGLWindow = lastWindow ? lastWindow->GLWindow : nullptr;
@@ -71,7 +71,7 @@ void GraphicsWindow::Initialize(const std::string& InTitle, Vector2D<int> InSize
 
 	GlewContext = new GLEWContext();
 
-	GLWindow = glfwCreateWindow(Size.X, Size.Y, InTitle.c_str(), nullptr, lastGLWindow);
+	GLWindow = glfwCreateWindow(Size.Width, Size.Height, Title.c_str(), nullptr, lastGLWindow);
 	glfwMakeContextCurrent(GLWindow);
 	GetRenderThread()->CurrentWindow = this;
 
@@ -88,11 +88,9 @@ void GraphicsWindow::Initialize(const std::string& InTitle, Vector2D<int> InSize
 	
 	for (auto layer : Layers)
 	{
-		layer->Initialize(&Size);
+		layer->Initialize();
 	}
 	
-	
-
 	
 	//----- element buffer
 	/*glGenBuffers(1, &elementBuffer);
@@ -141,6 +139,11 @@ void GraphicsWindow::Initialize(const std::string& InTitle, Vector2D<int> InSize
 	//uniColor = glGetUniformLocation(shaderProgram, "extraColor");
 }
 
+void GraphicsWindow::AddLayer(GraphicsLayer * InLayer)
+{
+	Layers.push_back(InLayer);
+}
+
 GraphicsWindow::~GraphicsWindow()
 {
 
@@ -158,5 +161,10 @@ void GraphicsWindow::Draw()
 		layer->BeginDraw();
 	}
 	glfwSwapBuffers(GLWindow);
+}
+
+Vector2D<pxPoint> GraphicsWindow::CalculateAbsoluteCornerLocationsOnWindow()
+{
+	return Vector2D<pxPoint>(pxPoint(0, 0), pxPoint(Size.Width, Size.Height));
 }
 

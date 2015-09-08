@@ -7,9 +7,8 @@ using namespace Environment;
 
 #include "VertexBufferTemplate.h"
 
-TextLayer::TextLayer(Font const & InFont, int InSize, const std::vector<TextObject*>& InTextObjects)
+TextLayer::TextLayer(Font const & InFont, int InSize)
 	:
-	TextObjects(InTextObjects),
 	FontTexture(InFont, InSize)
 {
 	auto vertexShader = new Shader(ShaderType::Vertex,
@@ -49,29 +48,23 @@ TextLayer::TextLayer(Font const & InFont, int InSize, const std::vector<TextObje
 }
 
 
-void TextLayer::Initialize(Vector2D<int>* InSize)
+void TextLayer::Initialize()
 {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	//for (auto textObj : TextObjects)
-	//{
-	//	textObj->Initialize();
-	//}
-	//CheckGLError();
-
-	GraphicsLayer::Initialize(InSize);
+	GraphicsLayer::Initialize();
 }
 
 void TextLayer::Draw()
 {
-	auto Scale = PixelSize->Convert<float>().Divide1() * 2;
+	//auto Scale = PixelSize->Convert<float>().Divide1() * 2;
 
 	VertexBuffer->BackBuffer.clear();
 	for (auto textObject : TextObjects)
 	{
-		float CurX = textObject->Position.X;
-		float CurY = textObject->Position.Y;
+		int CurX = 0;
+		int CurY = -FontTexture.GetSpriteSize().Y;
 
 		for (char& character: textObject->Text)
 		{
@@ -79,10 +72,10 @@ void TextLayer::Draw()
 			GlyphObject& glyph = FontTexture.GetGlyph(character);
 
 
-			float x2 = CurX + glyph.BitmapLeft * Scale.X;
-			float y2 = -CurY - glyph.BitmapTop * Scale.Y;
-			float w = glyph.Width * Scale.X;
-			float h = glyph.Rows * Scale.Y;
+			int x2 = CurX + glyph.BitmapLeft;
+			int y2 = -CurY - glyph.BitmapTop;
+			int w = glyph.Width;
+			int h = glyph.Rows;
 
 
 			fPoint leftTop, rightBottom;
@@ -92,10 +85,10 @@ void TextLayer::Draw()
 			leftBottom = fPoint(leftTop.X, rightBottom.Y);
 
 			using TT = CommonBufferType::TupleType;
-			TT v_leftTop = TT(fPoint(x2, -y2), leftTop);
-			TT v_rightTop = TT(fPoint(x2 + w, -y2), rightTop);
-			TT v_leftBottom = TT(fPoint(x2, -y2 -h), leftBottom);
-			TT v_rightBottom = TT(fPoint(x2 + w, -y2 -h), rightBottom);
+			TT v_leftTop = TT(textObject->CalculateRelativeLocationOnWindow(pxPoint(x2, y2)), leftTop);
+			TT v_rightTop = TT(textObject->CalculateRelativeLocationOnWindow(pxPoint(x2 + w, y2)), rightTop);
+			TT v_leftBottom = TT(textObject->CalculateRelativeLocationOnWindow(pxPoint(x2, y2 + h)), leftBottom);
+			TT v_rightBottom = TT(textObject->CalculateRelativeLocationOnWindow(pxPoint(x2 + w, y2 + h)), rightBottom);
 
 			//add tri 1
 			VertexBuffer->Add(v_leftTop);
@@ -107,11 +100,16 @@ void TextLayer::Draw()
 			VertexBuffer->Add(v_rightBottom);
 
 
-			CurX += (glyph.AdvanceX >> 6) * Scale.X;
-			CurY += (glyph.AdvanceY >> 6) * Scale.Y;
+			CurX += (glyph.AdvanceX >> 6);
+			CurY += (glyph.AdvanceY >> 6);
 		}
 	}
 
 	// Main Call
 	GraphicsLayer::Draw();
+}
+
+void TextLayer::AddTextObject(TextObject * InObject)
+{
+	TextObjects.push_back(InObject);
 }

@@ -5,9 +5,14 @@
 
 namespace Environment
 {
-	class MBoundaries : MBound
+	class LIBIMPEXP MBoundaries : public MBound
 	{
 		friend MBound;
+
+	public:
+		MBoundaries(MBoundaries* InBoundaries, pxMargins InMargins);
+
+		virtual MBoundaries* GetTopBoundaries() override;
 
 	protected:
 		void AddBoundObject(MBound* InBoundObject);

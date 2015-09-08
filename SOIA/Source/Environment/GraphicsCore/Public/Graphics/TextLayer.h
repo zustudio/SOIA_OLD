@@ -13,9 +13,11 @@ namespace Environment
 	class LIBIMPEXP TextLayer : public GraphicsLayer
 	{
 	public:
-		TextLayer(Font const & InFont, int InSize, const std::vector<TextObject*>& InTextObjects);
-		virtual void Initialize(Vector2D<int>* InSize) override;
+		TextLayer(Font const & InFont, int InSize);
+		virtual void Initialize() override;
 		virtual void Draw() override;
+
+		void AddTextObject(TextObject* InObject);
 
 		FontTexture2D FontTexture;
 		using CommonBufferType = VertexBufferTemplate<float, fPoint::DataUnraveler, fPoint::DataUnraveler>;

@@ -7,7 +7,7 @@ namespace Environment
 {
 	class Font;
 	class Texture2D;
-	class GlyphObject
+	class LIBIMPEXP GlyphObject
 	{
 	public:
 		GlyphObject();

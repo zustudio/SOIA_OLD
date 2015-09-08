@@ -8,10 +8,12 @@ using namespace Environment;
 #include "VertexBufferTemplate.h"
 #include "DataUnravelerTemplate.h"
 #include "GraphicsLayer.h"
-#include "GraphicsTextLayer.h"
+#include "TextLayer.h"
 #include "FreeTypeProvider.h"
 
 #include "FileSystemProvider.h"
+
+#include "TestWindow.h"
 
 struct Point
 {
@@ -112,15 +114,15 @@ void main()
 	Path fontPath = ressourcePath.AppendFolder("Fonts").AppendFolder("DengXian").AppendFile("DengXian.ttf");
 	int size = 20;
 
-	auto textObj = new TextObject(Vector2D<float>(-0.9, 0.5), "Artificial Intelligence Operating System");
+	/*auto textObj = new TextObject(Vector2D<float>(-0.9, 0.5), "Artificial Intelligence Operating System");
 
-	auto layer2 = new GraphicsTextLayer(*GetFont(fontPath.ToString()), 25, { textObj });
-	auto layer3 = new GraphicsTextLayer(*GetFont(fontPath.ToString()), 15, { new TextObject(fPoint(-0.81,0.4), "SOIA analyses different data sets as well as itself \nand is thus able to gain insights into logic, mathematics,\nphysics, and intelligence.") });
+	auto layer2 = new TextLayer(*GetFont(fontPath.ToString()), 25, { textObj });
+	auto layer3 = new TextLayer(*GetFont(fontPath.ToString()), 15, { new TextObject(fPoint(-0.81,0.4), "SOIA analyses different data sets as well as itself \nand is thus able to gain insights into logic, mathematics,\nphysics, and intelligence.") });
 
-	auto window = new GraphicsWindow({layer2, layer3});
+	auto window = new GraphicsWindow({layer2, layer3});*/
 
 	GetRenderThread()->Start();
-	GetRenderThread()->AddWindow(window);
+	GetRenderThread()->AddWindow(new TestWindow());
 	GetRenderThread()->Join();
 }
 

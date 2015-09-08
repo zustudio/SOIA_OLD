@@ -83,6 +83,11 @@ void FontTexture2D::GetCoordinates(char InChar, fPoint & OutLeftTop, fPoint & Ou
 	OutRightBottom = OutLeftTop + fPoint(float(Glyphs[InChar].Width) / SizeX, float(Glyphs[InChar].Rows) / SizeY);
 }
 
+Vector2D<size_t> FontTexture2D::GetSpriteSize()
+{
+	return SpriteSize;
+}
+
 size_t FontTexture2D::AlignSizeToPowerOfTwo(size_t InNotAligned)
 {
 	return 0;

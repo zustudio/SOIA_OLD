@@ -4,11 +4,12 @@
 #include "ControlWindow.h"
 using namespace Environment;
 
-ControlWindow::ControlWindow(std::string Name)
-	: GraphicsWindow({})
-{
-}
+#include "FreeTypeProvider.h"
+#include "FileSystemProvider.h"
 
-void ControlWindow::AddControl()
+ControlWindow::ControlWindow(std::string Name, pxSize InSize)
+	: GraphicsWindow(Name, InSize),
+	CommonTextContentLayer(TextLayer(*GetFont(GetFileSystem()->GetExecutableDirectory().GetPath().AppendFolder("Ressources").AppendFolder("Fonts").AppendFolder("DengXian").AppendFile("DengXian.ttf").ToString()), 15))
 {
+	AddLayer(&CommonTextContentLayer);
 }
