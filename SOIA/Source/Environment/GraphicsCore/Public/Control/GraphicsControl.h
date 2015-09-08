@@ -4,6 +4,7 @@
 #include "MBoundaries.h"
 
 #include "GraphicsLayer.h"
+#include "GeometryObject.h"
 
 namespace Environment
 {
@@ -22,5 +23,8 @@ namespace Environment
 
 	protected:
 		ControlWindow* GetWindow();
+
+	private:
+		GeometryObject Border;
 	};
 }

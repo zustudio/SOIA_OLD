@@ -6,6 +6,9 @@ using namespace Environment;
 #include "RenderThreadProvider.h"
 #include "GlobalLogger.h"
 
+#include <thread>
+#include <chrono>
+using namespace std::chrono_literals;
 
 RenderThread::RenderThread()
 {
@@ -31,11 +34,13 @@ void RenderThread::Main()
 		}
 		for (GraphicsWindow* window : Windows)
 		{
-			CurrentWindow = window;
 			window->Draw();
 			shouldClose += glfwWindowShouldClose(window->GLWindow);
 		}
+
+		Sleep(50ms);
 		glfwPollEvents();
+		
 	}
 	glfwTerminate();
 }

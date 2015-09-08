@@ -11,5 +11,7 @@ ControlWindow::ControlWindow(std::string Name, pxSize InSize)
 	: GraphicsWindow(Name, InSize),
 	CommonTextContentLayer(TextLayer(*GetFont(GetFileSystem()->GetExecutableDirectory().GetPath().AppendFolder("Ressources").AppendFolder("Fonts").AppendFolder("DengXian").AppendFile("DengXian.ttf").ToString()), 15))
 {
+	AddLayer(&CommonFilledGeometryLayer);
+	AddLayer(&CommonUnfilledGeometryLayer);
 	AddLayer(&CommonTextContentLayer);
 }

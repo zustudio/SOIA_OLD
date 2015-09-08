@@ -22,6 +22,8 @@ in_sub(DataStructures)
 	add_Public(
 		DataUnravelerTemplate)
 	add_PrivatePublic(
+		iTriangle
+		iLine
 		pxPoint
 		pxSize
 		pxMargins
@@ -40,8 +42,12 @@ in_sub(Graphics)
 		GraphicsLayer
 		GraphicsObject
 		TextLayer
-		Font
 		TextObject
+		FilledGeometryLayer
+		UnfilledGeometryLayer
+		GeometryLayer
+		GeometryObject
+		Font
 		GlyphObject
 		Shader
 		ShaderProgram

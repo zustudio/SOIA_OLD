@@ -10,5 +10,6 @@ namespace Environment
 	public:
 		GraphicsObject(MBoundaries* InBoundaries, pxMargins InMargins);
 
+		bool bChanged;
 	};
 }

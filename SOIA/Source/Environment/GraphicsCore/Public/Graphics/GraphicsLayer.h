@@ -27,7 +27,8 @@ namespace Environment
 		/// Compiles shaders, registers buffers, etc.
 		virtual void Initialize();
 
-		/// Draws layer
+		/// Main Loop
+		virtual void UpdateBuffers();
 		virtual void BeginDraw();
 		virtual void Draw();
 

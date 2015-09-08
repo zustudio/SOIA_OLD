@@ -38,18 +38,7 @@ struct Color
 	float G;
 	float B;
 };
-struct Tri
-{
-	Tri(int ina, int inb, int inc)
-		:
-		a(ina),
-		b(inb),
-		c(inc)
-	{}
-	int a;
-	int b;
-	int c;
-};
+
 
 void main()
 {
@@ -57,7 +46,7 @@ void main()
 	Path ressourcePath = exedir.GetPath().AppendFolder("Ressources");
 
 	//---- test ----
-	using PointUnraveler = DataUnravelerTemplate<Point, float, &Point::X, &Point::Y>;
+	/*using PointUnraveler = DataUnravelerTemplate<Point, float, &Point::X, &Point::Y>;
 	using ColorUnraveler = DataUnravelerTemplate<Color, float, &Color::R, &Color::G, &Color::B>;
 	using TriUnraveler = DataUnravelerTemplate<Tri, int, &Tri::a, &Tri::b, &Tri::c>;
 	Point pointA(-0.5, -0.5), pointB(0.5,-0.5), pointC(-0.5, 0.5), pointD(0.5, 0.5);
@@ -112,7 +101,7 @@ void main()
 		{ pointVar, coordVar });
 
 	Path fontPath = ressourcePath.AppendFolder("Fonts").AppendFolder("DengXian").AppendFile("DengXian.ttf");
-	int size = 20;
+	int size = 20;*/
 
 	/*auto textObj = new TextObject(Vector2D<float>(-0.9, 0.5), "Artificial Intelligence Operating System");
 

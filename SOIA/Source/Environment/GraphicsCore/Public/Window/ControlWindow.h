@@ -4,6 +4,8 @@
 #include "GraphicsWindow.h"
 
 #include "TextLayer.h"
+#include "UnfilledGeometryLayer.h"
+#include "FilledGeometryLayer.h"
 
 namespace Environment
 {
@@ -15,7 +17,8 @@ namespace Environment
 	public:
 		ControlWindow(std::string Name, pxSize InSize = pxSize(500, 500));
 
+		FilledGeometryLayer CommonFilledGeometryLayer;
+		UnfilledGeometryLayer CommonUnfilledGeometryLayer;
 		TextLayer CommonTextContentLayer;
-		
 	};
 }

@@ -5,5 +5,6 @@
 using namespace Environment;
 
 GraphicsObject::GraphicsObject(MBoundaries * InBoundaries, pxMargins InMargins)
-	: MBound(InBoundaries, InMargins)
+	: MBound(InBoundaries, InMargins),
+	bChanged(true)
 {}

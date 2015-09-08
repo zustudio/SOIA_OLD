@@ -40,12 +40,17 @@ void GraphicsLayer::Initialize()
 	CheckGLError();
 }
 
+void GraphicsLayer::UpdateBuffers()
+{
+}
+
 void GraphicsLayer::BeginDraw()
 {
 	Program->Use();
 
 	glBindVertexArray(VertexArrayObject);
 
+	UpdateBuffers();
 	Draw();
 }
 void GraphicsLayer::Draw()

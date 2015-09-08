@@ -15,3 +15,8 @@ pxSize::pxSize(int InWidth, int InHeight)
 	Width(InWidth),
 	Height(InHeight)
 {}
+
+pxPoint pxSize::ToPoint()
+{
+	return pxPoint(Width, Height);
+}
