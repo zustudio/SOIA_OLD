@@ -27,10 +27,31 @@ namespace Environment
 		/// Compiles shaders, registers buffers, etc.
 		virtual void Initialize();
 
-		/// Main Loop
+		// Main Loop
 		virtual void UpdateBuffers();
 		virtual void BeginDraw();
 		virtual void Draw();
+
+		// Helper functions
+		template<typename ObjectType>
+		static void EraseGraphicsObjectFromBuffers(ObjectType* InObject, std::vector<ObjectType*> const & InObjectList, VertexBuffer* InVertexBuffer, VertexBuffer* InElementBuffer)
+		{
+			for (ObjectType* object : InObjectList)
+			{
+				if (object->VertexBufferRange.Lower > InObject->VertexBufferRange.Lower)
+				{
+					object->VertexBufferRange.MoveUp(-InObject->VertexBufferRange.Count());
+				}
+				if (object->ElementBufferRange.Lower > InObject->ElementBufferRange.Lower)
+				{
+					object->ElementBufferRange.MoveUp(-InObject->ElementBufferRange.Count());
+				}
+			}
+			if (InVertexBuffer)
+				InVertexBuffer->EraseRange(InObject->VertexBufferRange);
+			if (InElementBuffer)
+				InElementBuffer->EraseRange(InObject->ElementBufferRange);
+		}
 
 		////////////////////////////////////////////////////////////////
 		// Variables

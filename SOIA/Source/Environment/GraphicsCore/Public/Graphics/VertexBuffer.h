@@ -4,6 +4,7 @@
 #include "OpenGLForwardDefinitions.h"
 
 #include "VertexBufferVariable.h"
+#include "Range.h"
 
 #include <vector>
 
@@ -31,6 +32,8 @@ namespace Environment
 	public:
 		VertexBuffer(VertexBufferType InBufferType, BufferContentType InContentType);
 		void Initialize();
+
+		virtual void EraseRange(Range<int> InRange) = 0;
 
 		/// to be called from an thread - signaling draw request
 		void RequestBufferUpdate();

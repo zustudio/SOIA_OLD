@@ -14,3 +14,10 @@ TEST(RangedForLoop)
 	}
 	CHECK_EQUAL(0 + 1 + 2 + 3 + 4 + 5, sum);
 }
+
+TEST(IntegerCount)
+{
+	Range<int> range = Range<int>(0, 3);
+
+	CHECK_EQUAL(4, range.Count());
+}

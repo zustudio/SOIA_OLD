@@ -19,6 +19,10 @@ namespace Environment
 
 		void AddTextObject(TextObject* InObject);
 
+	private:
+		void EraseGraphicsObjectFromBuffers(TextObject * InObject);
+
+	private:
 		FontTexture2D FontTexture;
 		using CommonBufferType = VertexBufferTemplate<float, fPoint::DataUnraveler, fPoint::DataUnraveler>;
 		CommonBufferType* VertexBuffer;

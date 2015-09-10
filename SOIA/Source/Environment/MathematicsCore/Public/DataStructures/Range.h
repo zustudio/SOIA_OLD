@@ -35,6 +35,10 @@ namespace Environment
 		{
 			return Lower == InOther.Lower && Upper == InOther.Upper;
 		}
+		bool operator!=(Range<T> const & InOther)
+		{
+			return Lower != InOther.Lower || Upper != InOther.Upper;
+		}
 
 		//----- ranged for loop -----
 		class Iterator
@@ -76,10 +80,23 @@ namespace Environment
 
 		//----- usage -----
 
+		/// Moves whole range up a certain amount.
+		void MoveUp(int InAmount)
+		{
+			Lower += InAmount;
+			Upper += InAmount;
+		}
+
 		/// Tests whether number is in range.
 		bool IsInRange(const T& InTest)
 		{
 			return (InTest >= Lower && InTest <= Upper);
+		}
+
+		/// Returns amount of integer elements in range.
+		int Count()
+		{
+			return Upper - Lower + 1;
 		}
 
 		//////////////////////////////////////////////////////////////////

@@ -56,3 +56,8 @@ void UnfilledGeometryLayer::UpdateBuffers()
 		}
 	}
 }
+
+void UnfilledGeometryLayer::EraseGraphicsObjectFromBuffers(GeometryObject * InObject)
+{
+	GraphicsLayer::EraseGraphicsObjectFromBuffers(InObject, Objects, &Vertices, &Lines);
+}

@@ -62,6 +62,12 @@ void TextLayer::UpdateBuffers()
 	{
 		if (textObject->bDirty)
 		{
+			if (textObject->VertexBufferRange != Range<int>::Empty()
+				&& textObject->VertexBufferRange.Count() != textObject->Text.size() * 6)
+			{
+				EraseGraphicsObjectFromBuffers(textObject);
+				textObject->VertexBufferRange = Range<int>::Empty();
+			}
 			if (textObject->VertexBufferRange == Range<int>::Empty())
 			{
 				textObject->VertexBufferRange.Lower = VertexBuffer->GetEntryNum();
@@ -119,4 +125,9 @@ void TextLayer::UpdateBuffers()
 void TextLayer::AddTextObject(TextObject * InObject)
 {
 	TextObjects.push_back(InObject);
+}
+
+void TextLayer::EraseGraphicsObjectFromBuffers(TextObject * InObject)
+{
+	GraphicsLayer::EraseGraphicsObjectFromBuffers(InObject, TextObjects, VertexBuffer, nullptr);
 }

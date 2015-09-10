@@ -54,6 +54,14 @@ namespace Environment
 			RequestBufferUpdate();
 		}
 
+		void AddEmpty(int Num)
+		{
+			for (int i = 0; i < Num; ++i)
+			{
+				Add(TupleType());
+			}
+		}
+
 		void Set(int Num, const typename DataUnravelerTypes::CompoundDataType&... InCompounds)
 		{
 			Set(Num, TupleType(InCompounds...));
@@ -65,14 +73,11 @@ namespace Environment
 			RequestBufferUpdate();
 		}
 
-		void AddEmpty(int Num)
+		virtual void EraseRange(Range<int> InRange) override
 		{
-			for (int i = 0; i < Num; ++i)
-			{
-				Add(TupleType());
-			}
+			BackBuffer.erase(BackBuffer.begin() + InRange.Lower, BackBuffer.begin() + InRange.Upper);
+			RequestBufferUpdate();
 		}
-
 		
 
 		bool VertexBuffer::ResizeFrontBuffer()
