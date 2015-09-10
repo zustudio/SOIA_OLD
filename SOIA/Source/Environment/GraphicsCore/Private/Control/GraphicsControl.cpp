@@ -11,7 +11,7 @@ GraphicsControl::GraphicsControl(MBoundaries * InBoundaries, pxMargins InMargins
 	Border(
 		this,
 		pxMargins(0,0,0,0),
-		fColor(0.95, 0, 0.95),
+		fColor(1, 1, 1),
 		[this]() {return GeometryObject::MakeRectangle(pxPoint(0, 0), GetSize().ToPoint()); })
 {
 	GetWindow()->CommonFilledGeometryLayer.AddObject(&Border);

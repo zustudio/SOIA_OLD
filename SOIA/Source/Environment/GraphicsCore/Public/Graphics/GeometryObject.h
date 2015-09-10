@@ -14,7 +14,7 @@ namespace Environment
 	public:
 		using EdgesFunctionType = std::function<std::vector<pxPoint>()>;
 
-		//GeometryObject(MBoundaries* InBoundaries, pxMargins InMargins, fColor InColor, std::vector<pxPoint> const & InEdges);
+		GeometryObject(MBoundaries* InBoundaries, pxMargins InMargins, fColor InColor, std::vector<pxPoint> const & InEdges);
 		GeometryObject(MBoundaries* InBoundaries, pxMargins InMargins, fColor InColor, EdgesFunctionType InEdgesFunction);
 
 		virtual void MarkDirty() override;

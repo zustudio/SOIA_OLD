@@ -56,57 +56,64 @@ void TextLayer::Initialize()
 	GraphicsLayer::Initialize();
 }
 
-void TextLayer::Draw()
+void TextLayer::UpdateBuffers()
 {
-	//auto Scale = PixelSize->Convert<float>().Divide1() * 2;
-
-	VertexBuffer->BackBuffer.clear();
-	for (auto textObject : TextObjects)
+	for (TextObject* textObject : TextObjects)
 	{
-		int CurX = 0;
-		int CurY = -FontTexture.GetSpriteSize().Y;
-
-		for (char& character: textObject->Text)
+		if (textObject->bDirty)
 		{
-			CheckGLError();
-			GlyphObject& glyph = FontTexture.GetGlyph(character);
+			if (textObject->VertexBufferRange == Range<int>::Empty())
+			{
+				textObject->VertexBufferRange.Lower = VertexBuffer->GetEntryNum();
+				VertexBuffer->AddEmpty(textObject->Text.size() * 6);
+				textObject->VertexBufferRange.Upper = VertexBuffer->GetEntryNum() - 1;
+			}
+
+			int CurX = 0;
+			int CurY = -FontTexture.GetSpriteSize().Y;
+
+			int index_vertex = textObject->VertexBufferRange.Lower;
+			for (char& character : textObject->Text)
+			{
+				CheckGLError();
+				GlyphObject& glyph = FontTexture.GetGlyph(character);
 
 
-			int x2 = CurX + glyph.BitmapLeft;
-			int y2 = -CurY - glyph.BitmapTop;
-			int w = glyph.Width;
-			int h = glyph.Rows;
+				int x2 = CurX + glyph.BitmapLeft;
+				int y2 = -CurY - glyph.BitmapTop;
+				int w = glyph.Width;
+				int h = glyph.Rows;
 
 
-			fPoint leftTop, rightBottom;
-			fPoint rightTop, leftBottom;
-			FontTexture.GetCoordinates(character, leftTop, rightBottom);
-			rightTop = fPoint(rightBottom.X, leftTop.Y);
-			leftBottom = fPoint(leftTop.X, rightBottom.Y);
+				fPoint leftTop, rightBottom;
+				fPoint rightTop, leftBottom;
+				FontTexture.GetCoordinates(character, leftTop, rightBottom);
+				rightTop = fPoint(rightBottom.X, leftTop.Y);
+				leftBottom = fPoint(leftTop.X, rightBottom.Y);
 
-			using TT = CommonBufferType::TupleType;
-			TT v_leftTop = TT(textObject->CalculateRelativeLocationOnWindow(pxPoint(x2, y2)), leftTop);
-			TT v_rightTop = TT(textObject->CalculateRelativeLocationOnWindow(pxPoint(x2 + w, y2)), rightTop);
-			TT v_leftBottom = TT(textObject->CalculateRelativeLocationOnWindow(pxPoint(x2, y2 + h)), leftBottom);
-			TT v_rightBottom = TT(textObject->CalculateRelativeLocationOnWindow(pxPoint(x2 + w, y2 + h)), rightBottom);
+				using TT = CommonBufferType::TupleType;
+				TT v_leftTop = TT(textObject->CalculateRelativeLocationOnWindow(pxPoint(x2, y2)), leftTop);
+				TT v_rightTop = TT(textObject->CalculateRelativeLocationOnWindow(pxPoint(x2 + w, y2)), rightTop);
+				TT v_leftBottom = TT(textObject->CalculateRelativeLocationOnWindow(pxPoint(x2, y2 + h)), leftBottom);
+				TT v_rightBottom = TT(textObject->CalculateRelativeLocationOnWindow(pxPoint(x2 + w, y2 + h)), rightBottom);
 
-			//add tri 1
-			VertexBuffer->Add(v_leftTop);
-			VertexBuffer->Add(v_rightTop);
-			VertexBuffer->Add(v_leftBottom);
-			//add tri 2
-			VertexBuffer->Add(v_leftBottom);
-			VertexBuffer->Add(v_rightTop);
-			VertexBuffer->Add(v_rightBottom);
+				//add tri 1
+				VertexBuffer->Set(index_vertex++, v_leftTop);
+				VertexBuffer->Set(index_vertex++, v_rightTop);
+				VertexBuffer->Set(index_vertex++, v_leftBottom);
+				//add tri 2
+				VertexBuffer->Set(index_vertex++, v_leftBottom);
+				VertexBuffer->Set(index_vertex++, v_rightTop);
+				VertexBuffer->Set(index_vertex++, v_rightBottom);
 
 
-			CurX += (glyph.AdvanceX >> 6);
-			CurY += (glyph.AdvanceY >> 6);
+				CurX += (glyph.AdvanceX >> 6);
+				CurY += (glyph.AdvanceY >> 6);
+			}
+
+			textObject->bDirty = false;
 		}
 	}
-
-	// Main Call
-	GraphicsLayer::Draw();
 }
 
 void TextLayer::AddTextObject(TextObject * InObject)

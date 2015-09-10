@@ -15,7 +15,7 @@ namespace Environment
 	public:
 		TextLayer(Font const & InFont, int InSize);
 		virtual void Initialize() override;
-		virtual void Draw() override;
+		virtual void UpdateBuffers() override;
 
 		void AddTextObject(TextObject* InObject);
 
