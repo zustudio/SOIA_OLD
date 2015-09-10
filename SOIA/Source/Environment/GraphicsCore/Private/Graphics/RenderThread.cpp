@@ -50,6 +50,16 @@ void RenderThread::AddWindow(GraphicsWindow* InWindow)
 	WaitingWindows.push_back(InWindow);
 }
 
+GraphicsWindow * RenderThread::GetWindowByHandle(GLFWwindow * InHandle)
+{
+	for (GraphicsWindow* window : Windows)
+	{
+		if (window->GLWindow == InHandle)
+			return window;
+	}
+	return nullptr;
+}
+
 GraphicsWindow* RenderThread::GetLastWindow()
 {
 	if (Windows.size())

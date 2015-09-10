@@ -19,25 +19,39 @@ FilledGeometryLayer::FilledGeometryLayer()
 
 void FilledGeometryLayer::UpdateBuffers()
 {
-	for (GeometryObject& object : Objects)
+	for (GeometryObject* object : Objects)
 	{
-		if (object.bChanged)
+		if (object->bDirty)
 		{
-			const int IndexOfFirstPoint = Vertices.GetEntryNum();
-
-			for (pxPoint& edge : object.Edges)
+			if (object->VertexBufferRange == Range<int>::Empty())
 			{
-				Vertices.Add(object.CalculateRelativeLocationOnWindow(edge), object.Color);
+				object->VertexBufferRange.Lower = Vertices.GetEntryNum();
+				object->ElementBufferRange.Lower = Triangles.GetEntryNum();
+
+				int edges = object->Edges.size();
+				Vertices.AddEmpty(edges);
+				Triangles.AddEmpty(edges - 2);
+
+				object->VertexBufferRange.Upper = Vertices.GetEntryNum() - 1;
+				object->ElementBufferRange.Upper = Triangles.GetEntryNum() - 1;
 			}
 
-			int IndexOfLastPoint = IndexOfFirstPoint + object.Edges.size() - 1;
-			for (int Index = IndexOfFirstPoint + 1; Index < IndexOfLastPoint - 1; Index+=2)
+			int index_edge = 0;
+			for (int index_vertex : object->VertexBufferRange)
 			{
-				Triangles.Add(iTriangle(IndexOfFirstPoint, Index, Index + 1));
+				Vertices.Set(index_vertex, object->CalculateRelativeLocationOnWindow(object->Edges[index_edge]), object->Color);
+				++index_edge;
 			}
-			Triangles.Add(iTriangle(IndexOfFirstPoint, IndexOfLastPoint - 1, IndexOfLastPoint));
 
-			object.bChanged = false;
+			int index_vertex_zero = object->VertexBufferRange.Lower;
+			int index_vertex = index_vertex_zero + 1;
+			for (int index_triangle : object->ElementBufferRange)
+			{
+				Triangles.Set(index_triangle, iTriangle(index_vertex_zero, index_vertex, index_vertex + 1));
+				++index_vertex;
+			}
+
+			object->bDirty = false;
 		}
 	}
 }

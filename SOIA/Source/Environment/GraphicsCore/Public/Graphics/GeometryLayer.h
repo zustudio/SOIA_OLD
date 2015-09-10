@@ -15,7 +15,7 @@ namespace Environment
 	public:
 		GeometryLayer();
 
-		void AddObject(GeometryObject const & InObject);
+		void AddObject(GeometryObject* InObject);
 
 	protected:
 		VertexBufferTemplate<float, fPoint::DataUnraveler, fColor::DataUnraveler>  Vertices;
@@ -24,6 +24,6 @@ namespace Environment
 		Shader VertexShader;
 		Shader FragmentShader;
 
-		std::vector<GeometryObject> Objects;
+		std::vector<GeometryObject*> Objects;
 	};
 }

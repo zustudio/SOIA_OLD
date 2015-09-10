@@ -11,6 +11,7 @@ namespace Environment
 
 	public:
 		MBoundaries(MBoundaries* InBoundaries, pxMargins InMargins);
+		virtual void MarkDirty() override;
 
 		virtual MBoundaries* GetTopBoundaries() override;
 

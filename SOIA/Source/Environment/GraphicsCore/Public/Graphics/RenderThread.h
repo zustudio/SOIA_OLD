@@ -16,6 +16,8 @@ namespace Environment
 
 		void AddWindow(GraphicsWindow* InWindow);
 
+		GraphicsWindow* GetWindowByHandle(GLFWwindow* InHandle);
+
 		GraphicsWindow* GetLastWindow();
 
 		GraphicsWindow* CurrentWindow;

@@ -20,25 +20,39 @@ UnfilledGeometryLayer::UnfilledGeometryLayer()
 
 void UnfilledGeometryLayer::UpdateBuffers()
 {
-	for (GeometryObject& object : Objects)
+	for (GeometryObject* object : Objects)
 	{
-		if (object.bChanged)
+		if (object->bDirty)
 		{
-			const int IndexOfFirstPoint = Vertices.GetEntryNum();
-
-			for (pxPoint& edge : object.Edges)
+			if (object->VertexBufferRange == Range<int>::Empty())
 			{
-				Vertices.Add(object.CalculateRelativeLocationOnWindow(edge), object.Color);
+				object->VertexBufferRange.Lower = Vertices.GetEntryNum();
+				object->ElementBufferRange.Lower = Lines.GetEntryNum();
+
+				Vertices.AddEmpty(object->Edges.size());
+				Lines.AddEmpty(object->Edges.size());
+
+				object->VertexBufferRange.Upper = Vertices.GetEntryNum() - 1;
+				object->ElementBufferRange.Upper = Lines.GetEntryNum() - 1;
 			}
 
-			int IndexOfLastPoint = IndexOfFirstPoint + object.Edges.size() - 1;
-			for (int Index = IndexOfFirstPoint; Index < IndexOfLastPoint; ++Index)
+			int index_edge = 0;
+			for (int index_vertex : object->VertexBufferRange)
 			{
-				Lines.Add(iLine(Index, Index + 1));
+				Vertices.Set(index_vertex, object->CalculateRelativeLocationOnWindow(object->Edges[index_edge]), object->Color);
+				++index_edge;
 			}
-			Lines.Add(iLine(IndexOfFirstPoint, IndexOfLastPoint));
+
+			int index_vertex = object->VertexBufferRange.Lower;
+			int index_line = object->ElementBufferRange.Lower;
+			for (index_line; index_line < object->ElementBufferRange.Upper; ++index_line)
+			{
+				Lines.Set(index_line, iLine(index_vertex, index_vertex + 1));
+				++index_vertex;
+			}
+			Lines.Set(index_line, iLine(index_vertex, object->VertexBufferRange.Lower));
 			
-			object.bChanged = false;
+			object->bDirty = false;
 		}
 	}
 }

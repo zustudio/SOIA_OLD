@@ -32,6 +32,9 @@ namespace Environment
 		//----- MBound functions -----
 		virtual Vector2D<pxPoint> CalculateAbsoluteCornerLocationsOnWindow() override;
 
+		//----- glfw events -----
+		static void Event_FramebufferResized(GLFWwindow* InWindow, int InWidth, int InHeight);
+
 		////////////////////////////////////////////////////////////////
 		// Variables
 

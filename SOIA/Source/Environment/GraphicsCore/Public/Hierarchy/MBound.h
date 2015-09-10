@@ -20,6 +20,8 @@ namespace Environment
 	public:
 		MBound(MBoundaries* InBoundaries, pxMargins InMargins);
 
+		virtual void MarkDirty();
+
 		virtual MBoundaries* GetTopBoundaries();
 
 		pxSize GetSize();

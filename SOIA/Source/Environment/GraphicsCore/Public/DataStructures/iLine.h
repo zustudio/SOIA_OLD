@@ -8,6 +8,7 @@ namespace Environment
 	class iLine
 	{
 	public:
+		iLine();
 		iLine(int InA, int InB);
 
 		int A;

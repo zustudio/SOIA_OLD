@@ -33,7 +33,7 @@ GeometryLayer::GeometryLayer()
 		"}")
 {}
 
-void GeometryLayer::AddObject(GeometryObject const & InObject)
+void GeometryLayer::AddObject(GeometryObject* InObject)
 {
 	Objects.push_back(InObject);
 }

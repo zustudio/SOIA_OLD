@@ -54,6 +54,27 @@ namespace Environment
 			RequestBufferUpdate();
 		}
 
+		void Set(int Num, const typename DataUnravelerTypes::CompoundDataType&... InCompounds)
+		{
+			Set(Num, TupleType(InCompounds...));
+		}
+
+		void Set(int Num, TupleType const & InTupleObject)
+		{
+			BackBuffer[Num] = InTupleObject;
+			RequestBufferUpdate();
+		}
+
+		void AddEmpty(int Num)
+		{
+			for (int i = 0; i < Num; ++i)
+			{
+				Add(TupleType());
+			}
+		}
+
+		
+
 		bool VertexBuffer::ResizeFrontBuffer()
 		{
 			FrontBuffer.resize(GetRawSize());

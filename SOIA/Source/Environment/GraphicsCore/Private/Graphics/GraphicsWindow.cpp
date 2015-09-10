@@ -71,7 +71,12 @@ void GraphicsWindow::Initialize()
 
 	GlewContext = new GLEWContext();
 
+	// create window
 	GLWindow = glfwCreateWindow(Size.Width, Size.Height, Title.c_str(), nullptr, lastGLWindow);
+
+	// bind events
+	glfwSetFramebufferSizeCallback(GLWindow, &GraphicsWindow::Event_FramebufferResized);
+
 	glfwMakeContextCurrent(GLWindow);
 	GetRenderThread()->CurrentWindow = this;
 
@@ -166,5 +171,13 @@ void GraphicsWindow::Draw()
 Vector2D<pxPoint> GraphicsWindow::CalculateAbsoluteCornerLocationsOnWindow()
 {
 	return Vector2D<pxPoint>(pxPoint(0, 0), pxPoint(Size.Width, Size.Height));
+}
+
+void GraphicsWindow::Event_FramebufferResized(GLFWwindow * InWindow, int InWidth, int InHeight)
+{
+	glViewport(0, 0, InWidth, InHeight);
+	GraphicsWindow* window = GetRenderThread()->GetWindowByHandle(InWindow);
+	window->Size = pxSize(InWidth, InHeight);
+	window->MarkDirty();
 }
 

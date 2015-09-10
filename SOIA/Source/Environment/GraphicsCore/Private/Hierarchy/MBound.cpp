@@ -18,6 +18,10 @@ MBound::MBound(MBoundaries * InBoundaries, pxMargins InMargins)
 		InBoundaries->AddBoundObject(this);
 }
 
+void MBound::MarkDirty()
+{
+}
+
 pxSize MBound::GetSize()
 {
 	auto corners = CalculateAbsoluteCornerLocationsOnWindow();

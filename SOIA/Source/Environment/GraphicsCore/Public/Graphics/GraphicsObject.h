@@ -3,6 +3,8 @@
 
 #include "MBound.h"
 
+#include "Range.h"
+
 namespace Environment
 {
 	class GraphicsObject : public MBound
@@ -10,6 +12,10 @@ namespace Environment
 	public:
 		GraphicsObject(MBoundaries* InBoundaries, pxMargins InMargins);
 
-		bool bChanged;
+		virtual void MarkDirty();
+
+		Range<int> VertexBufferRange;
+		Range<int> ElementBufferRange;
+		bool bDirty;
 	};
 }

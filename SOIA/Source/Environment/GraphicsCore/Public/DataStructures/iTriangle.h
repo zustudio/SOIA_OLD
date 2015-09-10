@@ -8,6 +8,7 @@ namespace Environment
 	class iTriangle
 	{
 	public:
+		iTriangle();
 		iTriangle(int ina, int inb, int inc);
 
 		int A;
