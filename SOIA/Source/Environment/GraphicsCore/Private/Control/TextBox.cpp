@@ -10,7 +10,22 @@ TextBox::TextBox(MBoundaries * InBoundaries, pxMargins InMargins)
 	: GraphicsControl(InBoundaries, InMargins)
 {}
 
+void TextBox::Update()
+{
+	TextObjects.erase(TextObjects.begin(), TextObjects.end());
+
+	TextObjects.push_back(TextObject(this, pxMargins(5, 5, 5, 5), Text));
+
+	for (TextObject& object : TextObjects)
+	{
+		GetWindow()->CommonTextContentLayer.AddTextObject(&object);
+	}
+
+	GraphicsControl::Update();
+}
+
 void TextBox::SetText(std::string const & InText)
 {
-	GetWindow()->CommonTextContentLayer.AddTextObject(new TextObject(this, pxMargins(5, 5, 5, 5), InText));
+	Text = InText;
+	Update();
 }

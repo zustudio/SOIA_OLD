@@ -14,13 +14,19 @@ namespace Environment
 
 namespace Environment
 {
-	class MBound
+	class LIBIMPEXP MBound
 	{
 
 	public:
+		//----- ctor -----
 		MBound(MBoundaries* InBoundaries, pxMargins InMargins);
+		MBound(MBound const &) = delete;
+		MBound(MBound &&);
+		MBound& operator=(MBound const &) = delete;
+		MBound& operator=(MBound&& InOther);
+		virtual ~MBound();
 
-		virtual void MarkDirty();
+		virtual void Update();
 
 		virtual MBoundaries* GetTopBoundaries();
 
@@ -31,7 +37,11 @@ namespace Environment
 
 	protected:
 		bool AssertBoundariesValid();
+
+	protected:
 		MBoundaries* Boundaries;
 		pxMargins Margins;
+
+		bool bMovedAway;
 	};
 }

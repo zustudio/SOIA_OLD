@@ -11,12 +11,13 @@ namespace Environment
 
 	public:
 		MBoundaries(MBoundaries* InBoundaries, pxMargins InMargins);
-		virtual void MarkDirty() override;
+		virtual void Update() override;
 
 		virtual MBoundaries* GetTopBoundaries() override;
 
 	protected:
 		void AddBoundObject(MBound* InBoundObject);
+		void RemoveBoundObject(MBound* InBoundObject);
 
 	private:
 		std::vector<MBound*> BoundObjects;

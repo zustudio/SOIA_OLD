@@ -3,6 +3,8 @@
 
 #include "GraphicsControl.h"
 
+#include "TextObject.h"
+
 namespace Environment
 {
 	class LIBIMPEXP TextBox : public GraphicsControl
@@ -10,11 +12,14 @@ namespace Environment
 	public:
 		TextBox(MBoundaries* InBoundaries, pxMargins InMargins);
 
+		virtual void Update() override;
+
 		void SetText(std::string const & InText);
 
-		std::string Text;
 
 	private:
+		std::string Text;
+		std::vector<TextObject> TextObjects;
 		
 	};
 }

@@ -18,9 +18,9 @@ GeometryObject::GeometryObject(MBoundaries * InBoundaries, pxMargins InMargins, 
 	EdgesFunction(InEdgesFunction)
 {}
 
-void GeometryObject::MarkDirty()
+void GeometryObject::Update()
 {
-	GraphicsObject::MarkDirty();
+	GraphicsObject::Update();
 
 	if (EdgesFunction)
 	{

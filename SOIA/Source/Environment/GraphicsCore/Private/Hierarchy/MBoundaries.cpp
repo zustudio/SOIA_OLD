@@ -10,11 +10,11 @@ MBoundaries::MBoundaries(MBoundaries * InBoundaries, pxMargins InMargins)
 	: MBound(InBoundaries, InMargins)
 {}
 
-void MBoundaries::MarkDirty()
+void MBoundaries::Update()
 {
 	for (MBound* object : BoundObjects)
 	{
-		object->MarkDirty();
+		object->Update();
 	}
 }
 
@@ -29,4 +29,12 @@ MBoundaries * MBoundaries::GetTopBoundaries()
 void MBoundaries::AddBoundObject(MBound * InBoundObject)
 {
 	BoundObjects.push_back(InBoundObject);
+}
+
+void MBoundaries::RemoveBoundObject(MBound* InBoundObject)
+{
+	auto iter_boundObject = std::find(BoundObjects.begin(), BoundObjects.end(), InBoundObject);
+
+	if (iter_boundObject != BoundObjects.end())
+		BoundObjects.erase(iter_boundObject);
 }

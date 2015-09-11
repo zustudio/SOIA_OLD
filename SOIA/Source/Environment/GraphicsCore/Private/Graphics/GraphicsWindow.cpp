@@ -178,6 +178,6 @@ void GraphicsWindow::Event_FramebufferResized(GLFWwindow * InWindow, int InWidth
 	glViewport(0, 0, InWidth, InHeight);
 	GraphicsWindow* window = GetRenderThread()->GetWindowByHandle(InWindow);
 	window->Size = pxSize(InWidth, InHeight);
-	window->MarkDirty();
+	window->Update();
 }
 

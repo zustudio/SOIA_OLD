@@ -17,7 +17,7 @@ namespace Environment
 		GeometryObject(MBoundaries* InBoundaries, pxMargins InMargins, fColor InColor, std::vector<pxPoint> const & InEdges);
 		GeometryObject(MBoundaries* InBoundaries, pxMargins InMargins, fColor InColor, EdgesFunctionType InEdgesFunction);
 
-		virtual void MarkDirty() override;
+		virtual void Update() override;
 
 		static std::vector<pxPoint> MakeRectangle(pxPoint a, pxPoint b);
 

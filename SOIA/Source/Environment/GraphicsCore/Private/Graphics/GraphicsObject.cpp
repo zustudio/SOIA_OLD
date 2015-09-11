@@ -11,7 +11,7 @@ GraphicsObject::GraphicsObject(MBoundaries * InBoundaries, pxMargins InMargins)
 	bDirty(true)
 {}
 
-void GraphicsObject::MarkDirty()
+void GraphicsObject::Update()
 {
 	bDirty = true;
 }

@@ -12,13 +12,42 @@ using namespace Environment;
 MBound::MBound(MBoundaries * InBoundaries, pxMargins InMargins)
 	:
 	Boundaries(InBoundaries),
-	Margins(InMargins)
+	Margins(InMargins),
+	bMovedAway(false)
 {
 	if (InBoundaries)
 		InBoundaries->AddBoundObject(this);
 }
 
-void MBound::MarkDirty()
+MBound::MBound(MBound && InOther)
+	:
+	Boundaries(InOther.Boundaries),
+	Margins(InOther.Margins),
+	bMovedAway(false)
+{
+	if (Boundaries)
+		Boundaries->AddBoundObject(this);
+}
+
+
+MBound& MBound::operator=(MBound && InOther)
+{
+	Boundaries = InOther.Boundaries;
+	Margins = InOther.Margins;
+
+	//InOther.bMovedAway = true;
+
+	return *this;
+}
+
+MBound::~MBound()
+{
+//	if (!bMovedAway)
+		if (Boundaries)
+			Boundaries->RemoveBoundObject(this);
+}
+
+void MBound::Update()
 {
 }
 
