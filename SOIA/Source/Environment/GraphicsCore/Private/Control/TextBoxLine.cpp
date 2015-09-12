@@ -20,13 +20,16 @@ void TextBoxLine::Fill(ContainerAwareIteratorSet<std::string> & InOutWholeTextIt
 		int wordWidth = FontTexture->CalculateTextWidth(word);
 
 		currentTextWidth += wordWidth;
-		if (currentTextWidth < MaxWidth)
+		if (currentTextWidth > MaxWidth)
 		{
-			CurrentText += word;
-			InOutWholeTextIterators.Current += word.size();
-		}
-		else
 			break;
+		}
+		CurrentText += word;
+		InOutWholeTextIterators.Current += word.size();
+		if ((*--word.end()) == '\n')
+		{
+			break;
+		}
 	}
 }
 
