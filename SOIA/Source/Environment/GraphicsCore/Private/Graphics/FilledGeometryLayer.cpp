@@ -21,7 +21,7 @@ void FilledGeometryLayer::UpdateBuffers()
 {
 	for (GeometryObject* object : Objects)
 	{
-		if (object->bDirty)
+		if (object->bUpdateRequested)
 		{
 			if (object->VertexBufferRange == Range<int>::Empty())
 			{
@@ -51,7 +51,7 @@ void FilledGeometryLayer::UpdateBuffers()
 				++index_vertex;
 			}
 
-			object->bDirty = false;
+			object->bUpdateRequested = false;
 		}
 	}
 }

@@ -6,6 +6,7 @@
 using namespace Environment;
 
 #include "VertexBufferTemplate.h"
+#include "GlobalLogger.h"
 
 TextLayer::TextLayer(Font const & InFont, int InSize)
 	:
@@ -60,7 +61,7 @@ void TextLayer::UpdateBuffers()
 {
 	for (TextObject* textObject : TextObjects)
 	{
-		if (textObject->bDirty)
+		if (textObject->bUpdateRequested)
 		{
 			if (textObject->VertexBufferRange != Range<int>::Empty()
 				&& textObject->VertexBufferRange.Count() != textObject->Text.size() * 6)
@@ -117,14 +118,27 @@ void TextLayer::UpdateBuffers()
 				CurY += (glyph.AdvanceY >> 6);
 			}
 
-			textObject->bDirty = false;
+			textObject->bUpdateRequested = false;
 		}
 	}
 }
 
 void TextLayer::AddTextObject(TextObject * InObject)
 {
+	LOG("Adding textobject '" + InObject->Text + "'.", Logger::Severity::DebugInfo);
+
 	TextObjects.push_back(InObject);
+	InObject->SetDestructorCallback([this](MBound* InObject) {this->EraseGraphicsObject((TextObject*)InObject); });
+}
+
+void TextLayer::EraseGraphicsObject(TextObject * InObject)
+{
+	LOG("Erasing textobject '" + InObject->Text + "'.", Logger::Severity::DebugInfo);
+
+	EraseGraphicsObjectFromBuffers(InObject);
+	auto iter_object = std::find(TextObjects.begin(), TextObjects.end(), InObject);
+	if (iter_object != TextObjects.end())
+		TextObjects.erase(iter_object);
 }
 
 void TextLayer::EraseGraphicsObjectFromBuffers(TextObject * InObject)

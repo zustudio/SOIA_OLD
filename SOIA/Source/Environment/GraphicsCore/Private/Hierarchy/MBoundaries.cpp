@@ -10,6 +10,15 @@ MBoundaries::MBoundaries(MBoundaries * InBoundaries, pxMargins InMargins)
 	: MBound(InBoundaries, InMargins)
 {}
 
+void MBoundaries::RequestUpdate()
+{
+	MBound::RequestUpdate();
+	for (MBound* object : BoundObjects)
+	{
+		object->RequestUpdate();
+	}
+}
+
 void MBoundaries::Update()
 {
 	for (MBound* object : BoundObjects)

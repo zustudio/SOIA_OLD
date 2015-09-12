@@ -75,7 +75,7 @@ namespace Environment
 
 		virtual void EraseRange(Range<int> InRange) override
 		{
-			BackBuffer.erase(BackBuffer.begin() + InRange.Lower, BackBuffer.begin() + InRange.Upper);
+			BackBuffer.erase(BackBuffer.begin() + InRange.Lower, BackBuffer.begin() + InRange.Upper + 1);
 			RequestBufferUpdate();
 		}
 		

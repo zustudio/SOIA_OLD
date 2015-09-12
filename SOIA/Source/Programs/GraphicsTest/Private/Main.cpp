@@ -14,6 +14,7 @@ using namespace Environment;
 #include "FileSystemProvider.h"
 
 #include "TestWindow.h"
+#include "GlobalLogger.h"
 
 struct Point
 {
@@ -110,6 +111,8 @@ void main()
 
 	auto window = new GraphicsWindow({layer2, layer3});*/
 
+	
+	GlobalLogger()->SetMinimalSeverity(Logger::Severity::DebugInfo);
 	GetRenderThread()->Start();
 	GetRenderThread()->AddWindow(new TestWindow());
 	GetRenderThread()->Join();

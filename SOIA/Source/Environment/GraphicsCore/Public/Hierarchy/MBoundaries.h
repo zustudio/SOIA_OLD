@@ -11,6 +11,7 @@ namespace Environment
 
 	public:
 		MBoundaries(MBoundaries* InBoundaries, pxMargins InMargins);
+		virtual void RequestUpdate() override;
 		virtual void Update() override;
 
 		virtual MBoundaries* GetTopBoundaries() override;

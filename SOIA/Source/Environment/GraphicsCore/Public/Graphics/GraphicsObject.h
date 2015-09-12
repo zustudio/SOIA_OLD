@@ -12,10 +12,7 @@ namespace Environment
 	public:
 		GraphicsObject(MBoundaries* InBoundaries, pxMargins InMargins);
 
-		virtual void Update();
-
 		Range<int> VertexBufferRange;
 		Range<int> ElementBufferRange;
-		bool bDirty;
 	};
 }

@@ -23,7 +23,8 @@ MBound::MBound(MBound && InOther)
 	:
 	Boundaries(InOther.Boundaries),
 	Margins(InOther.Margins),
-	bMovedAway(false)
+	bMovedAway(false),
+	DestructorFunction(nullptr)
 {
 	if (Boundaries)
 		Boundaries->AddBoundObject(this);
@@ -42,9 +43,22 @@ MBound& MBound::operator=(MBound && InOther)
 
 MBound::~MBound()
 {
-//	if (!bMovedAway)
-		if (Boundaries)
-			Boundaries->RemoveBoundObject(this);
+	LOG("Destroying MBound '" + std::to_string((int)this) + "'", Logger::Severity::DebugInfo);
+
+	if (Boundaries)
+		Boundaries->RemoveBoundObject(this);
+	if (DestructorFunction)
+		DestructorFunction(this);
+}
+
+void MBound::SetDestructorCallback(std::function<void(MBound*)> const & InDestructorFunction)
+{
+	DestructorFunction = InDestructorFunction;
+}
+
+void MBound::RequestUpdate()
+{
+	bUpdateRequested = true;
 }
 
 void MBound::Update()

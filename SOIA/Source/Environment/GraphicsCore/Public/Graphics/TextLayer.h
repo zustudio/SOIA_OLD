@@ -19,7 +19,7 @@ namespace Environment
 
 		void AddTextObject(TextObject* InObject);
 
-	private:
+		void EraseGraphicsObject(TextObject* InObject);
 		void EraseGraphicsObjectFromBuffers(TextObject * InObject);
 
 	private:

@@ -12,20 +12,25 @@ TextBox::TextBox(MBoundaries * InBoundaries, pxMargins InMargins)
 
 void TextBox::Update()
 {
-	TextObjects.erase(TextObjects.begin(), TextObjects.end());
-
-	TextObjects.push_back(TextObject(this, pxMargins(5, 5, 5, 5), Text));
-
-	for (TextObject& object : TextObjects)
-	{
-		GetWindow()->CommonTextContentLayer.AddTextObject(&object);
-	}
-
 	GraphicsControl::Update();
+
+	if (bUpdateRequested)
+	{
+		TextObjects.erase(TextObjects.begin(), TextObjects.end());
+
+		TextObjects.push_back(TextObject(this, pxMargins(5, 5, 5, 5), Text));
+
+		for (TextObject& object : TextObjects)
+		{
+			GetWindow()->CommonTextContentLayer.AddTextObject(&object);
+		}
+
+		bUpdateRequested = false;
+	}
 }
 
 void TextBox::SetText(std::string const & InText)
 {
 	Text = InText;
-	Update();
+	RequestUpdate();
 }

@@ -22,7 +22,7 @@ void UnfilledGeometryLayer::UpdateBuffers()
 {
 	for (GeometryObject* object : Objects)
 	{
-		if (object->bDirty)
+		if (object->bUpdateRequested)
 		{
 			if (object->VertexBufferRange == Range<int>::Empty())
 			{
@@ -52,7 +52,7 @@ void UnfilledGeometryLayer::UpdateBuffers()
 			}
 			Lines.Set(index_line, iLine(index_vertex, object->VertexBufferRange.Lower));
 			
-			object->bDirty = false;
+			object->bUpdateRequested = false;
 		}
 	}
 }

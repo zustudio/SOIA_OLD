@@ -161,6 +161,8 @@ void GraphicsWindow::Draw()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.5, 0, 0, 1);
 
+	// start recursive update chain
+	this->Update();
 	for (GraphicsLayer* layer : Layers)
 	{
 		layer->BeginDraw();
@@ -175,9 +177,11 @@ Vector2D<pxPoint> GraphicsWindow::CalculateAbsoluteCornerLocationsOnWindow()
 
 void GraphicsWindow::Event_FramebufferResized(GLFWwindow * InWindow, int InWidth, int InHeight)
 {
+	LOG("Event_FramebufferResized called on window '" + std::to_string((int)InWindow) + "'.", Logger::Severity::DebugInfo);
 	glViewport(0, 0, InWidth, InHeight);
 	GraphicsWindow* window = GetRenderThread()->GetWindowByHandle(InWindow);
 	window->Size = pxSize(InWidth, InHeight);
-	window->Update();
+	window->RequestUpdate();
+	LOG("Event_FramebufferResized returned on window '" + std::to_string((int)InWindow) + "'.", Logger::Severity::DebugInfo);
 }
 

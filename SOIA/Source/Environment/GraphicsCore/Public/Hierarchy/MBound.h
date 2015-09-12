@@ -6,6 +6,8 @@
 #include "pxSize.h"
 #include "pxMargins.h"
 
+#include <functional>
+
 
 namespace Environment
 {
@@ -26,6 +28,9 @@ namespace Environment
 		MBound& operator=(MBound&& InOther);
 		virtual ~MBound();
 
+		void SetDestructorCallback(std::function<void(MBound*)> const & InDestructorFunction);
+
+		virtual void RequestUpdate();
 		virtual void Update();
 
 		virtual MBoundaries* GetTopBoundaries();
@@ -38,10 +43,14 @@ namespace Environment
 	protected:
 		bool AssertBoundariesValid();
 
+	public:
+		bool bUpdateRequested;
+
 	protected:
 		MBoundaries* Boundaries;
 		pxMargins Margins;
 
 		bool bMovedAway;
+		std::function<void(MBound*)> DestructorFunction;
 	};
 }
