@@ -22,9 +22,7 @@ namespace Environment
 		GlyphObject& GetGlyph(char InChar);
 		void GetCoordinates(char InChar, fPoint & OutLeftTop, fPoint & OutRightBottom);
 		Vector2D<size_t> GetSpriteSize();
-
-	private:
-		size_t AlignSizeToPowerOfTwo(size_t InNotAligned);
+		int CalculateTextWidth(std::string const & InText);
 
 	private:
 		Vector2D<size_t> SpriteSize;

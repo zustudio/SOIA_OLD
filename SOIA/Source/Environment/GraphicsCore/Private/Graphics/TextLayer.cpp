@@ -145,3 +145,8 @@ void TextLayer::EraseGraphicsObjectFromBuffers(TextObject * InObject)
 {
 	GraphicsLayer::EraseGraphicsObjectFromBuffers(InObject, TextObjects, VertexBuffer, nullptr);
 }
+
+FontTexture2D * TextLayer::GetFontTexture()
+{
+	return &FontTexture;
+}

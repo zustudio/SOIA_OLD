@@ -59,6 +59,7 @@ in_sub(Control)
 	add_PrivatePublic(
 		GraphicsControl
 		TextBox
+		TextBoxLine
 		Canvas)
 in_sub(Window)
 	add_PrivatePublic(

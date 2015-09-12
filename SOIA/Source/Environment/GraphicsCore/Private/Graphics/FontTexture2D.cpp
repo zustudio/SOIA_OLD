@@ -88,7 +88,12 @@ Vector2D<size_t> FontTexture2D::GetSpriteSize()
 	return SpriteSize;
 }
 
-size_t FontTexture2D::AlignSizeToPowerOfTwo(size_t InNotAligned)
+int FontTexture2D::CalculateTextWidth(std::string const & InText)
 {
-	return 0;
+	int width = 0;
+	for (char const & character : InText)
+	{
+		width += (Glyphs[character].AdvanceX >> 6);
+	}
+	return width;
 }
