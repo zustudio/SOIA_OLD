@@ -18,6 +18,10 @@ namespace Environment
 		void AddObject(GeometryObject* InObject);
 
 	protected:
+		void EraseGraphicsObject(GeometryObject * InObject);
+		virtual void EraseGraphicsObjectFromBuffers(GeometryObject * InObject) = 0;
+
+	protected:
 		VertexBufferTemplate<float, fPoint::DataUnraveler, fColor::DataUnraveler>  Vertices;
 		VertexBufferVariable LocationVariable;
 		VertexBufferVariable ColorVariable;

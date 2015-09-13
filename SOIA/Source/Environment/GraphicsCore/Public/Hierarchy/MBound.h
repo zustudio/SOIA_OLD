@@ -34,6 +34,7 @@ namespace Environment
 		virtual void Update();
 
 		virtual MBoundaries* GetTopBoundaries();
+		pxMargins const & GetMargins();
 
 		pxSize GetSize();
 		fPoint CalculateRelativeLocationOnWindow(pxPoint InPoint);

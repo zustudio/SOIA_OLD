@@ -20,7 +20,7 @@ EventInfo_KeyChanged::EventInfo_KeyChanged(int InKey, EKeyModifier InKeyModifier
 	Mods(int(InKeyModifier))
 {}
 
-bool EventInfo_KeyChanged::operator==(EventInfo_KeyChanged const & InOther)
+bool EventInfo_KeyChanged::operator==(EventInfo_KeyChanged const & InOther) const
 {
 	bool equal = true;
 

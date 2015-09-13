@@ -80,6 +80,11 @@ MBoundaries* MBound::GetTopBoundaries()
 		return nullptr;
 }
 
+pxMargins const & MBound::GetMargins()
+{
+	return Margins;
+}
+
 fPoint MBound::CalculateRelativeLocationOnWindow(pxPoint InPoint)
 {
 	pxPoint absolutePoint = CalculateAbsoluteCornerLocationsOnWindow().X + InPoint;

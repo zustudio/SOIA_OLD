@@ -10,7 +10,7 @@ namespace Environment
 			Value(InValue)
 		{}
 
-		operator int()
+		operator int() const
 		{
 			return Value;
 		}

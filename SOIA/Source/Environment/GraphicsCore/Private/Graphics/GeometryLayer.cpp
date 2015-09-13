@@ -36,4 +36,14 @@ GeometryLayer::GeometryLayer()
 void GeometryLayer::AddObject(GeometryObject* InObject)
 {
 	Objects.push_back(InObject);
+	InObject->SetDestructorCallback([this](MBound* InObject) { EraseGraphicsObject((GeometryObject*)InObject); });
+}
+
+void GeometryLayer::EraseGraphicsObject(GeometryObject * InObject)
+{
+	EraseGraphicsObjectFromBuffers(InObject);
+
+	auto iter_object = std::find(Objects.begin(), Objects.end(), InObject);
+	if (iter_object != Objects.end())
+		Objects.erase(iter_object);
 }

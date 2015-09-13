@@ -14,7 +14,7 @@ namespace Environment
 	public:
 		EventInfo_SelectionChanged(ESelectionStatus InSelectionStatus);
 
-		bool operator==(ESelectionStatus const & InOther);
+		bool operator==(ESelectionStatus const & InOther) const;
 
 	private:
 		ESelectionStatus SelectionStatus;

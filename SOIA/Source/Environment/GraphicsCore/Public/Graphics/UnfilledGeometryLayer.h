@@ -15,7 +15,7 @@ namespace Environment
 		virtual void UpdateBuffers() override;
 
 	private:
-		void EraseGraphicsObjectFromBuffers(GeometryObject* InObject);
+		virtual void EraseGraphicsObjectFromBuffers(GeometryObject* InObject) override;
 
 	private:
 		VertexBufferTemplate<int, iLine::DataUnraveler> Lines;

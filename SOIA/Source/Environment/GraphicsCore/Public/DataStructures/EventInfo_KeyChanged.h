@@ -35,7 +35,7 @@ namespace Environment
 		EventInfo_KeyChanged(int InKey, int InScanCode, int InAction, int InMods);
 		EventInfo_KeyChanged(int InKey, EKeyModifier InKeyModifier = EKeyModifier::None, EKeyAction InKeyAction = EKeyAction::Press);
 
-		bool operator==(EventInfo_KeyChanged const & InOther);
+		bool operator==(EventInfo_KeyChanged const & InOther) const;
 
 		int Key;
 		int ScanCode;

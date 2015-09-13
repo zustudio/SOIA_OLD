@@ -9,7 +9,7 @@ EventInfo_SelectionChanged::EventInfo_SelectionChanged(ESelectionStatus InSelect
 	SelectionStatus(InSelectionStatus)
 {}
 
-bool Environment::EventInfo_SelectionChanged::operator==(ESelectionStatus const & InOther)
+bool Environment::EventInfo_SelectionChanged::operator==(ESelectionStatus const & InOther) const
 {
 	return SelectionStatus == InOther;
 }

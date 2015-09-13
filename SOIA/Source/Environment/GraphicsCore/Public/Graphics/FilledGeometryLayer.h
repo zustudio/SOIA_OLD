@@ -14,8 +14,8 @@ namespace Environment
 
 		virtual void UpdateBuffers() override;
 
-	private:
-		void EraseGraphicsObjectFromBuffers(GeometryObject * InObject);
+	protected:
+		virtual void EraseGraphicsObjectFromBuffers(GeometryObject * InObject) override;
 
 	private:
 		VertexBufferTemplate<int, iTriangle::DataUnraveler> Triangles;

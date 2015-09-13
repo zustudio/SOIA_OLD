@@ -24,13 +24,17 @@ namespace Environment
 		GraphicsControl(MBoundaries* InBoundaries, pxMargins InMargins);
 
 		//----- events -----
-		virtual void Event_KeyChanged(EventInfo_KeyChanged InInfo);
-		virtual void Event_SelectionChanged(EventInfo_SelectionChanged InInfo);
+		virtual void Event_KeyChanged(EventInfo_KeyChanged const & InInfo);
+		virtual void Event_SelectionChanged(EventInfo_SelectionChanged const & InInfo);
+
+		//----- information -----
+		bool IsSelected();
 
 	protected:
 		ControlWindow* GetWindow();
 
 	private:
 		GeometryObject Border;
+		bool bSelected;
 	};
 }
