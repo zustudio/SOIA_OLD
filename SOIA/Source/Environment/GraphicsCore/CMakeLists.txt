@@ -28,7 +28,9 @@ in_sub(DataStructures)
 		pxSize
 		pxMargins
 		fPoint
-		fColor)
+		fColor
+		EventInfo_KeyChanged
+		EventInfo_SelectionChanged)
 in_sub(Hierarchy)
 	add_PrivatePublic(
 		MBound

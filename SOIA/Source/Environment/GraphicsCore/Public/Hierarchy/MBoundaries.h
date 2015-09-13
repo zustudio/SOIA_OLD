@@ -17,6 +17,7 @@ namespace Environment
 		virtual MBoundaries* GetTopBoundaries() override;
 
 	protected:
+		std::vector<MBound*>& GetBoundObjects();
 		void AddBoundObject(MBound* InBoundObject);
 		void RemoveBoundObject(MBound* InBoundObject);
 

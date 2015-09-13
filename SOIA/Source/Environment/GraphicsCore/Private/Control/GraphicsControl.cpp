@@ -17,6 +17,24 @@ GraphicsControl::GraphicsControl(MBoundaries * InBoundaries, pxMargins InMargins
 	GetWindow()->CommonFilledGeometryLayer.AddObject(&Border);
 }
 
+void GraphicsControl::Event_KeyChanged(EventInfo_KeyChanged InInfo)
+{
+}
+
+void GraphicsControl::Event_SelectionChanged(EventInfo_SelectionChanged InInfo)
+{
+	if (InInfo == ESelectionStatus::Selected)
+	{
+		Border.Color = fColor(1, 1, 1);
+		Border.RequestUpdate();
+	}
+	else
+	{
+		Border.Color = fColor(0.8, 0.8, 0.8);
+		Border.RequestUpdate();
+	}
+}
+
 ControlWindow* GraphicsControl::GetWindow()
 {
 	return dynamic_cast<ControlWindow*>(GetTopBoundaries());

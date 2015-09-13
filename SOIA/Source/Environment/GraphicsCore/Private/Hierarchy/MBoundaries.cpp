@@ -35,6 +35,11 @@ MBoundaries * MBoundaries::GetTopBoundaries()
 		return this;
 }
 
+std::vector<MBound*>& MBoundaries::GetBoundObjects()
+{
+	return BoundObjects;
+}
+
 void MBoundaries::AddBoundObject(MBound * InBoundObject)
 {
 	BoundObjects.push_back(InBoundObject);

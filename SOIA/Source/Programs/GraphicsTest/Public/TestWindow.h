@@ -12,6 +12,7 @@ namespace Environment
 	public:
 		TestWindow();
 
-		TextBox MainBox;
+		TextBox FirstBox;
+		TextBox SecondBox;
 	};
 }

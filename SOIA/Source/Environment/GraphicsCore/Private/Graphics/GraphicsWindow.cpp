@@ -75,7 +75,8 @@ void GraphicsWindow::Initialize()
 	GLWindow = glfwCreateWindow(Size.Width, Size.Height, Title.c_str(), nullptr, lastGLWindow);
 
 	// bind events
-	glfwSetFramebufferSizeCallback(GLWindow, &GraphicsWindow::Event_FramebufferResized);
+	glfwSetFramebufferSizeCallback(GLWindow, &GraphicsWindow::StaticEvent_FramebufferResized);
+	glfwSetKeyCallback(GLWindow, &GraphicsWindow::StaticEvent_KeyChanged);
 
 	glfwMakeContextCurrent(GLWindow);
 	GetRenderThread()->CurrentWindow = this;
@@ -175,7 +176,12 @@ Vector2D<pxPoint> GraphicsWindow::CalculateAbsoluteCornerLocationsOnWindow()
 	return Vector2D<pxPoint>(pxPoint(0, 0), pxPoint(Size.Width, Size.Height));
 }
 
-void GraphicsWindow::Event_FramebufferResized(GLFWwindow * InWindow, int InWidth, int InHeight)
+void GraphicsWindow::Event_KeyChanged(EventInfo_KeyChanged InInfo)
+{
+
+}
+
+void GraphicsWindow::StaticEvent_FramebufferResized(GLFWwindow * InWindow, int InWidth, int InHeight)
 {
 	LOG("Event_FramebufferResized called on window '" + std::to_string((int)InWindow) + "'.", Logger::Severity::DebugInfo);
 	glViewport(0, 0, InWidth, InHeight);
@@ -183,5 +189,10 @@ void GraphicsWindow::Event_FramebufferResized(GLFWwindow * InWindow, int InWidth
 	window->Size = pxSize(InWidth, InHeight);
 	window->RequestUpdate();
 	LOG("Event_FramebufferResized returned on window '" + std::to_string((int)InWindow) + "'.", Logger::Severity::DebugInfo);
+}
+
+void GraphicsWindow::StaticEvent_KeyChanged(GLFWwindow * InWindow, int InKey, int InScanCode, int InAction, int InMods)
+{
+	GetRenderThread()->GetWindowByHandle(InWindow)->Event_KeyChanged(EventInfo_KeyChanged(InKey, InScanCode, InAction, InMods));
 }
 

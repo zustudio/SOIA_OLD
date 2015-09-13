@@ -5,6 +5,8 @@
 
 #include "GraphicsLayer.h"
 #include "GeometryObject.h"
+#include "EventInfo_SelectionChanged.h"
+#include "EventInfo_KeyChanged.h"
 
 namespace Environment
 {
@@ -20,6 +22,10 @@ namespace Environment
 	{
 	public:
 		GraphicsControl(MBoundaries* InBoundaries, pxMargins InMargins);
+
+		//----- events -----
+		virtual void Event_KeyChanged(EventInfo_KeyChanged InInfo);
+		virtual void Event_SelectionChanged(EventInfo_SelectionChanged InInfo);
 
 	protected:
 		ControlWindow* GetWindow();

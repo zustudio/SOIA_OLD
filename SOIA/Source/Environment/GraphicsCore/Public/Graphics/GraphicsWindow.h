@@ -6,6 +6,7 @@
 #include "OpenGL.h"
 
 #include "Vector2D.h"
+#include "EventInfo_KeyChanged.h"
 
 #include <string>
 
@@ -32,8 +33,12 @@ namespace Environment
 		//----- MBound functions -----
 		virtual Vector2D<pxPoint> CalculateAbsoluteCornerLocationsOnWindow() override;
 
-		//----- glfw events -----
-		static void Event_FramebufferResized(GLFWwindow* InWindow, int InWidth, int InHeight);
+		//----- forwarded events -----
+		virtual void Event_KeyChanged(EventInfo_KeyChanged InInfo);
+
+		//----- static glfw events -----
+		static void StaticEvent_FramebufferResized(GLFWwindow* InWindow, int InWidth, int InHeight);
+		static void StaticEvent_KeyChanged(GLFWwindow* InWindow, int InKey, int InScanCode, int InAction, int InMods);
 
 		////////////////////////////////////////////////////////////////
 		// Variables
