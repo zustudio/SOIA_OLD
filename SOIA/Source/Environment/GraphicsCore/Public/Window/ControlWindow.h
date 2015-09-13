@@ -22,6 +22,7 @@ namespace Environment
 
 		//----- forwarded events -----
 		virtual void Event_KeyChanged(EventInfo_KeyChanged InInfo) override;
+		virtual void Event_CharacterEntered(unsigned int InChar) override;
 
 	public:
 		FilledGeometryLayer CommonFilledGeometryLayer;

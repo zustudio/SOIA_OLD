@@ -77,6 +77,7 @@ void GraphicsWindow::Initialize()
 	// bind events
 	glfwSetFramebufferSizeCallback(GLWindow, &GraphicsWindow::StaticEvent_FramebufferResized);
 	glfwSetKeyCallback(GLWindow, &GraphicsWindow::StaticEvent_KeyChanged);
+	glfwSetCharCallback(GLWindow, &GraphicsWindow::StaticEvent_CharacterEntered);
 
 	glfwMakeContextCurrent(GLWindow);
 	GetRenderThread()->CurrentWindow = this;
@@ -181,6 +182,11 @@ void GraphicsWindow::Event_KeyChanged(EventInfo_KeyChanged InInfo)
 
 }
 
+void GraphicsWindow::Event_CharacterEntered(unsigned int InChar)
+{
+
+}
+
 void GraphicsWindow::StaticEvent_FramebufferResized(GLFWwindow * InWindow, int InWidth, int InHeight)
 {
 	LOG("Event_FramebufferResized called on window '" + std::to_string((int)InWindow) + "'.", Logger::Severity::DebugInfo);
@@ -194,5 +200,10 @@ void GraphicsWindow::StaticEvent_FramebufferResized(GLFWwindow * InWindow, int I
 void GraphicsWindow::StaticEvent_KeyChanged(GLFWwindow * InWindow, int InKey, int InScanCode, int InAction, int InMods)
 {
 	GetRenderThread()->GetWindowByHandle(InWindow)->Event_KeyChanged(EventInfo_KeyChanged(InKey, InScanCode, InAction, InMods));
+}
+
+void GraphicsWindow::StaticEvent_CharacterEntered(GLFWwindow * InWindow, unsigned int InChar)
+{
+	GetRenderThread()->GetWindowByHandle(InWindow)->Event_CharacterEntered(InChar);
 }
 

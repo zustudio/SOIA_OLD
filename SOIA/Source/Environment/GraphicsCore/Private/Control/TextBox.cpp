@@ -121,6 +121,14 @@ void TextBox::SetText(std::string const & InText)
 	RequestUpdate();
 }
 
+void TextBox::Event_CharacterEntered(unsigned int InChar)
+{
+	int posInText = GetCurserPositionInText();
+	Text = Text.substr(0, posInText) + char(InChar) + Text.substr(posInText, Text.size() - posInText);
+	Event_KeyChanged(EventInfo_KeyChanged(GLFW_KEY_RIGHT));
+	RequestUpdate();
+}
+
 void TextBox::Event_KeyChanged(EventInfo_KeyChanged const & InInfo)
 {
 	auto InfoCopy = InInfo;
@@ -160,6 +168,19 @@ void TextBox::Event_KeyChanged(EventInfo_KeyChanged const & InInfo)
 		RequestCursorUpdate();
 	}
 
-
 	GraphicsControl::Event_KeyChanged(InInfo);
+}
+
+int TextBox::GetCurserPositionInText()
+{
+	int cursorPos = 0;
+
+	for (int i = 0; i < CursorPosition.Y; i++)
+	{
+		cursorPos += TextObjects[i].Text.size();
+	}
+
+	cursorPos += CursorPosition.X;
+
+	return cursorPos;
 }

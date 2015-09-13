@@ -17,6 +17,10 @@ GraphicsControl::GraphicsControl(MBoundaries * InBoundaries, pxMargins InMargins
 	GetWindow()->CommonFilledGeometryLayer.AddObject(&Border);
 }
 
+void GraphicsControl::Event_CharacterEntered(unsigned int InChar)
+{
+}
+
 void GraphicsControl::Event_KeyChanged(EventInfo_KeyChanged const & InInfo)
 {
 }

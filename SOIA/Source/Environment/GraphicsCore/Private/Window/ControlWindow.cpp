@@ -21,7 +21,7 @@ void ControlWindow::Event_KeyChanged(EventInfo_KeyChanged InInfo)
 {
 	bool selectingControl = false;
 	bool selectDirection = false;
-	if (InInfo == EventInfo_KeyChanged(GLFW_KEY_TAB, EKeyModifier::None))
+	if (InInfo == EventInfo_KeyChanged(GLFW_KEY_TAB, EKeyModifier::Control))
 	{
 		selectingControl = true;
 		selectDirection = true;
@@ -42,6 +42,11 @@ void ControlWindow::Event_KeyChanged(EventInfo_KeyChanged InInfo)
 	{
 		GetSelectedControl()->Event_KeyChanged(InInfo);
 	}
+}
+
+void ControlWindow::Event_CharacterEntered(unsigned int InChar)
+{
+	GetSelectedControl()->Event_CharacterEntered(InChar);
 }
 
 void ControlWindow::SelectNextControl(bool bForward)

@@ -35,10 +35,12 @@ namespace Environment
 
 		//----- forwarded events -----
 		virtual void Event_KeyChanged(EventInfo_KeyChanged InInfo);
+		virtual void Event_CharacterEntered(unsigned int InChar);
 
 		//----- static glfw events -----
 		static void StaticEvent_FramebufferResized(GLFWwindow* InWindow, int InWidth, int InHeight);
 		static void StaticEvent_KeyChanged(GLFWwindow* InWindow, int InKey, int InScanCode, int InAction, int InMods);
+		static void StaticEvent_CharacterEntered(GLFWwindow* InWindow, unsigned int InChar);
 
 		////////////////////////////////////////////////////////////////
 		// Variables

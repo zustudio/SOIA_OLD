@@ -24,6 +24,7 @@ namespace Environment
 		GraphicsControl(MBoundaries* InBoundaries, pxMargins InMargins);
 
 		//----- events -----
+		virtual void Event_CharacterEntered(unsigned int InChar);
 		virtual void Event_KeyChanged(EventInfo_KeyChanged const & InInfo);
 		virtual void Event_SelectionChanged(EventInfo_SelectionChanged const & InInfo);
 

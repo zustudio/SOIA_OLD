@@ -28,7 +28,11 @@ namespace Environment
 
 		void SetText(std::string const & InText);
 
+		virtual void Event_CharacterEntered(unsigned int InChar) override;
 		virtual void Event_KeyChanged(EventInfo_KeyChanged const & InInfo) override;
+
+	private:
+		int GetCurserPositionInText();
 
 	private:
 		std::string Text;
