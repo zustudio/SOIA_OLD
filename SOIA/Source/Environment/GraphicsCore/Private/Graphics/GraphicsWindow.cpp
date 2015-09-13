@@ -49,14 +49,14 @@ using namespace Environment;
 
 
 
-GraphicsWindow::GraphicsWindow(const std::vector<GraphicsLayer*>& InLayers)
-	:
-	Layers(InLayers)
+GraphicsWindow::GraphicsWindow(const std::string& InTitle, pxSize InSize)
+	: MBoundaries(nullptr, pxMargins(0,0,0,0)),
+	Size(InSize),
+	Title(InTitle)
 {}
 
-void GraphicsWindow::Initialize(const std::string& InTitle, Vector2D<int> InSize)
+void GraphicsWindow::Initialize()
 {
-	Size = InSize;
 	// get last window
 	GraphicsWindow* lastWindow = GetRenderThread()->GetLastWindow();
 	GLFWwindow* lastGLWindow = lastWindow ? lastWindow->GLWindow : nullptr;
@@ -71,7 +71,14 @@ void GraphicsWindow::Initialize(const std::string& InTitle, Vector2D<int> InSize
 
 	GlewContext = new GLEWContext();
 
-	GLWindow = glfwCreateWindow(Size.X, Size.Y, InTitle.c_str(), nullptr, lastGLWindow);
+	// create window
+	GLWindow = glfwCreateWindow(Size.Width, Size.Height, Title.c_str(), nullptr, lastGLWindow);
+
+	// bind events
+	glfwSetFramebufferSizeCallback(GLWindow, &GraphicsWindow::StaticEvent_FramebufferResized);
+	glfwSetKeyCallback(GLWindow, &GraphicsWindow::StaticEvent_KeyChanged);
+	glfwSetCharCallback(GLWindow, &GraphicsWindow::StaticEvent_CharacterEntered);
+
 	glfwMakeContextCurrent(GLWindow);
 	GetRenderThread()->CurrentWindow = this;
 
@@ -88,11 +95,9 @@ void GraphicsWindow::Initialize(const std::string& InTitle, Vector2D<int> InSize
 	
 	for (auto layer : Layers)
 	{
-		layer->Initialize(&Size);
+		layer->Initialize();
 	}
 	
-	
-
 	
 	//----- element buffer
 	/*glGenBuffers(1, &elementBuffer);
@@ -141,6 +146,11 @@ void GraphicsWindow::Initialize(const std::string& InTitle, Vector2D<int> InSize
 	//uniColor = glGetUniformLocation(shaderProgram, "extraColor");
 }
 
+void GraphicsWindow::AddLayer(GraphicsLayer * InLayer)
+{
+	Layers.push_back(InLayer);
+}
+
 GraphicsWindow::~GraphicsWindow()
 {
 
@@ -153,10 +163,47 @@ void GraphicsWindow::Draw()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.5, 0, 0, 1);
 
+	// start recursive update chain
+	this->Update();
 	for (GraphicsLayer* layer : Layers)
 	{
 		layer->BeginDraw();
 	}
 	glfwSwapBuffers(GLWindow);
+}
+
+Vector2D<pxPoint> GraphicsWindow::CalculateAbsoluteCornerLocationsOnWindow()
+{
+	return Vector2D<pxPoint>(pxPoint(0, 0), pxPoint(Size.Width, Size.Height));
+}
+
+void GraphicsWindow::Event_KeyChanged(EventInfo_KeyChanged InInfo)
+{
+
+}
+
+void GraphicsWindow::Event_CharacterEntered(unsigned int InChar)
+{
+
+}
+
+void GraphicsWindow::StaticEvent_FramebufferResized(GLFWwindow * InWindow, int InWidth, int InHeight)
+{
+	LOG("Event_FramebufferResized called on window '" + std::to_string((int)InWindow) + "'.", Logger::Severity::DebugInfo);
+	glViewport(0, 0, InWidth, InHeight);
+	GraphicsWindow* window = GetRenderThread()->GetWindowByHandle(InWindow);
+	window->Size = pxSize(InWidth, InHeight);
+	window->RequestUpdate();
+	LOG("Event_FramebufferResized returned on window '" + std::to_string((int)InWindow) + "'.", Logger::Severity::DebugInfo);
+}
+
+void GraphicsWindow::StaticEvent_KeyChanged(GLFWwindow * InWindow, int InKey, int InScanCode, int InAction, int InMods)
+{
+	GetRenderThread()->GetWindowByHandle(InWindow)->Event_KeyChanged(EventInfo_KeyChanged(InKey, InScanCode, InAction, InMods));
+}
+
+void GraphicsWindow::StaticEvent_CharacterEntered(GLFWwindow * InWindow, unsigned int InChar)
+{
+	GetRenderThread()->GetWindowByHandle(InWindow)->Event_CharacterEntered(InChar);
 }
 

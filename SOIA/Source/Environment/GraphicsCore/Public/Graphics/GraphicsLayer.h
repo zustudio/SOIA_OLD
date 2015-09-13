@@ -25,11 +25,33 @@ namespace Environment
 
 	protected:
 		/// Compiles shaders, registers buffers, etc.
-		virtual void Initialize(Vector2D<int>* InSize);
+		virtual void Initialize();
 
-		/// Draws layer
+		// Main Loop
+		virtual void UpdateBuffers();
 		virtual void BeginDraw();
 		virtual void Draw();
+
+		// Helper functions
+		template<typename ObjectType>
+		static void EraseGraphicsObjectFromBuffers(ObjectType* InObject, std::vector<ObjectType*> const & InObjectList, VertexBuffer* InVertexBuffer, VertexBuffer* InElementBuffer)
+		{
+			for (ObjectType* object : InObjectList)
+			{
+				if (object->VertexBufferRange.Lower > InObject->VertexBufferRange.Lower)
+				{
+					object->VertexBufferRange.MoveUp(-InObject->VertexBufferRange.Count());
+				}
+				if (object->ElementBufferRange.Lower > InObject->ElementBufferRange.Lower)
+				{
+					object->ElementBufferRange.MoveUp(-InObject->ElementBufferRange.Count());
+				}
+			}
+			if (InVertexBuffer)
+				InVertexBuffer->EraseRange(InObject->VertexBufferRange);
+			if (InElementBuffer)
+				InElementBuffer->EraseRange(InObject->ElementBufferRange);
+		}
 
 		////////////////////////////////////////////////////////////////
 		// Variables
@@ -40,6 +62,5 @@ namespace Environment
 
 		//------ settings ------
 		VertexBufferType TargetBufferType;
-		Vector2D<int>* PixelSize;
 	};
 }

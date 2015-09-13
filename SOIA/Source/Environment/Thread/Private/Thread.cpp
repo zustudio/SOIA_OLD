@@ -62,6 +62,10 @@ bool Thread::IsSleeping()
 
 //////////////////////////////////////////////////////////////////////////
 // internal
+void Thread::Sleep(std::chrono::milliseconds InMS)
+{
+	std::this_thread::sleep_for(InMS);
+}
 void Thread::Sleep()
 {
 	ThreadStatus = EThreadStatus::Sleeping;

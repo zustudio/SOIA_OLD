@@ -1,6 +1,10 @@
 
 #pragma once
 
+#include "GraphicsObject.h"
+
+#include "MBoundaries.h"
+#include "pxMargins.h"
 #include "Vector2D.h"
 #include "GlyphObject.h"
 #include "Font.h"
@@ -10,22 +14,13 @@
 
 namespace Environment
 {
-	class LIBIMPEXP TextObject
+	class LIBIMPEXP TextObject : public GraphicsObject
 	{
 	public:
-		TextObject(Font* InFont, int InPixelSize, const Vector2D<float>& InPosition, const std::string& InText);
-
-		void Initialize();
-
-		void UpdateGlyphs();
+		TextObject(MBoundaries* InBoundaries, pxMargins InMargins, const std::string& InText);
 
 		//----- content -----
 		std::string Text;
-		std::vector<GlyphObject*> Glyphs;
 
-		//----- settings -----
-		Vector2D<float> Position;
-		Font* CurrentFont;
-		int PixelSize;
 	};
 }

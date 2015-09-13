@@ -1,6 +1,8 @@
 
 #pragma once
 
+#include <chrono>
+
 namespace std
 {
 	class thread;
@@ -41,6 +43,7 @@ namespace Environment
 	protected:
 		/// Sets thread to sleeping until WakeUp call.
 		void Sleep();
+		void Sleep(std::chrono::milliseconds InMS);
 
 	public:
 		/// Wakes Thread.

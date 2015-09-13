@@ -7,12 +7,12 @@
 
 namespace Environment
 {
-	enum class TextureMode : int
+	enum class ETextureMode : int
 	{
 		Image,
 		Font
 	};
-	enum class TextureChannels : int
+	enum class ETextureChannels : int
 	{
 		None = 0,
 		R = 1,
@@ -23,25 +23,27 @@ namespace Environment
 	class LIBIMPEXP Texture2D
 	{
 	public:
-		Texture2D(unsigned char* InData, int InSizeX, int InSizeY, TextureChannels InChannels, int TexNum = 0, TextureMode InTextureMode = TextureMode::Image);
-		Texture2D(const std::string& InFileName, int InSizeX, int InSizeY, TextureChannels InChannels, int TexNum = 0, TextureMode InTextureMode = TextureMode::Image);
+		Texture2D(unsigned char* InData, int InSizeX, int InSizeY, ETextureChannels InChannels, int TexNum = 0, ETextureMode InTextureMode = ETextureMode::Image);
+		Texture2D(const std::string& InFileName, int InSizeX, int InSizeY, ETextureChannels InChannels, int TexNum = 0, ETextureMode InTextureMode = ETextureMode::Image);
+		Texture2D(int TexNum, ETextureMode InTextureMode, ETextureChannels InChannels);
 
 		void Initialize();
 
 		void Update();
 
 	protected:
-		int GenerateGLChannels(TextureChannels InChannels);
+		int GenerateGLChannels(ETextureChannels InChannels);
 		GLenum GenerateGLTextureUnit(int InTextureNum);
 
-	private:
-		TextureMode Mode;
-		TextureChannels Channels;
+	protected:
+		std::vector<unsigned char> TextureData;
 		int SizeX;
 		int SizeY;
+		bool UpdateRequested;
+	private:
+		ETextureMode Mode;
+		ETextureChannels Channels;
 		int TextureNum;
 		GLuint GLTexture;
-		unsigned char* Data;
-		bool UpdateRequested;
 	};
 }

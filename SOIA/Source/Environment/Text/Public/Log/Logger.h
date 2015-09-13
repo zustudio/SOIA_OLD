@@ -36,6 +36,8 @@ namespace Environment
 	public:
 		Logger(DialogueInterface* InTarget, Severity InMinimalSeverity = Severity::Status);
 
+		void SetMinimalSeverity(Severity InMinimalSeverity);
+
 		void Log(const std::string& InMessage, Severity InMessageSeverity = Severity::Status, const std::string& InProjectName = PROJECTNAME_LITERAL);
 
 	private:

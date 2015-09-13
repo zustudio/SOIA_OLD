@@ -7,16 +7,19 @@ namespace Environment
 {
 	class Font;
 	class Texture2D;
-	class GlyphObject
+	class LIBIMPEXP GlyphObject
 	{
 	public:
-		GlyphObject(char InChar, Font* InFont);
+		GlyphObject();
+		GlyphObject(char InChar, int InSize, Font const & InFont);
 		~GlyphObject();
 
-		Texture2D Texture;
+		static void Visualize(unsigned char* InBuffer, int InWidth, int InRows);
+		static std::string CharToHexString(unsigned char InChar);
 
 		char Char;
-		unsigned char* Data;
+		std::vector<unsigned char> GlyphData;
+		size_t DataSize;
 		int Width;
 		int Rows;
 		int BitmapLeft;

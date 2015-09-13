@@ -8,15 +8,21 @@ using namespace Environment;
 #include "Font.h"
 #include "Texture2D.h"
 
-GlyphObject::GlyphObject(char InChar, Font* InFont)
+#include <iostream>
+
+GlyphObject::GlyphObject()
 	:
-	Char(InChar),
-	Texture(nullptr, 0, 0, TextureChannels::R)
+	Char(0)
+{}
+
+GlyphObject::GlyphObject(char InChar, int InSize, Font const & InFont)
+	:
+	Char(InChar)
 {
-	FT_Load_Char(InFont->FTFace, InChar, FT_LOAD_RENDER);
+	FT_Set_Pixel_Sizes(InFont.FTFace, 0, InSize);
+	FT_Load_Char(InFont.FTFace, InChar, FT_LOAD_RENDER);
 	
-	auto glyph = InFont->FTFace->glyph;
-	Data = glyph->bitmap.buffer;
+	auto glyph = InFont.FTFace->glyph;
 	Width = glyph->bitmap.width;
 	Rows = glyph->bitmap.rows;
 	BitmapLeft = glyph->bitmap_left;
@@ -24,13 +30,41 @@ GlyphObject::GlyphObject(char InChar, Font* InFont)
 	AdvanceX = glyph->advance.x;
 	AdvanceY = glyph->advance.y;
 
-	size_t DataSize = Width * Rows * sizeof(unsigned char);
-	Data = new unsigned char[DataSize];
-	std::memcpy(Data, glyph->bitmap.buffer, DataSize);
+	DataSize = Width * Rows * sizeof(unsigned char);
+	GlyphData = std::vector<unsigned char>(DataSize);
+	std::memcpy(GlyphData.data(), glyph->bitmap.buffer, DataSize);
 
-	Texture = Texture2D(Data, Width, Rows, TextureChannels::R, 0, TextureMode::Font);
+	//Visualize(GlyphData.data(), Width, Rows);
+	//TextureData = Texture2D(Data, Width, Rows, ETextureChannels::R, 0, ETextureMode::Font);
 }
 GlyphObject::~GlyphObject()
 {
-	delete[] Data;
+}
+
+void GlyphObject::Visualize(unsigned char * InBuffer, int InWidth, int InRows)
+{
+	std::cout << "-----------------------------------------" << std::endl;
+	std::cout << "- Size: " << InWidth << "x" << InRows << std::endl;
+
+	for (int i_row = 0; i_row < InRows; ++i_row)
+	{
+		for (int i_col = 0; i_col < InWidth; ++i_col)
+		{
+			unsigned char val = *InBuffer;
+			//std::cout << CharToHexString(*InBuffer) << " ";
+			std::cout << (val > 0x80 ? "# " : val == 0x77 ? "7 " : "  ");
+			InBuffer++;
+		}
+		std::cout << std::endl;
+	}
+}
+
+std::string GlyphObject::CharToHexString(unsigned char InChar)
+{
+	std::string res;
+	const char hex[] = "0123456789ABCDEF";
+	res += hex[InChar >> 4];
+	res += hex[InChar & 0xf];
+
+	return "0x" + res;
 }

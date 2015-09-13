@@ -45,8 +45,40 @@ namespace Environment
 		//----- public actions -----
 		void Add(const typename DataUnravelerTypes::CompoundDataType&... InCompounds)
 		{
-			BackBuffer.push_back(TupleType(InCompounds...));
+			Add(TupleType(InCompounds...));
 		}
+
+		void Add(TupleType const & InTupleObject)
+		{
+			BackBuffer.push_back(InTupleObject);
+			RequestBufferUpdate();
+		}
+
+		void AddEmpty(int Num)
+		{
+			for (int i = 0; i < Num; ++i)
+			{
+				Add(TupleType());
+			}
+		}
+
+		void Set(int Num, const typename DataUnravelerTypes::CompoundDataType&... InCompounds)
+		{
+			Set(Num, TupleType(InCompounds...));
+		}
+
+		void Set(int Num, TupleType const & InTupleObject)
+		{
+			BackBuffer[Num] = InTupleObject;
+			RequestBufferUpdate();
+		}
+
+		virtual void EraseRange(Range<int> InRange) override
+		{
+			BackBuffer.erase(BackBuffer.begin() + InRange.Lower, BackBuffer.begin() + InRange.Upper + 1);
+			RequestBufferUpdate();
+		}
+		
 
 		bool VertexBuffer::ResizeFrontBuffer()
 		{

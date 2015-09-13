@@ -8,8 +8,13 @@ using namespace Environment;
 #include "VertexBufferTemplate.h"
 #include "DataUnravelerTemplate.h"
 #include "GraphicsLayer.h"
-#include "GraphicsTextLayer.h"
+#include "TextLayer.h"
 #include "FreeTypeProvider.h"
+
+#include "FileSystemProvider.h"
+
+#include "TestWindow.h"
+#include "GlobalLogger.h"
 
 struct Point
 {
@@ -34,23 +39,15 @@ struct Color
 	float G;
 	float B;
 };
-struct Tri
-{
-	Tri(int ina, int inb, int inc)
-		:
-		a(ina),
-		b(inb),
-		c(inc)
-	{}
-	int a;
-	int b;
-	int c;
-};
+
 
 void main()
 {
+	Directory exedir = GetFileSystem()->GetExecutableDirectory();
+	Path ressourcePath = exedir.GetPath().AppendFolder("Ressources");
+
 	//---- test ----
-	using PointUnraveler = DataUnravelerTemplate<Point, float, &Point::X, &Point::Y>;
+	/*using PointUnraveler = DataUnravelerTemplate<Point, float, &Point::X, &Point::Y>;
 	using ColorUnraveler = DataUnravelerTemplate<Color, float, &Color::R, &Color::G, &Color::B>;
 	using TriUnraveler = DataUnravelerTemplate<Tri, int, &Tri::a, &Tri::b, &Tri::c>;
 	Point pointA(-0.5, -0.5), pointB(0.5,-0.5), pointC(-0.5, 0.5), pointD(0.5, 0.5);
@@ -58,19 +55,18 @@ void main()
 	Point coordA(0, 1), coordB(1, 1), coordC(0, 0), coordD(1,0);
 	Tri triA(0, 1, 2), triB(1, 2, 3);
 	
-	auto texture = new Texture2D("SOIA-Text.png", 200, 200, TextureChannels::RGBA);
+	Path imagePath = ressourcePath.AppendFolder("Images").AppendFile("SOIA-Text.png");
+	auto texture = new Texture2D(imagePath.ToString(), 200, 200, ETextureChannels::RGBA);
 
 	auto vertexBuffer = new VertexBufferTemplate<float, PointUnraveler, PointUnraveler>(VertexBufferType::Vertices, BufferContentType::Triangles);
 	vertexBuffer->Add(pointA, coordA);
 	vertexBuffer->Add(pointB, coordB);
 	vertexBuffer->Add(pointC, coordC);
 	vertexBuffer->Add(pointD, coordD);
-	vertexBuffer->RequestBufferUpdate();
 
 	auto elementBuffer = new VertexBufferTemplate<int, TriUnraveler>(VertexBufferType::Elements, BufferContentType::Triangles);
 	elementBuffer->Add(triA);
 	elementBuffer->Add(triB);
-	vertexBuffer->RequestBufferUpdate();
 
 	auto pointVar = vertexBuffer->CreateVariable(0, "position");
 	auto coordVar = vertexBuffer->CreateVariable(1, "texCoords");
@@ -105,16 +101,20 @@ void main()
 		"outColor",
 		{ pointVar, coordVar });
 
-	auto textObj = new TextObject(GetFont("DengXian.ttf"), 15, Vector2D<float>(-0.45, -0.26), "Artificial");
-	auto text2 = new TextObject(GetFont("DengXian.ttf"), 15, Vector2D<float>(-0.45, -0.33), "Intelligence");
-	auto text3 = new TextObject(GetFont("DengXian.ttf"), 15, Vector2D<float>(-0.45, -0.40), "Operating");
-	auto text4 = new TextObject(GetFont("DengXian.ttf"), 15, Vector2D<float>(-0.45, -0.47), "System");
-	auto layer2 = new GraphicsTextLayer({ textObj, text2, text3, text4 });
+	Path fontPath = ressourcePath.AppendFolder("Fonts").AppendFolder("DengXian").AppendFile("DengXian.ttf");
+	int size = 20;*/
 
-	auto window = new GraphicsWindow({ layer, layer2});
+	/*auto textObj = new TextObject(Vector2D<float>(-0.9, 0.5), "Artificial Intelligence Operating System");
 
+	auto layer2 = new TextLayer(*GetFont(fontPath.ToString()), 25, { textObj });
+	auto layer3 = new TextLayer(*GetFont(fontPath.ToString()), 15, { new TextObject(fPoint(-0.81,0.4), "SOIA analyses different data sets as well as itself \nand is thus able to gain insights into logic, mathematics,\nphysics, and intelligence.") });
+
+	auto window = new GraphicsWindow({layer2, layer3});*/
+
+	
+	//GlobalLogger()->SetMinimalSeverity(Logger::Severity::DebugInfo);
 	GetRenderThread()->Start();
-	GetRenderThread()->AddWindow(window);
+	GetRenderThread()->AddWindow(new TestWindow());
 	GetRenderThread()->Join();
 }
 

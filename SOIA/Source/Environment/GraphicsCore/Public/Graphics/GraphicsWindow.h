@@ -1,25 +1,28 @@
 
 #pragma once
 
+#include "MBoundaries.h"
+
 #include "OpenGL.h"
 
 #include "Vector2D.h"
+#include "EventInfo_KeyChanged.h"
 
 #include <string>
 
 namespace Environment
 {
 	class GraphicsLayer;
-	class LIBIMPEXP GraphicsWindow
+	class LIBIMPEXP GraphicsWindow : public MBoundaries
 	{
 		////////////////////////////////////////////////////////////////
 		// Functions
 
 		//----- ctor ------
 	public:
-		GraphicsWindow(const std::vector<GraphicsLayer*>& InLayers);
+		GraphicsWindow(const std::string& InTitle = "No Title", pxSize InSize = pxSize(500, 500));
 		virtual ~GraphicsWindow();
-		void Initialize(const std::string& InTitle = "No Title", Vector2D<int> InSize = Vector2D<int>(500, 500));
+		void Initialize();
 
 		//----- public usage -----
 		void AddLayer(GraphicsLayer* InLayer);
@@ -27,35 +30,28 @@ namespace Environment
 		//----- main loop -----
 		virtual void Draw();
 
+		//----- MBound functions -----
+		virtual Vector2D<pxPoint> CalculateAbsoluteCornerLocationsOnWindow() override;
+
+		//----- forwarded events -----
+		virtual void Event_KeyChanged(EventInfo_KeyChanged InInfo);
+		virtual void Event_CharacterEntered(unsigned int InChar);
+
+		//----- static glfw events -----
+		static void StaticEvent_FramebufferResized(GLFWwindow* InWindow, int InWidth, int InHeight);
+		static void StaticEvent_KeyChanged(GLFWwindow* InWindow, int InKey, int InScanCode, int InAction, int InMods);
+		static void StaticEvent_CharacterEntered(GLFWwindow* InWindow, unsigned int InChar);
+
 		////////////////////////////////////////////////////////////////
 		// Variables
-
-		float red;
-
-		//----- test -----
-		//const static float vertices[];
-		//const static GLuint elements[];
-		//----- shaders
-		//static GLchar const* vertexShaderString;
-		//static GLchar const* fragmentShaderString;
-
-		/*GLuint vertexBuffer = 0;
-
-		GLuint vertexArrays;
-		GLuint elementBuffer;
-		GLuint vertexShader;
-		GLuint fragmentShader;
-		GLuint shaderProgram;
-		GLint posAttrib;
-		GLint colAttrib;
-		GLint uniColor;*/
 
 		//----- opengl variables -----
 		GLFWwindow* GLWindow;
 		GLEWContext* GlewContext;
 
-		//----- soia variables;
+		//----- soia variables -----
 		std::vector<GraphicsLayer*> Layers;
-		Vector2D<int> Size;
+		pxSize Size;
+		std::string Title;
 	};
 }

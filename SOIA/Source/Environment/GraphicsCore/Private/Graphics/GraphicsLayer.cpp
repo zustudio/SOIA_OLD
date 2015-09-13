@@ -18,9 +18,8 @@ void GraphicsLayer::Configure(const std::vector<Shader*>& InShaders, const std::
 	Program = new ShaderProgram(InShaders, InColorOutputVariable, InInputVariables);
 }
 
-void GraphicsLayer::Initialize(Vector2D<int>* InSize)
+void GraphicsLayer::Initialize()
 {
-	PixelSize = InSize;
 	//----- vertex array object
 	glGenVertexArrays(1, &VertexArrayObject);
 	CheckGLError();
@@ -41,12 +40,17 @@ void GraphicsLayer::Initialize(Vector2D<int>* InSize)
 	CheckGLError();
 }
 
+void GraphicsLayer::UpdateBuffers()
+{
+}
+
 void GraphicsLayer::BeginDraw()
 {
 	Program->Use();
 
 	glBindVertexArray(VertexArrayObject);
 
+	UpdateBuffers();
 	Draw();
 }
 void GraphicsLayer::Draw()
@@ -55,7 +59,6 @@ void GraphicsLayer::Draw()
 	for (auto texture : Textures)
 	{
 		texture->Update();
-		CheckGLError();
 	}
 	
 	for (auto buffer : Buffers)
