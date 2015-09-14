@@ -32,7 +32,7 @@ namespace Environment
 	struct ContainerAwareIteratorSet
 	{
 	public:
-		ContainerAwareIteratorSet(Type & InContainer, typename Type::iterator & InIterator)
+		ContainerAwareIteratorSet(Type & InContainer, typename Type::iterator const & InIterator)
 			:
 			Begin(InContainer.begin()),
 			Current(InIterator),

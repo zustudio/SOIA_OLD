@@ -1,6 +1,7 @@
 #include "UnitTest++/UnitTest++.h"
 
 #include "MathContainer.h"
+using namespace Environment;
 
 TEST(ParseSimpleMathematics)
 {

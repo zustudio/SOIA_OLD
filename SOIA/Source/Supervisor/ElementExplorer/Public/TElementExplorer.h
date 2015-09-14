@@ -3,6 +3,8 @@
 
 #include "TTool.h"
 
+#include "RFunction.h"
+
 namespace Supervisor
 {
 	RCLASS(TElementExplorer,TTool)
@@ -19,16 +21,16 @@ namespace Supervisor
 			bool cmd_pwd(Environment::RContainer*&);
 
 		RFUNCTION(cmd_elem)
-			bool cmd_elem(RElement*& OutElement, const std::string& InName);
+			bool cmd_elem(Environment::RElement*& OutElement, const std::string& InName);
 
 		RFUNCTION(cmd_cc)
 			bool cmd_cc(const std::string& InContainerName);
 
 		RFUNCTION(cmd_attrlist)
-			bool cmd_attrlist(RElement* const & InElement, std::string const & InAttributeName);
+			bool cmd_attrlist(Environment::RElement* const & InElement, std::string const & InAttributeName);
 
 		RFUNCTION(cmd_func)
-			bool cmd_func(RFunction* & OutFunction, RElement* const& InElement, std::string const& InFuncName);
+			bool cmd_func(Environment::RFunction* & OutFunction, Environment::RElement* const& InElement, std::string const& InFuncName);
 
 		std::string GetCurrentPath();
 

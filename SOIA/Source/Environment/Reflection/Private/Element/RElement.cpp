@@ -41,7 +41,7 @@ RContainer* RElement::GetContainer()
 
 std::vector<std::string> RElement::GetAttributeNames()
 {
-	std::vector<MemberMirror*> & memberMirrors = GetMemberMirrors();
+	std::vector<MemberMirror*> memberMirrors = GetMemberMirrors();
 
 	std::vector<std::string> result;
 	for (auto memberMirror : memberMirrors)
@@ -53,7 +53,7 @@ std::vector<std::string> RElement::GetAttributeNames()
 
 ObjectMirror* RElement::GetAttribute(const std::string& InName)
 {
-	std::vector<MemberMirror*> & memberMirrors = GetMemberMirrors();
+	std::vector<MemberMirror*> memberMirrors = GetMemberMirrors();
 
 	for (auto memberMirror : memberMirrors)
 	{
@@ -67,7 +67,7 @@ ObjectMirror* RElement::GetAttribute(const std::string& InName)
 
 std::vector<ObjectMirror*> const Environment::RElement::GetAttributes()
 {
-	std::vector<MemberMirror*> & memberMirrors = GetMemberMirrors();
+	std::vector<MemberMirror*> memberMirrors = GetMemberMirrors();
 	std::vector<ObjectMirror*> objectMirrors;
 
 	for (auto memberMirror : memberMirrors)

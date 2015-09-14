@@ -189,12 +189,12 @@ void GraphicsWindow::Event_CharacterEntered(unsigned int InChar)
 
 void GraphicsWindow::StaticEvent_FramebufferResized(GLFWwindow * InWindow, int InWidth, int InHeight)
 {
-	LOG("Event_FramebufferResized called on window '" + std::to_string((int)InWindow) + "'.", Logger::Severity::DebugInfo);
+	LOG("Event_FramebufferResized called on window '" + Logger::ToString((void*)InWindow) + "'.", Logger::Severity::DebugInfo);
 	glViewport(0, 0, InWidth, InHeight);
 	GraphicsWindow* window = GetRenderThread()->GetWindowByHandle(InWindow);
 	window->Size = pxSize(InWidth, InHeight);
 	window->RequestUpdate();
-	LOG("Event_FramebufferResized returned on window '" + std::to_string((int)InWindow) + "'.", Logger::Severity::DebugInfo);
+	LOG("Event_FramebufferResized returned on window '" + Logger::ToString((void*)InWindow) + "'.", Logger::Severity::DebugInfo);
 }
 
 void GraphicsWindow::StaticEvent_KeyChanged(GLFWwindow * InWindow, int InKey, int InScanCode, int InAction, int InMods)

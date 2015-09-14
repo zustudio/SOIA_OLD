@@ -5,6 +5,7 @@
 
 #include "ElementFile.h"
 #include "FileSystemProvider.h"
+#include "Directory.h"
 
 namespace Supervisor
 {
@@ -23,13 +24,13 @@ namespace Supervisor
 			bool cmd_typelist();
 
 		RFUNCTION(cmd_type)
-			bool cmd_type(TypeID& OutType, const std::string& InTypeName);
+			bool cmd_type(Environment::TypeID& OutType, const std::string& InTypeName);
 
 		RFUNCTION(cmd_create)
-			bool cmd_create(const TypeID& InType, const std::string& InName, RContainer* const& InContainer);
+			bool cmd_create(const Environment::TypeID& InType, const std::string& InName, Environment::RContainer* const& InContainer);
 
 		RFUNCTION(cmd_rename)
-			bool cmd_rename(RElement* const& InElement, std::string const& InNewName);
+			bool cmd_rename(Environment::RElement* const& InElement, std::string const& InNewName);
 
 		RFUNCTION(cmd_gui)
 			bool cmd_gui(TTool* const & InTool);
@@ -38,28 +39,28 @@ namespace Supervisor
 			bool cmd_dirlist();
 		
 		RFUNCTION(cmd_dir)
-			bool cmd_dir(Directory& OutDir, std::string const& InName);
+			bool cmd_dir(Environment::Directory& OutDir, std::string const& InName);
 
 		RFUNCTION(cmd_changedir)
-			bool cmd_changedir(const Directory& InDir);
+			bool cmd_changedir(const Environment::Directory& InDir);
 
 		RFUNCTION(cmd_saveproject)
-			bool cmd_saveproject(Directory const& InDir);
-		bool SaveRecursive(Directory const& InDir, RElement* const& InElement);
-		bool SaveContainer(Directory const& InDir, RContainer* const& InContainer, Directory & OutContainerDir);
-		bool SaveElement(Directory const& InDir, RElement* const& InElement);
+			bool cmd_saveproject(Environment::Directory const& InDir);
+		bool SaveRecursive(Environment::Directory const& InDir, Environment::RElement* const& InElement);
+		bool SaveContainer(Environment::Directory const& InDir, Environment::RContainer* const& InContainer, Environment::Directory & OutContainerDir);
+		bool SaveElement(Environment::Directory const& InDir, Environment::RElement* const& InElement);
 
 		RFUNCTION(cmd_loadproject)
-			bool cmd_loadproject(Directory const& InDir);
-		bool LoadRecursive(Directory const& InDir, std::vector<RElement*>& OutAllElements);
-		bool LoadContainer(ElementFile& InSaveFile, std::vector<RElement*> const& InChildren, RContainer*& OutContainer);
-		bool LoadElement(ElementFile& InSaveFile, RElement* & OutElement);
+			bool cmd_loadproject(Environment::Directory const& InDir);
+		bool LoadRecursive(Environment::Directory const& InDir, std::vector<Environment::RElement*>& OutAllElements);
+		bool LoadContainer(Environment::ElementFile& InSaveFile, std::vector<Environment::RElement*> const& InChildren, Environment::RContainer*& OutContainer);
+		bool LoadElement(Environment::ElementFile& InSaveFile, Environment::RElement* & OutElement);
 
 		RPROPERTY(CurrentDirectory)
-			Directory CurrentDirectory;
+			Environment::Directory CurrentDirectory;
 
 		RPROPERTY(ActiveThreads)
-			std::vector<RElement*> ActiveThreads;
+			std::vector<Environment::RElement*> ActiveThreads;
 
 		RCLASS_END()
 	};

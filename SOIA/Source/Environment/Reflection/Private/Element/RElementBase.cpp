@@ -4,6 +4,7 @@
 #include "RElementBase.h"
 using namespace Environment;
 
+#include "RElement.h"
 #include "GlobalReflectionProviders.h"
 
 std::vector<Environment::MemberMirror*> RElementBase::INTERNAL_NAME(MemberMirrors) = {};

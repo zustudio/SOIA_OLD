@@ -1,7 +1,4 @@
 /// Intelligence Project - SOIA
-/// \file
-/// \copyright
-///
 
 #pragma once
 
@@ -18,19 +15,19 @@ namespace Environment
 	template<typename WrappedClass>
 	class LIBIMPEXP RWrapper : public RWrapper_Base<WrappedClass>
 	{
-		RCLASS_BEGIN()
+		RTEMPLATECLASS_BEGIN(RWrapper,WrappedClass)
 
 		RWrapper()
 			: BaseType()
 		{
-			OriginalWrapperType = TypeID::FromType<Type>();
+			this->OriginalWrapperType = TypeID::FromType<Type>();
 		}
 
 		RWrapper(RWrapperInterface* InWrapper)
 			: BaseType()
 		{
-			OriginalWrapperType = InWrapper->OriginalWrapperType;
-			WrappedObject = InWrapper->WrappedObject;
+			this->OriginalWrapperType = InWrapper->OriginalWrapperType;
+			this->WrappedObject = InWrapper->WrappedObject;
 		}
 
 		decltype(auto) operator*()
@@ -44,11 +41,11 @@ namespace Environment
 
 		virtual void* Get() override
 		{
-			if (!WrappedObject)
+			if (!this->WrappedObject)
 			{
 				Create();
 			}
-			return WrappedObject;
+			return this->WrappedObject;
 		}
 
 		template<typename RType>
@@ -65,19 +62,19 @@ namespace Environment
 
 		void Create()
 		{
-			if (OriginalWrapperType == TypeID::FromType<Type>())
+			if (this->OriginalWrapperType == TypeID::FromType<Type>())
 			{
-				WrappedObject = CreateInternal<WrappedClass>();
+				this->WrappedObject = CreateInternal<WrappedClass>();
 			}
 			else
 			{
-				auto originalWrapper = GlobalRClassProvider()->GetClass(OriginalWrapperType)->GetDefaultObject();
+				auto originalWrapper = GlobalRClassProvider()->GetClass(this->OriginalWrapperType)->GetDefaultObject();
 				auto castOriginalWrapper = dynamic_cast<RWrapperInterface*>(originalWrapper);
-				WrappedObject = castOriginalWrapper->Get();
+				this->WrappedObject = castOriginalWrapper->Get();
 				delete originalWrapper;
 			}
 		}
 
-		RCLASS_END()
+		RTEMPLATECLASS_END()
 	};
 }

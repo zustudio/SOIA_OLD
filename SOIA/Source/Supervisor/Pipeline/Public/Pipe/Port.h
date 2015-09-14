@@ -3,6 +3,7 @@
 
 #include "VoidPointer.h"
 #include "Thread.h"
+#include "TypeID.h"
 #include <string>
 
 namespace Supervisor

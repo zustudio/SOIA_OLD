@@ -2,6 +2,7 @@
 #pragma once
 
 #include "VoidPointer.h"
+#include "AtomConverterHelper.h"
 
 namespace Environment
 {

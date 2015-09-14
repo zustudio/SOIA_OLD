@@ -5,6 +5,8 @@
 #include "GlobalLogger.h"
 #include "CPPExtensions.h"
 
+#include <algorithm>
+
 namespace Environment
 {
 	FT_Library* GlobalFreeTypeLibrary = new FT_Library();

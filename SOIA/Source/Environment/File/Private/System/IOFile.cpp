@@ -16,7 +16,7 @@ IOFile::IOFile(Path const & InPath)
 bool IOFile::Open(EFileMode InMode)
 {
 	bool success = false;
-	std::ios::fmtflags flags = 0;
+	std::ios_base::openmode flags;
 
 	switch (InMode)
 	{

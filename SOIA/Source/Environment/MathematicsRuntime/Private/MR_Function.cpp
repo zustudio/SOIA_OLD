@@ -2,6 +2,7 @@
 #include "Definitions.h"
 
 #include "MR_Function.h"
+using namespace Environment;
 
 #include "Constant.h"
 #include "DefinitionSet.h"

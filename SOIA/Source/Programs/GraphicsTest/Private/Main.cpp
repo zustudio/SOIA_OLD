@@ -41,10 +41,10 @@ struct Color
 };
 
 
-void main()
+int main()
 {
-	Directory exedir = GetFileSystem()->GetExecutableDirectory();
-	Path ressourcePath = exedir.GetPath().AppendFolder("Ressources");
+	/*Directory exedir = GetFileSystem()->GetExecutableDirectory();
+	Path ressourcePath = exedir.GetPath().AppendFolder("Ressources");*/
 
 	//---- test ----
 	/*using PointUnraveler = DataUnravelerTemplate<Point, float, &Point::X, &Point::Y>;
@@ -116,13 +116,14 @@ void main()
 	GetRenderThread()->Start();
 	GetRenderThread()->AddWindow(new TestWindow());
 	GetRenderThread()->Join();
+	return 0;
 }
 
 #if def_BUILD_OS==Windows
 #include <Windows.h>
 extern "C"
 {
-	_declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
+	__declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
 }
 #endif
 

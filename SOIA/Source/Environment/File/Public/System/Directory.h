@@ -4,6 +4,7 @@
 #include "Atom.h"
 
 #include "Path.h"
+#include "FileSystemProvider.h"
 
 #include <string>
 #include <vector>
@@ -19,6 +20,8 @@ namespace Environment
 	{
 	public:
 		Directory(const Path& InPath);
+
+		static Directory ExecutableDirectory();
 
 		bool Create();
 		std::vector<Directory> GetSubDirectories(EDirectoryVisibility InDirVisibility = EDirectoryVisibility::NotSystem) const;

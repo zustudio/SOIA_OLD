@@ -6,6 +6,8 @@
 #include "Texture2D.h"
 using namespace Environment;
 
+#include <cstring>
+
 Texture2D::Texture2D(unsigned char* InData, int InSizeX, int InSizeY, ETextureChannels InChannels, int TexNum, ETextureMode InTextureMode)
 	:
 	TextureNum(TexNum),

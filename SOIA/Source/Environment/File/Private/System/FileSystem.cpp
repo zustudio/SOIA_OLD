@@ -11,13 +11,6 @@ FileSystem::FileSystem()
 	Access(new WindowsFileSystemAccess)
 {}
 
-Directory FileSystem::GetExecutableDirectory()
-{
-	Path path = Path("");
-	Access->GetExecutablePath(path);
-	return Directory(path.StripDotName());
-}
-
 CommonFileSystemAccess * FileSystem::GetAccess()
 {
 	return Access;

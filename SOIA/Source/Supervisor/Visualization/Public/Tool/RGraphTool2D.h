@@ -20,7 +20,7 @@ namespace Supervisor
 		RFUNCTION(pipe_addpoint)
 			bool pipe_addpoint(const double& InX, const double& InY);
 
-		std::vector<Vector2D<double>> Points;
+		std::vector<Environment::Vector2D<double>> Points;
 
 		RCLASS_END()
 	};

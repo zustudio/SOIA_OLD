@@ -43,7 +43,7 @@ MBound& MBound::operator=(MBound && InOther)
 
 MBound::~MBound()
 {
-	LOG("Destroying MBound '" + std::to_string((int)this) + "'", Logger::Severity::DebugInfo);
+	LOG("Destroying MBound '" + Logger::ToString((void*)this) + "'", Logger::Severity::DebugInfo);
 
 	if (Boundaries)
 		Boundaries->RemoveBoundObject(this);
@@ -109,11 +109,11 @@ Vector2D<pxPoint> MBound::CalculateAbsoluteCornerLocationsOnWindow()
 		return Vector2D<pxPoint>(pxPoint(0, 0), pxPoint(100, 100));
 	}
 
-	int realLeftMargin = Margins.Left >= 0 ? Margins.Left : Boundaries->GetSize().Width + Margins.Left - Margins.Right;
-	int realRightMargin = Margins.Right >= 0 ? Margins.Right : Boundaries->GetSize().Width + Margins.Right - Margins.Left;
+	int realLeftMargin = Margins.Left >= 0 ? (int)Margins.Left : Boundaries->GetSize().Width + Margins.Left - Margins.Right;
+	int realRightMargin = Margins.Right >= 0 ? (int)Margins.Right : Boundaries->GetSize().Width + Margins.Right - Margins.Left;
 
-	int realTopMargin = Margins.Top >= 0 ? Margins.Top : Boundaries->GetSize().Height + Margins.Top - Margins.Bottom;
-	int realBottomMargin = Margins.Bottom >= 0 ? Margins.Bottom : Boundaries->GetSize().Height + Margins.Bottom - Margins.Top;
+	int realTopMargin = Margins.Top >= 0 ? (int)Margins.Top : Boundaries->GetSize().Height + Margins.Top - Margins.Bottom;
+	int realBottomMargin = Margins.Bottom >= 0 ? (int)Margins.Bottom : Boundaries->GetSize().Height + Margins.Bottom - Margins.Top;
 
 	Vector2D<pxPoint> calculatedMarginCorrection = Vector2D<pxPoint>(pxPoint(realLeftMargin, realTopMargin), pxPoint(-realRightMargin, -realBottomMargin));
 	return Boundaries->CalculateAbsoluteCornerLocationsOnWindow() + calculatedMarginCorrection;

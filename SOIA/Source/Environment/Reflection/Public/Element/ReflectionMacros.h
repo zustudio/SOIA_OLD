@@ -1,6 +1,4 @@
 /// Intelligence Project - SOIA
-/// \file
-/// \copyright
 /// \brief		Provides macros for reflecting classes and their attributes (properties and functions)
 
 #pragma once
@@ -8,6 +6,7 @@
 #include "RClass.h"
 #include "RFunctionTemplate.h"
 #include "MemberMirrorTemplate.h"
+#include "GlobalReflectionProviders.h"
 
 #include <type_traits>
 
@@ -19,27 +18,37 @@
 #define RTEMPLATECLASS(ClassType,TemplateType,SuperClassType) \
 /** \name Internally generated*/ \
 /** \{*/ \
+	class ClassType##_CommonBase : public SuperClassType \
+	{ \
+	public: \
+		template<typename... CtorArgTypes> explicit ClassType##_CommonBase(CtorArgTypes... CtorArgs) : SuperClassType(CtorArgs...) \
+		{} \
+		static std::vector<Environment::MemberMirror*> INTERNAL_NAME(MemberMirrors); \
+	}; \
+	std::vector<Environment::MemberMirror*> __declspec(selectany) ClassType##_CommonBase::INTERNAL_NAME(MemberMirrors); \
+	\
 	template<typename TemplateType> \
 	class ClassType; \
 	template<typename TemplateType> \
-	class ClassType##_Base : public SuperClassType \
+	class ClassType##_Base : public ClassType##_CommonBase \
 	{ \
 		public: \
 		using Super = SuperClassType; \
 		using Type = ClassType<TemplateType>; \
+		using CommonBaseType = ClassType##_CommonBase; \
 		using BaseType = ClassType##_Base<TemplateType>; \
-		template<typename... CtorArgTypes> explicit ClassType##_Base(CtorArgTypes... CtorArgs) : SuperClassType(CtorArgs...) \
+		template<typename... CtorArgTypes> explicit ClassType##_Base(CtorArgTypes... CtorArgs) : CommonBaseType(CtorArgs...) \
 		{ \
-			GlobalRClassProvider()->Register<ClassType<TemplateType>>(); \
+		Environment::GlobalRClassProvider()->Register<ClassType<TemplateType>>(); \
 		} \
 		virtual Environment::RClass* GetClass() override \
 		{ \
-			return GlobalRClassProvider()->GetClass(Environment::TypeID::FromType<ClassType<TemplateType>>()); \
+			return Environment::GlobalRClassProvider()->GetClass(Environment::TypeID::FromType<ClassType<TemplateType>>()); \
 		} \
 		static Environment::RClass* StaticClass() \
 		{ \
-			GlobalRClassProvider()->Register<ClassType<TemplateType>>(); \
-			return GlobalRClassProvider()->GetClass(Environment::TypeID::FromType<ClassType<TemplateType>>()); \
+		Environment::GlobalRClassProvider()->Register<ClassType<TemplateType>>(); \
+			return Environment::GlobalRClassProvider()->GetClass(Environment::TypeID::FromType<ClassType<TemplateType>>()); \
 		} \
 	}; \
 /** \}*/
@@ -54,20 +63,22 @@
 		using Super = SuperClassType; \
 		using Type = ClassType; \
 		using BaseType = ClassType##_Base; \
+		static std::vector<Environment::MemberMirror*> INTERNAL_NAME(MemberMirrors); \
 		template<typename... CtorArgTypes> explicit ClassType##_Base(CtorArgTypes... CtorArgs) : SuperClassType(CtorArgs...) \
 		{ \
-			GlobalRClassProvider()->RegisterAbstract<ClassType>(); \
+		Environment::GlobalRClassProvider()->RegisterAbstract<ClassType>(); \
 		} \
 		virtual Environment::RClass* GetClass() override \
 		{ \
-			return GlobalRClassProvider()->GetClass(Environment::TypeID::FromType<ClassType>()); \
+			return Environment::GlobalRClassProvider()->GetClass(Environment::TypeID::FromType<ClassType>()); \
 		} \
 		static Environment::RClass* StaticClass() \
 		{ \
-			GlobalRClassProvider()->RegisterAbstract<ClassType>(); \
-			return GlobalRClassProvider()->GetClass(Environment::TypeID::FromType<ClassType>()); \
+		Environment::GlobalRClassProvider()->RegisterAbstract<ClassType>(); \
+			return Environment::GlobalRClassProvider()->GetClass(Environment::TypeID::FromType<ClassType>()); \
 		} \
 	}; \
+	std::vector<Environment::MemberMirror*> __declspec(selectany) ClassType##_Base::INTERNAL_NAME(MemberMirrors); \
 /** \}*/
 
 #define RCLASS(ClassType,SuperClassType) \
@@ -83,16 +94,16 @@
 		static std::vector<Environment::MemberMirror*> INTERNAL_NAME(MemberMirrors); \
 		template<typename... CtorArgTypes> explicit ClassType##_Base(CtorArgTypes... CtorArgs) : SuperClassType(CtorArgs...) \
 		{ \
-			GlobalRClassProvider()->RegisterConcrete<ClassType>(); \
+			Environment::GlobalRClassProvider()->RegisterConcrete<ClassType>(); \
 		} \
 		virtual Environment::RClass* GetClass() override \
 		{ \
-			return GlobalRClassProvider()->GetClass(Environment::TypeID::FromType<ClassType>()); \
+			return Environment::GlobalRClassProvider()->GetClass(Environment::TypeID::FromType<ClassType>()); \
 		} \
 		static Environment::RClass* StaticClass() \
 		{ \
-			GlobalRClassProvider()->RegisterConcrete<ClassType>(); \
-			return GlobalRClassProvider()->GetClass(Environment::TypeID::FromType<ClassType>()); \
+			Environment::GlobalRClassProvider()->RegisterConcrete<ClassType>(); \
+			return Environment::GlobalRClassProvider()->GetClass(Environment::TypeID::FromType<ClassType>()); \
 		} \
 	}; \
 	std::vector<Environment::MemberMirror*> __declspec(selectany) ClassType##_Base::INTERNAL_NAME(MemberMirrors); \
@@ -106,18 +117,26 @@
 
 #define REFLECT_FUNC_NAME INTERNAL_NAME(ReflectObject)
 
+#define RTEMPLATECLASS_BEGIN(ClassType,TemplateType) \
+public: \
+	using Super = typename ClassType##_Base<TemplateType>::Super; \
+	using Type = typename ClassType##_Base<TemplateType>::Type; \
+	using CommonBaseType = typename ClassType##_Base<TemplateType>::CommonBaseType; \
+	using BaseType = typename ClassType##_Base<TemplateType>::BaseType; \
+	RCLASS_BEGIN();
+
 #define RCLASS_BEGIN() \
 /** \name Internally generated*/ \
 /** \{*/ \
 	public: \
-		virtual Environment::VoidPointer GetVoidPointer() /**< Super great function */\
+		virtual Environment::VoidPointer GetVoidPointer() \
 		{ \
-			return Environment::VoidPointer(this, EMemoryType::NotOwned); \
+			return Environment::VoidPointer(this, Environment::EMemoryType::NotOwned); \
 		} \
 	protected: \
 		static void INTERNAL_NAME(GetMemberMirrors)(std::vector<Environment::MemberMirror*> & InMemberMirrors) \
 		{ \
-			InMemberMirrors.insert(InMemberMirrors.end(), INTERNAL_NAME(MemberMirrors).begin(), INTERNAL_NAME(MemberMirrors).end()); \
+			InMemberMirrors.insert(InMemberMirrors.end(), BaseType::INTERNAL_NAME(MemberMirrors).begin(), BaseType::INTERNAL_NAME(MemberMirrors).end()); \
 			Super::INTERNAL_NAME(GetMemberMirrors)(InMemberMirrors); \
 		} \
 		virtual std::vector<Environment::MemberMirror*> GetMemberMirrors() \
@@ -137,7 +156,7 @@
 	typename std::enable_if<n==__COUNTER__>::type REFLECT_FUNC_NAME() \
 	{ \
 		static constexpr const int myCount = __COUNTER__; \
-		INTERNAL_NAME(MemberMirrors).push_back(new Environment::MemberMirrorTemplate<Type,decltype(object)>(&Type::object, name )); \
+		BaseType::INTERNAL_NAME(MemberMirrors).push_back(new Environment::MemberMirrorTemplate<Type,decltype(object)>(&Type::object, name )); \
 		Environment::GlobalAtomConverterProvider()->Reflect<decltype(object)>(); \
 		REFLECT_FUNC_NAME<myCount - 3>(); \
 	}
@@ -155,8 +174,11 @@
 	private: \
 		void ReflectAttributes() \
 		{ \
-			if (INTERNAL_NAME(MemberMirrors).size() == 0) \
+			if (BaseType::INTERNAL_NAME(MemberMirrors).size() == 0) \
 			REFLECT_FUNC_NAME<__COUNTER__ - 2>(); \
 		} \
 	public: \
 /**\}*/
+
+#define RTEMPLATECLASS_END() \
+	RCLASS_END()

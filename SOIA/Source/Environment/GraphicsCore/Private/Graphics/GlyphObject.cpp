@@ -9,6 +9,7 @@ using namespace Environment;
 #include "Texture2D.h"
 
 #include <iostream>
+#include <cstring>
 
 GlyphObject::GlyphObject()
 	:

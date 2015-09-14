@@ -8,6 +8,8 @@ using namespace Environment;
 #include "VertexBufferTemplate.h"
 #include "GlobalLogger.h"
 
+#include <algorithm>
+
 TextLayer::TextLayer(Font const & InFont, int InSize)
 	:
 	FontTexture(InFont, InSize)

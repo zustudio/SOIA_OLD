@@ -12,6 +12,13 @@ Directory::Directory(const Path& InPath)
 	PathToDir(InPath)
 {}
 
+Directory Directory::ExecutableDirectory()
+{
+	Path path = Path("");
+	GetFileSystem()->GetAccess()->GetExecutablePath(path);
+	return Directory(path.StripDotName());
+}
+
 bool Directory::Create()
 {
 	return GetFileSystem()->GetAccess()->CreatePathDirectory(PathToDir);

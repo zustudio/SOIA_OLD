@@ -14,7 +14,7 @@ using namespace Supervisor;
 
 TRuntime::TRuntime()
 	: BaseType(),
-	CurrentDirectory(GetFileSystem()->GetExecutableDirectory())
+	CurrentDirectory(Directory::ExecutableDirectory())
 {
 	ReflectAttributes();
 }
@@ -190,7 +190,7 @@ bool TRuntime::cmd_saveproject(Directory const& InDir)
 	Directory dir = InDir;
 	if (InDir.GetPath().ToString() == "")
 	{
-		dir = Directory(GetFileSystem()->GetExecutableDirectory().GetPath().AppendFolder("Pool").AppendFolder("Projects"));
+		dir = Directory(Directory::ExecutableDirectory().GetPath().AppendFolder("Pool").AppendFolder("Projects"));
 	}
 
 	// get project
@@ -210,8 +210,8 @@ bool TRuntime::SaveRecursive(Directory const & InDir, RElement* const& InElement
 	{
 		Directory ContainerDir(Path(""));
 		success &= SaveContainer(InDir, InContainer, ContainerDir);
-		std::vector<RElement*>& children = InContainer->GetAllElements<RElement>();
-		for (RElement*& child : children)
+		std::vector<RElement*> const & children = InContainer->GetAllElements<RElement>();
+		for (RElement* const & child : children)
 		{
 			success &= SaveRecursive(ContainerDir, child);
 		}
@@ -260,7 +260,7 @@ bool TRuntime::LoadRecursive(Directory const & InDir, std::vector<RElement*>& Ou
 	std::vector<Directory> subDirectories = InDir.GetSubDirectories();
 	std::vector<ElementFile> files = InDir.GetFiles<ElementFile>();
 
-	for (Directory subDirectory : subDirectories)
+	for (Directory & subDirectory : subDirectories)
 	{
 		RContainer* container = nullptr;
 		std::vector<RElement*> subElements;

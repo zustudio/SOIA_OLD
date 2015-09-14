@@ -6,6 +6,8 @@
 #pragma once
 
 #include "RClass.h"
+#include "RAbstractClass.h"
+#include "RClassTemplate.h"
 
 #include <vector>
 
@@ -50,13 +52,13 @@ namespace Environment
 		template<typename RType>
 		void RegisterAbstract()
 		{
-			RegisterInternal(new RAbstractClass(TypeID::FromType<RType::Type>(), TypeID::FromType<RType::Super::Type>()));
+			RegisterInternal(new RAbstractClass(TypeID::FromType<typename RType::Type>(), TypeID::FromType<typename RType::Super::Type>()));
 		}
 
 		template<typename RType>
 		void RegisterConcrete()
 		{
-			RegisterInternal(new RClassTemplate<RType>(TypeID::FromType<RType::Type>(), TypeID::FromType<RType::Super::Type>()));
+			RegisterInternal(new RClassTemplate<RType>(TypeID::FromType<typename RType::Type>(), TypeID::FromType<typename RType::Super::Type>()));
 		}
 
 		void RegisterInternal(RClass* InClass);

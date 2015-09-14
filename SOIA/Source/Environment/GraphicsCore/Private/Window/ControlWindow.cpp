@@ -5,12 +5,12 @@
 using namespace Environment;
 
 #include "FreeTypeProvider.h"
-#include "FileSystemProvider.h"
+#include "Directory.h"
 
 ControlWindow::ControlWindow(std::string Name, pxSize InSize)
 	: GraphicsWindow(Name, InSize),
 	Index_SelectedControl(0),
-	CommonTextContentLayer(TextLayer(*GetFont(GetFileSystem()->GetExecutableDirectory().GetPath().AppendFolder("Ressources").AppendFolder("Fonts").AppendFolder("DengXian").AppendFile("DengXian.ttf").ToString()), 15))
+	CommonTextContentLayer(TextLayer(*GetFont(Directory::ExecutableDirectory().GetPath().AppendFolder("Ressources").AppendFolder("Fonts").AppendFolder("DengXian").AppendFile("DengXian.ttf").ToString()), 15))
 {
 	AddLayer(&CommonFilledGeometryLayer);
 	AddLayer(&CommonUnfilledGeometryLayer);

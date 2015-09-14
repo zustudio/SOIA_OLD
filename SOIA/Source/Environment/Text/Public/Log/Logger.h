@@ -3,6 +3,8 @@
 
 #include "DialogueInterface.h"
 
+#include <sstream>
+
 namespace Environment
 {
 	
@@ -39,6 +41,14 @@ namespace Environment
 		void SetMinimalSeverity(Severity InMinimalSeverity);
 
 		void Log(const std::string& InMessage, Severity InMessageSeverity = Severity::Status, const std::string& InProjectName = PROJECTNAME_LITERAL);
+
+		template<typename T>
+		static std::string ToString(T const & InObject)
+		{
+			std::ostringstream ostrstr;
+			ostrstr << InObject;
+			return ostrstr.str();
+		}
 
 	private:
 		DialogueInterface* Target;

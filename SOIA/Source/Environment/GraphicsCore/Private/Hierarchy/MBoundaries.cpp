@@ -4,7 +4,7 @@
 #include "MBoundaries.h"
 using namespace Environment;
 
-#include "MBound.h"
+#include <algorithm>
 
 MBoundaries::MBoundaries(MBoundaries * InBoundaries, pxMargins InMargins)
 	: MBound(InBoundaries, InMargins)

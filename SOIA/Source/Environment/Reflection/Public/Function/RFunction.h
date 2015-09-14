@@ -7,6 +7,7 @@
 #include "VoidPointer.h"
 
 #include <vector>
+#include <algorithm>
 
 namespace Environment
 {

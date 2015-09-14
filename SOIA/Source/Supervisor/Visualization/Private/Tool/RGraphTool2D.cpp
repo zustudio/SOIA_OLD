@@ -3,6 +3,7 @@
 
 #include "RGraphTool2D.h"
 using namespace Supervisor;
+using namespace Environment;
 
 #include <iostream>
 

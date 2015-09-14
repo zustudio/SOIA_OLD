@@ -7,7 +7,7 @@
 
 namespace Environment
 {
-	class FilledGeometryLayer : public GeometryLayer
+	class LIBIMPEXP FilledGeometryLayer : public GeometryLayer
 	{
 	public:
 		FilledGeometryLayer();

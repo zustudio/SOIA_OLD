@@ -80,18 +80,18 @@ namespace Environment
 		}
 		
 
-		bool VertexBuffer::ResizeFrontBuffer()
+		virtual bool ResizeFrontBuffer() override
 		{
 			FrontBuffer.resize(GetRawSize());
 			return true;
 		}
 
-		virtual void VertexBufferTemplate::BindBuffer() override
+		virtual void BindBuffer() override
 		{
 			glBindBuffer(GLBufferType, GLBuffer);
 		}
 
-		virtual bool VertexBufferTemplate::SwitchBuffers() override
+		virtual bool SwitchBuffers() override
 		{
 			auto frontIter = FrontBuffer.begin();
 			for (auto backIter = BackBuffer.begin(); backIter != BackBuffer.end(); backIter++)
@@ -101,13 +101,13 @@ namespace Environment
 			return true;
 		}
 
-		bool VertexBuffer::LoadGLBuffer()
+		virtual bool LoadGLBuffer() override
 		{
 			glBufferData(GLBufferType, FrontBuffer.size() * sizeof(RawType), FrontBuffer.data(), GL_STATIC_DRAW);
 			return true;
 		}
 
-		virtual VertexBufferVariable CreateVariable(int InIndex, const std::string& InName)
+		virtual VertexBufferVariable CreateVariable(int InIndex, const std::string& InName) override
 		{
 			VertexBufferVariable result;
 			result.Buffer = this;

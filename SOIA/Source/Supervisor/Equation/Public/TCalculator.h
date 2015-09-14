@@ -32,7 +32,7 @@ namespace Supervisor
 			Environment::MathContainer* CurrentMathContainer;
 
 		
-		std::vector<DynamicMathFunction*> Functions;
+		std::vector<Environment::DynamicMathFunction*> Functions;
 
 		RCLASS_END()
 	};

@@ -5,6 +5,8 @@
 #include "GeometryLayer.h"
 using namespace Environment;
 
+#include <algorithm>
+
 GeometryLayer::GeometryLayer()
 	: GraphicsLayer(),
 

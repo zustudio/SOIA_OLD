@@ -19,7 +19,7 @@ namespace Supervisor
 
 		virtual void Main() override;
 
-		RFunction* TargetFunction;
+		Environment::RFunction* TargetFunction;
 
 		std::vector<InPort> Input;
 		std::vector<OutPort> Output;

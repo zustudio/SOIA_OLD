@@ -1,7 +1,6 @@
 
 #pragma once
 
-#include "Directory.h"
 #include "CommonFileSytemAccess.h"
 
 namespace Environment
@@ -10,8 +9,6 @@ namespace Environment
 	{
 	public:
 		FileSystem();
-
-		Directory GetExecutableDirectory();
 
 		CommonFileSystemAccess* GetAccess();
 

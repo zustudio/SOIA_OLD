@@ -6,6 +6,7 @@ using namespace Environment;
 
 #include <assert.h>
 #include <iostream>
+#include <cstring>
 
 FontTexture2D::FontTexture2D(Font const & InFont, int InFontSize)
 	: Texture2D(0, ETextureMode::Font, ETextureChannels::R)
