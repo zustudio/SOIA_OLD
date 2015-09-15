@@ -38,7 +38,7 @@ void RenderThread::Main()
 			shouldClose += glfwWindowShouldClose(window->GLWindow);
 		}
 
-		Sleep(50ms);
+		Sleep(10ms);
 		glfwPollEvents();
 		
 	}

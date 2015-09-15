@@ -3,13 +3,15 @@
 
 #include "InterpolationFunction.h"
 
+#include <iostream>
+
 namespace Environment
 {
 	template<typename DataType>
 	class Interpolator
 	{
 	private:
-		using TimeType = std::chrono::steady_clock::time_point;
+		using TimeType = std::chrono::system_clock::time_point;
 
 	public:
 		//----- ctor -----
@@ -29,15 +31,18 @@ namespace Environment
 		{}
 
 		//----- getter -----
-		DataType const & operator*() const
+		DataType & Get()
 		{
 			return Current;
 		}
-
-		DataType const & operator->() const
+		/*DataType* const & operator*() const
 		{
-			return Current;
-		}
+			return &Current;
+		}*/
+		//DataType* operator->() const
+		//{
+		//	return &Current;
+		//}
 		operator DataType() const
 		{
 			return Current;
@@ -58,8 +63,9 @@ namespace Environment
 			{
 				Start = Current;
 				Target = InTarget;
-				InterpolationStarted = std::chrono::steady_clock::now();
+				InterpolationStarted = std::chrono::system_clock::now();
 				bInterpolating = true;
+				Update();
 			}
 			else
 			{
@@ -74,7 +80,7 @@ namespace Environment
 		{
 			if (Interpolation && bInterpolating)
 			{
-				TimeType Now = std::chrono::steady_clock::now();
+				TimeType Now = std::chrono::system_clock::now();
 				bInterpolating = Interpolation->Interpolate(Start, Current, Target, std::chrono::duration_cast<std::chrono::duration<float>>(Now - InterpolationStarted));
 			}
 		}

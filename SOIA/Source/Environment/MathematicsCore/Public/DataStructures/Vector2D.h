@@ -33,7 +33,7 @@ namespace Environment
 		/////////////////////////////////////////////////////////
 		// math
 		//---- list operation ----
-		Vector2D<T> operator +(Vector2D<T> a)
+		Vector2D<T> operator +(Vector2D<T> a) const
 		{
 			return Vector2D<T>(a.X + X, a.Y + Y);
 		}
@@ -44,11 +44,11 @@ namespace Environment
 			Y += a.Y;
 			return tmp;
 		}
-		Vector2D<T> operator -(Vector2D<T> a)
+		Vector2D<T> operator -(Vector2D<T> a) const
 		{
 			return Vector2D<T>(X - a.X, Y - a.Y);
 		}
-		Vector2D<T> operator *(Vector2D<T> a)
+		Vector2D<T> operator *(Vector2D<T> a) const
 		{
 			return Vector2D<T>(a.X *X, a.Y * Y);
 		}
@@ -65,9 +65,10 @@ namespace Environment
 		}
 
 		//---- scalar operation ----
-		Vector2D<T> operator *(T n)
+		template<typename ScalarType>
+		Vector2D<T> operator *(ScalarType const & n) const
 		{
-			return Vector2D<T>(X * n, Y * n);
+			return Vector2D<T>(ScalarType(X) * n, ScalarType(Y) * n);
 		}
 
 		///////////////////////////////////////////////////////////

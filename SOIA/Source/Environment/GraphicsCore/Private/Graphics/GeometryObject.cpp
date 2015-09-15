@@ -4,17 +4,17 @@
 #include "GeometryObject.h"
 using namespace Environment;
 
-GeometryObject::GeometryObject(MBoundaries * InBoundaries, pxMargins InMargins, Interpolator<fColor> InColor, std::vector<pxPoint> const & InEdges)
+GeometryObject::GeometryObject(MBoundaries * InBoundaries, pxMargins InMargins, Interpolator<fColor> InColor, Interpolator<VectorND<pxPoint>> const & InEdges)
 	: GraphicsObject(InBoundaries, InMargins),
 	Color(InColor),
 	Edges(InEdges),
 	EdgesFunction(nullptr)
 {}
 
-GeometryObject::GeometryObject(MBoundaries * InBoundaries, pxMargins InMargins, Interpolator<fColor> InColor, EdgesFunctionType InEdgesFunction)
+GeometryObject::GeometryObject(MBoundaries * InBoundaries, pxMargins InMargins, Interpolator<fColor> InColor, EdgesFunctionType InEdgesFunction, InterpolationFunction<VectorND<pxPoint>>* InEdgesInterpolatorFunction)
 	: GraphicsObject(InBoundaries, InMargins),
 	Color(InColor),
-	Edges(InEdgesFunction()),
+	Edges(std::vector<pxPoint>({}), InEdgesInterpolatorFunction),
 	EdgesFunction(InEdgesFunction)
 {}
 
@@ -23,8 +23,9 @@ void GeometryObject::Update()
 	GraphicsObject::Update();
 
 	Color.Update();
+	Edges.Update();
 
-	if (EdgesFunction)
+	if (bUpdateRequested && EdgesFunction)
 	{
 		Edges = EdgesFunction();
 	}

@@ -22,15 +22,15 @@ void UnfilledGeometryLayer::UpdateBuffers()
 {
 	for (GeometryObject* object : Objects)
 	{
-		if (object->bUpdateRequested)
+		if (object->bUpdateRequested && object->Edges.Get().dim())
 		{
 			if (object->VertexBufferRange == Range<int>::Empty())
 			{
 				object->VertexBufferRange.Lower = Vertices.GetEntryNum();
 				object->ElementBufferRange.Lower = Lines.GetEntryNum();
 
-				Vertices.AddEmpty(object->Edges.size());
-				Lines.AddEmpty(object->Edges.size());
+				Vertices.AddEmpty(object->Edges.Get().dim());
+				Lines.AddEmpty(object->Edges.Get().dim());
 
 				object->VertexBufferRange.Upper = Vertices.GetEntryNum() - 1;
 				object->ElementBufferRange.Upper = Lines.GetEntryNum() - 1;
@@ -39,7 +39,7 @@ void UnfilledGeometryLayer::UpdateBuffers()
 			int index_edge = 0;
 			for (int index_vertex : object->VertexBufferRange)
 			{
-				Vertices.Set(index_vertex, object->CalculateRelativeLocationOnWindow(object->Edges[index_edge]), object->Color);
+				Vertices.Set(index_vertex, object->CalculateRelativeLocationOnWindow(object->Edges.Get()[index_edge]), object->Color);
 				++index_edge;
 			}
 

@@ -14,29 +14,29 @@ namespace Environment
 	private:
 		/////////////////////////////////////////////////////////
 		// data
-		std::vector<T> val;
+		std::vector<T> Values;
 		std::string text;
 	public:
 		/////////////////////////////////////////////////////////
 		// constructors
 		VectorND(const std::vector<T> &NewVal)
 		{
-			val = NewVal;
+			Values = NewVal;
 		}
 		VectorND(const std::deque<T> &NewDeque)
 		{
-			val = std::vector<T>();
+			Values = std::vector<T>();
 			for (T element : NewDeque)
 			{
-				val.push_back(element);
+				Values.push_back(element);
 			}
 		}
-		VectorND(int dim, T defaultValue = 0)
+		VectorND(int dim)
 		{
-			val = std::vector<T>();
+			Values = std::vector<T>();
 			for (int i = 0; i < dim; i++)
 			{
-				val.push_back(defaultValue);
+				Values.push_back(T());
 			}
 		}
 		~VectorND()
@@ -48,35 +48,68 @@ namespace Environment
 		//---- helpers ----
 		int dim() const
 		{
-			return val.size();
+			return Values.size();
+		}
+		VectorND<T> & Fill(T const & InValue)
+		{
+			for (T& value : Values)
+			{
+				value = InValue;
+			}
+			return *this;
 		}
 		//---- access operation ----
-		T& operator [](T i)
+		T const & operator[](int i) const
+		{
+			if (i < Values.size())
+			{
+				return Values[i];
+			}
+			else
+			{
+				return T();
+			}
+		}
+		T& operator [](int i)
 		{
 			if (i >= 0 && i < dim())
-				return val[i];
+				return Values[i];
 			else
 			{
 				for (int delta = i + 1 - dim(); delta > 0; delta--)
 				{
-					val.push_back(0);
+					Values.push_back(0);
 				}
-				return val[i];
+				return Values[i];
 			}
 		}
 		//---- list operation ----
-		void intern_OpAdd(VectorND<T> &a, VectorND<T> &b, VectorND<T> &r)
+		void intern_OpAdd(VectorND<T> const & a, VectorND<T> const & b, VectorND<T> &r) const
 		{
 			int n = std::fmax(a.dim(), b.dim());
-			for (int i_single = 0; i_single < n; i_single++)
+			for (int i = 0; i < n; i++)
 			{
-				r[i_single] = a[i_single] + b[i_single];
+				r[i] = a[i] + b[i];
 			}
 		}
-		VectorND<T> operator +(VectorND<T> a)
+		void intern_OpSubstract(VectorND<T> const & a, VectorND<T> const & b, VectorND<T> & r) const
 		{
-			VectorND<T> result = VectorND<T>(1);
-			intern_OpAdd((*this), a, result);
+			int n = std::fmax(a.dim(), b.dim());
+			for (int i = 0; i < n; i++)
+			{
+				r[i] = a[i] - b[i];
+			}
+		}
+		VectorND<T> operator +(VectorND<T> const & InOther) const
+		{
+			VectorND<T> result = VectorND<T>(dim());
+			intern_OpAdd((*this), InOther, result);
+			return result;
+		}
+		VectorND<T> operator -(VectorND<T> const & InOther) const
+		{
+			VectorND<T> result = VectorND<T>(dim());
+			intern_OpSubstract(*this, InOther, result);
 			return result;
 		}
 		VectorND<T> operator +=(VectorND<T> a)
@@ -88,30 +121,26 @@ namespace Environment
 		T Sum()
 		{
 			T result = 0;
-			for (T element : val)
+			for (T element : Values)
 			{
 				result += element;
 			}
 			return result;
 		}
 		//---- scalar operation ----
-		void intern_OpMult(VectorND<T> &a, VectorND<T> &b, VectorND<T> &r)
+		template<typename ScalarType>
+		void intern_OpMult(VectorND<T> const & a, ScalarType const & b, VectorND<T> &r) const
 		{
-			int n = std::fmax(a.dim(), b.dim());
+			int n = a.dim();
 			for (int i_single = 0; i_single < n; i_single++)
 			{
-				r[i_single] = a[i_single] * b[i_single];
+				r[i_single] = a[i_single] * b;
 			}
 		}
 		VectorND<T> operator *(float a)
 		{
-			VectorND<T> result = VectorND<T>(1);
-			VectorND<T> other = VectorND<T>(dim());
-			for (int i = 0; i < dim(); i++)
-			{
-				other[i] = a;
-			}
-			intern_OpMult((*this), other, result);
+			VectorND<T> result = VectorND<T>(dim());
+			intern_OpMult(*this, a, result);
 			return result;
 		}
 		/////////////////////////////////////////////////////////

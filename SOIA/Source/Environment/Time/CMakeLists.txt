@@ -7,7 +7,8 @@ add_PrivatePublic(CurrentTime)
 add_Public(
 	Interpolator
 	InterpolationFunction
-	LinearInterpolation)
+	LinearInterpolation
+	InstantInterpolation)
 end_sub()
 
 auto_add_shared_library()

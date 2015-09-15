@@ -21,14 +21,14 @@ void FilledGeometryLayer::UpdateBuffers()
 {
 	for (GeometryObject* object : Objects)
 	{
-		if (object->bUpdateRequested)
+		if (object->bUpdateRequested && object->Edges.Get().dim())
 		{
 			if (object->VertexBufferRange == Range<int>::Empty())
 			{
 				object->VertexBufferRange.Lower = Vertices.GetEntryNum();
 				object->ElementBufferRange.Lower = Triangles.GetEntryNum();
 
-				int edges = object->Edges.size();
+				int edges = object->Edges.Get().dim();
 				Vertices.AddEmpty(edges);
 				Triangles.AddEmpty(edges - 2);
 
@@ -39,7 +39,7 @@ void FilledGeometryLayer::UpdateBuffers()
 			int index_edge = 0;
 			for (int index_vertex : object->VertexBufferRange)
 			{
-				Vertices.Set(index_vertex, object->CalculateRelativeLocationOnWindow(object->Edges[index_edge]), object->Color);
+				Vertices.Set(index_vertex, object->CalculateRelativeLocationOnWindow(object->Edges.Get()[index_edge]), object->Color);
 				++index_edge;
 			}
 

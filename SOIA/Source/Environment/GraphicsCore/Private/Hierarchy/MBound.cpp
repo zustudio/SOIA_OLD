@@ -92,7 +92,7 @@ fPoint MBound::CalculateRelativeLocationOnWindow(pxPoint InPoint)
 
 	fPoint result = fPoint(float(absolutePoint.X) / float(absoluteSize.Width), float(absoluteSize.Height - absolutePoint.Y) / float(absoluteSize.Height));
 
-	return result * 2 - fPoint(1,1);
+	return result * 2.0 - fPoint(1,1);
 }
 
 Vector2D<pxPoint> MBound::CalculateAbsoluteCornerLocationsOnWindow()

@@ -11,22 +11,13 @@ using namespace Environment;
 TextBox::TextBox(MBoundaries * InBoundaries, pxMargins InMargins, ETextBoxMode InMode)
 	: GraphicsControl(InBoundaries, InMargins),
 	Mode(InMode),
-	Cursor(nullptr),
-	LastCursorBlink(std::chrono::steady_clock::now()),
-	TestCursor(this, {pxPoint(40, 40), pxPoint(50, 50)})
+	Cursor(this, [this]() {return this->CalculateCursorLocation(); })
 {
-	GetWindow()->CommonUnfilledGeometryLayer.AddObject(&TestCursor);
-}
-
-TextBox::~TextBox()
-{
-	delete Cursor;
+	GetWindow()->CommonUnfilledGeometryLayer.AddObject(&Cursor);
 }
 
 void TextBox::Update()
 {
-	GraphicsControl::Update();
-
 	if (bUpdateRequested)
 	{
 		TextObjects.erase(TextObjects.begin(), TextObjects.end());
@@ -55,67 +46,68 @@ void TextBox::Update()
 		bUpdateRequested = false;
 	}
 
-
-	UpdateCursor();
+	GraphicsControl::Update();
 }
 
-void TextBox::UpdateCursor()
+std::vector<pxPoint> TextBox::CalculateCursorLocation()
 {
-	if (IsSelected())
-	{
-		FontTexture2D* texture = GetWindow()->CommonTextContentLayer.GetFontTexture();
+	if (TextObjects.size() == 0)
+		return {};
 
-		using namespace std::chrono;
-		auto currentTime = steady_clock::now();
-		auto durationSinceLastBlink = duration_cast<milliseconds>(currentTime - LastCursorBlink);
+	FontTexture2D* texture = GetWindow()->CommonTextContentLayer.GetFontTexture();
 
-		if (durationSinceLastBlink >= 530ms)
-		{
-			bCursorOn = !bCursorOn;
-			LastCursorBlink = steady_clock::now();
+	Vector2D<int> cursorPosition = CursorPos_1DTo2D(Cursor.GetPosition());
 
-			fColor cursorColor;
-			pxPoint cursorStart;
-			pxPoint cursorEnd;
+	pxPoint cursorStart;
+	pxPoint cursorEnd;
 
-			cursorColor = bCursorOn ? fColor(0, 0, 0) : fColor(1, 1, 1);
+	TextObject& selectedObject = TextObjects[cursorPosition.Y];
 
-			TextObject& selectedObject = TextObjects[CursorPosition.Y];
+	cursorStart.Y = selectedObject.GetMargins().Top;
+	cursorStart.X = selectedObject.GetMargins().Left + texture->CalculateTextWidth(std::string(selectedObject.Text.begin(), selectedObject.Text.begin() + cursorPosition.X));
 
-			cursorStart.Y = selectedObject.GetMargins().Top;
-			cursorStart.X = selectedObject.GetMargins().Left + texture->CalculateTextWidth(std::string(selectedObject.Text.begin(), selectedObject.Text.begin() + CursorPosition.X));
+	cursorEnd = cursorStart;
+	cursorEnd.Y += texture->GetSpriteSize().Y;
 
-			cursorEnd = cursorStart;
-			cursorEnd.Y += texture->GetSpriteSize().Y;
-
-			if (!Cursor)
-			{
-				Cursor = new GeometryObject(this, pxMargins(0, 0, 0, 0), cursorColor, { cursorStart, cursorEnd });
-				GetWindow()->CommonUnfilledGeometryLayer.AddObject(Cursor);
-			}
-			else
-			{
-				Cursor->Edges = { cursorStart, cursorEnd };
-				Cursor->Color = cursorColor;
-				Cursor->RequestUpdate();
-			}
-		}
-	}
-	else
-	{
-		if (Cursor)
-		{
-			delete Cursor;
-			Cursor = nullptr;
-		}
-	}
+	return std::vector<pxPoint>({ cursorStart, cursorEnd });
 }
 
-void TextBox::RequestCursorUpdate()
+Vector2D<int> TextBox::CursorPos_1DTo2D(int In1DPosition)
 {
-	using namespace std::chrono;
-	bCursorOn = false;
-	LastCursorBlink -= 10000ms;
+	Vector2D<int> out2DPosition;
+
+	int iter_1D = 0;
+	int line = 0;
+	int iter_textObject = 0;
+	for (iter_textObject; iter_textObject < TextObjects.size(); ++iter_textObject)
+	{
+		line = TextObjects[iter_textObject].Text.size();
+		iter_1D += line;
+		
+		if (iter_1D >= In1DPosition)
+		{
+			break;
+		}
+	}
+
+	out2DPosition.Y = iter_textObject;
+	out2DPosition.X = line - (iter_1D - In1DPosition);
+
+	return out2DPosition;
+}
+
+int TextBox::CursorPos_2DTo1D(Vector2D<int> const & In2DPosition)
+{
+	int out1DPosition = 0;
+
+	for (int i = 0; i < In2DPosition.Y; i++)
+	{
+		out1DPosition += TextObjects[i].Text.size();
+	}
+
+	out1DPosition += In2DPosition.X;
+
+	return out1DPosition;
 }
 
 void TextBox::SetText(std::string const & InText)
@@ -126,9 +118,9 @@ void TextBox::SetText(std::string const & InText)
 
 void TextBox::Event_CharacterEntered(unsigned int InChar)
 {
-	int posInText = GetCurserPositionInText();
+	int posInText = Cursor.GetPosition();
 	Text = Text.substr(0, posInText) + char(InChar) + Text.substr(posInText, Text.size() - posInText);
-	Event_KeyChanged(EventInfo_KeyChanged(GLFW_KEY_RIGHT));
+	Cursor.SetPosition(++posInText);
 	RequestUpdate();
 }
 
@@ -140,50 +132,33 @@ void TextBox::Event_KeyChanged(EventInfo_KeyChanged const & InInfo)
 
 	if (InfoCopy == EventInfo_KeyChanged(GLFW_KEY_RIGHT))
 	{
-		if (CursorPosition.X < TextObjects[CursorPosition.Y].Text.size())
-			CursorPosition.X++;
-		else if (CursorPosition.Y < TextObjects.size() - 1)
-		{
-			CursorPosition.Y++;
-			CursorPosition.X = 0;
-		}
-		RequestCursorUpdate();
+		int maxPos = CursorPos_2DTo1D(Vector2D<int>(TextObjects.begin()->Text.size(), TextObjects.size() - 1));
+		int curPos = Cursor.GetPosition();
+		if (curPos < maxPos)
+			Cursor.SetPosition(++curPos);
+		Cursor.RequestUpdate();
 	}
 	else if (InfoCopy == EventInfo_KeyChanged(GLFW_KEY_LEFT))
 	{
-		if (CursorPosition.X > 0)
-			CursorPosition.X--;
-		else if (CursorPosition.Y > 0)
-		{
-			CursorPosition.Y--;
-			CursorPosition.X = TextObjects[CursorPosition.Y].Text.size();
-		}
-		RequestCursorUpdate();
+		int curPos = Cursor.GetPosition();
+		if (curPos > 0)
+			Cursor.SetPosition(--curPos);
+		Cursor.RequestUpdate();
 	}
 	else if (InfoCopy == EventInfo_KeyChanged(GLFW_KEY_HOME) || InfoCopy == EventInfo_KeyChanged(327))
 	{
-		CursorPosition.X = 0;
-		RequestCursorUpdate();
+		Vector2D<int> curPos = CursorPos_1DTo2D(Cursor.GetPosition());
+		curPos.X = 0;
+		Cursor.SetPosition(CursorPos_2DTo1D(curPos));
+		Cursor.RequestUpdate();
 	}
 	else if (InfoCopy == EventInfo_KeyChanged(GLFW_KEY_END) || InfoCopy == EventInfo_KeyChanged(321))
 	{
-		CursorPosition.X = TextObjects[CursorPosition.Y].Text.size();
-		RequestCursorUpdate();
+		Vector2D<int> curPos = CursorPos_1DTo2D(Cursor.GetPosition());
+		curPos.X = TextObjects[curPos.Y].Text.size();
+		Cursor.SetPosition(CursorPos_2DTo1D(curPos));
+		Cursor.RequestUpdate();
 	}
 
 	GraphicsControl::Event_KeyChanged(InInfo);
-}
-
-int TextBox::GetCurserPositionInText()
-{
-	int cursorPos = 0;
-
-	for (int i = 0; i < CursorPosition.Y; i++)
-	{
-		cursorPos += TextObjects[i].Text.size();
-	}
-
-	cursorPos += CursorPosition.X;
-
-	return cursorPos;
 }

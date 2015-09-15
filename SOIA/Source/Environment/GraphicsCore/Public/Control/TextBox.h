@@ -20,12 +20,12 @@ namespace Environment
 	{
 	public:
 		TextBox(MBoundaries* InBoundaries, pxMargins InMargins, ETextBoxMode InMode = ETextBoxMode::NotEditable);
-		virtual ~TextBox();
 
 		virtual void Update() override;
-		void UpdateCursor();
 
-		void RequestCursorUpdate();
+		std::vector<pxPoint> CalculateCursorLocation();
+		Vector2D<int> CursorPos_1DTo2D(int InPosition);
+		int CursorPos_2DTo1D(Vector2D<int> const & InPosition);
 
 		void SetText(std::string const & InText);
 
@@ -33,20 +33,11 @@ namespace Environment
 		virtual void Event_KeyChanged(EventInfo_KeyChanged const & InInfo) override;
 
 	private:
-		int GetCurserPositionInText();
-
-	private:
 		std::string Text;
 		std::vector<TextObject> TextObjects;
 		ETextBoxMode Mode;
 
 		// cursor
-		GeometryObject* Cursor;
-		Vector2D<int> CursorPosition;
-		std::chrono::steady_clock::time_point LastCursorBlink;
-		bool bCursorOn;
-
-		// test
-		TextCursor TestCursor;
+		TextCursor Cursor;
 	};
 }
