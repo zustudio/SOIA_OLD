@@ -12,8 +12,11 @@ TextBox::TextBox(MBoundaries * InBoundaries, pxMargins InMargins, ETextBoxMode I
 	: GraphicsControl(InBoundaries, InMargins),
 	Mode(InMode),
 	Cursor(nullptr),
-	LastCursorBlink(std::chrono::steady_clock::now())
-{}
+	LastCursorBlink(std::chrono::steady_clock::now()),
+	TestCursor(this, {pxPoint(40, 40), pxPoint(50, 50)})
+{
+	GetWindow()->CommonUnfilledGeometryLayer.AddObject(&TestCursor);
+}
 
 TextBox::~TextBox()
 {

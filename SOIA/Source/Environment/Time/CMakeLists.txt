@@ -4,6 +4,10 @@ subproject(Time)
 	depends_on_projects(Environment Core_E)
 
 add_PrivatePublic(CurrentTime)
+add_Public(
+	Interpolator
+	InterpolationFunction
+	LinearInterpolation)
 end_sub()
 
 auto_add_shared_library()

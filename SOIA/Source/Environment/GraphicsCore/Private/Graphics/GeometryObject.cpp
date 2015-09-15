@@ -4,14 +4,14 @@
 #include "GeometryObject.h"
 using namespace Environment;
 
-GeometryObject::GeometryObject(MBoundaries * InBoundaries, pxMargins InMargins, fColor InColor, std::vector<pxPoint> const & InEdges)
+GeometryObject::GeometryObject(MBoundaries * InBoundaries, pxMargins InMargins, Interpolator<fColor> InColor, std::vector<pxPoint> const & InEdges)
 	: GraphicsObject(InBoundaries, InMargins),
 	Color(InColor),
 	Edges(InEdges),
 	EdgesFunction(nullptr)
 {}
 
-GeometryObject::GeometryObject(MBoundaries * InBoundaries, pxMargins InMargins, fColor InColor, EdgesFunctionType InEdgesFunction)
+GeometryObject::GeometryObject(MBoundaries * InBoundaries, pxMargins InMargins, Interpolator<fColor> InColor, EdgesFunctionType InEdgesFunction)
 	: GraphicsObject(InBoundaries, InMargins),
 	Color(InColor),
 	Edges(InEdgesFunction()),
@@ -21,6 +21,8 @@ GeometryObject::GeometryObject(MBoundaries * InBoundaries, pxMargins InMargins, 
 void GeometryObject::Update()
 {
 	GraphicsObject::Update();
+
+	Color.Update();
 
 	if (EdgesFunction)
 	{

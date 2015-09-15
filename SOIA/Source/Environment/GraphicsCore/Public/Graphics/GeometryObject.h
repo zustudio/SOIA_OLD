@@ -4,6 +4,7 @@
 #include "GraphicsObject.h"
 
 #include "fColor.h"
+#include "Interpolator.h"
 
 #include <functional>
 
@@ -14,14 +15,14 @@ namespace Environment
 	public:
 		using EdgesFunctionType = std::function<std::vector<pxPoint>()>;
 
-		GeometryObject(MBoundaries* InBoundaries, pxMargins InMargins, fColor InColor, std::vector<pxPoint> const & InEdges);
-		GeometryObject(MBoundaries* InBoundaries, pxMargins InMargins, fColor InColor, EdgesFunctionType InEdgesFunction);
+		GeometryObject(MBoundaries* InBoundaries, pxMargins InMargins, Interpolator<fColor> InColor, std::vector<pxPoint> const & InEdges);
+		GeometryObject(MBoundaries* InBoundaries, pxMargins InMargins, Interpolator<fColor> InColor, EdgesFunctionType InEdgesFunction);
 
 		virtual void Update() override;
 
 		static std::vector<pxPoint> MakeRectangle(pxPoint a, pxPoint b);
 
-		fColor Color;
+		Interpolator<fColor> Color;
 		std::vector<pxPoint> Edges;
 		EdgesFunctionType EdgesFunction;
 	};

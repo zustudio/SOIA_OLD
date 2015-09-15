@@ -4,6 +4,7 @@
 #include "GraphicsControl.h"
 
 #include "TextObject.h"
+#include "TextCursor.h"
 
 #include <chrono>
 
@@ -44,5 +45,8 @@ namespace Environment
 		Vector2D<int> CursorPosition;
 		std::chrono::steady_clock::time_point LastCursorBlink;
 		bool bCursorOn;
+
+		// test
+		TextCursor TestCursor;
 	};
 }

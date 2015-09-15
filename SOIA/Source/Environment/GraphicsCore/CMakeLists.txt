@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.1)
 
 subproject(GraphicsCore)
-	depends_on_projects(Environment Core_E CompileTime Text Thread File MathematicsCore)
+	depends_on_projects(Environment Core_E CompileTime Time Text Thread File MathematicsCore)
 	depends_on_thirdparty_shared(glewd libglew_sharedd liblibglew_shared)
 	depends_on_thirdparty_static(glfw3)
 	depends_on_thirdparty_static(SOIL)
@@ -62,6 +62,7 @@ in_sub(Control)
 		GraphicsControl
 		TextBox
 		TextBoxLine
+		TextCursor
 		Canvas)
 in_sub(Window)
 	add_PrivatePublic(
