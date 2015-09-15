@@ -27,7 +27,6 @@ namespace Environment
 				percentagePassed = 1;
 				interpolating = false;
 			}
-			std::cout << "interpolating... " << percentagePassed << std::endl;
 			InOutCurrent = InStart + (InTarget - InStart) * percentagePassed;
 
 			return interpolating;

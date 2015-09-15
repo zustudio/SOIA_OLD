@@ -93,6 +93,12 @@ Vector2D<int> TextBox::CursorPos_1DTo2D(int In1DPosition)
 	out2DPosition.Y = iter_textObject;
 	out2DPosition.X = line - (iter_1D - In1DPosition);
 
+	if (iter_1D - In1DPosition == 0 && out2DPosition.Y < TextObjects.size() - 1)
+	{
+		out2DPosition.Y++;
+		out2DPosition.X = 0;
+	}
+
 	return out2DPosition;
 }
 
@@ -119,7 +125,8 @@ void TextBox::SetText(std::string const & InText)
 void TextBox::Event_CharacterEntered(unsigned int InChar)
 {
 	int posInText = Cursor.GetPosition();
-	Text = Text.substr(0, posInText) + char(InChar) + Text.substr(posInText, Text.size() - posInText);
+	//Text = Text.substr(0, posInText) + char(InChar) + Text.substr(posInText, Text.size() - posInText);
+	Text.insert(Text.begin() + posInText, InChar);
 	Cursor.SetPosition(++posInText);
 	RequestUpdate();
 }
@@ -130,11 +137,38 @@ void TextBox::Event_KeyChanged(EventInfo_KeyChanged const & InInfo)
 	if (InfoCopy.Action == (int)EKeyAction::Repeat)
 		InfoCopy.Action = (int)EKeyAction::Press;
 
-	if (InfoCopy == EventInfo_KeyChanged(GLFW_KEY_RIGHT))
+	//------------------------------------------------------------
+	// special characters
+	if (InfoCopy == EventInfo_KeyChanged(GLFW_KEY_ENTER))
 	{
-		int maxPos = CursorPos_2DTo1D(Vector2D<int>(TextObjects.begin()->Text.size(), TextObjects.size() - 1));
+		Event_CharacterEntered('\n');
+	}
+	else if (InfoCopy == EventInfo_KeyChanged(GLFW_KEY_BACKSPACE))
+	{
+		int posInText = Cursor.GetPosition();
+		if (posInText > 0)
+		{
+			Text.erase(Text.begin() + posInText - 1);
+			Cursor.SetPosition(--posInText);
+			RequestUpdate();
+		}
+	}
+	else if (InfoCopy == EventInfo_KeyChanged(GLFW_KEY_DELETE))
+	{
+		int posInText = Cursor.GetPosition();
+		if (posInText < Text.size())
+		{
+			Text.erase(Text.begin() + posInText);
+			RequestUpdate();
+		}
+	}
+
+	//------------------------------------------------------------
+	// cursor movement
+	else if (InfoCopy == EventInfo_KeyChanged(GLFW_KEY_RIGHT))
+	{
 		int curPos = Cursor.GetPosition();
-		if (curPos < maxPos)
+		if (curPos < Text.size())
 			Cursor.SetPosition(++curPos);
 		Cursor.RequestUpdate();
 	}
@@ -156,6 +190,8 @@ void TextBox::Event_KeyChanged(EventInfo_KeyChanged const & InInfo)
 	{
 		Vector2D<int> curPos = CursorPos_1DTo2D(Cursor.GetPosition());
 		curPos.X = TextObjects[curPos.Y].Text.size();
+		if (curPos.Y < TextObjects.size() - 1)
+			--curPos.X;
 		Cursor.SetPosition(CursorPos_2DTo1D(curPos));
 		Cursor.RequestUpdate();
 	}

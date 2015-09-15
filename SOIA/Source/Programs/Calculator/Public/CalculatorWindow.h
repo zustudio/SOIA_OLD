@@ -12,7 +12,7 @@ namespace Programs
 		CalculatorWindow();
 
 	private:
-		//En::TextBox OutputBox;
+		En::TextBox OutputBox;
 		En::TextBox InputBox;
 	};
 }
