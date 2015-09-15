@@ -9,7 +9,7 @@
 
 namespace Environment
 {
-	LIBIMPEXP RenderThread*  GetRenderThread();
+	LIBIMPEXP RenderThread*  GlobalRenderThread();
 }
 GLEWContext* glewGetContext();
 

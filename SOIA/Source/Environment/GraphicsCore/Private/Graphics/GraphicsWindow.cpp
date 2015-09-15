@@ -4,7 +4,7 @@
 #include "GraphicsWindow.h"
 using namespace Environment;
 
-#include "RenderThreadProvider.h"
+#include "GlobalRenderThread.h"
 #include "GraphicsLayer.h"
 #include "GlobalLogger.h"
 
@@ -58,7 +58,7 @@ GraphicsWindow::GraphicsWindow(const std::string& InTitle, pxSize InSize)
 void GraphicsWindow::Initialize()
 {
 	// get last window
-	GraphicsWindow* lastWindow = GetRenderThread()->GetLastWindow();
+	GraphicsWindow* lastWindow = GlobalRenderThread()->GetLastWindow();
 	GLFWwindow* lastGLWindow = lastWindow ? lastWindow->GLWindow : nullptr;
 
 	//----- windows creation
@@ -80,7 +80,7 @@ void GraphicsWindow::Initialize()
 	glfwSetCharCallback(GLWindow, &GraphicsWindow::StaticEvent_CharacterEntered);
 
 	glfwMakeContextCurrent(GLWindow);
-	GetRenderThread()->CurrentWindow = this;
+	GlobalRenderThread()->CurrentWindow = this;
 
 	CheckGLError();
 
@@ -191,7 +191,7 @@ void GraphicsWindow::StaticEvent_FramebufferResized(GLFWwindow * InWindow, int I
 {
 	LOG("Event_FramebufferResized called on window '" + Logger::ToString((void*)InWindow) + "'.", Logger::Severity::DebugInfo);
 	glViewport(0, 0, InWidth, InHeight);
-	GraphicsWindow* window = GetRenderThread()->GetWindowByHandle(InWindow);
+	GraphicsWindow* window = GlobalRenderThread()->GetWindowByHandle(InWindow);
 	window->Size = pxSize(InWidth, InHeight);
 	window->RequestUpdate();
 	LOG("Event_FramebufferResized returned on window '" + Logger::ToString((void*)InWindow) + "'.", Logger::Severity::DebugInfo);
@@ -199,11 +199,11 @@ void GraphicsWindow::StaticEvent_FramebufferResized(GLFWwindow * InWindow, int I
 
 void GraphicsWindow::StaticEvent_KeyChanged(GLFWwindow * InWindow, int InKey, int InScanCode, int InAction, int InMods)
 {
-	GetRenderThread()->GetWindowByHandle(InWindow)->Event_KeyChanged(EventInfo_KeyChanged(InKey, InScanCode, InAction, InMods));
+	GlobalRenderThread()->GetWindowByHandle(InWindow)->Event_KeyChanged(EventInfo_KeyChanged(InKey, InScanCode, InAction, InMods));
 }
 
 void GraphicsWindow::StaticEvent_CharacterEntered(GLFWwindow * InWindow, unsigned int InChar)
 {
-	GetRenderThread()->GetWindowByHandle(InWindow)->Event_CharacterEntered(InChar);
+	GlobalRenderThread()->GetWindowByHandle(InWindow)->Event_CharacterEntered(InChar);
 }
 

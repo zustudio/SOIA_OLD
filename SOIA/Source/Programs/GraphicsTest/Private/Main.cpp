@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "RenderThreadProvider.h"
+#include "GlobalRenderThread.h"
 using namespace Environment;
 
 #include "VertexBufferTemplate.h"
@@ -113,9 +113,9 @@ int main()
 
 	
 	//GlobalLogger()->SetMinimalSeverity(Logger::Severity::DebugInfo);
-	GetRenderThread()->Start();
-	GetRenderThread()->AddWindow(new TestWindow());
-	GetRenderThread()->Join();
+	GlobalRenderThread()->Start();
+	GlobalRenderThread()->AddWindow(new TestWindow());
+	GlobalRenderThread()->Join();
 	return 0;
 }
 

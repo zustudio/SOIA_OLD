@@ -10,7 +10,7 @@ subproject(GraphicsCore)
 
 in_sub(Global)
 	add_PrivatePublic(
-		RenderThreadProvider
+		GlobalRenderThread
 		FreeTypeProvider)
 in_sub(Header)
 	add_Public(

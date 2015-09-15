@@ -6,18 +6,18 @@
 
 namespace Environment
 {
-	RenderThread* GlobalRenderThread = nullptr;
-	LIBIMPEXP RenderThread* GetRenderThread()
+	RenderThread* CurrentRenderThread = nullptr;
+	LIBIMPEXP RenderThread* GlobalRenderThread()
 	{
-		if (GlobalRenderThread)
-			return GlobalRenderThread;
+		if (CurrentRenderThread)
+			return CurrentRenderThread;
 		else
-			return GlobalRenderThread = new RenderThread();
+			return CurrentRenderThread = new RenderThread();
 	}
 }
 LIBIMPEXP GLEWContext* glewGetContext()
 {
-	return Environment::GetRenderThread()->CurrentWindow->GlewContext;
+	return Environment::GlobalRenderThread()->CurrentWindow->GlewContext;
 }
 
 void CheckGLError()

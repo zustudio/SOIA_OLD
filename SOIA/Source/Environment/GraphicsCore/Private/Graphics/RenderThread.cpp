@@ -3,7 +3,7 @@
 
 #include "RenderThread.h"
 using namespace Environment;
-#include "RenderThreadProvider.h"
+#include "GlobalRenderThread.h"
 #include "GlobalLogger.h"
 
 #include <thread>

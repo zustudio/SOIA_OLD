@@ -69,4 +69,4 @@ namespace Environment
 	}
 }
 
-
+namespace En = Environment;
