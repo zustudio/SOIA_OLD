@@ -5,16 +5,24 @@
 using namespace Environment;
 
 #include "ControlWindow.h"
+#include "LimitedExponentialInterpolation.h"
+using namespace std::chrono_literals;
 
 GraphicsControl::GraphicsControl(MBoundaries * InBoundaries, pxMargins InMargins)
 	: MBoundaries(InBoundaries, InMargins),
-	Border(
+	Space(
 		this,
 		pxMargins(0,0,0,0),
 		fColor(1, 1, 1),
-		[this]() {return GeometryObject::MakeRectangle(pxPoint(0, 0), GetSize().ToPoint()); })
+		[this]() {return GeometryObject::MakeRectangle(pxPoint(0, 0), GetSize().ToPoint()); }),
+	SelectionBorder(
+		this,
+		pxMargins(0, 0, 0, 0),
+		Interpolator<fColor>(fColor(1, 1, 1, 0), new LimitedExponentialInterpolation<fColor>(300ms)),
+		[this]() {return GeometryObject::MakeRectangle(pxPoint(2, 2), GetSize().ToPoint() - pxPoint(2,2)); })
 {
-	GetWindow()->CommonFilledGeometryLayer.AddObject(&Border);
+	GetWindow()->CommonFilledGeometryLayer.AddObject(&Space);
+	GetWindow()->CommonUnfilledGeometryLayer.AddObject(&SelectionBorder);
 }
 
 void GraphicsControl::Event_CharacterEntered(unsigned int InChar)
@@ -29,14 +37,12 @@ void GraphicsControl::Event_SelectionChanged(EventInfo_SelectionChanged const & 
 {
 	if (InInfo == ESelectionStatus::Selected)
 	{
-		Border.Color = fColor(1, 1, 1);
-		Border.RequestUpdate();
+		SelectionBorder.Color = fColor(0.2, 0, 1);
 		bSelected = true;
 	}
 	else
 	{
-		Border.Color = fColor(0.8, 0.8, 0.8);
-		Border.RequestUpdate();
+		SelectionBorder.Color = fColor(0, 0, 0, 0);
 		bSelected = false;
 	}
 }

@@ -11,7 +11,7 @@
 
 namespace Environment
 {
-	class GeometryObject : public GraphicsObject
+	class LIBIMPEXP GeometryObject : public GraphicsObject
 	{
 	public:
 		using EdgesFunctionType = std::function<std::vector<pxPoint>()>;

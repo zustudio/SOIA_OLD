@@ -3,16 +3,22 @@
 
 #include "ControlWindow.h"
 #include "TextBox.h"
+#include "MathContainer.h"
 
 namespace Programs
 {
-	class CalculatorWindow : public En::ControlWindow
+	class CalculatorWindow : public Env::ControlWindow
 	{
 	public:
 		CalculatorWindow();
 
+		void CalculateInput();
+
+		virtual void Event_KeyChanged(Env::EventInfo_KeyChanged const & InInfo) override;
+
 	private:
-		En::TextBox OutputBox;
-		En::TextBox InputBox;
+		Env::TextBox OutputBox;
+		Env::TextBox InputBox;
+		MathContainer MathCont;
 	};
 }

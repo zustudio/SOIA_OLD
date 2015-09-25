@@ -63,6 +63,7 @@ in_sub(Control)
 		TextBox
 		TextBoxLine
 		TextCursor
+		TextBoxDialogue
 		Canvas)
 in_sub(Window)
 	add_PrivatePublic(

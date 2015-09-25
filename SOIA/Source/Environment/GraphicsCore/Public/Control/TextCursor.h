@@ -5,12 +5,13 @@
 
 namespace Environment
 {
-	class TextCursor : public GeometryObject
+	class LIBIMPEXP TextCursor : public GeometryObject
 	{
 	public:
 		TextCursor(MBoundaries* InBoundaries, std::function<std::vector<pxPoint>()> const & InEdges);
 		virtual void Update() override;
 
+		void SetVisibility(bool Visible);
 		int GetPosition();
 		void SetPosition(int InPosition);
 
@@ -18,5 +19,6 @@ namespace Environment
 		int Position;
 		fColor OnColor;
 		fColor OffColor;
+		bool bVisible;
 	};
 }

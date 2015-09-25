@@ -28,9 +28,11 @@ namespace Environment
 		int CursorPos_2DTo1D(Vector2D<int> const & InPosition);
 
 		void SetText(std::string const & InText);
+		std::string const & GetText();
 
 		virtual void Event_CharacterEntered(unsigned int InChar) override;
 		virtual void Event_KeyChanged(EventInfo_KeyChanged const & InInfo) override;
+		virtual void Event_SelectionChanged(EventInfo_SelectionChanged const & InInfo) override;
 
 	private:
 		std::string Text;

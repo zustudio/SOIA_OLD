@@ -7,12 +7,14 @@ using namespace Supervisor;
 
 #include "GlobalLogger.h"
 #include "GlobalContainer.h"
+#include "GlobalRenderThread.h"
 
 //classes to be registered
 #include "TCalculator.h"
 #include "RGraphTool2D.h"
 #include "PipelineTool.h"
 #include "RConversionPipes.h"
+#include "TBlackBoard.h"
 
 #include <iostream>
 
@@ -49,6 +51,9 @@ void PersistentRuntime::InitializeGlobalObjects(RClass* InStandardDialogueClass)
 	Logger globalLogger = Logger(*GlobalDialogue);
 	SetGlobalLogger(globalLogger);
 
+	// start global render thread
+	GlobalRenderThread()->Start();
+
 	std::cout << "Done." << std::endl;
 }
 
@@ -71,9 +76,6 @@ void PersistentRuntime::InitializeElementHierarchy()
 	ConsoleTool = new TConsole();
 	RuntimeTool = new TRuntime();
 	ExplorerTool = new TElementExplorer();
-	ConsoleTool->Dialogue = &GlobalDialogue;
-	RuntimeTool->Dialogue = &GlobalDialogue;
-	ExplorerTool->Dialogue = &GlobalDialogue;
 	GlobalContainer->Register(ConsoleTool, "console");
 	GlobalContainer->Register(RuntimeTool, "runtime");
 	GlobalContainer->Register(ExplorerTool, "explorer");
@@ -88,7 +90,8 @@ void PersistentRuntime::RegisterReflectedClasses()
 		TCalculator,
 		RGraphTool,
 		PipelineTool,
-		RConversionPipes>();
+		RConversionPipes,
+		TBlackBoard>();
 	LOGSTATUS("Done.");
 }
 

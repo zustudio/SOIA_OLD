@@ -18,7 +18,7 @@ namespace Environment
 	////////////////////////////////////////////////////////////////////
 	/// \class	GraphicsControl
 	/// \brief	Represents an user interactable element in a window.
-	class GraphicsControl : public MBoundaries
+	class LIBIMPEXP GraphicsControl : public MBoundaries
 	{
 	public:
 		GraphicsControl(MBoundaries* InBoundaries, pxMargins InMargins);
@@ -35,7 +35,8 @@ namespace Environment
 		ControlWindow* GetWindow();
 
 	private:
-		GeometryObject Border;
+		GeometryObject Space;
+		GeometryObject SelectionBorder;
 		bool bSelected;
 	};
 }

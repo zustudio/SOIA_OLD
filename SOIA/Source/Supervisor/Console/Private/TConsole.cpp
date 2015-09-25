@@ -28,6 +28,8 @@ TConsole::TConsole()
 
 void TConsole::Main()
 {
+	ConfigureMainTool(&MainDialogue);
+
 	std::string currentTarget;
 	while (!bExit && !IsStopping())
 	{

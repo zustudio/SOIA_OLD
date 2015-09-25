@@ -20,6 +20,11 @@ void Logger::SetMinimalSeverity(Severity InMinimalSeverity)
 	MinimalSeverity = InMinimalSeverity;
 }
 
+void Environment::Logger::SetDialogue(DialogueInterface * InTarget)
+{
+	Target = InTarget;
+}
+
 void Logger::Log(const std::string& InMessage, Severity InMessageSeverity, const std::string& InProjectName)
 {
 	if (InMessageSeverity >= MinimalSeverity)

@@ -1,15 +1,16 @@
 
 #pragma once
 
-#include "TTool.h"
+#include "TMainTool.h"
 #include "Thread.h"
 
 #include "Tokenizer.h"
+#include "StdDialogue.h"
 
 namespace Supervisor
 {
-	RCLASS(TConsole,TTool)
-	class LIBIMPEXP TConsole : public TConsole_Base, public Environment::Thread
+	RCLASS(TConsole,TMainTool)
+	class LIBIMPEXP TConsole : public TConsole_Base
 	{
 		RCLASS_BEGIN()
 
@@ -30,7 +31,8 @@ namespace Supervisor
 
 	private:
 		bool bExit;
-		Environment::Tokenizer InputTokenizer;
+		Env::Tokenizer InputTokenizer;
+		Env::StdDialogue MainDialogue;
 
 		RCLASS_END()
 	};

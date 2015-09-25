@@ -17,7 +17,7 @@ ControlWindow::ControlWindow(std::string Name, pxSize InSize)
 	AddLayer(&CommonTextContentLayer);
 }
 
-void ControlWindow::Event_KeyChanged(EventInfo_KeyChanged InInfo)
+void ControlWindow::Event_KeyChanged(EventInfo_KeyChanged const & InInfo)
 {
 	bool selectingControl = false;
 	bool selectDirection = false;

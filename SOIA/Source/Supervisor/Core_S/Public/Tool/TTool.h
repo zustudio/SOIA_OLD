@@ -17,15 +17,23 @@ namespace Supervisor
 	class LIBIMPEXP TTool : public TTool_Base
 	{
 		RCLASS_BEGIN()
+
+	public:
+		///\name ctor
+		///\{
 			TTool();
+		///\}
 
 		RFUNCTION(cmd_help)
 			bool cmd_help();
 
-		RPROPERTY(Dialogue)
-			Environment::RPointer<Environment::RWrapper<Environment::DialogueInterface>> Dialogue;
+		///\name configuration
+		///\{
+			void SetDialogue(Env::DialogueInterface* InDialogue);
+		///\}
 
-		Environment::RClass* GuiClass;
+	protected:
+		Env::DialogueInterface* Dialogue;
 
 		RCLASS_END()
 	};

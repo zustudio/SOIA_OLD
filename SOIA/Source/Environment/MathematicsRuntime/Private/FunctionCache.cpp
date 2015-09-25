@@ -14,7 +14,10 @@ FunctionCache::FunctionCache()
 
 void FunctionCache::CacheFunctionCall(std::vector<double> InOperands, double InResult)
 {
-	CachedItems.push_back(FunctionCacheItem(InOperands, InResult));
+	if (InOperands.size())
+	{
+		CachedItems.push_back(FunctionCacheItem(InOperands, InResult));
+	}
 }
 
 void FunctionCache::Clear()

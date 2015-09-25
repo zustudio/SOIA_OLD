@@ -25,6 +25,11 @@ void GeometryObject::Update()
 	Color.Update();
 	Edges.Update();
 
+	if (Edges.IsInterpolating() || Color.IsInterpolating())
+	{
+		this->RequestUpdate();
+	}
+
 	if (bUpdateRequested && EdgesFunction)
 	{
 		Edges = EdgesFunction();

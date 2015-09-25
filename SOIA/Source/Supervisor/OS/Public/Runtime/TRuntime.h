@@ -20,6 +20,9 @@ namespace Supervisor
 		RFUNCTION(cmd_run)
 			bool cmd_run(TRuntime* const& InRuntime);
 
+		RFUNCTION(cmd_start)
+			bool cmd_start(RElement* const & InThread);
+
 		RFUNCTION(cmd_typelist)
 			bool cmd_typelist();
 

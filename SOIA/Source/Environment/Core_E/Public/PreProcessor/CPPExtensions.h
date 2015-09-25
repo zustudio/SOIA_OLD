@@ -69,4 +69,12 @@ namespace Environment
 	}
 }
 
-namespace En = Environment;
+namespace Supervisor
+{ }
+
+namespace Apprentice
+{ }
+
+namespace Env = Environment;
+namespace Sup = Supervisor;
+namespace App = Apprentice;

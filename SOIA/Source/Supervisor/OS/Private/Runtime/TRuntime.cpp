@@ -11,6 +11,7 @@ using namespace Supervisor;
 #include "ElementFile.h"
 #include "GlobalLogger.h"
 #include "TConsole.h"
+#include "TMainTool.h"
 
 TRuntime::TRuntime()
 	: BaseType(),
@@ -34,13 +35,28 @@ bool TRuntime::cmd_run(TRuntime * const & InRuntime)
 	return true;
 }
 
+bool TRuntime::cmd_start(RElement * const & InThread)
+{
+	bool success = false;
+	Thread* thread = dynamic_cast<Thread*>(InThread);
+
+	if (thread)
+	{
+		ActiveThreads.push_back(InThread);
+		thread->Start();
+		success = true;
+	}
+
+	return success;
+}
+
 void TRuntime::Run()
 {
-	LOGSTATUS("Searching for configured threads...");
+	/*LOGSTATUS("Searching for configured threads...");
 	int threadCount = 0;
 	for (RElement* activeThreadElement : ActiveThreads)
 	{
-		Thread* activeThread = dynamic_cast<Thread*>(activeThreadElement);
+		TMainTool* activeThread = dynamic_cast<TMainTool*>(activeThreadElement);
 		if (activeThread)
 		{
 			activeThread->Start();
@@ -51,21 +67,22 @@ void TRuntime::Run()
 	{
 		LOGSTATUS("Started " + std::to_string(threadCount) + " thread(s).");
 	}
-	else
+	else*/
+
 	{
-		LOGSTATUS("No threads were found. Searching for TConsole child classes in container '" + Container->GetName() + "'.");
-		auto consoles = Container->GetAllElements<TConsole>();
-		if (consoles.size())
+		LOGSTATUS("Searching for main tools in container '" + Container->GetName() + "'.");
+		auto mainTools = Container->GetAllElements<TMainTool>();
+		if (mainTools.size())
 		{
-			auto console = consoles[0];
+			auto console = mainTools[0];
 			LOGSTATUS("Activating '" + console->GetName() + "'.");
 			ActiveThreads.push_back(console);
 			console->Start();
-			threadCount++;
+			//threadCount++;
 		}
 		else
 		{
-			LOG("No threads could be found, returning", Logger::Severity::Error);
+			LOG("No main tool could be found, returning", Logger::Severity::Error);
 			return;
 		}
 	}
@@ -125,11 +142,11 @@ bool TRuntime::cmd_create(const TypeID & InType, const std::string& InName, RCon
 	{
 		RElement* object = objectClass->GetDefaultObject();
 
-		TTool* tool = dynamic_cast<TTool*>(object);
+		/*TTool* tool = dynamic_cast<TTool*>(object);
 		if (tool)
 		{
 			tool->Dialogue = this->Dialogue;
-		}
+		}*/
 
 		std::string name = InName;
 
@@ -158,7 +175,7 @@ bool TRuntime::cmd_rename(RElement* const& InElement, std::string const& InNewNa
 
 bool TRuntime::cmd_gui(TTool * const & InTool)
 {
-	static_cast<RGUI*>(InTool->GuiClass->GetDefaultObject())->Start();
+	//static_cast<RGUI*>(InTool->GuiClass->GetDefaultObject())->Start();
 	return true;
 }
 

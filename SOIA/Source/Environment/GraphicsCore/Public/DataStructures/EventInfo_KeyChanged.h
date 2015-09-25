@@ -29,7 +29,7 @@ namespace Environment
 		Repeat = GLFW_REPEAT
 	};
 
-	class EventInfo_KeyChanged
+	class LIBIMPEXP EventInfo_KeyChanged
 	{
 	public:
 		EventInfo_KeyChanged(int InKey, int InScanCode, int InAction, int InMods);

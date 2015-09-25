@@ -6,6 +6,7 @@ subproject(Core_S)
 in_sub(Tool)
 	add_PrivatePublic(
 		TTool
+		TMainTool
 		RGUI)
 in_sub(Dialogue)
 	add_PrivatePublic(

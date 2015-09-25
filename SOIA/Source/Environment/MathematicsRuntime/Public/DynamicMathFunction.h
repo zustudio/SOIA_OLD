@@ -19,6 +19,7 @@ namespace Environment
 		DynamicMathFunction(MathContainer* InContainer, Value* InMathObject);
 		virtual double Execute(std::vector<double> const &) override;
 		std::string GetName();
+		Value * GetValue();
 
 	private:
 		MathContainer* Container;

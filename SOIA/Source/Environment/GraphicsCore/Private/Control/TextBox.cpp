@@ -27,15 +27,15 @@ void TextBox::Update()
 		ContainerAwareIteratorSet<std::string> textIteratorSet = ContainerAwareIteratorSet<std::string>(Text, Text.begin());
 		while (textIteratorSet.Current != textIteratorSet.End)
 		{
-			lines.push_back(TextBoxLine(texture, GetSize().Width - 2));
+			lines.push_back(TextBoxLine(texture, GetSize().Width - 8));
 			(*--lines.end()).Fill(textIteratorSet);
 		}
 
 		int CurY = 0;
 		for (TextBoxLine& line : lines)
 		{
-			TextObjects.push_back(TextObject(this, pxMargins(1, CurY + 1, GetSize().Width - 2, texture->GetSpriteSize().Y), line.CurrentText));
-			CurY += texture->GetSpriteSize().Y + 3;
+			TextObjects.push_back(TextObject(this, pxMargins(4, CurY + 4, GetSize().Width - 8, texture->GetSpriteSize().Y), line.CurrentText));
+			CurY += texture->GetSpriteSize().Y + 4;
 		}
 
 		for (TextObject& object : TextObjects)
@@ -119,13 +119,24 @@ int TextBox::CursorPos_2DTo1D(Vector2D<int> const & In2DPosition)
 void TextBox::SetText(std::string const & InText)
 {
 	Text = InText;
+
+	if (Cursor.GetPosition() > Text.size())
+		Cursor.SetPosition(Text.size());
+
 	RequestUpdate();
+}
+
+std::string const & TextBox::GetText()
+{
+	return Text;
 }
 
 void TextBox::Event_CharacterEntered(unsigned int InChar)
 {
+	if (Mode != ETextBoxMode::Editable)
+		return;
+
 	int posInText = Cursor.GetPosition();
-	//Text = Text.substr(0, posInText) + char(InChar) + Text.substr(posInText, Text.size() - posInText);
 	Text.insert(Text.begin() + posInText, InChar);
 	Cursor.SetPosition(++posInText);
 	RequestUpdate();
@@ -133,6 +144,9 @@ void TextBox::Event_CharacterEntered(unsigned int InChar)
 
 void TextBox::Event_KeyChanged(EventInfo_KeyChanged const & InInfo)
 {
+	if (Mode != ETextBoxMode::Editable)
+		return;
+
 	auto InfoCopy = InInfo;
 	if (InfoCopy.Action == (int)EKeyAction::Repeat)
 		InfoCopy.Action = (int)EKeyAction::Press;
@@ -197,4 +211,21 @@ void TextBox::Event_KeyChanged(EventInfo_KeyChanged const & InInfo)
 	}
 
 	GraphicsControl::Event_KeyChanged(InInfo);
+}
+
+void TextBox::Event_SelectionChanged(EventInfo_SelectionChanged const & InInfo)
+{
+	if (Mode == ETextBoxMode::Editable)
+	{
+		if (InInfo == ESelectionStatus::Selected)
+			Cursor.SetVisibility(true);
+		else
+			Cursor.SetVisibility(false);
+	}
+	else
+	{
+		Cursor.SetVisibility(false);
+	}
+
+	GraphicsControl::Event_SelectionChanged(InInfo);
 }

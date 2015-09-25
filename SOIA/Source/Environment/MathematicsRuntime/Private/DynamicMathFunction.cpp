@@ -21,3 +21,8 @@ std::string Environment::DynamicMathFunction::GetName()
 {
 	return MathObject->GetName();
 }
+
+Value * Environment::DynamicMathFunction::GetValue()
+{
+	return MathObject;
+}

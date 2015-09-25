@@ -13,6 +13,16 @@
 namespace Environment
 {
 	class GraphicsLayer;
+}
+
+namespace Environment
+{
+	enum class EWindowStatus
+	{
+		Closed,
+		Open
+	};
+
 	class LIBIMPEXP GraphicsWindow : public MBoundaries
 	{
 		////////////////////////////////////////////////////////////////
@@ -24,6 +34,10 @@ namespace Environment
 		virtual ~GraphicsWindow();
 		void Initialize();
 
+		//----- management -----
+		void Open();
+		void Close();
+
 		//----- public usage -----
 		void AddLayer(GraphicsLayer* InLayer);
 
@@ -34,7 +48,7 @@ namespace Environment
 		virtual Vector2D<pxPoint> CalculateAbsoluteCornerLocationsOnWindow() override;
 
 		//----- forwarded events -----
-		virtual void Event_KeyChanged(EventInfo_KeyChanged InInfo);
+		virtual void Event_KeyChanged(EventInfo_KeyChanged const & InInfo);
 		virtual void Event_CharacterEntered(unsigned int InChar);
 
 		//----- static glfw events -----
@@ -53,5 +67,6 @@ namespace Environment
 		std::vector<GraphicsLayer*> Layers;
 		pxSize Size;
 		std::string Title;
+		EWindowStatus Status;
 	};
 }

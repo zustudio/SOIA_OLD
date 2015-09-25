@@ -7,8 +7,7 @@ using namespace Environment;
 
 TTool::TTool()
 	: BaseType(),
-	Dialogue(RPointer<RWrapper<DialogueInterface>>(nullptr)),
-	GuiClass(nullptr)
+	Dialogue(nullptr)
 {
 	ReflectAttributes();
 }
@@ -20,4 +19,9 @@ bool TTool::cmd_help()
 	auto elementwrapper = RPointer<RElement>(nullptr);
 	
 	return true;
+}
+
+void TTool::SetDialogue(Env::DialogueInterface * InDialogue)
+{
+	Dialogue = InDialogue;
 }

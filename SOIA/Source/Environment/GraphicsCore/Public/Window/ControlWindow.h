@@ -21,7 +21,7 @@ namespace Environment
 		ControlWindow(std::string Name, pxSize InSize = pxSize(500, 500));
 
 		//----- forwarded events -----
-		virtual void Event_KeyChanged(EventInfo_KeyChanged InInfo) override;
+		virtual void Event_KeyChanged(EventInfo_KeyChanged const & InInfo) override;
 		virtual void Event_CharacterEntered(unsigned int InChar) override;
 
 	public:

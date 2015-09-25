@@ -89,61 +89,27 @@ void GraphicsWindow::Initialize()
 	auto glewSuccess = glewInit();
 
 	CheckGLError();
-
-	//////////////////////////
-	// TEST CREATING
 	
 	for (auto layer : Layers)
 	{
 		layer->Initialize();
 	}
-	
-	
-	//----- element buffer
-	/*glGenBuffers(1, &elementBuffer);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(elements), elements, GL_STATIC_DRAW);*/
-
-	//----- compile shaders
-	/*vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertexShader, 1, &vertexShaderString, NULL);
-	glCompileShader(vertexShader);
-
-	GLint status;
-	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &status);
-	char buffer[512];
-	glGetShaderInfoLog(vertexShader, 512, NULL, buffer);
-
-
-	fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragmentShader, 1, &fragmentShaderString, NULL);
-	glCompileShader(fragmentShader);
-
-	glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &status);
-	char buffer2[512];
-	glGetShaderInfoLog(fragmentShader, 512, NULL, buffer2);*/
-
-	//----- creating program out of shadersGLuint vertexArrays;
-	/*shaderProgram = glCreateProgram();
-	glAttachShader(shaderProgram, vertexShader);
-	glAttachShader(shaderProgram, fragmentShader);
-
-	glBindFragDataLocation(shaderProgram, 0, "outColor");
-
-	glLinkProgram(shaderProgram);
-	glUseProgram(shaderProgram);*/
 
 	CheckGLError();
-	//----- linking vertex data to shader
-	/*posAttrib = glGetAttribLocation(shaderProgram, "position");
-	glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), 0);
-	glEnableVertexAttribArray(posAttrib);
 
-	colAttrib = glGetAttribLocation(shaderProgram, "vertexColor");
-	glVertexAttribPointer(colAttrib, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(2 * sizeof(float)));
-	glEnableVertexAttribArray(colAttrib);*/
+	this->RequestUpdate();
+}
 
-	//uniColor = glGetUniformLocation(shaderProgram, "extraColor");
+void GraphicsWindow::Open()
+{
+	Status = EWindowStatus::Open;
+	GlobalRenderThread()->AddWindow(this);
+}
+
+void GraphicsWindow::Close()
+{
+	Status = EWindowStatus::Closed;
+	LOG("GraphicsWindow::Close is not implemented", Logger::Severity::Error);
 }
 
 void GraphicsWindow::AddLayer(GraphicsLayer * InLayer)
@@ -177,7 +143,7 @@ Vector2D<pxPoint> GraphicsWindow::CalculateAbsoluteCornerLocationsOnWindow()
 	return Vector2D<pxPoint>(pxPoint(0, 0), pxPoint(Size.Width, Size.Height));
 }
 
-void GraphicsWindow::Event_KeyChanged(EventInfo_KeyChanged InInfo)
+void GraphicsWindow::Event_KeyChanged(EventInfo_KeyChanged const & InInfo)
 {
 
 }
