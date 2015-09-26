@@ -5,6 +5,7 @@ SOIA, or Self-reflecting Object Interaction Analysis is a tool for dynamically a
 
 ## Structure
 The code base is divided into following folders:
+```
  /Source
    /"Namespace"
      /"Project"
@@ -14,6 +15,7 @@ The code base is divided into following folders:
 	     /(subfolder)
 	   /Source
 	     /(subfolder)
+```
 
 ## Naming Conventions
  - [namespace/class/struct names, function names, (class-) global variable names]: ThisIsAnExample
