@@ -4,7 +4,7 @@ subproject(SOIA)
 	depends_on_projects(Environment File Text Reflection MathematicsCore CompileTime)
 	depends_on_projects(Supervisor Core_S ElementExplorer Console Equation OS)
 
-add_Private(Main)
+add_Source(Main)
 end_sub()
 
 auto_add_executable()

@@ -9,7 +9,7 @@ in_sub(Element)
 		RWrapperInterface
 		RClassTemplate
 		ReflectionMacros)
-	add_PrivatePublic(
+	add_Source_and_Public(
 		ElementID
 		RClassProvider
 		RAbstractClass
@@ -25,11 +25,11 @@ in_sub(Atom)
 		SimpleConverter
 		PointerConverter
 		VectorConverter)
-	add_PrivatePublic(
+	add_Source_and_Public(
 		AtomConverterHelper
 		AtomConverterProvider)
 in_sub(Function)
-	add_PrivatePublic(
+	add_Source_and_Public(
 		RFunctionTemplate
 		RFunction
 		Function)
@@ -39,7 +39,7 @@ in_sub(Type)
 		TypeName
 		MemberMirrorTemplate
 		ObjectMirrorTemplate)
-	add_PrivatePublic(
+	add_Source_and_Public(
 		TypeID
 		PointerCounter
 		TEST VoidPointer
@@ -48,12 +48,12 @@ in_sub(Type)
 in_sub(Unresolved)
 	add_Public(
 		ResolveInfoInterface)
-	add_PrivatePublic(
+	add_Source_and_Public(
 		ResolvePointerInfo
 		ResolveVectorInfo
 		VoidPointerToUnresolvedRObject)
 in_sub(Global)
-	add_PrivatePublic(
+	add_Source_and_Public(
 		GlobalContainer
 		GlobalReflectionProviders)
 end_sub()

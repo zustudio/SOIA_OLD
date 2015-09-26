@@ -4,9 +4,9 @@ subproject(File)
 	depends_on_projects(Environment Reflection Text)
 
 in_sub(Global)
-	add_PrivatePublic(FileSystemProvider)
+	add_Source_and_Public(FileSystemProvider)
 in_sub(System)
-	add_PrivatePublic(
+	add_Source_and_Public(
 		FileSystem
 		CommonFileSytemAccess
 		File
@@ -14,15 +14,15 @@ in_sub(System)
 		Directory
 		Path)
 in_sub(Platform_Linux Linux)
-	add_PrivatePublic(
+	add_Source_and_Public(
 		LinuxFileSystemAccess)
 in_sub(Platform_Windows Windows)
 	add_Public(
 		dirent)
-	add_PrivatePublic(
+	add_Source_and_Public(
 		WindowsFileSystemAccess)
 in_sub(Serialization)
-	add_PrivatePublic(
+	add_Source_and_Public(
 		ElementFile
 		ElementTokenizer)
 end_sub()

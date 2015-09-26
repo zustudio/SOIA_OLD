@@ -9,7 +9,7 @@ subproject(Graphics)
 	depends_on_system(glu32 gdi32 opengl32)
 
 in_sub(Global)
-	add_PrivatePublic(
+	add_Source_and_Public(
 		GlobalRenderThread
 		FreeTypeProvider)
 in_sub(Header)
@@ -22,7 +22,7 @@ in_sub(Header)
 in_sub(DataStructures)
 	add_Public(
 		DataUnravelerTemplate)
-	add_PrivatePublic(
+	add_Source_and_Public(
 		iTriangle
 		iLine
 		pxPoint
@@ -34,13 +34,13 @@ in_sub(DataStructures)
 		EventInfo_MouseButtonChanged
 		EventInfo_SelectionChanged)
 in_sub(Hierarchy)
-	add_PrivatePublic(
+	add_Source_and_Public(
 		MBound
 		MBoundaries)
 in_sub(Graphics)
 	add_Public(
 		VertexBufferTemplate)
-	add_PrivatePublic(
+	add_Source_and_Public(
 		RenderThread
 		GraphicsWindow
 		GraphicsLayer
@@ -60,7 +60,7 @@ in_sub(Graphics)
 		Texture2D
 		FontTexture2D)
 in_sub(Control)
-	add_PrivatePublic(
+	add_Source_and_Public(
 		GraphicsControl
 		TextBox
 		TextBoxLine
@@ -68,7 +68,7 @@ in_sub(Control)
 		TextBoxDialogue
 		Canvas)
 in_sub(Window)
-	add_PrivatePublic(
+	add_Source_and_Public(
 		ControlWindow)
 end_sub()
 

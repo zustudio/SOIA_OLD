@@ -150,7 +150,7 @@ endif()
 endmacro( auto_add_unittests )
 
 function( auto_include_directories )
-	set(L_auto_include_dirs PUBLIC ${DEPENDENCY_INCLUDE_DIRS} ${PROJECT_Public_DIRS} PRIVATE ${PROJECT_Classes_DIRS} ${CMAKE_CURRENT_BINARY_DIR}/Generated ${THIRDPARTY_DIRECTORY}/include)
+	set(L_auto_include_dirs PUBLIC ${DEPENDENCY_INCLUDE_DIRS} ${PROJECT_Public_DIRS} PRIVATE ${PROJECT_Header_DIRS} ${CMAKE_CURRENT_BINARY_DIR}/Generated ${THIRDPARTY_DIRECTORY}/include)
 	#dmessage(STATUS "auto-including following directories: ${L_auto_include_dirs}" )
 	target_include_directories(${SUBPROJECT_NAME} ${L_auto_include_dirs} )
 endfunction( auto_include_directories )
@@ -166,13 +166,13 @@ macro( auto_static_check )
 	if( "${STATIC_CODE_CHECK}" STREQUAL "ON" )
 		dmessage(STATUS "= Adding static code check =")
 		dmessage(STATUS "  cppfiles are: ${CPP_FILES}")
-		cppcheck_target_sources( ${SUBPROJECT_NAME} SOURCES ${CPP_FILES} INCLUDES ${PROJECT_Classes_DIRS} ${CMAKE_CURRENT_BINARY_DIR}/Generated)
-		# INCLUDES ${PROJECT_Public_DIRS} ${PROJECT_Classes_DIRS} 
+		cppcheck_target_sources( ${SUBPROJECT_NAME} SOURCES ${CPP_FILES} INCLUDES ${PROJECT_Header_DIRS} ${CMAKE_CURRENT_BINARY_DIR}/Generated)
+		# INCLUDES ${PROJECT_Public_DIRS} ${PROJECT_Header_DIRS} 
 	endif()
 endmacro( auto_static_check )
 
 # in_sub()
-#    sets variable CURRENT_SUB_NAME, if 'Environment/Reflection/Private/Atomic/' #    is meant, call with in_sub("Atomic")
+#    sets variable CURRENT_SUB_NAME, if 'Environment/Reflection/Source/Atomic/' #    is meant, call with in_sub("Atomic")
 macro( in_sub L_sub_name )
 	end_sub()
 
@@ -189,29 +189,29 @@ macro( end_sub )
 	list( APPEND CPP_FILES ${SUB_CPP_FILES} )
 	list( APPEND PUBLIC_H_FILES ${SUB_PUBLIC_H_FILES} )
 	list( APPEND PRIVATE_H_FILES ${SUB_PRIVATE_H_FILES} )
-	sub_source_group( Private "${SUB_CPP_FILES}" )
+	sub_source_group( Source "${SUB_CPP_FILES}" )
 	sub_source_group( Public "${SUB_PUBLIC_H_FILES}" )
-	sub_source_group( Classes "${SUB_PRIVATE_H_FILES}" )
+	sub_source_group( Header "${SUB_PRIVATE_H_FILES}" )
 	SET(bSUB_Public_DIR_ADDED FALSE)
-	SET(bSUB_Private_DIR_ADDED FALSE)
-	SET(bSUB_Classes_DIR_ADDED FALSE)
+	SET(bSUB_Source_DIR_ADDED FALSE)
+	SET(bSUB_Header_DIR_ADDED FALSE)
 endmacro( end_sub )
 
-# add_PrivatePublic()
+# add_Source_and_Public()
 #    Call with list of names. Every name is treated as a pair of .h & .cpp files, these are added into
-#    the current 'Public' & 'Private' directories
-macro( add_PrivatePublic L_file_names )
+#    the current 'Public' & 'Source' directories
+macro( add_Source_and_Public L_file_names )
 	dmessage(STATUS "ARGV is: ${ARGV0}" )
-	add_Private(${ARGV})
+	add_Source(${ARGV})
 	add_Public(${ARGV})
-endmacro( add_PrivatePublic L_file_names )
+endmacro( add_Source_and_Public L_file_names )
 
-# add_PrivateClasses()
-#    Same as 'add_PrivatePublic()' but .h-files are added to 'Classes' folder
-macro( add_PrivateClasses L_file_names )
-	add_Private(${ARGV})
-	add_Classes(${ARGV})
-endmacro( add_PrivateClasses L_file_names )
+# add_Source_and_Header()
+#    Same as 'add_Source_and_Public()' but .h-files are added to 'Header' folder
+macro( add_Source_and_Header L_file_names )
+	add_Source(${ARGV})
+	add_Header(${ARGV})
+endmacro( add_Source_and_Header L_file_names )
 
 #------------------------------ Local helper macros ----------------------------
 
@@ -240,10 +240,10 @@ macro( handle_sub_arg L_arg )
 	endif()
 endmacro( handle_sub_arg L_args )
 
-macro( add_Private L_file_names )
+macro( add_Source L_file_names )
 	parse_argument_options(ADD_ROLE "TEST" ${ARGV})
-	add_Role( Private cpp SUB_CPP_FILES ${ADD_ROLE_NOOPTION} ${ADD_ROLE_TEST} )
-endmacro( add_Private L_file_names )
+	add_Role( Source cpp SUB_CPP_FILES ${ADD_ROLE_NOOPTION} ${ADD_ROLE_TEST} )
+endmacro( add_Source L_file_names )
 
 macro( add_Public L_file_names )
 	parse_argument_options(ADD_ROLE "TEST" ${ARGV})
@@ -251,11 +251,11 @@ macro( add_Public L_file_names )
 	add_unittest( ${ADD_ROLE_TEST} )
 endmacro( add_Public L_file_names )
 
-macro( add_Classes L_file_names )
+macro( add_Header L_file_names )
 	parse_argument_options(ADD_ROLE "TEST" ${ARGV})
-	add_Role( Classes h SUB_PRIVATE_H_FILES ${ADD_ROLE_NOOPTION} ${ADD_ROLE_TEST})
+	add_Role( Header h SUB_PRIVATE_H_FILES ${ADD_ROLE_NOOPTION} ${ADD_ROLE_TEST})
 	add_unittest( ${ADD_ROLE_TEST} )
-endmacro( add_Classes L_file_names )
+endmacro( add_Header L_file_names )
 
 
 macro( add_Role L_role_dir L_role_fileending L_role_filelist )
@@ -287,7 +287,7 @@ macro( add_unittest )
 endmacro()
 
 
-#    Creates source group. The name contains the role (Private | Public | Classes), 
+#    Creates source group. The name contains the role (Source | Public | Header), 
 #    and if available the sub name.
 macro( sub_source_group L_role L_files )
 	if( "${CURRENT_SUB_NAME}" STREQUAL "" )

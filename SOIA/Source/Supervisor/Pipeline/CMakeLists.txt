@@ -5,11 +5,11 @@ subproject(Pipeline)
 	depends_on_projects(Supervisor Core_S)
 
 in_sub(Tool)
-	add_PrivatePublic(
+	add_Source_and_Public(
 		PipelineTool
 		RConversionPipes)
 in_sub(Pipe)
-	add_PrivatePublic(
+	add_Source_and_Public(
 		Pipe
 		Port
 		OutPort

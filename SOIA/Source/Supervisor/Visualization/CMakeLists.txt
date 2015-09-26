@@ -5,7 +5,7 @@ subproject(Visualization)
 	depends_on_projects(Supervisor Core_S)
 
 in_sub(Tool)
-	add_PrivatePublic(RGraphTool2D)
+	add_Source_and_Public(RGraphTool2D)
 end_sub()
 
 auto_add_shared_library()

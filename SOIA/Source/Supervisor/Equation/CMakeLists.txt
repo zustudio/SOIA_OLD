@@ -4,7 +4,7 @@ subproject(Equation)
 	depends_on_projects(Environment Core_E MathematicsRuntime)
 	depends_on_projects(Supervisor Core_S)
 
-add_PrivatePublic(
+add_Source_and_Public(
 	TCalculator
 	CalculatorGUI)
 end_sub()

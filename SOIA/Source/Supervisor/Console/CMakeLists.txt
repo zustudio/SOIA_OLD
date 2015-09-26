@@ -4,7 +4,7 @@ subproject(Console)
 	depends_on_projects(Environment Core_E Reflection)
 	depends_on_projects(Supervisor Core_S)
 
-add_PrivatePublic(
+add_Source_and_Public(
 	TConsole)
 end_sub()
 

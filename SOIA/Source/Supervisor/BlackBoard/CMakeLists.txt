@@ -5,9 +5,9 @@ subproject(BlackBoard)
 	depends_on_projects(Supervisor Core_S)
 
 in_sub(Tool)
-	add_PrivatePublic(TBlackBoard)
+	add_Source_and_Public(TBlackBoard)
 in_sub(UserInterface)
-	add_PrivatePublic(BlackBoardWindow)
+	add_Source_and_Public(BlackBoardWindow)
 end_sub()
 
 auto_add_shared_library()

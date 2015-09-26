@@ -1,2 +1,0 @@
-Windows>https://dl.bintray.com/bruening/DrMemory/DrMemory-Windows-1.8.1-RC1.zip<
-Linux>dl.bintray.com/bruening/DrMemory/DrMemory-Linux-1.8.0-8.tar.gz<

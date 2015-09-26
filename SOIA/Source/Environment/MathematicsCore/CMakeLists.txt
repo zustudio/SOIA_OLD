@@ -5,14 +5,14 @@ subproject(MathematicsCore)
 
 
 in_sub(Functions)
-	add_PrivatePublic(
+	add_Source_and_Public(
 		ExponentialFunction
 		LinearFunction
 		ReversedExponentialFunction)
 	add_Public(
 		D1D1FunctionInterface)
 in_sub(Random)
-	add_PrivatePublic(
+	add_Source_and_Public(
 		Random)
 in_sub(DataStructures)
 	add_Public(

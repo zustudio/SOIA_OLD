@@ -4,12 +4,12 @@ subproject(Core_S)
 	depends_on_projects(Environment Core_E CompileTime Text Thread Reflection)
 
 in_sub(Tool)
-	add_PrivatePublic(
+	add_Source_and_Public(
 		TTool
 		TMainTool
 		RGUI)
 in_sub(Dialogue)
-	add_PrivatePublic(
+	add_Source_and_Public(
 		RDialogue
 		RStdDialogue)
 end_sub()

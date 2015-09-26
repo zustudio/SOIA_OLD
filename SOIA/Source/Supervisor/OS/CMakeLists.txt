@@ -5,7 +5,7 @@ subproject(OS)
 	depends_on_projects(Supervisor Core_S Equation Pipeline Visualization Console ElementExplorer BlackBoard)
 
 in_sub(Runtime)
-	add_PrivatePublic(
+	add_Source_and_Public(
 		PersistentRuntime
 		TRuntime)
 end_sub()

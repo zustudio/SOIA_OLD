@@ -5,7 +5,7 @@ subproject(Core_E)
 
 in_sub(PreProcessor)
 	add_Public(Definitions)
-	add_PrivatePublic(CPPExtensions)
+	add_Source_and_Public(CPPExtensions)
 end_sub()
 
 auto_add_shared_library()

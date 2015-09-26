@@ -6,8 +6,8 @@ subproject(GraphicsTest)
 	depends_on_thirdparty_static(glfw3)
 	depends_on_system(glu32 gdi32 opengl32)
 
-add_Private(Main)
-add_PrivatePublic(TestWindow)
+add_Source(Main)
+add_Source_and_Public(TestWindow)
 end_sub()
 
 auto_add_executable()

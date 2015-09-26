@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.1)
 subproject(MathematicsRuntime)
 	depends_on_projects(Environment Text Reflection)
 
-add_PrivatePublic(
+add_Source_and_Public(
 	DynamicMathFunction
 	Value
 	Constant
