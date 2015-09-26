@@ -1,33 +1,77 @@
 cmake_minimum_required(VERSION 3.1)
 
 subproject(Graphics)
-	depends_on_projects(Environment Core_E MathematicsCore)
+	depends_on_projects(Environment Core_E CompileTime Time Text Thread File MathematicsCore)
+	depends_on_thirdparty_shared(glewd libglew_sharedd liblibglew_shared)
+	depends_on_thirdparty_static(glfw3)
+	depends_on_thirdparty_static(SOIL)
+	depends_on_thirdparty_static(freetype freetype2)
+	depends_on_system(glu32 gdi32 opengl32)
 
-in_sub(Core)
+in_sub(Global)
 	add_PrivatePublic(
-		Window_Base
-		Window)
+		GlobalRenderThread
+		FreeTypeProvider)
+in_sub(Header)
+	add_Public(
+		FreeType
+		FreeTypeForwardDefinitions
+		OpenGL
+		OpenGLForwardDefinitions
+		GLFWMacroEnums)
 in_sub(DataStructures)
+	add_Public(
+		DataUnravelerTemplate)
 	add_PrivatePublic(
+		iTriangle
+		iLine
 		pxPoint
+		pxSize
+		pxMargins
 		fPoint
-		cPoint
 		fColor
-		fCanvasObject)
-in_sub(Controls)
+		EventInfo_KeyChanged
+		EventInfo_MouseButtonChanged
+		EventInfo_SelectionChanged)
+in_sub(Hierarchy)
 	add_PrivatePublic(
-		Control
-		CCanvas
-		CTable
-		CTextBox
-		CGraph)
-in_sub(Platform_Linux Linux)
-	add_PrivatePublic(Window_Linux)
-in_sub(Platform_Windows Windows)
-	add_PrivatePublic(Window_Windows)
+		MBound
+		MBoundaries)
+in_sub(Graphics)
+	add_Public(
+		VertexBufferTemplate)
+	add_PrivatePublic(
+		RenderThread
+		GraphicsWindow
+		GraphicsLayer
+		GraphicsObject
+		TextLayer
+		TextObject
+		FilledGeometryLayer
+		UnfilledGeometryLayer
+		GeometryLayer
+		GeometryObject
+		Font
+		GlyphObject
+		Shader
+		ShaderProgram
+		VertexBuffer
+		VertexBufferVariable
+		Texture2D
+		FontTexture2D)
+in_sub(Control)
+	add_PrivatePublic(
+		GraphicsControl
+		TextBox
+		TextBoxLine
+		TextCursor
+		TextBoxDialogue
+		Canvas)
+in_sub(Window)
+	add_PrivatePublic(
+		ControlWindow)
 end_sub()
 
 auto_add_shared_library()
 auto_include_directories()
 auto_export_directories()
-		

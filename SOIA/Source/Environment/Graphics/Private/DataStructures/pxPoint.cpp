@@ -1,5 +1,5 @@
 /*
- * pxPoint.cpp
+* pxPoint.cpp
 */
 
 #include "Definitions.h"

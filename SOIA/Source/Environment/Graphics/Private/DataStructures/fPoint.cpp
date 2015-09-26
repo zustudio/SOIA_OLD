@@ -1,14 +1,7 @@
-/*
- * fPoint.cpp
- *
- *  Created on: Dec 6, 2014
- *      Author: mxu
- */
 
 #include "Definitions.h"
 
 #include "Vector2D.h"
-#include "pxPoint.h"
 #include "fPoint.h"
 
 using namespace Environment;
@@ -25,11 +18,4 @@ fPoint::fPoint(const Vector2D<float> &equalPoint)
 	Y = equalPoint.Y;
 }
 fPoint::~fPoint() {}
-//////////////////////////////////////////////////////////////////////////////////
-// conversion
-pxPoint fPoint::ToPxPoint(pxPoint &absolutSpaceSize)
-{
-	return pxPoint((*this) * absolutSpaceSize);
-}
-
 

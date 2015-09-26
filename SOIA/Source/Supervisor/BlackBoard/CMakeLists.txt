@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.1)
 
 subproject(BlackBoard)
-	depends_on_projects(Environment GraphicsCore)
+	depends_on_projects(Environment Graphics)
 	depends_on_projects(Supervisor Core_S)
 
 in_sub(Tool)
