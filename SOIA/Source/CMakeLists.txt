@@ -1,13 +1,6 @@
 cmake_minimum_required (VERSION 3.0)
 
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_BINARY_DIR}/Install/ThirdParty/script/soia-cppcheck-target-cmake/")
-
 include(GenerateExportHeader)
-message(STATUS "module paths: ${CMAKE_MODULE_PATH}")
-
-cmake_policy(VERSION 3.1)
-find_package(CPPCheck)
-include(CPPCheck)
 
 # set cflags
 if(CMAKE_COMPILER_IS_GNUCXX)
