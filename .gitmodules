@@ -14,3 +14,6 @@
 [submodule "SOIA/Ressources"]
 	path = SOIA/Ressources
 	url = https://MxmUrw@bitbucket.org/zustudio/soia_ressources.git
+[submodule "SOIA/ThirdParty/unittest-cpp"]
+	path = SOIA/ThirdParty/unittest-cpp
+	url = https://github.com/unittest-cpp/unittest-cpp.git
