@@ -21,14 +21,10 @@ endif()
 file(MAKE_DIRECTORY "${BINARY_DIRECTORY}")
 
 # add subdirectories
-option( BUILD_SOIA "OFF => Builds thirdparty dependencies. ON => Builds SOIA." OFF)
-if ("${BUILD_SOIA}" STREQUAL "ON")
-	add_subdirectory(Source)
-	uacrequest_subdirectory_link(Projects "${CMAKE_CURRENT_SOURCE_DIR}/Projects")
-	uacrequest_subdirectory_link(Ressources "${CMAKE_CURRENT_SOURCE_DIR}/Ressources")
-else()
-	add_subdirectory(ThirdParty)
-endif()
+add_subdirectory(Source)
+add_subdirectory(ThirdParty)
 add_subdirectory(Documentation)
 
+uacrequest_subdirectory_link(Projects "${CMAKE_CURRENT_SOURCE_DIR}/Projects")
+uacrequest_subdirectory_link(Ressources "${CMAKE_CURRENT_SOURCE_DIR}/Ressources")
 execute_uacrequests()
