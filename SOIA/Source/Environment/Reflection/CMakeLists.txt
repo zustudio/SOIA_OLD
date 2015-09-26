@@ -61,6 +61,5 @@ end_sub()
 
 auto_add_shared_library()
 auto_add_unittests()
-auto_static_check()
 auto_include_directories()
 auto_export_directories()

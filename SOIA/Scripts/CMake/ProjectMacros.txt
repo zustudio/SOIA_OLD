@@ -161,16 +161,6 @@ macro( auto_export_directories )
 	set(${CURRENT_SOLUTION_FOLDER}_${SUBPROJECT_NAME}_INCLUDE_DIRS ${L_export_dirs} CACHE INTERNAL "${PROJECT_FOLDER}/${SUBPROJECT_NAME}: Include Directories" FORCE )
 endmacro( auto_export_directories )
 
-option( STATIC_CODE_CHECK "Executes static code checks on all projects that enabled it" ON )
-macro( auto_static_check )
-	if( "${STATIC_CODE_CHECK}" STREQUAL "ON" )
-		dmessage(STATUS "= Adding static code check =")
-		dmessage(STATUS "  cppfiles are: ${CPP_FILES}")
-		cppcheck_target_sources( ${SUBPROJECT_NAME} SOURCES ${CPP_FILES} INCLUDES ${PROJECT_Header_DIRS} ${CMAKE_CURRENT_BINARY_DIR}/Generated)
-		# INCLUDES ${PROJECT_Public_DIRS} ${PROJECT_Header_DIRS} 
-	endif()
-endmacro( auto_static_check )
-
 # in_sub()
 #    sets variable CURRENT_SUB_NAME, if 'Environment/Reflection/Source/Atomic/' #    is meant, call with in_sub("Atomic")
 macro( in_sub L_sub_name )
