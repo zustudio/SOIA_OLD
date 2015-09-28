@@ -2,11 +2,17 @@ cmake_minimum_required(VERSION 3.1)
 
 subproject(Graphics)
 	depends_on_projects(Environment Core_E CompileTime Time Text Thread File MathematicsCore)
-	depends_on_thirdparty_shared(glewd libglew_sharedd liblibglew_shared)
-	depends_on_thirdparty_static(glfw3)
-	depends_on_thirdparty_static(SOIL)
-	depends_on_thirdparty_static(freetype freetype2)
+	depends_on_thirdparty(glfw)
+	depends_on_thirdparty(soia-glew-cmake)
+	depends_on_thirdparty(freetype2)
+	depends_on_thirdparty(Simple-OpenGL-Image-Library)
 	depends_on_system(glu32 gdi32 opengl32)
+
+	#depends_on_thirdparty_shared(glewd libglew_sharedd liblibglew_shared)
+	#depends_on_thirdparty_static(glfw3)
+	#depends_on_thirdparty_static(SOIL)
+	#depends_on_thirdparty_static(freetype freetype2)
+	#depends_on_system(glu32 gdi32 opengl32)
 
 in_sub(Global)
 	add_Source_and_Public(

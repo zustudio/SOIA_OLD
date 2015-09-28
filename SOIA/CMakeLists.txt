@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.1)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/Scripts/CMake/")
 include(IncludeScripts)
+include(ExternalProject)
+include(CMakeParseArguments)
 
 project(SOIA)
 
@@ -21,10 +23,13 @@ endif()
 file(MAKE_DIRECTORY "${BINARY_DIRECTORY}")
 
 # add subdirectories
-add_subdirectory(Source)
+dmessage(STATUS "generating ThirdParty")
 add_subdirectory(ThirdParty)
+dmessage(STATUS "generating Source")
+add_subdirectory(Source)
+dmessage(STATUS "generating Documentation")
 add_subdirectory(Documentation)
 
 uacrequest_subdirectory_link(Projects "${CMAKE_CURRENT_SOURCE_DIR}/Projects")
-uacrequest_subdirectory_link(Ressources "${CMAKE_CURRENT_SOURCE_DIR}/Ressources")
+uacrequest_subdirectory_link(Resources "${CMAKE_CURRENT_SOURCE_DIR}/Resources")
 execute_uacrequests()

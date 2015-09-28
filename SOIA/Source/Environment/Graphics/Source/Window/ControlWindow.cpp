@@ -10,7 +10,7 @@ using namespace Environment;
 ControlWindow::ControlWindow(std::string Name, pxSize InSize)
 	: GraphicsWindow(Name, InSize),
 	Index_SelectedControl(0),
-	CommonTextContentLayer(TextLayer(*GetFont(Directory::ExecutableDirectory().GetPath().AppendFolder("Ressources").AppendFolder("Fonts").AppendFolder("Raleway").AppendFile("Raleway-Regular.ttf").ToString()), 14))
+	CommonTextContentLayer(TextLayer(*GetFont(Directory::ExecutableDirectory().GetPath().AppendFolder("Resources").AppendFolder("Fonts").AppendFolder("Raleway").AppendFile("Raleway-Regular.ttf").ToString()), 14))
 {
 	AddLayer(&CommonFilledGeometryLayer);
 	AddLayer(&CommonUnfilledGeometryLayer);

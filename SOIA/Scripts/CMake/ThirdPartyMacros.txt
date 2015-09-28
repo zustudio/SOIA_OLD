@@ -16,6 +16,49 @@ macro( make_thirdparty_directories )
 	file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/Install/ThirdParty/script" )
 endmacro( make_thirdparty_directories )
 
+macro( add_thirdparty_project )
+	cmake_parse_arguments(
+        CONFIG # prefix of output variables
+        "" # list of names of the boolean arguments (only defined ones will be true)
+        "NAME;INCLUDE_FOLDER;STATIC_LIB;SHARED_IMPLIB;SHARED_LIB" # list of names of mono-valued arguments
+        "" # list of names of multi-valued arguments (output variables are lists)
+        ${ARGN} # arguments of the function to parse, here we take the all original ones
+    )
+
+	set(L_source_dir "${CMAKE_CURRENT_SOURCE_DIR}/${CONFIG_NAME}")
+	set(L_bin_dir "${CMAKE_BINARY_DIR}/ThirdParty/${CONFIG_NAME}")
+	set(L_install_dir "${CMAKE_BINARY_DIR}/Install/ThirdParty")
+	ExternalProject_Add( "${CONFIG_NAME}"
+		SOURCE_DIR "${L_source_dir}"
+		BINARY_DIR "${L_bin_dir}"
+		INSTALL_DIR "${L_install_dir}"
+		CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX:PATH=${L_install_dir}"
+		LOG_BUILD 1 )
+	
+	if(CONFIG_STATIC_LIB)
+		set(L_importlib_name ${CONFIG_STATIC_LIB})
+	else()
+		set(L_importlib_name ${CONFIG_SHARED_IMPLIB})
+		
+		set(L_sharedlib "${L_install_dir}/lib/${CONFIG_SHARED_LIB}")
+		set(L_sharedlib_target "${BINARY_DIRECTORY}/${CONFIG_SHARED_LIB}")
+		ExternalProject_Add_Step( "${CONFIG_NAME}" st1
+			COMMAND ${CMAKE_COMMAND} -E copy ${L_sharedlib} ${L_sharedlib_target}
+			DEPENDEES INSTALL)
+	endif()
+	
+	set(ThirdParty_${CONFIG_NAME}_IMPORTLIB "${L_install_dir}/lib/${L_importlib_name}"
+		CACHE INTERNAL "Location of thirdparty project import lib." FORCE )
+	set(ThirdParty_${CONFIG_NAME}_INCLUDEDIR "${L_install_dir}/include/${CONFIG_INCLUDE_FOLDER}"
+		CACHE INTERNAL "Location of include dir." FORCE )
+		
+	dmessage(STATUS "Adding thirdparty project '${CONFIG_NAME}'")
+	dmessage(STATUS "  - source dir '${L_source_dir}'")
+	dmessage(STATUS "  - bin dir '${L_bin_dir}'")
+	dmessage(STATUS "  - import lib location '${ThirdParty_${CONFIG_NAME}_IMPORTLIB}'")
+	dmessage(STATUS "  - include dir '${ThirdParty${CONFIG_NAME}_INCLUDEDIR}'")
+endmacro (add_thirdparty_project CONFIG_NAME L_importlib_name)
+
 
 ###########################################
 # 2. Generate build scripts to be executed
@@ -83,16 +126,11 @@ macro( prepare_thirdparty_project L_project_name )
 	message(STATUS "=  Preparing project: ${L_project_name}")
 	message(STATUS "=  project_dir: ${L_project_dir}")
 	message(STATUS "=  build_dir: ${L_build_dir}")
-	message(STATUS "=  depends on: ${LAST_THIRDPARTY_PROJECT}")
 endmacro( prepare_thirdparty_project L_project_name )
 
 macro( add_target_and_dependencies )
-	add_custom_target(${L_project_name} ALL DEPENDS ${LAST_THIRDPARTY_PROJECT} "${L_build_dir}/thirdparty_project_success.txt")
+	add_custom_target(${L_project_name} ALL "${L_build_dir}/thirdparty_project_success.txt")
 	set_target_properties( ${L_project_name} PROPERTIES FOLDER "ThirdParty" )
-	if (NOT "${LAST_THIRDPARTY_PROJECT}" STREQUAL "")
-		add_dependencies( ${L_project_name} "${LAST_THIRDPARTY_PROJECT}" )
-	endif()
-	set(LAST_THIRDPARTY_PROJECT "${L_project_name}")
 endmacro( add_target_and_dependencies )
 
 
