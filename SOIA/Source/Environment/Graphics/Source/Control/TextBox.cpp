@@ -34,7 +34,7 @@ void TextBox::Update()
 		int CurY = 0;
 		for (TextBoxLine& line : lines)
 		{
-			TextObjects.push_back(TextObject(this, pxMargins(4, CurY + 4, GetSize().Width - 8, texture->GetSpriteSize().Y), line.CurrentText));
+			TextObjects.push_back(TextObject(this, pxMargins(4, CurY + 4, GetSize().Width - 8, -1 * texture->GetSpriteSize().Y), line.CurrentText));
 			CurY += texture->GetSpriteSize().Y + 4;
 		}
 

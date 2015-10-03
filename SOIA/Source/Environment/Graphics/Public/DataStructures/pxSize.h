@@ -11,6 +11,9 @@ namespace Environment
 		pxSize();
 		pxSize(int InWidth, int InHeight);
 
+		bool operator==(pxSize const & InOther) const;
+		bool operator!=(pxSize const & InOther) const;
+
 		pxPoint ToPoint();
 
 		int Width;

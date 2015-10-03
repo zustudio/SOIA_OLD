@@ -23,10 +23,14 @@ GraphicsControl::GraphicsControl(MBoundaries * InBoundaries, pxMargins InMargins
 		Interpolator<fColor>(fColor(1, 1, 1, 0), new LimitedExponentialInterpolation<fColor>(300ms)),
 		[this]() {return GeometryObject::MakeRectangle(pxPoint(2, 2), GetSize().ToPoint() - pxPoint(2,2)); },
 		nullptr,
-		EScrollMode::Background)
+		EScrollMode::Background),
+	VerticalScrollBar(
+		this,
+		EScrollBarConfiguration::Vertical)
 {
 	AddObject(&Space, Layer_Background);
 	AddObject(&SelectionBorder, Layer_UnfilledGeometry);
+	AddObject(&VerticalScrollBar, Layer_FilledGeometry);
 }
 
 void GraphicsControl::Event_CharacterEntered(unsigned int InChar)
@@ -49,6 +53,27 @@ void GraphicsControl::Event_SelectionChanged(EventInfo_SelectionChanged const & 
 		SelectionBorder.Color = fColor(0, 0, 0, 0);
 		bSelected = false;
 	}
+}
+
+void GraphicsControl::Event_VirtualSizeChanged(pxSize const & InNewSize)
+{
+	float height = GetSize().Height;
+	float offset = float(GetScrollOffset().Y) / height;
+	float size = height / float(InNewSize.Height);
+	VerticalScrollBar.Set(size, offset);
+}
+
+void GraphicsControl::Event_Scroll(Vector2D<double> const & InDelta)
+{
+	pxPoint delta;
+	delta.X = InDelta.X * 40;
+	delta.Y = InDelta.Y * -40;
+	Scroll(delta);
+
+	float height = GetSize().Height;
+	float offset = float(GetScrollOffset().Y) / height;
+	float size = height / float(GetVirtualSize().Height);
+	VerticalScrollBar.Set(size, offset);
 }
 
 bool GraphicsControl::IsSelected()

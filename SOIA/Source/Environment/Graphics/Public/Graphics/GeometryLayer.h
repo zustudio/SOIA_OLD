@@ -10,7 +10,7 @@
 
 namespace Environment
 {
-	class GeometryLayer : public GraphicsLayer
+	class LIBIMPEXP GeometryLayer : public GraphicsLayer
 	{
 	public:
 		GeometryLayer();

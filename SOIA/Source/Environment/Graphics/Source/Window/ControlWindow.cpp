@@ -51,13 +51,7 @@ void ControlWindow::Event_MouseButtonChanged(EventInfo_MouseButtonChanged const 
 }
 void ControlWindow::Event_Scroll(Vector2D<double> const & InOffset)
 {
-	std::cout << "Mouse scrolled: " << std::to_string(InOffset.Y) << std::endl;
-
-	pxPoint delta;
-	delta.X = InOffset.X * 7;
-	delta.Y = InOffset.Y * -7;
-	
-	GetSelectedControl()->Scroll(delta);
+	GetSelectedControl()->Event_Scroll(InOffset);
 }
 
 void ControlWindow::SelectNextControl(bool bForward)

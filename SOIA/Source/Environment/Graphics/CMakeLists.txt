@@ -73,6 +73,7 @@ in_sub(Graphics)
 in_sub(Control)
 	add_Source_and_Public(
 		GraphicsControl
+		ScrollBar
 		TextBox
 		TextBoxLine
 		TextCursor

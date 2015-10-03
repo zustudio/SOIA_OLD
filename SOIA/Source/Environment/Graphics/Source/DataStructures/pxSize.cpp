@@ -16,6 +16,16 @@ pxSize::pxSize(int InWidth, int InHeight)
 	Height(InHeight)
 {}
 
+bool pxSize::operator==(pxSize const & InOther) const
+{
+	return Width == InOther.Width && Height == InOther.Height;
+}
+
+bool Environment::pxSize::operator!=(pxSize const & InOther) const
+{
+	return Width != InOther.Width || Height != InOther.Height;
+}
+
 pxPoint pxSize::ToPoint()
 {
 	return pxPoint(Width, Height);
