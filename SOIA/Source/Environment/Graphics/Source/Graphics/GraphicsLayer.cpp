@@ -84,3 +84,7 @@ void GraphicsLayer::Draw()
 	}
 	
 }
+
+void GraphicsLayer::AddObject(GraphicsObject * InObject)
+{
+}

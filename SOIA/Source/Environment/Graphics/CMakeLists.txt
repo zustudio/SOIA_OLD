@@ -17,6 +17,7 @@ subproject(Graphics)
 in_sub(Global)
 	add_Source_and_Public(
 		GlobalRenderThread
+		GlobalStyle
 		FreeTypeProvider)
 in_sub(Header)
 	add_Public(
@@ -34,6 +35,7 @@ in_sub(DataStructures)
 		pxPoint
 		pxSize
 		pxMargins
+		pxRectangle
 		fPoint
 		fColor
 		EventInfo_KeyChanged
@@ -48,11 +50,14 @@ in_sub(Graphics)
 		VertexBufferTemplate)
 	add_Source_and_Public(
 		RenderThread
+		RenderTarget
 		GraphicsWindow
 		GraphicsLayer
 		GraphicsObject
 		TextLayer
 		TextObject
+		TextStyle
+		StyleSheet
 		FilledGeometryLayer
 		UnfilledGeometryLayer
 		GeometryLayer

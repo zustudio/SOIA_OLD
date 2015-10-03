@@ -8,13 +8,13 @@ using namespace Environment;
 #include <iostream>
 #include <cstring>
 
-FontTexture2D::FontTexture2D(Font const & InFont, int InFontSize)
+FontTexture2D::FontTexture2D(TextStyle const & InStyle)
 	: Texture2D(0, ETextureMode::Font, ETextureChannels::R)
 {
 	// create glyphs for every character
 	for (unsigned char c = 0; c < 255; ++c)
 	{
-		Glyphs[c] = GlyphObject(c, InFontSize, InFont);
+		Glyphs[c] = GlyphObject(c, InStyle.Size, *InStyle.TextFont);
 	}
 
 	// find biggest glyph size

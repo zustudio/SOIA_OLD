@@ -5,6 +5,12 @@
 
 namespace Environment
 {
+	class RenderTarget;
+	class GraphicsWindow;
+}
+
+namespace Environment
+{
 	class LIBIMPEXP MBoundaries : public MBound
 	{
 		friend MBound;
@@ -19,6 +25,8 @@ namespace Environment
 		virtual MBoundaries* GetTopBoundaries() override;
 
 	protected:
+		RenderTarget* GetRenderTarget();
+		GraphicsWindow* GetWindow();
 		std::vector<MBound*>& GetBoundObjects();
 		void AddBoundObject(MBound* InBoundObject);
 		void RemoveBoundObject(MBound* InBoundObject);

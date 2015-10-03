@@ -14,7 +14,7 @@ Font::Font(const std::string& InFontName)
 {
 }
 
-void Environment::Font::Load()
+void Font::Load()
 {
 	if (FT_New_Face(*GetFreeTypeLibrary(), Name.c_str(), 0, &FTFace))
 	{
@@ -22,7 +22,7 @@ void Environment::Font::Load()
 	}
 }
 
-bool Environment::Font::operator==(const Font & InOther)
+bool Font::operator==(const Font & InOther)
 {
 	return InOther.Name == Name;
 }

@@ -10,9 +10,9 @@ using namespace Environment;
 
 #include <algorithm>
 
-TextLayer::TextLayer(Font const & InFont, int InSize)
+TextLayer::TextLayer(TextStyle const & InStyle)
 	:
-	FontTexture(InFont, InSize)
+	FontTexture(InStyle)
 {
 	auto vertexShader = new Shader(ShaderType::Vertex,
 		"#version 400\n"
@@ -125,11 +125,19 @@ void TextLayer::UpdateBuffers()
 	}
 }
 
-void TextLayer::AddTextObject(TextObject * InObject)
+void TextLayer::AddObject(GraphicsObject* InObject)
 {
-	LOG("Adding textobject '" + InObject->Text + "'.", Logger::Severity::DebugInfo);
+	TextObject* object = dynamic_cast<TextObject*>(InObject);
+	
+	if (!object)
+	{
+		LOG("Trying to add object, which is not a TextObject to TextLayer.", Logger::Severity::Error);
+		return;
+	}
 
-	TextObjects.push_back(InObject);
+	LOG("Adding textobject '" + object->Text + "'.", Logger::Severity::DebugInfo);
+
+	TextObjects.push_back(object);
 	InObject->SetDestructorCallback([this](MBound* InObject) {this->EraseGraphicsObject((TextObject*)InObject); });
 }
 

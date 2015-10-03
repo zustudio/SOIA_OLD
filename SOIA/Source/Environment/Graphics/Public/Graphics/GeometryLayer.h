@@ -15,7 +15,7 @@ namespace Environment
 	public:
 		GeometryLayer();
 
-		void AddObject(GeometryObject* InObject);
+		virtual void AddObject(GraphicsObject* InObject) override;
 
 	protected:
 		void EraseGraphicsObject(GeometryObject * InObject);

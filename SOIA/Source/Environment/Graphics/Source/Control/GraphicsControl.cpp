@@ -8,8 +8,8 @@ using namespace Environment;
 #include "LimitedExponentialInterpolation.h"
 using namespace std::chrono_literals;
 
-GraphicsControl::GraphicsControl(MBoundaries * InBoundaries, pxMargins InMargins)
-	: MBoundaries(InBoundaries, InMargins),
+GraphicsControl::GraphicsControl(MBoundaries * InBoundaries, pxMargins InMargins, StyleSheet const & InStyle)
+	: RenderTarget(InBoundaries, InMargins, InStyle),
 	Space(
 		this,
 		pxMargins(0,0,0,0),
@@ -25,8 +25,8 @@ GraphicsControl::GraphicsControl(MBoundaries * InBoundaries, pxMargins InMargins
 		nullptr,
 		EScrollMode::Background)
 {
-	GetWindow()->CommonFilledGeometryLayer.AddObject(&Space);
-	GetWindow()->CommonUnfilledGeometryLayer.AddObject(&SelectionBorder);
+	AddObject(&Space, Layer_Background);
+	AddObject(&SelectionBorder, Layer_UnfilledGeometry);
 }
 
 void GraphicsControl::Event_CharacterEntered(unsigned int InChar)
@@ -56,7 +56,3 @@ bool GraphicsControl::IsSelected()
 	return bSelected;
 }
 
-ControlWindow* GraphicsControl::GetWindow()
-{
-	return dynamic_cast<ControlWindow*>(GetTopBoundaries());
-}

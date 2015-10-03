@@ -7,13 +7,16 @@ using namespace Environment;
 #include "GlobalRenderThread.h"
 #include "GraphicsLayer.h"
 #include "GlobalLogger.h"
+#include "RenderTarget.h"
 
 #include <iostream>
 
 GraphicsWindow::GraphicsWindow(const std::string& InTitle, pxSize InSize)
 	: MBoundaries(nullptr, pxMargins(0,0,0,0)),
 	Size(InSize),
-	Title(InTitle)
+	Title(InTitle),
+	RenderTargets(),
+	FreeStencilValue(1)
 {}
 
 void GraphicsWindow::Initialize()
@@ -53,9 +56,9 @@ void GraphicsWindow::Initialize()
 
 	CheckGLError();
 	
-	for (auto layer : Layers)
+	for (RenderTarget* target : RenderTargets)
 	{
-		layer->Initialize();
+		target->Initialize();
 	}
 
 	CheckGLError();
@@ -75,9 +78,26 @@ void GraphicsWindow::Close()
 	LOG("GraphicsWindow::Close is not implemented", Logger::Severity::Error);
 }
 
-void GraphicsWindow::AddLayer(GraphicsLayer * InLayer)
+void GraphicsWindow::AddRenderTarget(RenderTarget * InTarget)
 {
-	Layers.push_back(InLayer);
+	RenderTargets.push_back(InTarget);
+	InTarget->SetStencilValue(NextFreeStencilValue());
+}
+
+void GraphicsWindow::RemoveRenderTarget(RenderTarget * InTarget)
+{
+	auto target = std::find(RenderTargets.begin(), RenderTargets.end(), InTarget);
+	if (target != RenderTargets.end())
+	{
+		RenderTargets.erase(target);
+	}
+}
+
+int GraphicsWindow::NextFreeStencilValue()
+{
+	int result = FreeStencilValue;
+	FreeStencilValue += 1;
+	return result;
 }
 
 GraphicsWindow::~GraphicsWindow()
@@ -88,17 +108,16 @@ GraphicsWindow::~GraphicsWindow()
 void GraphicsWindow::Draw()
 {
 	glfwMakeContextCurrent(GLWindow);
-
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(0.5, 0, 0, 1);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+	glClearColor(1, 1, 1, 1);
 
 	// start recursive update chain
 	this->Update();
-	for (GraphicsLayer* layer : Layers)
+	for (RenderTarget* target : RenderTargets)
 	{
-		layer->BeginDraw();
+		target->Draw();
 	}
-	glfwSwapBuffers(GLWindow);
+	glfwSwapBuffers(GetWindow()->GLWindow);
 }
 
 Vector2D<pxPoint> GraphicsWindow::CalculateAbsoluteCornerLocationsOnWindow()

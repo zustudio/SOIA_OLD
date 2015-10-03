@@ -4,6 +4,9 @@
 #include "MBoundaries.h"
 using namespace Environment;
 
+#include "RenderTarget.h"
+#include "GraphicsWindow.h"
+
 #include <algorithm>
 
 MBoundaries::MBoundaries(MBoundaries * InBoundaries, pxMargins InMargins)
@@ -46,6 +49,12 @@ MBoundaries * MBoundaries::GetTopBoundaries()
 		return this;
 }
 
+RenderTarget* MBoundaries::GetRenderTarget()
+{
+	RenderTarget* target = dynamic_cast<RenderTarget*>(this);
+	return target ? target : Boundaries->GetRenderTarget();
+}
+
 std::vector<MBound*>& MBoundaries::GetBoundObjects()
 {
 	return BoundObjects;
@@ -62,4 +71,9 @@ void MBoundaries::RemoveBoundObject(MBound* InBoundObject)
 
 	if (iter_boundObject != BoundObjects.end())
 		BoundObjects.erase(iter_boundObject);
+}
+
+GraphicsWindow* MBoundaries::GetWindow()
+{
+	return dynamic_cast<GraphicsWindow*>(GetTopBoundaries());
 }

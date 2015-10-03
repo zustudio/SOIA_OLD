@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "MBoundaries.h"
+#include "RenderTarget.h"
 
 #include "OpenGL.h"
 
@@ -31,7 +31,7 @@ namespace Environment
 
 		//----- ctor ------
 	public:
-		GraphicsWindow(const std::string& InTitle = "No Title", pxSize InSize = pxSize(500, 500));
+		GraphicsWindow(const std::string& InTitle, pxSize InSize = pxSize(500, 500));
 		virtual ~GraphicsWindow();
 		void Initialize();
 
@@ -39,8 +39,10 @@ namespace Environment
 		void Open();
 		void Close();
 
-		//----- public usage -----
-		void AddLayer(GraphicsLayer* InLayer);
+		//----- private usage -----
+		void AddRenderTarget(RenderTarget* InTarget);
+		void RemoveRenderTarget(RenderTarget* InTarget);
+		int NextFreeStencilValue();
 
 		//----- main loop -----
 		virtual void Draw();
@@ -69,9 +71,11 @@ namespace Environment
 		GLEWContext* GlewContext;
 
 		//----- soia variables -----
-		std::vector<GraphicsLayer*> Layers;
+		std::vector<RenderTarget*> RenderTargets;
 		pxSize Size;
 		std::string Title;
 		EWindowStatus Status;
+	private:
+		int FreeStencilValue;
 	};
 }

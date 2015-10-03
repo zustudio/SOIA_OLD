@@ -26,11 +26,6 @@ namespace Environment
 		virtual void Event_MouseButtonChanged(EventInfo_MouseButtonChanged const & InInfo) override;
 		virtual void Event_Scroll(Vector2D<double> const & InOffset) override;
 
-	public:
-		FilledGeometryLayer CommonFilledGeometryLayer;
-		UnfilledGeometryLayer CommonUnfilledGeometryLayer;
-		TextLayer CommonTextContentLayer;
-
 	private:
 		void SelectNextControl(bool bForward);
 		GraphicsControl* GetSelectedControl();

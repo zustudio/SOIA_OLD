@@ -5,6 +5,8 @@
 #include "GeometryLayer.h"
 using namespace Environment;
 
+#include "GlobalLogger.h"
+
 #include <algorithm>
 
 GeometryLayer::GeometryLayer()
@@ -35,9 +37,17 @@ GeometryLayer::GeometryLayer()
 		"}")
 {}
 
-void GeometryLayer::AddObject(GeometryObject* InObject)
+void GeometryLayer::AddObject(GraphicsObject* InObject)
 {
-	Objects.push_back(InObject);
+	GeometryObject* object = dynamic_cast<GeometryObject*>(InObject);
+
+	if (!object)
+	{
+		LOG("Trying to add object, which is not a GeometryObject to a GeometryLayer.", Logger::Severity::Error);
+		return;
+	}
+
+	Objects.push_back(object);
 	InObject->SetDestructorCallback([this](MBound* InObject) { EraseGraphicsObject((GeometryObject*)InObject); });
 }
 

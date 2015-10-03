@@ -19,7 +19,7 @@ namespace Environment
 	class LIBIMPEXP TextBox : public GraphicsControl
 	{
 	public:
-		TextBox(MBoundaries* InBoundaries, pxMargins InMargins, ETextBoxMode InMode = ETextBoxMode::NotEditable);
+		TextBox(MBoundaries* InBoundaries, pxMargins InMargins, StyleSheet const & InStyle, ETextBoxMode InMode = ETextBoxMode::NotEditable);
 
 		virtual void Update() override;
 

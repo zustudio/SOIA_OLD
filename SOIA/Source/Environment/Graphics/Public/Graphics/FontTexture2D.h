@@ -3,7 +3,7 @@
 
 #include "Texture2D.h"
 
-#include "Font.h"
+#include "TextStyle.h"
 #include "GlyphObject.h"
 #include "fPoint.h"
 
@@ -18,7 +18,7 @@ namespace Environment
 	class FontTexture2D : public Texture2D
 	{
 	public:
-		FontTexture2D(Font const & InFont, int InFontSize);
+		FontTexture2D(TextStyle const & InStyle);
 		GlyphObject& GetGlyph(unsigned char InChar);
 		void GetCoordinates(unsigned char InChar, fPoint & OutLeftTop, fPoint & OutRightBottom);
 		Vector2D<size_t> GetSpriteSize();

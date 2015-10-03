@@ -7,17 +7,18 @@
 #include "VertexBufferTemplate.h"
 #include "FontTexture2D.h"
 #include "fPoint.h"
+#include "TextStyle.h"
 
 namespace Environment
 {
 	class LIBIMPEXP TextLayer : public GraphicsLayer
 	{
 	public:
-		TextLayer(Font const & InFont, int InSize);
+		TextLayer(TextStyle const & InStyle);
 		virtual void Initialize() override;
 		virtual void UpdateBuffers() override;
 
-		void AddTextObject(TextObject* InObject);
+		virtual void AddObject(GraphicsObject* InObject) override;
 
 		void EraseGraphicsObject(TextObject* InObject);
 		void EraseGraphicsObjectFromBuffers(TextObject * InObject);

@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "MBoundaries.h"
+#include "RenderTarget.h"
 
 #include "GraphicsLayer.h"
 #include "GeometryObject.h"
@@ -18,10 +18,10 @@ namespace Environment
 	////////////////////////////////////////////////////////////////////
 	/// \class	GraphicsControl
 	/// \brief	Represents an user interactable element in a window.
-	class LIBIMPEXP GraphicsControl : public MBoundaries
+	class LIBIMPEXP GraphicsControl : public RenderTarget
 	{
 	public:
-		GraphicsControl(MBoundaries* InBoundaries, pxMargins InMargins);
+		GraphicsControl(MBoundaries* InBoundaries, pxMargins InMargins, StyleSheet const & InStyle);
 
 		//----- events -----
 		virtual void Event_CharacterEntered(unsigned int InChar);
@@ -31,8 +31,6 @@ namespace Environment
 		//----- information -----
 		bool IsSelected();
 
-	protected:
-		ControlWindow* GetWindow();
 
 	private:
 		GeometryObject Space;

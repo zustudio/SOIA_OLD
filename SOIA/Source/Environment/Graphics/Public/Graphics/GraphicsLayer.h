@@ -5,13 +5,18 @@
 #include "ShaderProgram.h"
 #include "Texture2D.h"
 #include "Vector2D.h"
+#include "GraphicsObject.h"
 
 namespace Environment
 {
-	class GraphicsWindow;
+	class RenderTarget;
+}
+
+namespace Environment
+{
 	class LIBIMPEXP GraphicsLayer
 	{
-		friend GraphicsWindow;
+		friend RenderTarget;
 
 		////////////////////////////////////////////////////////////////
 		// Functions
@@ -31,6 +36,9 @@ namespace Environment
 		virtual void UpdateBuffers();
 		virtual void BeginDraw();
 		virtual void Draw();
+
+		// GraphicsObjects
+		virtual void AddObject(GraphicsObject* InObject);
 
 		// Helper functions
 		template<typename ObjectType>

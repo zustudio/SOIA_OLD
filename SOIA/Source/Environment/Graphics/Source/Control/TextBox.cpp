@@ -8,12 +8,12 @@ using namespace Environment;
 #include "ControlWindow.h"
 
 
-TextBox::TextBox(MBoundaries * InBoundaries, pxMargins InMargins, ETextBoxMode InMode)
-	: GraphicsControl(InBoundaries, InMargins),
+TextBox::TextBox(MBoundaries * InBoundaries, pxMargins InMargins, StyleSheet const & InStyle, ETextBoxMode InMode)
+	: GraphicsControl(InBoundaries, InMargins, InStyle),
 	Mode(InMode),
 	Cursor(this, [this]() {return this->CalculateCursorLocation(); })
 {
-	GetWindow()->CommonUnfilledGeometryLayer.AddObject(&Cursor);
+	AddObject(&Cursor, Layer_UnfilledGeometry);
 }
 
 void TextBox::Update()
@@ -22,7 +22,7 @@ void TextBox::Update()
 	{
 		TextObjects.erase(TextObjects.begin(), TextObjects.end());
 
-		FontTexture2D* texture = GetWindow()->CommonTextContentLayer.GetFontTexture();
+		FontTexture2D* texture = ((TextLayer*)(GetLayer(Layer_Content)))->GetFontTexture();
 		std::vector<TextBoxLine> lines;
 		ContainerAwareIteratorSet<std::string> textIteratorSet = ContainerAwareIteratorSet<std::string>(Text, Text.begin());
 		while (textIteratorSet.Current != textIteratorSet.End)
@@ -40,7 +40,7 @@ void TextBox::Update()
 
 		for (TextObject& object : TextObjects)
 		{
-			GetWindow()->CommonTextContentLayer.AddTextObject(&object);
+			AddObject(&object, Layer_Content);
 		}
 
 		bUpdateRequested = false;
@@ -54,7 +54,7 @@ std::vector<pxPoint> TextBox::CalculateCursorLocation()
 	if (TextObjects.size() == 0)
 		return {};
 
-	FontTexture2D* texture = GetWindow()->CommonTextContentLayer.GetFontTexture();
+	FontTexture2D* texture = ((TextLayer*)(GetRenderTarget()->GetLayer(GetRenderTarget()->Layer_Content)))->GetFontTexture();
 
 	Vector2D<int> cursorPosition = CursorPos_1DTo2D(Cursor.GetPosition());
 
