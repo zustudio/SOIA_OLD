@@ -47,6 +47,8 @@ namespace Environment
 
 		virtual Vector2D<pxPoint> CalculateAbsoluteCornerLocationsOnWindow();
 
+		EScrollMode GetScrollMode();
+
 	protected:
 		bool AssertBoundariesValid();
 

@@ -4,6 +4,9 @@
 #include "ScrollBar.h"
 using namespace Env;
 
+#include "LimitedExponentialInterpolation.h"
+using namespace std::chrono_literals;
+
 ScrollBar::ScrollBar(MBoundaries * InBoundaries, EScrollBarConfiguration InConfiguration)
 	: GeometryObject(
 		InBoundaries,
@@ -11,15 +14,27 @@ ScrollBar::ScrollBar(MBoundaries * InBoundaries, EScrollBarConfiguration InConfi
 			pxMargins(-3, 1, 1, 1) :
 			pxMargins(1, -3, 1, 1),
 		fColor(1, 0, 0, 1),
-		VectorND<pxPoint>({}),
+		Interpolator<VectorND<pxPoint>>(VectorND<pxPoint>({}), new LimitedExponentialInterpolation<VectorND<pxPoint>>(200ms)),
 		EScrollMode::Background)
 {}
 
-void ScrollBar::Set(float InSize, float InOffset)
+void ScrollBar::SetSize(float InSize)
+{
+	Size = InSize;
+	UpdateEdges();
+}
+
+void ScrollBar::SetOffset(float InOffset)
+{
+	Offset = InOffset;
+	UpdateEdges();
+}
+
+void ScrollBar::UpdateEdges()
 {
 	int height = GetSize().Height;
-	int offset = height * InOffset;
-	int size = height * InSize;
+	int offset = height * Offset;
+	int size = height * Size;
 
 	pxPoint topLeft = pxPoint(0, offset);
 	pxPoint bottomRight = pxPoint(3, offset + size);

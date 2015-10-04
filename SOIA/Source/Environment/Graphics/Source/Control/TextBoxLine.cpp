@@ -4,15 +4,17 @@
 #include "TextBoxLine.h"
 using namespace Environment;
 
-TextBoxLine::TextBoxLine(FontTexture2D * InFontTexture, int InMaxWidth)
-	:
+TextBoxLine::TextBoxLine(MBoundaries* InBoundaries, pxMargin & InOutTop, FontTexture2D * InFontTexture)
+	: TextObject(InBoundaries, pxMargins(2, InOutTop, 2, -1 * InFontTexture->GetSpriteSize().Y), ""),
 	FontTexture(InFontTexture),
-	MaxWidth(InMaxWidth),
 	CurrentText("")
-{}
+{
+	InOutTop = pxMargin(int(InOutTop) + InFontTexture->GetSpriteSize().Y);
+}
 
 void TextBoxLine::Fill(ContainerAwareIteratorSet<std::string> & InOutWholeTextIterators)
 {
+	auto iter_start = InOutWholeTextIterators.Current;
 	int currentTextWidth = 0;	// in pixels
 	while (InOutWholeTextIterators.Current != InOutWholeTextIterators.End)
 	{
@@ -20,7 +22,7 @@ void TextBoxLine::Fill(ContainerAwareIteratorSet<std::string> & InOutWholeTextIt
 		int wordWidth = FontTexture->CalculateTextWidth(word);
 
 		currentTextWidth += wordWidth;
-		if (currentTextWidth > MaxWidth)
+		if (currentTextWidth > GetSize().Width)
 		{
 			break;
 		}
@@ -31,6 +33,9 @@ void TextBoxLine::Fill(ContainerAwareIteratorSet<std::string> & InOutWholeTextIt
 			break;
 		}
 	}
+	auto iter_end = InOutWholeTextIterators.Current;
+
+	SetText(std::string(iter_start, iter_end));
 }
 
 std::string TextBoxLine::PeekWord(ContainerAwareIteratorSet<std::string> const & InWholeTextIterators)

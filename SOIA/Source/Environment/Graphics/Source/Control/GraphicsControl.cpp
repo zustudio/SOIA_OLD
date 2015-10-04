@@ -57,10 +57,8 @@ void GraphicsControl::Event_SelectionChanged(EventInfo_SelectionChanged const & 
 
 void GraphicsControl::Event_VirtualSizeChanged(pxSize const & InNewSize)
 {
-	float height = GetSize().Height;
-	float offset = float(GetScrollOffset().Y) / height;
-	float size = height / float(InNewSize.Height);
-	VerticalScrollBar.Set(size, offset);
+	float size = GetSize().Height / float(InNewSize.Height);
+	VerticalScrollBar.SetSize(size);
 }
 
 void GraphicsControl::Event_Scroll(Vector2D<double> const & InDelta)
@@ -70,10 +68,8 @@ void GraphicsControl::Event_Scroll(Vector2D<double> const & InDelta)
 	delta.Y = InDelta.Y * -40;
 	Scroll(delta);
 
-	float height = GetSize().Height;
-	float offset = float(GetScrollOffset().Y) / height;
-	float size = height / float(GetVirtualSize().Height);
-	VerticalScrollBar.Set(size, offset);
+	float offset = float(GetScrollOffset().Y) / GetVirtualSize().Height;
+	VerticalScrollBar.SetOffset(offset);
 }
 
 bool GraphicsControl::IsSelected()

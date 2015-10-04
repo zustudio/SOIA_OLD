@@ -5,6 +5,7 @@
 
 #include "TextObject.h"
 #include "TextCursor.h"
+#include "TextBoxLine.h"
 
 #include <chrono>
 
@@ -21,7 +22,7 @@ namespace Environment
 	public:
 		TextBox(MBoundaries* InBoundaries, pxMargins InMargins, StyleSheet const & InStyle, ETextBoxMode InMode = ETextBoxMode::NotEditable);
 
-		virtual void Update() override;
+		//virtual void Update() override;
 
 		std::vector<pxPoint> CalculateCursorLocation();
 		Vector2D<int> CursorPos_1DTo2D(int InPosition);
@@ -36,7 +37,8 @@ namespace Environment
 
 	private:
 		std::string Text;
-		std::vector<TextObject> TextObjects;
+		//std::vector<TextObject> TextObjects;
+		std::vector<TextBoxLine*> Lines;
 		ETextBoxMode Mode;
 
 		// cursor

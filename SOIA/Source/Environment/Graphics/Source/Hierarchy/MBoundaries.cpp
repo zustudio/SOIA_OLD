@@ -31,14 +31,20 @@ void MBoundaries::Update()
 	}
 
 	// calculate virtual size
-	pxPoint furthestPoint = pxPoint(0, 0);
+	pxPoint furthestPoint = GetSize().ToPoint();
 	for (MBound* object : BoundObjects)
 	{
-		pxPoint bottomRight = object->CalculateAbsoluteCornerLocationsOnWindow().Y;
-		furthestPoint.X = furthestPoint.X > bottomRight.X ? furthestPoint.X : bottomRight.X;
-		furthestPoint.Y = furthestPoint.Y > bottomRight.Y ? furthestPoint.Y : bottomRight.Y;
+		if (object->GetScrollMode() == EScrollMode::Content)
+		{
+			auto o = object->CalculateAbsoluteCornerLocationsOnWindow().Y;
+			auto me = CalculateAbsoluteCornerLocationsOnWindow().X;
+			pxPoint bottomRight = o - me;
+			furthestPoint.X = furthestPoint.X > bottomRight.X ? furthestPoint.X : bottomRight.X;
+			if (furthestPoint.Y < bottomRight.Y)
+				furthestPoint.Y = bottomRight.Y;
+		}
 	}
-	furthestPoint += ScrollOffset;
+	//furthestPoint += ScrollOffset;
 	pxSize newVirtualSize = pxSize(furthestPoint.X, furthestPoint.Y);
 	if (newVirtualSize != VirtualSize)
 	{
@@ -81,7 +87,7 @@ MBoundaries * MBoundaries::GetTopBoundaries()
 		return this;
 }
 
-void MBoundaries::Event_VirtualSizeChanged(pxSize InNewSize)
+void MBoundaries::Event_VirtualSizeChanged(pxSize const & InNewSize)
 {
 	///\todo Make window scroll automatically, if virtualsize gets smaller
 }

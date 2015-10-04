@@ -66,7 +66,7 @@ void TextLayer::UpdateBuffers()
 		if (textObject->bUpdateRequested)
 		{
 			if (textObject->VertexBufferRange != Range<int>::Empty()
-				&& textObject->VertexBufferRange.Count() != textObject->Text.size() * 6)
+				&& textObject->VertexBufferRange.Count() != textObject->GetText().size() * 6)
 			{
 				EraseGraphicsObjectFromBuffers(textObject);
 				textObject->VertexBufferRange = Range<int>::Empty();
@@ -74,7 +74,7 @@ void TextLayer::UpdateBuffers()
 			if (textObject->VertexBufferRange == Range<int>::Empty())
 			{
 				textObject->VertexBufferRange.Lower = VertexBuffer->GetEntryNum();
-				VertexBuffer->AddEmpty(textObject->Text.size() * 6);
+				VertexBuffer->AddEmpty(textObject->GetText().size() * 6);
 				textObject->VertexBufferRange.Upper = VertexBuffer->GetEntryNum() - 1;
 			}
 
@@ -82,7 +82,7 @@ void TextLayer::UpdateBuffers()
 			int CurY = -FontTexture.GetSpriteSize().Y;
 
 			int index_vertex = textObject->VertexBufferRange.Lower;
-			for (char& character : textObject->Text)
+			for (char const & character : textObject->GetText())
 			{
 				CheckGLError();
 				GlyphObject& glyph = FontTexture.GetGlyph(character);
@@ -135,7 +135,7 @@ void TextLayer::AddObject(GraphicsObject* InObject)
 		return;
 	}
 
-	LOG("Adding textobject '" + object->Text + "'.", Logger::Severity::DebugInfo);
+	LOG("Adding textobject '" + object->GetText() + "'.", Logger::Severity::DebugInfo);
 
 	TextObjects.push_back(object);
 	InObject->SetDestructorCallback([this](MBound* InObject) {this->EraseGraphicsObject((TextObject*)InObject); });
@@ -143,7 +143,7 @@ void TextLayer::AddObject(GraphicsObject* InObject)
 
 void TextLayer::EraseGraphicsObject(TextObject * InObject)
 {
-	LOG("Erasing textobject '" + InObject->Text + "'.", Logger::Severity::DebugInfo);
+	LOG("Erasing textobject '" + InObject->GetText() + "'.", Logger::Severity::DebugInfo);
 
 	EraseGraphicsObjectFromBuffers(InObject);
 	auto iter_object = std::find(TextObjects.begin(), TextObjects.end(), InObject);

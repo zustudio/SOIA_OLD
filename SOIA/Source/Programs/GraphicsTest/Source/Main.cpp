@@ -18,7 +18,7 @@ using namespace Environment;
 
 int main()
 {
-	//GlobalLogger()->SetMinimalSeverity(Logger::Severity::DebugInfo);
+	GlobalLogger()->SetMinimalSeverity(Logger::Severity::DebugInfo);
 	GlobalRenderThread()->Start();
 	GlobalRenderThread()->AddWindow(new TestWindow());
 	GlobalRenderThread()->Join();

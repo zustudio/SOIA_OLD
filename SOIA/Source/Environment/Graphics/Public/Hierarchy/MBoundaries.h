@@ -26,7 +26,7 @@ namespace Environment
 		virtual MBoundaries* GetTopBoundaries() override;
 
 		//----- Events -----
-		virtual void Event_VirtualSizeChanged(pxSize InNewSize);
+		virtual void Event_VirtualSizeChanged(pxSize const & InNewSize);
 
 	protected:
 		RenderTarget* GetRenderTarget();

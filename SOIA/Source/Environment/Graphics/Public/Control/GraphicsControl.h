@@ -28,7 +28,7 @@ namespace Environment
 		virtual void Event_CharacterEntered(unsigned int InChar);
 		virtual void Event_KeyChanged(EventInfo_KeyChanged const & InInfo);
 		virtual void Event_SelectionChanged(EventInfo_SelectionChanged const & InInfo);
-		virtual void Event_VirtualSizeChanged(pxSize const & InNewSize);
+		virtual void Event_VirtualSizeChanged(pxSize const & InNewSize) override;
 		virtual void Event_Scroll(Vector2D<double> const & InDelta);
 
 		//----- information -----

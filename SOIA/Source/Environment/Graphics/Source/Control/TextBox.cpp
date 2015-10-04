@@ -16,55 +16,59 @@ TextBox::TextBox(MBoundaries * InBoundaries, pxMargins InMargins, StyleSheet con
 	AddObject(&Cursor, Layer_UnfilledGeometry);
 }
 
-void TextBox::Update()
-{
-	if (bUpdateRequested)
-	{
-		TextObjects.erase(TextObjects.begin(), TextObjects.end());
-
-		FontTexture2D* texture = ((TextLayer*)(GetLayer(Layer_Content)))->GetFontTexture();
-		std::vector<TextBoxLine> lines;
-		ContainerAwareIteratorSet<std::string> textIteratorSet = ContainerAwareIteratorSet<std::string>(Text, Text.begin());
-		while (textIteratorSet.Current != textIteratorSet.End)
-		{
-			lines.push_back(TextBoxLine(texture, GetSize().Width - 8));
-			(*--lines.end()).Fill(textIteratorSet);
-		}
-
-		int CurY = 0;
-		for (TextBoxLine& line : lines)
-		{
-			TextObjects.push_back(TextObject(this, pxMargins(4, CurY + 4, GetSize().Width - 8, -1 * texture->GetSpriteSize().Y), line.CurrentText));
-			CurY += texture->GetSpriteSize().Y + 4;
-		}
-
-		for (TextObject& object : TextObjects)
-		{
-			AddObject(&object, Layer_Content);
-		}
-
-		bUpdateRequested = false;
-	}
-
-	GraphicsControl::Update();
-}
+//void TextBox::Update()
+//{
+//	if (bUpdateRequested)
+//	{
+//		
+//
+//
+//
+//		/*TextObjects.erase(TextObjects.begin(), TextObjects.end());
+//
+//		FontTexture2D* texture = ((TextLayer*)(GetLayer(Layer_Content)))->GetFontTexture();
+//		std::vector<TextBoxLine> lines;
+//		ContainerAwareIteratorSet<std::string> textIteratorSet = ContainerAwareIteratorSet<std::string>(Text, Text.begin());
+//		while (textIteratorSet.Current != textIteratorSet.End)
+//		{
+//			lines.push_back(TextBoxLine(texture, GetSize().Width - 8));
+//			(*--lines.end()).Fill(textIteratorSet);
+//		}
+//
+//		int CurY = 0;
+//		for (TextBoxLine& line : lines)
+//		{
+//			TextObjects.push_back(TextObject(this, pxMargins(4, CurY + 4, GetSize().Width - 8, -1 * texture->GetSpriteSize().Y), line.CurrentText));
+//			CurY += texture->GetSpriteSize().Y + 4;
+//		}
+//
+//		for (TextObject& object : TextObjects)
+//		{
+//			AddObject(&object, Layer_Content);
+//		}*/
+//
+//		bUpdateRequested = false;
+//	}
+//
+//	GraphicsControl::Update();
+//}
 
 std::vector<pxPoint> TextBox::CalculateCursorLocation()
 {
-	if (TextObjects.size() == 0)
+	if (Lines.size() == 0)
 		return {};
 
-	FontTexture2D* texture = ((TextLayer*)(GetRenderTarget()->GetLayer(GetRenderTarget()->Layer_Content)))->GetFontTexture();
+	FontTexture2D* texture = ((TextLayer*)(GetLayer(Layer_Content)))->GetFontTexture();
 
 	Vector2D<int> cursorPosition = CursorPos_1DTo2D(Cursor.GetPosition());
 
 	pxPoint cursorStart;
 	pxPoint cursorEnd;
 
-	TextObject& selectedObject = TextObjects[cursorPosition.Y];
+	TextBoxLine* selectedObject = Lines[cursorPosition.Y];
 
-	cursorStart.Y = selectedObject.GetMargins().Top;
-	cursorStart.X = selectedObject.GetMargins().Left + texture->CalculateTextWidth(std::string(selectedObject.Text.begin(), selectedObject.Text.begin() + cursorPosition.X));
+	cursorStart.Y = selectedObject->GetMargins().Top;
+	cursorStart.X = selectedObject->GetMargins().Left + texture->CalculateTextWidth(std::string(selectedObject->GetText().begin(), selectedObject->GetText().begin() + cursorPosition.X));
 
 	cursorEnd = cursorStart;
 	cursorEnd.Y += texture->GetSpriteSize().Y;
@@ -79,9 +83,9 @@ Vector2D<int> TextBox::CursorPos_1DTo2D(int In1DPosition)
 	int iter_1D = 0;
 	int line = 0;
 	int iter_textObject = 0;
-	for (iter_textObject; iter_textObject < TextObjects.size(); ++iter_textObject)
+	for (iter_textObject; iter_textObject < Lines.size(); ++iter_textObject)
 	{
-		line = TextObjects[iter_textObject].Text.size();
+		line = Lines[iter_textObject]->GetText().size();
 		iter_1D += line;
 		
 		if (iter_1D >= In1DPosition)
@@ -93,7 +97,7 @@ Vector2D<int> TextBox::CursorPos_1DTo2D(int In1DPosition)
 	out2DPosition.Y = iter_textObject;
 	out2DPosition.X = line - (iter_1D - In1DPosition);
 
-	if (iter_1D - In1DPosition == 0 && out2DPosition.Y < TextObjects.size() - 1)
+	if (iter_1D - In1DPosition == 0 && out2DPosition.Y < Lines.size() - 1)
 	{
 		out2DPosition.Y++;
 		out2DPosition.X = 0;
@@ -108,7 +112,7 @@ int TextBox::CursorPos_2DTo1D(Vector2D<int> const & In2DPosition)
 
 	for (int i = 0; i < In2DPosition.Y; i++)
 	{
-		out1DPosition += TextObjects[i].Text.size();
+		out1DPosition += Lines[i]->GetText().size();
 	}
 
 	out1DPosition += In2DPosition.X;
@@ -119,6 +123,44 @@ int TextBox::CursorPos_2DTo1D(Vector2D<int> const & In2DPosition)
 void TextBox::SetText(std::string const & InText)
 {
 	Text = InText;
+
+	ContainerAwareIteratorSet<std::string> textIteratorSet = ContainerAwareIteratorSet<std::string>(Text, Text.begin());
+	int i = 0;
+	int n = Lines.size();
+	for (i; i < n; ++i)
+	{
+		TextBoxLine* line = Lines[i];
+
+		if (textIteratorSet.Current == textIteratorSet.End)
+			break;
+
+		line->Fill(textIteratorSet);
+	}
+
+	if (i < n) // we have too many lines
+	{
+		Lines.erase(Lines.begin() + i, Lines.begin() + n - 1);
+	}
+	else if (textIteratorSet.Current != textIteratorSet.End) // we have too few lines
+	{
+		pxMargin topMargin = 2;
+		if (Lines.size())
+		{
+			TextBoxLine* previousLine = *--Lines.end();
+			pxPoint bottomLeft = previousLine->CalculateAbsoluteCornerLocationsOnWindow().Y - this->CalculateAbsoluteCornerLocationsOnWindow().X;
+			topMargin = bottomLeft.Y + 3;
+		}
+
+		while (textIteratorSet.Current != textIteratorSet.End)
+		{
+			TextBoxLine* line = new TextBoxLine(this, topMargin, ((TextLayer*)(GetLayer(Layer_Content)))->GetFontTexture());
+			Lines.push_back(line);
+			line->Fill(textIteratorSet);
+			AddObject(line, Layer_Content);
+			topMargin = 3 + topMargin;
+		}
+	}
+
 
 	if (Cursor.GetPosition() > Text.size())
 		Cursor.SetPosition(Text.size());
@@ -137,7 +179,9 @@ void TextBox::Event_CharacterEntered(unsigned int InChar)
 		return;
 
 	int posInText = Cursor.GetPosition();
-	Text.insert(Text.begin() + posInText, InChar);
+	std::string text = GetText();
+	text.insert(text.begin() + posInText, InChar);
+	SetText(text);
 	Cursor.SetPosition(++posInText);
 	RequestUpdate();
 }
@@ -163,6 +207,7 @@ void TextBox::Event_KeyChanged(EventInfo_KeyChanged const & InInfo)
 		if (posInText > 0)
 		{
 			Text.erase(Text.begin() + posInText - 1);
+			SetText(Text);
 			Cursor.SetPosition(--posInText);
 			RequestUpdate();
 		}
@@ -173,6 +218,7 @@ void TextBox::Event_KeyChanged(EventInfo_KeyChanged const & InInfo)
 		if (posInText < Text.size())
 		{
 			Text.erase(Text.begin() + posInText);
+			SetText(Text);
 			RequestUpdate();
 		}
 	}
@@ -203,8 +249,8 @@ void TextBox::Event_KeyChanged(EventInfo_KeyChanged const & InInfo)
 	else if (InfoCopy == EventInfo_KeyChanged(GLFW_KEY_END) || InfoCopy == EventInfo_KeyChanged(321))
 	{
 		Vector2D<int> curPos = CursorPos_1DTo2D(Cursor.GetPosition());
-		curPos.X = TextObjects[curPos.Y].Text.size();
-		if (curPos.Y < TextObjects.size() - 1)
+		curPos.X = Lines[curPos.Y]->GetText().size();
+		if (curPos.Y < Lines.size() - 1)
 			--curPos.X;
 		Cursor.SetPosition(CursorPos_2DTo1D(curPos));
 		Cursor.RequestUpdate();

@@ -9,3 +9,14 @@ TextObject::TextObject(MBoundaries* InBoundaries, pxMargins InMargins, const std
 	: GraphicsObject(InBoundaries, InMargins),
 	Text(InText)
 {}
+
+std::string const & TextObject::GetText()
+{
+	return Text;
+}
+
+void TextObject::SetText(std::string InText)
+{
+	Text = std::move(InText);
+	RequestUpdate();
+}

@@ -122,6 +122,11 @@ Vector2D<pxPoint> MBound::CalculateAbsoluteCornerLocationsOnWindow()
 	return Boundaries->CalculateAbsoluteCornerLocationsOnWindow() + calculatedMarginCorrection;
 }
 
+EScrollMode MBound::GetScrollMode()
+{
+	return ScrollMode;
+}
+
 bool MBound::AssertBoundariesValid()
 {
 	bool result = true;

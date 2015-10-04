@@ -16,7 +16,14 @@ namespace Environment
 	public:
 		ScrollBar(MBoundaries* InBoundaries, EScrollBarConfiguration InConfiguration);
 
-		void Set(float InSize, float InOffset);
+		void SetSize(float InSize);
+		void SetOffset(float InOffset);
 
+	private:
+		void UpdateEdges();
+
+	private:
+		float Size;
+		float Offset;
 	};
 }

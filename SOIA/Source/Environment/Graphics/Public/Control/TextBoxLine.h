@@ -3,15 +3,19 @@
 
 #include "Definitions.h"
 
+#include "TextObject.h"
+
 #include "FontTexture2D.h"
 
 namespace Environment
 {
-	class TextBoxLine
+	class TextBoxLine : public TextObject
 	{
 	public:
-		TextBoxLine(FontTexture2D* InFontTexture, int InMaxWidth);
+		TextBoxLine(MBoundaries* InBoundaries, pxMargin & InOutTop, FontTexture2D* InFontTexture);
+
 		void Fill(ContainerAwareIteratorSet<std::string> & InOutWholeTextIterators);
+
 	private:
 		std::string PeekWord(ContainerAwareIteratorSet<std::string> const & InWholeTextIterators);
 		static bool IsWordTerminator(char InChar);
@@ -21,6 +25,5 @@ namespace Environment
 		std::string CurrentText;
 	private:
 		FontTexture2D* FontTexture;
-		int MaxWidth;
 	};
 }

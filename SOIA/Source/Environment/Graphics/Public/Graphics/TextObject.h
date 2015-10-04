@@ -19,6 +19,10 @@ namespace Environment
 	public:
 		TextObject(MBoundaries* InBoundaries, pxMargins InMargins, const std::string& InText);
 
+		std::string const & GetText();
+		void SetText(std::string InText);
+
+	private:
 		//----- content -----
 		std::string Text;
 
