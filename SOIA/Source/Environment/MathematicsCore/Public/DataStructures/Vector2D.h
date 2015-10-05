@@ -78,6 +78,10 @@ namespace Environment
 		{
 			return Vector2D<ToType>(X, Y);
 		}
+		operator std::string()
+		{
+			return std::to_string(X) + "|" + std::to_string(Y);
+		}
 
 		///////////////////////////////////////////////////////////
 		// vector math

@@ -11,7 +11,7 @@ using namespace std::chrono_literals;
 #include "GlobalLogger.h"
 
 TextCursor::TextCursor(MBoundaries* InBoundaries, std::function<std::vector<pxPoint>()> const & InEdges)
-	: GeometryObject(InBoundaries, pxMargins(0,0,0,0), Interpolator<fColor>(fColor(1, 0, 0), new InstantInterpolation<fColor>(520ms)), InEdges, new LimitedExponentialInterpolation<VectorND<pxPoint>>(80ms)),
+	: GeometryObject(InBoundaries, pxMargins(0, 0, 0, 0), Interpolator<fColor>(fColor(1, 0, 0), new InstantInterpolation<fColor>(10s/*520ms*/)), VectorND<pxPoint>({})/*, new LimitedExponentialInterpolation<VectorND<pxPoint>>(80ms)*/),
 	Position(0),
 	OnColor(0, 0, 0),
 	OffColor(1, 1, 1, 0)

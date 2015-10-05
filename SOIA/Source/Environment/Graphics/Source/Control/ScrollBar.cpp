@@ -13,7 +13,7 @@ ScrollBar::ScrollBar(MBoundaries * InBoundaries, EScrollBarConfiguration InConfi
 		InConfiguration == EScrollBarConfiguration::Vertical ?
 			pxMargins(-3, 1, 1, 1) :
 			pxMargins(1, -3, 1, 1),
-		fColor(1, 0, 0, 1),
+		fColor(0.5, 0.5, 0.5, 0.5),
 		Interpolator<VectorND<pxPoint>>(VectorND<pxPoint>({}), new LimitedExponentialInterpolation<VectorND<pxPoint>>(200ms)),
 		EScrollMode::Background)
 {}

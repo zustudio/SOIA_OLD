@@ -3,6 +3,8 @@
 
 #include "MBound.h"
 
+#include "Interpolator.h"
+
 namespace Environment
 {
 	class RenderTarget;
@@ -20,7 +22,7 @@ namespace Environment
 		virtual void RequestUpdate() override;
 		virtual void Update() override;
 
-		pxPoint GetScrollOffset();
+		Interpolator<pxPoint> const & GetScrollOffset();
 		pxSize GetVirtualSize();
 		void Scroll(pxPoint InOffset);
 		virtual MBoundaries* GetTopBoundaries() override;
@@ -37,7 +39,7 @@ namespace Environment
 
 	private:
 		std::vector<MBound*> BoundObjects;
-		pxPoint ScrollOffset;
+		Interpolator<pxPoint> ScrollOffset;
 		pxSize VirtualSize;
 	};
 }

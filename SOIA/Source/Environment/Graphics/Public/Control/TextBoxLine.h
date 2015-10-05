@@ -21,8 +21,6 @@ namespace Environment
 		static bool IsWordTerminator(char InChar);
 		static bool IsSpaceCharacter(char InChar);
 
-	public:
-		std::string CurrentText;
 	private:
 		FontTexture2D* FontTexture;
 	};

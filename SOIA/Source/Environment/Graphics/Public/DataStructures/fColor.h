@@ -36,6 +36,13 @@ namespace Environment
 				&& B == InOther.B
 				&& A == InOther.A;
 		}
+		operator std::string() const
+		{
+			return std::to_string(R)
+				+ "|" + std::to_string(G)
+				+ "|" + std::to_string(B)
+				+ "|" + std::to_string(A);
+		}
 
 		float R, G, B, A;
 

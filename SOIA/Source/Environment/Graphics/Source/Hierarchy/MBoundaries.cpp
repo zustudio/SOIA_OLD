@@ -6,11 +6,16 @@ using namespace Environment;
 
 #include "RenderTarget.h"
 #include "GraphicsWindow.h"
+#include "LimitedExponentialInterpolation.h"
+#include "LinearInterpolation.h"
 
 #include <algorithm>
 
+using namespace std::chrono_literals;
+
 MBoundaries::MBoundaries(MBoundaries * InBoundaries, pxMargins InMargins)
-	: MBound(InBoundaries, InMargins)
+	: MBound(InBoundaries, InMargins),
+	ScrollOffset(pxPoint(0,0), new LinearInterpolation<pxPoint>(400ms))
 {}
 
 void MBoundaries::RequestUpdate()
@@ -24,6 +29,13 @@ void MBoundaries::RequestUpdate()
 
 void MBoundaries::Update()
 {
+	MBound::Update();
+
+	// interpolate offset
+	ScrollOffset.Update();
+	if (ScrollOffset.IsInterpolating())
+		this->RequestUpdate();
+
 	// update children
 	for (MBound* object : BoundObjects)
 	{
@@ -44,7 +56,6 @@ void MBoundaries::Update()
 				furthestPoint.Y = bottomRight.Y;
 		}
 	}
-	//furthestPoint += ScrollOffset;
 	pxSize newVirtualSize = pxSize(furthestPoint.X, furthestPoint.Y);
 	if (newVirtualSize != VirtualSize)
 	{
@@ -53,12 +64,12 @@ void MBoundaries::Update()
 	}
 }
 
-pxPoint MBoundaries::GetScrollOffset()
+Interpolator<pxPoint> const & MBoundaries::GetScrollOffset()
 {
 	return ScrollOffset;
 }
 
-pxSize Environment::MBoundaries::GetVirtualSize()
+pxSize MBoundaries::GetVirtualSize()
 {
 	return VirtualSize;
 }
@@ -66,15 +77,19 @@ pxSize Environment::MBoundaries::GetVirtualSize()
 void MBoundaries::Scroll(pxPoint InOffset)
 {
 	pxSize size = GetSize();
-	ScrollOffset += InOffset;
-	ScrollOffset.X = ScrollOffset.X > 0 ? ScrollOffset.X : 0;
-	ScrollOffset.Y = ScrollOffset.Y > 0 ? ScrollOffset.Y : 0;
-	
-	if (ScrollOffset.X + size.Width > VirtualSize.Width)
-		ScrollOffset.X = VirtualSize.Width - size.Width;
+	pxPoint offset = ScrollOffset.GetTarget();
 
-	if (ScrollOffset.Y + size.Height > VirtualSize.Height)
-		ScrollOffset.Y = VirtualSize.Height - size.Height;
+	offset += InOffset;
+	offset.X = offset.X > 0 ? offset.X : 0;
+	offset.Y = offset.Y > 0 ? offset.Y : 0;
+	
+	if (offset.X + size.Width > VirtualSize.Width)
+		offset.X = VirtualSize.Width - size.Width;
+
+	if (offset.Y + size.Height > VirtualSize.Height)
+		offset.Y = VirtualSize.Height - size.Height;
+
+	ScrollOffset = offset;
 
 	RequestUpdate();
 }

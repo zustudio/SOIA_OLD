@@ -10,6 +10,5 @@ namespace Environment
 		//---- init ----
 		pxPoint(int newX = 0, int newY = 0);
 		pxPoint(const Vector2D<int> &equalVector2D);
-
 	};
 }

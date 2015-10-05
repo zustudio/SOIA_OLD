@@ -6,11 +6,12 @@ using namespace Programs;
 using namespace Environment;
 
 #include "MR_Function.h"
+#include "GlobalStyle.h"
 
 CalculatorWindow::CalculatorWindow()
 	: ControlWindow("Calculator", pxSize(400, 600)),
-	OutputBox(this, pxMargins(5, 5, 5, 110)),
-	InputBox(this, pxMargins(5, -100, 5, 5), ETextBoxMode::Editable),
+	OutputBox(this, pxMargins(5, 5, 5, 110), GlobalStyle()),
+	InputBox(this, pxMargins(5, -100, 5, 5), GlobalStyle(), ETextBoxMode::Editable),
 	MathCont()
 {
 }
@@ -32,15 +33,6 @@ void CalculatorWindow::CalculateInput()
 
 	std::string output = InputBox.GetText() + "\n                                  => " + result;
 	std::string history = OutputBox.GetText();
-
-	static int counter = 0;
-	if (counter == 7)
-	{
-		history = "";
-		counter++;
-	}
-	else
-		counter++;
 
 	InputBox.SetText("");
 	OutputBox.SetText(history + output + "\n\n");

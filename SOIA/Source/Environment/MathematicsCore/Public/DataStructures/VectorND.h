@@ -162,7 +162,7 @@ namespace Environment
 			int n = dim();
 			for (int i = 0; i < n; i++)
 			{
-				text += (std::to_string((*this)[i]) + "|");
+				text += (std::string(Values[i]) + "|");
 			}
 			text += ")";
 			return text;

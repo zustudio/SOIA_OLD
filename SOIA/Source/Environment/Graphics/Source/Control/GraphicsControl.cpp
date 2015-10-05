@@ -68,7 +68,7 @@ void GraphicsControl::Event_Scroll(Vector2D<double> const & InDelta)
 	delta.Y = InDelta.Y * -40;
 	Scroll(delta);
 
-	float offset = float(GetScrollOffset().Y) / GetVirtualSize().Height;
+	float offset = float(GetScrollOffset().GetTarget().Y) / GetVirtualSize().Height;
 	VerticalScrollBar.SetOffset(offset);
 }
 

@@ -35,6 +35,10 @@ namespace Environment
 		{
 			return Current;
 		}
+		DataType const & GetTarget() const
+		{
+			return Target;
+		}
 		/*DataType* const & operator*() const
 		{
 			return &Current;
@@ -63,6 +67,7 @@ namespace Environment
 			{
 				Start = Current;
 				Target = InTarget;
+				std::cout << "starting interpolation from: " << (std::string)Start << " to " << (std::string)Target << ".\n";
 				InterpolationStarted = std::chrono::system_clock::now();
 				bInterpolating = true;
 				Update();
@@ -82,6 +87,10 @@ namespace Environment
 			{
 				TimeType Now = std::chrono::system_clock::now();
 				bInterpolating = Interpolation->Interpolate(Start, Current, Target, std::chrono::duration_cast<std::chrono::duration<float>>(Now - InterpolationStarted));
+				if (!bInterpolating)
+				{
+					std::cout << "interpolation to " << (std::string)Target << " ended.\n";
+				}
 			}
 		}
 

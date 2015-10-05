@@ -6,8 +6,7 @@ using namespace Environment;
 
 TextBoxLine::TextBoxLine(MBoundaries* InBoundaries, pxMargin & InOutTop, FontTexture2D * InFontTexture)
 	: TextObject(InBoundaries, pxMargins(2, InOutTop, 2, -1 * InFontTexture->GetSpriteSize().Y), ""),
-	FontTexture(InFontTexture),
-	CurrentText("")
+	FontTexture(InFontTexture)
 {
 	InOutTop = pxMargin(int(InOutTop) + InFontTexture->GetSpriteSize().Y);
 }
@@ -26,7 +25,6 @@ void TextBoxLine::Fill(ContainerAwareIteratorSet<std::string> & InOutWholeTextIt
 		{
 			break;
 		}
-		CurrentText += word;
 		InOutWholeTextIterators.Current += word.size();
 		if ((*--word.end()) == '\n')
 		{
