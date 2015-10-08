@@ -81,7 +81,8 @@ in_sub(Control)
 		Canvas)
 in_sub(Window)
 	add_Source_and_Public(
-		ControlWindow)
+		ControlWindow
+		WindowArea)
 end_sub()
 
 auto_add_shared_library()

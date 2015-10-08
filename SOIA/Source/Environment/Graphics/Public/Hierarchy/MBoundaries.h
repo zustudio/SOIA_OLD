@@ -26,6 +26,7 @@ namespace Environment
 		pxSize GetVirtualSize();
 		void Scroll(pxPoint InOffset);
 		virtual MBoundaries* GetTopBoundaries() override;
+		std::vector<MBound*> const & GetBoundObjects();
 
 		//----- Events -----
 		virtual void Event_VirtualSizeChanged(pxSize const & InNewSize);
@@ -33,7 +34,6 @@ namespace Environment
 	protected:
 		RenderTarget* GetRenderTarget();
 		GraphicsWindow* GetWindow();
-		std::vector<MBound*>& GetBoundObjects();
 		void AddBoundObject(MBound* InBoundObject);
 		void RemoveBoundObject(MBound* InBoundObject);
 

@@ -20,8 +20,8 @@ GraphicsControl::GraphicsControl(MBoundaries * InBoundaries, pxMargins InMargins
 	SelectionBorder(
 		this,
 		pxMargins(0, 0, 0, 0),
-		Interpolator<fColor>(fColor(1, 1, 1, 0), new LimitedExponentialInterpolation<fColor>(300ms)),
-		[this]() {return GeometryObject::MakeRectangle(pxPoint(2, 2), GetSize().ToPoint() - pxPoint(2,2)); },
+		Interpolator<fColor>(fColor(0, 0, 0, 0), new LimitedExponentialInterpolation<fColor>(150ms)),
+		[this]() {return GeometryObject::MakeRectangle(pxPoint(1, 0), GetSize().ToPoint() - pxPoint(0, 1)); },
 		nullptr,
 		EScrollMode::Background),
 	VerticalScrollBar(
@@ -45,12 +45,12 @@ void GraphicsControl::Event_SelectionChanged(EventInfo_SelectionChanged const & 
 {
 	if (InInfo == ESelectionStatus::Selected)
 	{
-		SelectionBorder.Color = fColor(0.2, 0, 1);
+		SelectionBorder.Color = fColor(1, 0.5, 0);
 		bSelected = true;
 	}
 	else
 	{
-		SelectionBorder.Color = fColor(0, 0, 0, 0);
+		SelectionBorder.Color = fColor(0.2, 0, 0);
 		bSelected = false;
 	}
 }

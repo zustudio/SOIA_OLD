@@ -16,7 +16,7 @@ using namespace std::chrono_literals;
 
 MBoundaries::MBoundaries(MBoundaries * InBoundaries, pxMargins InMargins)
 	: MBound(InBoundaries, InMargins),
-	ScrollOffset(pxPoint(0,0), new SmoothInterpolation<pxPoint>(400ms))
+	ScrollOffset(pxPoint(0,0), new SmoothInterpolation<pxPoint>(200ms))
 {}
 
 void MBoundaries::RequestUpdate()
@@ -114,7 +114,7 @@ RenderTarget* MBoundaries::GetRenderTarget()
 	return target ? target : Boundaries->GetRenderTarget();
 }
 
-std::vector<MBound*>& MBoundaries::GetBoundObjects()
+std::vector<MBound*> const & MBoundaries::GetBoundObjects()
 {
 	return BoundObjects;
 }

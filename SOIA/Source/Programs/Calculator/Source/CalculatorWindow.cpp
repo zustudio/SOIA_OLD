@@ -10,8 +10,8 @@ using namespace Environment;
 
 CalculatorWindow::CalculatorWindow()
 	: ControlWindow("Calculator", pxSize(400, 600)),
-	OutputBox(this, pxMargins(5, 5, 5, 110), GlobalStyle()),
-	InputBox(this, pxMargins(5, -100, 5, 5), GlobalStyle(), ETextBoxMode::Editable),
+	OutputBox(ContentArea, pxMargins(5, 5, 5, 110), GlobalStyle()),
+	InputBox(ContentArea, pxMargins(5, -100, 5, 5), GlobalStyle(), ETextBoxMode::Editable),
 	MathCont()
 {
 }

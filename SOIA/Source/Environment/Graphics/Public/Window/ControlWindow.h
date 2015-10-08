@@ -7,6 +7,7 @@
 #include "TextLayer.h"
 #include "UnfilledGeometryLayer.h"
 #include "FilledGeometryLayer.h"
+#include "WindowArea.h"
 
 namespace Environment
 {
@@ -26,9 +27,13 @@ namespace Environment
 		virtual void Event_MouseButtonChanged(EventInfo_MouseButtonChanged const & InInfo) override;
 		virtual void Event_Scroll(Vector2D<double> const & InOffset) override;
 
+	protected:
+		WindowArea* ContentArea;
+
 	private:
 		void SelectNextControl(bool bForward);
 		GraphicsControl* GetSelectedControl();
+		std::vector<GraphicsControl*> GetControls();
 		int Index_SelectedControl;
 	};
 }

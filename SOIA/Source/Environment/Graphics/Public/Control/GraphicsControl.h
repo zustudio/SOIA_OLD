@@ -35,8 +35,9 @@ namespace Environment
 		bool IsSelected();
 
 
-	private:
+	protected:
 		GeometryObject Space;
+	private:
 		GeometryObject SelectionBorder;
 		ScrollBar VerticalScrollBar;
 		bool bSelected;

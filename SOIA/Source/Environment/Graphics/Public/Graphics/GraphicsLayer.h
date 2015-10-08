@@ -10,6 +10,7 @@
 namespace Environment
 {
 	class RenderTarget;
+	class WindowArea;
 }
 
 namespace Environment
@@ -17,6 +18,7 @@ namespace Environment
 	class LIBIMPEXP GraphicsLayer
 	{
 		friend RenderTarget;
+		friend WindowArea;
 
 		////////////////////////////////////////////////////////////////
 		// Functions

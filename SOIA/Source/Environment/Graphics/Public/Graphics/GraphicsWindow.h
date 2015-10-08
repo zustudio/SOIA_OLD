@@ -33,7 +33,7 @@ namespace Environment
 	public:
 		GraphicsWindow(const std::string& InTitle, pxSize InSize = pxSize(500, 500));
 		virtual ~GraphicsWindow();
-		void Initialize();
+		virtual void Initialize();
 
 		//----- management -----
 		void Open();

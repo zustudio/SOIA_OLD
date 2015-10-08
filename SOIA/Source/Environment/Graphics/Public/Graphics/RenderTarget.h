@@ -76,7 +76,7 @@ namespace Environment
 
 	protected:
 		void Initialize();
-		void Draw();
+		virtual void Draw();
 
 	private:
 		StyleSheet Style;

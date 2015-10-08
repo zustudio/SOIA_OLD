@@ -14,5 +14,6 @@ namespace Environment
 
 		TextBox FirstBox;
 		TextBox SecondBox;
+		TextBox ThirdBox;
 	};
 }

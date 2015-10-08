@@ -6,9 +6,15 @@ using namespace Environment;
 
 #include "FreeTypeProvider.h"
 #include "Directory.h"
+#include "GlobalStyle.h"
 
 ControlWindow::ControlWindow(std::string Name, pxSize InSize)
-	: GraphicsWindow(Name, InSize),
+	:
+	GraphicsWindow(Name, InSize),
+	ContentArea(new WindowArea(
+		this,
+		pxMargins(0, 0, 0, 0),
+		GlobalStyle())),
 	Index_SelectedControl(0)
 {
 }
@@ -58,21 +64,31 @@ void ControlWindow::SelectNextControl(bool bForward)
 {
 	int step = (int(bForward) * 2 - 1);
 	int index_SelectedControl = Index_SelectedControl;
-
-	GraphicsControl* newControl = nullptr;
-	do
+	int size = GetControls().size();
+	
+	index_SelectedControl += step;
+	if (index_SelectedControl == -1 || index_SelectedControl == size)
 	{
-		index_SelectedControl += step;
-		if (index_SelectedControl == -1 || index_SelectedControl == GetBoundObjects().size())
-		{
-			index_SelectedControl = GetBoundObjects().size() - step * index_SelectedControl;
-		}
-		newControl = dynamic_cast<GraphicsControl*>(GetBoundObjects()[index_SelectedControl]);
-	} while (!newControl);
+		index_SelectedControl = size - step * index_SelectedControl;
+	}
 	Index_SelectedControl = index_SelectedControl;
 }
 
 GraphicsControl * ControlWindow::GetSelectedControl()
 {
-	return (GraphicsControl*)GetBoundObjects()[Index_SelectedControl];
+	return GetControls()[Index_SelectedControl];
+}
+
+std::vector<GraphicsControl*> ControlWindow::GetControls()
+{
+	std::vector<MBound*> const & objects = ContentArea->GetBoundObjects();
+	std::vector<GraphicsControl*> result;
+	
+	for (MBound* object : objects)
+	{
+		GraphicsControl* control = dynamic_cast<GraphicsControl*>(object);
+		if (control)
+			result.push_back(control);
+	}
+	return result;
 }

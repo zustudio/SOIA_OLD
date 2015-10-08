@@ -71,7 +71,7 @@ std::vector<pxPoint> TextBox::CalculateCursorLocation()
 	cursorStart.X = selectedObject->GetMargins().Left + texture->CalculateTextWidth(std::string(selectedObject->GetText().begin(), selectedObject->GetText().begin() + cursorPosition.X));
 
 	cursorEnd = cursorStart;
-	cursorEnd.Y += texture->GetSpriteSize().Y;
+	cursorEnd.Y += texture->GetSpriteSize().Y + 4;
 
 	return std::vector<pxPoint>({ cursorStart, cursorEnd });
 }
@@ -264,9 +264,17 @@ void TextBox::Event_SelectionChanged(EventInfo_SelectionChanged const & InInfo)
 	if (Mode == ETextBoxMode::Editable)
 	{
 		if (InInfo == ESelectionStatus::Selected)
+		{
 			Cursor.SetVisibility(true);
+			Space.Color = fColor(0.9, 0.9, 1);
+			Space.RequestUpdate();
+		}
 		else
+		{
 			Cursor.SetVisibility(false);
+			Space.Color = fColor(1, 1, 1);
+			Space.RequestUpdate();
+		}
 	}
 	else
 	{
