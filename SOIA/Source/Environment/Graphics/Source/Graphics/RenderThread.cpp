@@ -37,6 +37,17 @@ void RenderThread::Main()
 			window->Draw();
 			shouldClose += glfwWindowShouldClose(window->GLWindow);
 		}
+
+		BufferSwaps++;
+		auto now = std::chrono::system_clock::now();
+		auto duration = now - PreviousCalculation;
+		if (duration >= 1s)
+		{
+			PreviousCalculation = now;
+			CurrentFPS = float(BufferSwaps) / 1.0;
+			BufferSwaps = 0;
+			LOG("FPS = " + std::to_string(CurrentFPS), Logger::Severity::DebugInfo);
+		}
 /*
 		Sleep(5ms);*/
 		glfwPollEvents();
@@ -66,4 +77,9 @@ GraphicsWindow* RenderThread::GetLastWindow()
 		return *(Windows.end() - 1);
 	else
 		return nullptr;
+}
+
+float RenderThread::GetFPS()
+{
+	return CurrentFPS;
 }

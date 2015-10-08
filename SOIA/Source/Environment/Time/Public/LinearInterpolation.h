@@ -15,24 +15,13 @@ namespace Environment
 
 	public:
 		LinearInterpolation(DurationType const & InWholeDuration)
-			: WholeDuration(InWholeDuration)
+			: InterpolationFunction<DataType>(InWholeDuration)
 		{}
 
-		virtual bool Interpolate(DataType const & InStart, DataType & InOutCurrent, DataType const & InTarget, DurationType const & TimePassed)
+	protected:
+		virtual float Calculate(float InX) override
 		{
-			bool interpolating = true;
-			auto percentagePassed = TimePassed / WholeDuration;
-			if (percentagePassed >= 1)
-			{
-				percentagePassed = 1;
-				interpolating = false;
-			}
-			InOutCurrent = InStart + (InTarget - InStart) * percentagePassed;
-
-			return interpolating;
+			return InX;
 		}
-
-	private:
-		DurationType WholeDuration;
 	};
 }

@@ -4,6 +4,8 @@
 #include "GraphicsWindow.h"
 #include "Thread.h"
 
+#include <chrono>
+
 namespace Environment
 {
 	class LIBIMPEXP RenderThread : public Thread
@@ -22,8 +24,16 @@ namespace Environment
 
 		GraphicsWindow* CurrentWindow;
 
+		//----- statistics -----
+		float GetFPS();
+
 	private:
 		std::vector<GraphicsWindow*> WaitingWindows;
 		std::vector<GraphicsWindow*> Windows;
+
+		//----- statistics -----
+		float CurrentFPS;
+		int BufferSwaps;
+		std::chrono::system_clock::time_point PreviousCalculation;
 	};
 }

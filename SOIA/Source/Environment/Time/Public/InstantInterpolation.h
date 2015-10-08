@@ -3,6 +3,9 @@
 
 #include "InterpolationFunction.h"
 
+#include <iostream>
+#include <chrono>
+
 namespace Environment
 {
 	template<typename DataType>
@@ -12,18 +15,14 @@ namespace Environment
 		using DurationType = InterpolationFunction<DataType>::DurationType;
 
 	public:
-		InstantInterpolation(DurationType const & InWholeDuration)
-			: WholeDuration(InWholeDuration)
+		InstantInterpolation()
+			: InterpolationFunction<DataType>(DurationType(0))
 		{}
 
-		virtual bool Interpolate(DataType const & InStart, DataType & InOutCurrent, DataType const & InTarget, DurationType const & TimePassed) override
+	protected:
+		virtual float Calculate(float InX) override
 		{
-			InOutCurrent = InTarget;
-			bool interpolating = TimePassed < WholeDuration;
-			return interpolating;
+			return 1;
 		}
-
-	private:
-		DurationType WholeDuration;
 	};
 }

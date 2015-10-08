@@ -17,12 +17,12 @@ namespace Environment
 	public:
 		LimitedExponentialInterpolation(DurationType const & InWholeDuration, double InBase = 2.7182818)
 			:
-			WholeDuration(InWholeDuration),
+			InterpolationFunction<DataType>(InWholeDuration),
 			Base(InBase),
 			TimeFactor(Log(InBase, 0.01))
 		{}
 
-		virtual bool Interpolate(DataType const & InStart, DataType & InOutCurrent, DataType const & InTarget, DurationType const & TimePassed)
+		/*virtual bool Interpolate(DataType & InOutCurrent, DurationType const & TimePassed) override
 		{
 			bool interpolating = true;
 			float t = TimePassed / WholeDuration;
@@ -32,9 +32,19 @@ namespace Environment
 				factor = 1;
 				interpolating = false;
 			}
-			InOutCurrent = InStart + (InTarget - InStart) * factor;
+			InOutCurrent = Start + (End - Start) * factor;
 
 			return interpolating;
+		}*/
+
+		virtual float Calculate(float InX) override
+		{
+			float factor = 1.0 - std::pow(Base, TimeFactor * InX);
+			if (factor >= 0.99)
+			{
+				factor = 1;
+			}
+			return factor;
 		}
 
 		static double Log(double base, double exponent)
@@ -43,7 +53,6 @@ namespace Environment
 		}
 
 	private:
-		DurationType WholeDuration;
 		double Base;
 		double TimeFactor;
 	};

@@ -7,6 +7,7 @@ using namespace Environment;
 #include "RenderTarget.h"
 #include "GraphicsWindow.h"
 #include "LimitedExponentialInterpolation.h"
+#include "SmoothInterpolation.h"
 #include "LinearInterpolation.h"
 
 #include <algorithm>
@@ -15,7 +16,7 @@ using namespace std::chrono_literals;
 
 MBoundaries::MBoundaries(MBoundaries * InBoundaries, pxMargins InMargins)
 	: MBound(InBoundaries, InMargins),
-	ScrollOffset(pxPoint(0,0), new LinearInterpolation<pxPoint>(400ms))
+	ScrollOffset(pxPoint(0,0), new SmoothInterpolation<pxPoint>(400ms))
 {}
 
 void MBoundaries::RequestUpdate()

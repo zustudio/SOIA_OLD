@@ -3,12 +3,14 @@
 
 #include "GeometryObject.h"
 
+#include <chrono>
+
 namespace Environment
 {
 	class LIBIMPEXP TextCursor : public GeometryObject
 	{
 	public:
-		TextCursor(MBoundaries* InBoundaries, std::function<std::vector<pxPoint>()> const & InEdges);
+		TextCursor(MBoundaries* InBoundaries, std::function<std::vector<pxPoint>()> InCallback);
 		virtual void Update() override;
 
 		void SetVisibility(bool Visible);
@@ -20,5 +22,6 @@ namespace Environment
 		fColor OnColor;
 		fColor OffColor;
 		bool bVisible;
+		std::chrono::system_clock::time_point PreviousToggle;
 	};
 }

@@ -9,7 +9,8 @@ add_Public(
 	InterpolationFunction
 	InstantInterpolation
 	LinearInterpolation
-	LimitedExponentialInterpolation)
+	LimitedExponentialInterpolation
+	SmoothInterpolation)
 end_sub()
 
 auto_add_shared_library()

@@ -39,6 +39,10 @@ namespace Environment
 				Values.push_back(T());
 			}
 		}
+		VectorND()
+		{
+			Values = std::vector<T>();
+		}
 		~VectorND()
 		{
 

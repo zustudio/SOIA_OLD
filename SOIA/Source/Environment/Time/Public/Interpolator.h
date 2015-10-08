@@ -3,6 +3,8 @@
 
 #include "InterpolationFunction.h"
 
+#include "InstantInterpolation.h"
+
 #include <iostream>
 
 namespace Environment
@@ -23,37 +25,26 @@ namespace Environment
 
 		Interpolator(DataType const & InData, InterpolationFunction<DataType>* InInterpolation = nullptr)
 			:
-			Interpolation(InInterpolation),
-			Start(InData),
-			Current(InData),
-			Target(InData),
+			Interpolation(InInterpolation != nullptr ? InInterpolation : new InstantInterpolation<DataType>()),
 			bInterpolating(false)
 		{}
 
 		//----- getter -----
-		DataType & Get()
+		DataType const & Get() const
 		{
-			return Current;
+			return Interpolation->GetCurrent();
 		}
 		DataType const & GetTarget() const
 		{
-			return Target;
+			return Interpolation->GetTarget();
 		}
-		/*DataType* const & operator*() const
-		{
-			return &Current;
-		}*/
-		//DataType* operator->() const
-		//{
-		//	return &Current;
-		//}
 		operator DataType() const
 		{
-			return Current;
+			return Interpolation->GetCurrent();
 		}
 		bool operator==(DataType const & InOther) const
 		{
-			return InOther == Target;
+			return InOther == Interpolation->GetTarget();
 		}
 		bool IsInterpolating() const
 		{
@@ -63,19 +54,10 @@ namespace Environment
 		//----- setter -----
 		Interpolator<DataType>& operator=(DataType const & InTarget)
 		{
-			if (Interpolation)
-			{
-				Start = Current;
-				Target = InTarget;
-				std::cout << "starting interpolation from: " << (std::string)Start << " to " << (std::string)Target << ".\n";
-				InterpolationStarted = std::chrono::system_clock::now();
-				bInterpolating = true;
-				Update();
-			}
-			else
-			{
-				Current = InTarget;
-			}
+			Interpolation->SetTarget(InTarget);
+			//std::cout << "starting interpolation from: " << (std::string)Start << " to " << (std::string)Target << ".\n";
+			InterpolationStarted = std::chrono::system_clock::now();
+			bInterpolating = true;
 
 			return *this;
 		}
@@ -83,23 +65,19 @@ namespace Environment
 		//----- interpolation -----
 		void Update()
 		{
-			if (Interpolation && bInterpolating)
+			if (bInterpolating)
 			{
 				TimeType Now = std::chrono::system_clock::now();
-				bInterpolating = Interpolation->Interpolate(Start, Current, Target, std::chrono::duration_cast<std::chrono::duration<float>>(Now - InterpolationStarted));
-				if (!bInterpolating)
-				{
-					std::cout << "interpolation to " << (std::string)Target << " ended.\n";
-				}
+				bInterpolating = Interpolation->Interpolate(std::chrono::duration_cast<std::chrono::duration<float>>(Now - InterpolationStarted));
 			}
 		}
 
 	private:
 
 		InterpolationFunction<DataType>* Interpolation;
-		DataType Start;
-		DataType Current;
-		DataType Target;
+		//DataType Current;
+		/*DataType Start;
+		DataType Target;*/
 		TimeType InterpolationStarted;
 		bool bInterpolating;
 	};
