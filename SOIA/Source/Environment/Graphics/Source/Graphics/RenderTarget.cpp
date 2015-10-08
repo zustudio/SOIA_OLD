@@ -40,6 +40,7 @@ GraphicsLayer* RenderTarget::GetLayer(LayerItem InLayer)
 void RenderTarget::AddObject(GraphicsObject * InObject, LayerItem InTargetLayer)
 {
 	Layers.GetNamed(InTargetLayer)->AddObject(InObject);
+	this->RequestUpdate();
 }
 
 void RenderTarget::Initialize()

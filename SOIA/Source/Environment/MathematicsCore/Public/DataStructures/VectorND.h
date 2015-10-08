@@ -82,7 +82,7 @@ namespace Environment
 			{
 				for (int delta = i + 1 - dim(); delta > 0; delta--)
 				{
-					Values.push_back(0);
+					Values.push_back(T());
 				}
 				return Values[i];
 			}
@@ -90,10 +90,12 @@ namespace Environment
 		//---- list operation ----
 		void intern_OpAdd(VectorND<T> const & a, VectorND<T> const & b, VectorND<T> &r) const
 		{
+			VectorND<T> a_copy = a;
+			VectorND<T> b_copy = b;
 			int n = std::fmax(a.dim(), b.dim());
 			for (int i = 0; i < n; i++)
 			{
-				r[i] = a[i] + b[i];
+				r[i] = a_copy[i] + b_copy[i];
 			}
 		}
 		void intern_OpSubstract(VectorND<T> const & a, VectorND<T> const & b, VectorND<T> & r) const

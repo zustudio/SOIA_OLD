@@ -27,7 +27,9 @@ namespace Environment
 			:
 			Interpolation(InInterpolation != nullptr ? InInterpolation : new InstantInterpolation<DataType>()),
 			bInterpolating(false)
-		{}
+		{
+			Interpolation->SetCurrent(InData);
+		}
 
 		//----- getter -----
 		DataType const & Get() const

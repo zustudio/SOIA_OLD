@@ -15,7 +15,9 @@ ScrollBar::ScrollBar(MBoundaries * InBoundaries, EScrollBarConfiguration InConfi
 			pxMargins(1, -3, 1, 1),
 		fColor(0.5, 0.5, 0.5, 0.5),
 		Interpolator<VectorND<pxPoint>>(VectorND<pxPoint>({}), new LimitedExponentialInterpolation<VectorND<pxPoint>>(200ms)),
-		EScrollMode::Background)
+		EScrollMode::Background),
+	Size(0),
+	Offset(0)
 {}
 
 void ScrollBar::SetSize(float InSize)
@@ -40,4 +42,5 @@ void ScrollBar::UpdateEdges()
 	pxPoint bottomRight = pxPoint(3, offset + size);
 
 	Edges = GeometryObject::MakeRectangle(topLeft, bottomRight);
+	this->RequestUpdate();
 }

@@ -7,11 +7,12 @@ using namespace Environment;
 #include "LinearInterpolation.h"
 #include "InstantInterpolation.h"
 #include "LimitedExponentialInterpolation.h"
+#include "SmoothInterpolation.h"
 using namespace std::chrono_literals;
 #include "GlobalLogger.h"
 
 TextCursor::TextCursor(MBoundaries* InBoundaries, std::function<std::vector<pxPoint>()> InCallback)
-	: GeometryObject(InBoundaries, pxMargins(0, 0, 0, 0), Interpolator<fColor>(fColor(1, 0, 0), new LinearInterpolation<fColor>(150ms)), InCallback, new LimitedExponentialInterpolation<VectorND<pxPoint>>(120ms)),
+	: GeometryObject(InBoundaries, pxMargins(0, 0, 0, 0), Interpolator<fColor>(fColor(1, 0, 0), new LinearInterpolation<fColor>(150ms)), InCallback, new SmoothInterpolation<VectorND<pxPoint>>(120ms)),
 	Position(0),
 	OnColor(0, 0, 0),
 	OffColor(1, 1, 1, 0)

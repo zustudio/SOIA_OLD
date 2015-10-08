@@ -14,7 +14,7 @@ GeometryObject::GeometryObject(MBoundaries * InBoundaries, pxMargins InMargins, 
 GeometryObject::GeometryObject(MBoundaries * InBoundaries, pxMargins InMargins, Interpolator<fColor> InColor, EdgesFunctionType InEdgesFunction, InterpolationFunction<VectorND<pxPoint>>* InEdgesInterpolatorFunction, EScrollMode InScrollMode)
 	: GraphicsObject(InBoundaries, InMargins, InScrollMode),
 	Color(InColor),
-	Edges(std::vector<pxPoint>({}), InEdgesInterpolatorFunction),
+	Edges(InEdgesFunction(), InEdgesInterpolatorFunction),
 	EdgesFunction(InEdgesFunction)
 {}
 

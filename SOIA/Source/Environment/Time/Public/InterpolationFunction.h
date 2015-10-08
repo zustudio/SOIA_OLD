@@ -22,6 +22,12 @@ namespace Environment
 			Start = Current;
 			End = InTarget;
 		}
+		void SetCurrent(DataType InCurrent)
+		{
+			Start = InCurrent;
+			Current = InCurrent;
+			End = InCurrent;
+		}
 		virtual bool Interpolate(DurationType const & TimePassed)
 		{
 			bool interpolating = true;

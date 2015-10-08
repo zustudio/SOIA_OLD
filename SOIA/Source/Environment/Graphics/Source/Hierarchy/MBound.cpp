@@ -13,7 +13,9 @@ MBound::MBound(MBoundaries * InBoundaries, pxMargins InMargins, EScrollMode InSc
 	:
 	Boundaries(InBoundaries),
 	Margins(InMargins),
-	ScrollMode(InScrollMode)
+	ScrollMode(InScrollMode),
+	DestructorFunction(nullptr),
+	bUpdateRequested(true)
 {
 	if (InBoundaries)
 		InBoundaries->AddBoundObject(this);
@@ -24,7 +26,8 @@ MBound::MBound(MBound && InOther)
 	Boundaries(InOther.Boundaries),
 	Margins(InOther.Margins),
 	ScrollMode(InOther.ScrollMode),
-	DestructorFunction(nullptr)
+	DestructorFunction(nullptr),
+	bUpdateRequested(true)
 {
 	if (Boundaries)
 		Boundaries->AddBoundObject(this);
