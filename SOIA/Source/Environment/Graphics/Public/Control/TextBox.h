@@ -34,6 +34,7 @@ namespace Environment
 		virtual void Event_CharacterEntered(unsigned int InChar) override;
 		virtual void Event_KeyChanged(EventInfo_KeyChanged const & InInfo) override;
 		virtual void Event_SelectionChanged(EventInfo_SelectionChanged const & InInfo) override;
+		virtual void Event_VirtualSizeChanged(pxSize const & InSize) override;
 
 	private:
 		std::string Text;

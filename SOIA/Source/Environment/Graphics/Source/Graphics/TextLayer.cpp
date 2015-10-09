@@ -61,8 +61,9 @@ void TextLayer::Initialize()
 
 void TextLayer::UpdateBuffers()
 {
-	for (TextObject* textObject : TextObjects)
+	for (int i = 0; i < TextObjects.size(); ++i)
 	{
+		TextObject* textObject = TextObjects[i];
 		if (textObject->bUpdateRequested)
 		{
 			if (textObject->VertexBufferRange != Range<int>::Empty()
@@ -82,7 +83,8 @@ void TextLayer::UpdateBuffers()
 			int CurY = -FontTexture.GetSpriteSize().Y;
 
 			int index_vertex = textObject->VertexBufferRange.Lower;
-			for (char const & character : textObject->GetText())
+			std::string text = textObject->GetText();
+			for (char const & character : text)
 			{
 				CheckGLError();
 				GlyphObject& glyph = FontTexture.GetGlyph(character);

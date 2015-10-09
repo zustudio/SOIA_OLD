@@ -9,8 +9,8 @@ using namespace Sup;
 
 BlackBoardWindow::BlackBoardWindow()
 	: ControlWindow("SOIA - BlackBoard"),
-	MainLog(this, pxMargins(2, 2, 2, 44), GlobalStyle()),
-	MainInput(this, pxMargins(2, -40, 2, 2), GlobalStyle(), ETextBoxMode::Editable),
+	MainLog(ContentArea, pxMargins(2, 2, 2, 44), GlobalStyle()),
+	MainInput(ContentArea, pxMargins(2, -40, 2, 2), GlobalStyle(), ETextBoxMode::Editable),
 	Dialogue(MainInput, MainLog)
 {
 	

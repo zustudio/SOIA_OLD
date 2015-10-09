@@ -12,6 +12,7 @@ using namespace Supervisor;
 #include "GlobalLogger.h"
 #include "TConsole.h"
 #include "TMainTool.h"
+#include "PersistentRuntime.h"
 
 TRuntime::TRuntime()
 	: BaseType(),
@@ -20,81 +21,14 @@ TRuntime::TRuntime()
 	ReflectAttributes();
 }
 
-bool TRuntime::cmd_run(TRuntime * const & InRuntime)
+bool TRuntime::cmd_start(RElement * const & InMainTool)
 {
-	for (auto threadElement : ActiveThreads)
+	TMainTool* mainTool = dynamic_cast<TMainTool*>(InMainTool);
+	if (mainTool)
 	{
-		Thread* thread = dynamic_cast<Thread*>(threadElement);
-		if (thread)
-		{
-			thread->Stop();
-		}
+		PersistentRuntime::ChangeMainTool(mainTool);
 	}
-	Dialogue->WriteLine("Press Enter to change console.");
-	InRuntime->Run();
-	return true;
-}
-
-bool TRuntime::cmd_start(RElement * const & InThread)
-{
-	bool success = false;
-	Thread* thread = dynamic_cast<Thread*>(InThread);
-
-	if (thread)
-	{
-		ActiveThreads.push_back(InThread);
-		thread->Start();
-		success = true;
-	}
-
-	return success;
-}
-
-void TRuntime::Run()
-{
-	/*LOGSTATUS("Searching for configured threads...");
-	int threadCount = 0;
-	for (RElement* activeThreadElement : ActiveThreads)
-	{
-		TMainTool* activeThread = dynamic_cast<TMainTool*>(activeThreadElement);
-		if (activeThread)
-		{
-			activeThread->Start();
-			threadCount++;
-		}
-	}
-	if (threadCount)
-	{
-		LOGSTATUS("Started " + std::to_string(threadCount) + " thread(s).");
-	}
-	else*/
-
-	{
-		LOGSTATUS("Searching for main tools in container '" + Container->GetName() + "'.");
-		auto mainTools = Container->GetAllElements<TMainTool>();
-		if (mainTools.size())
-		{
-			auto console = mainTools[0];
-			LOGSTATUS("Activating '" + console->GetName() + "'.");
-			ActiveThreads.push_back(console);
-			console->Start();
-			//threadCount++;
-		}
-		else
-		{
-			LOG("No main tool could be found, returning", Logger::Severity::Error);
-			return;
-		}
-	}
-
-	for (RElement* activeThreadElement : ActiveThreads)
-	{
-		Thread* activeThread = dynamic_cast<Thread*>(activeThreadElement);
-		if (activeThread)
-		{
-			activeThread->Join();
-		}
-	}
+	return (bool)mainTool;
 }
 
 bool TRuntime::cmd_typelist()

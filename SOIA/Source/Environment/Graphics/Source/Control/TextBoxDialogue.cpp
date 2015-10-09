@@ -33,5 +33,6 @@ void TextBoxDialogue::GetNextLine(std::string & OutText)
 		std::this_thread::sleep_for(100ms);
 	}
 	OutText = InputBox.GetText();
+	InputBox.SetText("");
 }
 

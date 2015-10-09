@@ -47,7 +47,8 @@ void Thread::Stop()
 }
 void Thread::Join()
 {
-	InternalThread->join();
+	if (ThreadStatus == EThreadStatus::Working)
+		InternalThread->join();
 }
 
 bool Thread::IsStopping()

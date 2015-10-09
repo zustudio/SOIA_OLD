@@ -6,6 +6,7 @@
 #include "ElementFile.h"
 #include "FileSystemProvider.h"
 #include "Directory.h"
+#include "TMainTool.h"
 
 namespace Supervisor
 {
@@ -15,13 +16,8 @@ namespace Supervisor
 		RCLASS_BEGIN()
 			TRuntime();
 
-			void Run();
-
-		RFUNCTION(cmd_run)
-			bool cmd_run(TRuntime* const& InRuntime);
-
 		RFUNCTION(cmd_start)
-			bool cmd_start(RElement* const & InThread);
+			bool cmd_start(RElement* const & InMainTool);
 
 		RFUNCTION(cmd_typelist)
 			bool cmd_typelist();
@@ -61,9 +57,6 @@ namespace Supervisor
 
 		RPROPERTY(CurrentDirectory)
 			Environment::Directory CurrentDirectory;
-
-		RPROPERTY(ActiveThreads)
-			std::vector<Environment::RElement*> ActiveThreads;
 
 		RCLASS_END()
 	};

@@ -18,11 +18,11 @@ using namespace Supervisor;
 
 #include <iostream>
 
-RWrapper<DialogueInterface> PersistentRuntime::GlobalDialogue = RWrapper<DialogueInterface>();
 RContainer* PersistentRuntime::GlobalContainer = nullptr;
-TConsole* PersistentRuntime::ConsoleTool = nullptr;
 TRuntime* PersistentRuntime::RuntimeTool = nullptr;
 TElementExplorer* PersistentRuntime::ExplorerTool = nullptr;
+TMainTool* PersistentRuntime::CurrentMainTool = nullptr;
+TMainTool* PersistentRuntime::NextMainTool = nullptr;
 
 ////////////////////////////////////////////////////////////////
 // Public Main Entry Point
@@ -33,28 +33,32 @@ void PersistentRuntime::Initialize(RClass* InStandardDialogueClass)
 	RegisterReflectedClasses();
 }
 
-void PersistentRuntime::Run()
+void PersistentRuntime::Start()
 {
-	RunTool();
+	do
+	{
+		CurrentMainTool = NextMainTool;
+		CurrentMainTool->Start();
+		CurrentMainTool->Join();
+	} while (NextMainTool);
+}
+
+void PersistentRuntime::ChangeMainTool(TMainTool* InTool)
+{
+	NextMainTool = InTool;
+	CurrentMainTool->Stop();
 }
 
 ////////////////////////////////////////////////////////////////
 // Executed sub steps
 void PersistentRuntime::InitializeGlobalObjects(RClass* InStandardDialogueClass)
 {
-	std::cout << "Initializing global objects... ";
-
-	// create global main dialogue from class
-	GlobalDialogue = dynamic_cast<RWrapperInterface*>(InStandardDialogueClass->GetDefaultObject());
-
-	// create global logger
-	Logger globalLogger = Logger(*GlobalDialogue);
-	SetGlobalLogger(globalLogger);
+	LOGSTATUS("Initializing global objects... ");
 
 	// start global render thread
 	GlobalRenderThread()->Start();
 
-	std::cout << "Done." << std::endl;
+	LOGSTATUS("Done.");
 }
 
 void PersistentRuntime::InitializeElementHierarchy()
@@ -68,15 +72,12 @@ void PersistentRuntime::InitializeElementHierarchy()
 	// add sub container
 	GlobalContainer->Register(new RContainer(Range<int>(11, 100)), "Project");
 	GlobalContainer->Register(new RContainer(Range<int>(11,100)), "Temp");
-	
-	// register dialogue
-	GlobalContainer->Register(&GlobalDialogue, "GlobalDialogue");
 
 	// add predefined tools
-	ConsoleTool = new TConsole();
+	NextMainTool = new TConsole();
 	RuntimeTool = new TRuntime();
 	ExplorerTool = new TElementExplorer();
-	GlobalContainer->Register(ConsoleTool, "console");
+	GlobalContainer->Register(NextMainTool, "console");
 	GlobalContainer->Register(RuntimeTool, "runtime");
 	GlobalContainer->Register(ExplorerTool, "explorer");
 
@@ -93,10 +94,4 @@ void PersistentRuntime::RegisterReflectedClasses()
 		RConversionPipes,
 		TBlackBoard>();
 	LOGSTATUS("Done.");
-}
-
-void PersistentRuntime::RunTool()
-{
-	LOGSTATUS("Running global runtime tool... ");
-	RuntimeTool->Run();
 }

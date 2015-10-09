@@ -28,6 +28,8 @@ void TBlackBoard::Main()
 
 	while (Window->Status == EWindowStatus::Open)
 	{
-		Sleep(500ms);
+		std::string input;
+		Dialogue->GetNextLine(input);
+		ExecuteString(input);
 	}
 }

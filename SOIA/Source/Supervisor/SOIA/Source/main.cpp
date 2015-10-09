@@ -12,7 +12,7 @@ using namespace Supervisor;
 int main()
 {
 	PersistentRuntime::Initialize(RWrapper<StdDialogue>::StaticClass());
-	PersistentRuntime::Run();
+	PersistentRuntime::Start();
 }
 
 #if def_BUILD_OS==Windows

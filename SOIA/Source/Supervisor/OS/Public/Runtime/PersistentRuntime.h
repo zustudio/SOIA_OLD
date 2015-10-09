@@ -19,22 +19,25 @@ namespace Supervisor
 	{
 	public:
 		static void Initialize(RClass* InStandardDialogueClass);
-		static void Run();
+		static void Start();
+		static void ChangeMainTool(TMainTool* InTool);
 	private:
 		////////////////////////////////////////////////////////////////
 		// run chain
 		static void InitializeGlobalObjects(RClass* InStandardDialogueClass);
 		static void InitializeElementHierarchy();
 		static void RegisterReflectedClasses();
-		static void RunTool();
 
 		////////////////////////////////////////////////////////////////
 		// global objects
-		static RWrapper<DialogueInterface> GlobalDialogue;
 		static RContainer* GlobalContainer;
 
-		static TConsole* ConsoleTool;
+		static TMainTool* CurrentMainTool;
 		static TRuntime* RuntimeTool;
 		static TElementExplorer* ExplorerTool;
+
+		////////////////////////////////////////////////////////////////
+		// information passing between threads
+		static TMainTool* NextMainTool;
 	};
 }

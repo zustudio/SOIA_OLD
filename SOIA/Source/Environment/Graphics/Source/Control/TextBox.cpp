@@ -139,6 +139,10 @@ void TextBox::SetText(std::string const & InText)
 
 	if (i < n) // we have too many lines
 	{
+		for (int j = i; j < n; ++j)
+		{
+			Lines[j]->SetText("");
+		}
 		Lines.erase(Lines.begin() + i, Lines.begin() + n - 1);
 	}
 	else if (textIteratorSet.Current != textIteratorSet.End) // we have too few lines
@@ -282,4 +286,11 @@ void TextBox::Event_SelectionChanged(EventInfo_SelectionChanged const & InInfo)
 	}
 
 	GraphicsControl::Event_SelectionChanged(InInfo);
+}
+
+void TextBox::Event_VirtualSizeChanged(pxSize const & InSize)
+{
+	GraphicsControl::Event_VirtualSizeChanged(InSize);
+
+	Scroll(pxPoint(0, InSize.Height));
 }
