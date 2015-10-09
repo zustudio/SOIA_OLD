@@ -16,15 +16,16 @@ namespace Environment
 
 	public:
 		SmoothInterpolation(DurationType const & InWholeDuration)
-			: InterpolationFunction<DataType>(InWholeDuration),
-			CurrentVelocity(0)
+			: InterpolationFunction<DataType>(InWholeDuration)
 		{}
 
 		virtual void SetTarget(DataType InTarget) override
 		{
+			float percentagePassed = TimePassed();
+			StartVelocity = CalculateVelocity(percentagePassed);
+
 			InterpolationFunction<DataType>::SetTarget(InTarget);
-			StartVelocity = CurrentVelocity;
-			std::cout << "start velocity: " << StartVelocity << std::endl;
+			//std::cout << "target:" << std::string(InTarget) << "start velocity: " << StartVelocity << std::endl;
 		}
 
 	protected:
@@ -33,14 +34,21 @@ namespace Environment
 			using std::powf;
 			float const & v = StartVelocity;
 
-			float result = (6.0 - 3.0*v)*powf(X, 5) + (-15.0 + 8.0*v)*powf(X, 4) + (10.0 - 6.0*v)*powf(X, 3) + v*X;
-			CurrentVelocity = (30.0 - 15.0*v)*powf(X, 4) + (-60.0 + 32.0*v)*powf(X, 3) + (30.0 - 18.0*v)*powf(X, 2) + v;
+			float value = (6.0 - 3.0*v)*powf(X, 5) + (-15.0 + 8.0*v)*powf(X, 4) + (10.0 - 6.0*v)*powf(X, 3) + v*X;
+			float velocity = CalculateVelocity(X);
 
-			return result;
+			//std::cout << "f(" << X << ") = " << value << ";  f' = " << velocity << std::endl;
+			return value;
+		}
+
+		float CalculateVelocity(float X)
+		{
+			using std::powf;
+			float const & v = StartVelocity;
+			return (30.0 - 15.0*v)*powf(X, 4) + (-60.0 + 32.0*v)*powf(X, 3) + (30.0 - 18.0*v)*powf(X, 2) + v;
 		}
 
 	private:
 		float StartVelocity;
-		float CurrentVelocity;
 	};
 }

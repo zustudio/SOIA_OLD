@@ -16,7 +16,7 @@ using namespace std::chrono_literals;
 
 MBoundaries::MBoundaries(MBoundaries * InBoundaries, pxMargins InMargins)
 	: MBound(InBoundaries, InMargins),
-	ScrollOffset(pxPoint(0,0), new SmoothInterpolation<pxPoint>(200ms))
+	ScrollOffset(pxPoint(0,0), new SmoothInterpolation<pxPoint>(150ms))
 {}
 
 void MBoundaries::RequestUpdate()

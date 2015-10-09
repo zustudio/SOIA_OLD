@@ -1,0 +1,8 @@
+Plan for my future of SOIA
+
+ |<- OpenGL 2D
+ |<- BlackBoard
+ |<- 2D Graphs
+ |<- ...
+ v
+SOIA

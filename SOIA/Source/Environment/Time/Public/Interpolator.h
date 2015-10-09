@@ -13,7 +13,6 @@ namespace Environment
 	class Interpolator
 	{
 	private:
-		using TimeType = std::chrono::system_clock::time_point;
 
 	public:
 		//----- ctor -----
@@ -58,7 +57,6 @@ namespace Environment
 		{
 			Interpolation->SetTarget(InTarget);
 			//std::cout << "starting interpolation from: " << (std::string)Start << " to " << (std::string)Target << ".\n";
-			InterpolationStarted = std::chrono::system_clock::now();
 			bInterpolating = true;
 
 			return *this;
@@ -69,8 +67,7 @@ namespace Environment
 		{
 			if (bInterpolating)
 			{
-				TimeType Now = std::chrono::system_clock::now();
-				bInterpolating = Interpolation->Interpolate(std::chrono::duration_cast<std::chrono::duration<float>>(Now - InterpolationStarted));
+				bInterpolating = Interpolation->Interpolate();
 			}
 		}
 
@@ -80,7 +77,6 @@ namespace Environment
 		//DataType Current;
 		/*DataType Start;
 		DataType Target;*/
-		TimeType InterpolationStarted;
 		bool bInterpolating;
 	};
 }
