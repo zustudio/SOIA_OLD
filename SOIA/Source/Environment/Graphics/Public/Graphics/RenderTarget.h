@@ -7,6 +7,8 @@
 #include "GraphicsLayer.h"
 
 #include <memory>
+#include <mutex>
+
 namespace Environment
 {
 	class GraphicsWindow;
@@ -81,6 +83,6 @@ namespace Environment
 	private:
 		StyleSheet Style;
 		int StencilValue;
-
+		std::mutex LayerMutex;
 	};
 }

@@ -26,7 +26,7 @@ void TBlackBoard::Main()
 
 	ConfigureMainTool(Window->GetDialogue());
 
-	while (Window->Status == EWindowStatus::Open)
+	while (Window->Status == EWindowStatus::Open && !this->IsStopping())
 	{
 		std::string input;
 		Dialogue->GetNextLine(input);

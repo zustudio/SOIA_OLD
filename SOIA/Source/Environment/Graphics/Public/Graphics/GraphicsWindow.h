@@ -47,8 +47,9 @@ namespace Environment
 		//----- main loop -----
 		virtual void Draw();
 
-		//----- MBound functions -----
+		//----- Hierarchy functions -----
 		virtual Vector2D<pxPoint> CalculateAbsoluteCornerLocationsOnWindow() override;
+		std::mutex & GetHierarchyMutex();
 
 		//----- forwarded events -----
 		virtual void Event_CharacterEntered(unsigned int InChar);
@@ -77,5 +78,6 @@ namespace Environment
 		EWindowStatus Status;
 	private:
 		int FreeStencilValue;
+		std::mutex HierarchyMutex;
 	};
 }

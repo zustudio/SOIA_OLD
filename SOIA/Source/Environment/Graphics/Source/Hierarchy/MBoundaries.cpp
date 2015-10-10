@@ -121,7 +121,10 @@ std::vector<MBound*> const & MBoundaries::GetBoundObjects()
 
 void MBoundaries::AddBoundObject(MBound * InBoundObject)
 {
+	std::mutex & hierarchyMutex = GetWindow()->GetHierarchyMutex();
+	hierarchyMutex.lock();
 	BoundObjects.push_back(InBoundObject);
+	hierarchyMutex.unlock();
 }
 
 void MBoundaries::RemoveBoundObject(MBound* InBoundObject)

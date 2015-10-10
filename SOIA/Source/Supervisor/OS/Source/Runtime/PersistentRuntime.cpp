@@ -38,6 +38,7 @@ void PersistentRuntime::Start()
 	do
 	{
 		CurrentMainTool = NextMainTool;
+		NextMainTool = nullptr;
 		CurrentMainTool->Start();
 		CurrentMainTool->Join();
 	} while (NextMainTool);

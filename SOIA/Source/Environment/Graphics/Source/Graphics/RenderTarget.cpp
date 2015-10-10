@@ -39,7 +39,10 @@ GraphicsLayer* RenderTarget::GetLayer(LayerItem InLayer)
 
 void RenderTarget::AddObject(GraphicsObject * InObject, LayerItem InTargetLayer)
 {
+	LayerMutex.lock();
 	Layers.GetNamed(InTargetLayer)->AddObject(InObject);
+	LayerMutex.unlock();
+
 	this->RequestUpdate();
 }
 
@@ -59,6 +62,7 @@ void RenderTarget::Draw()
 	glStencilFunc(GL_ALWAYS, StencilValue, 0xFF);
 	glStencilMask(StencilValue);
 
+	LayerMutex.lock();
 	Layers.GetNamed(Layer_Background)->BeginDraw();
 
 	glStencilFunc(GL_EQUAL, StencilValue, 0xFF);
@@ -67,6 +71,7 @@ void RenderTarget::Draw()
 	{
 		Layers[i]->BeginDraw();
 	}
+	LayerMutex.unlock();
 	glStencilMask(0xFF);
 }
 

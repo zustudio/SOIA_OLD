@@ -112,7 +112,10 @@ void GraphicsWindow::Draw()
 	glClearColor(1, 1, 1, 1);
 
 	// start recursive update chain
+	HierarchyMutex.lock();
 	this->Update();
+	HierarchyMutex.unlock();
+
 	for (RenderTarget* target : RenderTargets)
 	{
 		target->Draw();
@@ -123,6 +126,11 @@ void GraphicsWindow::Draw()
 Vector2D<pxPoint> GraphicsWindow::CalculateAbsoluteCornerLocationsOnWindow()
 {
 	return Vector2D<pxPoint>(pxPoint(0, 0), pxPoint(Size.Width, Size.Height));
+}
+
+std::mutex & GraphicsWindow::GetHierarchyMutex()
+{
+	return HierarchyMutex;
 }
 
 void GraphicsWindow::Event_KeyChanged(EventInfo_KeyChanged const & InInfo)
