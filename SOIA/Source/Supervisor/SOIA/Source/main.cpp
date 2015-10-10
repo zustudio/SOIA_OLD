@@ -8,9 +8,11 @@ using namespace Environment;
 #include "PersistentRuntime.h"
 using namespace Supervisor;
 
+#include "GlobalLogger.h"
 
 int main()
 {
+	//GlobalLogger()->SetMinimalSeverity(Logger::Severity::DebugInfo);
 	PersistentRuntime::Initialize(RWrapper<StdDialogue>::StaticClass());
 	PersistentRuntime::Start();
 }

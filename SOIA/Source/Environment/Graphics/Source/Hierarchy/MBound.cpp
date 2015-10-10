@@ -130,6 +130,24 @@ EScrollMode MBound::GetScrollMode()
 	return ScrollMode;
 }
 
+bool MBound::IsVisible()
+{
+	bool result = true;
+	if (ScrollMode == EScrollMode::Content)
+	{
+		Vector2D<pxPoint> corners = CalculateAbsoluteCornerLocationsOnWindow();
+		pxPoint topLeft = corners.X - Boundaries->GetScrollOffset();
+		pxPoint bottomRight = corners.Y - Boundaries->GetScrollOffset();
+
+		Vector2D<pxPoint> boundaryCorners = Boundaries->CalculateAbsoluteCornerLocationsOnWindow();
+		result &= topLeft.X < boundaryCorners.Y.X
+			&& topLeft.Y < boundaryCorners.Y.Y
+			&& bottomRight.X > boundaryCorners.X.X
+			&& bottomRight.Y > boundaryCorners.X.Y;
+	}
+	return result;
+}
+
 bool MBound::AssertBoundariesValid()
 {
 	bool result = true;

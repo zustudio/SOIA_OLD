@@ -16,15 +16,15 @@ using namespace std::chrono_literals;
 
 MBoundaries::MBoundaries(MBoundaries * InBoundaries, pxMargins InMargins)
 	: MBound(InBoundaries, InMargins),
-	ScrollOffset(pxPoint(0,0), new SmoothInterpolation<pxPoint>(150ms))
+	ScrollOffset(pxPoint(0,0), new LimitedExponentialInterpolation<pxPoint>(250ms))
 {}
 
 void MBoundaries::RequestUpdate()
 {
 	MBound::RequestUpdate();
-	for (MBound* object : BoundObjects)
+	for (int i = 0; i < BoundObjects.size(); i++)
 	{
-		object->RequestUpdate();
+		BoundObjects[i]->RequestUpdate();
 	}
 }
 

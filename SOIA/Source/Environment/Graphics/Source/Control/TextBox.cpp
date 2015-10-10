@@ -152,7 +152,7 @@ void TextBox::SetText(std::string const & InText)
 		{
 			TextBoxLine* previousLine = *--Lines.end();
 			pxPoint bottomLeft = previousLine->CalculateAbsoluteCornerLocationsOnWindow().Y - this->CalculateAbsoluteCornerLocationsOnWindow().X;
-			topMargin = bottomLeft.Y + 3;
+			topMargin = bottomLeft.Y/* + 3*/;
 		}
 
 		while (textIteratorSet.Current != textIteratorSet.End)
@@ -161,7 +161,7 @@ void TextBox::SetText(std::string const & InText)
 			Lines.push_back(line);
 			line->Fill(textIteratorSet);
 			AddObject(line, Layer_Content);
-			topMargin = 3 + topMargin;
+			//topMargin = 3 + topMargin;
 		}
 	}
 

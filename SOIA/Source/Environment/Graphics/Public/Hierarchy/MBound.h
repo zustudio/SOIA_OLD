@@ -49,6 +49,8 @@ namespace Environment
 
 		EScrollMode GetScrollMode();
 
+		bool IsVisible();
+
 	protected:
 		bool AssertBoundariesValid();
 

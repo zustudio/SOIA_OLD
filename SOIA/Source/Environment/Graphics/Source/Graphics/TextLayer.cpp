@@ -66,6 +66,13 @@ void TextLayer::UpdateBuffers()
 		TextObject* textObject = TextObjects[i];
 		if (textObject->bUpdateRequested)
 		{
+			bool bVisible = textObject->IsVisible();
+			if (!bVisible)
+			{
+				EraseGraphicsObjectFromBuffers(textObject);
+				textObject->VertexBufferRange = Range<int>::Empty();
+				continue;
+			}
 			if (textObject->VertexBufferRange != Range<int>::Empty()
 				&& textObject->VertexBufferRange.Count() != textObject->GetText().size() * 6)
 			{
@@ -137,7 +144,7 @@ void TextLayer::AddObject(GraphicsObject* InObject)
 		return;
 	}
 
-	LOG("Adding textobject '" + object->GetText() + "'.", Logger::Severity::DebugInfo);
+	//LOG("Adding textobject '" + object->GetText() + "'.", Logger::Severity::DebugInfo);
 
 	TextObjects.push_back(object);
 	InObject->SetDestructorCallback([this](MBound* InObject) {this->EraseGraphicsObject((TextObject*)InObject); });
@@ -145,7 +152,7 @@ void TextLayer::AddObject(GraphicsObject* InObject)
 
 void TextLayer::EraseGraphicsObject(TextObject * InObject)
 {
-	LOG("Erasing textobject '" + InObject->GetText() + "'.", Logger::Severity::DebugInfo);
+	//LOG("Erasing textobject '" + InObject->GetText() + "'.", Logger::Severity::DebugInfo);
 
 	EraseGraphicsObjectFromBuffers(InObject);
 	auto iter_object = std::find(TextObjects.begin(), TextObjects.end(), InObject);

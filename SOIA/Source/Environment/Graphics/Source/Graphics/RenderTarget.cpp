@@ -53,7 +53,7 @@ void RenderTarget::Initialize()
 
 void RenderTarget::Draw()
 {
-	glEnable(GL_STENCIL_TEST);
+	//glEnable(GL_STENCIL_TEST);
 	glStencilOp(GL_REPLACE, GL_REPLACE, GL_REPLACE);
 
 	glStencilFunc(GL_ALWAYS, StencilValue, 0xFF);
