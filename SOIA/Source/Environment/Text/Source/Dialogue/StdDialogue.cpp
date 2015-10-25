@@ -5,7 +5,7 @@
 using namespace Environment;
 
 #include <iostream>
-#include <conio.h>
+//#include <conio.h>
 
 void StdDialogue::Write(const std::string& InText)
 {
@@ -19,7 +19,9 @@ void StdDialogue::WriteLine(const std::string& InText)
 
 void StdDialogue::GetNextLine(std::string& OutText)
 {
-	OutText = "";
+	std::getline(std::cin, OutText);
+	
+/*	OutText = "";
 	char prev;
 	char ch;
 	while ((ch = _getch()) != 13)
@@ -59,4 +61,5 @@ void StdDialogue::GetNextLine(std::string& OutText)
 			prev = ch;
 	}
 	_putch('\n');
+*/
 }

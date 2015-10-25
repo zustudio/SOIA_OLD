@@ -2,6 +2,9 @@ cmake_minimum_required (VERSION 3.0)
 
 include(GenerateExportHeader)
 
+# set options
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 # set cflags
 if(CMAKE_COMPILER_IS_GNUCXX)
 	set( CMAKE_CXX_FLAGS -std=c++14)

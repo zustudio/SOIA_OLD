@@ -5,7 +5,7 @@
 
 namespace Environment
 {
-	class WindowsFileSystemAccess : public CommonFileSystemAccess
+	class LinuxFileSystemAccess : public CommonFileSystemAccess
 	{
 		virtual bool GetExecutablePath(Path& OutPath) override;
 		virtual bool CreatePathDirectory(const Path& InPath) override;

@@ -11,6 +11,8 @@
 #include <type_traits>
 
 #define INTERNAL_NAME(name) _Internal_##name
+#define ATTRIBUTE_WEAK __attribute__((weak))
+// for windows: __declspec(selectany)
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 // RCLASS
@@ -25,7 +27,7 @@
 		{} \
 		static std::vector<Environment::MemberMirror*> INTERNAL_NAME(MemberMirrors); \
 	}; \
-	std::vector<Environment::MemberMirror*> __declspec(selectany) ClassType##_CommonBase::INTERNAL_NAME(MemberMirrors); \
+	std::vector<Environment::MemberMirror*> ATTRIBUTE_WEAK ClassType##_CommonBase::INTERNAL_NAME(MemberMirrors); \
 	\
 	template<typename TemplateType> \
 	class ClassType; \
@@ -78,7 +80,7 @@
 			return Environment::GlobalRClassProvider()->GetClass(Environment::TypeID::FromType<ClassType>()); \
 		} \
 	}; \
-	std::vector<Environment::MemberMirror*> __declspec(selectany) ClassType##_Base::INTERNAL_NAME(MemberMirrors); \
+	std::vector<Environment::MemberMirror*> ATTRIBUTE_WEAK ClassType##_Base::INTERNAL_NAME(MemberMirrors); \
 /** \}*/
 
 #define RCLASS(ClassType,SuperClassType) \
@@ -106,7 +108,7 @@
 			return Environment::GlobalRClassProvider()->GetClass(Environment::TypeID::FromType<ClassType>()); \
 		} \
 	}; \
-	std::vector<Environment::MemberMirror*> __declspec(selectany) ClassType##_Base::INTERNAL_NAME(MemberMirrors); \
+	std::vector<Environment::MemberMirror*> ATTRIBUTE_WEAK ClassType##_Base::INTERNAL_NAME(MemberMirrors); \
 /** \}*/
 
 

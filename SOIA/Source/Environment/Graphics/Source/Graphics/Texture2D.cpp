@@ -1,7 +1,7 @@
 
 #include "Definitions.h"
 #include "OpenGL.h"
-#include "SOIL/SOIL.h"
+#include "SOIL.h"
 
 #include "Texture2D.h"
 using namespace Environment;

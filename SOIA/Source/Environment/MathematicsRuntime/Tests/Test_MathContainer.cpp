@@ -1,4 +1,4 @@
-#include "UnitTest++/UnitTest++.h"
+#include "UnitTest++.h"
 
 #include "MathContainer.h"
 using namespace Environment;

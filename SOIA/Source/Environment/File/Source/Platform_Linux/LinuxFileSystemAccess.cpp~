@@ -1,0 +1,12 @@
+
+#include "Definitions.h"
+
+#include "LinuxFileSystemAccess.h"
+using namespace Env;
+
+#include <iostream>
+
+bool LinuxFileSystemAccess::GetExecutablePath(Path& OutPath)
+{
+	
+}

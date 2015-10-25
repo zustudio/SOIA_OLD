@@ -47,3 +47,24 @@ function( to_windows_path L_linux_path O_windows_path_var)
 	
 	set(${O_windows_path_var} "${L_path}" PARENT_SCOPE)
 endfunction( to_windows_path L_linux_path )
+
+macro( to_staticlib_name L_name O_full_name)
+	to_lib_name(${L_name} "lib" "a" ${O_full_name})
+endmacro( to_staticlib_name L_name O_full_name)
+
+macro( to_implib_name L_name 0_full_name)
+	to_lib_name(${L_name} "lib" "so" ${0_full_name})
+endmacro( to_implib_name L_name 0_full_name)
+
+macro( to_sharedlib_name L_name O_full_name)
+	to_lib_name(${L_name} "dll" "so" ${O_full_name})
+endmacro( to_staticlib_name L_name O_full_name)
+
+function( to_lib_name L_name L_win_end L_lin_end O_full_name)
+	if("${CMAKE_SYSTEM_NAME}" STREQUAL "Windows")
+		set(${O_full_name} "${L_name}.${L_win_end}" PARENT_SCOPE)
+	elseif("${CMAKE_SYSTEM_NAME}" STREQUAL "Linux")
+		set(${O_full_name} "lib${L_name}.${L_lin_end}" PARENT_SCOPE)
+	endif()
+endfunction( to_staticlib_name L_name L_win_end L_lin_end O_full_name)
+

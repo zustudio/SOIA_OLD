@@ -6,20 +6,30 @@ make_thirdparty_directories()
 add_thirdparty_project(
 	NAME glfw
 	INCLUDE_FOLDER GLFW
-	STATIC_LIB glfw3.lib)
+	STATIC_LIB glfw3)
+#add_thirdparty_project(
+#	NAME soia-glew-cmake
+#	INCLUDE_FOLDER GL
+#	SHARED_IMPLIB libglew_sharedd.lib
+#	SHARED_LIB glewd.dll)
 add_thirdparty_project(
-	NAME soia-glew-cmake
+	NAME glew-cmake
 	INCLUDE_FOLDER GL
-	SHARED_IMPLIB libglew_sharedd.lib
-	SHARED_LIB glewd.dll)
+	SHARED_IMPLIB glewmx
+	SHARED_LIB glewmx)
 add_thirdparty_project(
 	NAME freetype2
 	INCLUDE_FOLDER freetype2
-	STATIC_LIB freetype.lib)
+	STATIC_LIB freetype)
 add_thirdparty_project(
 	NAME Simple-OpenGL-Image-Library
 	INCLUDE_FOLDER SOIL
-	STATIC_LIB SOIL.lib)
+	STATIC_LIB SOIL)
+add_thirdparty_project(
+	NAME unittest-cpp
+	INCLUDE_FOLDER UnitTest++
+	STATIC_LIB UnitTest++
+	)
 
 # generate build scripts
 #generate_build_script_cmake(unittest-cpp)

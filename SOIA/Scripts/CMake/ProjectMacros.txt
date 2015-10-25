@@ -83,10 +83,12 @@ macro( depends_on_thirdparty_shared L_shared_libname)
 	list(APPEND DEPENDENCY_PROJECT_NAMES ${L_shared_libname} )
 endmacro( depends_on_thirdparty_shared L_shared_libname)
 
-macro( depends_on_system )
-	foreach( L_library_name ${ARGN} )
-		list(APPEND DEPENDENCY_PROJECT_NAMES ${L_library_name} )
-	endforeach()
+macro( depends_on_system L_system)
+	if("${CMAKE_SYSTEM_NAME}" STREQUAL "${L_system}")
+		foreach( L_library_name ${ARGN} )
+			list(APPEND DEPENDENCY_PROJECT_NAMES ${L_library_name} )
+		endforeach()
+	endif()
 endmacro( depends_on_system )
 
 macro( auto_add_executable )
@@ -130,42 +132,39 @@ OPTION( BUILD_UNITTESTS "If enabled, then unittests are being build" ON )
 OPTION( RUN_UNITTESTS "If enabled, then unittests are being run every build" ON )
 OPTION( CHECK_MEMORY "If enabled, then the unittests are run a second time with drmemory" ON )
 macro( auto_add_unittests )
+	if( "${BUILD_UNITTESTS}" STREQUAL "ON")
 
-if( "${BUILD_UNITTESTS}" STREQUAL "ON")
+		set(TESTNAME Test${SUBPROJECT_NAME} )
+		dmessage(STATUS "[unittest] = Adding unittests =")
+		dmessage(STATUS "  [unittest] following unittest files were registered: ")
+		dmessage(STATUS "${UNITTEST_FILES}")
+		
+#		find_library(UNITTEST_LIBRARY
+#			NAMES UnitTest++ libUnitTest++
+#			HINTS "${THIRDPARTY_DIRECTORY}/lib")
+#		dmessage(STATUS "  Found unittest lib: ${UNITTEST_LIBRARY}" )
+#		
+#		add_library(UnitTest++ STATIC IMPORTED)
+#		set_target_properties(UnitTest++ PROPERTIES IMPORTED_LOCATION "${UNITTEST_LIBRARY}")
 
-	set(TESTNAME Test${SUBPROJECT_NAME} )
-	dmessage(STATUS "= Adding unittests =")
-	dmessage(STATUS "  following unittest files were registered: ")
-	dmessage(STATUS "${UNITTEST_FILES}")
-	
-	find_library(UNITTEST_LIBRARY
-		NAMES UnitTest++ libUnitTest++
-		HINTS "${THIRDPARTY_DIRECTORY}/lib")
-	dmessage(STATUS "  Found unittest lib: ${UNITTEST_LIBRARY}" )
-	
-	add_library(UnitTest++ STATIC IMPORTED)
-	set_target_properties(UnitTest++ PROPERTIES IMPORTED_LOCATION "${UNITTEST_LIBRARY}")
-	
-	add_executable(${TESTNAME} ${CMAKE_CURRENT_SOURCE_DIR}/Tests/Main.cpp ${UNITTEST_FILES})
-	target_include_directories(${TESTNAME} PRIVATE ${THIRDPARTY_DIRECTORY}/include ${CMAKE_CURRENT_BINARY_DIR}/Generated)
-	set_property(TARGET ${TESTNAME} PROPERTY FOLDER "Tests")
-	
-	target_link_libraries(${TESTNAME} ${SUBPROJECT_NAME} UnitTest++)
-	
-	if( "${RUN_UNITTESTS}" STREQUAL "ON" )
-		add_custom_command(TARGET ${TESTNAME}
-			POST_BUILD COMMAND ${TESTNAME}
-			COMMENT "Running tests...")
+set(L_full_name "ThirdParty_unittest-cpp")
+set(L_importlib "${${L_full_name}_IMPORTLIB}" )
+set(L_include_dir "${${L_full_name}_INCLUDEDIR}" )
+dmessage(STATUS "  [unittest] including directories: ${L_include_dir}")
+
+		add_executable(${TESTNAME} ${CMAKE_CURRENT_SOURCE_DIR}/Tests/Main.cpp ${UNITTEST_FILES})
+		target_include_directories(${TESTNAME} PRIVATE ${L_include_dir} ${CMAKE_CURRENT_BINARY_DIR}/Generated)
+		set_property(TARGET ${TESTNAME} PROPERTY FOLDER "Tests")
+		
+		target_link_libraries(${TESTNAME} ${SUBPROJECT_NAME} ${L_importlib})
+		try_add_dependencies(${TESTNAME} ${L_full_name})
+		
+		if( "${RUN_UNITTESTS}" STREQUAL "ON" )
+			add_custom_command(TARGET ${TESTNAME}
+				POST_BUILD COMMAND ${TESTNAME}
+				COMMENT "Running tests...")
+		endif()
 	endif()
-	
-if("${CHECK_MEMORY}" STREQUAL "ON")
-	set(L_memory_command "${WORKFLOW_DIRECTORY}/memory.sh \"${CMAKE_GENERATOR}\"")
-	dmessage(STATUS "= Memory Command is: ${L_memory_command}")
-	add_custom_command(TARGET ${TESTNAME}
-		POST_BUILD COMMAND bash "${L_memory_command}"
-		COMMENT "Checking memory for tests...")
-endif()
-endif()
 endmacro( auto_add_unittests )
 
 function( auto_include_directories )
@@ -232,19 +231,17 @@ function( set_target_compile_definitions L_targettype )
 		set(L_OS Linux)
 	endif()
 
-	set(L_compile_definitions "def_BUILD_TARGETTYPE=${L_targettype};def_BUILD_PROJECTNAME=${SUBPROJECT_NAME};def_BUILD_OS=${L_OS};def_BUILD_NONCOMPATIBLE_MSVC_OPTIMIZATION=${NONCOMPATIBLE_MSVC_OPTIMIZATION}" )
+	set(L_compile_definitions "def_BUILD_TARGETTYPE__${L_targettype};def_BUILD_PROJECTNAME=${SUBPROJECT_NAME};def_BUILD_OS__${L_OS};def_BUILD_NONCOMPATIBLE_MSVC_OPTIMIZATION__${NONCOMPATIBLE_MSVC_OPTIMIZATION}" )
 	SET_TARGET_PROPERTIES( ${SUBPROJECT_NAME} PROPERTIES COMPILE_DEFINITIONS "${L_compile_definitions}")
 
 endfunction( set_target_compile_definitions L_binary_type )
 
 macro( handle_sub_arg L_arg )
 	if(NOT "${L_arg}" STREQUAL "")
-		if(NOT "${L_arg}" STREQUAL "Windows" AND ${WIN32} )
-			set(bSUB_DISABLED TRUE)
-		elseif(NOT "${L_arg}" STREQUAL "Linux" AND "${CMAKE_SYSTEM_NAME}" STREQUAL "Linux" )
-			set(bSUB_DISABLED TRUE)
-		else()
+		if("${L_arg}" STREQUAL "${CMAKE_SYSTEM_NAME}")
 			set(bSUB_DISABLED FALSE)
+		else()
+			set(bSUB_DISABLED TRUE)
 		endif()
 	endif()
 endmacro( handle_sub_arg L_args )

@@ -12,7 +12,7 @@ namespace Environment
 	class LimitedExponentialInterpolation : public InterpolationFunction<DataType>
 	{
 	public:
-		using DurationType = InterpolationFunction<DataType>::DurationType;
+		using DurationType = typename InterpolationFunction<DataType>::DurationType;
 
 	public:
 		LimitedExponentialInterpolation(DurationType const & InWholeDuration, double InBase = 2.7182818)

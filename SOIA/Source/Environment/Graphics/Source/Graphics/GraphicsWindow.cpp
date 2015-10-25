@@ -10,6 +10,7 @@ using namespace Environment;
 #include "RenderTarget.h"
 
 #include <iostream>
+#include <algorithm>
 
 GraphicsWindow::GraphicsWindow(const std::string& InTitle, pxSize InSize)
 	: MBoundaries(nullptr, pxMargins(0,0,0,0)),

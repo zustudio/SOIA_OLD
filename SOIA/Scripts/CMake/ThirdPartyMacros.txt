@@ -34,28 +34,35 @@ macro( add_thirdparty_project )
 		INSTALL_DIR "${L_install_dir}"
 		CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX:PATH=${L_install_dir}"
 		LOG_BUILD 1 )
+
+	
 	
 	if(CONFIG_STATIC_LIB)
-		set(L_importlib_name ${CONFIG_STATIC_LIB})
+		to_staticlib_name(${CONFIG_STATIC_LIB} L_importlib_name)
 	else()
-		set(L_importlib_name ${CONFIG_SHARED_IMPLIB})
-		
-		set(L_sharedlib "${L_install_dir}/lib/${CONFIG_SHARED_LIB}")
-		set(L_sharedlib_target "${BINARY_DIRECTORY}/${CONFIG_SHARED_LIB}")
+		to_implib_name(${CONFIG_SHARED_IMPLIB} L_importlib_name)
+		to_sharedlib_name(${CONFIG_SHARED_LIB} L_sharedlib)
+	endif()
+
+	set(L_importlib_location "${L_install_dir}/lib/${L_importlib_name}")
+	set(L_includedir "${L_install_dir}/include/${CONFIG_INCLUDE_FOLDER}")
+
+	if(CONFIG_SHARED_LIB)
 		ExternalProject_Add_Step( "${CONFIG_NAME}" st1
-			COMMAND ${CMAKE_COMMAND} -E copy ${L_sharedlib} ${L_sharedlib_target}
-			DEPENDEES INSTALL)
+			COMMAND ${CMAKE_COMMAND} -E copy "${L_importlib_location}" "${BINARY_DIRECTORY}/"
+			DEPENDEES install)
 	endif()
 	
-	set(ThirdParty_${CONFIG_NAME}_IMPORTLIB "${L_install_dir}/lib/${L_importlib_name}"
+	set(ThirdParty_${CONFIG_NAME}_IMPORTLIB ${L_importlib_location}
 		CACHE INTERNAL "Location of thirdparty project import lib." FORCE )
-	set(ThirdParty_${CONFIG_NAME}_INCLUDEDIR "${L_install_dir}/include/${CONFIG_INCLUDE_FOLDER}"
+	set(ThirdParty_${CONFIG_NAME}_INCLUDEDIR ${L_includedir}
 		CACHE INTERNAL "Location of include dir." FORCE )
 		
 	dmessage(STATUS "Adding thirdparty project '${CONFIG_NAME}'")
 	dmessage(STATUS "  - source dir '${L_source_dir}'")
 	dmessage(STATUS "  - bin dir '${L_bin_dir}'")
-	dmessage(STATUS "  - import lib location '${ThirdParty_${CONFIG_NAME}_IMPORTLIB}'")
+	dmessage(STATUS "  - import lib '${L_importlib_location}'")
+	dmessage(STATUS "  - shared lib '${L_sharedlib}'")
 	dmessage(STATUS "  - include dir '${ThirdParty${CONFIG_NAME}_INCLUDEDIR}'")
 endmacro (add_thirdparty_project CONFIG_NAME L_importlib_name)
 

@@ -39,8 +39,8 @@ namespace Environment
 
 		int AddNamed(T&& InItem)
 		{
-			push_back(std::move(InItem));
-			return size() - 1;
+			std::vector<T>::push_back(std::move(InItem));
+			return std::vector<T>::size() - 1;
 		}
 
 		T& GetNamed(NamedVectorItem<T> const & InItem)

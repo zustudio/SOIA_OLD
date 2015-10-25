@@ -11,7 +11,7 @@ namespace Environment
 	class LinearInterpolation : public InterpolationFunction<DataType>
 	{
 	public:
-		using DurationType = InterpolationFunction<DataType>::DurationType;
+		using DurationType = typename InterpolationFunction<DataType>::DurationType;
 
 	public:
 		LinearInterpolation(DurationType const & InWholeDuration)

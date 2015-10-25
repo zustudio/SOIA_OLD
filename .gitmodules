@@ -17,3 +17,6 @@
 [submodule "SOIA/Resources"]
 	path = SOIA/Resources
 	url = https://github.com/zustudio/SOIA_Resources.git
+[submodule "SOIA/ThirdParty/glew-cmake"]
+	path = SOIA/ThirdParty/glew-cmake
+	url = https://github.com/Perlmint/glew-cmake.git
