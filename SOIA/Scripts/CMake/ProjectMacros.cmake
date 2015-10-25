@@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 2.8)
 
 #########################################################################
 #####################        Project Helpers        #####################
-# Use this cmake macros to easily create sub projects for the 		#
-# IntelligenceProject solution.						#
+# Use this cmake macros to easily create sub projects for the 			#
+# IntelligenceProject solution.											#
 #########################################################################
 
 #----------------------- Public Macros to be used -----------------------
@@ -42,46 +42,6 @@ macro( depends_on_thirdparty L_project_name )
 	list(APPEND THIRDPARTY_DEPENDENCY_BINARIES "${L_importlib}" )
 	list(APPEND DEPENDENCY_INCLUDE_DIRS "${L_include_dir}" )
 endmacro( depends_on_thirdparty L_project_name )
-
-macro( depends_on_thirdparty_static L_library_name)
-
-	#find static library
-	#dmessage(STATUS "  Searching for ${L_library_name} and saving to L_found_${L_library_name}" )   
-	#find_library(L_found_${L_library_name} NAMES ${L_library_name} lib${L_library_name} HINTS "${THIRDPARTY_DIRECTORY}/lib")
-	#dmessage(STATUS "  Found ${L_library_name} lib: ${L_found_${L_library_name}}" )
-	#
-	#create library target
-	#add_library(${L_library_name} STATIC IMPORTED)
-	#dmessage(STATUS "command: add_library(${L_library_name} ${L_libtype} IMPORTED)")
-	#set_target_properties(${L_library_name} PROPERTIES IMPORTED_LOCATION "${L_found_${L_library_name}}")
-	#
-	#set project variables for adding library to subproject
-	#if( "${ARGN}" STREQUAL "")
-	#	set(L_include_dirname "${L_library_name}")
-	#else()
-	#	set(L_include_dirname "${ARGN}")
-	#endif()
-	 
-	list(APPEND DEPENDENCY_PROJECT_NAMES ${L_library_name} )
-	
-	#list(APPEND DEPENDENCY_INCLUDE_DIRS "${THIRDPARTY_DIRECTORY}/include/${L_include_dirname}")
-	#dmessage(STATUS "include dirname is '${L_include_dirname}'")
-endmacro( depends_on_thirdparty_static L_staticlib_name)
-
-macro( depends_on_thirdparty_shared L_shared_libname)
-
-	set(L_found_shared "${BINARY_DIRECTORY}/${L_shared_libname}.dll")
-	find_library(L_found_import NAMES ${ARGN} HINTS "${THIRDPARTY_DIRECTORY}/lib")
-	
-	dmessage(STATUS "  Found ${L_shared_libname} in: ${L_found_shared}")
-	dmessage(STATUS "  Found ${ARGN} in: ${L_found_import}")
-
-	add_library(${L_shared_libname} SHARED IMPORTED)
-	set_target_properties(${L_shared_libname} PROPERTIES IMPORTED_LOCATION "${L_found_shared}")
-	set_target_properties(${L_shared_libname} PROPERTIES IMPORTED_IMPLIB "${L_found_import}")
-	
-	list(APPEND DEPENDENCY_PROJECT_NAMES ${L_shared_libname} )
-endmacro( depends_on_thirdparty_shared L_shared_libname)
 
 macro( depends_on_system L_system)
 	if("${CMAKE_SYSTEM_NAME}" STREQUAL "${L_system}")
@@ -138,14 +98,6 @@ macro( auto_add_unittests )
 		dmessage(STATUS "[unittest] = Adding unittests =")
 		dmessage(STATUS "  [unittest] following unittest files were registered: ")
 		dmessage(STATUS "${UNITTEST_FILES}")
-		
-#		find_library(UNITTEST_LIBRARY
-#			NAMES UnitTest++ libUnitTest++
-#			HINTS "${THIRDPARTY_DIRECTORY}/lib")
-#		dmessage(STATUS "  Found unittest lib: ${UNITTEST_LIBRARY}" )
-#		
-#		add_library(UnitTest++ STATIC IMPORTED)
-#		set_target_properties(UnitTest++ PROPERTIES IMPORTED_LOCATION "${UNITTEST_LIBRARY}")
 
 set(L_full_name "ThirdParty_unittest-cpp")
 set(L_importlib "${${L_full_name}_IMPORTLIB}" )
