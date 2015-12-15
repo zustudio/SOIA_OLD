@@ -18,7 +18,7 @@ GeometryLayer::GeometryLayer()
 	ColorVariable(Vertices.CreateVariable(1, "InColor")),
 
 	VertexShader(ShaderType::Vertex,
-		"#version 400\n"
+		"#version 130\n"
 		"in vec2 InLocation;"
 		"in vec4 InColor;"
 		"out vec4 VertColor;"
@@ -28,7 +28,7 @@ GeometryLayer::GeometryLayer()
 		"	gl_Position = vec4(InLocation,0.0,1.0);"
 		"}"),
 	FragmentShader(ShaderType::Fragment,
-		"#version 400\n"
+		"#version 130\n"
 		"in vec4 VertColor;"
 		"out vec4 OutColor;"
 		"void main()"

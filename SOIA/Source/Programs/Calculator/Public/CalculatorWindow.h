@@ -19,6 +19,6 @@ namespace Programs
 	private:
 		Env::TextBox OutputBox;
 		Env::TextBox InputBox;
-		MathContainer MathCont;
+		Env::MathContainer MathCont;
 	};
 }

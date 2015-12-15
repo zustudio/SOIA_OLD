@@ -15,7 +15,7 @@ TextLayer::TextLayer(TextStyle const & InStyle)
 	FontTexture(InStyle)
 {
 	auto vertexShader = new Shader(ShaderType::Vertex,
-		"#version 400\n"
+		"#version 130\n"
 		"in vec2 position;"
 		"in vec2 texCoords;"
 		"out vec2 TexCoords;"
@@ -26,7 +26,7 @@ TextLayer::TextLayer(TextStyle const & InStyle)
 		"}");
 
 	auto fragmentShader = new Shader(ShaderType::Fragment,
-		"#version 400\n"
+		"#version 130\n"
 		"in vec2 TexCoords;"
 		"uniform sampler2D sampler;"
 		"out vec4 outColor;"

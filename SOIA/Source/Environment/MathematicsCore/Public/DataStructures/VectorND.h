@@ -54,6 +54,13 @@ namespace Environment
 		{
 			return Values.size();
 		}
+		void set_dim(int requested)
+		{
+			for (int i = dim(); i < requested; ++i)
+			{
+				Values.push_back(T());
+			}
+		}
 		VectorND<T> & Fill(T const & InValue)
 		{
 			for (T& value : Values)
@@ -100,10 +107,12 @@ namespace Environment
 		}
 		void intern_OpSubstract(VectorND<T> const & a, VectorND<T> const & b, VectorND<T> & r) const
 		{
+			VectorND<T> a_copy = a;
+			VectorND<T> b_copy = b;
 			int n = std::fmax(a.dim(), b.dim());
 			for (int i = 0; i < n; i++)
 			{
-				r[i] = a[i] - b[i];
+				r[i] = a_copy[i] - b_copy[i];
 			}
 		}
 		VectorND<T> operator +(VectorND<T> const & InOther) const

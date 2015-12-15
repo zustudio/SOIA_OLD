@@ -20,11 +20,14 @@ add_thirdparty_project(
 add_thirdparty_project(
 	NAME freetype2
 	INCLUDE_FOLDER freetype2
-	STATIC_LIB freetype)
+	STATIC_LIB freetype
+	#	CMAKE_ARGS "-DBUILD_SHARED_LIBS:BOOL=true")
+	CMAKE_ARGS "-DCMAKE_C_FLAGS:string=-fPIC")
 add_thirdparty_project(
 	NAME Simple-OpenGL-Image-Library
 	INCLUDE_FOLDER SOIL
-	STATIC_LIB SOIL)
+	STATIC_LIB SOIL
+	CMAKE_ARGS "-DCMAKE_C_FLAGS:string=-fPIC")
 add_thirdparty_project(
 	NAME unittest-cpp
 	INCLUDE_FOLDER UnitTest++

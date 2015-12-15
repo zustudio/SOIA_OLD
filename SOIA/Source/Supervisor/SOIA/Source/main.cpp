@@ -12,12 +12,12 @@ using namespace Supervisor;
 
 int main()
 {
-	//GlobalLogger()->SetMinimalSeverity(Logger::Severity::DebugInfo);
+	GlobalLogger()->SetMinimalSeverity(Logger::Severity::DebugInfo);
 	PersistentRuntime::Initialize(RWrapper<StdDialogue>::StaticClass());
 	PersistentRuntime::Start();
 }
 
-#if def_BUILD_OS==Windows
+#ifdef def_BUILD_OS__Windows
 #include <Windows.h>
 extern "C"
 {

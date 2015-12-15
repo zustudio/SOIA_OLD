@@ -4,6 +4,7 @@
 #include "TTool.h"
 #include "Thread.h"
 #include "Tokenizer.h"
+#include "DialogueInterface.h"
 
 namespace Supervisor
 {
@@ -21,7 +22,7 @@ namespace Supervisor
 	protected:
 		///\name tool configuration
 		///\{
-			void ConfigureMainTool(DialogueInterface* InDialogue);
+			void ConfigureMainTool(Env::DialogueInterface* InDialogue);
 		///\}
 
 		///\name command parsing

@@ -15,7 +15,7 @@ in_sub(System)
 		Path)
 in_sub(Platform_Linux Linux)
 	add_Source_and_Public(
-		LinuxFileSystemAccess)
+		TEST LinuxFileSystemAccess)
 in_sub(Platform_Windows Windows)
 	add_Public(
 		dirent)

@@ -6,7 +6,24 @@ using namespace Env;
 
 #include <iostream>
 
+#include <unistd.h>
+#include <limits.h>
+
+
 bool LinuxFileSystemAccess::GetExecutablePath(Path& OutPath)
 {
-	
+	char buf[PATH_MAX];
+	int size = ::readlink("/proc/self/exe", buf, 256);
+	if (size != -1)
+	{
+		buf[size] = '\0';
+	}
+	std::cout << std::string(buf) << std::endl;
+	OutPath = Path(std::string(buf));
+	return true;
+}
+
+bool LinuxFileSystemAccess::CreatePathDirectory(Path const & InPath)
+{
+	return false;
 }

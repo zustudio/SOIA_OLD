@@ -21,7 +21,7 @@ macro( add_thirdparty_project )
         CONFIG # prefix of output variables
         "" # list of names of the boolean arguments (only defined ones will be true)
         "NAME;INCLUDE_FOLDER;STATIC_LIB;SHARED_IMPLIB;SHARED_LIB" # list of names of mono-valued arguments
-        "" # list of names of multi-valued arguments (output variables are lists)
+        "CMAKE_ARGS" # list of names of multi-valued arguments (output variables are lists)
         ${ARGN} # arguments of the function to parse, here we take the all original ones
     )
 
@@ -32,7 +32,7 @@ macro( add_thirdparty_project )
 		SOURCE_DIR "${L_source_dir}"
 		BINARY_DIR "${L_bin_dir}"
 		INSTALL_DIR "${L_install_dir}"
-		CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX:PATH=${L_install_dir}"
+		CMAKE_CACHE_ARGS "-DCMAKE_INSTALL_PREFIX:PATH=${L_install_dir}" "${CONFIG_CMAKE_ARGS}"
 		LOG_BUILD 1 )
 
 	
